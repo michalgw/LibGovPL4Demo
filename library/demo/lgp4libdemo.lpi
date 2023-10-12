@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <PathDelim Value="\"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="lgp4libdemo"/>
+      <Scaled Value="True"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
+      <Icon Value="0"/>
+    </General>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
+      <Item Name="Win64">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\..\binw64\lgp4libdemo"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\intf"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2"/>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+    </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="DateTimeCtrls"/>
+      </Item>
+      <Item>
+        <PackageName Value="LCL"/>
+      </Item>
+    </RequiredPackages>
+    <Units>
+      <Unit>
+        <Filename Value="lgp4libdemo.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4intf.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4Intf"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4obj.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4Obj"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4ksefobj.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4KSeFObj"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4backend.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4Backend"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4xades.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4XAdES"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4ksef.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4KSeF"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4edek.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4EDek"/>
+      </Unit>
+      <Unit>
+        <Filename Value="libgovpl4jpk.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPl4JPK"/>
+      </Unit>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="..\..\binw32\lgp4libdemo"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\intf"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf2"/>
+        <UseHeaptrc Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions>
+      <Item>
+        <Name Value="EAbort"/>
+      </Item>
+      <Item>
+        <Name Value="ECodetoolError"/>
+      </Item>
+      <Item>
+        <Name Value="EFOpenError"/>
+      </Item>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

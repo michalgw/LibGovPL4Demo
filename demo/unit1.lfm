@@ -1,0 +1,3203 @@
+object Form1: TForm1
+  Left = 433
+  Height = 674
+  Top = 85
+  Width = 698
+  Caption = 'LibGovPL 4 Demo'
+  ClientHeight = 674
+  ClientWidth = 698
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '3.0.0.2'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 525
+    Top = 0
+    Width = 698
+    ActivePage = TabSheetSetup
+    Align = alClient
+    MultiLine = True
+    TabIndex = 0
+    TabOrder = 0
+    Options = [nboMultiLine]
+    object TabSheetSetup: TTabSheet
+      Caption = 'Setup'
+      ClientHeight = 457
+      ClientWidth = 690
+      object Panel1: TScrollBox
+        Left = 0
+        Height = 407
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 259
+        VertScrollBar.Page = 403
+        Align = alClient
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 403
+        ClientWidth = 669
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 0
+          Height = 23
+          Top = 0
+          Width = 361
+          Caption = 'HTTP Client'
+        end
+        object ComboBoxHTTPCli: TComboBox
+          Left = 361
+          Height = 23
+          Top = 0
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object Label2: TLabel
+          Left = 0
+          Height = 23
+          Top = 23
+          Width = 361
+          Caption = 'Random nmber generator'
+        end
+        object ComboBoxRandGen: TComboBox
+          Left = 361
+          Height = 23
+          Top = 23
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 1
+        end
+        object Label11: TLabel
+          Left = 0
+          Height = 23
+          Top = 46
+          Width = 361
+          Caption = 'Base64 Encoder'
+        end
+        object ComboBoxBase64: TComboBox
+          Left = 361
+          Height = 23
+          Top = 46
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 2
+        end
+        object Label3: TLabel
+          Left = 0
+          Height = 23
+          Top = 69
+          Width = 361
+          Caption = 'MD5 Hash'
+        end
+        object ComboBoxMD5: TComboBox
+          Left = 361
+          Height = 23
+          Top = 69
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 3
+        end
+        object Label4: TLabel
+          Left = 0
+          Height = 23
+          Top = 92
+          Width = 361
+          Caption = 'SHA1 Hash'
+        end
+        object ComboBoxSHA1: TComboBox
+          Left = 361
+          Height = 23
+          Top = 92
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 4
+        end
+        object Label5: TLabel
+          Left = 0
+          Height = 23
+          Top = 115
+          Width = 361
+          Caption = 'SHA-256 Hash'
+        end
+        object ComboBoxSHA256: TComboBox
+          Left = 361
+          Height = 23
+          Top = 115
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 5
+        end
+        object Label6: TLabel
+          Left = 0
+          Height = 23
+          Top = 138
+          Width = 361
+          Caption = 'Signer'
+        end
+        object ComboBoxSign: TComboBox
+          Left = 361
+          Height = 23
+          Top = 138
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 6
+        end
+        object Label7: TLabel
+          Left = 0
+          Height = 23
+          Top = 161
+          Width = 361
+          Caption = 'eDeklaracja SOAP'
+        end
+        object ComboBoxEDek: TComboBox
+          Left = 361
+          Height = 23
+          Top = 161
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 7
+        end
+        object Label8: TLabel
+          Left = 0
+          Height = 23
+          Top = 184
+          Width = 361
+          Caption = 'XML C14N'
+        end
+        object ComboBoxXMLC14N: TComboBox
+          Left = 361
+          Height = 23
+          Top = 184
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 8
+        end
+        object Label9: TLabel
+          Left = 0
+          Height = 23
+          Top = 207
+          Width = 361
+          Caption = 'XML Reader'
+        end
+        object ComboBoxXMLRead: TComboBox
+          Left = 361
+          Height = 23
+          Top = 207
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 9
+        end
+        object Label10: TLabel
+          Left = 0
+          Height = 23
+          Top = 230
+          Width = 361
+          Caption = 'Zip file'
+        end
+        object ComboBoxZip: TComboBox
+          Left = 361
+          Height = 23
+          Top = 230
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 10
+        end
+        object Label12: TLabel
+          Left = 0
+          Height = 23
+          Top = 253
+          Width = 361
+          Caption = 'AES256 Encryption'
+        end
+        object ComboBoxAES256: TComboBox
+          Left = 361
+          Height = 23
+          Top = 253
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 11
+        end
+        object Label13: TLabel
+          Left = 0
+          Height = 23
+          Top = 276
+          Width = 361
+          Caption = 'RSA encryption'
+        end
+        object ComboBoxRSAEnc: TComboBox
+          Left = 361
+          Height = 23
+          Top = 276
+          Width = 308
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 12
+        end
+        object Label24: TLabel
+          Left = 0
+          Height = 23
+          Top = 299
+          Width = 361
+          Caption = 'XAdES - Rodzaj SHA'
+        end
+        object ComboBoxXAdESSHA: TComboBox
+          Left = 361
+          Height = 23
+          Top = 299
+          Width = 308
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'SHA1'
+            'SHA256'
+          )
+          Style = csDropDownList
+          TabOrder = 13
+          Text = 'SHA256'
+        end
+        object Label25: TLabel
+          Left = 0
+          Height = 17
+          Top = 322
+          Width = 361
+          Caption = 'XAdES - Dołącz datę i czas'
+        end
+        object CheckBoxXAdESCzas: TCheckBox
+          Left = 361
+          Height = 17
+          Top = 322
+          Width = 308
+          TabOrder = 14
+        end
+        object Label26: TLabel
+          Left = 0
+          Height = 17
+          Top = 339
+          Width = 361
+          Caption = 'eDeklaracja - kanonizuj XML'
+        end
+        object CheckBoxEDekC14N: TCheckBox
+          Left = 361
+          Height = 17
+          Top = 339
+          Width = 308
+          Checked = True
+          State = cbChecked
+          TabOrder = 15
+        end
+        object Label33: TLabel
+          Left = 0
+          Height = 23
+          Top = 356
+          Width = 361
+          Caption = 'JPK - Klucz RSA produkcyjny'
+        end
+        object FileNameEditJPKRSAProd: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 356
+          Width = 308
+          FileName = '..\pem\prod.pem'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 16
+          Text = '..\pem\prod.pem'
+        end
+        object Label34: TLabel
+          Left = 0
+          Height = 23
+          Top = 379
+          Width = 361
+          Caption = 'JPK - Klucz RSA testowy'
+        end
+        object FileNameEditJPKRSATest: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 379
+          Width = 308
+          FileName = '..\pem\test.pem'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 17
+          Text = '..\pem\test.pem'
+        end
+        object Label55: TLabel
+          Left = 0
+          Height = 23
+          Top = 402
+          Width = 361
+          Caption = 'KSeF - klucz RSA produkcyjny'
+        end
+        object FileNameEditKSeFRSAProd: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 402
+          Width = 308
+          FileName = '..\pem\ksefprod.pem'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 18
+          Text = '..\pem\ksefprod.pem'
+        end
+        object Label56: TLabel
+          Left = 0
+          Height = 23
+          Top = 425
+          Width = 361
+          Caption = 'KSeF - klucz RSA demo'
+        end
+        object FileNameEditKSeFRSADemo: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 425
+          Width = 308
+          FileName = '..\pem\ksefdemo.pem'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 19
+          Text = '..\pem\ksefdemo.pem'
+        end
+        object Label57: TLabel
+          Left = 0
+          Height = 23
+          Top = 448
+          Width = 361
+          Caption = 'KSeF - klucz RSA tetowy'
+        end
+        object FileNameEditKSeFRSATest: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 448
+          Width = 308
+          FileName = '..\pem\kseftest.pem'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 20
+          Text = '..\pem\kseftest.pem'
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Height = 50
+        Top = 407
+        Width = 690
+        Align = alBottom
+        ClientHeight = 50
+        ClientWidth = 690
+        TabOrder = 1
+        object ButtonSetup: TButton
+          Left = 19
+          Height = 25
+          Top = 11
+          Width = 75
+          Caption = 'Setup'
+          TabOrder = 0
+          OnClick = ButtonSetupClick
+        end
+      end
+    end
+    object TabSheetCert: TTabSheet
+      Caption = 'Certyfikaty'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ListViewCert: TListView
+        Left = 0
+        Height = 407
+        Top = 0
+        Width = 690
+        Align = alClient
+        Columns = <        
+          item
+            Caption = 'Index'
+            Width = 60
+          end        
+          item
+            Caption = 'Subject name'
+            Width = 200
+          end        
+          item
+            Caption = 'Valid from'
+            Width = 90
+          end        
+          item
+            Caption = 'Valid to'
+            Width = 90
+          end        
+          item
+            Caption = 'Serial number'
+            Width = 200
+          end        
+          item
+            Caption = 'Issuer'
+            Width = 300
+          end        
+          item
+            Caption = 'Subject'
+            Width = 300
+          end>
+        HideSelection = False
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+      end
+      object Panel3: TPanel
+        Left = 0
+        Height = 50
+        Top = 407
+        Width = 690
+        Align = alBottom
+        ClientHeight = 50
+        ClientWidth = 690
+        TabOrder = 1
+        object ButtonShowCert: TButton
+          Left = 14
+          Height = 25
+          Top = 12
+          Width = 123
+          Caption = 'Pokaż szczegóły'
+          TabOrder = 0
+          OnClick = ButtonShowCertClick
+        end
+        object ButtonCertWybierz: TButton
+          Left = 160
+          Height = 25
+          Top = 12
+          Width = 232
+          Caption = 'Wybierz certyfikat i pokaż informacje'
+          TabOrder = 1
+          OnClick = ButtonCertWybierzClick
+        end
+        object ButtonCertReload: TButton
+          Left = 416
+          Height = 25
+          Top = 12
+          Width = 192
+          Caption = 'Odświerz listę certyfikatów'
+          TabOrder = 2
+          OnClick = ButtonCertReloadClick
+        end
+      end
+    end
+    object TabSheetEDekPodpisCert: TTabSheet
+      Caption = 'eDeklaracja podpis certyfikatem'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ComboBoxEdekCert: TComboBox
+        Left = 94
+        Height = 23
+        Top = 16
+        Width = 584
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object Label16: TLabel
+        Left = 21
+        Height = 15
+        Top = 19
+        Width = 51
+        Caption = 'Certyfikat'
+      end
+      object FileNameEditEDPCWej: TFileNameEdit
+        Left = 94
+        Height = 23
+        Top = 63
+        Width = 584
+        OnAcceptFileName = FileNameEditEDPCWejAcceptFileName
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object FileNameEditEDPCWyj: TFileNameEdit
+        Left = 94
+        Height = 23
+        Top = 104
+        Width = 584
+        DialogKind = dkSave
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object Label14: TLabel
+        Left = 8
+        Height = 15
+        Top = 64
+        Width = 76
+        Caption = 'Plik wejściowy'
+      end
+      object Label15: TLabel
+        Left = 8
+        Height = 15
+        Top = 104
+        Width = 75
+        Caption = 'Plik wynikowy'
+      end
+      object ButtonEdekPodpiszCert: TButton
+        Left = 94
+        Height = 25
+        Top = 160
+        Width = 75
+        Caption = 'Podpisz'
+        TabOrder = 3
+        OnClick = ButtonEdekPodpiszCertClick
+      end
+    end
+    object TabSheetEDekPodpisAut: TTabSheet
+      Caption = 'eDeklaracja podpis danymi aut.'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object Label17: TLabel
+        Left = 8
+        Height = 15
+        Top = 177
+        Width = 76
+        Caption = 'Plik wejściowy'
+      end
+      object Label18: TLabel
+        Left = 8
+        Height = 15
+        Top = 217
+        Width = 75
+        Caption = 'Plik wynikowy'
+      end
+      object FileNameEditEDPAWyj: TFileNameEdit
+        Left = 112
+        Height = 23
+        Top = 217
+        Width = 566
+        DialogKind = dkSave
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object FileNameEditEDPAWej: TFileNameEdit
+        Left = 112
+        Height = 23
+        Top = 176
+        Width = 566
+        OnAcceptFileName = FileNameEditEDPAWejAcceptFileName
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object ButtonEdekPodpiszAut: TButton
+        Left = 112
+        Height = 25
+        Top = 265
+        Width = 75
+        Caption = 'Podpisz'
+        TabOrder = 2
+        OnClick = ButtonEdekPodpiszAutClick
+      end
+      object EditEDPNIP: TEdit
+        Left = 112
+        Height = 23
+        Top = 16
+        Width = 200
+        TabOrder = 3
+      end
+      object EditEDPImie: TEdit
+        Left = 112
+        Height = 23
+        Top = 48
+        Width = 200
+        TabOrder = 4
+      end
+      object EditEDPNazwisko: TEdit
+        Left = 112
+        Height = 23
+        Top = 80
+        Width = 200
+        TabOrder = 5
+      end
+      object Label19: TLabel
+        Left = 8
+        Height = 15
+        Top = 16
+        Width = 19
+        Caption = 'NIP'
+      end
+      object Label20: TLabel
+        Left = 8
+        Height = 15
+        Top = 46
+        Width = 23
+        Caption = 'Imię'
+      end
+      object Label21: TLabel
+        Left = 8
+        Height = 15
+        Top = 80
+        Width = 50
+        Caption = 'Nazwisko'
+      end
+      object Label22: TLabel
+        Left = 8
+        Height = 15
+        Top = 112
+        Width = 79
+        Caption = 'Data urodzenia'
+      end
+      object Label23: TLabel
+        Left = 8
+        Height = 15
+        Top = 144
+        Width = 92
+        Caption = 'Kwota przychodu'
+      end
+      object DateTimePickerEDPDataU: TDateTimePicker
+        Left = 112
+        Height = 23
+        Top = 112
+        Width = 83
+        CenturyFrom = 1941
+        MaxDate = 2958465
+        MinDate = -53780
+        TabOrder = 6
+        TrailingSeparator = False
+        TextForNullDate = 'NULL'
+        LeadingZeros = True
+        Kind = dtkDate
+        TimeFormat = tf24
+        TimeDisplay = tdHMS
+        DateMode = dmComboBox
+        Date = 45117
+        Time = 0.890734849534056
+        UseDefaultSeparators = True
+        HideDateTimeParts = []
+        MonthNames = 'Long'
+      end
+      object FloatSpinEditEDPKwota: TFloatSpinEdit
+        Left = 112
+        Height = 23
+        Top = 144
+        Width = 202
+        TabOrder = 7
+      end
+    end
+    object TabSheetEDekBramka: TTabSheet
+      Caption = 'eDeklaracja bramka'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object GroupBox1: TGroupBox
+        Left = 8
+        Height = 175
+        Top = 9
+        Width = 670
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Wyślij podpisaną eDeklarację'
+        ClientHeight = 155
+        ClientWidth = 666
+        TabOrder = 0
+        object Label27: TLabel
+          Left = 16
+          Height = 15
+          Top = 7
+          Width = 72
+          Caption = 'Plik deklaracji'
+        end
+        object FileNameEditEDBPlikWej: TFileNameEdit
+          Left = 112
+          Height = 23
+          Top = 5
+          Width = 542
+          Filter = 'Pliki eDeklaracji (*.xml;*.xades;*.xml.sig)|*.xml;*.xades;*.xml.sig|Wszystkie pliki (*.*)|*.*'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object Label28: TLabel
+          Left = 16
+          Height = 15
+          Top = 45
+          Width = 81
+          Caption = 'Rodzaj podpisu'
+        end
+        object ComboBoxEDBRodzPodp: TComboBox
+          Left = 112
+          Height = 23
+          Top = 41
+          Width = 168
+          ItemHeight = 15
+          Items.Strings = (
+            'Certyfikat'
+            'Dane autoryzujące'
+          )
+          Style = csDropDownList
+          TabOrder = 1
+        end
+        object Label29: TLabel
+          Left = 16
+          Height = 15
+          Top = 80
+          Width = 40
+          Caption = 'Bramka'
+        end
+        object ComboBoxEDBRodzBram: TComboBox
+          Left = 112
+          Height = 23
+          Top = 77
+          Width = 168
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'Produkcyjna'
+            'Testowa'
+          )
+          Style = csDropDownList
+          TabOrder = 2
+          Text = 'Testowa'
+        end
+        object ButtonEDBWyslij: TButton
+          Left = 112
+          Height = 25
+          Top = 112
+          Width = 75
+          Caption = 'Wyślij'
+          TabOrder = 3
+          OnClick = ButtonEDBWyslijClick
+        end
+      end
+      object GroupBox2: TGroupBox
+        Left = 8
+        Height = 167
+        Top = 193
+        Width = 671
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Sprawdź status / pobierz UPO'
+        ClientHeight = 147
+        ClientWidth = 667
+        TabOrder = 1
+        object Label30: TLabel
+          Left = 16
+          Height = 15
+          Top = 16
+          Width = 57
+          Caption = 'Numer ref.'
+        end
+        object EditEDBNrRef: TEdit
+          Left = 112
+          Height = 23
+          Top = 8
+          Width = 542
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object Label31: TLabel
+          Left = 16
+          Height = 15
+          Top = 48
+          Width = 40
+          Caption = 'Bramka'
+        end
+        object ComboBoxEDBRodzBramUPO: TComboBox
+          Left = 112
+          Height = 23
+          Top = 40
+          Width = 168
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'Produkcyjna'
+            'Testowa'
+          )
+          Style = csDropDownList
+          TabOrder = 1
+          Text = 'Testowa'
+        end
+        object ButtonEDBUPO: TButton
+          Left = 112
+          Height = 25
+          Top = 104
+          Width = 184
+          Caption = 'Sprawdź status / pobierz UPO'
+          TabOrder = 2
+          OnClick = ButtonEDBUPOClick
+        end
+        object FileNameEditEDBPlikWyj: TFileNameEdit
+          Left = 112
+          Height = 23
+          Top = 72
+          Width = 542
+          FileName = 'upo.xml'
+          DialogKind = dkSave
+          Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 3
+          Text = 'upo.xml'
+        end
+        object Label32: TLabel
+          Left = 16
+          Height = 15
+          Top = 80
+          Width = 77
+          Caption = 'Zapisz UPO do'
+        end
+      end
+    end
+    object TabSheetJPKPodpisCert: TTabSheet
+      Caption = 'JPK podpis certyfikatem'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object Label35: TLabel
+        Left = 21
+        Height = 15
+        Top = 19
+        Width = 51
+        Caption = 'Certyfikat'
+      end
+      object ComboBoxJPKCert: TComboBox
+        Left = 94
+        Height = 23
+        Top = 16
+        Width = 584
+        Anchors = [akTop, akLeft, akRight]
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object Label36: TLabel
+        Left = 8
+        Height = 15
+        Top = 64
+        Width = 76
+        Caption = 'Plik wejściowy'
+      end
+      object FileNameEditJPKPCWej: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 63
+        Width = 480
+        OnAcceptFileName = FileNameEditJPKPCWejAcceptFileName
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object Label37: TLabel
+        Left = 8
+        Height = 15
+        Top = 168
+        Width = 176
+        Caption = 'Plik wynikowy (zaszyfrowany ZIP)'
+      end
+      object FileNameEditJPKPCEnc: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 168
+        Width = 480
+        DialogKind = dkSave
+        Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 2
+      end
+      object ButtonJPKPodpiszCert: TButton
+        Left = 198
+        Height = 25
+        Top = 248
+        Width = 75
+        Caption = 'Podpisz'
+        TabOrder = 3
+        OnClick = ButtonJPKPodpiszCertClick
+      end
+      object Label38: TLabel
+        Left = 8
+        Height = 15
+        Top = 208
+        Width = 141
+        Caption = 'Plik wynikowy (InitUpload)'
+      end
+      object FileNameEditJPKPCInitUpload: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 208
+        Width = 480
+        DialogKind = dkSave
+        Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object CheckBoxJPKPCAdHoc: TCheckBox
+        Left = 198
+        Height = 19
+        Top = 136
+        Width = 124
+        Caption = 'Na żądanie (AdHoc)'
+        TabOrder = 5
+      end
+      object Label39: TLabel
+        Left = 8
+        Height = 15
+        Top = 107
+        Width = 40
+        Caption = 'Bramka'
+      end
+      object ComboBoxJPKPCRodzBram: TComboBox
+        Left = 198
+        Height = 23
+        Top = 104
+        Width = 168
+        ItemHeight = 15
+        ItemIndex = 1
+        Items.Strings = (
+          'Produkcyjna'
+          'Testowa'
+        )
+        Style = csDropDownList
+        TabOrder = 6
+        Text = 'Testowa'
+      end
+    end
+    object TabSheetJPKPodpisAut: TTabSheet
+      Caption = 'JPK podpis danymi aut.'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object Label40: TLabel
+        Left = 8
+        Height = 15
+        Top = 193
+        Width = 76
+        Caption = 'Plik wejściowy'
+      end
+      object FileNameEditJPKPAWej: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 192
+        Width = 480
+        OnAcceptFileName = FileNameEditJPKPCWejAcceptFileName
+        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object Label41: TLabel
+        Left = 8
+        Height = 15
+        Top = 236
+        Width = 40
+        Caption = 'Bramka'
+      end
+      object ComboBoxJPKPARodzBram: TComboBox
+        Left = 198
+        Height = 23
+        Top = 233
+        Width = 168
+        ItemHeight = 15
+        ItemIndex = 1
+        Items.Strings = (
+          'Produkcyjna'
+          'Testowa'
+        )
+        Style = csDropDownList
+        TabOrder = 1
+        Text = 'Testowa'
+      end
+      object CheckBoxJPKPAAdHoc: TCheckBox
+        Left = 198
+        Height = 19
+        Top = 265
+        Width = 124
+        Caption = 'Na żądanie (AdHoc)'
+        TabOrder = 2
+      end
+      object Label42: TLabel
+        Left = 8
+        Height = 15
+        Top = 297
+        Width = 176
+        Caption = 'Plik wynikowy (zaszyfrowany ZIP)'
+      end
+      object FileNameEditJPKPAEnc: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 297
+        Width = 480
+        DialogKind = dkSave
+        Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 3
+      end
+      object Label43: TLabel
+        Left = 8
+        Height = 15
+        Top = 337
+        Width = 141
+        Caption = 'Plik wynikowy (InitUpload)'
+      end
+      object FileNameEditJPKPAInitUpload: TFileNameEdit
+        Left = 198
+        Height = 23
+        Top = 337
+        Width = 480
+        DialogKind = dkSave
+        Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 4
+      end
+      object ButtonJPKPodpiszAut: TButton
+        Left = 198
+        Height = 25
+        Top = 377
+        Width = 75
+        Caption = 'Podpisz'
+        TabOrder = 5
+        OnClick = ButtonJPKPodpiszAutClick
+      end
+      object Label44: TLabel
+        Left = 8
+        Height = 15
+        Top = 16
+        Width = 19
+        Caption = 'NIP'
+      end
+      object Label45: TLabel
+        Left = 8
+        Height = 15
+        Top = 46
+        Width = 23
+        Caption = 'Imię'
+      end
+      object Label46: TLabel
+        Left = 8
+        Height = 15
+        Top = 80
+        Width = 50
+        Caption = 'Nazwisko'
+      end
+      object Label47: TLabel
+        Left = 8
+        Height = 15
+        Top = 112
+        Width = 79
+        Caption = 'Data urodzenia'
+      end
+      object Label48: TLabel
+        Left = 8
+        Height = 15
+        Top = 144
+        Width = 92
+        Caption = 'Kwota przychodu'
+      end
+      object FloatSpinEditJPKPKwota: TFloatSpinEdit
+        Left = 198
+        Height = 23
+        Top = 144
+        Width = 202
+        TabOrder = 6
+      end
+      object DateTimePickerJPKPDataU: TDateTimePicker
+        Left = 198
+        Height = 23
+        Top = 112
+        Width = 83
+        CenturyFrom = 1941
+        MaxDate = 2958465
+        MinDate = -53780
+        TabOrder = 7
+        TrailingSeparator = False
+        TextForNullDate = 'NULL'
+        LeadingZeros = True
+        Kind = dtkDate
+        TimeFormat = tf24
+        TimeDisplay = tdHMS
+        DateMode = dmComboBox
+        Date = 45117
+        Time = 0.890734849534056
+        UseDefaultSeparators = True
+        HideDateTimeParts = []
+        MonthNames = 'Long'
+      end
+      object EditJPKPNazwisko: TEdit
+        Left = 198
+        Height = 23
+        Top = 80
+        Width = 200
+        TabOrder = 8
+      end
+      object EditJPKPImie: TEdit
+        Left = 198
+        Height = 23
+        Top = 48
+        Width = 200
+        TabOrder = 9
+      end
+      object EditJPKPNIP: TEdit
+        Left = 198
+        Height = 23
+        Top = 16
+        Width = 200
+        TabOrder = 10
+      end
+    end
+    object TabSheetJPKBramka: TTabSheet
+      Caption = 'JPK bramka'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object GroupBox3: TGroupBox
+        Left = 5
+        Height = 196
+        Top = 4
+        Width = 675
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Wysyłanie'
+        ClientHeight = 176
+        ClientWidth = 671
+        TabOrder = 0
+        object Label49: TLabel
+          Left = 16
+          Height = 15
+          Top = 9
+          Width = 77
+          Caption = 'Plik InitUpload'
+        end
+        object Label50: TLabel
+          Left = 16
+          Height = 15
+          Top = 40
+          Width = 92
+          Caption = 'Plik zaszyfrowany'
+        end
+        object FileNameEditJPKBIU: TFileNameEdit
+          Left = 120
+          Height = 23
+          Top = 3
+          Width = 543
+          Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object FileNameEditJPKBEnc: TFileNameEdit
+          Left = 120
+          Height = 23
+          Top = 32
+          Width = 543
+          Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object CheckBoxJPKBCert: TCheckBox
+          Left = 120
+          Height = 19
+          Top = 104
+          Width = 516
+          Caption = 'Zweryfikuj czy przesłany plik podpisano poprawnym certyfikatem z wymaganymi parametrami'
+          TabOrder = 2
+        end
+        object ButtonJPKBWyslij: TButton
+          Left = 120
+          Height = 25
+          Top = 136
+          Width = 75
+          Caption = 'Wyślij'
+          TabOrder = 3
+          OnClick = ButtonJPKBWyslijClick
+        end
+        object Label51: TLabel
+          Left = 16
+          Height = 15
+          Top = 67
+          Width = 40
+          Caption = 'Bramka'
+        end
+        object ComboBoxJPKBRodzBram: TComboBox
+          Left = 120
+          Height = 23
+          Top = 64
+          Width = 168
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'Produkcyjna'
+            'Testowa'
+          )
+          Style = csDropDownList
+          TabOrder = 4
+          Text = 'Testowa'
+        end
+      end
+      object GroupBox4: TGroupBox
+        Left = 5
+        Height = 168
+        Top = 208
+        Width = 675
+        Anchors = [akTop, akLeft, akRight]
+        Caption = 'Sprawdź status / pobierz UPO'
+        ClientHeight = 148
+        ClientWidth = 671
+        TabOrder = 1
+        object Label52: TLabel
+          Left = 16
+          Height = 15
+          Top = 16
+          Width = 57
+          Caption = 'Numer ref.'
+        end
+        object EditJPKBNrRef: TEdit
+          Left = 112
+          Height = 23
+          Top = 8
+          Width = 542
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object Label53: TLabel
+          Left = 16
+          Height = 15
+          Top = 48
+          Width = 40
+          Caption = 'Bramka'
+        end
+        object ComboBoxJPKBRodzBramUPO: TComboBox
+          Left = 112
+          Height = 23
+          Top = 40
+          Width = 168
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'Produkcyjna'
+            'Testowa'
+          )
+          Style = csDropDownList
+          TabOrder = 1
+          Text = 'Testowa'
+        end
+        object Label54: TLabel
+          Left = 16
+          Height = 15
+          Top = 80
+          Width = 77
+          Caption = 'Zapisz UPO do'
+        end
+        object FileNameEditJPKBPlikWyj: TFileNameEdit
+          Left = 112
+          Height = 23
+          Top = 72
+          Width = 542
+          FileName = 'upo.xml'
+          DialogKind = dkSave
+          Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 2
+          Text = 'upo.xml'
+        end
+        object ButtonJPKBUPO: TButton
+          Left = 112
+          Height = 25
+          Top = 104
+          Width = 184
+          Caption = 'Sprawdź status / pobierz UPO'
+          TabOrder = 3
+          OnClick = ButtonJPKBUPOClick
+        end
+      end
+    end
+    object TabSheetKSeFCommon: TTabSheet
+      Caption = 'KSeF - Wspólne'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox3: TScrollBox
+        Left = 0
+        Height = 457
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 673
+        VertScrollBar.Page = 440
+        Align = alClient
+        BorderStyle = bsNone
+        ClientHeight = 440
+        ClientWidth = 673
+        TabOrder = 0
+        object GroupBox15: TGroupBox
+          Left = 0
+          Height = 432
+          Top = 50
+          Width = 676
+          Align = alTop
+          Caption = 'Pobranie faktury'
+          ClientHeight = 412
+          ClientWidth = 672
+          TabOrder = 0
+          object Label93: TLabel
+            Left = 24
+            Height = 15
+            Top = 10
+            Width = 117
+            Caption = 'ksefReferenceNumber'
+          end
+          object Label94: TLabel
+            Left = 88
+            Height = 15
+            Top = 34
+            Width = 48
+            Caption = 'dueValue'
+          end
+          object Label95: TLabel
+            Left = 9
+            Height = 15
+            Top = 64
+            Width = 127
+            Caption = 'invoiceOryginalNumber'
+          end
+          object EditKSeFCInvRefNum: TEdit
+            Left = 152
+            Height = 23
+            Top = 5
+            Width = 506
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object FloatSpinEditKSeFCInvDueValue: TFloatSpinEdit
+            Left = 152
+            Height = 23
+            Top = 32
+            Width = 130
+            TabOrder = 1
+          end
+          object EditKSeFCInvOrgNum: TEdit
+            Left = 152
+            Height = 23
+            Top = 61
+            Width = 336
+            TabOrder = 2
+          end
+          object GroupBox16: TGroupBox
+            Left = 9
+            Height = 105
+            Top = 88
+            Width = 663
+            Caption = 'subjectToIdentifier'
+            ClientHeight = 85
+            ClientWidth = 659
+            TabOrder = 3
+            object RadioGroupKSeFCInvSubToType: TRadioGroup
+              Left = 13
+              Height = 41
+              Top = 0
+              Width = 641
+              Anchors = [akTop, akLeft, akRight]
+              AutoFill = True
+              Caption = 'Type'
+              ChildSizing.LeftRightSpacing = 6
+              ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+              ChildSizing.EnlargeVertical = crsHomogenousChildResize
+              ChildSizing.ShrinkHorizontal = crsScaleChilds
+              ChildSizing.ShrinkVertical = crsScaleChilds
+              ChildSizing.Layout = cclLeftToRightThenTopToBottom
+              ChildSizing.ControlsPerLine = 3
+              ClientHeight = 21
+              ClientWidth = 637
+              Columns = 3
+              Items.Strings = (
+                'none'
+                'onip'
+                'other'
+              )
+              TabOrder = 0
+            end
+            object Label96: TLabel
+              Left = 18
+              Height = 15
+              Top = 55
+              Width = 47
+              Caption = 'identifier'
+            end
+            object EditKSeFCInvSubToIdent: TEdit
+              Left = 72
+              Height = 23
+              Top = 49
+              Width = 371
+              TabOrder = 1
+            end
+          end
+          object GroupBox17: TGroupBox
+            Left = 9
+            Height = 137
+            Top = 199
+            Width = 663
+            Caption = 'subjectToName'
+            ClientHeight = 117
+            ClientWidth = 659
+            TabOrder = 4
+            object Label97: TLabel
+              Left = 13
+              Height = 15
+              Top = 4
+              Width = 59
+              Caption = 'tradeName'
+            end
+            object EditKSeFCInvSubToTradeName: TEdit
+              Left = 86
+              Height = 23
+              Top = 0
+              Width = 568
+              TabOrder = 0
+            end
+            object RadioButtonKSeFCInvSubToFullName: TRadioButton
+              Left = 19
+              Height = 19
+              Top = 37
+              Width = 69
+              Caption = 'FullName'
+              TabOrder = 1
+            end
+            object EditKSeFCInvSubToFullName: TEdit
+              Left = 80
+              Height = 23
+              Top = 64
+              Width = 248
+              TabOrder = 2
+            end
+            object Label98: TLabel
+              Left = 19
+              Height = 15
+              Top = 69
+              Width = 49
+              Caption = 'fullName'
+            end
+            object RadioButtonKSeFCInvSubToPersonName: TRadioButton
+              Left = 359
+              Height = 19
+              Top = 37
+              Width = 86
+              Caption = 'PersonName'
+              TabOrder = 3
+            end
+            object EditKSeFCInvSubToFirstName: TEdit
+              Left = 420
+              Height = 23
+              Top = 64
+              Width = 228
+              TabOrder = 4
+            end
+            object EditKSeFCInvSubToSurname: TEdit
+              Left = 420
+              Height = 23
+              Top = 88
+              Width = 228
+              TabOrder = 5
+            end
+            object firstName: TLabel
+              Left = 359
+              Height = 15
+              Top = 66
+              Width = 52
+              Caption = 'firstName'
+            end
+            object surname: TLabel
+              Left = 358
+              Height = 15
+              Top = 90
+              Width = 46
+              Caption = 'surname'
+            end
+          end
+          object Label99: TLabel
+            Left = 7
+            Height = 15
+            Top = 346
+            Width = 75
+            Caption = 'Plik wynikowy'
+          end
+          object FileNameEditKSeFCInvFN: TFileNameEdit
+            Left = 97
+            Height = 23
+            Top = 344
+            Width = 561
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 5
+          end
+          object ButtonKSeFCInvGet: TButton
+            Left = 16
+            Height = 25
+            Top = 381
+            Width = 75
+            Caption = 'Pobierz'
+            TabOrder = 6
+            OnClick = ButtonKSeFCInvGetClick
+          end
+          object ButtonKSeFCInvClear: TButton
+            Left = 123
+            Height = 25
+            Top = 381
+            Width = 75
+            Caption = 'Czyść'
+            TabOrder = 7
+            OnClick = ButtonKSeFCInvClearClick
+          end
+        end
+        object GroupBox18: TGroupBox
+          Left = 0
+          Height = 120
+          Top = 482
+          Width = 676
+          Align = alTop
+          Caption = 'Sprawdź status / pobierz UPO'
+          ClientHeight = 100
+          ClientWidth = 672
+          TabOrder = 1
+          object Label100: TLabel
+            Left = 16
+            Height = 15
+            Top = 8
+            Width = 99
+            Caption = 'ReferenceNumber '
+          end
+          object EditKSeFStatusReferenceNumber: TEdit
+            Left = 123
+            Height = 23
+            Top = 5
+            Width = 534
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object Label101: TLabel
+            Left = 9
+            Height = 15
+            Top = 37
+            Width = 110
+            Caption = 'Plik wynikowy z UPO'
+          end
+          object FileNameEditKSeFUPO: TFileNameEdit
+            Left = 124
+            Height = 23
+            Top = 34
+            Width = 534
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object ButtonKSeFStatusUPO: TButton
+            Left = 124
+            Height = 25
+            Top = 64
+            Width = 188
+            Caption = 'Sprawdź status / pobierz UPO'
+            TabOrder = 2
+            OnClick = ButtonKSeFStatusUPOClick
+          end
+        end
+        object Panel4: TPanel
+          Left = 0
+          Height = 50
+          Top = 0
+          Width = 676
+          Align = alTop
+          ClientHeight = 50
+          ClientWidth = 676
+          TabOrder = 2
+          object Label102: TLabel
+            Left = 18
+            Height = 15
+            Top = 20
+            Width = 40
+            Caption = 'Bramka'
+          end
+          object ComboBoxKSeFComBramka: TComboBox
+            Left = 83
+            Height = 23
+            Top = 16
+            Width = 176
+            ItemHeight = 15
+            ItemIndex = 2
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa'
+            )
+            Style = csDropDownList
+            TabOrder = 0
+            Text = 'Testowa'
+          end
+        end
+      end
+    end
+    object TabSheetKsefSession: TTabSheet
+      Caption = 'KSeF - Sesja'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox1: TScrollBox
+        Left = 0
+        Height = 457
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 637
+        VertScrollBar.Page = 457
+        Align = alClient
+        BorderStyle = bsNone
+        ClientHeight = 457
+        ClientWidth = 673
+        TabOrder = 0
+        object GroupBoxKSeFSesPar: TGroupBox
+          Left = 0
+          Height = 97
+          Top = 0
+          Width = 673
+          Align = alTop
+          Caption = 'Parametry sesji'
+          ClientHeight = 77
+          ClientWidth = 669
+          TabOrder = 0
+          object Label58: TLabel
+            Left = 23
+            Height = 15
+            Top = 10
+            Width = 19
+            Caption = 'NIP'
+          end
+          object EditKSeFNIP: TEdit
+            Left = 88
+            Height = 23
+            Top = 5
+            Width = 122
+            TabOrder = 0
+          end
+          object Label59: TLabel
+            Left = 23
+            Height = 15
+            Top = 42
+            Width = 40
+            Caption = 'Bramka'
+          end
+          object ComboBoxKSeFBramka: TComboBox
+            Left = 88
+            Height = 23
+            Top = 39
+            Width = 176
+            ItemHeight = 15
+            ItemIndex = 2
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa'
+            )
+            Style = csDropDownList
+            TabOrder = 1
+            Text = 'Testowa'
+          end
+          object CheckBoxKSeFEncrypt: TCheckBox
+            Left = 317
+            Height = 19
+            Top = 10
+            Width = 186
+            Caption = 'Szyfrowanie dokumentów (AES)'
+            TabOrder = 2
+          end
+          object Label68: TLabel
+            Left = 317
+            Height = 15
+            Top = 42
+            Width = 81
+            Caption = 'Kod formularza'
+          end
+          object ComboBoxKSeFInitFormCode: TComboBox
+            Left = 416
+            Height = 23
+            Top = 39
+            Width = 76
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'FA(1)'
+              'FA(2)'
+            )
+            Style = csDropDownList
+            TabOrder = 3
+            Text = 'FA(1)'
+          end
+        end
+        object GroupBoxKSeFSesInitCert: TGroupBox
+          Left = 0
+          Height = 123
+          Top = 97
+          Width = 673
+          Align = alTop
+          Caption = 'Inicjuj certyfikatem'
+          ClientHeight = 103
+          ClientWidth = 669
+          TabOrder = 1
+          object Label60: TLabel
+            Left = 19
+            Height = 15
+            Top = 15
+            Width = 51
+            Caption = 'Certyfikat'
+          end
+          object ComboBoxKSeFCert: TComboBox
+            Left = 126
+            Height = 23
+            Top = 10
+            Width = 531
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 0
+          end
+          object ButtonKSeFInitSigned: TButton
+            Left = 126
+            Height = 25
+            Top = 72
+            Width = 75
+            Caption = 'Inicjuj'
+            TabOrder = 1
+            OnClick = ButtonKSeFInitSignedClick
+          end
+          object Label67: TLabel
+            Left = 19
+            Height = 15
+            Top = 46
+            Width = 95
+            Caption = 'Rodzaj autoryzacji'
+          end
+          object ComboBoxKSeFCertAuthType: TComboBox
+            Left = 126
+            Height = 23
+            Top = 43
+            Width = 164
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'Numer seryjny'
+              'Odcisk palca certyfikatu'
+            )
+            Style = csDropDownList
+            TabOrder = 2
+            Text = 'Numer seryjny'
+          end
+        end
+        object GroupBoxKSeFSesInitTok: TGroupBox
+          Left = 0
+          Height = 88
+          Top = 220
+          Width = 673
+          Align = alTop
+          Caption = 'Inicjuj tokenem'
+          ClientHeight = 68
+          ClientWidth = 669
+          TabOrder = 2
+          object Label61: TLabel
+            Left = 26
+            Height = 15
+            Top = 8
+            Width = 31
+            Caption = 'Token'
+          end
+          object EditKSeFToken: TEdit
+            Left = 88
+            Height = 23
+            Top = 6
+            Width = 569
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFIniToken: TButton
+            Left = 88
+            Height = 25
+            Top = 32
+            Width = 75
+            Caption = 'Inicjuj'
+            TabOrder = 1
+            OnClick = ButtonKSeFIniTokenClick
+          end
+        end
+        object GroupBoxKSeFSesInitPZ: TGroupBox
+          Left = 0
+          Height = 161
+          Top = 308
+          Width = 673
+          Align = alTop
+          Caption = 'Inicjuj profilem zaufanym'
+          ClientHeight = 141
+          ClientWidth = 669
+          TabOrder = 3
+          object Label62: TLabel
+            Left = 17
+            Height = 15
+            Top = 7
+            Width = 140
+            Caption = 'Wynikowy plik do podpisu'
+          end
+          object Label63: TLabel
+            Left = 17
+            Height = 15
+            Top = 80
+            Width = 106
+            Caption = 'Podpisany w PZ plik'
+          end
+          object FileNameEditKSeFInitPZOut: TFileNameEdit
+            Left = 176
+            Height = 23
+            Top = 8
+            Width = 480
+            DialogKind = dkSave
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object ButtonKSeFInitPZZapisz: TButton
+            Left = 176
+            Height = 25
+            Top = 40
+            Width = 75
+            Caption = 'Zapisz'
+            TabOrder = 1
+            OnClick = ButtonKSeFInitPZZapiszClick
+          end
+          object ButtonKSeFInitPZ: TButton
+            Left = 176
+            Height = 25
+            Top = 112
+            Width = 75
+            Caption = 'Inicjuj'
+            TabOrder = 2
+            OnClick = ButtonKSeFInitPZClick
+          end
+          object FileNameEditKSeFInitPZIn: TFileNameEdit
+            Left = 176
+            Height = 23
+            Top = 80
+            Width = 479
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 3
+          end
+        end
+        object GroupBoxKSeFSesStat: TGroupBox
+          Left = 0
+          Height = 121
+          Top = 469
+          Width = 673
+          Align = alTop
+          Caption = 'Status'
+          ClientHeight = 101
+          ClientWidth = 669
+          Enabled = False
+          TabOrder = 4
+          object Label64: TLabel
+            Left = 23
+            Height = 15
+            Top = 7
+            Width = 210
+            Caption = 'Nr ref lub puste dla statusu sesji ogólnej'
+          end
+          object EditKSeFSesStatRef: TEdit
+            Left = 248
+            Height = 23
+            Top = 3
+            Width = 385
+            TabOrder = 0
+          end
+          object ButtonkSeFSesStat: TButton
+            Left = 19
+            Height = 25
+            Top = 64
+            Width = 112
+            Caption = 'Sprawdź status'
+            TabOrder = 1
+            OnClick = ButtonkSeFSesStatClick
+          end
+          object CheckBoxKSeFStatDet: TCheckBox
+            Left = 352
+            Height = 19
+            Top = 34
+            Width = 69
+            Caption = 'Szczegóły'
+            Checked = True
+            State = cbChecked
+            TabOrder = 2
+          end
+          object Label65: TLabel
+            Left = 23
+            Height = 15
+            Top = 34
+            Width = 46
+            Caption = 'PageSize'
+          end
+          object Label66: TLabel
+            Left = 176
+            Height = 15
+            Top = 34
+            Width = 58
+            Caption = 'PageOffset'
+          end
+          object SpinEditKSeFSesPgSz: TSpinEdit
+            Left = 80
+            Height = 23
+            Top = 32
+            Width = 71
+            TabOrder = 3
+            Value = 10
+          end
+          object SpinEditKSeFSesPgOf: TSpinEdit
+            Left = 248
+            Height = 23
+            Top = 32
+            Width = 70
+            TabOrder = 4
+          end
+        end
+        object GroupBoxKSeFSesTerm: TGroupBox
+          Left = 0
+          Height = 61
+          Top = 590
+          Width = 673
+          Align = alTop
+          Caption = 'Zakończenie sesji'
+          ClientHeight = 41
+          ClientWidth = 669
+          Enabled = False
+          TabOrder = 5
+          object ButtonKSeFSesTerm: TButton
+            Left = 24
+            Height = 25
+            Top = 5
+            Width = 123
+            Caption = 'Zakończ sesjię'
+            TabOrder = 0
+            OnClick = ButtonKSeFSesTermClick
+          end
+        end
+        object GroupBoxKSeFSesGenIntId: TGroupBox
+          Left = 0
+          Height = 65
+          Top = 651
+          Width = 673
+          Align = alTop
+          Caption = 'Wygenerowanie identyfikatora wewnetrznego'
+          ClientHeight = 45
+          ClientWidth = 669
+          Enabled = False
+          TabOrder = 6
+          object Label92: TLabel
+            Left = 12
+            Height = 15
+            Top = 14
+            Width = 112
+            Caption = 'inputDigitsSequence '
+          end
+          object EditKSeFinputDigitsSequence: TEdit
+            Left = 128
+            Height = 23
+            Top = 11
+            Width = 448
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFGenIntId: TButton
+            Left = 592
+            Height = 25
+            Top = 8
+            Width = 75
+            Anchors = [akTop, akRight]
+            Caption = 'Generuj'
+            TabOrder = 1
+            OnClick = ButtonKSeFGenIntIdClick
+          end
+        end
+      end
+    end
+    object TabSheetKSeFFaktury: TTabSheet
+      Caption = 'KSeF - Faktury'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object GroupBox5: TGroupBox
+        Left = 0
+        Height = 96
+        Top = 0
+        Width = 690
+        Align = alTop
+        Caption = 'Wysyłanie faktury'
+        ClientHeight = 76
+        ClientWidth = 686
+        TabOrder = 0
+        object Label69: TLabel
+          Left = 8
+          Height = 15
+          Top = 8
+          Width = 86
+          Caption = 'Plik XML faktury'
+        end
+        object FileNameEditKSeFInvSend: TFileNameEdit
+          Left = 104
+          Height = 23
+          Top = 5
+          Width = 576
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 0
+        end
+        object ButtonKSeFInvSend: TButton
+          Left = 104
+          Height = 25
+          Top = 40
+          Width = 75
+          Caption = 'Wyślij'
+          TabOrder = 1
+          OnClick = ButtonKSeFInvSendClick
+        end
+      end
+      object GroupBox6: TGroupBox
+        Left = 0
+        Height = 96
+        Top = 96
+        Width = 690
+        Align = alTop
+        Caption = 'Sprawdź status faktury'
+        ClientHeight = 76
+        ClientWidth = 686
+        TabOrder = 1
+        object Label70: TLabel
+          Left = 15
+          Height = 15
+          Top = 9
+          Width = 186
+          Caption = 'Invoice Element Reference Number'
+        end
+        object EditKSeFInvStatNr: TEdit
+          Left = 208
+          Height = 23
+          Top = 6
+          Width = 466
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object ButtonKSeFInvStat: TButton
+          Left = 208
+          Height = 25
+          Top = 40
+          Width = 75
+          Caption = 'Sprawdź'
+          TabOrder = 1
+          OnClick = ButtonKSeFInvStatClick
+        end
+      end
+      object GroupBox7: TGroupBox
+        Left = 0
+        Height = 120
+        Top = 192
+        Width = 690
+        Align = alTop
+        Caption = 'Pobieranie faktury'
+        ClientHeight = 100
+        ClientWidth = 686
+        TabOrder = 2
+        object Label71: TLabel
+          Left = 8
+          Height = 15
+          Top = 8
+          Width = 127
+          Caption = 'KSeF Reference Number'
+        end
+        object EditKSeFInvGetNr: TEdit
+          Left = 144
+          Height = 23
+          Top = 3
+          Width = 529
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+        end
+        object Label72: TLabel
+          Left = 32
+          Height = 15
+          Top = 37
+          Width = 102
+          Caption = 'Plik wynikowy XML'
+        end
+        object FileNameEditKSeFGetFN: TFileNameEdit
+          Left = 144
+          Height = 23
+          Top = 32
+          Width = 531
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          Anchors = [akTop, akLeft, akRight]
+          MaxLength = 0
+          TabOrder = 1
+        end
+        object ButtonKSeFInvGet: TButton
+          Left = 144
+          Height = 25
+          Top = 64
+          Width = 75
+          Caption = 'Pobierz'
+          TabOrder = 2
+          OnClick = ButtonKSeFInvGetClick
+        end
+      end
+    end
+    object TabSheetKSeFQueryInvoice: TTabSheet
+      Caption = 'KSeF - Zapytania - Faktury'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox2: TScrollBox
+        Left = 0
+        Height = 457
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 660
+        VertScrollBar.Page = 453
+        Align = alClient
+        ClientHeight = 453
+        ClientWidth = 669
+        TabOrder = 0
+        object GroupBox10: TGroupBox
+          Left = 0
+          Height = 56
+          Top = 448
+          Width = 669
+          Align = alTop
+          Caption = 'Zapytaj synchronicznie'
+          ClientHeight = 36
+          ClientWidth = 665
+          TabOrder = 0
+          object Label85: TLabel
+            Left = 18
+            Height = 15
+            Top = 9
+            Width = 49
+            Caption = 'PageSize '
+          end
+          object SpinEditKSeFQInvAsPS: TSpinEdit
+            Left = 75
+            Height = 23
+            Top = 4
+            Width = 85
+            TabOrder = 0
+            Value = 10
+          end
+          object SpinEditKSeFQInvAsPS1: TSpinEdit
+            Left = 264
+            Height = 23
+            Top = 4
+            Width = 85
+            TabOrder = 1
+          end
+          object Label86: TLabel
+            Left = 192
+            Height = 15
+            Top = 8
+            Width = 58
+            Caption = 'PageOffset'
+          end
+          object ButtonKSeFQInvSync: TButton
+            Left = 392
+            Height = 25
+            Top = 4
+            Width = 75
+            Caption = 'Zapytaj'
+            TabOrder = 2
+            OnClick = ButtonKSeFQInvSyncClick
+          end
+        end
+        object GroupBox8: TGroupBox
+          Left = 0
+          Height = 448
+          Top = 0
+          Width = 669
+          Align = alTop
+          Caption = 'Kryteria'
+          ClientHeight = 428
+          ClientWidth = 665
+          TabOrder = 1
+          object Label73: TLabel
+            Left = 23
+            Height = 15
+            Top = 6
+            Width = 91
+            Caption = 'Rodzaj podmiotu'
+          end
+          object ComboBoxKSeFQInvCrSubTyp: TComboBox
+            Left = 129
+            Height = 23
+            Top = 1
+            Width = 135
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'subject1'
+              'subject2'
+              'subject3'
+              'subjectAuthorized'
+            )
+            Style = csDropDownList
+            TabOrder = 0
+            Text = 'subject1'
+          end
+          object PageControlKSeFQInvSubjectType: TPageControl
+            Left = 8
+            Height = 384
+            Top = 40
+            Width = 648
+            ActivePage = TabSheetKSeFQInvCrDetail
+            TabIndex = 0
+            TabOrder = 1
+            object TabSheetKSeFQInvCrDetail: TTabSheet
+              Caption = 'Szczegółowo'
+              ClientHeight = 356
+              ClientWidth = 640
+              object Label74: TLabel
+                Left = 12
+                Height = 15
+                Top = 19
+                Width = 70
+                Caption = 'amountFrom'
+              end
+              object FloatSpinEditKSeFQInvCAamountFrom: TFloatSpinEdit
+                Left = 94
+                Height = 23
+                Top = 16
+                Width = 106
+                TabOrder = 0
+              end
+              object Label75: TLabel
+                Left = 232
+                Height = 15
+                Top = 19
+                Width = 54
+                Caption = 'amountTo'
+              end
+              object FloatSpinEditKSeFQInvCAamountTo: TFloatSpinEdit
+                Left = 296
+                Height = 23
+                Top = 16
+                Width = 106
+                TabOrder = 1
+              end
+              object Label76: TLabel
+                Left = 448
+                Height = 15
+                Top = 19
+                Width = 66
+                Caption = 'amountType'
+              end
+              object FloatSpinEditKSeFQInvCAamountType: TFloatSpinEdit
+                Left = 528
+                Height = 23
+                Top = 16
+                Width = 106
+                TabOrder = 2
+              end
+              object GroupBox9: TGroupBox
+                Left = 12
+                Height = 105
+                Top = 48
+                Width = 96
+                Caption = 'currencyCodes'
+                ClientHeight = 85
+                ClientWidth = 92
+                TabOrder = 3
+                object MemoKSeFQInvCrCurrencyCodes: TMemo
+                  Left = 0
+                  Height = 85
+                  Top = 0
+                  Width = 92
+                  Align = alClient
+                  TabOrder = 0
+                end
+              end
+              object CheckBoxKSeFQInvCrFaP17Annotation: TCheckBox
+                Left = 128
+                Height = 19
+                Top = 57
+                Width = 107
+                Caption = 'faP17Annotation'
+                TabOrder = 4
+              end
+              object Label77: TLabel
+                Left = 130
+                Height = 15
+                Top = 87
+                Width = 82
+                Caption = 'invoiceNumber'
+              end
+              object EditKSeFQInvCrInvoiceNumber: TEdit
+                Left = 224
+                Height = 23
+                Top = 84
+                Width = 408
+                TabOrder = 5
+              end
+              object CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup
+                Left = 128
+                Height = 44
+                Top = 109
+                Width = 504
+                AutoFill = True
+                Caption = 'invoiceTypes'
+                ChildSizing.LeftRightSpacing = 6
+                ChildSizing.TopBottomSpacing = 6
+                ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+                ChildSizing.EnlargeVertical = crsHomogenousChildResize
+                ChildSizing.ShrinkHorizontal = crsScaleChilds
+                ChildSizing.ShrinkVertical = crsScaleChilds
+                ChildSizing.Layout = cclLeftToRightThenTopToBottom
+                ChildSizing.ControlsPerLine = 8
+                ClientHeight = 24
+                ClientWidth = 500
+                Columns = 8
+                Items.Strings = (
+                  'VAT'
+                  'KOR'
+                  'ZAL'
+                  'ROZ'
+                  'UPR'
+                  'KOR_ZAL'
+                  'KOR_ROZ'
+                )
+                TabOrder = 6
+                Data = {
+                  0700000002020202020202
+                }
+              end
+              object Label78: TLabel
+                Left = 12
+                Height = 15
+                Top = 173
+                Width = 101
+                Caption = 'invoicingDateFrom'
+              end
+              object DateTimePickerKSeFQInvCrDetInvFrom: TDateTimePicker
+                Left = 123
+                Height = 23
+                Top = 168
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 7
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+              object DateTimePickerKSeFQInvCrDetInvTo: TDateTimePicker
+                Left = 392
+                Height = 23
+                Top = 165
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 8
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+              object Label79: TLabel
+                Left = 296
+                Height = 15
+                Top = 170
+                Width = 85
+                Caption = 'invoicingDateTo'
+              end
+              object Label80: TLabel
+                Left = 12
+                Height = 15
+                Top = 200
+                Width = 117
+                Caption = 'ksefReferenceNumber'
+              end
+              object EditKSeFQInvCrRefNo: TEdit
+                Left = 136
+                Height = 23
+                Top = 198
+                Width = 491
+                TabOrder = 9
+              end
+              object Label87: TLabel
+                Left = 12
+                Height = 15
+                Top = 232
+                Width = 84
+                Caption = 'subjectBy ident.'
+              end
+              object EditKSeFQInvCrSubjectByIdent: TEdit
+                Left = 115
+                Height = 23
+                Top = 228
+                Width = 285
+                TabOrder = 10
+              end
+              object GroupBox11: TGroupBox
+                Left = 11
+                Height = 91
+                Top = 261
+                Width = 616
+                Caption = 'subjectTo'
+                ClientHeight = 71
+                ClientWidth = 612
+                TabOrder = 11
+                object RadioGroupKSeFQInvCrSubjevtToType: TRadioGroup
+                  Left = 0
+                  Height = 41
+                  Top = 0
+                  Width = 612
+                  Align = alTop
+                  AutoFill = True
+                  Caption = 'SubjevtToType'
+                  ChildSizing.LeftRightSpacing = 6
+                  ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+                  ChildSizing.EnlargeVertical = crsHomogenousChildResize
+                  ChildSizing.ShrinkHorizontal = crsScaleChilds
+                  ChildSizing.ShrinkVertical = crsScaleChilds
+                  ChildSizing.Layout = cclLeftToRightThenTopToBottom
+                  ChildSizing.ControlsPerLine = 4
+                  ClientHeight = 21
+                  ClientWidth = 608
+                  Columns = 4
+                  Items.Strings = (
+                    'none'
+                    'onip'
+                    'other'
+                    'vatUE'
+                  )
+                  TabOrder = 0
+                end
+                object EditKSeFQInvCrSubjectToId: TEdit
+                  Left = 96
+                  Height = 23
+                  Top = 45
+                  Width = 512
+                  TabOrder = 1
+                end
+                object Label88: TLabel
+                  Left = 32
+                  Height = 15
+                  Top = 48
+                  Width = 30
+                  Caption = 'ident.'
+                end
+              end
+            end
+            object TabSheetKSeFQInvCrIncr: TTabSheet
+              Caption = 'Narastająco'
+              ClientHeight = 356
+              ClientWidth = 640
+              object Label81: TLabel
+                Left = 12
+                Height = 15
+                Top = 24
+                Width = 197
+                Caption = 'acquisitionTimestampThresholdFrom'
+              end
+              object DateTimePickerKSeFQInvCrIncInvFrom: TDateTimePicker
+                Left = 216
+                Height = 23
+                Top = 19
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 0
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+              object Label82: TLabel
+                Left = 12
+                Height = 15
+                Top = 61
+                Width = 181
+                Caption = 'acquisitionTimestampThresholdTo'
+              end
+              object DateTimePickerKSeFQInvCrIncInvTo: TDateTimePicker
+                Left = 216
+                Height = 23
+                Top = 56
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 1
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+            end
+            object TabSheetKSeFQInvCrRange: TTabSheet
+              Caption = 'Zakres'
+              ClientHeight = 356
+              ClientWidth = 640
+              object Label83: TLabel
+                Left = 8
+                Height = 15
+                Top = 16
+                Width = 101
+                Caption = 'invoicingDateFrom'
+              end
+              object DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker
+                Left = 119
+                Height = 23
+                Top = 11
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 0
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+              object Label84: TLabel
+                Left = 296
+                Height = 15
+                Top = 13
+                Width = 85
+                Caption = 'invoicingDateTo'
+              end
+              object DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker
+                Left = 392
+                Height = 23
+                Top = 8
+                Width = 137
+                CenturyFrom = 1941
+                MaxDate = 2958465
+                MinDate = -53780
+                TabOrder = 1
+                TrailingSeparator = False
+                TextForNullDate = 'NULL'
+                LeadingZeros = True
+                Kind = dtkDateTime
+                TimeFormat = tf24
+                TimeDisplay = tdHMS
+                DateMode = dmComboBox
+                Date = 1.7E308
+                Time = 1.7E308
+                UseDefaultSeparators = True
+                HideDateTimeParts = []
+                MonthNames = 'Long'
+              end
+            end
+          end
+          object ButtonKSeFQInvClear: TButton
+            Left = 576
+            Height = 25
+            Top = 1
+            Width = 75
+            Caption = 'Wyczyść'
+            TabOrder = 2
+            OnClick = ButtonKSeFQInvClearClick
+          end
+        end
+        object GroupBox12: TGroupBox
+          Left = 0
+          Height = 248
+          Top = 504
+          Width = 669
+          Align = alTop
+          Caption = 'Zapytanie asynchroniczne'
+          ClientHeight = 228
+          ClientWidth = 665
+          TabOrder = 2
+          object ButtonKSeFQInvAsync: TButton
+            Left = 16
+            Height = 25
+            Top = 4
+            Width = 75
+            Caption = 'Zapytaj'
+            TabOrder = 0
+            OnClick = ButtonKSeFQInvAsyncClick
+          end
+          object GroupBox13: TGroupBox
+            Left = 11
+            Height = 62
+            Top = 40
+            Width = 643
+            Anchors = [akTop, akLeft, akRight]
+            Caption = 'Status zapytania'
+            ClientHeight = 42
+            ClientWidth = 639
+            TabOrder = 1
+            object Label89: TLabel
+              Left = 8
+              Height = 15
+              Top = 10
+              Width = 86
+              Caption = 'Nr ref. zapytania'
+            end
+            object EditKSeFQInvAsyncQRefNo: TEdit
+              Left = 104
+              Height = 23
+              Top = 2
+              Width = 422
+              Anchors = [akTop, akLeft, akRight]
+              TabOrder = 0
+            end
+            object ButtonKSeFQInvAsyncStat: TButton
+              Left = 532
+              Height = 25
+              Top = 0
+              Width = 99
+              Anchors = [akTop, akRight]
+              Caption = 'Sprawdź status'
+              TabOrder = 1
+              OnClick = ButtonKSeFQInvAsyncStatClick
+            end
+          end
+          object GroupBox14: TGroupBox
+            Left = 12
+            Height = 117
+            Top = 107
+            Width = 648
+            Anchors = [akTop, akLeft, akRight]
+            Caption = 'Pobieranie wyniku zapytania'
+            ClientHeight = 97
+            ClientWidth = 644
+            TabOrder = 2
+            object Label90: TLabel
+              Left = 16
+              Height = 15
+              Top = 7
+              Width = 86
+              Caption = 'Nr ref. elementu'
+            end
+            object EditKSeFQInvAsyncERefNo: TEdit
+              Left = 120
+              Height = 23
+              Top = 6
+              Width = 506
+              Anchors = [akTop, akLeft, akRight]
+              TabOrder = 0
+            end
+            object FileNameEditKSeFQInvAsyncFN: TFileNameEdit
+              Left = 120
+              Height = 23
+              Top = 36
+              Width = 505
+              DialogKind = dkSave
+              Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
+              FilterIndex = 0
+              HideDirectories = False
+              ButtonWidth = 23
+              NumGlyphs = 1
+              Anchors = [akTop, akLeft, akRight]
+              MaxLength = 0
+              TabOrder = 1
+            end
+            object Label91: TLabel
+              Left = 16
+              Height = 15
+              Top = 39
+              Width = 93
+              Caption = 'Plik docelowy ZIP'
+            end
+            object ButtonKSeFQInvAsyncFetch: TButton
+              Left = 114
+              Height = 25
+              Top = 64
+              Width = 75
+              Caption = 'Pobierz'
+              TabOrder = 2
+              OnClick = ButtonKSeFQInvAsyncFetchClick
+            end
+          end
+        end
+      end
+    end
+    object TabSheetKSeFBatch: TTabSheet
+      Caption = 'KSeF - Wysyłka wsadowa'
+      ClientHeight = 457
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox4: TScrollBox
+        Left = 0
+        Height = 457
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 669
+        VertScrollBar.Page = 436
+        Align = alClient
+        ClientHeight = 436
+        ClientWidth = 669
+        TabOrder = 0
+        object GroupBox19: TGroupBox
+          Left = 0
+          Height = 296
+          Top = 0
+          Width = 683
+          Align = alTop
+          Caption = 'Podpis / przygotowanie'
+          ClientHeight = 276
+          ClientWidth = 679
+          TabOrder = 0
+          object Label103: TLabel
+            Left = 8
+            Height = 15
+            Top = 84
+            Width = 96
+            Caption = 'Plik wejściowy ZIP'
+          end
+          object FileNameEditKSeFBatchInZIP: TFileNameEdit
+            Left = 123
+            Height = 23
+            Top = 80
+            Width = 549
+            OnAcceptFileName = FileNameEditKSeFBatchInZIPAcceptFileName
+            Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object Label104: TLabel
+            Left = 8
+            Height = 15
+            Top = 112
+            Width = 81
+            Caption = 'Rodzaj podpisu'
+          end
+          object RadioButtonKSeFBatchCert: TRadioButton
+            Left = 123
+            Height = 19
+            Top = 112
+            Width = 123
+            Caption = 'Podpis certyfikatem'
+            Checked = True
+            TabOrder = 2
+            TabStop = True
+            OnChange = RadioButtonKSeFBatchCertChange
+          end
+          object RadioButtonKSeFBatchPZ: TRadioButton
+            Left = 328
+            Height = 19
+            Top = 112
+            Width = 90
+            Caption = 'Profil zaufany'
+            TabOrder = 1
+          end
+          object Label105: TLabel
+            Left = 23
+            Height = 15
+            Top = 42
+            Width = 40
+            Caption = 'Bramka'
+          end
+          object ComboBoxKSeFBatchBramka: TComboBox
+            Left = 88
+            Height = 23
+            Top = 39
+            Width = 176
+            ItemHeight = 15
+            ItemIndex = 2
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa'
+            )
+            Style = csDropDownList
+            TabOrder = 3
+            Text = 'Testowa'
+          end
+          object Label106: TLabel
+            Left = 317
+            Height = 15
+            Top = 42
+            Width = 81
+            Caption = 'Kod formularza'
+          end
+          object ComboBoxKSeFBatchInitFormCode: TComboBox
+            Left = 416
+            Height = 23
+            Top = 39
+            Width = 76
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'FA(1)'
+              'FA(2)'
+            )
+            Style = csDropDownList
+            TabOrder = 4
+            Text = 'FA(1)'
+          end
+          object Label107: TLabel
+            Left = 23
+            Height = 15
+            Top = 10
+            Width = 19
+            Caption = 'NIP'
+          end
+          object EditKSeFBatchNIP: TEdit
+            Left = 88
+            Height = 23
+            Top = 5
+            Width = 122
+            TabOrder = 5
+          end
+          object Label108: TLabel
+            Left = 8
+            Height = 15
+            Top = 149
+            Width = 51
+            Caption = 'Certyfikat'
+          end
+          object ComboBoxKSeFBatchCert: TComboBox
+            Left = 123
+            Height = 23
+            Top = 144
+            Width = 549
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 6
+          end
+          object FileNameEditKSeFBatchOutInitUp: TFileNameEdit
+            Left = 160
+            Height = 23
+            Top = 176
+            Width = 512
+            DialogKind = dkSave
+            Filter = 'Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 7
+          end
+          object FileNameEditKSeFBatchOutEncZIP: TFileNameEdit
+            Left = 160
+            Height = 23
+            Top = 208
+            Width = 512
+            DialogKind = dkSave
+            Filter = 'Plik part (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 8
+          end
+          object Label109: TLabel
+            Left = 8
+            Height = 15
+            Top = 183
+            Width = 134
+            Caption = 'Plik wyjściowy InitUpload'
+          end
+          object Label110: TLabel
+            Left = 8
+            Height = 15
+            Top = 213
+            Width = 128
+            Caption = 'Plik yjściowy zaszyfr. ZIP'
+          end
+          object ButtonKSeFBatchPodp: TButton
+            Left = 160
+            Height = 25
+            Top = 240
+            Width = 120
+            Caption = 'Podpisz / szyfruj'
+            TabOrder = 9
+            OnClick = ButtonKSeFBatchPodpClick
+          end
+        end
+        object GroupBox20: TGroupBox
+          Left = 0
+          Height = 184
+          Top = 296
+          Width = 683
+          Align = alTop
+          Caption = 'Wysyłka'
+          ClientHeight = 164
+          ClientWidth = 679
+          TabOrder = 1
+          object Label111: TLabel
+            Left = 7
+            Height = 15
+            Top = 4
+            Width = 135
+            Caption = 'Podpisany plik InitUpload'
+          end
+          object FileNameEditKSeFBatchSendIU: TFileNameEdit
+            Left = 158
+            Height = 23
+            Top = 0
+            Width = 521
+            Filter = 'Pliki XML (*.xml;*.sig)|*.xml;*.sig|Wszystkie pliki (*.*)|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object FileNameEditKSeFBatchSendEnc: TFileNameEdit
+            Left = 158
+            Height = 23
+            Top = 32
+            Width = 521
+            Filter = 'Pliki danych (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object Label112: TLabel
+            Left = 8
+            Height = 15
+            Top = 37
+            Width = 114
+            Caption = 'Zaszyfrowany plik ZIP'
+          end
+          object Label113: TLabel
+            Left = 96
+            Height = 15
+            Top = 67
+            Width = 40
+            Caption = 'Bramka'
+          end
+          object ComboBoxKSeFBatchSendBramka: TComboBox
+            Left = 161
+            Height = 23
+            Top = 64
+            Width = 176
+            ItemHeight = 15
+            ItemIndex = 2
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa'
+            )
+            Style = csDropDownList
+            TabOrder = 2
+            Text = 'Testowa'
+          end
+          object ButtonKSeFBatchSend: TButton
+            Left = 158
+            Height = 25
+            Top = 96
+            Width = 75
+            Caption = 'Wyślij'
+            TabOrder = 3
+            OnClick = ButtonKSeFBatchSendClick
+          end
+          object EditKSeFBatchNrRef: TEdit
+            Left = 158
+            Height = 23
+            Top = 128
+            Width = 363
+            TabOrder = 4
+          end
+          object Label114: TLabel
+            Left = 19
+            Height = 15
+            Top = 133
+            Width = 123
+            Caption = 'Nadany nr referencyjny'
+          end
+        end
+      end
+    end
+  end
+  object MemoLog: TMemo
+    Left = 0
+    Height = 144
+    Top = 530
+    Width = 698
+    Align = alBottom
+    Lines.Strings = (
+      'MemoLog'
+    )
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+    WordWrap = False
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 525
+    Width = 698
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+end
