@@ -22,13 +22,10 @@ type
   { ElgoException }
 
   ElgoException = class(Exception)
-  private
-    FMessage: UTF8String;
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); virtual;
   public
     constructor Create(AException: LGP_EXCEPTION);
-    property Message: UTF8String read FMessage;
   end;
 
   TlgoExceptionClass = class of ElgoException;
@@ -376,7 +373,7 @@ var
 begin
   StrObj := nil;
   if lgoCheckResult(lgpObject_GetStringProp(AException, 'Message', StrObj), False) and (StrObj <> nil) then
-    FMessage := lgoGetString(StrObj);
+    Message := {$IFNDEF FPC}Utf8ToAnsi({$ENDIF}lgoGetString(StrObj){$IFNDEF FPC}){$ENDIF};
 end;
 
 constructor ElgoException.Create(AException: LGP_EXCEPTION);
