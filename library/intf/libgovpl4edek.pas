@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -36,7 +36,7 @@ type
     constructor Create;
 
     procedure PodpiszCertyfikatem(const ADane: UTF8String; ACertyfikat: TlgoCertificate; out ADanePodpisane: UTF8String);
-    procedure PodpiszDanymiAut(const ADane: UTF8String; const AImie, ANazwisko, ANIP: UTF8String; const ADataUr: TDate; const AKwota: Currency; out ADanePodpisane: UTF8String);
+    procedure PodpiszDanymiAut(const ADane: UTF8String; const AImie, ANazwisko, ANIP: UTF8String; const ADataUr: TDateTime; const AKwota: Currency; out ADanePodpisane: UTF8String);
 
     function Wyslij(const ADanePodpisane: UTF8String; const ARodzajBramki: TlgoEDekGateType; const ARodzajPodpisu: TlgoEDekSignType; out ANrRef: UTF8String; out AStatus: Integer; out AStatusOpis: UTF8String): Integer;
     function PobierzUPO(const ANrRef: UTF8String; const ARodzajBramki: TlgoEDekGateType; out AStatus: Integer; out AStatusOpis: UTF8String; out ADaneUPO: UTF8String): Integer;
@@ -119,7 +119,7 @@ begin
 end;
 
 procedure TlgoEDeklaracja.PodpiszDanymiAut(const ADane: UTF8String; const AImie,
-  ANazwisko, ANIP: UTF8String; const ADataUr: TDate; const AKwota: Currency;
+  ANazwisko, ANIP: UTF8String; const ADataUr: TDateTime; const AKwota: Currency;
   out ADanePodpisane: UTF8String);
 var
   DanePodp: LGP_OBJECT;

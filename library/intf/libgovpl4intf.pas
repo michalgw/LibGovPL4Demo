@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -15,19 +15,23 @@ unit LibGovPl4Intf;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils {$IFNDEF FPC}, Types{$ENDIF};
 
 type
   LGP_PCHAR = PAnsiChar;
-  LGP_INT32 = Int32;
-  LGP_UINT32 = UInt32;
+  LGP_INT32 = {$IFDEF FPC}Int32{$ELSE}Integer{$ENDIF};
+  LGP_UINT32 = {$IFDEF FPC}UInt32{$ELSE}Cardinal{$ENDIF};
   LGP_DOUBLE = Double;
   LGP_CURRENCY = Currency;
   LGP_INT64 = Int64;
-  LGP_PASDATETIME = Double;
+  LGP_PASDATETIME = TDateTime;
   LGP_POINTER = Pointer;
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
+
+  {$IFNDEF FPC}
+  TStringArray = TStringDynArray;
+  {$ENDIF}
 
   // Stream
   TlgpStreamReadFunc = function(AStreamObject: LGP_POINTER; AData: LGP_POINTER; ASize: LGP_INT32): LGP_INT32; stdcall;
@@ -132,7 +136,10 @@ function lgpObject_GetStringProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var 
 function lgpObject_SetStringProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_GetIntegerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_SetIntegerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; overload; stdcall; external LGP_LIBNAME;
+{$IFNDEF FPC}
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; overload; stdcall; external LGP_LIBNAME;
+{$ENDIF}
 function lgpObject_SetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_GetObjectProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_SetObjectProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;

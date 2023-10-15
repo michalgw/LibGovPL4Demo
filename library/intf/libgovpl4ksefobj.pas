@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -22,7 +22,7 @@ type
 
   TKSeFExceptionDetail = record
     ExceptionCode: Integer;
-    ExceptionDescription: String;
+    ExceptionDescription: UTF8String;
   end;
 
   TKSeFExceptionDetailList = array of TKSeFExceptionDetail;
@@ -32,23 +32,23 @@ type
   EKSeFExceptionResponse = class(EKSeFException)
   private
     FExceptionDetailList: TKSeFExceptionDetailList;
-    FRawData: String;
-    FReferenceNumber: String;
+    FRawData: UTF8String;
+    FReferenceNumber: UTF8String;
     FResponseCode: Integer;
-    FServiceCode: String;
-    FServiceCtx: String;
-    FServiceName: String;
+    FServiceCode: UTF8String;
+    FServiceCtx: UTF8String;
+    FServiceName: UTF8String;
     FTimestamp: TDateTime;
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); override;
   public
     property ResponseCode: Integer read FResponseCode;
-    property RawData: String read FRawData;
-    property ServiceCtx: String read FServiceCtx;
-    property ServiceCode: String read FServiceCode;
-    property ServiceName: String read FServiceName;
+    property RawData: UTF8String read FRawData;
+    property ServiceCtx: UTF8String read FServiceCtx;
+    property ServiceCode: UTF8String read FServiceCode;
+    property ServiceName: UTF8String read FServiceName;
     property Timestamp: TDateTime read FTimestamp;
-    property ReferenceNumber: String read FReferenceNumber;
+    property ReferenceNumber: UTF8String read FReferenceNumber;
     property ExceptionDetailList: TKSeFExceptionDetailList read FExceptionDetailList;
   end;
 
@@ -60,8 +60,8 @@ type
   protected
     procedure CreateExtObject(AClassName: UTF8String);
   public
-    constructor Create; virtual; overload;
-    constructor Create(AClassName: UTF8String); override; overload;
+    constructor Create;  overload; virtual;
+    constructor Create(AClassName: UTF8String); overload; override;
   end;
 
   TKSeFObjectClass = class of TKSeFObject;
@@ -77,8 +77,8 @@ type
     function GetItem(AIndex: Integer): TKSeFObject;
     class function GetItemClass(AObject: LGP_OBJECT): TKSeFObjectClass; virtual;
   public
-    constructor Create(AClassName: UTF8String); override; overload;
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AClassName: UTF8String); overload; override;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
     function Count: Integer;
     procedure Delete(AIndex: Integer);
@@ -213,7 +213,7 @@ type
     FRoleAssigningAuthorIdentifier: TKSeFCredentialsIdentifierResponse;
     function GetCredentialsAssignmentType: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property CredentialsAssignmentTypeRaw: UTF8String read GetCredentialsAssignmentType;
@@ -248,7 +248,7 @@ type
     FContextName: TKSeFSubjectName;
     FCredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property ContextIdentifier: TKSeFSubjectIdentifierBy read FContextIdentifier;
@@ -263,7 +263,7 @@ type
     FContext: TKSeFSessionContext;
     function GetToken: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property Token: UTF8String read GetToken;
@@ -279,7 +279,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property ReferenceNumber: UTF8String read GetReferenceNumber;
@@ -333,7 +333,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property InvoiceStatusList: TKSeFSessionInvoiceStatusArray read FInvoiceStatusList write FInvoiceStatusList;
@@ -423,7 +423,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property ElementReferenceNumber: UTF8String read GetElementReferenceNumber;
@@ -672,7 +672,7 @@ type
     function GetSubjectOtherType: TKSeFSubjectOtherType;
     function GetSubjectOtherTypeRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property IssuedToIdentifier: TKSeFSubjectIdentifierOtherTo read FIssuedToIdentifier;
@@ -701,7 +701,7 @@ type
     function GetSubjectAuthorizedType: TKSeFSubjectAuthorizedType;
     function GetSubjectAuthorizedTypeRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property IssuedToIdentifier: TKSeFSubjectIdentifierTo read FIssuedToIdentifier;
@@ -748,7 +748,7 @@ type
     FHashSHA: TKSeFHashSHA;
     function GetFileSize: Integer;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property FileSize: Integer read GetFileSize;
@@ -781,7 +781,7 @@ type
     function GetSchemaVersion: UTF8String;
     function GetVat: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property AcquisitionTimestamp: TDateTime read GetAcquisitionTimestamp;
@@ -828,7 +828,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property InvoiceHeaderList: TKSeFInvoiceHeaderArray read FInvoiceHeaderList;
@@ -874,7 +874,7 @@ type
     function GetPartRangeToRaw: UTF8String;
     function GetPartReferenceNumber: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property PartExpirationRaw: UTF8String read GeyPartExpirationRaw;
@@ -912,7 +912,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   public
-    constructor Create(AObject: LGP_OBJECT); override; overload;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property ElementReferenceNumber: UTF8String read GetElementReferenceNumber;
@@ -1071,7 +1071,7 @@ begin
     TKSeFInvoiceDivisionPlainPart,
     TKSeFInvoiceDivisionPlainPartArray,
     TKSeFQueryInvoiceAsyncStatusResponse,
-    TKSeFInternalIdentifierGeneratedResponse
+    TKSeFInternalIdentifierGeneratedResponse,
     //TKSeFCredentialsIdentifierRequest,
     //TKSeFQueryCriteriaCredentials,
     //TKSeFQueryCriteriaCredentialsAll,
@@ -1079,11 +1079,11 @@ begin
     //TKSeFQuerySyncCredentialsRequest,
     //TKSeFCredentialsBaseTypeObject,
     //TKSeFQuerySyncCredentialsResponse,
-    //TKSeFGetPaymentIdentifierReferenceNumbersResponse,
-    //TKSeFRequestPaymentIdentifierResponse,
-    //TKSeFInvoiceQueryDetails,
-    //TKSeFInvoiceRequestKSeF,
-    //TKSeFStatusResponse
+    TKSeFGetPaymentIdentifierReferenceNumbersResponse,
+    TKSeFRequestPaymentIdentifierResponse,
+    TKSeFInvoiceQueryDetails,
+    TKSeFInvoiceRequestKSeF,
+    TKSeFStatusResponse
     ]);
   lgoRegisterExceptionClass(EKSeFException);
   lgoRegisterExceptionClass(EKSeFExceptionResponse);

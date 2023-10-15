@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -22,10 +22,13 @@ type
   { ElgoException }
 
   ElgoException = class(Exception)
+  private
+    FMessage: UTF8String;
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); virtual;
   public
     constructor Create(AException: LGP_EXCEPTION);
+    property Message: UTF8String read FMessage;
   end;
 
   TlgoExceptionClass = class of ElgoException;
@@ -35,7 +38,8 @@ type
   TlgoObject = class
   public
     ExtObject: LGP_OBJECT;
-    constructor Create(AObject: LGP_OBJECT); virtual; overload;
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; virtual;
     destructor Destroy; override;
     function ObjClassName: UTF8String;
     function GetIntegerProp(AName: UTF8String): Integer;
@@ -64,8 +68,22 @@ type
 
   TlgoCreatableObject = class(TlgoObject)
   public
-    constructor Create(AClassName: UTF8String); virtual; abstract; overload;
+    constructor Create(AClassName: UTF8String); overload; virtual; abstract;
   end;
+
+  {$IFNDEF FPC}
+  { TOwnerStream }
+  TOwnerStream = Class(TStream)
+  Protected
+    FOwner : Boolean;
+    FSource : TStream;
+  Public
+    Constructor Create(ASource : TStream);
+    Destructor Destroy; override;
+    Property Source : TStream Read FSource;
+    Property SourceOwner : Boolean Read Fowner Write FOwner;
+  end;
+  {$ENDIF}
 
   { TlgoStream }
 
@@ -91,8 +109,8 @@ type
 
 function lgoCheckResult(AExceptionObj: LGP_EXCEPTION; ARaiseExept: Boolean = True): Boolean;
 function lgoCreateException(AException: LGP_EXCEPTION): Exception;
-procedure lgoRegisterExceptionClass(AClass: TExceptionClass; AName: String = '');
-function lgoFindExceptionClass(AClassName: String): TExceptionClass;
+procedure lgoRegisterExceptionClass(AClass: ExceptClass; AName: String = '');
+function lgoFindExceptionClass(AClassName: String): ExceptClass;
 function lgoGetString(AStringObj: LGP_OBJECT; AFreeObj: Boolean = True): UTF8String;
 function lgoClassName(AObject: LGP_OBJECT): UTF8String;
 
@@ -108,7 +126,7 @@ uses
 type
   TlgoExceptionListElement = class
     Name: String;
-    ExceptionClass: TExceptionClass;
+    ExceptionClass: ExceptClass;
   end;
 
 var
@@ -135,7 +153,7 @@ function lgoCreateException(AException: LGP_EXCEPTION): Exception;
 var
   SO: LGP_OBJECT;
   S, Msg: String;
-  C: TExceptionClass;
+  C: ExceptClass;
 begin
   if lgoCheckResult(lgpObject_GetStringProp(AException, 'ExceptionClass', SO), False) then
   begin
@@ -157,7 +175,7 @@ begin
     Result := ElgoException.Create(AException);
 end;
 
-procedure lgoRegisterExceptionClass(AClass: TExceptionClass; AName: String);
+procedure lgoRegisterExceptionClass(AClass: ExceptClass; AName: String);
 var
   E: TlgoExceptionListElement;
 begin
@@ -170,7 +188,7 @@ begin
   lgoExceptions.Add(E);
 end;
 
-function lgoFindExceptionClass(AClassName: String): TExceptionClass;
+function lgoFindExceptionClass(AClassName: String): ExceptClass;
 var
   I: Integer;
 begin
@@ -322,6 +340,20 @@ begin
   Result := nil;
 end;
 
+{$IFNDEF FPC}
+constructor TOwnerStream.Create(ASource: TStream);
+begin
+  FSource:=ASource;
+end;
+
+destructor TOwnerStream.Destroy;
+begin
+  If FOwner then
+    FreeAndNil(FSource);
+  inherited Destroy;
+end;
+{$ENDIF}
+
 constructor TlgoStream.Create(ASource: TStream);
 begin
   inherited Create(ASource);
@@ -344,7 +376,7 @@ var
 begin
   StrObj := nil;
   if lgoCheckResult(lgpObject_GetStringProp(AException, 'Message', StrObj), False) and (StrObj <> nil) then
-    Message := lgoGetString(StrObj);
+    FMessage := lgoGetString(StrObj);
 end;
 
 constructor ElgoException.Create(AException: LGP_EXCEPTION);

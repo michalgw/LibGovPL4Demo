@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -53,7 +53,7 @@ type
   public
     constructor Create;
     procedure SignCertificate(ACertificate: TlgoCertificate; AGateType: TlgoEDekGateType; AAdHoc: Boolean; AInputStream, AOutputStream: TStream; out AInitUpload: UTF8String);
-    procedure SignAuthData(ANIP, AImiePierwsze, ANazwisko: UTF8String; ADataUrodzenia: TDate; AKwota: Currency; AGateType: TlgoEDekGateType; AAdHoc: Boolean; AInputStream, AOutputStream: TStream; out AInitUpload: UTF8String);
+    procedure SignAuthData(ANIP, AImiePierwsze, ANazwisko: UTF8String; ADataUrodzenia: TDateTime; AKwota: Currency; AGateType: TlgoEDekGateType; AAdHoc: Boolean; AInputStream, AOutputStream: TStream; out AInitUpload: UTF8String);
     procedure Send(AInitUpload: UTF8String; AEncryptedData: TStream; out ARefNo: UTF8String; AGateType: TlgoEDekGateType; AVerifySign: Boolean = True);
     function RequestUPO(ARefNo: UTF8String; AGateType: TlgoEDekGateType; out AStatusDesc, ADetails, AUPO, ATimeStamp: UTF8String): Integer;
 
@@ -275,7 +275,7 @@ begin
 end;
 
 procedure TlgoJPK.SignAuthData(ANIP, AImiePierwsze, ANazwisko: UTF8String;
-  ADataUrodzenia: TDate; AKwota: Currency; AGateType: TlgoEDekGateType;
+  ADataUrodzenia: TDateTime; AKwota: Currency; AGateType: TlgoEDekGateType;
   AAdHoc: Boolean; AInputStream, AOutputStream: TStream; out
   AInitUpload: UTF8String);
 var
