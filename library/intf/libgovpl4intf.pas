@@ -12,10 +12,17 @@ unit LibGovPl4Intf;
 {$mode Delphi}
 {$endif}
 
+{$DEFINE LIBGOVPL_DYNAMIC}
+
 interface
 
 uses
   Classes, SysUtils {$IFNDEF FPC}, Types{$ENDIF};
+
+{$IFDEF LIBGOVPL_DYNAMIC}
+const
+  LIBGOVPL_DYNAMIC = True;
+{$ENDIF}
 
 type
   LGP_PCHAR = PAnsiChar;
@@ -64,9 +71,20 @@ const
   LGP_XADES_SHA256 = 2;
 
   // Stream
-  LGP_SEEKORIGIN_BEGINNING = soFromBeginning;
-  LGP_SEEKORIGIN_CURRENT = soFromCurrent;
-  LGP_SEEKORIGIN_END = soFromEnd;
+  LGP_SEEKORIGIN_BEGINNING = soFromBeginning;  // 0
+  LGP_SEEKORIGIN_CURRENT   = soFromCurrent;    // 1
+  LGP_SEEKORIGIN_END       = soFromEnd;        // 2
+
+  LGP_FM_CREATE            = fmCreate;         // $FF00
+  LGP_FM_OPEN_READ         = fmOpenRead;       // $0000
+  LGP_FM_OPEN_WRITE        = fmOpenWrite;      // $0001
+  LGP_FM_OPEN_READ_WRITE   = fmOpenReadWrite;  // $0002
+
+  LGP_FM_SHARE_COMPAT      = fmShareCompat;    // $0000
+  LGP_FM_SHARE_EXCLUSIVE   = fmShareExclusive; // $0010
+  LGP_FM_SHARE_DENY_WRITE  = fmShareDenyWrite; // $0020
+  LGP_FM_SHARE_DENY_READ   = fmShareDenyRead;  // $0030
+  LGP_FM_SHARE_DENY_NONE   = fmShareDenyNone;  // $0040
 
   // XAdES
   LGP_XADES_SiGNTYPE_SHA1 = 0;
@@ -90,7 +108,7 @@ const
 
   LGP_KSEF_FORM_CODE_CUSTOM = 0;
   LGP_KSEF_FORM_CODE_FA1 = 1;
-  LGP_KSEF_FORM_CODE_FA2 = 1;
+  LGP_KSEF_FORM_CODE_FA2 = 2;
 
   LGP_KSEF_SUBJECTTYPE_SUBJECT1 = 0;
   LGP_KSEF_SUBJECTTYPE_SUBJECT2 = 1;
@@ -98,12 +116,13 @@ const
   LGP_KSEF_SUBJECTTYPE_SUBJECTAUTHORIZED = 3;
 
 
+{$IFNDEF LIBGOVPL_DYNAMIC}
 // Backend
-function lgplVersion: LGP_UINT32; external LGP_LIBNAME;
-function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; external LGP_LIBNAME;
-function lgplInit: LGP_INT32; external LGP_LIBNAME;
-function lgpExit: LGP_INT32; external LGP_LIBNAME;
-function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; external LGP_LIBNAME;
+function lgplVersion: LGP_UINT32; stdcall; external LGP_LIBNAME;
+function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall; external LGP_LIBNAME;
+function lgplInit: LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgplExit: LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
 
 function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -128,6 +147,10 @@ function lgpCertificateSigner_UISelect(ACertificateSigner: LGP_OBJECT; var ACert
 
 function lgpCNGCertificateSigner_SetHWnd(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpEncodeDateTime(AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32): LGP_PASDATETIME; stdcall; external LGP_LIBNAME;
+procedure lgpDecodeDateTime(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32); stdcall; external LGP_LIBNAME;
+
+function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
 
 // Object
 function lgpObject_Free(AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -164,6 +187,11 @@ function lgpStream_Create(AStreamObject: Pointer; AReadFunc: TlgpStreamReadFunc;
   AWriteFunc: TlgpStreamWriteFunc; ASeekFunc: TlgpStreamSeekFunc;
   AGetPositionFunc: TlgpStreamGetPositionFunc; AGetSizeFunc: TlgpStreamGetSizeFunc;
   var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpFileStream_Create(AFileName: LGP_PCHAR; AMode: LGP_INT32; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpStringStream_Create(AData: LGP_PCHAR; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpStringStream_GetString(AStringStream: LGP_OBJECT; var AString: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 // WST EDek Gate
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall; external LGP_LIBNAME;
@@ -202,10 +230,14 @@ function lgpEDek_GetCanonization(AEDekObj: LGP_OBJECT; var AC14N: LGP_INT32): LG
 function lgpEDek_SetCanonization(AEDekObj: LGP_OBJECT; AC14N: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpEDek_PodpiszCertyfikatem(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; ACertyfikat: LGP_OBJECT; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpEDek_PodpiszCertyfikatemStream(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; ACertyfikat: LGP_OBJECT; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpEDek_PodpiszDanymiAut(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpEDek_PodpiszDanymiAutStream(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpEDek_Wyslij(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_PCHAR; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpEDek_WyslijStream(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_OBJECT; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpEDek_PobierzUPO(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; var ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpEDek_PobierzUPOStream(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 // JPK
 function lgpJPK_Create(ABase64EncoderClass, AAES256EncryptClass, AMD5HashClass, ASHA256HashClass, AZipperClass, ARSAEncryptClass, ARandomGeneratorClass, AXMLReaderClass: LGP_PCHAR; var AJPKObj: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -237,9 +269,13 @@ function lgpJPK_GetHTTPClient(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP
 function lgpJPK_SetHTTPClient(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpJPK_SignCerificate(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpJPK_SignCerificateStream(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_SignDataAuth(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpJPK_SignDataAuthStream(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_Send(AJPKObj: LGP_OBJECT; AInitUpload: LGP_PCHAR; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpJPK_SendStream(AJPKObj: LGP_OBJECT; AInitUpload: LGP_OBJECT; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_RequestUPO(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, AUPO, ATimeStamp: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpJPK_RequestUPOStream(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, ATimeStamp: LGP_OBJECT; AUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 // KSeF
 function lgpKSeF_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -315,7 +351,529 @@ function lgpKSeF_BatchSend(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AIn
 // KSeF Obj
 function lgpKSeF_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 
+{$ELSE} {LIBGOVPL_DYNAMIC}
+
+var
+
+  // Backend
+  lgplVersion: function: LGP_UINT32; stdcall;
+  lgplListDrivers: function(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
+  lgplInit: function: LGP_INT32; stdcall;
+  lgplExit: function: LGP_INT32; stdcall;
+  lgplSetDefaultDriver: function(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
+
+  lgpHTTPClient_Create: function(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpHTTPClient_GetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpHTTPClient_SetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  lgpRSAEncrypt_CreateKey: function(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpCertificate_GetDisplayName: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSubject: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetIssuer: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSerialNoDec: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSerialNoHex: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetValidFrom: function(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetValidTo: function(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+
+  lgpCNGCertificate_ShowCertificateInfo: function(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
+
+  lgpCertificateSigner_Create: function(AClassName: LGP_PCHAR; var ACertSigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificateSigner_List: function(ACertificateSigner: LGP_OBJECT; var ACertList: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificateSigner_FindBySerialNumber: function(ACertificateSigner: LGP_OBJECT; ASerialNo: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificateSigner_UISelect: function(ACertificateSigner: LGP_OBJECT; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpCNGCertificateSigner_SetHWnd: function(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
+
+  lgpEncodeDateTime: function(AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32): LGP_PASDATETIME; stdcall;
+  lgpDecodeDateTime: procedure(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32); stdcall;
+
+  lgpLoadLibXML2: function(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
+
+  // Object
+  lgpObject_Free: function(AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpObject_ClassName: function(AObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpObject_GetStringProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpObject_SetStringProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpObject_GetIntegerProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpObject_SetIntegerProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  {$IFDEF FPC}
+  lgpObject_GetDoubleProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall;
+  {$ELSE}
+  _lgpObject_GetDoubleProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall;
+  {$ENDIF}
+  lgpObject_SetDoubleProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall;
+  lgpObject_GetObjectProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpObject_SetObjectProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpObject_GetCurrencyProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_CURRENCY): LGP_EXCEPTION; stdcall;
+  lgpObject_SetCurrencyProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_CURRENCY): LGP_EXCEPTION; stdcall;
+  lgpObject_GetBooleanProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpObject_SetBooleanProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpObject_GetInt64Prop: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
+  lgpObject_SetInt64Prop: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
+
+  lgpStringObject_GetValue: function(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+
+  lgpListObject_GetCount: function(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpListObject_GetItem: function(AListObject: LGP_OBJECT; AIndex: LGP_INT32; var AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpListObject_Delete: function(AListObject: LGP_OBJECT; AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpListObject_Remove: function(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpListObject_GetOwnsObjects: function(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpListObject_SetOwnsObjects: function(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  // Stream
+  lgpStream_Create: function(AStreamObject: Pointer; AReadFunc: TlgpStreamReadFunc;
+    AWriteFunc: TlgpStreamWriteFunc; ASeekFunc: TlgpStreamSeekFunc;
+    AGetPositionFunc: TlgpStreamGetPositionFunc; AGetSizeFunc: TlgpStreamGetSizeFunc;
+    var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpFileStream_Create: function(AFileName: LGP_PCHAR; AMode: LGP_INT32; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpStringStream_Create: function(AData: LGP_PCHAR; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpStringStream_GetString: function(AStringStream: LGP_OBJECT; var AString: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // WST EDek Gate
+  lgpWST_RegisterTransport: function: LGP_EXCEPTiON; stdcall;
+  lgpWST_GetHTTPClient: function(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpWST_SetHTTPClient: function(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // XAdES
+  lgpXAdES_Create: function(ASHA1HashClass, ASHA256HashClass, ABase64EncoderClass: LGP_PCHAR;
+    ASigner: LGP_OBJECT; var AXAdESObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSHA1HashClass: function(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSHA1HashClass: function(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSHA256HashClass: function(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSHA256HashClass: function(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetBase64EncoderClass: function(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetBase64EncoderClass: function(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSigner: function(AXAdESObject: LGP_OBJECT; var ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSigner: function(AXAdESObject: LGP_OBJECT; ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSignType: function(AXAdESObject: LGP_OBJECT; var ASignType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSignType: function(AXAdESObject: LGP_OBJECT; ASignType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSerialNoFormat: function(AXAdESObject: LGP_OBJECT; var ASerialNoFormat: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSerialNoFormat: function(AXAdESObject: LGP_OBJECT; ASerialNoFormat: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetIncludeSigningTime: function(AXAdESObject: LGP_OBJECT; var AIncludeSigningTime: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetIncludeSigningTime: function(AXAdESObject: LGP_OBJECT; AIncludeSigningTime: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpXAdES_GetSigningTime: function(AXAdESObject: LGP_OBJECT; var ASigningTime: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+  lgpXAdES_SetSigningTime: function(AXAdESObject: LGP_OBJECT; ASigningTime: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+
+  // EDek
+  lgpEDek_Create: function(AXMLCanonizator, AEDekGate: LGP_PCHAR; var AEDekObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_GetXAdES: function(AEDekObj: LGP_OBJECT; var AXAdESObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_SetXAdES: function(AEDekObj: LGP_OBJECT; AXAdESObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_GetXMLCanonizatorClass: function(AEDekObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpEDek_SetXMLCanonizatorClass: function(AEDekObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpEDek_GetEDekGateClass: function(AEDekObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpEDek_SetEDekGateClass: function(AEDekObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpEDek_GetCanonization: function(AEDekObj: LGP_OBJECT; var AC14N: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpEDek_SetCanonization: function(AEDekObj: LGP_OBJECT; AC14N: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  lgpEDek_PodpiszCertyfikatem: function(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; ACertyfikat: LGP_OBJECT; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_PodpiszCertyfikatemStream: function(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; ACertyfikat: LGP_OBJECT; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_PodpiszDanymiAut: function(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_PodpiszDanymiAutStream: function(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpEDek_Wyslij: function(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_PCHAR; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_WyslijStream: function(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_OBJECT; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_PobierzUPO: function(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; var ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpEDek_PobierzUPOStream: function(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // JPK
+  lgpJPK_Create: function(ABase64EncoderClass, AAES256EncryptClass, AMD5HashClass, ASHA256HashClass, AZipperClass, ARSAEncryptClass, ARandomGeneratorClass, AXMLReaderClass: LGP_PCHAR; var AJPKObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpJPK_GetBase64EncoderClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetBase64EncoderClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetAES256EncryptClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetAES256EncryptClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetMD5HashClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetMD5HashClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetSHA256HashClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetSHA256HashClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetZipperClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetZipperClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetRSAEncryptClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetRSAEncryptClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetRandomGeneratorClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetRandomGeneratorClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetXMLReaderClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetXMLReaderClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+
+  lgpJPK_GetRSAKeyProd: function(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetRSAKeyProd: function(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetRSAKeyTest: function(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetRSAKeyTest: function(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetXAdES: function(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetXAdES: function(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_GetHTTPClient: function(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SetHTTPClient: function(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpJPK_SignCerificate: function(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SignCerificateStream: function(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SignDataAuth: function(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_SignDataAuthStream: function(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_Send: function(AJPKObj: LGP_OBJECT; AInitUpload: LGP_PCHAR; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpJPK_SendStream: function(AJPKObj: LGP_OBJECT; AInitUpload: LGP_OBJECT; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpJPK_RequestUPO: function(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, AUPO, ATimeStamp: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpJPK_RequestUPOStream: function(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, ATimeStamp: LGP_OBJECT; AUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // KSeF
+  lgpKSeF_Create: function(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetRSAEncryptClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetRSAEncryptClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetBase64EncoderClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetBase64EncoderClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetAES256EncryptClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetAES256EncryptClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetSHA256HashClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetSHA256HashClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetRandomGeneratorClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetRandomGeneratorClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetRSAKey: function(AKSeFObject: LGP_OBJECT; AKeyType: LGP_INT32; var AKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetRSAKey: function(AKSeFObject: LGP_OBJECT; AKeyType: LGP_INT32; AKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetXAdES: function(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetXAdES: function(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetHTTPClient: function(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetHTTPClient: function(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetGateType: function(AKSeFObject: LGP_OBJECT; var AType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetGateType: function(AKSeFObject: LGP_OBJECT; AType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetNIP: function(AKSeFObject: LGP_OBJECT; var ANIP: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetNIP: function(AKSeFObject: LGP_OBJECT; ANIP: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetFormCode: function(AKSeFObject: LGP_OBJECT; var AFCode: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetFormCode: function(AKSeFObject: LGP_OBJECT; AFCode: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetFormCodeSystemCode: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetFormCodeSystemCode: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetFormCodeSchemaVersion: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetFormCodeSchemaVersion: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetFormCodeTargetNamespace: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetFormCodeTargetNamespace: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetFormCodeValue: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetFormCodeValue: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetCertificate: function(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetCertificate: function(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetCertificateAuthType: function(AKSeFObject: LGP_OBJECT; var AType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetCertificateAuthType: function(AKSeFObject: LGP_OBJECT; AType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetEncryption: function(AKSeFObject: LGP_OBJECT; var AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetEncryption: function(AKSeFObject: LGP_OBJECT; AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetSessionToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_GetSessionActive: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_GenerateAESKey: function(AKSeFObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_SessionInitSigned: function(AKSeFObject: LGP_OBJECT; var AInitSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionInitToken: function(AKSeFObject: LGP_OBJECT; var AInitSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionChalangePZ: function(AKSeFObject: LGP_OBJECT; var AChalange: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionInitPZ: function(AKSeFObject: LGP_OBJECT; ASignedChalange: LGP_PCHAR; var AInitSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; APageSize, APageOffset, AIncludeDetails: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionTerminate: function(AKSeFObject: LGP_OBJECT; AForce: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SessionGenerateInternalIdentifier: function(AKSeFObject: LGP_OBJECT; AInputDigitsSequence: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_InvoiceGet: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceSend: function(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceStatus: function(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_QueryInvoiceSync: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_QueryInvoiceAsyncInit: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_QueryInvoiceAsyncStatus: function(AKSeFObject: LGP_OBJECT; AQueryElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_QueryInvoiceAsyncFetch: function(AKSeFObject: LGP_OBJECT; AQueryElementReferenceNumber, APartElementReferenceNumber: LGP_PCHAR; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_PaymentIdentifierGetReferenceNumbers: function(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_PaymentIdentifierRequest: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_CommonInvoiceKSeF: function(AKSeFObject: LGP_OBJECT; AInvoiceRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CommonStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AGateType: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_BatchSign: function(AKSeFObject: LGP_OBJECT; AZIPDataStream: LGP_OBJECT; APZ: LGP_INT32; AEncryptedStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT; AZIPFileName, APartFileName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF_BatchSend: function(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AInitUpload: LGP_PCHAR; var ANrRef: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // KSeF Obj
+  lgpKSeF_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
+
+  LibGovPl4Handle: THandle = 0;
+
+{$IFNDEF FPC}
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; overload;
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; overload;
+{$ENDIF}
+
+function LoadLibGovPl(AFileName: String = ''): Boolean;
+
+{$ENDIF} {LIBGOVPL_DYNAMIC}
+
 implementation
+
+{$IFDEF LIBGOVPL_DYNAMIC}
+
+{$IFNDEF FPC}
+uses
+  Windows;
+
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_DOUBLE): LGP_EXCEPTION; overload;
+begin
+  Result := _lgpObject_GetDoubleProp(AObject, APropName, AValue);
+end;
+
+function lgpObject_GetDoubleProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; overload;
+var
+  D: Double;
+begin
+  Result := _lgpObject_GetDoubleProp(AObject, APropName, D);
+  AValue := D;
+end;
+{$ENDIF}
+
+function LoadLibGovPl(AFileName: String): Boolean;
+begin
+  if AFileName = '' then
+    AFileName := LGP_LIBNAME;
+
+  if LibGovPl4Handle <> 0 then
+  begin
+    Result := True;
+    Exit;
+  end;
+
+  LibGovPl4Handle := LoadLibrary({$IFNDEF FPC}PAnsiChar{$ENDIF}(AFileName));
+  if LibGovPl4Handle <> 0 then
+  begin
+    // Backend
+    @lgplVersion := GetProcAddress(LibGovPl4Handle, 'lgplVersion');
+    @lgplListDrivers := GetProcAddress(LibGovPl4Handle, 'lgplListDrivers');
+    @lgplInit := GetProcAddress(LibGovPl4Handle, 'lgplInit');
+    @lgplExit := GetProcAddress(LibGovPl4Handle, 'lgplExit');
+    @lgplSetDefaultDriver := GetProcAddress(LibGovPl4Handle, 'lgplSetDefaultDriver');
+
+    @lgpHTTPClient_Create := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_Create');
+    @lgpHTTPClient_GetIgnoreSSLErrors := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_GetIgnoreSSLErrors');
+    @lgpHTTPClient_SetIgnoreSSLErrors := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_SetIgnoreSSLErrors');
+
+    @lgpRSAEncrypt_CreateKey := GetProcAddress(LibGovPl4Handle, 'lgpRSAEncrypt_CreateKey');
+
+    @lgpCertificate_GetDisplayName := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetDisplayName');
+    @lgpCertificate_GetSubject := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSubject');
+    @lgpCertificate_GetIssuer := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetIssuer');
+    @lgpCertificate_GetSerialNoDec := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSerialNoDec');
+    @lgpCertificate_GetSerialNoHex := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSerialNoHex');
+    @lgpCertificate_GetValidFrom := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetValidFrom');
+    @lgpCertificate_GetValidTo := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetValidTo');
+
+    @lgpCNGCertificate_ShowCertificateInfo := GetProcAddress(LibGovPl4Handle, 'lgpCNGCertificate_ShowCertificateInfo');
+
+    @lgpCertificateSigner_Create := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_Create');
+    @lgpCertificateSigner_List := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_List');
+    @lgpCertificateSigner_FindBySerialNumber := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_FindBySerialNumber');
+    @lgpCertificateSigner_UISelect := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_UISelect');
+
+    @lgpCNGCertificateSigner_SetHWnd := GetProcAddress(LibGovPl4Handle, 'lgpCNGCertificateSigner_SetHWnd');
+
+    @lgpEncodeDateTime := GetProcAddress(LibGovPl4Handle, 'lgpEncodeDateTime');
+    @lgpDecodeDateTime := GetProcAddress(LibGovPl4Handle, 'lgpDecodeDateTime');
+
+    @lgpLoadLibXML2 := GetProcAddress(LibGovPl4Handle, 'lgpLoadLibXML2');
+
+    // Object
+    @lgpObject_Free := GetProcAddress(LibGovPl4Handle, 'lgpObject_Free');
+    @lgpObject_ClassName := GetProcAddress(LibGovPl4Handle, 'lgpObject_ClassName');
+    @lgpObject_GetStringProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetStringProp');
+    @lgpObject_SetStringProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetStringProp');
+    @lgpObject_GetIntegerProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetIntegerProp');
+    @lgpObject_SetIntegerProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetIntegerProp');
+    {$IFDEF FPC}
+    @lgpObject_GetDoubleProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetDoubleProp');
+    {$ELSE}
+    @_lgpObject_GetDoubleProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetDoubleProp');
+    {$ENDIF}
+    @lgpObject_SetDoubleProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetDoubleProp');
+    @lgpObject_GetObjectProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetObjectProp');
+    @lgpObject_SetObjectProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetObjectProp');
+    @lgpObject_GetCurrencyProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetCurrencyProp');
+    @lgpObject_SetCurrencyProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetCurrencyProp');
+    @lgpObject_GetBooleanProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetBooleanProp');
+    @lgpObject_SetBooleanProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetBooleanProp');
+    @lgpObject_GetInt64Prop := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetInt64Prop');
+    @lgpObject_SetInt64Prop := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetInt64Prop');
+
+    @lgpStringObject_GetValue := GetProcAddress(LibGovPl4Handle, 'lgpStringObject_GetValue');
+
+    @lgpListObject_GetCount := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetCount');
+    @lgpListObject_GetItem := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetItem');
+    @lgpListObject_Delete := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Delete');
+    @lgpListObject_Remove := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Remove');
+    @lgpListObject_GetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetOwnsObjects');
+    @lgpListObject_SetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_SetOwnsObjects');
+
+    // Stream
+    @lgpStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpStream_Create');
+
+    @lgpFileStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpFileStream_Create');
+
+    @lgpStringStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpStringStream_Create');
+    @lgpStringStream_GetString := GetProcAddress(LibGovPl4Handle, 'lgpStringStream_GetString');
+
+    // WST EDek Gate
+    @lgpWST_RegisterTransport := GetProcAddress(LibGovPl4Handle, 'lgpWST_RegisterTransport');
+    @lgpWST_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_GetHTTPClient');
+    @lgpWST_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_SetHTTPClient');
+
+    // XAdES
+    @lgpXAdES_Create := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_Create');
+    @lgpXAdES_GetSHA1HashClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSHA1HashClass');
+    @lgpXAdES_SetSHA1HashClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSHA1HashClass');
+    @lgpXAdES_GetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSHA256HashClass');
+    @lgpXAdES_SetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSHA256HashClass');
+    @lgpXAdES_GetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetBase64EncoderClass');
+    @lgpXAdES_SetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetBase64EncoderClass');
+    @lgpXAdES_GetSigner := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSigner');
+    @lgpXAdES_SetSigner := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSigner');
+    @lgpXAdES_GetSignType := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSignType');
+    @lgpXAdES_SetSignType := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSignType');
+    @lgpXAdES_GetSerialNoFormat := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSerialNoFormat');
+    @lgpXAdES_SetSerialNoFormat := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSerialNoFormat');
+    @lgpXAdES_GetIncludeSigningTime := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetIncludeSigningTime');
+    @lgpXAdES_SetIncludeSigningTime := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetIncludeSigningTime');
+    @lgpXAdES_GetSigningTime := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_GetSigningTime');
+    @lgpXAdES_SetSigningTime := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_SetSigningTime');
+
+    // EDek
+    @lgpEDek_Create := GetProcAddress(LibGovPl4Handle, 'lgpEDek_Create');
+    @lgpEDek_GetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpEDek_GetXAdES');
+    @lgpEDek_SetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpEDek_SetXAdES');
+    @lgpEDek_GetXMLCanonizatorClass := GetProcAddress(LibGovPl4Handle, 'lgpEDek_GetXMLCanonizatorClass');
+    @lgpEDek_SetXMLCanonizatorClass := GetProcAddress(LibGovPl4Handle, 'lgpEDek_SetXMLCanonizatorClass');
+    @lgpEDek_GetEDekGateClass := GetProcAddress(LibGovPl4Handle, 'lgpEDek_GetEDekGateClass');
+    @lgpEDek_SetEDekGateClass := GetProcAddress(LibGovPl4Handle, 'lgpEDek_SetEDekGateClass');
+    @lgpEDek_GetCanonization := GetProcAddress(LibGovPl4Handle, 'lgpEDek_GetCanonization');
+    @lgpEDek_SetCanonization := GetProcAddress(LibGovPl4Handle, 'lgpEDek_SetCanonization');
+
+    @lgpEDek_PodpiszCertyfikatem := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PodpiszCertyfikatem');
+    @lgpEDek_PodpiszCertyfikatemStream := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PodpiszCertyfikatemStream');
+    @lgpEDek_PodpiszDanymiAut := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PodpiszDanymiAut');
+    @lgpEDek_PodpiszDanymiAutStream := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PodpiszDanymiAutStream');
+
+    @lgpEDek_Wyslij := GetProcAddress(LibGovPl4Handle, 'lgpEDek_Wyslij');
+    @lgpEDek_WyslijStream := GetProcAddress(LibGovPl4Handle, 'lgpEDek_WyslijStream');
+    @lgpEDek_PobierzUPO := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PobierzUPO');
+    @lgpEDek_PobierzUPOStream := GetProcAddress(LibGovPl4Handle, 'lgpEDek_PobierzUPOStream');
+
+    // JPK
+    @lgpJPK_Create := GetProcAddress(LibGovPl4Handle, 'lgpJPK_Create');
+
+    @lgpJPK_GetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetBase64EncoderClass');
+    @lgpJPK_SetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetBase64EncoderClass');
+    @lgpJPK_GetAES256EncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetAES256EncryptClass');
+    @lgpJPK_SetAES256EncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetAES256EncryptClass');
+    @lgpJPK_GetMD5HashClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetMD5HashClass');
+    @lgpJPK_SetMD5HashClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetMD5HashClass');
+    @lgpJPK_GetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetSHA256HashClass');
+    @lgpJPK_SetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetSHA256HashClass');
+    @lgpJPK_GetZipperClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetZipperClass');
+    @lgpJPK_SetZipperClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetZipperClass');
+    @lgpJPK_GetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRSAEncryptClass');
+    @lgpJPK_SetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRSAEncryptClass');
+    @lgpJPK_GetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRandomGeneratorClass');
+    @lgpJPK_SetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRandomGeneratorClass');
+    @lgpJPK_GetXMLReaderClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetXMLReaderClass');
+    @lgpJPK_SetXMLReaderClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetXMLReaderClass');
+
+    @lgpJPK_GetRSAKeyProd := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRSAKeyProd');
+    @lgpJPK_SetRSAKeyProd := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRSAKeyProd');
+    @lgpJPK_GetRSAKeyTest := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRSAKeyTest');
+    @lgpJPK_SetRSAKeyTest := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRSAKeyTest');
+    @lgpJPK_GetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetXAdES');
+    @lgpJPK_SetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetXAdES');
+    @lgpJPK_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetHTTPClient');
+    @lgpJPK_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetHTTPClient');
+
+    @lgpJPK_SignCerificate := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SignCerificate');
+    @lgpJPK_SignCerificateStream := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SignCerificateStream');
+    @lgpJPK_SignDataAuth := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SignDataAuth');
+    @lgpJPK_SignDataAuthStream := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SignDataAuthStream');
+    @lgpJPK_Send := GetProcAddress(LibGovPl4Handle, 'lgpJPK_Send');
+    @lgpJPK_SendStream := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SendStream');
+    @lgpJPK_RequestUPO := GetProcAddress(LibGovPl4Handle, 'lgpJPK_RequestUPO');
+    @lgpJPK_RequestUPOStream := GetProcAddress(LibGovPl4Handle, 'lgpJPK_RequestUPOStream');
+
+    // KSeF
+    @lgpKSeF_Create := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_Create');
+    @lgpKSeF_GetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetRSAEncryptClass');
+    @lgpKSeF_SetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetRSAEncryptClass');
+    @lgpKSeF_GetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetBase64EncoderClass');
+    @lgpKSeF_SetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetBase64EncoderClass');
+    @lgpKSeF_GetAES256EncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetAES256EncryptClass');
+    @lgpKSeF_SetAES256EncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetAES256EncryptClass');
+    @lgpKSeF_GetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetSHA256HashClass');
+    @lgpKSeF_SetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetSHA256HashClass');
+    @lgpKSeF_GetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetRandomGeneratorClass');
+    @lgpKSeF_SetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetRandomGeneratorClass');
+    @lgpKSeF_GetRSAKey := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetRSAKey');
+    @lgpKSeF_SetRSAKey := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetRSAKey');
+    @lgpKSeF_GetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetXAdES');
+    @lgpKSeF_SetXAdES := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetXAdES');
+    @lgpKSeF_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetHTTPClient');
+    @lgpKSeF_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetHTTPClient');
+    @lgpKSeF_GetGateType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetGateType');
+    @lgpKSeF_SetGateType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetGateType');
+    @lgpKSeF_GetNIP := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetNIP');
+    @lgpKSeF_SetNIP := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetNIP');
+    @lgpKSeF_GetFormCode := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetFormCode');
+    @lgpKSeF_SetFormCode := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetFormCode');
+    @lgpKSeF_GetFormCodeSystemCode := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetFormCodeSystemCode');
+    @lgpKSeF_SetFormCodeSystemCode := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetFormCodeSystemCode');
+    @lgpKSeF_GetFormCodeSchemaVersion := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetFormCodeSchemaVersion');
+    @lgpKSeF_SetFormCodeSchemaVersion := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetFormCodeSchemaVersion');
+    @lgpKSeF_GetFormCodeTargetNamespace := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetFormCodeTargetNamespace');
+    @lgpKSeF_SetFormCodeTargetNamespace := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetFormCodeTargetNamespace');
+    @lgpKSeF_GetFormCodeValue := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetFormCodeValue');
+    @lgpKSeF_SetFormCodeValue := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetFormCodeValue');
+    @lgpKSeF_GetCertificate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetCertificate');
+    @lgpKSeF_SetCertificate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetCertificate');
+    @lgpKSeF_GetCertificateAuthType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetCertificateAuthType');
+    @lgpKSeF_SetCertificateAuthType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetCertificateAuthType');
+    @lgpKSeF_GetToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetToken');
+    @lgpKSeF_SetToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetToken');
+    @lgpKSeF_GetEncryption := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetEncryption');
+    @lgpKSeF_SetEncryption := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetEncryption');
+    @lgpKSeF_GetSessionToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetSessionToken');
+    @lgpKSeF_GetSessionActive := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetSessionActive');
+
+    @lgpKSeF_GenerateAESKey := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GenerateAESKey');
+
+    @lgpKSeF_SessionInitSigned := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionInitSigned');
+    @lgpKSeF_SessionInitToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionInitToken');
+    @lgpKSeF_SessionChalangePZ := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionChalangePZ');
+    @lgpKSeF_SessionInitPZ := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionInitPZ');
+    @lgpKSeF_SessionStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionStatus');
+    @lgpKSeF_SessionTerminate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionTerminate');
+    @lgpKSeF_SessionGenerateInternalIdentifier := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SessionGenerateInternalIdentifier');
+
+    @lgpKSeF_InvoiceGet := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceGet');
+    @lgpKSeF_InvoiceSend := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceSend');
+    @lgpKSeF_InvoiceStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceStatus');
+
+    @lgpKSeF_QueryInvoiceSync := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceSync');
+    @lgpKSeF_QueryInvoiceAsyncInit := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceAsyncInit');
+    @lgpKSeF_QueryInvoiceAsyncStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceAsyncStatus');
+    @lgpKSeF_QueryInvoiceAsyncFetch := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceAsyncFetch');
+
+    @lgpKSeF_PaymentIdentifierGetReferenceNumbers := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierGetReferenceNumbers');
+    @lgpKSeF_PaymentIdentifierRequest := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierRequest');
+
+    @lgpKSeF_CommonInvoiceKSeF := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CommonInvoiceKSeF');
+    @lgpKSeF_CommonStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CommonStatus');
+
+    @lgpKSeF_BatchSign := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_BatchSign');
+    @lgpKSeF_BatchSend := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_BatchSend');
+
+    // KSeF Obj
+    @lgpKSeF_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CreateKSeFClass');
+
+    Result := True;
+  end
+  else
+    Result := False;
+end;
+{$ENDIF}
 
 end.
 
