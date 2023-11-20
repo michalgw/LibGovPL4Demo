@@ -126,6 +126,7 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
+    FileNameEditLibXml2: TFileNameEdit;
     FileNameEditKSeFBatchInZIP: TFileNameEdit;
     FileNameEditKSeFBatchOutEncZIP: TFileNameEdit;
     FileNameEditKSeFBatchOutInitUp: TFileNameEdit;
@@ -209,6 +210,7 @@ type
     Label112: TLabel;
     Label113: TLabel;
     Label114: TLabel;
+    Label115: TLabel;
     Label12: TLabel;
     Label13: TLabel;
     Label16: TLabel;
@@ -423,7 +425,7 @@ implementation
 
 uses
   lgCNG, lgMSXML, lgWinHTTP, lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2,
-  lgDCPCrypt, Rtti, DateUtils;
+  lgDCPCrypt, Rtti, DateUtils, xml2dyn;
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -925,6 +927,11 @@ begin
     RSAKeyDemo := KSeFRSADemo;
     RSAKeyTest := KSeFRSATest;
   end;
+
+  if FileNameEditLibXml2.FileName <> '' then
+    if not LoadLibXML(FileNameEditLibXml2.FileName) then
+      MessageDlg('Nie można załadować biblioteki: ' + FileNameEditLibXml2.FileName,
+        mtError, [mbOK], 0);
 
   LoadCertList;
 

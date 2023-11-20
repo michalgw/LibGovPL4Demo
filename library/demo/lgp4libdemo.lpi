@@ -74,46 +74,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit>
-      <Unit>
-        <Filename Value="libgovpl4intf.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4Intf"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4obj.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4Obj"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4ksefobj.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4KSeFObj"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4backend.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4Backend"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4xades.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4XAdES"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4ksef.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4KSeF"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4edek.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4EDek"/>
-      </Unit>
-      <Unit>
-        <Filename Value="libgovpl4jpk.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPl4JPK"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

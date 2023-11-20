@@ -353,6 +353,8 @@ type
     CheckBoxKSeFQInvCrIInvTypUPR: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ZAL: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ROZ: TCheckBox;
+    FilenameEditLibXML2: TJvFilenameEdit;
+    Label115: TLabel;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -479,6 +481,15 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   SL: TStringList;
 begin
+  {$IF DECLARED(LIBGOVPL_DYNAMIC)}
+  if not LoadLibGovPl then
+  begin
+    MessageDlg('Nie mo¿na za³adowaæ biblioteki ' + LGP_LIBNAME,
+      mtError, [mbOK], 0);
+    ButtonSetup.Enabled := False;
+    Exit;
+  end;
+  {$IFEND}
   lgplInit;
   Debug('lgplVersion: ' + IntToHex(lgplVersion, 8));
   SL := TStringList.Create;
@@ -565,7 +576,10 @@ begin
     KSeFRSADemo.Free;
   if Assigned(KSeFRSATest) then
     KSeFRSATest.Free;
-  lgpExit;
+  {$IF DECLARED(LIBGOVPL_DYNAMIC)}
+  if LibGovPl4Handle <> 0 then
+  {$IFEND}
+  lgplExit;
 end;
 
 procedure TForm1.RadioButtonKSeFBatchCertChange(Sender: TObject);
@@ -962,6 +976,11 @@ begin
     RSAKey[kgtDemo] := KSeFRSADemo;
     RSAKey[kgtTest] := KSeFRSATest;
   end;
+
+  if FilenameEditLibXML2.FileName <> '' then
+    if lgpLoadLibXML2(PAnsiChar(AnsiToUtf8(FilenameEditLibXML2.FileName))) = 0 then
+      MessageDlg('Nie mo¿na za³adowaæ biblioteki: ' + FilenameEditLibXML2.FileName,
+        mtError, [mbOK], 0);
 
   LoadCertList;
 

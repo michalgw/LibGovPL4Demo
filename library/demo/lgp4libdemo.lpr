@@ -10,9 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, Unit1, LibGovPl4Intf, LibGovPl4Obj, LibGovPl4KSeFObj,
-  LibGovPl4Backend, LibGovPl4XAdES, LibGovPl4KSeF, LibGovPl4EDek, LibGovPl4JPK
-  { you can add units after this };
+  Forms, datetimectrls, Unit1;
 
 {$R *.res}
 

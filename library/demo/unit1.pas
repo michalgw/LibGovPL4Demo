@@ -128,6 +128,7 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
+    FileNameEditLibXML2: TFileNameEdit;
     FileNameEditKSeFBatchInZIP: TFileNameEdit;
     FileNameEditKSeFBatchOutEncZIP: TFileNameEdit;
     FileNameEditKSeFBatchOutInitUp: TFileNameEdit;
@@ -211,6 +212,7 @@ type
     Label112: TLabel;
     Label113: TLabel;
     Label114: TLabel;
+    Label115: TLabel;
     Label12: TLabel;
     Label13: TLabel;
     Label16: TLabel;
@@ -468,11 +470,18 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  I: Integer;
   SL: TStringList;
 begin
+  {$IF DECLARED(LIBGOVPL_DYNAMIC)}
+  if not LoadLibGovPl then
+  begin
+    MessageDlg('Nie można załadować bibliteki ' + LGP_LIBNAME, mtError, [mbOK], 0);
+    ButtonSetup.Enabled := False;
+    Exit;
+  end;
+  {$ENDIF}
   lgplInit;
-  Debug('lgplVersion: ' + IntToHex(lgplVersion));
+  Debug('lgplVersion: ' + IntToHex(lgplVersion()));
   SL := TStringList.Create;
   SL.Delimiter := ';';
   SL.DelimitedText := lgplListDrivers(LGP_CLSTYPE_HTTP_CLIENT);
@@ -557,7 +566,10 @@ begin
     KSeFRSADemo.Free;
   if Assigned(KSeFRSATest) then
     KSeFRSATest.Free;
-  lgpExit;
+ {$IF DECLARED(LIBGOVPL_DYNAMIC)}
+ if (LibGovPl4Handle <> NilHandle) and (lgplExit <> nil) then
+ {$IFEND}
+ lgplExit;
 end;
 
 procedure TForm1.RadioButtonKSeFBatchCertChange(Sender: TObject);
@@ -847,7 +859,7 @@ begin
       EDekGate := ComboBoxEDek.Text;
       if UpperCase(EDekGate) = UpperCase('TlgWSTEDekGate') then
       begin
-        lgoCheckResult(lgpWST_RegisterTransport);
+        lgoCheckResult(lgpWST_RegisterTransport());
         lgoCheckResult(lgpWST_SetHTTPClient(Self.HTTPClient.ExtObject));
       end;
     end;
@@ -934,6 +946,11 @@ begin
     RSAKey[kgtDemo] := KSeFRSADemo;
     RSAKey[kgtTest] := KSeFRSATest;
   end;
+
+  if FileNameEditLibXML2.FileName <> '' then
+    if lgpLoadLibXML2(PChar(FileNameEditLibXML2.FileName)) = 0 then
+      MessageDlg('Nie można zładować biblioteki: ' + FileNameEditLibXML2.FileName,
+        mtError, [mbOK], 0);
 
   LoadCertList;
 

@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 137
   Top = 48
   Caption = 'LibGovPL 4 Demo'
-  ClientHeight = 676
+  ClientHeight = 667
   ClientWidth = 698
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object Form1: TForm1
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 0
-    Top = 527
+    Top = 553
     Width = 698
     Height = 5
     Cursor = crVSplit
@@ -29,173 +29,181 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 698
-    Height = 527
-    ActivePage = TabSheetKSeFBatch
+    Height = 553
+    ActivePage = TabSheetSetup
     Align = alClient
     MultiLine = True
     TabOrder = 0
-    ExplicitHeight = 525
+    ExplicitHeight = 527
     object TabSheetSetup: TTabSheet
       Caption = 'Setup'
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object Panel1: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 449
+        Height = 475
+        VertScrollBar.Position = 22
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 447
+        ExplicitHeight = 449
         object Label1: TLabel
           Left = 0
-          Top = 0
+          Top = -22
           Width = 55
           Height = 13
           Caption = 'HTTP Client'
         end
         object Label2: TLabel
           Left = 0
-          Top = 23
+          Top = 1
           Width = 123
           Height = 13
           Caption = 'Random nmber generator'
         end
         object Label11: TLabel
           Left = 0
-          Top = 46
+          Top = 24
           Width = 77
           Height = 13
           Caption = 'Base64 Encoder'
         end
         object Label3: TLabel
           Left = 0
-          Top = 69
+          Top = 47
           Width = 48
           Height = 13
           Caption = 'MD5 Hash'
         end
         object Label4: TLabel
           Left = 0
-          Top = 92
+          Top = 70
           Width = 53
           Height = 13
           Caption = 'SHA1 Hash'
         end
         object Label5: TLabel
           Left = 0
-          Top = 115
+          Top = 93
           Width = 69
           Height = 13
           Caption = 'SHA-256 Hash'
         end
         object Label6: TLabel
           Left = 0
-          Top = 138
+          Top = 116
           Width = 30
           Height = 13
           Caption = 'Signer'
         end
         object Label7: TLabel
           Left = 0
-          Top = 161
+          Top = 139
           Width = 86
           Height = 13
           Caption = 'eDeklaracja SOAP'
         end
         object Label8: TLabel
           Left = 0
-          Top = 184
+          Top = 162
           Width = 48
           Height = 13
           Caption = 'XML C14N'
         end
         object Label9: TLabel
           Left = 0
-          Top = 207
+          Top = 185
           Width = 57
           Height = 13
           Caption = 'XML Reader'
         end
         object Label10: TLabel
           Left = 0
-          Top = 230
+          Top = 208
           Width = 31
           Height = 13
           Caption = 'Zip file'
         end
         object Label12: TLabel
           Left = 0
-          Top = 253
+          Top = 231
           Width = 91
           Height = 13
           Caption = 'AES256 Encryption'
         end
         object Label13: TLabel
           Left = 0
-          Top = 276
+          Top = 254
           Width = 74
           Height = 13
           Caption = 'RSA encryption'
         end
         object Label24: TLabel
           Left = 0
-          Top = 299
+          Top = 277
           Width = 97
           Height = 13
           Caption = 'XAdES - Rodzaj SHA'
         end
         object Label25: TLabel
           Left = 0
-          Top = 322
+          Top = 300
           Width = 127
           Height = 13
           Caption = 'XAdES - Do'#322#261'cz dat'#281' i czas'
         end
         object Label26: TLabel
           Left = 0
-          Top = 339
+          Top = 317
           Width = 133
           Height = 13
           Caption = 'eDeklaracja - kanonizuj XML'
         end
         object Label33: TLabel
           Left = 0
-          Top = 356
+          Top = 334
           Width = 136
           Height = 13
           Caption = 'JPK - Klucz RSA produkcyjny'
         end
         object Label34: TLabel
           Left = 0
-          Top = 379
+          Top = 357
           Width = 116
           Height = 13
           Caption = 'JPK - Klucz RSA testowy'
         end
         object Label55: TLabel
           Left = 0
-          Top = 402
+          Top = 380
           Width = 142
           Height = 13
           Caption = 'KSeF - klucz RSA produkcyjny'
         end
         object Label56: TLabel
           Left = 0
-          Top = 425
+          Top = 403
           Width = 109
           Height = 13
           Caption = 'KSeF - klucz RSA demo'
         end
         object Label57: TLabel
           Left = 0
-          Top = 448
+          Top = 426
           Width = 117
           Height = 13
           Caption = 'KSeF - klucz RSA tetowy'
         end
+        object Label115: TLabel
+          Left = -1
+          Top = 450
+          Width = 108
+          Height = 13
+          Caption = 'Plik biblioteki libxml2.dll'
+        end
         object ComboBoxHTTPCli: TComboBox
           Left = 361
-          Top = 0
+          Top = -22
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -204,7 +212,7 @@ object Form1: TForm1
         end
         object ComboBoxRandGen: TComboBox
           Left = 361
-          Top = 23
+          Top = 1
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -213,7 +221,7 @@ object Form1: TForm1
         end
         object ComboBoxBase64: TComboBox
           Left = 361
-          Top = 46
+          Top = 24
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -222,7 +230,7 @@ object Form1: TForm1
         end
         object ComboBoxMD5: TComboBox
           Left = 361
-          Top = 69
+          Top = 47
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -231,7 +239,7 @@ object Form1: TForm1
         end
         object ComboBoxSHA1: TComboBox
           Left = 361
-          Top = 92
+          Top = 70
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -240,7 +248,7 @@ object Form1: TForm1
         end
         object ComboBoxSHA256: TComboBox
           Left = 361
-          Top = 115
+          Top = 93
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -249,7 +257,7 @@ object Form1: TForm1
         end
         object ComboBoxSign: TComboBox
           Left = 361
-          Top = 138
+          Top = 116
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -258,7 +266,7 @@ object Form1: TForm1
         end
         object ComboBoxEDek: TComboBox
           Left = 361
-          Top = 161
+          Top = 139
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -267,7 +275,7 @@ object Form1: TForm1
         end
         object ComboBoxXMLC14N: TComboBox
           Left = 361
-          Top = 184
+          Top = 162
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -276,7 +284,7 @@ object Form1: TForm1
         end
         object ComboBoxXMLRead: TComboBox
           Left = 361
-          Top = 207
+          Top = 185
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -285,7 +293,7 @@ object Form1: TForm1
         end
         object ComboBoxZip: TComboBox
           Left = 360
-          Top = 230
+          Top = 208
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -294,7 +302,7 @@ object Form1: TForm1
         end
         object ComboBoxAES256: TComboBox
           Left = 361
-          Top = 253
+          Top = 231
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -303,7 +311,7 @@ object Form1: TForm1
         end
         object ComboBoxRSAEnc: TComboBox
           Left = 361
-          Top = 276
+          Top = 254
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -312,7 +320,7 @@ object Form1: TForm1
         end
         object ComboBoxXAdESSHA: TComboBox
           Left = 361
-          Top = 299
+          Top = 277
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -326,14 +334,14 @@ object Form1: TForm1
         end
         object CheckBoxXAdESCzas: TCheckBox
           Left = 361
-          Top = 322
+          Top = 300
           Width = 308
           Height = 17
           TabOrder = 14
         end
         object CheckBoxEDekC14N: TCheckBox
           Left = 361
-          Top = 339
+          Top = 317
           Width = 308
           Height = 17
           Checked = True
@@ -342,7 +350,7 @@ object Form1: TForm1
         end
         object FileNameEditJPKRSAProd: TJvFilenameEdit
           Left = 361
-          Top = 356
+          Top = 334
           Width = 308
           Height = 21
           FilterIndex = 0
@@ -352,7 +360,7 @@ object Form1: TForm1
         end
         object FileNameEditJPKRSATest: TJvFilenameEdit
           Left = 361
-          Top = 379
+          Top = 357
           Width = 308
           Height = 21
           FilterIndex = 0
@@ -362,7 +370,7 @@ object Form1: TForm1
         end
         object FileNameEditKSeFRSAProd: TJvFilenameEdit
           Left = 361
-          Top = 402
+          Top = 380
           Width = 308
           Height = 21
           FilterIndex = 0
@@ -372,7 +380,7 @@ object Form1: TForm1
         end
         object FileNameEditKSeFRSADemo: TJvFilenameEdit
           Left = 361
-          Top = 425
+          Top = 403
           Width = 308
           Height = 21
           FilterIndex = 0
@@ -382,7 +390,7 @@ object Form1: TForm1
         end
         object FileNameEditKSeFRSATest: TJvFilenameEdit
           Left = 361
-          Top = 448
+          Top = 426
           Width = 308
           Height = 21
           FilterIndex = 0
@@ -390,15 +398,24 @@ object Form1: TForm1
           TabOrder = 20
           Text = '..\pem\kseftest.pem'
         end
+        object FilenameEditLibXML2: TJvFilenameEdit
+          Left = 360
+          Top = 450
+          Width = 308
+          Height = 21
+          FilterIndex = 0
+          ButtonWidth = 23
+          TabOrder = 21
+        end
       end
       object Panel2: TPanel
         Left = 0
-        Top = 449
+        Top = 475
         Width = 690
         Height = 50
         Align = alBottom
         TabOrder = 1
-        ExplicitTop = 447
+        ExplicitTop = 449
         object ButtonSetup: TButton
           Left = 19
           Top = 11
@@ -413,12 +430,12 @@ object Form1: TForm1
     object TabSheetCert: TTabSheet
       Caption = 'Certyfikaty'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object ListViewCert: TListView
         Left = 0
         Top = 0
         Width = 690
-        Height = 449
+        Height = 475
         Align = alClient
         Columns = <
           item
@@ -454,16 +471,16 @@ object Form1: TForm1
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitHeight = 447
+        ExplicitHeight = 449
       end
       object Panel3: TPanel
         Left = 0
-        Top = 449
+        Top = 475
         Width = 690
         Height = 50
         Align = alBottom
         TabOrder = 1
-        ExplicitTop = 447
+        ExplicitTop = 449
         object ButtonShowCert: TButton
           Left = 14
           Top = 12
@@ -496,10 +513,10 @@ object Form1: TForm1
     object TabSheetEDekPodpisCert: TTabSheet
       Caption = 'eDeklaracja podpis certyfikatem'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object Label16: TLabel
         Left = 21
         Top = 19
@@ -568,10 +585,10 @@ object Form1: TForm1
     object TabSheetEDekPodpisAut: TTabSheet
       Caption = 'eDeklaracja podpis danymi aut.'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object Label17: TLabel
         Left = 8
         Top = 177
@@ -697,10 +714,10 @@ object Form1: TForm1
     object TabSheetEDekBramka: TTabSheet
       Caption = 'eDeklaracja bramka'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object GroupBox1: TGroupBox
         Left = 8
         Top = 3
@@ -863,10 +880,10 @@ object Form1: TForm1
     object TabSheetJPKPodpisCert: TTabSheet
       Caption = 'JPK podpis certyfikatem'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object Label35: TLabel
         Left = 21
         Top = 19
@@ -983,10 +1000,10 @@ object Form1: TForm1
     object TabSheetJPKPodpisAut: TTabSheet
       Caption = 'JPK podpis danymi aut.'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object Label40: TLabel
         Left = 8
         Top = 193
@@ -1160,10 +1177,10 @@ object Form1: TForm1
     object TabSheetJPKBramka: TTabSheet
       Caption = 'JPK bramka'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       DesignSize = (
         690
-        499)
+        525)
       object GroupBox3: TGroupBox
         Left = 5
         Top = 4
@@ -1333,16 +1350,16 @@ object Form1: TForm1
     object TabSheetKSeFCommon: TTabSheet
       Caption = 'KSeF - Wsp'#243'lne'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object ScrollBox3: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 499
+        Height = 525
         Align = alClient
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 497
+        ExplicitHeight = 499
         object GroupBox15: TGroupBox
           Left = 0
           Top = 50
@@ -1640,16 +1657,16 @@ object Form1: TForm1
     object TabSheetKsefSession: TTabSheet
       Caption = 'KSeF - Sesja'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object ScrollBox1: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 499
+        Height = 525
         Align = alClient
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 497
+        ExplicitHeight = 499
         object GroupBoxKSeFSesPar: TGroupBox
           Left = 0
           Top = 0
@@ -2006,7 +2023,6 @@ object Form1: TForm1
             Height = 21
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
-            ExplicitWidth = 465
           end
           object ButtonKSeFGenIntId: TButton
             Left = 592
@@ -2017,7 +2033,6 @@ object Form1: TForm1
             Caption = 'Generuj'
             TabOrder = 1
             OnClick = ButtonKSeFGenIntIdClick
-            ExplicitLeft = 609
           end
         end
       end
@@ -2025,7 +2040,7 @@ object Form1: TForm1
     object TabSheetKSeFFaktury: TTabSheet
       Caption = 'KSeF - Faktury'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object GroupBox5: TGroupBox
         Left = 0
         Top = 0
@@ -2157,15 +2172,15 @@ object Form1: TForm1
     object TabSheetKSeFQueryInvoice: TTabSheet
       Caption = 'KSeF - Zapytania - Faktury'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object ScrollBox2: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 499
+        Height = 525
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 497
+        ExplicitHeight = 499
         object GroupBox10: TGroupBox
           Left = 0
           Top = 448
@@ -2349,7 +2364,6 @@ object Form1: TForm1
                   Height = 93
                   Align = alClient
                   TabOrder = 0
-                  ExplicitHeight = 88
                 end
               end
               object CheckBoxKSeFQInvCrFaP17Annotation: TCheckBox
@@ -2712,15 +2726,15 @@ object Form1: TForm1
     object TabSheetKSeFBatch: TTabSheet
       Caption = 'KSeF - Wysy'#322'ka wsadowa'
       TabVisible = False
-      ExplicitHeight = 497
+      ExplicitHeight = 499
       object ScrollBox4: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 499
+        Height = 525
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 497
+        ExplicitHeight = 499
         object GroupBox19: TGroupBox
           Left = 0
           Top = 0
@@ -2991,14 +3005,14 @@ object Form1: TForm1
   end
   object MemoLog: TMemo
     Left = 0
-    Top = 532
+    Top = 558
     Width = 698
-    Height = 144
+    Height = 109
     Align = alBottom
     Lines.Strings = (
       'MemoLog')
     TabOrder = 1
     WordWrap = False
-    ExplicitTop = 530
+    ExplicitTop = 567
   end
 end

@@ -1,17 +1,17 @@
 object Form1: TForm1
-  Left = 433
-  Height = 674
-  Top = 85
+  Left = 340
+  Height = 645
+  Top = 101
   Width = 698
   Caption = 'LibGovPL 4 Demo'
-  ClientHeight = 674
+  ClientHeight = 645
   ClientWidth = 698
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '3.0.0.2'
   object PageControl1: TPageControl
     Left = 0
-    Height = 525
+    Height = 496
     Top = 0
     Width = 698
     ActivePage = TabSheetSetup
@@ -22,20 +22,22 @@ object Form1: TForm1
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
       Caption = 'Setup'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       object Panel1: TScrollBox
+        AnchorSideRight.Side = asrBottom
         Left = 0
-        Height = 407
+        Height = 378
         Top = 0
         Width = 690
         HorzScrollBar.Page = 259
-        VertScrollBar.Page = 403
+        VertScrollBar.Page = 374
         Align = alClient
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 403
+        ClientHeight = 374
         ClientWidth = 669
         TabOrder = 0
         object Label1: TLabel
@@ -46,6 +48,7 @@ object Form1: TForm1
           Caption = 'HTTP Client'
         end
         object ComboBoxHTTPCli: TComboBox
+          AnchorSideRight.Side = asrBottom
           Left = 361
           Height = 23
           Top = 0
@@ -403,11 +406,30 @@ object Form1: TForm1
           TabOrder = 20
           Text = '..\pem\kseftest.pem'
         end
+        object Label115: TLabel
+          Left = 0
+          Height = 23
+          Top = 471
+          Width = 361
+          Caption = 'Plik biblioteki libxml2'
+        end
+        object FileNameEditLibXml2: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 471
+          Width = 308
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 21
+        end
       end
       object Panel2: TPanel
         Left = 0
         Height = 50
-        Top = 407
+        Top = 378
         Width = 690
         Align = alBottom
         ClientHeight = 50
@@ -426,12 +448,12 @@ object Form1: TForm1
     end
     object TabSheetCert: TTabSheet
       Caption = 'Certyfikaty'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ListViewCert: TListView
         Left = 0
-        Height = 407
+        Height = 378
         Top = 0
         Width = 690
         Align = alClient
@@ -473,7 +495,7 @@ object Form1: TForm1
       object Panel3: TPanel
         Left = 0
         Height = 50
-        Top = 407
+        Top = 378
         Width = 690
         Align = alBottom
         ClientHeight = 50
@@ -510,7 +532,7 @@ object Form1: TForm1
     end
     object TabSheetEDekPodpisCert: TTabSheet
       Caption = 'eDeklaracja podpis certyfikatem'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ComboBoxEdekCert: TComboBox
@@ -586,7 +608,7 @@ object Form1: TForm1
     end
     object TabSheetEDekPodpisAut: TTabSheet
       Caption = 'eDeklaracja podpis danymi aut.'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object Label17: TLabel
@@ -730,7 +752,7 @@ object Form1: TForm1
     end
     object TabSheetEDekBramka: TTabSheet
       Caption = 'eDeklaracja bramka'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object GroupBox1: TGroupBox
@@ -900,7 +922,7 @@ object Form1: TForm1
     end
     object TabSheetJPKPodpisCert: TTabSheet
       Caption = 'JPK podpis certyfikatem'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object Label35: TLabel
@@ -1028,7 +1050,7 @@ object Form1: TForm1
     end
     object TabSheetJPKPodpisAut: TTabSheet
       Caption = 'JPK podpis danymi aut.'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object Label40: TLabel
@@ -1224,7 +1246,7 @@ object Form1: TForm1
     end
     object TabSheetJPKBramka: TTabSheet
       Caption = 'JPK bramka'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object GroupBox3: TGroupBox
@@ -1403,19 +1425,19 @@ object Form1: TForm1
     end
     object TabSheetKSeFCommon: TTabSheet
       Caption = 'KSeF - Wspólne'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ScrollBox3: TScrollBox
         Left = 0
-        Height = 457
+        Height = 428
         Top = 0
         Width = 690
         HorzScrollBar.Page = 673
-        VertScrollBar.Page = 440
+        VertScrollBar.Page = 411
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 440
+        ClientHeight = 411
         ClientWidth = 673
         TabOrder = 0
         object GroupBox15: TGroupBox
@@ -1733,19 +1755,19 @@ object Form1: TForm1
     end
     object TabSheetKsefSession: TTabSheet
       Caption = 'KSeF - Sesja'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ScrollBox1: TScrollBox
         Left = 0
-        Height = 457
+        Height = 428
         Top = 0
         Width = 690
         HorzScrollBar.Page = 637
-        VertScrollBar.Page = 457
+        VertScrollBar.Page = 428
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 457
+        ClientHeight = 428
         ClientWidth = 673
         TabOrder = 0
         object GroupBoxKSeFSesPar: TGroupBox
@@ -2126,7 +2148,7 @@ object Form1: TForm1
     end
     object TabSheetKSeFFaktury: TTabSheet
       Caption = 'KSeF - Faktury'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object GroupBox5: TGroupBox
@@ -2262,18 +2284,18 @@ object Form1: TForm1
     end
     object TabSheetKSeFQueryInvoice: TTabSheet
       Caption = 'KSeF - Zapytania - Faktury'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ScrollBox2: TScrollBox
         Left = 0
-        Height = 457
+        Height = 428
         Top = 0
         Width = 690
         HorzScrollBar.Page = 660
-        VertScrollBar.Page = 453
+        VertScrollBar.Page = 424
         Align = alClient
-        ClientHeight = 453
+        ClientHeight = 424
         ClientWidth = 669
         TabOrder = 0
         object GroupBox10: TGroupBox
@@ -2876,18 +2898,18 @@ object Form1: TForm1
     end
     object TabSheetKSeFBatch: TTabSheet
       Caption = 'KSeF - Wysyłka wsadowa'
-      ClientHeight = 457
+      ClientHeight = 428
       ClientWidth = 690
       TabVisible = False
       object ScrollBox4: TScrollBox
         Left = 0
-        Height = 457
+        Height = 428
         Top = 0
         Width = 690
         HorzScrollBar.Page = 669
-        VertScrollBar.Page = 436
+        VertScrollBar.Page = 407
         Align = alClient
-        ClientHeight = 436
+        ClientHeight = 407
         ClientWidth = 669
         TabOrder = 0
         object GroupBox19: TGroupBox
@@ -3181,7 +3203,7 @@ object Form1: TForm1
   object MemoLog: TMemo
     Left = 0
     Height = 144
-    Top = 530
+    Top = 501
     Width = 698
     Align = alBottom
     Lines.Strings = (
@@ -3195,7 +3217,7 @@ object Form1: TForm1
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 525
+    Top = 496
     Width = 698
     Align = alBottom
     ResizeAnchor = akBottom
