@@ -12,7 +12,7 @@ unit LibGovPl4Intf;
 {$mode Delphi}
 {$endif}
 
-{$DEFINE LIBGOVPL_DYNAMIC}
+{.$DEFINE LIBGOVPL_DYNAMIC}
 
 interface
 
