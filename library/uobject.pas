@@ -46,6 +46,7 @@ function lgpObject_GetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var A
 function lgpObject_SetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
 
 function lgpStringObject_GetValue(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpStringObject_GetValueAndLen(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR; var ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
 
 function lgpListObject_GetCount(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpListObject_GetItem(AListObject: LGP_OBJECT; AIndex: LGP_INT32; var AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -513,6 +514,22 @@ begin
   try
     CheckObject(AStringObject, TStringObject);
     AValue := @TStringObject(AStringObject).Value[1];
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStringObject_GetValueAndLen(AStringObject: LGP_OBJECT;
+  var AValue: LGP_PCHAR; var ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AValue := nil;
+  ALen := 0;
+  try
+    CheckObject(AStringObject, TStringObject);
+    AValue := @TStringObject(AStringObject).Value[1];
+    ALen := Length(TStringObject(AStringObject).Value);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

@@ -40,6 +40,24 @@
               <ExecutableType Value="Library"/>
             </Options>
           </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2"/>
+            <OtherDefines Count="7">
+              <Define0 Value="LGP_ENABLE_WINCNG"/>
+              <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+              <Define2 Value="LGP_ENABLE_FPC"/>
+              <Define3 Value="LGP_ENABLE_MSXML"/>
+              <Define4 Value="LGP_ENABLE_WINHTTP"/>
+              <Define5 Value="LGP_ENABLE_WST"/>
+              <Define6 Value="LGP_ENABLE_LIBXML2"/>
+            </OtherDefines>
+          </Other>
         </CompilerOptions>
       </Item>
     </BuildModes>
@@ -162,6 +180,24 @@
         <ExecutableType Value="Library"/>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2"/>
+      <OtherDefines Count="7">
+        <Define0 Value="LGP_ENABLE_WINCNG"/>
+        <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+        <Define2 Value="LGP_ENABLE_FPC"/>
+        <Define3 Value="LGP_ENABLE_MSXML"/>
+        <Define4 Value="LGP_ENABLE_WINHTTP"/>
+        <Define5 Value="LGP_ENABLE_WST"/>
+        <Define6 Value="LGP_ENABLE_LIBXML2"/>
+      </OtherDefines>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

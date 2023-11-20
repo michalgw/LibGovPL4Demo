@@ -26,7 +26,7 @@ const
 
   LGP_KSEF_FORM_CODE_CUSTOM = 0;
   LGP_KSEF_FORM_CODE_FA1 = 1;
-  LGP_KSEF_FORM_CODE_FA2 = 1;
+  LGP_KSEF_FORM_CODE_FA2 = 2;
 
   LGP_KSEF_SUBJECTTYPE_SUBJECT1 = 0;
   LGP_KSEF_SUBJECTTYPE_SUBJECT2 = 1;
@@ -825,8 +825,8 @@ begin
   Result := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    CheckObject(AOutputStream, TlgpStream);
-    TlgKSeF(AKSeFObject).InvoiceGet(AKSeFReferenceNumber, TlgpStream(AOutputStream));
+    CheckObject(AOutputStream, TStream);
+    TlgKSeF(AKSeFObject).InvoiceGet(AKSeFReferenceNumber, TStream(AOutputStream));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -839,8 +839,8 @@ begin
   Result := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    CheckObject(ADataStream, TlgpStream);
-    AResponse := TlgKSeF(AKSeFObject).InvoiceSend(TlgpStream(ADataStream));
+    CheckObject(ADataStream, TStream);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceSend(TStream(ADataStream));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -912,8 +912,8 @@ begin
   Result := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    CheckObject(AOutStream, TlgpStream);
-    TlgKSeF(AKSeFObject).QueryInvoiceAsyncFetch(AQueryElementReferenceNumber, APartElementReferenceNumber, TlgpStream(AOutStream));
+    CheckObject(AOutStream, TStream);
+    TlgKSeF(AKSeFObject).QueryInvoiceAsyncFetch(AQueryElementReferenceNumber, APartElementReferenceNumber, TStream(AOutStream));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -956,8 +956,8 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     CheckObject(AInvoiceRequest, TKSeFInvoiceRequestKSeF);
-    CheckObject(AOutStream, TlgpStream);
-    TlgKSeF(AKSeFObject).CommonInvoiceKSeF(TKSeFInvoiceRequestKSeF(AInvoiceRequest), TlgpStream(AOutStream), TlgKSeFGateType(AGateType));
+    CheckObject(AOutStream, TStream);
+    TlgKSeF(AKSeFObject).CommonInvoiceKSeF(TKSeFInvoiceRequestKSeF(AInvoiceRequest), TStream(AOutStream), TlgKSeFGateType(AGateType));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -988,7 +988,7 @@ begin
   AInitUpload := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    TlgKSeF(AKSeFObject).BatchSign(TlgpStream(AZIPDataStream), APZ <> 0, TlgpStream(AEncryptedStream), InitUpload, AZIPFileName, APartFileName);
+    TlgKSeF(AKSeFObject).BatchSign(TStream(AZIPDataStream), APZ <> 0, TStream(AEncryptedStream), InitUpload, AZIPFileName, APartFileName);
     AInitUpload := TStringObject.Create(InitUpload);
   except
     on E: Exception do
@@ -1003,7 +1003,8 @@ begin
   ANrRef := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    ANrRef := TStringObject.Create(TlgKSeF(AKSeFObject).BatchSend(TlgpStream(APartStream), AInitUpload));
+    CheckObject(APartStream, TStream);
+    ANrRef := TStringObject.Create(TlgKSeF(AKSeFObject).BatchSend(TStream(APartStream), AInitUpload));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

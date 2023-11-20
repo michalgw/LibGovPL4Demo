@@ -13,14 +13,20 @@ unit uBackend;
 interface
 
 uses
-  Classes, SysUtils, uTypes, uObject, lgBackend, lgXAdES, lgEDeklaracja, lgJPK,
-  lgCNG;
+  Classes, SysUtils, uTypes, uObject, lgBackend, lgXAdES, lgEDeklaracja, lgJPK
+  {$IFDEF LGP_ENABLE_WINCNG}
+  , lgCNG
+  {$ENDIF}
+  ;
 
-function lgplVersion: LGP_UINT32;
-function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR;
-function lgplInit: LGP_INT32;
-function lgpExit: LGP_INT32;
-function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32;
+const
+  LGP_VERSION_NUMBER = $040001;
+
+function lgplVersion: LGP_UINT32; stdcall;
+function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
+function lgplInit: LGP_INT32; stdcall;
+function lgplExit: LGP_INT32; stdcall;
+function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
 
 function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -45,6 +51,10 @@ function lgpCertificateSigner_UISelect(ACertificateSigner: LGP_OBJECT; var ACert
 
 function lgpCNGCertificateSigner_SetHWnd(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
 
+function lgpEncodeDateTime(AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32): LGP_PASDATETIME; stdcall;
+procedure lgpDecodeDateTime(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec: LGP_INT32); stdcall;
+
+function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
 
 var
   LGPDrivers: array[0..LGP_CLSTYPE_MAX] of String;
@@ -59,14 +69,18 @@ var
 implementation
 
 uses
-  uStream, uException, uKSeFObj;
+  uException, uKSeFObj, DateUtils
+  {$IFDEF LGP_ENABLE_LIBXML2}
+  , xml2dyn
+  {$ENDIF}
+  ;
 
-function lgplVersion: LGP_UINT32;
+function lgplVersion: LGP_UINT32; stdcall;
 begin
-  Result := $040000;
+  Result := LGP_VERSION_NUMBER;
 end;
 
-function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR;
+function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
 begin
   if (AClassType >= 0) and (AClassType <= LGP_CLSTYPE_MAX) then
   begin
@@ -92,7 +106,7 @@ begin
     Result := nil;
 end;
 
-function lgplInit: LGP_INT32;
+function lgplInit: LGP_INT32; stdcall;
 var
   I: Integer;
 begin
@@ -119,17 +133,21 @@ begin
   lgpInitKSeFClasses;
 end;
 
-function lgpExit: LGP_INT32;
+function lgplExit: LGP_INT32; stdcall;
 begin
   //{$if declared(UseHeapTrace)}
   //DumpHeap;
   //{$endif}
   lgpFreeKSeFClasses;
   Result := 0;
+  {$IFDEF LGP_ENABLE_LIBXML2}
+  if libXmlHandle <> 0 then
+    xmlCleanupParser();
+  {$ENDIF}
 end;
 
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR
-  ): LGP_INT32;
+  ): LGP_INT32; stdcall;
 begin
   Result := 0;
   if (ADriverClass >= 0) and (ADriverClass <= LGP_CLSTYPE_MAX) then
@@ -203,10 +221,10 @@ begin
   Result := nil;
   ARSAKey := nil;
   try
-    CheckObject(AKeyStream, TlgpStream);
+    CheckObject(AKeyStream, TStream);
     RSAEncClass := RSAEncryptClasses.FindByClassName(AClassName);
     if RSAEncClass <> nil then
-      ARSAKey := RSAEncClass.CreateKey(TlgpStream(AKeyStream));
+      ARSAKey := RSAEncClass.CreateKey(TStream(AKeyStream));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -307,6 +325,7 @@ end;
 function lgpCNGCertificate_ShowCertificateInfo(ACertificate: LGP_OBJECT;
   AHWnd: THandle): LGP_EXCEPTION; stdcall;
 begin
+  {$IFDEF LGP_ENABLE_WINCNG}
   Result := nil;
   try
     CheckObject(ACertificate, TlgCNGCertificate);
@@ -315,6 +334,9 @@ begin
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
   end;
+  {$ELSE}
+  Result := lgpCreateExceptioObject('Brak obsługi WinCNG');
+  {$ENDIF}
 end;
 
 function lgpCertificateSigner_Create(AClassName: LGP_PCHAR;
@@ -380,6 +402,7 @@ end;
 function lgpCNGCertificateSigner_SetHWnd(ACertificateSigner: LGP_OBJECT;
   AHWnd: THandle): LGP_EXCEPTION; stdcall;
 begin
+  {$IFDEF LGP_ENABLE_WINCNG}
   Result := nil;
   try
     CheckObject(ACertificateSigner, TlgCNGCertificateSigner);
@@ -388,6 +411,44 @@ begin
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
   end;
+  {$ELSE}
+  Result := lgpCreateExceptioObject('Brak obsługi WinCNG');
+  {$ENDIF}
+end;
+
+function lgpEncodeDateTime(AYear, AMonth, ADay, AHour, AMinute, ASec,
+  AMSec: LGP_INT32): LGP_PASDATETIME; stdcall;
+begin
+  if not TryEncodeDateTime(AYear, AMonth, ADay, AHour, AMinute, ASec, AMSec, Result) then
+    Result := 0;
+end;
+
+procedure lgpDecodeDateTime(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay,
+  AHour, AMinute, ASec, AMSec: LGP_INT32); stdcall;
+var
+  WYear, WMonth, WDay, WHour, WMinute, WSec, WMSec: Word;
+begin
+  DecodeDateTime(ADateTime, WYear, WMonth, WDay, WHour, WMinute, WSec, WMSec);
+  AYear := WYear;
+  AMonth := WMonth;
+  ADay := WDay;
+  AHour := WHour;
+  AMinute := WMinute;
+  ASec := WSec;
+  AMSec := WMSec;
+end;
+
+function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
+begin
+  {$IFDEF LGP_ENABLE_LIBXML2}
+  try
+    Result := LGP_INT32(LoadLibXML(AFileName));
+  except
+    Result := 0;
+  end;
+  {$ELSE}
+  Result := 0;
+  {$ENDIF}
 end;
 
 end.

@@ -44,9 +44,13 @@ function lgpJPK_GetHTTPClient(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP
 function lgpJPK_SetHTTPClient(AJPKObj: LGP_OBJECT; AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpJPK_SignCerificate(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpJPK_SignCerificateStream(AJPKObj: LGP_OBJECT; ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpJPK_SignDataAuth(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpJPK_SignDataAuthStream(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze, ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY; AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpJPK_Send(AJPKObj: LGP_OBJECT; AInitUpload: LGP_PCHAR; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpJPK_SendStream(AJPKObj: LGP_OBJECT; AInitUpload: LGP_OBJECT; AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32; AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpJPK_RequestUPO(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, AUPO, ATimeStamp: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpJPK_RequestUPOStream(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails, ATimeStamp: LGP_OBJECT; AUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 implementation
 
@@ -483,18 +487,49 @@ begin
   try
     CheckObject(AJPKObj, TlgJPK);
     CheckObject(ACertificate, TlgCertificate);
-    CheckObject(AInputStream, TlgpStream);
-    CheckObject(AOutputStream, TlgpStream);
+    CheckObject(AInputStream, TStream);
+    CheckObject(AOutputStream, TStream);
 
     JI.Clear;
-    JI.InputStream := TlgpStream(AInputStream);
-    JI.EncryptedStream := TlgpStream(AOutputStream);
+    JI.InputStream := TStream(AInputStream);
+    JI.EncryptedStream := TStream(AOutputStream);
     JI.GateType := TlgEDekGateType(AGateType);
     JI.Certificate := TlgCertificate(ACertificate);
     JI.AdHoc := AAdHoc <> 0;
 
     TlgJPK(AJPKObj).Sign(JI);
     AInitUpload := TStringObject.Create(JI.InitUploadSigned);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpJPK_SignCerificateStream(AJPKObj: LGP_OBJECT;
+  ACertificate: LGP_OBJECT; AGateType: LGP_INT32; AAdHoc: LGP_INT32;
+  AInputStream, AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+var
+  JI: TlgJPKItem;
+begin
+  Result := nil;
+  try
+    CheckObject(AJPKObj, TlgJPK);
+    CheckObject(ACertificate, TlgCertificate);
+    CheckObject(AInputStream, TStream);
+    CheckObject(AOutputStream, TStream);
+    CheckObject(AInitUpload, TStream);
+
+    JI.Clear;
+    JI.InputStream := TStream(AInputStream);
+    JI.EncryptedStream := TStream(AOutputStream);
+    JI.GateType := TlgEDekGateType(AGateType);
+    JI.Certificate := TlgCertificate(ACertificate);
+    JI.AdHoc := AAdHoc <> 0;
+
+    TlgJPK(AJPKObj).Sign(JI);
+    if JI.InitUploadSigned <> '' then
+      TStream(AInitUpload).Write(JI.InitUploadSigned[1], Length(JI.InitUploadSigned));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -512,12 +547,12 @@ begin
   Result := nil;
   try
     CheckObject(AJPKObj, TlgJPK);
-    CheckObject(AInputStream, TlgpStream);
-    CheckObject(AOutputStream, TlgpStream);
+    CheckObject(AInputStream, TStream);
+    CheckObject(AOutputStream, TStream);
 
     JI.Clear;
-    JI.InputStream := TlgpStream(AInputStream);
-    JI.EncryptedStream := TlgpStream(AOutputStream);
+    JI.InputStream := TStream(AInputStream);
+    JI.EncryptedStream := TStream(AOutputStream);
     JI.GateType := TlgEDekGateType(AGateType);
     JI.NIP := ANIP;
     JI.ImiePierwsze := AImiePierwsze;
@@ -534,6 +569,40 @@ begin
   end;
 end;
 
+function lgpJPK_SignDataAuthStream(AJPKObj: LGP_OBJECT; ANIP, AImiePierwsze,
+  ANazwisko: LGP_PCHAR; ADataUrodzenia: LGP_DOUBLE; AKwota: LGP_CURRENCY;
+  AGateType: LGP_INT32; AAdHoc: LGP_INT32; AInputStream,
+  AOutputStream: LGP_OBJECT; AInitUpload: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  JI: TlgJPKItem;
+begin
+  Result := nil;
+  try
+    CheckObject(AJPKObj, TlgJPK);
+    CheckObject(AInputStream, TStream);
+    CheckObject(AOutputStream, TStream);
+    CheckObject(AInitUpload, TStream);
+
+    JI.Clear;
+    JI.InputStream := TStream(AInputStream);
+    JI.EncryptedStream := TStream(AOutputStream);
+    JI.GateType := TlgEDekGateType(AGateType);
+    JI.NIP := ANIP;
+    JI.ImiePierwsze := AImiePierwsze;
+    JI.Nazwisko := ANazwisko;
+    JI.DataUrodzenia := ADataUrodzenia;
+    JI.Kwota := AKwota;
+    JI.AdHoc := AAdHoc <> 0;
+
+    TlgJPK(AJPKObj).Sign(JI);
+    if JI.InitUploadSigned <> '' then
+      TStream(AInitUpload).Write(JI.InitUploadSigned[1], Length(JI.InitUploadSigned));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpJPK_Send(AJPKObj: LGP_OBJECT; AInitUpload: LGP_PCHAR;
   AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32;
   AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -544,10 +613,34 @@ begin
   ARefNo := nil;
   try
     CheckObject(AJPKObj, TlgJPK);
-    CheckObject(AEncryptedData, TlgpStream);
+    CheckObject(AEncryptedData, TStream);
 
-    TlgJPK(AJPKObj).Send(AInitUpload, TlgpStream(AEncryptedData), S, TlgEDekGateType(AGateType), AVerifySign <> 0);
+    TlgJPK(AJPKObj).Send(AInitUpload, TStream(AEncryptedData), S, TlgEDekGateType(AGateType), AVerifySign <> 0);
     ARefNo := TStringObject.Create(S);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpJPK_SendStream(AJPKObj: LGP_OBJECT; AInitUpload: LGP_OBJECT;
+  AEncryptedData: LGP_OBJECT; var ARefNo: LGP_OBJECT; AGateType: LGP_INT32;
+  AVerifySign: LGP_INT32): LGP_EXCEPTION; stdcall;
+var
+  RefNo, InitUp: String;
+begin
+  Result := nil;
+  ARefNo := nil;
+  try
+    CheckObject(AJPKObj, TlgJPK);
+    CheckObject(AEncryptedData, TStream);
+    CheckObject(AInitUpload, TStream);
+
+    SetLength(InitUp, TStream(AInitUpload).Size);
+    TStream(AInitUpload).Read(InitUp[1], TStream(AInitUpload).Size);
+
+    TlgJPK(AJPKObj).Send(InitUp, TStream(AEncryptedData), RefNo, TlgEDekGateType(AGateType), AVerifySign <> 0);
+    ARefNo := TStringObject.Create(RefNo);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -577,6 +670,37 @@ begin
       ADetails := TStringObject.Create(Details);
     if UPO <> '' then
       AUPO := TStringObject.Create(UPO);
+    if Timestamp <> '' then
+      ATimeStamp := TStringObject.Create(Timestamp);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpJPK_RequestUPOStream(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR;
+  AGateType: LGP_INT32; var AStatus: LGP_INT32; var AStatusDesc, ADetails,
+  ATimeStamp: LGP_OBJECT; AUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  Desc, Details, UPO, Timestamp: String;
+begin
+  Result := nil;
+  AStatusDesc := nil;
+  ADetails := nil;
+  ATimeStamp := nil;
+  try
+    CheckObject(AJPKObj, TlgJPK);
+    CheckObject(AUPO, TStream);
+
+    AStatus := TlgJPK(AJPKObj).RequestUPO(ARefNo, TlgEDekGateType(AGateType),
+      Desc, Details, UPO, Timestamp);
+
+    if Desc <> '' then
+      AStatusDesc := TStringObject.Create(Desc);
+    if Details <> '' then
+      ADetails := TStringObject.Create(Details);
+    if UPO <> '' then
+      TStream(AUPO).Write(UPO[1], Length(UPO));
     if Timestamp <> '' then
       ATimeStamp := TStringObject.Create(Timestamp);
   except

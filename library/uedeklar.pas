@@ -33,10 +33,14 @@ function lgpEDek_GetCanonization(AEDekObj: LGP_OBJECT; var AC14N: LGP_INT32): LG
 function lgpEDek_SetCanonization(AEDekObj: LGP_OBJECT; AC14N: LGP_INT32): LGP_EXCEPTION; stdcall;
 
 function lgpEDek_PodpiszCertyfikatem(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; ACertyfikat: LGP_OBJECT; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpEDek_PodpiszCertyfikatemStream(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; ACertyfikat: LGP_OBJECT; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpEDek_PodpiszDanymiAut(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpEDek_PodpiszDanymiAutStream(AEDekObj: LGP_OBJECT; ADane: LGP_OBJECT; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpEDek_Wyslij(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_PCHAR; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpEDek_WyslijStream(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_OBJECT; ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpEDek_PobierzUPO(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; var ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpEDek_PobierzUPOStream(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR; ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT; ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 implementation
 
@@ -205,6 +209,28 @@ begin
   end;
 end;
 
+function lgpEDek_PodpiszCertyfikatemStream(AEDekObj: LGP_OBJECT;
+  ADane: LGP_OBJECT; ACertyfikat: LGP_OBJECT; ADanePodpisane: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+var
+  DaneWej, DaneWyj: String;
+begin
+  Result := nil;
+  try
+    CheckObject(AEDekObj, TlgEDeklaracja);
+    CheckObject(ACertyfikat, TlgCertificate);
+    CheckObject(ADane, TStream);
+    CheckObject(ADanePodpisane, TStream);
+    SetLength(DaneWej, TStream(ADane).Size);
+    TStream(ADane).Read(DaneWej[1], TStream(ADane).Size);
+    (TObject(AEDekObj) as TlgEDeklaracja).PodpiszCertyfikatem(DaneWej, TlgCertificate(ACertyfikat), DaneWyj);
+    TStream(ADanePodpisane).Write(DaneWyj[1], Length(DaneWyj));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpEDek_PodpiszDanymiAut(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR;
   AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY;
   var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -218,6 +244,29 @@ begin
     (TObject(AEDekObj) as TlgEDeklaracja).PodpiszDanymiAut(ADane, AImie,
       ANazwisko, ANIP, ADataUr, AKwota, PodpDane);
     ADanePodpisane := TStringObject.Create(PodpDane);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpEDek_PodpiszDanymiAutStream(AEDekObj: LGP_OBJECT;
+  ADane: LGP_OBJECT; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE;
+  AKwota: LGP_CURRENCY; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  DaneWej, DaneWyj: String;
+begin
+  Result := nil;
+  ADanePodpisane := nil;
+  try
+    CheckObject(AEDekObj, TlgEDeklaracja);
+    CheckObject(ADane, TStream);
+    CheckObject(ADanePodpisane, TStream);
+    SetLength(DaneWej, TStream(ADane).Size);
+    TStream(ADane).Read(DaneWej[1], TStream(ADane).Size);
+    (TObject(AEDekObj) as TlgEDeklaracja).PodpiszDanymiAut(DaneWej, AImie,
+      ANazwisko, ANIP, ADataUr, AKwota, DaneWyj);
+    TStream(ADanePodpisane).Write(DaneWyj[1], Length(DaneWyj));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -246,6 +295,32 @@ begin
   end;
 end;
 
+function lgpEDek_WyslijStream(AEDekObj: LGP_OBJECT; ADanePodpisane: LGP_OBJECT;
+  ARodzajBramki: LGP_INT32; ARodzajPodpisu: LGP_INT32; var ANrRef: LGP_OBJECT;
+  var AStatus: LGP_INT32; var AStatusOpis: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  NrRef: String;
+  SttusOp: String;
+  Dane: String;
+begin
+  Result := nil;
+  AStatusOpis := nil;
+  AStatus := 0;
+  try
+    CheckObject(AEDekObj, TlgEDeklaracja);
+    CheckObject(ADanePodpisane, TStream);
+    SetLength(Dane, TStream(ADanePodpisane).Size);
+    TStream(ADanePodpisane).Read(Dane[1], TStream(ADanePodpisane).Size);
+    (TObject(AEDekObj) as TlgEDeklaracja).Wyslij(Dane, TlgEDekGateType(ARodzajBramki),
+      TlgEDekSignType(ARodzajPodpisu), NrRef, AStatus, SttusOp);
+    ANrRef := TStringObject.Create(NrRef);
+    AStatusOpis := TStringObject.Create(SttusOp);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpEDek_PobierzUPO(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR;
   ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32;
   var AStatusOpis: LGP_OBJECT; var ADaneUPO: LGP_OBJECT): LGP_EXCEPTION;
@@ -263,6 +338,28 @@ begin
     AStatusOpis := TStringObject.Create(SttusOp);
     if UPO <> '' then
       ADaneUPO := TStringObject.Create(UPO);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpEDek_PobierzUPOStream(AEDekObj: LGP_OBJECT; ANrRef: LGP_PCHAR;
+  ARodzajBramki: LGP_INT32; var AStatus: LGP_INT32;
+  var AStatusOpis: LGP_OBJECT; ADaneUPO: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  UPO: String;
+  SttusOp: String;
+begin
+  Result := nil;
+  AStatusOpis := nil;
+  try
+    CheckObject(AEDekObj, TlgEDeklaracja);
+    CheckObject(ADaneUPO, TStream);
+    (TObject(AEDekObj) as TlgEDeklaracja).PobierzUPO(ANrRef, TlgEDekGateType(ARodzajBramki), AStatus, SttusOp, UPO);
+    AStatusOpis := TStringObject.Create(SttusOp);
+    if UPO <> '' then
+      TStream(ADaneUPO).Write(UPO[1], Length(UPO));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

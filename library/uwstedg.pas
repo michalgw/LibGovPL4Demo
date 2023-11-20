@@ -13,7 +13,11 @@ unit uWSTEDG;
 interface
 
 uses
-  Classes, SysUtils, uTypes, uObject, uException, lgWSTProtocol, lgBackend;
+  Classes, SysUtils, uTypes, uObject, uException, lgBackend
+  {$IFDEF LGP_ENABLE_WST}
+  , lgWSTProtocol
+  {$ENDIF}
+  ;
 
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall;
 function lgpWST_GetHTTPClient(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -23,6 +27,7 @@ implementation
 
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall;
 begin
+  {$IFDEF LGP_ENABLE_WST}
   Result := nil;
   try
     LGPL4_RegisterHTTP_Transport();
@@ -30,11 +35,15 @@ begin
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
   end;
+  {$ELSE}
+  Result := lgpCreateExceptioObject('Brak obsługi WebServiceToolkit');
+  {$ENDIF}
 end;
 
 function lgpWST_GetHTTPClient(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION;
   stdcall;
 begin
+  {$IFDEF LGP_ENABLE_WST}
   Result := nil;
   AHTTPClient := nil;
   try
@@ -43,10 +52,14 @@ begin
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
   end;
+  {$ELSE}
+  Result := lgpCreateExceptioObject('Brak obsługi WebServiceToolkit');
+  {$ENDIF}
 end;
 
 function lgpWST_SetHTTPClient(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
+  {$IFDEF LGP_ENABLE_WST}
   Result := nil;
   try
     CheckObject(AHTTPClient, TlgHTTPClient);
@@ -55,6 +68,9 @@ begin
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
   end;
+  {$ELSE}
+  Result := lgpCreateExceptioObject('Brak obsługi WebServiceToolkit');
+  {$ENDIF}
 end;
 
 end.

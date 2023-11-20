@@ -13,8 +13,29 @@ library libgovpl4;
 uses
   LazUTF8, Classes, uBackend, uException, uObject, uStream, uTypes, uXAdES, uKSeF,
   uKSeFObj, uJPK, uEDeklar, uWSTEDG
-  { you can add units after this },
-  lgCNG, lgLibXML2, lgMSXML, lgWinHTTP, lgFPC, lgWSTEDekGate, lgDCPCrypt;
+  { you can add units after this }
+{$IFDEF LGP_ENABLE_WINCNG}
+  , lgCNG
+{$ENDIF}
+{$IFDEF LGP_ENABLE_LIBXML2}
+  , lgLibXML2
+{$ENDIF}
+{$IFDEF LGP_ENABLE_MSXML}
+  , lgMSXML
+{$ENDIF}
+{$IFDEF LGP_ENABLE_WINHTTP}
+  , lgWinHTTP
+{$ENDIF}
+{$IFDEF LGP_ENABLE_FPC}
+  , lgFPC
+{$ENDIF}
+{$IFDEF LGP_ENABLE_WST}
+  , lgWSTEDekGate
+{$ENDIF}
+{$IFDEF LGP_ENABLE_DCPCRYPT}
+  , lgDCPCrypt
+{$ENDIF}
+  ;
 
 
 exports
@@ -22,7 +43,7 @@ exports
   lgplVersion,
   lgplListDrivers,
   lgplInit,
-  lgpExit,
+  lgplExit,
   lgplSetDefaultDriver,
 
   lgpHTTPClient_Create,
@@ -48,6 +69,11 @@ exports
 
   lgpCNGCertificateSigner_SetHWnd,
 
+  lgpEncodeDateTime,
+  lgpDecodeDateTime,
+
+  lgpLoadLibXML2,
+
   // Object
   lgpObject_Free,
   lgpObject_ClassName,
@@ -67,6 +93,7 @@ exports
   lgpObject_SetInt64Prop,
 
   lgpStringObject_GetValue,
+  lgpStringObject_GetValueAndLen,
 
   lgpListObject_GetCount,
   lgpListObject_GetItem,
@@ -78,7 +105,12 @@ exports
   // Stream
   lgpStream_Create,
 
-  // WST EDek Gate
+  lgpFileStream_Create,
+
+  lgpStringStream_Create,
+  lgpStringStream_GetString,
+
+// WST EDek Gate
   lgpWST_RegisterTransport,
   lgpWST_GetHTTPClient,
   lgpWST_SetHTTPClient,
@@ -113,9 +145,13 @@ exports
   lgpEDek_GetCanonization,
   lgpEDek_SetCanonization,
   lgpEDek_PodpiszCertyfikatem,
+  lgpEDek_PodpiszCertyfikatemStream,
   lgpEDek_PodpiszDanymiAut,
+  lgpEDek_PodpiszDanymiAutStream,
   lgpEDek_Wyslij,
+  lgpEDek_WyslijStream,
   lgpEDek_PobierzUPO,
+  lgpEDek_PobierzUPOStream,
 
   // JPK
   lgpJPK_Create,
@@ -147,9 +183,13 @@ exports
   lgpJPK_SetHTTPClient,
 
   lgpJPK_SignCerificate,
+  lgpJPK_SignCerificateStream,
   lgpJPK_SignDataAuth,
+  lgpJPK_SignDataAuthStream,
   lgpJPK_Send,
+  lgpJPK_SendStream,
   lgpJPK_RequestUPO,
+  lgpJPK_RequestUPOStream,
 
   // KSeF
   lgpKSeF_Create,
