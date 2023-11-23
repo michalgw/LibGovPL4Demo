@@ -14,6 +14,9 @@ uses
   LazUTF8, Classes, uBackend, uException, uObject, uStream, uTypes, uXAdES, uKSeF,
   uKSeFObj, uJPK, uEDeklar, uWSTEDG
   { you can add units after this }
+{$IFDEF LGP_LEGACY}
+  , uLegacy
+{$ENDIF}
 {$IFDEF LGP_ENABLE_WINCNG}
   , lgCNG
 {$ENDIF}
@@ -263,7 +266,34 @@ exports
   lgpKSeF_BatchSend,
 
   // KSeF Obj
-  lgpKSeF_CreateKSeFClass;
+  lgpKSeF_CreateKSeFClass
+
+  // Zgodność z poprzednią wersją biblioteki
+{$IFDEF LGP_LEGACY}
+  ,
+  edekInicjuj,
+  edekOstatniBladTekst,
+  edekZwolnijTekst,
+  edekCertyfikatIlosc,
+  edekCertyfikatDane,
+  edekCertyfikatPokaz,
+  edekPodpisz,
+  edekPodpiszAut,
+  edekWyslij,
+  edekPobierzUPO,
+  jpkPodpisz,
+  jpkPodpisz2,
+  jpkPodpiszAut,
+  jpkWyslij,
+  jpkWyslij2,
+  jpkPobierzUPO,
+  edekWeryfikuj,
+  jpkMicroPodpisz,
+  jpkMicroWyslij,
+  jpkMicroPobierzUPO,
+  mfSprawdzVAT
+{$ENDIF}
+  ;
 
 begin
 end.

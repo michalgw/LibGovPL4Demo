@@ -20,7 +20,7 @@ uses
   ;
 
 const
-  LGP_VERSION_NUMBER = $040001;
+  LGP_VERSION_NUMBER = $040002;
 
 function lgplVersion: LGP_UINT32; stdcall;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
@@ -139,11 +139,11 @@ begin
   //DumpHeap;
   //{$endif}
   lgpFreeKSeFClasses;
-  Result := 0;
   {$IFDEF LGP_ENABLE_LIBXML2}
   if libXmlHandle <> 0 then
     xmlCleanupParser();
   {$ENDIF}
+  Result := 0;
 end;
 
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR

@@ -47,8 +47,9 @@
 -dLGP_ENABLE_MSXML
 -dLGP_ENABLE_WINHTTP
 -dLGP_ENABLE_WST
--dLGP_ENABLE_LIBXML2"/>
-            <OtherDefines Count="7">
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY"/>
+            <OtherDefines Count="8">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -56,6 +57,7 @@
               <Define4 Value="LGP_ENABLE_WINHTTP"/>
               <Define5 Value="LGP_ENABLE_WST"/>
               <Define6 Value="LGP_ENABLE_LIBXML2"/>
+              <Define7 Value="LGP_LEGACY"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -157,6 +159,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uJPK"/>
       </Unit>
+      <Unit>
+        <Filename Value="ulegacy.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uLegacy"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -187,8 +194,9 @@
 -dLGP_ENABLE_MSXML
 -dLGP_ENABLE_WINHTTP
 -dLGP_ENABLE_WST
--dLGP_ENABLE_LIBXML2"/>
-      <OtherDefines Count="7">
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY"/>
+      <OtherDefines Count="8">
         <Define0 Value="LGP_ENABLE_WINCNG"/>
         <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
         <Define2 Value="LGP_ENABLE_FPC"/>
@@ -196,6 +204,7 @@
         <Define4 Value="LGP_ENABLE_WINHTTP"/>
         <Define5 Value="LGP_ENABLE_WST"/>
         <Define6 Value="LGP_ENABLE_LIBXML2"/>
+        <Define7 Value="LGP_LEGACY"/>
       </OtherDefines>
     </Other>
   </CompilerOptions>

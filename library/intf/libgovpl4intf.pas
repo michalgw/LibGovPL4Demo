@@ -351,6 +351,34 @@ function lgpKSeF_BatchSend(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AIn
 // KSeF Obj
 function lgpKSeF_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 
+// Zgodnosc z poprzednia wersja biblioteki
+function edekInicjuj(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall; external LGP_LIBNAME;
+function edekOstatniBladTekst: PWideChar; stdcall; external LGP_LIBNAME;
+procedure edekZwolnijTekst(ATekst: PWideChar); stdcall; external LGP_LIBNAME;
+
+function edekCertyfikatIlosc: Integer; stdcall; external LGP_LIBNAME;
+function edekCertyfikatDane(AIndex: Integer; ADane:Integer; var ARes: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+procedure edekCertyfikatPokaz(AIndex: Integer); stdcall; external LGP_LIBNAME;
+
+function edekPodpisz(APlikWej, APlikWyj: PWideChar; ACertIdx: Integer; ACertSerialNo: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function edekPodpiszAut(APlikWej, APlikWyj, ANIP, AImie, ANazwisko, ADataUr, AKwota: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function edekWyslij(APlikDek: PWideChar; ABramkaTestowa: LongBool; APodpis: LongBool; var ArefID: PWideChar; var AStatus: Integer; var AStatusOpis: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function edekPobierzUPO(ARefId: PWideChar; ABramkaTestowa: LongBool; APlikWyj: PWideChar; var AStatus: Integer; var AStatusOpis: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+
+function jpkPodpisz(APlikWej: PWideChar; ACertyfikat: Integer; ATestowa: LongBool; ACertSerialNo: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function jpkPodpisz2(APlikWej: PWideChar; ACertyfikat: Integer; ATestowa, ADoraznie: LongBool; ACertSerialNo: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function jpkPodpiszAut(APlikWej: PWideChar; ATestowa, ADoraznie: LongBool; ADANip, ADAImie, ADANazwisko, ADAData, ADAKwota: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function jpkWyslij(APlik: PWideChar; ATestowa: LongBool; var ANrRef: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function jpkWyslij2(APlik: PWideChar; ATestowa, AWeryfPodpis: LongBool; var ANrRef: PWideChar): Integer; stdcall; external LGP_LIBNAME;
+function jpkPobierzUPO(ANrRef: PWideChar; APlikWyj: PWideChar; ATestowa: LongBool): Integer; stdcall; external LGP_LIBNAME;
+
+function edekWeryfikuj(APlik: PWideChar): Integer; stdcall; external LGP_LIBNAME; deprecated;
+
+function jpkMicroPodpisz(APlikWej, APlikWyj, ANIP, AImie, ANazwisko, ADataUr, AKwota, AEmail: PWideChar): Integer; stdcall; external LGP_LIBNAME; deprecated;
+function jpkMicroWyslij(APlikJPK: PWideChar; ABramkaTestowa: LongBool; var ARefID: PWideChar; var AStatusNo: Integer; var AStatusOpis: PWideChar): Integer; stdcall; external LGP_LIBNAME; deprecated;
+function jpkMicroPobierzUPO(APlikWyj: PWideChar; ARefID: PWideChar; ABramkaTestowa: LongBool; var AStatusNo: Integer; var AStatusOpis: PWideChar): Integer; stdcall; external LGP_LIBNAME; deprecated;
+function mfSprawdzVAT(ANIP: PWideChar): LongWord; stdcall; external LGP_LIBNAME; deprecated;
+
 {$ELSE} {LIBGOVPL_DYNAMIC}
 
 var
@@ -589,6 +617,27 @@ var
 
   // KSeF Obj
   lgpKSeF_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
+
+  // Zgodnosc z poprzednia wersja biblioteki
+  edekInicjuj: function(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall;
+  edekOstatniBladTekst: function: PWideChar; stdcall;
+  edekZwolnijTekst: procedure(ATekst: PWideChar); stdcall;
+
+  edekCertyfikatIlosc: function: Integer; stdcall;
+  edekCertyfikatDane: function(AIndex: Integer; ADane:Integer; var ARes: PWideChar): Integer; stdcall;
+  edekCertyfikatPokaz: procedure(AIndex: Integer); stdcall;
+
+  edekPodpisz: function(APlikWej, APlikWyj: PWideChar; ACertIdx: Integer; ACertSerialNo: PWideChar): Integer; stdcall;
+  edekPodpiszAut: function(APlikWej, APlikWyj, ANIP, AImie, ANazwisko, ADataUr, AKwota: PWideChar): Integer; stdcall;
+  edekWyslij: function(APlikDek: PWideChar; ABramkaTestowa: LongBool; APodpis: LongBool; var ArefID: PWideChar; var AStatus: Integer; var AStatusOpis: PWideChar): Integer; stdcall;
+  edekPobierzUPO: function(ARefId: PWideChar; ABramkaTestowa: LongBool; APlikWyj: PWideChar; var AStatus: Integer; var AStatusOpis: PWideChar): Integer; stdcall;
+
+  jpkPodpisz: function(APlikWej: PWideChar; ACertyfikat: Integer; ATestowa: LongBool; ACertSerialNo: PWideChar): Integer; stdcall;
+  jpkPodpisz2: function(APlikWej: PWideChar; ACertyfikat: Integer; ATestowa, ADoraznie: LongBool; ACertSerialNo: PWideChar): Integer; stdcall;
+  jpkPodpiszAut: function(APlikWej: PWideChar; ATestowa, ADoraznie: LongBool; ADANip, ADAImie, ADANazwisko, ADAData, ADAKwota: PWideChar): Integer; stdcall;
+  jpkWyslij: function(APlik: PWideChar; ATestowa: LongBool; var ANrRef: PWideChar): Integer; stdcall;
+  jpkWyslij2: function(APlik: PWideChar; ATestowa, AWeryfPodpis: LongBool; var ANrRef: PWideChar): Integer; stdcall;
+  jpkPobierzUPO: function(ANrRef: PWideChar; APlikWyj: PWideChar; ATestowa: LongBool): Integer; stdcall;
 
   LibGovPl4Handle: THandle = 0;
 
@@ -867,6 +916,27 @@ begin
 
     // KSeF Obj
     @lgpKSeF_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CreateKSeFClass');
+
+    // Zgodnosc z poprzednia wersja biblioteki
+    @edekInicjuj := GetProcAddress(LibGovPl4Handle, 'edekInicjuj');
+    @edekOstatniBladTekst := GetProcAddress(LibGovPl4Handle, 'edekOstatniBladTekst');
+    @edekZwolnijTekst := GetProcAddress(LibGovPl4Handle, 'edekZwolnijTekst');
+
+    @edekCertyfikatIlosc := GetProcAddress(LibGovPl4Handle, 'edekCertyfikatIlosc');
+    @edekCertyfikatDane := GetProcAddress(LibGovPl4Handle, 'edekCertyfikatDane');
+    @edekCertyfikatPokaz := GetProcAddress(LibGovPl4Handle, 'edekCertyfikatPokaz');
+
+    @edekPodpisz := GetProcAddress(LibGovPl4Handle, 'edekPodpisz');
+    @edekPodpiszAut := GetProcAddress(LibGovPl4Handle, 'edekPodpiszAut');
+    @edekWyslij := GetProcAddress(LibGovPl4Handle, 'edekWyslij');
+    @edekPobierzUPO := GetProcAddress(LibGovPl4Handle, 'edekPobierzUPO');
+
+    @jpkPodpisz := GetProcAddress(LibGovPl4Handle, 'jpkPodpisz');
+    @jpkPodpisz2 := GetProcAddress(LibGovPl4Handle, 'jpkPodpisz2');
+    @jpkPodpiszAut := GetProcAddress(LibGovPl4Handle, 'jpkPodpiszAut');
+    @jpkWyslij := GetProcAddress(LibGovPl4Handle, 'jpkWyslij');
+    @jpkWyslij2 := GetProcAddress(LibGovPl4Handle, 'jpkWyslij2');
+    @jpkPobierzUPO := GetProcAddress(LibGovPl4Handle, 'jpkPobierzUPO');
 
     Result := True;
   end
