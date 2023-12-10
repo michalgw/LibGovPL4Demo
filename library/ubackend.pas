@@ -20,10 +20,12 @@ uses
   ;
 
 const
-  LGP_VERSION_NUMBER = $040002;
+  LGP_VERSION_NUMBER = $040003;
 
 function lgplVersion: LGP_UINT32; stdcall;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
+function lgplDriverCount(AClassType: LGP_INT32): LGP_INT32; stdcall;
+function lgplDriverName(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR; stdcall;
 function lgplInit: LGP_INT32; stdcall;
 function lgplExit: LGP_INT32; stdcall;
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
@@ -58,7 +60,6 @@ function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
 
 var
   LGPDrivers: array[0..LGP_CLSTYPE_MAX] of String;
-  LGPDefaultDrivers: array[0..LGP_CLSTYPE_MAX] of TClass;
 
   LGPHttpClient: TlgHTTPClient = nil;
   LGPCertSigner: TlgCertificateSigner = nil;
@@ -106,31 +107,61 @@ begin
     Result := nil;
 end;
 
-function lgplInit: LGP_INT32; stdcall;
-var
-  I: Integer;
+function lgplDriverCount(AClassType: LGP_INT32): LGP_INT32; stdcall;
 begin
-  //{$if declared(UseHeapTrace)}
-  //SetHeapTraceOutput('Trace.log');
-  //{$endif}
-  for I := 0 to LGP_CLSTYPE_MAX do
-    case I of
-      LGP_CLSTYPE_HTTP_CLIENT: LGPDefaultDrivers[I] := HTTPClientClasses.FindByClassName('');
-      LGP_CLSTYPE_CERT_SIGNER: LGPDefaultDrivers[I] := CertSignerClasses.FindByClassName('');
-      LGP_CLSTYPE_RAND_GENERATOR: LGPDefaultDrivers[I] := RandomGeneratorClasses.FindByClassName('');
-      LGP_CLSTYPE_BASE64_ENCODER: LGPDefaultDrivers[I] := Base64EncoderClasses.FindByClassName('');
-      LGP_CLSTYPE_MD5_HASH: LGPDefaultDrivers[I] := MD5HashClasses.FindByClassName('');
-      LGP_CLSTYPE_SHA1_HASH: LGPDefaultDrivers[I] := SHA1HashClasses.FindByClassName('');
-      LGP_CLSTYPE_SHA256_HASH: LGPDefaultDrivers[I] := SHA256HashClasses.FindByClassName('');
-      LGP_CLSTYPE_AES256_ENC: LGPDefaultDrivers[I] := AES256EncryptClasses.FindByClassName('');
-      LGP_CLSTYPE_RSA_ENC: LGPDefaultDrivers[I] := RSAEncryptClasses.FindByClassName('');
-      LGP_CLSTYPE_ZIPPRE: LGPDefaultDrivers[I] := ZipperClasses.FindByClassName('');
-      LGP_CLSTYPE_XML_READER: LGPDefaultDrivers[I] := XMLReaderClasses.FindByClassName('');
-      LGP_CLSTYPE_XML_C14N: LGPDefaultDrivers[I] := XMLCanonizatorClasses.FindByClassName('');
-      LGP_CLSTYPE_EDEK_GATE: LGPDefaultDrivers[I] := EDekGateClasses.FindByClassName('');
+  case AClassType of
+    LGP_CLSTYPE_HTTP_CLIENT: Result := HTTPClientClasses.Count;
+    LGP_CLSTYPE_CERT_SIGNER: Result := CertSignerClasses.Count;
+    LGP_CLSTYPE_RAND_GENERATOR: Result := RandomGeneratorClasses.Count;
+    LGP_CLSTYPE_BASE64_ENCODER: Result := Base64EncoderClasses.Count;
+    LGP_CLSTYPE_MD5_HASH: Result := MD5HashClasses.Count;
+    LGP_CLSTYPE_SHA1_HASH: Result := SHA1HashClasses.Count;
+    LGP_CLSTYPE_SHA256_HASH: Result := SHA256HashClasses.Count;
+    LGP_CLSTYPE_AES256_ENC: Result := AES256EncryptClasses.Count;
+    LGP_CLSTYPE_RSA_ENC: Result := RSAEncryptClasses.Count;
+    LGP_CLSTYPE_ZIPPRE: Result := ZipperClasses.Count;
+    LGP_CLSTYPE_XML_READER: Result := XMLReaderClasses.Count;
+    LGP_CLSTYPE_XML_C14N: Result := XMLCanonizatorClasses.Count;
+    LGP_CLSTYPE_EDEK_GATE: Result := EDekGateClasses.Count;
+    else Result := 0;
+  end;
+end;
+
+function lgplDriverName(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR;
+  stdcall;
+var
+  C: TClass = nil;
+begin
+  try
+    case AClassType of
+      LGP_CLSTYPE_HTTP_CLIENT: C := HTTPClientClasses[ADriverIndex];
+      LGP_CLSTYPE_CERT_SIGNER: C := CertSignerClasses[ADriverIndex];
+      LGP_CLSTYPE_RAND_GENERATOR: C := RandomGeneratorClasses[ADriverIndex];
+      LGP_CLSTYPE_BASE64_ENCODER: C := Base64EncoderClasses[ADriverIndex];
+      LGP_CLSTYPE_MD5_HASH: C := MD5HashClasses[ADriverIndex];
+      LGP_CLSTYPE_SHA1_HASH: C := SHA1HashClasses[ADriverIndex];
+      LGP_CLSTYPE_SHA256_HASH: C := SHA256HashClasses[ADriverIndex];
+      LGP_CLSTYPE_AES256_ENC: C := AES256EncryptClasses[ADriverIndex];
+      LGP_CLSTYPE_RSA_ENC: C := RSAEncryptClasses[ADriverIndex];
+      LGP_CLSTYPE_ZIPPRE: C := ZipperClasses[ADriverIndex];
+      LGP_CLSTYPE_XML_READER: C := XMLReaderClasses[ADriverIndex];
+      LGP_CLSTYPE_XML_C14N: C := XMLCanonizatorClasses[ADriverIndex];
+      LGP_CLSTYPE_EDEK_GATE: C := EDekGateClasses[ADriverIndex];
+      else C := nil;
     end;
-  Result := 0;
+  except
+    Result := nil;
+  end;
+  if C <> nil then
+    Result := @(PVmt(C)^.vClassName^[1])
+  else
+    Result := nil;
+end;
+
+function lgplInit: LGP_INT32; stdcall;
+begin
   lgpInitKSeFClasses;
+  Result := 0;
 end;
 
 function lgplExit: LGP_INT32; stdcall;
@@ -152,19 +183,19 @@ begin
   Result := 0;
   if (ADriverClass >= 0) and (ADriverClass <= LGP_CLSTYPE_MAX) then
     case ADriverClass of
-      LGP_CLSTYPE_HTTP_CLIENT: LGPDefaultDrivers[ADriverClass] := HTTPClientClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_CERT_SIGNER: LGPDefaultDrivers[ADriverClass] := CertSignerClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_RAND_GENERATOR: LGPDefaultDrivers[ADriverClass] := RandomGeneratorClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_BASE64_ENCODER: LGPDefaultDrivers[ADriverClass] := Base64EncoderClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_MD5_HASH: LGPDefaultDrivers[ADriverClass] := MD5HashClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_SHA1_HASH: LGPDefaultDrivers[ADriverClass] := SHA1HashClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_SHA256_HASH: LGPDefaultDrivers[ADriverClass] := SHA256HashClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_AES256_ENC: LGPDefaultDrivers[ADriverClass] := AES256EncryptClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_RSA_ENC: LGPDefaultDrivers[ADriverClass] := RSAEncryptClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_ZIPPRE: LGPDefaultDrivers[ADriverClass] := ZipperClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_XML_READER: LGPDefaultDrivers[ADriverClass] := XMLReaderClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_XML_C14N: LGPDefaultDrivers[ADriverClass] := XMLCanonizatorClasses.FindByClassName(ADriverName);
-      LGP_CLSTYPE_EDEK_GATE: LGPDefaultDrivers[ADriverClass] := EDekGateClasses.FindByClassName(ADriverName);
+      LGP_CLSTYPE_HTTP_CLIENT: HTTPClientClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_CERT_SIGNER: CertSignerClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_RAND_GENERATOR: RandomGeneratorClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_BASE64_ENCODER: Base64EncoderClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_MD5_HASH: MD5HashClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_SHA1_HASH: SHA1HashClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_SHA256_HASH: SHA256HashClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_AES256_ENC: AES256EncryptClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_RSA_ENC: RSAEncryptClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_ZIPPRE: ZipperClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_XML_READER: XMLReaderClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_XML_C14N: XMLCanonizatorClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_EDEK_GATE: EDekGateClasses.SetDefault(ADriverName);
     end
   else
     Result := 1;

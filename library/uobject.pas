@@ -179,8 +179,8 @@ begin
       Ctx := TRttiContext.Create;
       RT := Ctx.GetType(TObject(AObject).ClassType);
       P := RT.GetProperty(APropName);
-      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration]) then
-        AValue := P.GetValue(AObject).AsInteger
+      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkInt64, tkQWord, tkEnumeration]) then
+        AValue := P.GetValue(AObject).AsOrdinal
       else
         Result := lgpCreateExceptioObject('Invalid property');
     except
@@ -206,7 +206,7 @@ begin
       Ctx := TRttiContext.Create;
       RT := Ctx.GetType(TObject(AObject).ClassType);
       P := RT.GetProperty(APropName);
-      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration]) then
+      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkInt64, tkQWord, tkEnumeration]) then
         if P.IsWritable then
           P.SetValue(AObject, AValue)
         else

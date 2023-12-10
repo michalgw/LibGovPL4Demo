@@ -13,12 +13,22 @@ unit uException;
 interface
 
 uses
-  Classes, SysUtils, Generics.Collections;
+  Classes, SysUtils, Generics.Collections
+{$IFDEF LGP_ENABLE_WINHTTP}
+  , lgWinHTTP
+{$ENDIF}
+{$IFDEF LGP_ENABLE_MSXML}
+  , lgMSXML
+{$ENDIF}
+{$IFDEF LGP_ENABLE_WINCNG}
+  , lgCNG
+{$ENDIF}
+  ;
 
 type
 
   { TlgpExceptionObject }
-
+  {$M+}
   TlgpExceptionObject = class
   private
     FExceptionClass: String;
@@ -29,6 +39,7 @@ type
     property ExceptionClass: String read FExceptionClass write FExceptionClass;
     property Message: String read FMessage write FMessage;
   end;
+  {$M-}
 
   { TlgpKSeFExceptionDetail }
 
@@ -69,6 +80,53 @@ type
     property ExceptionDetailList: TlgpKSeFExceptionDetailList read FExceptionDetailList;
   end;
 
+{$IFDEF LGP_ENABLE_WINHTTP}
+
+  { TlgpWinHTTPException }
+
+  TlgpWinHTTPException = class(TlgpExceptionObject)
+  private
+    FErrorCode: DWord;
+  published
+    property ErrorCode: DWord read FErrorCode write FErrorCode;
+  end;
+
+{$ENDIF}
+
+{$IFDEF LGP_ENABLE_MSXML}
+
+  { TlgpMSXMLError }
+
+  TlgpMSXMLError = class(TlgpExceptionObject)
+  private
+    FColNo: Integer;
+    FContent: String;
+    FErrorCode: Integer;
+    FLineNo: Integer;
+    FUrl: String;
+  published
+    property LineNo: Integer read FLineNo write FLineNo;
+    property ColNo: Integer read FColNo write FColNo;
+    property ErrorCode: Integer read FErrorCode write FErrorCode;
+    property Content: String read FContent write FContent;
+    property Url: String read FUrl write FUrl;
+  end;
+
+{$ENDIF}
+
+{$IFDEF LGP_ENABLE_WINCNG}
+
+  { TlgpCNGError }
+
+  TlgpCNGError = class(TlgpExceptionObject)
+  private
+    FResultCode: LongInt;
+  published
+    property ResultCode: LongInt read FResultCode write FResultCode;
+  end;
+
+{$ENDIF}
+
 function lgpCreateExceptioObject(AException: Exception): TlgpExceptionObject; overload;
 function lgpCreateExceptioObject(AMessage: String): TlgpExceptionObject; overload;
 function lgpCreateInvalidObjectException: TlgpExceptionObject;
@@ -101,6 +159,31 @@ begin
       TlgpKSeFExceptionResponse(Result).ExceptionDetailList.Add(D);
     end;
   end
+{$IFDEF LGP_ENABLE_WINHTTP}
+  else if AException is ElgWinHTTPException then
+  begin
+    Result := TlgpWinHTTPException.Create(AException.ClassName, AException.Message);
+    TlgpWinHTTPException(Result).ErrorCode := ElgWinHTTPException(AException).ErrorCode;
+  end
+{$ENDIF}
+{$IFDEF LGP_ENABLE_MSXML}
+  else if AException is ElgMSXMLError then
+  begin
+    Result := TlgpMSXMLError.Create(AException.ClassName, AException.Message);
+    TlgpMSXMLError(Result).ErrorCode := ElgMSXMLError(AException).ErrorCode;
+    TlgpMSXMLError(Result).ColNo := ElgMSXMLError(AException).ColNo;
+    TlgpMSXMLError(Result).Content := ElgMSXMLError(AException).Content;
+    TlgpMSXMLError(Result).LineNo := ElgMSXMLError(AException).LineNo;
+    TlgpMSXMLError(Result).Url := ElgMSXMLError(AException).Url;
+  end
+{$ENDIF}
+{$IFDEF LGP_ENABLE_WINCNG}
+  else if AException is ElgCNGError then
+  begin
+    Result := TlgpCNGError.Create(AException.ClassName, AException.Message);
+    TlgpCNGError(Result).ResultCode := ElgCNGError(AException).ResultCode;
+  end
+{$ENDIF}
   else
     Result := TlgpExceptionObject.Create(AException.ClassName, AException.Message);
 end;

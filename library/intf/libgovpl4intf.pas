@@ -120,6 +120,8 @@ const
 // Backend
 function lgplVersion: LGP_UINT32; stdcall; external LGP_LIBNAME;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall; external LGP_LIBNAME;
+function lgplDriverCount(AClassType: LGP_INT32): LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgplDriverName(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR; stdcall; external LGP_LIBNAME;
 function lgplInit: LGP_INT32; stdcall; external LGP_LIBNAME;
 function lgplExit: LGP_INT32; stdcall; external LGP_LIBNAME;
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
@@ -333,6 +335,8 @@ function lgpKSeF_SessionGenerateInternalIdentifier(AKSeFObject: LGP_OBJECT; AInp
 function lgpKSeF_InvoiceGet(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_InvoiceSend(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceVisibilityHide(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceVisibilityShow(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF_QueryInvoiceSync(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_QueryInvoiceAsyncInit(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -386,6 +390,8 @@ var
   // Backend
   lgplVersion: function: LGP_UINT32; stdcall;
   lgplListDrivers: function(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
+  lgplDriverCount: function(AClassType: LGP_INT32): LGP_INT32; stdcall;
+  lgplDriverName: function(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR; stdcall;
   lgplInit: function: LGP_INT32; stdcall;
   lgplExit: function: LGP_INT32; stdcall;
   lgplSetDefaultDriver: function(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
@@ -600,6 +606,8 @@ var
   lgpKSeF_InvoiceGet: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_InvoiceSend: function(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_InvoiceStatus: function(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceVisibilityHide: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceVisibilityShow: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF_QueryInvoiceSync: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_QueryInvoiceAsyncInit: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -689,6 +697,8 @@ begin
     // Backend
     @lgplVersion := GetProcAddress(LibGovPl4Handle, 'lgplVersion');
     @lgplListDrivers := GetProcAddress(LibGovPl4Handle, 'lgplListDrivers');
+    @lgplDriverCount := GetProcAddress(LibGovPl4Handle, 'lgplDriverCount');
+    @lgplDriverName := GetProcAddress(LibGovPl4Handle, 'lgplDriverName');
     @lgplInit := GetProcAddress(LibGovPl4Handle, 'lgplInit');
     @lgplExit := GetProcAddress(LibGovPl4Handle, 'lgplExit');
     @lgplSetDefaultDriver := GetProcAddress(LibGovPl4Handle, 'lgplSetDefaultDriver');
@@ -899,6 +909,8 @@ begin
     @lgpKSeF_InvoiceGet := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceGet');
     @lgpKSeF_InvoiceSend := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceSend');
     @lgpKSeF_InvoiceStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceStatus');
+    @lgpKSeF_InvoiceVisibilityHide := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibilityHide');
+    @lgpKSeF_InvoiceVisibilityShow := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibilityShow');
 
     @lgpKSeF_QueryInvoiceSync := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceSync');
     @lgpKSeF_QueryInvoiceAsyncInit := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceAsyncInit');

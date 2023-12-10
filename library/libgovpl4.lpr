@@ -45,6 +45,8 @@ exports
   // Backend
   lgplVersion,
   lgplListDrivers,
+  lgplDriverCount,
+  lgplDriverName,
   lgplInit,
   lgplExit,
   lgplSetDefaultDriver,
@@ -250,6 +252,8 @@ exports
   lgpKSeF_InvoiceGet,
   lgpKSeF_InvoiceSend,
   lgpKSeF_InvoiceStatus,
+  lgpKSeF_InvoiceVisibilityHide,
+  lgpKSeF_InvoiceVisibilityShow,
 
   lgpKSeF_QueryInvoiceSync,
   lgpKSeF_QueryInvoiceAsyncInit,

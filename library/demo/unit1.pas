@@ -18,6 +18,11 @@ type
   TForm1 = class(TForm)
     ButtonKSeFBatchPodp: TButton;
     ButtonKSeFBatchSend: TButton;
+    ButtonKSeFInvGet: TButton;
+    ButtonKSeFInvHide: TButton;
+    ButtonKSeFInvSend: TButton;
+    ButtonKSeFInvShow: TButton;
+    ButtonKSeFInvStat: TButton;
     ButtonKSeFStatusUPO: TButton;
     ButtonKSeFCInvClear: TButton;
     ButtonKSeFCInvGet: TButton;
@@ -27,9 +32,6 @@ type
     ButtonKSeFQInvClear: TButton;
     ButtonKSeFQInvSync: TButton;
     ButtonKSeFQInvAsync: TButton;
-    ButtonKSeFInvGet: TButton;
-    ButtonKSeFInvStat: TButton;
-    ButtonKSeFInvSend: TButton;
     ButtonKSeFSesTerm: TButton;
     ButtonkSeFSesStat: TButton;
     ButtonCertReload: TButton;
@@ -57,6 +59,7 @@ type
     CheckBoxJPKPAAdHoc: TCheckBox;
     CheckBoxXAdESCzas: TCheckBox;
     CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup;
+    ComboBoxKSeFQInvCAamountType: TComboBox;
     ComboBoxKSeFBatchBramka: TComboBox;
     ComboBoxKSeFBatchCert: TComboBox;
     ComboBoxKSeFBatchInitFormCode: TComboBox;
@@ -100,6 +103,12 @@ type
     DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker;
     EditKSeFBatchNIP: TEdit;
     EditKSeFBatchNrRef: TEdit;
+    EditKSeFInvGetNr: TEdit;
+    EditKSeFInvHideNr: TEdit;
+    EditKSeFInvHideReason: TEdit;
+    EditKSeFInvShowNr: TEdit;
+    EditKSeFInvShowReason: TEdit;
+    EditKSeFInvStatNr: TEdit;
     EditKSeFStatusReferenceNumber: TEdit;
     EditKSeFCInvSubToFullName: TEdit;
     EditKSeFCInvSubToFirstName: TEdit;
@@ -113,8 +122,6 @@ type
     EditKSeFQInvAsyncQRefNo: TEdit;
     EditKSeFQInvCrSubjectToId: TEdit;
     EditKSeFQInvCrSubjectByIdent: TEdit;
-    EditKSeFInvGetNr: TEdit;
-    EditKSeFInvStatNr: TEdit;
     EditKSeFQInvCrInvoiceNumber: TEdit;
     EditKSeFQInvCrRefNo: TEdit;
     EditKSeFSesStatRef: TEdit;
@@ -128,6 +135,8 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
+    FileNameEditKSeFGetFN: TFileNameEdit;
+    FileNameEditKSeFInvSend: TFileNameEdit;
     FileNameEditLibXML2: TFileNameEdit;
     FileNameEditKSeFBatchInZIP: TFileNameEdit;
     FileNameEditKSeFBatchOutEncZIP: TFileNameEdit;
@@ -137,8 +146,6 @@ type
     FileNameEditKSeFUPO: TFileNameEdit;
     FileNameEditKSeFCInvFN: TFileNameEdit;
     FileNameEditKSeFQInvAsyncFN: TFileNameEdit;
-    FileNameEditKSeFGetFN: TFileNameEdit;
-    FileNameEditKSeFInvSend: TFileNameEdit;
     FileNameEditKSeFInitPZIn: TFileNameEdit;
     FileNameEditKSeFInitPZOut: TFileNameEdit;
     FileNameEditKSeFRSAProd: TFileNameEdit;
@@ -166,7 +173,6 @@ type
     FloatSpinEditJPKPKwota: TFloatSpinEdit;
     FloatSpinEditKSeFQInvCAamountFrom: TFloatSpinEdit;
     FloatSpinEditKSeFQInvCAamountTo: TFloatSpinEdit;
-    FloatSpinEditKSeFQInvCAamountType: TFloatSpinEdit;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox11: TGroupBox;
@@ -179,10 +185,12 @@ type
     GroupBox18: TGroupBox;
     GroupBox19: TGroupBox;
     GroupBox20: TGroupBox;
-    GroupBoxKSeFSesGenIntId: TGroupBox;
+    GroupBox21: TGroupBox;
+    GroupBox22: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
+    GroupBoxKSeFSesGenIntId: TGroupBox;
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
     GroupBoxKSeFSesTerm: TGroupBox;
@@ -213,6 +221,10 @@ type
     Label113: TLabel;
     Label114: TLabel;
     Label115: TLabel;
+    Label116: TLabel;
+    Label117: TLabel;
+    Label118: TLabel;
+    Label119: TLabel;
     Label12: TLabel;
     Label13: TLabel;
     Label16: TLabel;
@@ -314,6 +326,7 @@ type
     RadioButtonKSeFBatchCert: TRadioButton;
     RadioButtonKSeFBatchPZ: TRadioButton;
     ScrollBox4: TScrollBox;
+    ScrollBox5: TScrollBox;
     surname: TLabel;
     ListViewCert: TListView;
     MemoKSeFQInvCrCurrencyCodes: TMemo;
@@ -356,6 +369,8 @@ type
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
     procedure ButtonKSeFCInvGetClick(Sender: TObject);
     procedure ButtonKSeFGenIntIdClick(Sender: TObject);
+    procedure ButtonKSeFInvHideClick(Sender: TObject);
+    procedure ButtonKSeFInvShowClick(Sender: TObject);
     procedure ButtonKSeFQInvAsyncClick(Sender: TObject);
     procedure ButtonKSeFQInvAsyncFetchClick(Sender: TObject);
     procedure ButtonKSeFQInvAsyncStatClick(Sender: TObject);
@@ -592,7 +607,7 @@ begin
   // Tylko dla serwerów testowych
   FloatSpinEditKSeFQInvCAamountFrom.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   FloatSpinEditKSeFQInvCAamountTo.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
-  FloatSpinEditKSeFQInvCAamountType.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  ComboBoxKSeFQInvCAamountType.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   MemoKSeFQInvCrCurrencyCodes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckBoxKSeFQInvCrFaP17Annotation.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckGroupKSeFQInvCrIInvoiceTypes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
@@ -613,7 +628,7 @@ begin
         InvoicingDateTo := DateTimePickerKSeFQInvCrDetInvTo.DateTime;
         AmountFrom := FloatSpinEditKSeFQInvCAamountFrom.Value;
         AmountTo := FloatSpinEditKSeFQInvCAamountTo.Value;
-        AmountType := FloatSpinEditKSeFQInvCAamountType.Value;
+        AmountType := TKSeFAmountType(ComboBoxKSeFQInvCAamountType.ItemIndex);
         if Trim(MemoKSeFQInvCrCurrencyCodes.Text) <> '' then
           CurrencyCodes := Concat(CurrencyCodes, [MemoKSeFQInvCrCurrencyCodes.Lines[I]]);
         FaP17Annotation := CheckBoxKSeFQInvCrFaP17Annotation.Checked;
@@ -1666,7 +1681,7 @@ var
 begin
   FloatSpinEditKSeFQInvCAamountFrom.Value := 0;
   FloatSpinEditKSeFQInvCAamountTo.Value := 0;
-  FloatSpinEditKSeFQInvCAamountType.Value := 0;
+  ComboBoxKSeFQInvCAamountType.ItemIndex := 0;
   MemoKSeFQInvCrCurrencyCodes.Clear;
   CheckBoxKSeFQInvCrFaP17Annotation.Checked := False;
   EditKSeFQInvCrInvoiceNumber.Clear;
@@ -1729,6 +1744,50 @@ begin
       if E is EKSeFExceptionResponse then
         Debug('Odpowiedź: ' + EKSeFExceptionResponse(E).RawData);
       MessageDlg(Format('Błąd podczas generowania identyfikatora wewn. (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonKSeFInvHideClick(Sender: TObject);
+var
+  Resp: TKSeFVisibilityInvoiceResponse;
+begin
+  Debug('KSeF - ukrywanie wybranej faktury', True);
+  try
+    Debug('Nr ref. KSeF faktury: ' + EditKSeFInvHideNr.Text);
+    Debug('Przyczyna: ' + EditKSeFInvHideReason.Text);
+    Resp := KSeF.InvoiceVisibilityHide(EditKSeFInvHideNr.Text, EditKSeFInvHideReason.Text);
+    Resp.Free;
+    Debug('Ukryto.');
+  except
+    on E: Exception do
+    begin
+      Debug('Blad podczas ukrywania faktury (%s): %s', [E.ClassName, E.Message]);
+      if E is EKSeFExceptionResponse then
+        Debug('Odpowiedź: ' + EKSeFExceptionResponse(E).RawData);
+      MessageDlg(Format('Błąd podczas ukrywania faktury (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonKSeFInvShowClick(Sender: TObject);
+var
+  Resp: TKSeFVisibilityInvoiceResponse;
+begin
+  Debug('KSeF - Anulowanie ukrycia wybranej faktury', True);
+  try
+    Debug('Nr ref. KSeF faktury: ' + EditKSeFInvShowNr.Text);
+    Debug('Przyczyna: ' + EditKSeFInvShowReason.Text);
+    Resp := KSeF.InvoiceVisibilityShow(EditKSeFInvShowNr.Text, EditKSeFInvShowReason.Text);
+    Resp.Free;
+    Debug('Anulowano ukrycie.');
+  except
+    on E: Exception do
+    begin
+      Debug('Błąd podczas anulowania ukrycia faktury (%s): %s', [E.ClassName, E.Message]);
+      if E is EKSeFExceptionResponse then
+        Debug('Odpowiedź: ' + EKSeFExceptionResponse(E).RawData);
+      MessageDlg(Format('Błąd podczas anulowania ukrycia faktury (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
     end;
   end;
 end;

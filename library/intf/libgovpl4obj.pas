@@ -20,7 +20,6 @@ uses
 type
 
   { ElgoException }
-
   ElgoException = class(Exception)
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); virtual;

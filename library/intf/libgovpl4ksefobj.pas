@@ -18,6 +18,26 @@ uses
   Classes, SysUtils, LibGovPl4Intf, LibGovPl4Obj;
 
 type
+  { Rodzaj serwera (bramki) KSeF }
+  TlgoKSeFGateType = (
+    { Serwer produkcyjny }
+    kgtProd,
+    { Serwer demo }
+    kgtDemo,
+    { Serwer testowy }
+    kgtTest);
+
+  { Rodzaj autoryzacji certyfikatu kwalifikowanego }
+  TlgoKSeFCertificateAuthType = (
+    { Numer seryjny }
+    catSerialNumber,
+    { Odcisk palca }
+    catFingerprint);
+
+  { Kod formularza FA }
+  TlgoKSeFFormCode = (kfcCustom, kfcFA1, kfcFA2);
+
+  { Podstawowa klasa wyjątku przy obsłudze KSeF }
   EKSeFException = class(ElgoException);
 
   TKSeFExceptionDetail = record
@@ -29,6 +49,7 @@ type
 
   { EKSeFExceptionResponse }
 
+  { Klasa wjątku zawierająca informacje zwracane przez serwery KSeF }
   EKSeFExceptionResponse = class(EKSeFException)
   private
     FExceptionDetailList: TKSeFExceptionDetailList;
@@ -52,10 +73,12 @@ type
     property ExceptionDetailList: TKSeFExceptionDetailList read FExceptionDetailList;
   end;
 
+  { Wyjątek zgłaszany w przypadku próby pobrania nieistniejącego dokumentu }
   EKSeFNotFoundException = class(EKSeFException);
 
   { TKSeFObject }
 
+  { Podstawa obiektów żądań i odpowiedzi KSeF }
   TKSeFObject = class(TlgoCreatableObject)
   protected
     procedure CreateExtObject(AClassName: UTF8String);
@@ -68,6 +91,7 @@ type
 
   { TKSeFArray }
 
+  { Podstawa list obiektów KSeF }
   TKSeFArray = class(TKSeFObject)
   private
     FList: TList;
@@ -88,6 +112,7 @@ type
 
   { TKSeFRequest }
 
+  { Podstawa żądania KSeF }
   TKSeFRequest = class(TKSeFObject)
   private
     function GetAsJSONString: UTF8String;
@@ -97,6 +122,7 @@ type
 
   { TKSeFResponse }
 
+  { Podstawa odpowiedzi serwera KSeF }
   TKSeFResponse = class(TKSeFObject)
   private
     function GetRawResponse: UTF8String;
@@ -131,6 +157,15 @@ type
     procedure SetIdentifier(AValue: UTF8String);
   published
     property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+  end;
+
+  { TKSeFSubjectCompleteName }
+
+  TKSeFSubjectCompleteName = class(TKSeFObject)
+  private
+    function GetFullName: String;
+  published
+    property FullName: String read GetFullName;
   end;
 
   { TKSeFSubjectName }
@@ -206,6 +241,8 @@ type
   TKSeFCredentialsRoleResponseGrantedForInstitution = class(TKSeFCredentialsRoleResponseBase)
   end;
 
+  TKSeFCredentialsAssignmentType = (kca_system, kca_user);
+
   { TKSeFCredentialsRoleResponseStandardDetails }
 
   TKSeFCredentialsRoleResponseStandardDetails = class(TKSeFCredentialsRoleResponseBase)
@@ -230,6 +267,24 @@ type
   TKSeFCredentialsRoleResponseToken = class(TKSeFCredentialsRoleResponseBase)
   end;
 
+  { TKSeFCredentialsRoleResponseStandardContextDetails }
+
+  TKSeFCredentialsRoleResponseStandardContextDetails = class(TKSeFCredentialsRoleResponseBase)
+  private
+    FContextIdentifier: TKSeFCredentialsIdentifierResponse;
+    FSourceIdentifier: TKSeFCredentialsIdentifierResponse;
+    FTargetIdentifier: TKSeFCredentialsIdentifierResponse;
+    function GetCredentialsAssignmentType: UTF8String;
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
+  published
+    property ContextIdentifier: TKSeFCredentialsIdentifierResponse read FContextIdentifier write FContextIdentifier;
+    property CredentialsAssignmentTypeRaw: UTF8String read GetCredentialsAssignmentType;
+    property SourceIdentifier: TKSeFCredentialsIdentifierResponse read FSourceIdentifier write FSourceIdentifier;
+    property TargetIdentifier: TKSeFCredentialsIdentifierResponse read FTargetIdentifier write FTargetIdentifier;
+  end;
+
   { TKSeFCredentialsRoleResponseBaseArray }
 
   TKSeFCredentialsRoleResponseBaseArray = class(TKSeFArray)
@@ -245,14 +300,14 @@ type
   TKSeFSessionContext = class(TKSeFObject)
   private
     FContextIdentifier: TKSeFSubjectIdentifierBy;
-    FContextName: TKSeFSubjectName;
+    FContextName: TKSeFSubjectCompleteName;
     FCredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray;
   public
     constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property ContextIdentifier: TKSeFSubjectIdentifierBy read FContextIdentifier;
-    property ContextName: TKSeFSubjectName read FContextName;
+    property ContextName: TKSeFSubjectCompleteName read FContextName;
     property CredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray read FCredentialsRoleList;
   end;
 
@@ -324,6 +379,11 @@ type
   TKSeFSessionStatusResponse = class(TKSeFResponse)
   private
     FInvoiceStatusList: TKSeFSessionInvoiceStatusArray;
+    function GetCreationTimestamp: TDateTime;
+    function GetCreationTimestampRaw: UTF8String;
+    function GetEntityType: UTF8String;
+    function GetLastUpdateTimestamp: TDateTime;
+    function GetLastUpdateTimestampRaw: UTF8String;
     function GetNumberOfElements: Integer;
     function GetPageOffset: Integer;
     function GetPageSize: Integer;
@@ -336,7 +396,12 @@ type
     constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
+    property CreationTimestamp: TDateTime read GetCreationTimestamp;
+    property CreationTimestampRaw: UTF8String read GetCreationTimestampRaw;
+    property EntityType: UTF8String read GetEntityType;
     property InvoiceStatusList: TKSeFSessionInvoiceStatusArray read FInvoiceStatusList write FInvoiceStatusList;
+    property LastUpdateTimestamp: TDateTime read GetLastUpdateTimestamp;
+    property LastUpdateTimestampRaw: UTF8String read GetLastUpdateTimestampRaw;
     property NumberOfElements: Integer read GetNumberOfElements;
     property PageOffset: Integer read GetPageOffset;
     property PageSize: Integer read GetPageSize;
@@ -435,6 +500,76 @@ type
     property Timestamp: TDateTime read GetTimestamp;
   end;
 
+  { TKSeFHideInvoiceRequestType }
+
+  TKSeFHideInvoiceRequestType = class(TKSeFObject)
+  private
+    function GetHidingReason: UTF8String;
+    function GetKsefReferenceNumber: UTF8String;
+    procedure SetHidingReason(AValue: UTF8String);
+    procedure SetKsefReferenceNumber(AValue: UTF8String);
+  published
+    property HidingReason: UTF8String read GetHidingReason write SetHidingReason;
+    property KsefReferenceNumber: UTF8String read GetKsefReferenceNumber write SetKsefReferenceNumber;
+  end;
+
+  TKSeFHideInvoiceRequest = class(TKSeFRequest)
+  private
+    FInvoiceHideRequest: TKSeFHideInvoiceRequestType;
+    procedure SetInvoiceHideRequest(AValue: TKSeFHideInvoiceRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property InvoiceHideRequest: TKSeFHideInvoiceRequestType read FInvoiceHideRequest write SetInvoiceHideRequest;
+  end;
+
+  { TKSeFShowInvoiceRequestType }
+
+  TKSeFShowInvoiceRequestType = class(TKSeFObject)
+  private
+    function GetHidingCancelationReason: UTF8String;
+    function GetKsefReferenceNumber: UTF8String;
+    procedure SetHidingCancelationReason(AValue: UTF8String);
+    procedure SetKsefReferenceNumber(AValue: UTF8String);
+  published
+    property HidingCancelationReason: UTF8String read GetHidingCancelationReason write SetHidingCancelationReason;
+    property KsefReferenceNumber: UTF8String read GetKsefReferenceNumber write SetKsefReferenceNumber;
+  end;
+
+  TKSeFShowInvoiceRequest = class(TKSeFRequest)
+  private
+    FInvoiceHideCancelationRequest: TKSeFShowInvoiceRequestType;
+    procedure SetInvoiceHideCancelationRequest(
+      AValue: TKSeFShowInvoiceRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property InvoiceHideCancelationRequest: TKSeFShowInvoiceRequestType read FInvoiceHideCancelationRequest write SetInvoiceHideCancelationRequest;
+  end;
+
+  { TKSeFVisibilityInvoiceResponse }
+
+  TKSeFVisibilityInvoiceResponse = class(TKSeFResponse)
+  private
+    function GetCancelationReason: UTF8String;
+    function GetCancelationTimestamp: TDateTime;
+    function GetCancelationTimestampRaw: UTF8String;
+    function GetCanceled: Boolean;
+    function GetHidingReason: UTF8String;
+    function GetHidingTimestamp: TDateTime;
+    function GetHidingTimestampRaw: UTF8String;
+    function GetKsefReferenceNumber: UTF8String;
+  published
+    property CancelationReason: UTF8String read GetCancelationReason;
+    property CancelationTimestamp: TDateTime read GetCancelationTimestamp;
+    property CancelationTimestampRaw: UTF8String read GetCancelationTimestampRaw;
+    property Canceled: Boolean read GetCanceled;
+    property HidingReason: UTF8String read GetHidingReason;
+    property HidingTimestamp: TDateTime read GetHidingTimestamp;
+    property HidingTimestampRaw: UTF8String read GetHidingTimestampRaw;
+    property KsefReferenceNumber: UTF8String read GetKsefReferenceNumber;
+  end;
+
   TKSeFSubjectType = (stSubject1, stSubject2, stSubject3, stSubjectAuthorized);
   TKSeFInvoiceType = (itVAT, itKOR, itZAL, itROZ, itUPR, itKOR_ZAL, itKOR_ROZ);
   TKSeFInvoiceTypes = set of TKSeFInvoiceType;
@@ -528,6 +663,8 @@ type
     property SubjectType: TKSeFSubjectType read GetSubjectType write SetSubjectType;
   end;
 
+  TKSeFAmountType = (kat_none, kat_brutto, kat_netto, kat_vat);
+
   { TKSeFQueryCriteriaInvoiceDetail }
 
   TKSeFQueryCriteriaInvoiceDetail = class(TKSeFQueryCriteriaInvoice)
@@ -536,7 +673,7 @@ type
     FSubjectTo: TKSeFSubjectTo;
     function GetAmountFrom: Currency;
     function GetAmountTo: Currency;
-    function GetAmountType: Double;
+    function GetAmountType: TKSeFAmountType;
     function GetCurrencyCodes: TStringArray;
     function GetFaP17Annotation: Boolean;
     function GetInvoiceNumber: UTF8String;
@@ -546,7 +683,7 @@ type
     function GetKsefReferenceNumber: UTF8String;
     procedure SetAmountFrom(AValue: Currency);
     procedure SetAmountTo(AValue: Currency);
-    procedure SetAmountType(AValue: Double);
+    procedure SetAmountType(AValue: TKSeFAmountType);
     procedure SetCurrencyCodes(AValue: TStringArray);
     procedure SetFaP17Annotation(AValue: Boolean);
     procedure SetInvoiceNumber(AValue: UTF8String);
@@ -561,7 +698,7 @@ type
   published
     property AmountFrom: Currency read GetAmountFrom write SetAmountFrom;
     property AmountTo: Currency read GetAmountTo write SetAmountTo;
-    property AmountType: Double read GetAmountType write SetAmountType;
+    property AmountType: TKSeFAmountType read GetAmountType write SetAmountType;
     property CurrencyCodes: TStringArray read GetCurrencyCodes write SetCurrencyCodes;
     property FaP17Annotation: Boolean read GetFaP17Annotation write SetFaP17Annotation;
     property InvoiceNumber: UTF8String read GetInvoiceNumber write SetInvoiceNumber;
@@ -606,6 +743,7 @@ type
     FQueryCriteria: TKSeFQueryCriteriaInvoice;
     procedure SetQueryCriteria(AValue: TKSeFQueryCriteriaInvoice);
   public
+    constructor Create(AQueryCriteria: TKSeFQueryCriteriaInvoice); overload;
     destructor Destroy; override;
   published
     property QueryCriteria: TKSeFQueryCriteriaInvoice read FQueryCriteria write SetQueryCriteria;
@@ -1835,6 +1973,13 @@ begin
   FQueryCriteria := AValue;
 end;
 
+constructor TKSeFQueryInvoiceRequest.Create(
+  AQueryCriteria: TKSeFQueryCriteriaInvoice);
+begin
+  inherited Create;
+  QueryCriteria := AQueryCriteria;
+end;
+
 destructor TKSeFQueryInvoiceRequest.Destroy;
 begin
   if Assigned(FQueryCriteria) then
@@ -1904,9 +2049,9 @@ begin
   Result := GetCurrencyProp('AmountTo');
 end;
 
-function TKSeFQueryCriteriaInvoiceDetail.GetAmountType: Double;
+function TKSeFQueryCriteriaInvoiceDetail.GetAmountType: TKSeFAmountType;
 begin
-  Result := GetDoubleProp('AmountType');
+  Result := TKSeFAmountType(GetIntegerProp('AmountType'));
 end;
 
 function TKSeFQueryCriteriaInvoiceDetail.GetCurrencyCodes: TStringArray;
@@ -1992,9 +2137,10 @@ begin
   SetCurrencyProp('AmountTo', AValue);
 end;
 
-procedure TKSeFQueryCriteriaInvoiceDetail.SetAmountType(AValue: Double);
+procedure TKSeFQueryCriteriaInvoiceDetail.SetAmountType(AValue: TKSeFAmountType
+  );
 begin
-  SetDoubleProp('AmountType', AValue);
+  SetIntegerProp('AmountType', Ord(AValue));
 end;
 
 procedure TKSeFQueryCriteriaInvoiceDetail.SetCurrencyCodes(AValue: TStringArray
@@ -2337,6 +2483,131 @@ begin
   inherited Destroy;
 end;
 
+{ TKSeFHideInvoiceRequestType }
+
+function TKSeFHideInvoiceRequestType.GetHidingReason: UTF8String;
+begin
+  Result := GetStringProp('HidingReason');
+end;
+
+function TKSeFHideInvoiceRequestType.GetKsefReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefReferenceNumber');
+end;
+
+procedure TKSeFHideInvoiceRequestType.SetHidingReason(AValue: UTF8String);
+begin
+  SetStringProp('HidingReason', AValue);
+end;
+
+procedure TKSeFHideInvoiceRequestType.SetKsefReferenceNumber(AValue: UTF8String
+  );
+begin
+  SetStringProp('KsefReferenceNumber', AValue);
+end;
+
+procedure TKSeFHideInvoiceRequest.SetInvoiceHideRequest(
+  AValue: TKSeFHideInvoiceRequestType);
+begin
+  if FInvoiceHideRequest = AValue then Exit;
+  FInvoiceHideRequest := AValue;
+  SetObjectProp('InvoiceHideRequest', AValue.ExtObject);
+end;
+
+destructor TKSeFHideInvoiceRequest.Destroy;
+begin
+  if Assigned(FInvoiceHideRequest) then
+  begin
+    FInvoiceHideRequest.Free;
+    SetObjectProp('InvoiceHideRequest', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFShowInvoiceRequestType }
+
+function TKSeFShowInvoiceRequestType.GetHidingCancelationReason: UTF8String;
+begin
+  Result := GetStringProp('HidingCancelationReason');
+end;
+
+function TKSeFShowInvoiceRequestType.GetKsefReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefReferenceNumber');
+end;
+
+procedure TKSeFShowInvoiceRequestType.SetHidingCancelationReason(
+  AValue: UTF8String);
+begin
+  SetStringProp('HidingCancelationReason', AValue);
+end;
+
+procedure TKSeFShowInvoiceRequestType.SetKsefReferenceNumber(AValue: UTF8String
+  );
+begin
+  SetStringProp('KsefReferenceNumber', AValue);
+end;
+
+procedure TKSeFShowInvoiceRequest.SetInvoiceHideCancelationRequest(
+  AValue: TKSeFShowInvoiceRequestType);
+begin
+  if FInvoiceHideCancelationRequest = AValue then Exit;
+  FInvoiceHideCancelationRequest := AValue;
+  SetObjectProp('InvoiceHideCancelationRequest', FInvoiceHideCancelationRequest.ExtObject);
+end;
+
+destructor TKSeFShowInvoiceRequest.Destroy;
+begin
+  if Assigned(FInvoiceHideCancelationRequest) then
+  begin
+    FInvoiceHideCancelationRequest.Free;
+    SetObjectProp('InvoiceHideCancelationRequest', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFVisibilityInvoiceResponse }
+
+function TKSeFVisibilityInvoiceResponse.GetCancelationReason: UTF8String;
+begin
+  Result := GetStringProp('CancelationReason');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetCancelationTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('CancelationTimestamp');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetCancelationTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('CancelationTimestampRaw');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetCanceled: Boolean;
+begin
+  Result := GetBooleanProp('Canceled');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetHidingReason: UTF8String;
+begin
+  Result := GetStringProp('HidingReason');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetHidingTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('HidingTimestamp');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetHidingTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('HidingTimestampRaw');
+end;
+
+function TKSeFVisibilityInvoiceResponse.GetKsefReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefReferenceNumber');
+end;
+
 { TKSeFInvoiceStatus }
 
 function TKSeFInvoiceStatus.GetAcquisitionTimestamp: TDateTime;
@@ -2440,6 +2711,31 @@ end;
 function TKSeFSessionStatusResponse.GetNumberOfElements: Integer;
 begin
   Result := GetIntegerProp('NumberOfElements');
+end;
+
+function TKSeFSessionStatusResponse.GetCreationTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('CreationTimestamp');
+end;
+
+function TKSeFSessionStatusResponse.GetCreationTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('CreationTimestampRaw');
+end;
+
+function TKSeFSessionStatusResponse.GetEntityType: UTF8String;
+begin
+  Result := GetStringProp('EntityType');
+end;
+
+function TKSeFSessionStatusResponse.GetLastUpdateTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('LastUpdateTimestamp');
+end;
+
+function TKSeFSessionStatusResponse.GetLastUpdateTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('LastUpdateTimestampRaw');
 end;
 
 function TKSeFSessionStatusResponse.GetPageOffset: Integer;
@@ -2653,6 +2949,12 @@ begin
     else if S = 'TKSEFSUBJECTIDENTIFIERINTERNAL' then
       FContextIdentifier := TKSeFSubjectIdentifierInternal.Create(O);
   end;
+  O := GetObjectProp('ContextName');
+  if O <>  nil then
+    FContextName := TKSeFSubjectCompleteName.Create(O);
+  O := GetObjectProp('CredentialsRoleList');
+  if O <> nil then
+    FCredentialsRoleList := TKSeFCredentialsRoleResponseBaseArray.Create(O);
 end;
 
 destructor TKSeFSessionContext.Destroy;
@@ -2696,6 +2998,50 @@ begin
   begin
     FRoleAssigningAuthorIdentifier.Free;
     SetObjectProp('RoleAssigningAuthorIdentifier', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsRoleResponseStandardContextDetails }
+
+function TKSeFCredentialsRoleResponseStandardContextDetails.GetCredentialsAssignmentType: UTF8String;
+begin
+  Result := GetStringProp('CredentialsAssignmentType');
+end;
+
+constructor TKSeFCredentialsRoleResponseStandardContextDetails.Create(
+  AObject: LGP_OBJECT);
+var
+  Obj: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  Obj := GetObjectProp('ContextIdentifier');
+  if Obj <> nil then
+    FContextIdentifier := TKSeFCredentialsIdentifierResponse.Create(Obj);
+  Obj := GetObjectProp('SourceIdentifier');
+  if Obj <> nil then
+    FSourceIdentifier := TKSeFCredentialsIdentifierResponse.Create(Obj);
+  Obj := GetObjectProp('TargetIdentifier');
+  if Obj <> nil then
+    FTargetIdentifier := TKSeFCredentialsIdentifierResponse.Create(Obj);
+end;
+
+destructor TKSeFCredentialsRoleResponseStandardContextDetails.Destroy;
+begin
+  if Assigned(FContextIdentifier) then
+  begin
+    FContextIdentifier.Free;
+    SetObjectProp('ContextIdentifier', nil);
+  end;
+  if Assigned(FSourceIdentifier) then
+  begin
+    FSourceIdentifier.Free;
+    SetObjectProp('SourceIdentifier', nil);
+  end;
+  if Assigned(FTargetIdentifier) then
+  begin
+    FTargetIdentifier.Free;
+    SetObjectProp('TargetIdentifier', nil);
   end;
   inherited Destroy;
 end;
@@ -2810,6 +3156,13 @@ end;
 procedure TKSeFSubjectIdentifierInternal.SetIdentifier(AValue: UTF8String);
 begin
   SetStringProp('Identifier', AValue);
+end;
+
+{ TKSeFSubjectCompleteName }
+
+function TKSeFSubjectCompleteName.GetFullName: String;
+begin
+  Result := GetStringProp('FullName');
 end;
 
 { TKSeFSubjectIdentifierByCompany }

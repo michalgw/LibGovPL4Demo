@@ -5,8 +5,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
   ExtCtrls, Spin, LibGovPl4Intf, LibGovPl4Obj, LibGovPl4Backend, LibGovPl4XAdES,
-  LibGovPl4KSeF, LibGovPl4KSeFObj, LibGovPl4EDek, LibGovPl4JPK, JvToolEdit,
-  JvSpin, Types, Mask, JvExMask, TypInfo;
+  LibGovPl4KSeF, LibGovPl4KSeFObj, LibGovPl4EDek, LibGovPl4JPK, Types, Mask,
+  TypInfo, Buttons;
 
 type
 
@@ -24,9 +24,6 @@ type
     ButtonKSeFQInvClear: TButton;
     ButtonKSeFQInvSync: TButton;
     ButtonKSeFQInvAsync: TButton;
-    ButtonKSeFInvGet: TButton;
-    ButtonKSeFInvStat: TButton;
-    ButtonKSeFInvSend: TButton;
     ButtonKSeFSesTerm: TButton;
     ButtonkSeFSesStat: TButton;
     ButtonCertReload: TButton;
@@ -110,8 +107,6 @@ type
     EditKSeFQInvAsyncQRefNo: TEdit;
     EditKSeFQInvCrSubjectToId: TEdit;
     EditKSeFQInvCrSubjectByIdent: TEdit;
-    EditKSeFInvGetNr: TEdit;
-    EditKSeFInvStatNr: TEdit;
     EditKSeFQInvCrInvoiceNumber: TEdit;
     EditKSeFQInvCrRefNo: TEdit;
     EditKSeFSesStatRef: TEdit;
@@ -125,44 +120,41 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
-    FileNameEditKSeFBatchInZIP: TJvFilenameEdit;
-    FileNameEditKSeFBatchOutEncZIP: TJvFilenameEdit;
-    FileNameEditKSeFBatchOutInitUp: TJvFilenameEdit;
-    FileNameEditKSeFBatchSendEnc: TJvFilenameEdit;
-    FileNameEditKSeFBatchSendIU: TJvFilenameEdit;
-    FileNameEditKSeFUPO: TJvFilenameEdit;
-    FileNameEditKSeFCInvFN: TJvFilenameEdit;
-    FileNameEditKSeFQInvAsyncFN: TJvFilenameEdit;
-    FileNameEditKSeFGetFN: TJvFilenameEdit;
-    FileNameEditKSeFInvSend: TJvFilenameEdit;
-    FileNameEditKSeFInitPZIn: TJvFilenameEdit;
-    FileNameEditKSeFInitPZOut: TJvFilenameEdit;
-    FileNameEditKSeFRSAProd: TJvFilenameEdit;
-    FileNameEditKSeFRSADemo: TJvFilenameEdit;
-    FileNameEditKSeFRSATest: TJvFilenameEdit;
-    FileNameEditJPKBPlikWyj: TJvFilenameEdit;
-    FileNameEditJPKBIU: TJvFilenameEdit;
-    FileNameEditJPKBEnc: TJvFilenameEdit;
-    FileNameEditJPKPAEnc: TJvFilenameEdit;
-    FileNameEditJPKPCInitUpload: TJvFilenameEdit;
-    FileNameEditJPKPAInitUpload: TJvFilenameEdit;
-    FileNameEditJPKPCWej: TJvFilenameEdit;
-    FileNameEditJPKPCEnc: TJvFilenameEdit;
-    FileNameEditJPKPAWej: TJvFilenameEdit;
-    FileNameEditJPKRSAProd: TJvFilenameEdit;
-    FileNameEditJPKRSATest: TJvFilenameEdit;
-    FileNameEditEDBPlikWej: TJvFilenameEdit;
-    FileNameEditEDBPlikWyj: TJvFilenameEdit;
-    FileNameEditEDPCWej: TJvFilenameEdit;
-    FileNameEditEDPAWej: TJvFilenameEdit;
-    FileNameEditEDPCWyj: TJvFilenameEdit;
-    FileNameEditEDPAWyj: TJvFilenameEdit;
-    FloatSpinEditKSeFCInvDueValue: TJvSpinEdit;
-    FloatSpinEditEDPKwota: TJvSpinEdit;
-    FloatSpinEditJPKPKwota: TJvSpinEdit;
-    FloatSpinEditKSeFQInvCAamountFrom: TJvSpinEdit;
-    FloatSpinEditKSeFQInvCAamountTo: TJvSpinEdit;
-    FloatSpinEditKSeFQInvCAamountType: TJvSpinEdit;
+    FileNameEditKSeFBatchInZIP: TEdit;
+    FileNameEditKSeFBatchOutEncZIP: TEdit;
+    FileNameEditKSeFBatchOutInitUp: TEdit;
+    FileNameEditKSeFBatchSendEnc: TEdit;
+    FileNameEditKSeFBatchSendIU: TEdit;
+    FileNameEditKSeFUPO: TEdit;
+    FileNameEditKSeFCInvFN: TEdit;
+    FileNameEditKSeFQInvAsyncFN: TEdit;
+    FileNameEditKSeFInitPZIn: TEdit;
+    FileNameEditKSeFInitPZOut: TEdit;
+    FileNameEditKSeFRSAProd: TEdit;
+    FileNameEditKSeFRSADemo: TEdit;
+    FileNameEditKSeFRSATest: TEdit;
+    FileNameEditJPKBPlikWyj: TEdit;
+    FileNameEditJPKBIU: TEdit;
+    FileNameEditJPKBEnc: TEdit;
+    FileNameEditJPKPAEnc: TEdit;
+    FileNameEditJPKPCInitUpload: TEdit;
+    FileNameEditJPKPAInitUpload: TEdit;
+    FileNameEditJPKPCWej: TEdit;
+    FileNameEditJPKPCEnc: TEdit;
+    FileNameEditJPKPAWej: TEdit;
+    FileNameEditJPKRSAProd: TEdit;
+    FileNameEditJPKRSATest: TEdit;
+    FileNameEditEDBPlikWej: TEdit;
+    FileNameEditEDBPlikWyj: TEdit;
+    FileNameEditEDPCWej: TEdit;
+    FileNameEditEDPAWej: TEdit;
+    FileNameEditEDPCWyj: TEdit;
+    FileNameEditEDPAWyj: TEdit;
+    FloatSpinEditKSeFCInvDueValue: TEdit;
+    FloatSpinEditEDPKwota: TEdit;
+    FloatSpinEditJPKPKwota: TEdit;
+    FloatSpinEditKSeFQInvCAamountFrom: TEdit;
+    FloatSpinEditKSeFQInvCAamountTo: TEdit;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox11: TGroupBox;
@@ -176,9 +168,6 @@ type
     GroupBox19: TGroupBox;
     GroupBox20: TGroupBox;
     GroupBoxKSeFSesGenIntId: TGroupBox;
-    GroupBox5: TGroupBox;
-    GroupBox6: TGroupBox;
-    GroupBox7: TGroupBox;
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
     GroupBoxKSeFSesTerm: TGroupBox;
@@ -270,11 +259,7 @@ type
     Label66: TLabel;
     Label67: TLabel;
     Label68: TLabel;
-    Label69: TLabel;
     Label7: TLabel;
-    Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
     Label73: TLabel;
     Label74: TLabel;
     Label75: TLabel;
@@ -353,8 +338,71 @@ type
     CheckBoxKSeFQInvCrIInvTypUPR: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ZAL: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ROZ: TCheckBox;
-    FilenameEditLibXML2: TJvFilenameEdit;
+    FilenameEditLibXML2: TEdit;
     Label115: TLabel;
+    SBFileNameEditJPKRSAProd: TSpeedButton;
+    OpenDialog1: TOpenDialog;
+    SaveDialog1: TSaveDialog;
+    SBFileNameEditJPKRSATest: TSpeedButton;
+    SBFileNameEditKSeFRSAProd: TSpeedButton;
+    SBFileNameEditKSeFRSADemo: TSpeedButton;
+    SBFileNameEditKSeFRSATest: TSpeedButton;
+    SBFilenameEditLibXML2: TSpeedButton;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton8: TSpeedButton;
+    SpeedButton9: TSpeedButton;
+    SpeedButton10: TSpeedButton;
+    SpeedButton11: TSpeedButton;
+    SpeedButton12: TSpeedButton;
+    SpeedButton13: TSpeedButton;
+    SpeedButton14: TSpeedButton;
+    SpeedButton15: TSpeedButton;
+    SpeedButton18: TSpeedButton;
+    SpeedButton19: TSpeedButton;
+    SpeedButton20: TSpeedButton;
+    SpeedButton21: TSpeedButton;
+    SpeedButton22: TSpeedButton;
+    SpeedButton23: TSpeedButton;
+    SpeedButton24: TSpeedButton;
+    SpeedButton25: TSpeedButton;
+    SpeedButton26: TSpeedButton;
+    SpeedButton27: TSpeedButton;
+    ComboBoxKSeFQInvCAamountType: TComboBox;
+    ScrollBox5: TScrollBox;
+    GroupBox7: TGroupBox;
+    Label71: TLabel;
+    Label72: TLabel;
+    SpeedButton17: TSpeedButton;
+    EditKSeFInvGetNr: TEdit;
+    FileNameEditKSeFGetFN: TEdit;
+    ButtonKSeFInvGet: TButton;
+    GroupBox6: TGroupBox;
+    Label70: TLabel;
+    EditKSeFInvStatNr: TEdit;
+    ButtonKSeFInvStat: TButton;
+    GroupBox5: TGroupBox;
+    Label69: TLabel;
+    SpeedButton16: TSpeedButton;
+    FileNameEditKSeFInvSend: TEdit;
+    ButtonKSeFInvSend: TButton;
+    GroupBox21: TGroupBox;
+    Label116: TLabel;
+    Label117: TLabel;
+    EditKSeFInvHideNr: TEdit;
+    EditKSeFInvHideReason: TEdit;
+    ButtonKSeFInvHide: TButton;
+    GroupBox22: TGroupBox;
+    Label118: TLabel;
+    Label119: TLabel;
+    EditKSeFInvShowNr: TEdit;
+    EditKSeFInvShowReason: TEdit;
+    ButtonKSeFInvShow: TButton;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -387,19 +435,12 @@ type
     procedure ButtonKSeFStatusUPOClick(Sender: TObject);
     procedure ButtonShowCertClick(Sender: TObject);
     procedure ButtonSetupClick(Sender: TObject);
-    procedure FileNameEditEDPAWejAcceptFileName(Sender: TObject;
-      var Value: String; var AAction: Boolean);
-    procedure FileNameEditEDPCWejAcceptFileName(Sender: TObject;
-      var Value: String; var AAction: Boolean);
-    procedure FileNameEditJPKPCWejAcceptFileName(Sender: TObject;
-      var Value: String; var AAction: Boolean);
-    procedure FileNameEditKSeFBatchInZIPAcceptFileName(Sender: TObject;
-      var Value: String; var AAction: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure RadioButtonKSeFBatchCertChange(Sender: TObject);
-    procedure FileNameEditJPKPAWejAfterDialog(Sender: TObject;
-      var AName: string; var AAction: Boolean);
+    procedure SBFileNameEditJPKRSAProdClick(Sender: TObject);
+    procedure ButtonKSeFInvHideClick(Sender: TObject);
+    procedure ButtonKSeFInvShowClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
@@ -587,6 +628,216 @@ begin
   ComboBoxKSeFBatchCert.Enabled := RadioButtonKSeFBatchCert.Checked;
 end;
 
+procedure TForm1.SBFileNameEditJPKRSAProdClick(Sender: TObject);
+const
+  FLT_PEM = 'Pliki PEM (*.pem)|*.pem|Wszystkie pliki (*.*)|*.*';
+  FLT_DLL = 'Pliki DLL (*.dll)|*.dll|Wszystkie pliki (*.*)|*.*';
+  FLT_XML = 'Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*';
+  FLT_SIG = 'Pliki SIG (*.sig)|*.sig|Wszystkie pliki (*.*)|*.*';
+  FLT_ENC = 'Pliki ENC (*.enc)|*.enc|Wszystkie pliki (*.*)|*.*';
+  FLT_ZIP = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*';
+var
+  E: TEdit;
+  D: TOpenDialog;
+begin
+  D := nil;
+  E := nil;
+  case TComponent(Sender).Tag of
+    1: begin
+      E := FileNameEditJPKRSAProd;
+      OpenDialog1.Filter := FLT_PEM;
+      D := OpenDialog1;
+    end;
+    2: begin
+      E := FileNameEditJPKRSATest;
+      OpenDialog1.Filter := FLT_PEM;
+      D := OpenDialog1;
+    end;
+    3: begin
+      E := FileNameEditKSeFRSAProd;
+      OpenDialog1.Filter := FLT_PEM;
+      D := OpenDialog1;
+    end;
+    4: begin
+      E := FileNameEditKSeFRSADemo;
+      OpenDialog1.Filter := FLT_PEM;
+      D := OpenDialog1;
+    end;
+    5: begin
+      E := FileNameEditKSeFRSATest;
+      OpenDialog1.Filter := FLT_PEM;
+      D := OpenDialog1;
+    end;
+    6: begin
+      E := FilenameEditLibXML2;
+      OpenDialog1.Filter := FLT_DLL;
+      D := OpenDialog1;
+    end;
+    7: begin
+      E := FileNameEditEDBPlikWej;
+      OpenDialog1.Filter := FLT_SIG;
+      D := OpenDialog1;
+    end;
+    8: begin
+      E := FileNameEditEDBPlikWyj;
+      OpenDialog1.Filter := FLT_XML;
+      D := OpenDialog1;
+    end;
+    9: begin
+      E := FileNameEditEDPCWej;
+      OpenDialog1.Filter := FLT_XML;
+      D := OpenDialog1;
+    end;
+    10: begin
+      E := FileNameEditEDPCWyj;
+      D := SaveDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    11: begin
+      E := FileNameEditEDPAWej;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    12: begin
+      E := FileNameEditEDPAWyj;
+      D := SaveDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    13: begin
+      E := FileNameEditJPKPCWej;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    14: begin
+      E := FileNameEditJPKPCEnc;
+      D := SaveDialog1;
+      D.Filter := FLT_ENC;
+    end;
+    15: begin
+      E := FileNameEditJPKPCInitUpload;
+      D := SaveDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    16: begin
+      E := FileNameEditJPKPAWej;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    17: begin
+      E := FileNameEditJPKPAEnc;
+      D := SaveDialog1;
+      D.Filter := FLT_ENC;
+    end;
+    18: begin
+      E := FileNameEditJPKPAInitUpload;
+      D := SaveDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    19: begin
+      E := FileNameEditJPKBIU;
+      D := OpenDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    20: begin
+      E := FileNameEditJPKBEnc;
+      D := OpenDialog1;
+      D.Filter := FLT_ENC;
+    end;
+    21: begin
+      E := FileNameEditJPKBPlikWyj;
+      D := SaveDialog1;
+      D.Filter := FLT_XML;
+    end;
+    22: begin
+      E := FileNameEditKSeFInvSend;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    23: begin
+      E := FileNameEditKSeFGetFN;
+      D := SaveDialog1;
+      D.Filter := FLT_XML;
+    end;
+    24: begin
+      E := FileNameEditKSeFInitPZOut;
+      D := SaveDialog1;
+      D.Filter := FLT_XML;
+    end;
+    25: begin
+      E := FileNameEditKSeFInitPZIn;
+      D := OpenDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    26: begin
+      E := FileNameEditKSeFCInvFN;
+      D := SaveDialog1;
+      D.Filter := FLT_XML;
+    end;
+    27: begin
+      E := FileNameEditKSeFUPO;
+      D := SaveDialog1;
+      D.Filter := FLT_XML;
+    end;
+    28: begin
+      E := FileNameEditKSeFBatchInZIP;
+      D := OpenDialog1;
+      D.Filter := FLT_ZIP;
+    end;
+    29: begin
+      E := FileNameEditKSeFBatchOutInitUp;
+      D := SaveDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    30: begin
+      E := FileNameEditKSeFBatchOutEncZIP;
+      D := SaveDialog1;
+      D.Filter := FLT_ENC;
+    end;
+    31: begin
+      E := FileNameEditKSeFBatchSendIU;
+      D := OpenDialog1;
+      D.Filter := FLT_SIG;
+    end;
+    32: begin
+      E := FileNameEditKSeFBatchSendEnc;
+      D := OpenDialog1;
+      D.Filter := FLT_ENC;
+    end;
+    33: begin
+      E := FileNameEditKSeFQInvAsyncFN;
+      D := SaveDialog1;
+      D.Filter := FLT_ZIP;
+    end;
+  end;
+  if D = nil then
+    Exit;
+  D.FileName := E.Text;
+  if D.Execute then
+  begin
+    E.Text := D.FileName;
+    case TComponent(Sender).Tag of
+      9: begin
+        FileNameEditEDPCWyj.Text := D.FileName + '.sig';
+      end;
+      11: begin
+        FileNameEditEDPAWyj.Text := D.FileName + '.sig';
+      end;
+      13: begin
+        FileNameEditJPKPCEnc.Text := D.FileName + '.enc';
+        FileNameEditJPKPCInitUpload.Text := D.FileName + '.iu.sig';
+      end;
+      16: begin
+        FileNameEditJPKPAEnc.Text := D.FileName + '.enc';
+        FileNameEditJPKPAInitUpload.Text := D.FileName + '.iu.sig';
+      end;
+      28: begin
+        FileNameEditKSeFBatchOutEncZIP.Text := ChangeFileExt(D.FileName, '.part1');
+        FileNameEditKSeFBatchOutInitUp.Text := ChangeFileExt(D.FileName, '.iu.xml');
+      end;
+    end;
+  end;
+end;
+
 procedure TForm1.UstawKSeFSesion(AWartosc: Boolean);
 begin
   GroupBoxKSeFSesStat.Enabled := AWartosc;
@@ -602,7 +853,7 @@ begin
   // Tylko dla serwerów testowych
   FloatSpinEditKSeFQInvCAamountFrom.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   FloatSpinEditKSeFQInvCAamountTo.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
-  FloatSpinEditKSeFQInvCAamountType.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  ComboBoxKSeFQInvCAamountType.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   MemoKSeFQInvCrCurrencyCodes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckBoxKSeFQInvCrFaP17Annotation.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckGroupKSeFQInvCrIInvoiceTypes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
@@ -623,9 +874,9 @@ begin
         SubjectType := TKSeFSubjectType(ComboBoxKSeFQInvCrSubTyp.ItemIndex);
         InvoicingDateFrom := DateTimePickerKSeFQInvCrDetInvFrom.DateTime;
         InvoicingDateTo := DateTimePickerKSeFQInvCrDetInvTo.DateTime;
-        AmountFrom := FloatSpinEditKSeFQInvCAamountFrom.Value;
-        AmountTo := FloatSpinEditKSeFQInvCAamountTo.Value;
-        AmountType := FloatSpinEditKSeFQInvCAamountType.Value;
+        AmountFrom := StrToCurr(FloatSpinEditKSeFQInvCAamountFrom.Text);
+        AmountTo := StrToCurr(FloatSpinEditKSeFQInvCAamountTo.Text);
+        AmountType := TKSeFAmountType(ComboBoxKSeFQInvCAamountType.ItemIndex);
         if Trim(MemoKSeFQInvCrCurrencyCodes.Text) <> '' then
           for I := 0 to MemoKSeFQInvCrCurrencyCodes.Lines.Count - 1 do
             if Trim(MemoKSeFQInvCrCurrencyCodes.Lines[I]) <> '' then
@@ -917,14 +1168,14 @@ begin
     if ComboBoxXMLRead.ItemIndex >= 0 then
       XMLReaderClass := ComboBoxXMLRead.Text;
     try
-      FS := TFileStream.Create(FileNameEditJPKRSAProd.FileName, fmOpenRead);
+      FS := TFileStream.Create(FileNameEditJPKRSAProd.Text, fmOpenRead);
       JPKRSAProd := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
-      FS := TFileStream.Create(FileNameEditJPKRSATest.FileName, fmOpenRead);
+      FS := TFileStream.Create(FileNameEditJPKRSATest.Text, fmOpenRead);
       JPKRSATest := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
@@ -952,21 +1203,21 @@ begin
     if ComboBoxRSAEnc.ItemIndex >= 0 then
       RSAEncryptClass := ComboBoxRSAEnc.Text;
     try
-      FS := TFileStream.Create(FileNameEditKSeFRSAProd.FileName, fmOpenRead);
+      FS := TFileStream.Create(FileNameEditKSeFRSAProd.Text, fmOpenRead);
       KSeFRSAProd := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
-      FS := TFileStream.Create(FileNameEditKSeFRSADemo.FileName, fmOpenRead);
+      FS := TFileStream.Create(FileNameEditKSeFRSADemo.Text, fmOpenRead);
       KSeFRSADemo := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
-      FS := TFileStream.Create(FileNameEditKSeFRSATest.FileName, fmOpenRead);
+      FS := TFileStream.Create(FileNameEditKSeFRSATest.Text, fmOpenRead);
       KSeFRSATest := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
@@ -977,9 +1228,9 @@ begin
     RSAKey[kgtTest] := KSeFRSATest;
   end;
 
-  if FilenameEditLibXML2.FileName <> '' then
-    if lgpLoadLibXML2(PAnsiChar(AnsiToUtf8(FilenameEditLibXML2.FileName))) = 0 then
-      MessageDlg('Nie mo¿na za³adowaæ biblioteki: ' + FilenameEditLibXML2.FileName,
+  if FilenameEditLibXML2.Text <> '' then
+    if lgpLoadLibXML2(PAnsiChar(AnsiToUtf8(FilenameEditLibXML2.Text))) = 0 then
+      MessageDlg('Nie mo¿na za³adowaæ biblioteki: ' + FilenameEditLibXML2.Text,
         mtError, [mbOK], 0);
 
   LoadCertList;
@@ -1002,39 +1253,6 @@ begin
   DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
   DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
-end;
-
-procedure TForm1.FileNameEditEDPAWejAcceptFileName(Sender: TObject;
-  var Value: String; var AAction: Boolean);
-begin
-  FileNameEditEDPAWyj.FileName := Value + '.sig';
-end;
-
-procedure TForm1.FileNameEditEDPCWejAcceptFileName(Sender: TObject;
-  var Value: String; var AAction: Boolean);
-begin
-  FileNameEditEDPCWyj.FileName := Value + '.sig';
-end;
-
-procedure TForm1.FileNameEditJPKPAWejAfterDialog(Sender: TObject;
-  var AName: string; var AAction: Boolean);
-begin
-  FileNameEditJPKPAEnc.FileName := AName + '.enc';
-  FileNameEditJPKPAInitUpload.FileName := AName + '.iu.sig';
-end;
-
-procedure TForm1.FileNameEditJPKPCWejAcceptFileName(Sender: TObject;
-  var Value: String; var AAction: Boolean);
-begin
-  FileNameEditJPKPCEnc.FileName := Value + '.enc';
-  FileNameEditJPKPCInitUpload.FileName := Value + '.iu.sig';
-end;
-
-procedure TForm1.FileNameEditKSeFBatchInZIPAcceptFileName(Sender: TObject;
-  var Value: String; var AAction: Boolean);
-begin
-  FileNameEditKSeFBatchOutEncZIP.FileName := ChangeFileExt(Value, '.part1');
-  FileNameEditKSeFBatchOutInitUp.FileName := ChangeFileExt(Value, '.iu.xml');
 end;
 
 procedure TForm1.ButtonShowCertClick(Sender: TObject);
@@ -1081,7 +1299,7 @@ begin
     Debug('Timestamp: ' + Timestamp);
     if Status = 200 then
     begin
-      QuickSave(FileNameEditJPKBPlikWyj.FileName, UPO);
+      QuickSave(FileNameEditJPKBPlikWyj.Text, UPO);
       Debug('Pobrano UPO');
     end
     else
@@ -1105,11 +1323,11 @@ begin
   Debug('Wyœlij JPK', True);
   try
     try
-      Debug('Wczytywanie struktury InitUpload: ' + FileNameEditJPKBIU.FileName);
-      InitUpload := QuickLoad(FileNameEditJPKBIU.FileName);
+      Debug('Wczytywanie struktury InitUpload: ' + FileNameEditJPKBIU.Text);
+      InitUpload := QuickLoad(FileNameEditJPKBIU.Text);
 
-      Debug('Otwarcie strumienia z zaszyfrowanymi danymi: ' + FileNameEditJPKBEnc.FileName);
-      EncStream := TFileStream.Create(FileNameEditJPKBEnc.FileName, fmOpenRead);
+      Debug('Otwarcie strumienia z zaszyfrowanymi danymi: ' + FileNameEditJPKBEnc.Text);
+      EncStream := TFileStream.Create(FileNameEditJPKBEnc.Text, fmOpenRead);
 
       Debug('Wysy³anie');
       JPK.Send(InitUpload, EncStream, RefNo, TlgoEDekGateType(ComboBoxJPKBRodzBram.ItemIndex),
@@ -1141,11 +1359,11 @@ begin
   Debug('Podpis JPK danymi autoryzuj¹cymi', True);
   try
     try
-      Debug('Plik wejœciowy: ' + FileNameEditJPKPAWej.FileName);
-      IStream := TFileStream.Create(FileNameEditJPKPAWej.FileName, fmOpenRead);
+      Debug('Plik wejœciowy: ' + FileNameEditJPKPAWej.Text);
+      IStream := TFileStream.Create(FileNameEditJPKPAWej.Text, fmOpenRead);
 
-      Debug('Plik wynikowy (enc. zip): ' + FileNameEditJPKPAEnc.FileName );
-      OStream := TFileStream.Create(FileNameEditJPKPAEnc.FileName, fmCreate);
+      Debug('Plik wynikowy (enc. zip): ' + FileNameEditJPKPAEnc.Text );
+      OStream := TFileStream.Create(FileNameEditJPKPAEnc.Text, fmCreate);
 
       Debug('Na ¿¹danie (ad hoc): ' + BoolToStr(CheckBoxJPKPCAdHoc.Checked));
 
@@ -1154,17 +1372,17 @@ begin
       Debug('Bramka (klucz rsa): ' + S);
 
       DebugAuth(EditJPKPImie.Text, EditJPKPNazwisko.Text, EditJPKPNIP.Text,
-        DateTimePickerJPKPDataU.Date, FloatSpinEditJPKPKwota.Value);
+        DateTimePickerJPKPDataU.Date, StrToCurr(FloatSpinEditJPKPKwota.Text));
 
       JPK.SignAuthData(AnsiToUtf8(EditJPKPNIP.Text), AnsiToUtf8(EditJPKPImie.Text), AnsiToUtf8(EditJPKPNazwisko.Text),
-        DateTimePickerJPKPDataU.Date, FloatSpinEditJPKPKwota.Value,
+        DateTimePickerJPKPDataU.Date, StrToCurr(FloatSpinEditJPKPKwota.Text),
         TlgoEDekGateType(ComboBoxJPKPARodzBram.ItemIndex), CheckBoxJPKPCAdHoc.Checked,
         IStream, OStream, InitUp);
 
       Debug('Podpisano');
 
-      Debug('Zapis InitUpload do pliku: ' + FileNameEditJPKPCInitUpload.FileName);
-      QuickSave(FileNameEditJPKPCInitUpload.FileName, InitUp);
+      Debug('Zapis InitUpload do pliku: ' + FileNameEditJPKPCInitUpload.Text);
+      QuickSave(FileNameEditJPKPCInitUpload.Text, InitUp);
     except
       on E: Exception do
       begin
@@ -1191,11 +1409,11 @@ begin
   Debug('Podpis JPK certyfikatem', True);
   try
     try
-      Debug('Plik wejœciowy: ' + FileNameEditJPKPCWej.FileName);
-      IStream := TFileStream.Create(FileNameEditJPKPCWej.FileName, fmOpenRead);
+      Debug('Plik wejœciowy: ' + FileNameEditJPKPCWej.Text);
+      IStream := TFileStream.Create(FileNameEditJPKPCWej.Text, fmOpenRead);
 
-      Debug('Plik wynikowy (enc. zip): ' + FileNameEditJPKPCEnc.FileName );
-      OStream := TFileStream.Create(FileNameEditJPKPCEnc.FileName, fmCreate);
+      Debug('Plik wynikowy (enc. zip): ' + FileNameEditJPKPCEnc.Text );
+      OStream := TFileStream.Create(FileNameEditJPKPCEnc.Text, fmCreate);
 
       Debug('Na ¿¹danie (ad hoc): ' + BoolToStr(CheckBoxJPKPCAdHoc.Checked));
 
@@ -1210,8 +1428,8 @@ begin
         IStream, OStream, InitUp);
       Debug('Podpisano');
 
-      Debug('Zapis InitUpload do pliku: ' + FileNameEditJPKPCInitUpload.FileName);
-      QuickSave(FileNameEditJPKPCInitUpload.FileName, InitUp);
+      Debug('Zapis InitUpload do pliku: ' + FileNameEditJPKPCInitUpload.Text);
+      QuickSave(FileNameEditJPKPCInitUpload.Text, InitUp);
     except
       on E: EAbort do
       begin
@@ -1281,8 +1499,8 @@ begin
   KSeF.FormCode := TlgoKSeFFormCode(ComboBoxKSeFInitFormCode.ItemIndex + 1);
   try
     try
-      Debug('Wczytywanie podpisanego pliku: ' + FileNameEditKSeFInitPZIn.FileName);
-      SignedInitAuth := QuickLoad(FileNameEditKSeFInitPZIn.FileName);
+      Debug('Wczytywanie podpisanego pliku: ' + FileNameEditKSeFInitPZIn.Text);
+      SignedInitAuth := QuickLoad(FileNameEditKSeFInitPZIn.Text);
       Resp := KSeF.SessionInitPZ(SignedInitAuth);
       Debug('OdpowiedŸ:' + Utf8ToAnsi(Resp.RawResponse));
       UstawKSeFSesion(True);
@@ -1312,8 +1530,8 @@ begin
     KSeF.GateType := TlgoKSeFGateType(ComboBoxKSeFBramka.ItemIndex);
     KSeF.FormCode := TlgoKSeFFormCode(ComboBoxKSeFInitFormCode.ItemIndex + 1);
     AuthStruct := KSeF.SessionChalangePZ;
-    QuickSave(FileNameEditKSeFInitPZOut.FileName, AuthStruct);
-    Debug('Zapisano do pliku: ' + FileNameEditKSeFInitPZOut.FileName);
+    QuickSave(FileNameEditKSeFInitPZOut.Text, AuthStruct);
+    Debug('Zapisano do pliku: ' + FileNameEditKSeFInitPZOut.Text);
   except
     on E: Exception do
     begin
@@ -1370,9 +1588,9 @@ begin
   Debug('KSeF - pobierz fakturê', True);
   try
     try
-      FA := TFileStream.Create(FileNameEditKSeFGetFN.FileName, fmCreate);
+      FA := TFileStream.Create(FileNameEditKSeFGetFN.Text, fmCreate);
       KSeF.InvoiceGet(EditKSeFInvGetNr.Text, FA);
-      Debug('Pobrano, zapisywanie do: ' + FileNameEditKSeFGetFN.FileName);
+      Debug('Pobrano, zapisywanie do: ' + FileNameEditKSeFGetFN.Text);
     except
       on E: Exception do
       begin
@@ -1388,6 +1606,28 @@ begin
   end;
 end;
 
+procedure TForm1.ButtonKSeFInvHideClick(Sender: TObject);
+var
+  Resp: TKSeFVisibilityInvoiceResponse;
+begin
+  Debug('KSeF - ukrywanie wybranej faktury', True);
+  try
+    Debug('Nr ref. KSeF faktury: ' + EditKSeFInvHideNr.Text);
+    Debug('Przyczyna: ' + EditKSeFInvHideReason.Text);
+    Resp := KSeF.InvoiceVisibilityHide(EditKSeFInvHideNr.Text, EditKSeFInvHideReason.Text);
+    Resp.Free;
+    Debug('Ukryto.');
+  except
+    on E: Exception do
+    begin
+      Debug('Blad podczas ukrywania faktury (%s): %s', [E.ClassName, E.Message]);
+      if E is EKSeFExceptionResponse then
+        Debug('OdpowiedŸ: ' + EKSeFExceptionResponse(E).RawData);
+      MessageDlg(Format('B³¹d podczas ukrywania faktury (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
 procedure TForm1.ButtonKSeFInvSendClick(Sender: TObject);
 var
   FS: TFileStream;
@@ -1397,8 +1637,8 @@ begin
   Debug('KSeF - wyœlij fakturê', True);
   try
     try
-      Debug('Otwieranie pliku: ' + FileNameEditKSeFInvSend.FileName);
-      FS := TFileStream.Create(FileNameEditKSeFInvSend.FileName, fmOpenRead);
+      Debug('Otwieranie pliku: ' + FileNameEditKSeFInvSend.Text);
+      FS := TFileStream.Create(FileNameEditKSeFInvSend.Text, fmOpenRead);
       Debug('Wysy³anie');
       Resp := KSeF.InvoiceSend(FS);
       Debug('OdpowiedŸ: ' + Utf8ToAnsi(Resp.RawResponse));
@@ -1417,6 +1657,28 @@ begin
   finally
     if Assigned(FS) then
       FS.Free;
+  end;
+end;
+
+procedure TForm1.ButtonKSeFInvShowClick(Sender: TObject);
+var
+  Resp: TKSeFVisibilityInvoiceResponse;
+begin
+  Debug('KSeF - Anulowanie ukrycia wybranej faktury', True);
+  try
+    Debug('Nr ref. KSeF faktury: ' + EditKSeFInvShowNr.Text);
+    Debug('Przyczyna: ' + EditKSeFInvShowReason.Text);
+    Resp := KSeF.InvoiceVisibilityShow(EditKSeFInvShowNr.Text, EditKSeFInvShowReason.Text);
+    Resp.Free;
+    Debug('Anulowano ukrycie.');
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas anulowania ukrycia faktury (%s): %s', [E.ClassName, E.Message]);
+      if E is EKSeFExceptionResponse then
+        Debug('OdpowiedŸ: ' + EKSeFExceptionResponse(E).RawData);
+      MessageDlg(Format('B³¹d podczas anulowania ukrycia faktury (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
   end;
 end;
 
@@ -1514,8 +1776,8 @@ begin
       Debug('Opis: ' + Utf8ToAnsi(Resp.ProcessingDescription));
       if (Resp.ProcessingCode = 200) and (Resp.Upo <> '') then
       begin
-        QuickSave(FileNameEditKSeFUPO.FileName, Resp.Upo);
-        Debug('Pobrano UPO do pliku: ' + FileNameEditKSeFUPO.FileName);
+        QuickSave(FileNameEditKSeFUPO.Text, Resp.Upo);
+        Debug('Pobrano UPO do pliku: ' + FileNameEditKSeFUPO.Text);
       end
       else
         Debug('NIE pobrano UPO');
@@ -1548,15 +1810,15 @@ begin
   end;
 
   try
-    Debug('Plik wej: ' + FileNameEditEDPCWej.FileName);
-    Wej := QuickLoad(FileNameEditEDPCWej.FileName);
+    Debug('Plik wej: ' + FileNameEditEDPCWej.Text);
+    Wej := QuickLoad(FileNameEditEDPCWej.Text);
 
     DebugCert(Certyfikaty[ComboBoxEdekCert.ItemIndex]);
     Debug('Podpisywanie');
     EDek.PodpiszCertyfikatem(Wej, Certyfikaty[ComboBoxEdekCert.ItemIndex], Wyj);
 
-    Debug('Plik wyj: ' + FileNameEditEDPCWyj.FileName);
-    QuickSave(FileNameEditEDPCWyj.FileName, Wyj);
+    Debug('Plik wyj: ' + FileNameEditEDPCWyj.Text);
+    QuickSave(FileNameEditEDPCWyj.Text, Wyj);
 
     Debug('Podpisano');
   except
@@ -1580,19 +1842,19 @@ var
 begin
   Debug('Podpis eDeklaracji certyfikatem', True);
   try
-    Debug('Plik wej: ' + FileNameEditEDPAWej.FileName);
-    Wej := QuickLoad(FileNameEditEDPAWej.FileName);
+    Debug('Plik wej: ' + FileNameEditEDPAWej.Text);
+    Wej := QuickLoad(FileNameEditEDPAWej.Text);
 
     DebugAuth(EditEDPImie.Text, EditEDPNazwisko.Text, EditEDPNIP.Text,
-      DateTimePickerEDPDataU.Date, FloatSpinEditEDPKwota.Value);
+      DateTimePickerEDPDataU.Date, StrToCurr(FloatSpinEditEDPKwota.Text));
     Debug('Podpisywanie');
 
     EDek.PodpiszDanymiAut(Wej, AnsiToUtf8(EditEDPImie.Text), AnsiToUtf8(EditEDPNazwisko.Text),
-      EditEDPNIP.Text, DateTimePickerEDPDataU.Date, FloatSpinEditEDPKwota.Value,
+      EditEDPNIP.Text, DateTimePickerEDPDataU.Date, StrToCurr(FloatSpinEditEDPKwota.Text),
       Wyj);
 
-    Debug('Plik wyj: ' + FileNameEditEDPAWyj.FileName);
-    QuickSave(FileNameEditEDPAWyj.FileName, Wyj);
+    Debug('Plik wyj: ' + FileNameEditEDPAWyj.Text);
+    QuickSave(FileNameEditEDPAWyj.Text, Wyj);
 
     Debug('Podpisano');
   except
@@ -1624,8 +1886,8 @@ begin
   end;
 
   try
-    Debug('Plik wej: ' + FileNameEditEDBPlikWej.FileName);
-    Dane := QuickLoad(FileNameEditEDBPlikWej.FileName);
+    Debug('Plik wej: ' + FileNameEditEDBPlikWej.Text);
+    Dane := QuickLoad(FileNameEditEDBPlikWej.Text);
 
     S := GetEnumName(TypeInfo(TlgoEDekGateType), ComboBoxEDBRodzBram.ItemIndex);
     //Str(TlgoEDekGateType(ComboBoxEDBRodzBram.ItemIndex), S);
@@ -1692,8 +1954,8 @@ begin
     if Status = 200 then
     begin
       Debug('Pobrano UPO');
-      Debug('UPO zapisano do: ' + FileNameEditEDBPlikWyj.FileName);
-      QuickSave(FileNameEditEDBPlikWyj.FileName, UPO);
+      Debug('UPO zapisano do: ' + FileNameEditEDBPlikWyj.Text);
+      QuickSave(FileNameEditEDBPlikWyj.Text, UPO);
     end
     else
       Debug('NIE pobrano UPO');
@@ -1713,9 +1975,9 @@ end;
 
 procedure TForm1.ButtonKSeFQInvClearClick(Sender: TObject);
 begin
-  FloatSpinEditKSeFQInvCAamountFrom.Value := 0;
-  FloatSpinEditKSeFQInvCAamountTo.Value := 0;
-  FloatSpinEditKSeFQInvCAamountType.Value := 0;
+  FloatSpinEditKSeFQInvCAamountFrom.Text := '0';
+  FloatSpinEditKSeFQInvCAamountTo.Text := '0';
+  ComboBoxKSeFQInvCAamountType.ItemIndex := 0;
   MemoKSeFQInvCrCurrencyCodes.Clear;
   CheckBoxKSeFQInvCrFaP17Annotation.Checked := False;
   EditKSeFQInvCrInvoiceNumber.Clear;
@@ -1800,7 +2062,7 @@ begin
       Req := TKSeFInvoiceRequestKSeF.Create;
       Req.KsefReferenceNumber := EditKSeFCInvRefNum.Text;
       Req.InvoiceDetails := TKSeFInvoiceQueryDetails.Create;
-      Req.InvoiceDetails.DueValue := FloatSpinEditKSeFCInvDueValue.Value;
+      Req.InvoiceDetails.DueValue := StrToCurr(FloatSpinEditKSeFCInvDueValue.Text);
       Req.InvoiceDetails.InvoiceOryginalNumber := EditKSeFCInvOrgNum.Text;
       Req.InvoiceDetails.SubjectTo := TKSeFSubjectTo.Create;
       if RadioGroupKSeFCInvSubToType.ItemIndex >= 0 then
@@ -1839,8 +2101,8 @@ begin
       end;
       Debug('Bramka: ' + ComboBoxKSeFComBramka.Text);
       Debug('Zapytanie: ' + Utf8ToAnsi(Req.AsJSONString));
-      Debug('Plik wynikowy: ' + FileNameEditKSeFCInvFN.FileName);
-      FA := TFileStream.Create(FileNameEditKSeFCInvFN.FileName, fmCreate);
+      Debug('Plik wynikowy: ' + FileNameEditKSeFCInvFN.Text);
+      FA := TFileStream.Create(FileNameEditKSeFCInvFN.Text, fmCreate);
       KSeF.CommonInvoiceKSeF(Req, FA, TlgoKSeFGateType(ComboBoxKSeFComBramka.ItemIndex));
     except
       on E: Exception do
@@ -1870,7 +2132,7 @@ begin
   RadioGroupKSeFCInvSubToType.ItemIndex := -1;
   RadioButtonKSeFCInvSubToFullName.Checked := False;
   RadioButtonKSeFCInvSubToPersonName.Checked := False;
-  FloatSpinEditKSeFCInvDueValue.Value := 0;
+  FloatSpinEditKSeFCInvDueValue.Text := '0';
 end;
 
 procedure TForm1.ButtonKSeFBatchPodpClick(Sender: TObject);
@@ -1890,10 +2152,10 @@ begin
   end;
   try
     try
-      Debug('Otwieranie pliku wejœciowego: ' + FileNameEditKSeFBatchInZIP.FileName);
-      InZIPFile := TFileStream.Create(FileNameEditKSeFBatchInZIP.FileName, fmOpenRead);
-      Debug('Tworzenie pliku wyjœciowego: ' + FileNameEditKSeFBatchOutEncZIP.FileName);
-      OutEncZIPFile := TFileStream.Create(FileNameEditKSeFBatchOutEncZIP.FileName, fmCreate);
+      Debug('Otwieranie pliku wejœciowego: ' + FileNameEditKSeFBatchInZIP.Text);
+      InZIPFile := TFileStream.Create(FileNameEditKSeFBatchInZIP.Text, fmOpenRead);
+      Debug('Tworzenie pliku wyjœciowego: ' + FileNameEditKSeFBatchOutEncZIP.Text);
+      OutEncZIPFile := TFileStream.Create(FileNameEditKSeFBatchOutEncZIP.Text, fmCreate);
       KSeF.NIP := EditKSeFBatchNIP.Text;
       KSeF.FormCode := TlgoKSeFFormCode(ComboBoxKSeFBatchInitFormCode.ItemIndex);
       KSeF.GateType := TlgoKSeFGateType(ComboBoxKSeFBatchBramka.ItemIndex);
@@ -1906,14 +2168,14 @@ begin
         Debug('Podpis profilem zaufanym');
 
       KSeF.BatchSign(InZIPFile, RadioButtonKSeFBatchPZ.Checked, OutEncZIPFile, InitUpload,
-        ExtractFileName(FileNameEditKSeFBatchInZIP.FileName), ExtractFileName(FileNameEditKSeFBatchOutEncZIP.FileName));
+        ExtractFileName(FileNameEditKSeFBatchInZIP.Text), ExtractFileName(FileNameEditKSeFBatchOutEncZIP.Text));
       Debug('Podpisano');
 
-      QuickSave(FileNameEditKSeFBatchOutInitUp.FileName, InitUpload);
-      Debug('Zapisano strukturê InitUpload do pliku: ' + FileNameEditKSeFBatchOutInitUp.FileName);
+      QuickSave(FileNameEditKSeFBatchOutInitUp.Text, InitUpload);
+      Debug('Zapisano strukturê InitUpload do pliku: ' + FileNameEditKSeFBatchOutInitUp.Text);
 
-      FileNameEditKSeFBatchSendIU.FileName := FileNameEditKSeFBatchOutInitUp.FileName;
-      FileNameEditKSeFBatchSendEnc.FileName := FileNameEditKSeFBatchOutEncZIP.FileName;
+      FileNameEditKSeFBatchSendIU.Text := FileNameEditKSeFBatchOutInitUp.Text;
+      FileNameEditKSeFBatchSendEnc.Text := FileNameEditKSeFBatchOutEncZIP.Text;
       ComboBoxKSeFBatchSendBramka.ItemIndex := ComboBoxKSeFBatchBramka.ItemIndex;
     except
       on E: EAbort do
@@ -1941,10 +2203,10 @@ begin
   Debug('KSeF - wysy³ka wsadowa', True);
   try
     try
-      Debug('Otwieranie pliku wejœciowego: ' + FileNameEditKSeFBatchSendEnc.FileName);
-      EncZIPFile := TFileStream.Create(FileNameEditKSeFBatchSendEnc.FileName, fmOpenRead);
-      Debug('Wczytanie InitUpload z pliku: ' + FileNameEditKSeFBatchSendIU.FileName);
-      InitUpload := QuickLoad(FileNameEditKSeFBatchSendIU.FileName);
+      Debug('Otwieranie pliku wejœciowego: ' + FileNameEditKSeFBatchSendEnc.Text);
+      EncZIPFile := TFileStream.Create(FileNameEditKSeFBatchSendEnc.Text, fmOpenRead);
+      Debug('Wczytanie InitUpload z pliku: ' + FileNameEditKSeFBatchSendIU.Text);
+      InitUpload := QuickLoad(FileNameEditKSeFBatchSendIU.Text);
       KSeF.GateType := TlgoKSeFGateType(ComboBoxKSeFBatchSendBramka.ItemIndex);
       EditKSeFBatchNrRef.Text := KSeF.BatchSend(EncZIPFile, InitUpload);
       Debug('Wys³ano, nr referencyjny: ' + EditKSeFBatchNrRef.Text);
@@ -1978,7 +2240,7 @@ begin
     MessageDlg('WprowadŸ nr ref. elementu', mtInformation, [mbOK], 0);
     Exit;
   end;
-  if FileNameEditKSeFQInvAsyncFN.FileName = '' then
+  if FileNameEditKSeFQInvAsyncFN.Text = '' then
   begin
     MessageDlg('WprowadŸ nazwê pliku docelowego', mtInformation, [mbOK], 0);
     Exit;
@@ -1986,9 +2248,9 @@ begin
   FS := nil;
   try
     try
-      FS := TFileStream.Create(FileNameEditKSeFQInvAsyncFN.FileName, fmCreate);
+      FS := TFileStream.Create(FileNameEditKSeFQInvAsyncFN.Text, fmCreate);
       KSeF.QueryInvoiceAsyncFetch(EditKSeFQInvAsyncQRefNo.Text, EditKSeFQInvAsyncERefNo.Text, FS);
-      Debug('Zapis wyniku do: ' + FileNameEditKSeFQInvAsyncFN.FileName);
+      Debug('Zapis wyniku do: ' + FileNameEditKSeFQInvAsyncFN.Text);
     except
       on E: Exception do
       begin

@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 305
+  Left = 310
   Height = 654
-  Top = 126
+  Top = 128
   Width = 698
   Caption = 'LibGovPL 4 Demo'
   ClientHeight = 654
@@ -14,10 +14,10 @@ object Form1: TForm1
     Height = 505
     Top = 0
     Width = 698
-    ActivePage = TabSheetSetup
+    ActivePage = TabSheetKSeFFaktury
     Align = alClient
     MultiLine = True
-    TabIndex = 0
+    TabIndex = 10
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -2148,134 +2148,247 @@ object Form1: TForm1
       ClientHeight = 437
       ClientWidth = 690
       TabVisible = False
-      object GroupBox5: TGroupBox
+      object ScrollBox5: TScrollBox
         Left = 0
-        Height = 96
+        Height = 437
         Top = 0
         Width = 690
-        Align = alTop
-        Caption = 'Wysyłanie faktury'
-        ClientHeight = 76
-        ClientWidth = 686
+        HorzScrollBar.Page = 287
+        VertScrollBar.Page = 437
+        Align = alClient
+        BorderStyle = bsNone
+        ClientHeight = 437
+        ClientWidth = 673
         TabOrder = 0
-        object Label69: TLabel
-          Left = 8
-          Height = 15
-          Top = 8
-          Width = 86
-          Caption = 'Plik XML faktury'
-        end
-        object FileNameEditKSeFInvSend: TFileNameEdit
-          Left = 104
-          Height = 23
-          Top = 5
-          Width = 576
-          FilterIndex = 0
-          HideDirectories = False
-          ButtonWidth = 23
-          NumGlyphs = 1
-          Anchors = [akTop, akLeft, akRight]
-          MaxLength = 0
+        object GroupBox21: TGroupBox
+          Left = 0
+          Height = 116
+          Top = 312
+          Width = 673
+          Align = alTop
+          Caption = 'Ukrywanie wybranej faktury'
+          ClientHeight = 96
+          ClientWidth = 669
           TabOrder = 0
+          object Label116: TLabel
+            Left = 15
+            Height = 15
+            Top = 9
+            Width = 61
+            Caption = 'Nr ref. KSeF'
+          end
+          object Label117: TLabel
+            Left = 24
+            Height = 15
+            Top = 35
+            Width = 52
+            Caption = 'Przyczyna'
+          end
+          object EditKSeFInvHideNr: TEdit
+            Left = 88
+            Height = 23
+            Top = 5
+            Width = 568
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object EditKSeFInvHideReason: TEdit
+            Left = 88
+            Height = 23
+            Top = 33
+            Width = 568
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 1
+          end
+          object ButtonKSeFInvHide: TButton
+            Left = 88
+            Height = 25
+            Top = 64
+            Width = 75
+            Caption = 'Ukryj'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvHideClick
+          end
         end
-        object ButtonKSeFInvSend: TButton
-          Left = 104
-          Height = 25
-          Top = 40
-          Width = 75
-          Caption = 'Wyślij'
+        object GroupBox22: TGroupBox
+          Left = 0
+          Height = 116
+          Top = 428
+          Width = 673
+          Align = alTop
+          Caption = 'Anulowanie ukrycia wybranej faktury'
+          ClientHeight = 96
+          ClientWidth = 669
           TabOrder = 1
-          OnClick = ButtonKSeFInvSendClick
+          object Label118: TLabel
+            Left = 15
+            Height = 15
+            Top = 9
+            Width = 61
+            Caption = 'Nr ref. KSeF'
+          end
+          object Label119: TLabel
+            Left = 24
+            Height = 15
+            Top = 35
+            Width = 52
+            Caption = 'Przyczyna'
+          end
+          object EditKSeFInvShowNr: TEdit
+            Left = 88
+            Height = 23
+            Top = 5
+            Width = 568
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object EditKSeFInvShowReason: TEdit
+            Left = 88
+            Height = 23
+            Top = 33
+            Width = 568
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 1
+          end
+          object ButtonKSeFInvShow: TButton
+            Left = 88
+            Height = 25
+            Top = 64
+            Width = 115
+            Caption = 'Cofnij ukrycie'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvShowClick
+          end
         end
-      end
-      object GroupBox6: TGroupBox
-        Left = 0
-        Height = 96
-        Top = 96
-        Width = 690
-        Align = alTop
-        Caption = 'Sprawdź status faktury'
-        ClientHeight = 76
-        ClientWidth = 686
-        TabOrder = 1
-        object Label70: TLabel
-          Left = 15
-          Height = 15
-          Top = 9
-          Width = 186
-          Caption = 'Invoice Element Reference Number'
-        end
-        object EditKSeFInvStatNr: TEdit
-          Left = 208
-          Height = 23
-          Top = 6
-          Width = 466
-          Anchors = [akTop, akLeft, akRight]
-          TabOrder = 0
-        end
-        object ButtonKSeFInvStat: TButton
-          Left = 208
-          Height = 25
-          Top = 40
-          Width = 75
-          Caption = 'Sprawdź'
-          TabOrder = 1
-          OnClick = ButtonKSeFInvStatClick
-        end
-      end
-      object GroupBox7: TGroupBox
-        Left = 0
-        Height = 120
-        Top = 192
-        Width = 690
-        Align = alTop
-        Caption = 'Pobieranie faktury'
-        ClientHeight = 100
-        ClientWidth = 686
-        TabOrder = 2
-        object Label71: TLabel
-          Left = 8
-          Height = 15
-          Top = 8
-          Width = 127
-          Caption = 'KSeF Reference Number'
-        end
-        object EditKSeFInvGetNr: TEdit
-          Left = 144
-          Height = 23
-          Top = 3
-          Width = 529
-          Anchors = [akTop, akLeft, akRight]
-          TabOrder = 0
-        end
-        object Label72: TLabel
-          Left = 32
-          Height = 15
-          Top = 37
-          Width = 102
-          Caption = 'Plik wynikowy XML'
-        end
-        object FileNameEditKSeFGetFN: TFileNameEdit
-          Left = 144
-          Height = 23
-          Top = 32
-          Width = 531
-          FilterIndex = 0
-          HideDirectories = False
-          ButtonWidth = 23
-          NumGlyphs = 1
-          Anchors = [akTop, akLeft, akRight]
-          MaxLength = 0
-          TabOrder = 1
-        end
-        object ButtonKSeFInvGet: TButton
-          Left = 144
-          Height = 25
-          Top = 64
-          Width = 75
-          Caption = 'Pobierz'
+        object GroupBox7: TGroupBox
+          Left = 0
+          Height = 120
+          Top = 192
+          Width = 673
+          Align = alTop
+          Caption = 'Pobieranie faktury'
+          ClientHeight = 100
+          ClientWidth = 669
           TabOrder = 2
-          OnClick = ButtonKSeFInvGetClick
+          object Label71: TLabel
+            Left = 8
+            Height = 15
+            Top = 8
+            Width = 127
+            Caption = 'KSeF Reference Number'
+          end
+          object EditKSeFInvGetNr: TEdit
+            Left = 144
+            Height = 23
+            Top = 3
+            Width = 512
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object Label72: TLabel
+            Left = 32
+            Height = 15
+            Top = 37
+            Width = 102
+            Caption = 'Plik wynikowy XML'
+          end
+          object FileNameEditKSeFGetFN: TFileNameEdit
+            Left = 144
+            Height = 23
+            Top = 32
+            Width = 514
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object ButtonKSeFInvGet: TButton
+            Left = 144
+            Height = 25
+            Top = 64
+            Width = 75
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvGetClick
+          end
+        end
+        object GroupBox6: TGroupBox
+          Left = 0
+          Height = 96
+          Top = 96
+          Width = 673
+          Align = alTop
+          Caption = 'Sprawdź status faktury'
+          ClientHeight = 76
+          ClientWidth = 669
+          TabOrder = 3
+          object Label70: TLabel
+            Left = 15
+            Height = 15
+            Top = 9
+            Width = 186
+            Caption = 'Invoice Element Reference Number'
+          end
+          object EditKSeFInvStatNr: TEdit
+            Left = 208
+            Height = 23
+            Top = 6
+            Width = 449
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFInvStat: TButton
+            Left = 208
+            Height = 25
+            Top = 40
+            Width = 75
+            Caption = 'Sprawdź'
+            TabOrder = 1
+            OnClick = ButtonKSeFInvStatClick
+          end
+        end
+        object GroupBox5: TGroupBox
+          Left = 0
+          Height = 96
+          Top = 0
+          Width = 673
+          Align = alTop
+          Caption = 'Wysyłanie faktury'
+          ClientHeight = 76
+          ClientWidth = 669
+          TabOrder = 4
+          object Label69: TLabel
+            Left = 8
+            Height = 15
+            Top = 8
+            Width = 86
+            Caption = 'Plik XML faktury'
+          end
+          object FileNameEditKSeFInvSend: TFileNameEdit
+            Left = 104
+            Height = 23
+            Top = 5
+            Width = 559
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object ButtonKSeFInvSend: TButton
+            Left = 104
+            Height = 25
+            Top = 40
+            Width = 75
+            Caption = 'Wyślij'
+            TabOrder = 1
+            OnClick = ButtonKSeFInvSendClick
+          end
         end
       end
     end
@@ -2425,13 +2538,6 @@ object Form1: TForm1
                 Width = 66
                 Caption = 'amountType'
               end
-              object FloatSpinEditKSeFQInvCAamountType: TFloatSpinEdit
-                Left = 528
-                Height = 23
-                Top = 16
-                Width = 106
-                TabOrder = 2
-              end
               object GroupBox9: TGroupBox
                 Left = 12
                 Height = 105
@@ -2440,7 +2546,7 @@ object Form1: TForm1
                 Caption = 'currencyCodes'
                 ClientHeight = 85
                 ClientWidth = 92
-                TabOrder = 3
+                TabOrder = 2
                 object MemoKSeFQInvCrCurrencyCodes: TMemo
                   Left = 0
                   Height = 85
@@ -2456,7 +2562,7 @@ object Form1: TForm1
                 Top = 57
                 Width = 107
                 Caption = 'faP17Annotation'
-                TabOrder = 4
+                TabOrder = 3
               end
               object Label77: TLabel
                 Left = 130
@@ -2470,7 +2576,7 @@ object Form1: TForm1
                 Height = 23
                 Top = 84
                 Width = 408
-                TabOrder = 5
+                TabOrder = 4
               end
               object CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup
                 Left = 128
@@ -2499,7 +2605,7 @@ object Form1: TForm1
                   'KOR_ZAL'
                   'KOR_ROZ'
                 )
-                TabOrder = 6
+                TabOrder = 5
                 Data = {
                   0700000002020202020202
                 }
@@ -2519,7 +2625,7 @@ object Form1: TForm1
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
-                TabOrder = 7
+                TabOrder = 6
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
                 LeadingZeros = True
@@ -2541,7 +2647,7 @@ object Form1: TForm1
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
-                TabOrder = 8
+                TabOrder = 7
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
                 LeadingZeros = True
@@ -2574,7 +2680,7 @@ object Form1: TForm1
                 Height = 23
                 Top = 198
                 Width = 491
-                TabOrder = 9
+                TabOrder = 8
               end
               object Label87: TLabel
                 Left = 12
@@ -2588,7 +2694,7 @@ object Form1: TForm1
                 Height = 23
                 Top = 228
                 Width = 285
-                TabOrder = 10
+                TabOrder = 9
               end
               object GroupBox11: TGroupBox
                 Left = 11
@@ -2598,7 +2704,7 @@ object Form1: TForm1
                 Caption = 'subjectTo'
                 ClientHeight = 71
                 ClientWidth = 612
-                TabOrder = 11
+                TabOrder = 10
                 object RadioGroupKSeFQInvCrSubjevtToType: TRadioGroup
                   Left = 0
                   Height = 41
@@ -2639,6 +2745,23 @@ object Form1: TForm1
                   Width = 30
                   Caption = 'ident.'
                 end
+              end
+              object ComboBoxKSeFQInvCAamountType: TComboBox
+                Left = 523
+                Height = 23
+                Top = 16
+                Width = 100
+                ItemHeight = 15
+                ItemIndex = 0
+                Items.Strings = (
+                  'none'
+                  'brutto'
+                  'netto'
+                  'vat'
+                )
+                Style = csDropDownList
+                TabOrder = 11
+                Text = 'none'
               end
             end
             object TabSheetKSeFQInvCrIncr: TTabSheet

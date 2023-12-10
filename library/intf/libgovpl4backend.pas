@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -19,6 +19,28 @@ uses
 
 type
   ElgBackendError = class(ElgoException);
+
+  TlgoUTF8StringArray = array of UTF8String;
+
+  { TlgoBackend }
+
+  TlgoBackend = class
+  public
+    class function ListDrivers(AClassType: Integer): TlgoUTF8StringArray;
+    class function HTTPClientClasses: TlgoUTF8StringArray;
+    class function RandomGeneratorClasses: TlgoUTF8StringArray;
+    class function Base64EncoderClasses: TlgoUTF8StringArray;
+    class function MD5HashClasses: TlgoUTF8StringArray;
+    class function SHA1HashClasses: TlgoUTF8StringArray;
+    class function SHA256HashClasses: TlgoUTF8StringArray;
+    class function AES256EncryptClasses: TlgoUTF8StringArray;
+    class function CertSignerClasses: TlgoUTF8StringArray;
+    class function EDekGateClasses: TlgoUTF8StringArray;
+    class function XMLCanonizatorClasses: TlgoUTF8StringArray;
+    class function XMLReaderClasses: TlgoUTF8StringArray;
+    class function ZipperClasses: TlgoUTF8StringArray;
+    class function RSAEncryptClasses: TlgoUTF8StringArray;
+  end;
 
   TlgoEDekGateType = (egtProduction, egtTest);
   TlgoEDekSignType = (estCertificate, estAuthData);
@@ -97,6 +119,17 @@ type
     function UISelect: TlgoCertificate;
   end;
 
+  ElgWSTError = class(ElgoException);
+
+  { ElgWinHTTPException }
+
+  ElgWinHTTPException = class(ElgoException)
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  public
+    ErrorCode: LongWord;
+  end;
+
 implementation
 
 { TlgoCertificateSigner }
@@ -132,6 +165,20 @@ begin
   end
   else
     Result := nil;
+end;
+
+{ ElgWinHTTPException }
+
+procedure ElgWinHTTPException.LoadObject(AException: LGP_EXCEPTION);
+var
+  I: Integer;
+begin
+  inherited LoadObject(AException);
+  if AException <> nil then
+  begin
+    lgoCheckResult(lgpObject_GetIntegerProp(AException, 'ErrorCode', I));
+    ErrorCode := LongWord(I);
+  end;
 end;
 
 { TlgoCertificates }
@@ -274,6 +321,83 @@ begin
   end;
 end;
 
+{ TlgoBackend }
+
+class function TlgoBackend.ListDrivers(AClassType: Integer
+  ): TlgoUTF8StringArray;
+var
+  I: Integer;
+begin
+  SetLength(Result, lgplDriverCount(AClassType));
+  for I := 0 to lgplDriverCount(AClassType) - 1 do
+    Result[I] := lgplDriverName(AClassType, I);
+end;
+
+class function TlgoBackend.HTTPClientClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_HTTP_CLIENT);
+end;
+
+class function TlgoBackend.RandomGeneratorClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_RAND_GENERATOR);
+end;
+
+class function TlgoBackend.Base64EncoderClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_BASE64_ENCODER);
+end;
+
+class function TlgoBackend.MD5HashClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_MD5_HASH);
+end;
+
+class function TlgoBackend.SHA1HashClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_SHA1_HASH);
+end;
+
+class function TlgoBackend.SHA256HashClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_SHA256_HASH);
+end;
+
+class function TlgoBackend.AES256EncryptClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_AES256_ENC);
+end;
+
+class function TlgoBackend.CertSignerClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_CERT_SIGNER);
+end;
+
+class function TlgoBackend.EDekGateClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_EDEK_GATE);
+end;
+
+class function TlgoBackend.XMLCanonizatorClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_XML_C14N);
+end;
+
+class function TlgoBackend.XMLReaderClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_XML_READER);
+end;
+
+class function TlgoBackend.ZipperClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_ZIPPRE);
+end;
+
+class function TlgoBackend.RSAEncryptClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_RSA_ENC);
+end;
+
 { TlgoHTTPClient }
 
 function TlgoHTTPClient.GetIgnoreSSLErrors: Boolean;
@@ -294,8 +418,15 @@ begin
   lgoCheckResult(lgpHTTPClient_Create(PChar(AClassName), ExtObject));
 end;
 
-initialization
+procedure RegisterExceptions;
+begin
   lgoRegisterExceptionClass(ElgBackendError);
+  lgoRegisterExceptionClass(ElgWSTError);
+  lgoRegisterExceptionClass(ElgWinHTTPException);
+end;
+
+initialization
+  RegisterExceptions;
 
 end.
 

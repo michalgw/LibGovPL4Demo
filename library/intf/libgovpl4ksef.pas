@@ -6,6 +6,7 @@
 {                                                                              }
 { **************************************************************************** }
 
+{ Obsługa KSeF API }
 unit LibGovPl4KSeF;
 
 {$ifdef fpc}
@@ -19,12 +20,10 @@ uses
   LibGovPl4XAdES, LibGovPl4KSeFObj;
 
 type
-  TlgoKSeFGateType = (kgtProd, kgtDemo, kgtTest);
-  TlgoKSeFFormCode = (kfcCustom, kfcFA1, kfcFA2);
-  TlgoKSeFCertificateAuthType = (catSerialNumber, catFingerprint);
 
   { TlgoKSeF }
 
+  { Komponent obsługi KSeF API }
   TlgoKSeF = class(TlgoObject)
   private
     FCertificate: TlgoCertificate;
@@ -71,57 +70,181 @@ type
   public
     constructor Create;
 
+    { Generuj klucz AES dla dodatkowego szyfrowania }
     procedure GenerateAESKey;
 
+    { Sesja }
+
+    { Inicjalizacja sesji za pomoca certyfikatu kwalifikowanego lub pieczęci.
+      @returns(zwracany obiekt z informają o zainicjowanej sesji) }
     function SessionInitSigned: TKSeFInitSessionResponse;
+
+    { Inicjalizacja sesji za pomoca tokena.
+      @returns(zwracany obiekt z informają o zainicjowanej sesji) }
     function SessionInitToken: TKSeFInitSessionResponse;
+
+    { Wygenerowanie struktury InitSession w celu podpisania przy pomocy Profilu Zaufanego.
+      @returns(zwracany jest łańcuch zawierający strukturę InitSession,
+      którą należy podpisać Profilem Zaufanym) }
     function SessionChalangePZ: String;
+
+    { Inicjalizacja sesji za pomoca wcześniej wygenerowanej struktury InitSession, podpisanej przy pomocy PZ.
+      @param(ASignedInit łańcuch zawierający podpisaną w PZ strukturę InitUpload)
+      @returns(zwracany obiekt z informają o zainicjowanej sesji) }
     function SessionInitPZ(const ASignedInit: UTF8String): TKSeFInitSessionResponse;
+
+    { Sprawdzenie statusu aktywnej sesji interaktywnej. (@italic(Sesja interaktywna))
+      @param(APageSize ilość wyników na stronę)
+      @param(APageOffset numer strony)
+      @param(AIncludeDetails czy mają zostać pobrane dane szczegółowe)
+      @returns(zwracany obiekt z informacją o statusie sesji) }
     function SessionStatus(const APageSize: Integer = 10; APageOffset: Integer = 0; AIncludeDetails: Boolean = True): TKSeFSessionStatusResponse; overload;
+
+    { Sprawdzenie statusu sesji ogólnej. (@italic(Sesja interaktywna))
+      @param(AReferenceNumber nr referencyjny)
+      @param(APageSize ilość wyników na stronie)
+      @param(AIncludeDetails czy mają zostać pobrane dane szczegółowe)
+      @returns(zwracany obiekt z informacją o statusie sesji) }
     function SessionStatus(const AReferenceNumber: UTF8String; const APageSize: Integer = 10; APageOffset: Integer = 0; AIncludeDetails: Boolean = True): TKSeFSessionStatusResponse; overload;
+
+    { Wymuszenie zamknięcia aktywnej sesji. (@italic(Sesja interaktywna))
+      @param(AForce wymuszenie - wywołane wyjątki podczasz zamykania sesji zostaną przechwycone)
+      @returns(zwracany obiekt ze zwróconą z serwera KSeF informacją o zakończeniu sesji) }
     function SessionTerminate(const AForce: Boolean = False): TKSeFTerminateSessionResponse;
+
+    { Wygenerowanie identyfikatora wewnetrznego }
     function SessionGenerateInternalIdentifier(AInputDigitsSequence: UTF8String): TKSeFInternalIdentifierGeneratedResponse;
 
+    { Faktury }
+
+    { Pobranie faktury po numerze identyfikacyjnym KSeF. (@italic(Sesja interaktywna))
+      @param(AKSeFReferenceNumber numer referencyjny żądanej faktury)
+      @param(AOutputStream strumień do którego zostanie zapisana pobrana faktura) }
     procedure InvoiceGet(const AKSeFReferenceNumber: UTF8String; AOutputStream: TStream);
+
+    { Wysyłka faktury. (@italic(Sesja interaktywna))
+      @param(ADataStream strumień zawierający dane XML faktury)
+      @returns(zwracana struktura zawierająca nadany numer referencyjny oraz
+      informacje o statusie przetwarzania faktury) }
     function InvoiceSend(const ADataStream: TStream): TKSeFSendInvoiceResponse;
+
+    { Sprawdzenie statusu wysłanej faktury. (@italic(Sesja interaktywna))
+      @param(AInvoiceElementReferenceNumber numer referencyjny faktury)
+      @returns(zwracany obiekt z informacją o statusie przetwarzania faktury) }
     function InvoiceStatus(const AInvoiceElementReferenceNumber: UTF8String): TKSeFStatusInvoiceResponse;
 
+    { Ukrywanie wybranej faktury. (@italic(Sesja interaktywna))
+      @param(AKsefReferenceNumber numer referencyjny faktury)
+      @param(AHidingReason przyczyna ukrycia faktury)
+      @returns(zwraca obiekt z informacją o ukryciu faktury) }
+    function InvoiceVisibilityHide(const AKsefReferenceNumber, AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+
+    { Anulowanie ukrycia wybranej faktury. (@italic(Sesja interaktywna))
+      @param(AKsefReferenceNumber numer referencyjny faktury)
+      @param(AHidingReason przyczyna anulowania ukrycia faktury)
+      @returns(zwraca obiekt z informacją o anulowaniu ukrycia faktury) }
+    function InvoiceVisibilityShow(const AKsefReferenceNumber, AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+
+    { Zapytania o faktury }
+
+    { Zapytanie o faktury (synchroniczne). (@italic(Sesja interaktywna)) }
     function QueryInvoiceSync(AQueryCriteria: TKSeFQueryInvoiceRequest; const APageSize, APageOffset: Integer): TKSeFQueryInvoiceSyncResponse;
+
+    { Inicjalizacja asynchronicznego zapytania o faktury. (@italic(Sesja interaktywna)) }
     function QueryInvoiceAsyncInit(AQueryCriteria: TKSeFQueryInvoiceRequest): TKSeFQueryInvoiceAsyncInitResponse;
+
+    { Sprawdzenie statusu asynchronicznego zapytania o faktury. (@italic(Sesja interaktywna)) }
     function QueryInvoiceAsyncStatus(const AQueryElementReferenceNumber: UTF8String): TKSeFQueryInvoiceAsyncStatusResponse;
+
+    { Pobranie wyników asynchronicznego zapytania o faktury. (@italic(Sesja interaktywna)) }
     procedure QueryInvoiceAsyncFetch(const AQueryElementReferenceNumber, APartElementReferenceNumber: UTF8String; AOutStream: TStream); overload;
+
+    { Pobranie wyników asynchronicznego zapytania o faktury. (@italic(Sesja interaktywna)) }
     procedure QueryInvoiceAsyncFetch(AStatusResponse: TKSeFQueryInvoiceAsyncStatusResponse; APartIndex: Integer; AOutStream: TStream); overload;
 
+    { Identyfikatory płatności }
+
+    { Pobranie listy faktur dla identyfikatora płatności. (@italic(Sesja interaktywna)) }
     function PaymentIdentifierGetReferenceNumbers(APaymentIdentifier: UTF8String): TKSeFGetPaymentIdentifierReferenceNumbersResponse;
+
+    { Wygenerowanie identyfikatora płatności. (@italic(Sesja interaktywna)) }
     function PaymentIdentifierRequest(AKsefReferenceNumberList: TStringArray): TKSeFRequestPaymentIdentifierResponse;
 
+    { Interfejsy wspólne }
+
+    { Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF }
     procedure CommonInvoiceKSeF(AInvoiceRequest: TKSeFInvoiceRequestKSeF; AOutStream: TStream; AGateType: TlgoKSeFGateType);
+
+    { Interfejs wspólny pobrania statusu przetwarzania wsadowego }
     function CommonStatus(const AReferenceNumber: UTF8String; const AGateType: TlgoKSeFGateType): TKSeFStatusResponse;
 
+    { Wysyłka wsadowa }
+
+    { Przygotowanie danych i podpisanie struktury InitUpload }
     procedure BatchSign(const AZIPDataStream: TStream; const APZ: Boolean; const AEncryptedStream: TStream; out AInitUpload: UTF8String; AZIPFileName: UTF8String = ''; APartFileName: UTF8String = '');
+
+    { Wysłanie uprzednio przygotowanych danych faktur i podpisanej struktury InitUpload }
     function BatchSend(const APartStream: TStream; const AInitUpload: UTF8String): UTF8String;
 
+    { Klucze szyfrowania RSA }
     property RSAKey[AIndex: TlgoKSeFGateType]: TlgoRSAKey read GetRSAKey write SetRSAKey;
   published
+    { Klasy sterowników }
+
+    { Klasa sterownika szyfrowania RSA }
     property RSAEncryptClass: UTF8String read GetRSAEncryptClass write SetRSAEncryptClass;
+    { Klasa enkodera Base64 }
     property Base64EncoderClass: UTF8String read GetBase64EncoderClass write SetBase64EncoderClass;
+    { Klasa sterownika szyfrowania AES256 }
     property AES256EncryptClass: UTF8String read GetAES256EncryptClass write SetAES256EncryptClass;
+    { Klasa funkcji skrótu SHA256 }
     property SHA256HashClass: UTF8String read GetSHA256HashClass write SetSHA256HashClass;
+    { Klasa generatora liczb pseudolosowych }
     property RandomGeneratorClass: UTF8String read GetRandomGeneratorClass write SetRandomGeneratorClass;
+    { Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload }
     property XAdES: TlgoXAdES read FXAdES write SetXAdES;
+    { Obiekt połączenia HTTPS }
     property HTTPClient: TlgoHTTPClient read FHTTPClient write SetHTTPClient;
+
+    { Bramka i podmiot }
+
+    { Rodzaj bramki (produkcyjna/demo/testowa) }
     property GateType: TlgoKSeFGateType read GetGateType write SetGateType;
+    { Nr NIP podmiotu }
     property NIP: UTF8String read GetNIP write SetNIP;
+
+    { Kod formularza FA }
+
+    { Predefiniowany rodzaj bramki. }
     property FormCode: TlgoKSeFFormCode read GetFormCode write SetFormCode;
     property FormCodeSystemCode: UTF8String read GetFormCodeSystemCode write SetFormCodeSystemCode;
     property FormCodeSchemaVersion: UTF8String read GetFormCodeSchemaVersion write SetFormCodeSchemaVersion;
     property FormCodeTargetNamespace: UTF8String read GetFormCodeTargetNamespace write SetFormCodeTargetNamespace;
     property FormCodeValue: UTF8String read GetFormCodeValue write SetFormCodeValue;
+
+    { Certyfikar kwalifikowany }
+
+    { Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji
+      interaktywnej oraz podpisania struktury InitUpload wysyłki wsadowej. }
     property Certificate: TlgoCertificate read FCertificate write SetCertificate;
+    { Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczęci elektronicznej }
     property CertificateAuthType: TlgoKSeFCertificateAuthType read GetCertificateAuthType write SetCertificateAuthType;
+
+    { Token autoryzujący }
+
+    { Token do nawiązania sesji interaktywnej }
     property Token: UTF8String read GetToken write SetToken;
+
+    { Opcionalne szyfrowanie AES }
+
+    { Aktywacja opcionalnego szyfrowania AES }
     property Encryption: Boolean read GetEncryption write SetEncryption;
+
+    { Informacja o sesji }
+
+    { Token sesji }
     property SessionToken: UTF8String read GetSessionToken;
+    { Czy sesjia aktywna }
     property SessionActive: Boolean read GetSessionActive;
   end;
 
@@ -537,6 +660,32 @@ begin
   lgoCheckResult(lgpKSeF_InvoiceStatus(ExtObject, LGP_PCHAR(AInvoiceElementReferenceNumber), Resp));
   if Resp <> nil then
     Result := TKSeFStatusInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceVisibilityHide(const AKsefReferenceNumber,
+  AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceVisibilityHide(ExtObject, LGP_PCHAR(AKsefReferenceNumber),
+    LGP_PCHAR(AHidingReason),  Resp));
+  if Resp <> nil then
+    Result := TKSeFVisibilityInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceVisibilityShow(const AKsefReferenceNumber,
+  AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceVisibilityShow(ExtObject, LGP_PCHAR(AKsefReferenceNumber),
+    LGP_PCHAR(AHidingCancelationReason), Resp));
+  if Resp <> nil then
+    Result := TKSeFVisibilityInvoiceResponse.Create(Resp)
   else
     Result := nil;
 end;

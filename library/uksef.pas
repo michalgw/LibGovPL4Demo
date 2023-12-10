@@ -88,6 +88,8 @@ function lgpKSeF_SessionGenerateInternalIdentifier(AKSeFObject: LGP_OBJECT; AInp
 function lgpKSeF_InvoiceGet(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_InvoiceSend(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceVisibilityHide(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceVisibilityShow(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF_QueryInvoiceSync(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_QueryInvoiceAsyncInit(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -106,18 +108,10 @@ function lgpKSeF_BatchSend(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AIn
 implementation
 
 function lgpKSeF_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-var
-  KSeF: TlgKSeF;
 begin
   Result := nil;
   try
-    KSeF := TlgKSeF.Create(nil);
-    KSeF.RSAEncryptClass := TlgRSAEncryptClass(LGPDefaultDrivers[LGP_CLSTYPE_RSA_ENC]);
-    KSeF.Base64EncoderClass := TlgBase64EncoderClass(LGPDefaultDrivers[LGP_CLSTYPE_BASE64_ENCODER]);
-    KSeF.AES256EncryptClass := TlgAES256EncryptClass(LGPDefaultDrivers[LGP_CLSTYPE_AES256_ENC]);
-    KSeF.SHA256HashClass := TlgHashClass(LGPDefaultDrivers[LGP_CLSTYPE_SHA256_HASH]);
-    KSeF.RandomGeneratorClass := TlgRandomGeneratorClass(LGPDefaultDrivers[LGP_CLSTYPE_RAND_GENERATOR]);
-    AKSeFObj := KSeF;
+    AKSeFObj := TlgKSeF.Create(nil);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -855,6 +849,34 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     AResponse := TlgKSeF(AKSeFObject).InvoiceStatus(AInvoiceElementReferenceNumber);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceVisibilityHide(AKSeFObject: LGP_OBJECT;
+  AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceVisibilityHide(AKsefReferenceNumber, AHidingReason);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceVisibilityShow(AKSeFObject: LGP_OBJECT;
+  AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceVisibilityShow(AKsefReferenceNumber, AHidingCancelationReason);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

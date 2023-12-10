@@ -34,176 +34,236 @@ object Form1: TForm1
     Align = alClient
     MultiLine = True
     TabOrder = 0
-    ExplicitHeight = 527
     object TabSheetSetup: TTabSheet
       Caption = 'Setup'
-      ExplicitHeight = 499
       object Panel1: TScrollBox
         Left = 0
         Top = 0
         Width = 690
         Height = 475
-        VertScrollBar.Position = 22
+        VertScrollBar.Position = 19
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 449
+        DesignSize = (
+          669
+          471)
         object Label1: TLabel
           Left = 0
-          Top = -22
+          Top = -19
           Width = 55
           Height = 13
           Caption = 'HTTP Client'
         end
         object Label2: TLabel
           Left = 0
-          Top = 1
+          Top = 4
           Width = 123
           Height = 13
           Caption = 'Random nmber generator'
         end
         object Label11: TLabel
           Left = 0
-          Top = 24
+          Top = 27
           Width = 77
           Height = 13
           Caption = 'Base64 Encoder'
         end
         object Label3: TLabel
           Left = 0
-          Top = 47
+          Top = 50
           Width = 48
           Height = 13
           Caption = 'MD5 Hash'
         end
         object Label4: TLabel
           Left = 0
-          Top = 70
+          Top = 73
           Width = 53
           Height = 13
           Caption = 'SHA1 Hash'
         end
         object Label5: TLabel
           Left = 0
-          Top = 93
+          Top = 96
           Width = 69
           Height = 13
           Caption = 'SHA-256 Hash'
         end
         object Label6: TLabel
           Left = 0
-          Top = 116
+          Top = 119
           Width = 30
           Height = 13
           Caption = 'Signer'
         end
         object Label7: TLabel
           Left = 0
-          Top = 139
+          Top = 142
           Width = 86
           Height = 13
           Caption = 'eDeklaracja SOAP'
         end
         object Label8: TLabel
           Left = 0
-          Top = 162
+          Top = 165
           Width = 48
           Height = 13
           Caption = 'XML C14N'
         end
         object Label9: TLabel
           Left = 0
-          Top = 185
+          Top = 188
           Width = 57
           Height = 13
           Caption = 'XML Reader'
         end
         object Label10: TLabel
           Left = 0
-          Top = 208
+          Top = 211
           Width = 31
           Height = 13
           Caption = 'Zip file'
         end
         object Label12: TLabel
           Left = 0
-          Top = 231
+          Top = 234
           Width = 91
           Height = 13
           Caption = 'AES256 Encryption'
         end
         object Label13: TLabel
           Left = 0
-          Top = 254
+          Top = 257
           Width = 74
           Height = 13
           Caption = 'RSA encryption'
         end
         object Label24: TLabel
           Left = 0
-          Top = 277
+          Top = 280
           Width = 97
           Height = 13
           Caption = 'XAdES - Rodzaj SHA'
         end
         object Label25: TLabel
           Left = 0
-          Top = 300
+          Top = 303
           Width = 127
           Height = 13
           Caption = 'XAdES - Do'#322#261'cz dat'#281' i czas'
         end
         object Label26: TLabel
           Left = 0
-          Top = 317
+          Top = 320
           Width = 133
           Height = 13
           Caption = 'eDeklaracja - kanonizuj XML'
         end
         object Label33: TLabel
           Left = 0
-          Top = 334
+          Top = 337
           Width = 136
           Height = 13
           Caption = 'JPK - Klucz RSA produkcyjny'
         end
         object Label34: TLabel
           Left = 0
-          Top = 357
+          Top = 360
           Width = 116
           Height = 13
           Caption = 'JPK - Klucz RSA testowy'
         end
         object Label55: TLabel
           Left = 0
-          Top = 380
+          Top = 383
           Width = 142
           Height = 13
           Caption = 'KSeF - klucz RSA produkcyjny'
         end
         object Label56: TLabel
           Left = 0
-          Top = 403
+          Top = 406
           Width = 109
           Height = 13
           Caption = 'KSeF - klucz RSA demo'
         end
         object Label57: TLabel
           Left = 0
-          Top = 426
+          Top = 429
           Width = 117
           Height = 13
           Caption = 'KSeF - klucz RSA tetowy'
         end
         object Label115: TLabel
           Left = -1
-          Top = 450
+          Top = 453
           Width = 108
           Height = 13
           Caption = 'Plik biblioteki libxml2.dll'
         end
+        object SBFileNameEditJPKRSAProd: TSpeedButton
+          Tag = 1
+          Left = 645
+          Top = 337
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SBFileNameEditJPKRSATest: TSpeedButton
+          Tag = 2
+          Left = 645
+          Top = 360
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SBFileNameEditKSeFRSAProd: TSpeedButton
+          Tag = 3
+          Left = 646
+          Top = 383
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SBFileNameEditKSeFRSADemo: TSpeedButton
+          Tag = 4
+          Left = 646
+          Top = 406
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SBFileNameEditKSeFRSATest: TSpeedButton
+          Tag = 5
+          Left = 646
+          Top = 429
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SBFilenameEditLibXML2: TSpeedButton
+          Tag = 6
+          Left = 646
+          Top = 453
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
         object ComboBoxHTTPCli: TComboBox
           Left = 361
-          Top = -22
+          Top = -19
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -212,7 +272,7 @@ object Form1: TForm1
         end
         object ComboBoxRandGen: TComboBox
           Left = 361
-          Top = 1
+          Top = 4
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -221,7 +281,7 @@ object Form1: TForm1
         end
         object ComboBoxBase64: TComboBox
           Left = 361
-          Top = 24
+          Top = 27
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -230,7 +290,7 @@ object Form1: TForm1
         end
         object ComboBoxMD5: TComboBox
           Left = 361
-          Top = 47
+          Top = 50
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -239,7 +299,7 @@ object Form1: TForm1
         end
         object ComboBoxSHA1: TComboBox
           Left = 361
-          Top = 70
+          Top = 73
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -248,7 +308,7 @@ object Form1: TForm1
         end
         object ComboBoxSHA256: TComboBox
           Left = 361
-          Top = 93
+          Top = 96
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -257,7 +317,7 @@ object Form1: TForm1
         end
         object ComboBoxSign: TComboBox
           Left = 361
-          Top = 116
+          Top = 119
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -266,7 +326,7 @@ object Form1: TForm1
         end
         object ComboBoxEDek: TComboBox
           Left = 361
-          Top = 139
+          Top = 142
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -275,7 +335,7 @@ object Form1: TForm1
         end
         object ComboBoxXMLC14N: TComboBox
           Left = 361
-          Top = 162
+          Top = 165
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -284,7 +344,7 @@ object Form1: TForm1
         end
         object ComboBoxXMLRead: TComboBox
           Left = 361
-          Top = 185
+          Top = 188
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -293,7 +353,7 @@ object Form1: TForm1
         end
         object ComboBoxZip: TComboBox
           Left = 360
-          Top = 208
+          Top = 211
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -302,7 +362,7 @@ object Form1: TForm1
         end
         object ComboBoxAES256: TComboBox
           Left = 361
-          Top = 231
+          Top = 234
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -311,7 +371,7 @@ object Form1: TForm1
         end
         object ComboBoxRSAEnc: TComboBox
           Left = 361
-          Top = 254
+          Top = 257
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -320,7 +380,7 @@ object Form1: TForm1
         end
         object ComboBoxXAdESSHA: TComboBox
           Left = 361
-          Top = 277
+          Top = 280
           Width = 308
           Height = 21
           Style = csDropDownList
@@ -334,77 +394,65 @@ object Form1: TForm1
         end
         object CheckBoxXAdESCzas: TCheckBox
           Left = 361
-          Top = 300
+          Top = 303
           Width = 308
           Height = 17
           TabOrder = 14
         end
         object CheckBoxEDekC14N: TCheckBox
           Left = 361
-          Top = 317
+          Top = 320
           Width = 308
           Height = 17
           Checked = True
           State = cbChecked
           TabOrder = 15
         end
-        object FileNameEditJPKRSAProd: TJvFilenameEdit
+        object FileNameEditJPKRSAProd: TEdit
           Left = 361
-          Top = 334
-          Width = 308
+          Top = 337
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 16
           Text = '..\pem\prod.pem'
         end
-        object FileNameEditJPKRSATest: TJvFilenameEdit
+        object FileNameEditJPKRSATest: TEdit
           Left = 361
-          Top = 357
-          Width = 308
+          Top = 360
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 17
           Text = '..\pem\test.pem'
         end
-        object FileNameEditKSeFRSAProd: TJvFilenameEdit
+        object FileNameEditKSeFRSAProd: TEdit
           Left = 361
-          Top = 380
-          Width = 308
+          Top = 383
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 18
           Text = '..\pem\ksefprod.pem'
         end
-        object FileNameEditKSeFRSADemo: TJvFilenameEdit
+        object FileNameEditKSeFRSADemo: TEdit
           Left = 361
-          Top = 403
-          Width = 308
+          Top = 406
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 19
           Text = '..\pem\ksefdemo.pem'
         end
-        object FileNameEditKSeFRSATest: TJvFilenameEdit
+        object FileNameEditKSeFRSATest: TEdit
           Left = 361
-          Top = 426
-          Width = 308
+          Top = 429
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 20
           Text = '..\pem\kseftest.pem'
         end
-        object FilenameEditLibXML2: TJvFilenameEdit
+        object FilenameEditLibXML2: TEdit
           Left = 360
-          Top = 450
-          Width = 308
+          Top = 453
+          Width = 284
           Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
           TabOrder = 21
         end
       end
@@ -415,7 +463,6 @@ object Form1: TForm1
         Height = 50
         Align = alBottom
         TabOrder = 1
-        ExplicitTop = 449
         object ButtonSetup: TButton
           Left = 19
           Top = 11
@@ -430,7 +477,6 @@ object Form1: TForm1
     object TabSheetCert: TTabSheet
       Caption = 'Certyfikaty'
       TabVisible = False
-      ExplicitHeight = 499
       object ListViewCert: TListView
         Left = 0
         Top = 0
@@ -471,7 +517,6 @@ object Form1: TForm1
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
-        ExplicitHeight = 449
       end
       object Panel3: TPanel
         Left = 0
@@ -480,7 +525,6 @@ object Form1: TForm1
         Height = 50
         Align = alBottom
         TabOrder = 1
-        ExplicitTop = 449
         object ButtonShowCert: TButton
           Left = 14
           Top = 12
@@ -513,7 +557,6 @@ object Form1: TForm1
     object TabSheetEDekPodpisCert: TTabSheet
       Caption = 'eDeklaracja podpis certyfikatem'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -538,6 +581,26 @@ object Form1: TForm1
         Height = 13
         Caption = 'Plik wynikowy'
       end
+      object SpeedButton3: TSpeedButton
+        Tag = 9
+        Left = 664
+        Top = 63
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton4: TSpeedButton
+        Tag = 10
+        Left = 664
+        Top = 103
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
       object ComboBoxEdekCert: TComboBox
         Left = 94
         Top = 16
@@ -548,27 +611,19 @@ object Form1: TForm1
         ItemHeight = 13
         TabOrder = 0
       end
-      object FileNameEditEDPCWej: TJvFilenameEdit
+      object FileNameEditEDPCWej: TEdit
         Left = 94
         Top = 63
-        Width = 584
+        Width = 564
         Height = 21
-        OnAfterDialog = FileNameEditEDPCWejAcceptFileName
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1
       end
-      object FileNameEditEDPCWyj: TJvFilenameEdit
+      object FileNameEditEDPCWyj: TEdit
         Left = 94
         Top = 104
-        Width = 584
+        Width = 564
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 2
       end
@@ -585,7 +640,6 @@ object Form1: TForm1
     object TabSheetEDekPodpisAut: TTabSheet
       Caption = 'eDeklaracja podpis danymi aut.'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -638,27 +692,39 @@ object Form1: TForm1
         Height = 13
         Caption = 'Kwota przychodu'
       end
-      object FileNameEditEDPAWyj: TJvFilenameEdit
+      object SpeedButton5: TSpeedButton
+        Tag = 11
+        Left = 656
+        Top = 175
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton6: TSpeedButton
+        Tag = 12
+        Left = 656
+        Top = 216
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object FileNameEditEDPAWyj: TEdit
         Left = 112
         Top = 217
-        Width = 566
+        Width = 538
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
       end
-      object FileNameEditEDPAWej: TJvFilenameEdit
+      object FileNameEditEDPAWej: TEdit
         Left = 112
         Top = 176
-        Width = 566
+        Width = 538
         Height = 21
-        OnAfterDialog = FileNameEditEDPAWejAcceptFileName
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1
       end
@@ -703,18 +769,18 @@ object Form1: TForm1
         MinDate = -53780.000000000000000000
         TabOrder = 6
       end
-      object FloatSpinEditEDPKwota: TJvSpinEdit
+      object FloatSpinEditEDPKwota: TEdit
         Left = 112
         Top = 144
         Width = 202
         Height = 21
         TabOrder = 7
+        Text = '0'
       end
     end
     object TabSheetEDekBramka: TTabSheet
       Caption = 'eDeklaracja bramka'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -750,16 +816,21 @@ object Form1: TForm1
           Height = 13
           Caption = 'Bramka'
         end
-        object FileNameEditEDBPlikWej: TJvFilenameEdit
+        object SpeedButton1: TSpeedButton
+          Tag = 7
+          Left = 644
+          Top = 17
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object FileNameEditEDBPlikWej: TEdit
           Left = 112
           Top = 17
-          Width = 542
+          Width = 526
           Height = 21
-          Filter = 
-            'Pliki eDeklaracji (*.xml;*.xades;*.xml.sig)|*.xml;*.xades;*.xml.' +
-            'sig|Wszystkie pliki (*.*)|*.*'
-          FilterIndex = 0
-          ButtonWidth = 23
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
         end
@@ -831,6 +902,16 @@ object Form1: TForm1
           Height = 13
           Caption = 'Zapisz UPO do'
         end
+        object SpeedButton2: TSpeedButton
+          Tag = 8
+          Left = 645
+          Top = 73
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
         object EditEDBNrRef: TEdit
           Left = 112
           Top = 16
@@ -862,15 +943,11 @@ object Form1: TForm1
           TabOrder = 2
           OnClick = ButtonEDBUPOClick
         end
-        object FileNameEditEDBPlikWyj: TJvFilenameEdit
+        object FileNameEditEDBPlikWyj: TEdit
           Left = 112
           Top = 72
-          Width = 542
+          Width = 526
           Height = 21
-          DialogKind = dkSave
-          Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
-          FilterIndex = 0
-          ButtonWidth = 23
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 3
           Text = 'upo.xml'
@@ -880,7 +957,6 @@ object Form1: TForm1
     object TabSheetJPKPodpisCert: TTabSheet
       Caption = 'JPK podpis certyfikatem'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -919,6 +995,36 @@ object Form1: TForm1
         Height = 13
         Caption = 'Bramka'
       end
+      object SpeedButton7: TSpeedButton
+        Tag = 13
+        Left = 663
+        Top = 63
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton8: TSpeedButton
+        Tag = 14
+        Left = 663
+        Top = 168
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton9: TSpeedButton
+        Tag = 15
+        Left = 663
+        Top = 208
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
       object ComboBoxJPKCert: TComboBox
         Left = 94
         Top = 16
@@ -929,27 +1035,19 @@ object Form1: TForm1
         ItemHeight = 13
         TabOrder = 0
       end
-      object FileNameEditJPKPCWej: TJvFilenameEdit
+      object FileNameEditJPKPCWej: TEdit
         Left = 198
         Top = 63
-        Width = 480
+        Width = 459
         Height = 21
-        OnAfterDialog = FileNameEditJPKPCWejAcceptFileName
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1
       end
-      object FileNameEditJPKPCEnc: TJvFilenameEdit
+      object FileNameEditJPKPCEnc: TEdit
         Left = 198
         Top = 168
-        Width = 480
+        Width = 459
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 2
       end
@@ -962,15 +1060,11 @@ object Form1: TForm1
         TabOrder = 3
         OnClick = ButtonJPKPodpiszCertClick
       end
-      object FileNameEditJPKPCInitUpload: TJvFilenameEdit
+      object FileNameEditJPKPCInitUpload: TEdit
         Left = 198
         Top = 208
-        Width = 480
+        Width = 459
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 4
       end
@@ -1000,7 +1094,6 @@ object Form1: TForm1
     object TabSheetJPKPodpisAut: TTabSheet
       Caption = 'JPK podpis danymi aut.'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -1067,15 +1160,41 @@ object Form1: TForm1
         Height = 13
         Caption = 'Kwota przychodu'
       end
-      object FileNameEditJPKPAWej: TJvFilenameEdit
+      object SpeedButton10: TSpeedButton
+        Tag = 16
+        Left = 662
+        Top = 192
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton11: TSpeedButton
+        Tag = 17
+        Left = 662
+        Top = 296
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object SpeedButton12: TSpeedButton
+        Tag = 18
+        Left = 662
+        Top = 336
+        Width = 23
+        Height = 22
+        Anchors = [akTop, akRight]
+        Caption = '...'
+        OnClick = SBFileNameEditJPKRSAProdClick
+      end
+      object FileNameEditJPKPAWej: TEdit
         Left = 198
         Top = 192
-        Width = 480
+        Width = 458
         Height = 21
-        OnAfterDialog = FileNameEditJPKPAWejAfterDialog
-        Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
       end
@@ -1101,27 +1220,19 @@ object Form1: TForm1
         Caption = 'Na '#380#261'danie (AdHoc)'
         TabOrder = 2
       end
-      object FileNameEditJPKPAEnc: TJvFilenameEdit
+      object FileNameEditJPKPAEnc: TEdit
         Left = 198
         Top = 297
-        Width = 480
+        Width = 458
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 3
       end
-      object FileNameEditJPKPAInitUpload: TJvFilenameEdit
+      object FileNameEditJPKPAInitUpload: TEdit
         Left = 198
         Top = 337
-        Width = 480
+        Width = 458
         Height = 21
-        DialogKind = dkSave
-        Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
-        FilterIndex = 0
-        ButtonWidth = 23
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 4
       end
@@ -1134,12 +1245,13 @@ object Form1: TForm1
         TabOrder = 5
         OnClick = ButtonJPKPodpiszAutClick
       end
-      object FloatSpinEditJPKPKwota: TJvSpinEdit
+      object FloatSpinEditJPKPKwota: TEdit
         Left = 198
         Top = 144
         Width = 202
         Height = 21
         TabOrder = 6
+        Text = '0'
       end
       object DateTimePickerJPKPDataU: TDateTimePicker
         Left = 198
@@ -1177,7 +1289,6 @@ object Form1: TForm1
     object TabSheetJPKBramka: TTabSheet
       Caption = 'JPK bramka'
       TabVisible = False
-      ExplicitHeight = 499
       DesignSize = (
         690
         525)
@@ -1213,25 +1324,39 @@ object Form1: TForm1
           Height = 13
           Caption = 'Bramka'
         end
-        object FileNameEditJPKBIU: TJvFilenameEdit
+        object SpeedButton13: TSpeedButton
+          Tag = 19
+          Left = 642
+          Top = 20
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SpeedButton14: TSpeedButton
+          Tag = 20
+          Left = 642
+          Top = 48
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object FileNameEditJPKBIU: TEdit
           Left = 120
           Top = 19
-          Width = 543
+          Width = 516
           Height = 21
-          Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
-          FilterIndex = 0
-          ButtonWidth = 23
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
         end
-        object FileNameEditJPKBEnc: TJvFilenameEdit
+        object FileNameEditJPKBEnc: TEdit
           Left = 120
           Top = 48
-          Width = 543
+          Width = 516
           Height = 21
-          Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
-          FilterIndex = 0
-          ButtonWidth = 23
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 1
         end
@@ -1301,10 +1426,20 @@ object Form1: TForm1
           Height = 13
           Caption = 'Zapisz UPO do'
         end
+        object SpeedButton15: TSpeedButton
+          Tag = 21
+          Left = 642
+          Top = 88
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
         object EditJPKBNrRef: TEdit
           Left = 112
           Top = 24
-          Width = 542
+          Width = 553
           Height = 21
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
@@ -1323,15 +1458,11 @@ object Form1: TForm1
             'Produkcyjna'
             'Testowa')
         end
-        object FileNameEditJPKBPlikWyj: TJvFilenameEdit
+        object FileNameEditJPKBPlikWyj: TEdit
           Left = 112
           Top = 88
-          Width = 542
+          Width = 527
           Height = 21
-          DialogKind = dkSave
-          Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
-          FilterIndex = 0
-          ButtonWidth = 23
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 2
           Text = 'upo.xml'
@@ -1350,19 +1481,18 @@ object Form1: TForm1
     object TabSheetKSeFCommon: TTabSheet
       Caption = 'KSeF - Wsp'#243'lne'
       TabVisible = False
-      ExplicitHeight = 499
       object ScrollBox3: TScrollBox
         Left = 0
         Top = 0
         Width = 690
         Height = 525
+        VertScrollBar.Position = 77
         Align = alClient
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 499
         object GroupBox15: TGroupBox
           Left = 0
-          Top = 50
+          Top = -27
           Width = 673
           Height = 432
           Align = alTop
@@ -1399,6 +1529,16 @@ object Form1: TForm1
             Height = 13
             Caption = 'Plik wynikowy'
           end
+          object SpeedButton20: TSpeedButton
+            Tag = 26
+            Left = 643
+            Top = 352
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
           object EditKSeFCInvRefNum: TEdit
             Left = 152
             Top = 5
@@ -1407,12 +1547,13 @@ object Form1: TForm1
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
           end
-          object FloatSpinEditKSeFCInvDueValue: TJvSpinEdit
+          object FloatSpinEditKSeFCInvDueValue: TEdit
             Left = 152
             Top = 32
             Width = 130
             Height = 21
             TabOrder = 1
+            Text = '0'
           end
           object EditKSeFCInvOrgNum: TEdit
             Left = 152
@@ -1540,13 +1681,11 @@ object Form1: TForm1
               TabOrder = 5
             end
           end
-          object FileNameEditKSeFCInvFN: TJvFilenameEdit
+          object FileNameEditKSeFCInvFN: TEdit
             Left = 100
             Top = 352
-            Width = 561
+            Width = 541
             Height = 21
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 5
           end
@@ -1571,7 +1710,7 @@ object Form1: TForm1
         end
         object GroupBox18: TGroupBox
           Left = 0
-          Top = 482
+          Top = 405
           Width = 673
           Height = 120
           Align = alTop
@@ -1594,6 +1733,16 @@ object Form1: TForm1
             Height = 13
             Caption = 'Plik wynikowy z UPO'
           end
+          object SpeedButton21: TSpeedButton
+            Tag = 27
+            Left = 640
+            Top = 48
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
           object EditKSeFStatusReferenceNumber: TEdit
             Left = 132
             Top = 21
@@ -1602,13 +1751,11 @@ object Form1: TForm1
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
           end
-          object FileNameEditKSeFUPO: TJvFilenameEdit
-            Left = 133
-            Top = 50
-            Width = 534
+          object FileNameEditKSeFUPO: TEdit
+            Left = 117
+            Top = 48
+            Width = 508
             Height = 21
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 1
           end
@@ -1624,7 +1771,7 @@ object Form1: TForm1
         end
         object Panel4: TPanel
           Left = 0
-          Top = 0
+          Top = -77
           Width = 673
           Height = 50
           Align = alTop
@@ -1657,7 +1804,6 @@ object Form1: TForm1
     object TabSheetKsefSession: TTabSheet
       Caption = 'KSeF - Sesja'
       TabVisible = False
-      ExplicitHeight = 499
       object ScrollBox1: TScrollBox
         Left = 0
         Top = 0
@@ -1666,7 +1812,6 @@ object Form1: TForm1
         Align = alClient
         BorderStyle = bsNone
         TabOrder = 0
-        ExplicitHeight = 499
         object GroupBoxKSeFSesPar: TGroupBox
           Left = 0
           Top = 0
@@ -1861,14 +2006,31 @@ object Form1: TForm1
             Height = 13
             Caption = 'Podpisany w PZ plik'
           end
-          object FileNameEditKSeFInitPZOut: TJvFilenameEdit
+          object SpeedButton18: TSpeedButton
+            Tag = 24
+            Left = 640
+            Top = 24
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SpeedButton19: TSpeedButton
+            Tag = 25
+            Left = 639
+            Top = 96
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object FileNameEditKSeFInitPZOut: TEdit
             Left = 171
             Top = 24
-            Width = 480
+            Width = 463
             Height = 21
-            DialogKind = dkSave
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
           end
@@ -1890,13 +2052,11 @@ object Form1: TForm1
             TabOrder = 2
             OnClick = ButtonKSeFInitPZClick
           end
-          object FileNameEditKSeFInitPZIn: TJvFilenameEdit
+          object FileNameEditKSeFInitPZIn: TEdit
             Left = 171
             Top = 96
-            Width = 479
+            Width = 462
             Height = 21
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 3
           end
@@ -2040,139 +2200,274 @@ object Form1: TForm1
     object TabSheetKSeFFaktury: TTabSheet
       Caption = 'KSeF - Faktury'
       TabVisible = False
-      ExplicitHeight = 499
-      object GroupBox5: TGroupBox
+      object ScrollBox5: TScrollBox
         Left = 0
         Top = 0
         Width = 690
-        Height = 96
-        Align = alTop
-        Caption = 'Wysy'#322'anie faktury'
+        Height = 525
+        Align = alClient
+        BorderStyle = bsNone
         TabOrder = 0
-        DesignSize = (
-          690
-          96)
-        object Label69: TLabel
-          Left = 3
-          Top = 24
-          Width = 75
-          Height = 13
-          Caption = 'Plik XML faktury'
-        end
-        object FileNameEditKSeFInvSend: TJvFilenameEdit
-          Left = 99
-          Top = 21
-          Width = 576
-          Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
-          Anchors = [akLeft, akTop, akRight]
+        object GroupBox7: TGroupBox
+          Left = 0
+          Top = 96
+          Width = 673
+          Height = 120
+          Align = alTop
+          Caption = 'Pobieranie faktury'
           TabOrder = 0
+          ExplicitWidth = 690
+          DesignSize = (
+            673
+            120)
+          object Label71: TLabel
+            Left = 3
+            Top = 30
+            Width = 117
+            Height = 13
+            Caption = 'KSeF Reference Number'
+          end
+          object Label72: TLabel
+            Left = 32
+            Top = 61
+            Width = 87
+            Height = 13
+            Caption = 'Plik wynikowy XML'
+          end
+          object SpeedButton17: TSpeedButton
+            Tag = 23
+            Left = 642
+            Top = 56
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+            ExplicitLeft = 655
+          end
+          object EditKSeFInvGetNr: TEdit
+            Left = 144
+            Top = 29
+            Width = 516
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+            ExplicitWidth = 533
+          end
+          object FileNameEditKSeFGetFN: TEdit
+            Left = 144
+            Top = 56
+            Width = 492
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 1
+            ExplicitWidth = 509
+          end
+          object ButtonKSeFInvGet: TButton
+            Left = 144
+            Top = 88
+            Width = 75
+            Height = 25
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvGetClick
+          end
         end
-        object ButtonKSeFInvSend: TButton
-          Left = 99
-          Top = 56
-          Width = 75
-          Height = 25
-          Caption = 'Wy'#347'lij'
+        object GroupBox6: TGroupBox
+          Left = 0
+          Top = 216
+          Width = 673
+          Height = 96
+          Align = alTop
+          Caption = 'Sprawd'#378' status faktury'
           TabOrder = 1
-          OnClick = ButtonKSeFInvSendClick
+          ExplicitWidth = 690
+          DesignSize = (
+            673
+            96)
+          object Label70: TLabel
+            Left = 8
+            Top = 25
+            Width = 169
+            Height = 13
+            Caption = 'Invoice Element Reference Number'
+          end
+          object EditKSeFInvStatNr: TEdit
+            Left = 201
+            Top = 22
+            Width = 453
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+            ExplicitWidth = 470
+          end
+          object ButtonKSeFInvStat: TButton
+            Left = 201
+            Top = 56
+            Width = 75
+            Height = 25
+            Caption = 'Sprawd'#378
+            TabOrder = 1
+            OnClick = ButtonKSeFInvStatClick
+          end
         end
-      end
-      object GroupBox6: TGroupBox
-        Left = 0
-        Top = 96
-        Width = 690
-        Height = 96
-        Align = alTop
-        Caption = 'Sprawd'#378' status faktury'
-        TabOrder = 1
-        DesignSize = (
-          690
-          96)
-        object Label70: TLabel
-          Left = 8
-          Top = 25
-          Width = 169
-          Height = 13
-          Caption = 'Invoice Element Reference Number'
-        end
-        object EditKSeFInvStatNr: TEdit
-          Left = 201
-          Top = 22
-          Width = 466
-          Height = 21
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 0
-        end
-        object ButtonKSeFInvStat: TButton
-          Left = 201
-          Top = 56
-          Width = 75
-          Height = 25
-          Caption = 'Sprawd'#378
-          TabOrder = 1
-          OnClick = ButtonKSeFInvStatClick
-        end
-      end
-      object GroupBox7: TGroupBox
-        Left = 0
-        Top = 192
-        Width = 690
-        Height = 120
-        Align = alTop
-        Caption = 'Pobieranie faktury'
-        TabOrder = 2
-        DesignSize = (
-          690
-          120)
-        object Label71: TLabel
-          Left = 3
-          Top = 30
-          Width = 117
-          Height = 13
-          Caption = 'KSeF Reference Number'
-        end
-        object Label72: TLabel
-          Left = 32
-          Top = 61
-          Width = 87
-          Height = 13
-          Caption = 'Plik wynikowy XML'
-        end
-        object EditKSeFInvGetNr: TEdit
-          Left = 144
-          Top = 29
-          Width = 529
-          Height = 21
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 0
-        end
-        object FileNameEditKSeFGetFN: TJvFilenameEdit
-          Left = 144
-          Top = 56
-          Width = 531
-          Height = 21
-          FilterIndex = 0
-          ButtonWidth = 23
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 1
-        end
-        object ButtonKSeFInvGet: TButton
-          Left = 144
-          Top = 88
-          Width = 75
-          Height = 25
-          Caption = 'Pobierz'
+        object GroupBox5: TGroupBox
+          Left = 0
+          Top = 0
+          Width = 673
+          Height = 96
+          Align = alTop
+          Caption = 'Wysy'#322'anie faktury'
           TabOrder = 2
-          OnClick = ButtonKSeFInvGetClick
+          ExplicitWidth = 690
+          DesignSize = (
+            673
+            96)
+          object Label69: TLabel
+            Left = 3
+            Top = 24
+            Width = 75
+            Height = 13
+            Caption = 'Plik XML faktury'
+          end
+          object SpeedButton16: TSpeedButton
+            Tag = 22
+            Left = 651
+            Top = 20
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+            ExplicitLeft = 664
+          end
+          object FileNameEditKSeFInvSend: TEdit
+            Left = 99
+            Top = 21
+            Width = 546
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+            ExplicitWidth = 563
+          end
+          object ButtonKSeFInvSend: TButton
+            Left = 99
+            Top = 56
+            Width = 75
+            Height = 25
+            Caption = 'Wy'#347'lij'
+            TabOrder = 1
+            OnClick = ButtonKSeFInvSendClick
+          end
+        end
+        object GroupBox21: TGroupBox
+          Left = 0
+          Top = 312
+          Width = 673
+          Height = 116
+          Align = alTop
+          Caption = 'Ukrywanie wybranej faktury'
+          TabOrder = 3
+          DesignSize = (
+            673
+            116)
+          object Label116: TLabel
+            Left = 15
+            Top = 25
+            Width = 59
+            Height = 13
+            Caption = 'Nr ref. KSeF'
+          end
+          object Label117: TLabel
+            Left = 24
+            Top = 51
+            Width = 49
+            Height = 13
+            Caption = 'Przyczyna'
+          end
+          object EditKSeFInvHideNr: TEdit
+            Left = 88
+            Top = 21
+            Width = 568
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object EditKSeFInvHideReason: TEdit
+            Left = 88
+            Top = 49
+            Width = 566
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 1
+          end
+          object ButtonKSeFInvHide: TButton
+            Left = 88
+            Top = 80
+            Width = 75
+            Height = 25
+            Caption = 'Ukryj'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvHideClick
+          end
+        end
+        object GroupBox22: TGroupBox
+          Left = 0
+          Top = 428
+          Width = 673
+          Height = 116
+          Align = alTop
+          Caption = 'Anulowanie ukrycia wybranej faktury'
+          TabOrder = 4
+          ExplicitTop = 409
+          DesignSize = (
+            673
+            116)
+          object Label118: TLabel
+            Left = 15
+            Top = 24
+            Width = 59
+            Height = 13
+            Caption = 'Nr ref. KSeF'
+          end
+          object Label119: TLabel
+            Left = 24
+            Top = 50
+            Width = 49
+            Height = 13
+            Caption = 'Przyczyna'
+          end
+          object EditKSeFInvShowNr: TEdit
+            Left = 88
+            Top = 20
+            Width = 568
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object EditKSeFInvShowReason: TEdit
+            Left = 88
+            Top = 48
+            Width = 568
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 1
+          end
+          object ButtonKSeFInvShow: TButton
+            Left = 88
+            Top = 79
+            Width = 115
+            Height = 25
+            Caption = 'Cofnij ukrycie'
+            TabOrder = 2
+            OnClick = ButtonKSeFInvShowClick
+          end
         end
       end
     end
     object TabSheetKSeFQueryInvoice: TTabSheet
       Caption = 'KSeF - Zapytania - Faktury'
       TabVisible = False
-      ExplicitHeight = 499
       object ScrollBox2: TScrollBox
         Left = 0
         Top = 0
@@ -2180,7 +2475,6 @@ object Form1: TForm1
         Height = 525
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 499
         object GroupBox10: TGroupBox
           Left = 0
           Top = 448
@@ -2329,26 +2623,21 @@ object Form1: TForm1
                 Height = 13
                 Caption = 'subjectBy ident.'
               end
-              object FloatSpinEditKSeFQInvCAamountFrom: TJvSpinEdit
+              object FloatSpinEditKSeFQInvCAamountFrom: TEdit
                 Left = 94
                 Top = 16
                 Width = 106
                 Height = 21
                 TabOrder = 0
+                Text = '0'
               end
-              object FloatSpinEditKSeFQInvCAamountTo: TJvSpinEdit
+              object FloatSpinEditKSeFQInvCAamountTo: TEdit
                 Left = 296
                 Top = 16
                 Width = 106
                 Height = 21
                 TabOrder = 1
-              end
-              object FloatSpinEditKSeFQInvCAamountType: TJvSpinEdit
-                Left = 528
-                Top = 16
-                Width = 106
-                Height = 21
-                TabOrder = 2
+                Text = '0'
               end
               object GroupBox9: TGroupBox
                 Left = 12
@@ -2356,7 +2645,7 @@ object Form1: TForm1
                 Width = 96
                 Height = 110
                 Caption = 'currencyCodes'
-                TabOrder = 3
+                TabOrder = 2
                 object MemoKSeFQInvCrCurrencyCodes: TMemo
                   Left = 2
                   Top = 15
@@ -2372,14 +2661,14 @@ object Form1: TForm1
                 Width = 107
                 Height = 19
                 Caption = 'faP17Annotation'
-                TabOrder = 4
+                TabOrder = 3
               end
               object EditKSeFQInvCrInvoiceNumber: TEdit
                 Left = 224
                 Top = 84
                 Width = 408
                 Height = 21
-                TabOrder = 5
+                TabOrder = 4
               end
               object CheckGroupKSeFQInvCrIInvoiceTypes: TGroupBox
                 Left = 133
@@ -2387,7 +2676,7 @@ object Form1: TForm1
                 Width = 504
                 Height = 44
                 Caption = 'invoiceTypes'
-                TabOrder = 6
+                TabOrder = 5
                 object CheckBoxKSeFQInvCrIInvTypVAT: TCheckBox
                   Left = 8
                   Top = 16
@@ -2454,7 +2743,7 @@ object Form1: TForm1
                 Time = 43789.000000000000000000
                 MaxDate = 2958465.000000000000000000
                 MinDate = -53780.000000000000000000
-                TabOrder = 7
+                TabOrder = 6
               end
               object DateTimePickerKSeFQInvCrDetInvTo: TDateTimePicker
                 Left = 392
@@ -2465,21 +2754,21 @@ object Form1: TForm1
                 Time = 43789.000000000000000000
                 MaxDate = 2958465.000000000000000000
                 MinDate = -53780.000000000000000000
-                TabOrder = 8
+                TabOrder = 7
               end
               object EditKSeFQInvCrRefNo: TEdit
                 Left = 136
                 Top = 198
                 Width = 491
                 Height = 21
-                TabOrder = 9
+                TabOrder = 8
               end
               object EditKSeFQInvCrSubjectByIdent: TEdit
                 Left = 115
                 Top = 228
                 Width = 285
                 Height = 21
-                TabOrder = 10
+                TabOrder = 9
               end
               object GroupBox11: TGroupBox
                 Left = 11
@@ -2487,7 +2776,7 @@ object Form1: TForm1
                 Width = 616
                 Height = 91
                 Caption = 'subjectTo'
-                TabOrder = 11
+                TabOrder = 10
                 object Label88: TLabel
                   Left = 33
                   Top = 62
@@ -2517,6 +2806,22 @@ object Form1: TForm1
                   Height = 21
                   TabOrder = 1
                 end
+              end
+              object ComboBoxKSeFQInvCAamountType: TComboBox
+                Left = 514
+                Top = 16
+                Width = 111
+                Height = 21
+                Style = csDropDownList
+                ItemHeight = 13
+                ItemIndex = 0
+                TabOrder = 11
+                Text = 'none'
+                Items.Strings = (
+                  'none'
+                  'brutto'
+                  'netto'
+                  'vat')
               end
             end
             object TabSheetKSeFQInvCrIncr: TTabSheet
@@ -2690,6 +2995,16 @@ object Form1: TForm1
               Height = 13
               Caption = 'Plik docelowy ZIP'
             end
+            object SpeedButton27: TSpeedButton
+              Tag = 33
+              Left = 607
+              Top = 49
+              Width = 23
+              Height = 22
+              Anchors = [akTop, akRight]
+              Caption = '...'
+              OnClick = SBFileNameEditJPKRSAProdClick
+            end
             object EditKSeFQInvAsyncERefNo: TEdit
               Left = 119
               Top = 22
@@ -2698,15 +3013,11 @@ object Form1: TForm1
               Anchors = [akLeft, akTop, akRight]
               TabOrder = 0
             end
-            object FileNameEditKSeFQInvAsyncFN: TJvFilenameEdit
+            object FileNameEditKSeFQInvAsyncFN: TEdit
               Left = 119
-              Top = 52
-              Width = 505
+              Top = 53
+              Width = 482
               Height = 21
-              DialogKind = dkSave
-              Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
-              FilterIndex = 0
-              ButtonWidth = 23
               Anchors = [akLeft, akTop, akRight]
               TabOrder = 1
             end
@@ -2726,7 +3037,6 @@ object Form1: TForm1
     object TabSheetKSeFBatch: TTabSheet
       Caption = 'KSeF - Wysy'#322'ka wsadowa'
       TabVisible = False
-      ExplicitHeight = 499
       object ScrollBox4: TScrollBox
         Left = 0
         Top = 0
@@ -2734,7 +3044,6 @@ object Form1: TForm1
         Height = 525
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 499
         object GroupBox19: TGroupBox
           Left = 0
           Top = 0
@@ -2802,15 +3111,41 @@ object Form1: TForm1
             Height = 13
             Caption = 'Plik yj'#347'ciowy zaszyfr. ZIP'
           end
-          object FileNameEditKSeFBatchInZIP: TJvFilenameEdit
+          object SpeedButton22: TSpeedButton
+            Tag = 28
+            Left = 657
+            Top = 96
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SpeedButton23: TSpeedButton
+            Tag = 29
+            Left = 657
+            Top = 192
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SpeedButton24: TSpeedButton
+            Tag = 30
+            Left = 657
+            Top = 223
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object FileNameEditKSeFBatchInZIP: TEdit
             Left = 119
             Top = 96
-            Width = 549
+            Width = 532
             Height = 21
-            OnAfterDialog = FileNameEditKSeFBatchInZIPAcceptFileName
-            Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 0
           end
@@ -2878,27 +3213,19 @@ object Form1: TForm1
             ItemHeight = 13
             TabOrder = 6
           end
-          object FileNameEditKSeFBatchOutInitUp: TJvFilenameEdit
+          object FileNameEditKSeFBatchOutInitUp: TEdit
             Left = 156
             Top = 192
-            Width = 512
+            Width = 495
             Height = 21
-            DialogKind = dkSave
-            Filter = 'Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 7
           end
-          object FileNameEditKSeFBatchOutEncZIP: TJvFilenameEdit
+          object FileNameEditKSeFBatchOutEncZIP: TEdit
             Left = 156
             Top = 224
-            Width = 512
+            Width = 495
             Height = 21
-            DialogKind = dkSave
-            Filter = 'Plik part (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
-            FilterIndex = 0
-            ButtonWidth = 23
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 8
           end
@@ -2920,6 +3247,9 @@ object Form1: TForm1
           Align = alTop
           Caption = 'Wysy'#322'ka'
           TabOrder = 1
+          DesignSize = (
+            686
+            184)
           object Label111: TLabel
             Left = 3
             Top = 28
@@ -2948,24 +3278,38 @@ object Form1: TForm1
             Height = 13
             Caption = 'Nadany nr referencyjny'
           end
-          object FileNameEditKSeFBatchSendIU: TJvFilenameEdit
+          object SpeedButton25: TSpeedButton
+            Tag = 31
+            Left = 657
+            Top = 24
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SpeedButton26: TSpeedButton
+            Tag = 32
+            Left = 657
+            Top = 55
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object FileNameEditKSeFBatchSendIU: TEdit
             Left = 154
             Top = 24
-            Width = 521
+            Width = 497
             Height = 21
-            Filter = 'Pliki XML (*.xml;*.sig)|*.xml;*.sig|Wszystkie pliki (*.*)|*.*'
-            FilterIndex = 0
-            ButtonWidth = 23
             TabOrder = 0
           end
-          object FileNameEditKSeFBatchSendEnc: TJvFilenameEdit
+          object FileNameEditKSeFBatchSendEnc: TEdit
             Left = 154
             Top = 56
-            Width = 521
+            Width = 497
             Height = 21
-            Filter = 'Pliki danych (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
-            FilterIndex = 0
-            ButtonWidth = 23
             TabOrder = 1
           end
           object ComboBoxKSeFBatchSendBramka: TComboBox
@@ -3013,6 +3357,13 @@ object Form1: TForm1
       'MemoLog')
     TabOrder = 1
     WordWrap = False
-    ExplicitTop = 567
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 240
+    Top = 312
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 272
+    Top = 312
   end
 end
