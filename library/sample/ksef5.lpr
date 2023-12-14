@@ -96,8 +96,7 @@ begin
   // Wysylane dokumenty sa zgodne z wersja FA(2)
   KSeF.FormCode := kfcFA2;
   // Nr NIP podmiotu
-  //KSeF.NIP := '1111111111';
-  KSeF.NIP := '8821850488';
+  KSeF.NIP := '1111111111';
   // Nawiazanie sesji podpisujac wybranym certyfikatem z listy certyfikatow
   KSeF.Certificate := Certyfikaty[I];
   // Ustaw klucz szyfrujacy RSA dla bramki testowej

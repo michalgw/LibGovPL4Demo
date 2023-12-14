@@ -61,12 +61,10 @@ begin
   // Wysylane dokumenty sa zgodne z wersja FA(1)
   KSeF.FormCode := kfcFA2;
   // Nr NIP podmiotu
-  //KSeF.NIP := '1111111111';
-  KSeF.NIP := '8821850488';
+  KSeF.NIP := '1111111111';
 
   // Ustaw token do nawiazania sesji
-  //KSeF.Token := '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
-  KSeF.Token := '76C28A0047943B7718EC5DC208DA8D11A03D5CA0E5A33C9FB4E8C4B0E0E79A7F';
+  KSeF.Token := '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
   // Ustaw klucz szyfrujacy RSA dla bramki testowej
   KSeF.RSAKey[kgtTest] := RSAKey;
   // Wylacz dodatkowe szyfrowanie AES wysylanych i pobieranych dokumentow
