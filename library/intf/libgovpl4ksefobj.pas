@@ -1938,7 +1938,9 @@ var
 begin
   C := TKSeFObjectClass(lgoFindClass(lgoClassName(O)));
   if C <> nil then
-    Result := TKSeFSubjectIdentifierOtherTo(C.Create(O));
+    Result := TKSeFSubjectIdentifierOtherTo(C.Create(O))
+  else
+    Result := nil;
   {S := UpperCase(ObjClassName);
   if S = 'TKSEFSUBJECTIDENTIFIEROTHERTOINTERNAL' then
     Result := TKSeFSubjectIdentifierOtherToInternal.Create(O)
@@ -2358,6 +2360,8 @@ begin
   C := TKSeFObjectClass(lgoFindClass(lgoClassName(O)));
   if C <> nil then
     Result := TKSeFSubjectIdentifierTo(C.Create(O))
+  else
+    Result := nil;
 end;
 
 { TKSeFSubjectBy }
@@ -3143,7 +3147,9 @@ var
 begin
   C := TKSeFObjectClass(lgoFindClass(lgoClassName(O)));
   if C <> nil then
-    Result := TKSeFSubjectName(C.Create(O));
+    Result := TKSeFSubjectName(C.Create(O))
+  else
+    Result := nil;
 end;
 
 { TKSeFSubjectIdentifierInternal }

@@ -136,7 +136,7 @@ implementation
 
 constructor TlgoCertificateSigner.Create(AClassName: UTF8String);
 begin
-  lgoCheckResult(lgpCertificateSigner_Create(PChar(AClassName), ExtObject));
+  lgoCheckResult(lgpCertificateSigner_Create(LGP_PCHAR(AClassName), ExtObject));
 end;
 
 function TlgoCertificateSigner.List: TlgoCertificates;
@@ -222,7 +222,9 @@ begin
       if AIndex >= FClassItems.Count then
         FClassItems.Count := AIndex + 1;
       FClassItems[AIndex] := Result;
-    end;
+    end
+    else
+      Result := nil;
   end;
 end;
 
@@ -312,7 +314,7 @@ begin
   LGStream := nil;
   try
     LGStream := TlgoStream.Create(AStream);
-    lgoCheckResult(lgpRSAEncrypt_CreateKey(PChar(AClassName), LGStream.StreamObj, Key));
+    lgoCheckResult(lgpRSAEncrypt_CreateKey(LGP_PCHAR(AClassName), LGStream.StreamObj, Key));
     Result := TlgoRSAKey.Create;
     Result.ExtObject := Key;
   finally
@@ -415,7 +417,7 @@ end;
 
 constructor TlgoHTTPClient.Create(AClassName: UTF8String);
 begin
-  lgoCheckResult(lgpHTTPClient_Create(PChar(AClassName), ExtObject));
+  lgoCheckResult(lgpHTTPClient_Create(LGP_PCHAR(AClassName), ExtObject));
 end;
 
 procedure RegisterExceptions;

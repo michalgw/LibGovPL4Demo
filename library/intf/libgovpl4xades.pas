@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -115,7 +115,7 @@ end;
 
 procedure TlgoXAdES.SetBase64EncoderClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpXAdES_SetBase64EncoderClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpXAdES_SetBase64EncoderClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoXAdES.SetIncludeSigningTime(AValue: Boolean);
@@ -130,12 +130,12 @@ end;
 
 procedure TlgoXAdES.SetSHA1HashClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpXAdES_SetSHA1HashClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpXAdES_SetSHA1HashClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoXAdES.SetSHA256HashClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpXAdES_SetSHA256HashClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpXAdES_SetSHA256HashClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoXAdES.SetSigner(AValue: TlgoCertificateSigner);
@@ -167,8 +167,8 @@ begin
   end
   else
     O := nil;
-  lgoCheckResult(lgpXAdES_Create(PChar(ASHA1HashClass), PChar(ASHA256HashClass),
-    PChar(ABase64EncoderClass), O, ExtObject));
+  lgoCheckResult(lgpXAdES_Create(LGP_PCHAR(ASHA1HashClass), LGP_PCHAR(ASHA256HashClass),
+    LGP_PCHAR(ABase64EncoderClass), O, ExtObject));
 end;
 
 end.

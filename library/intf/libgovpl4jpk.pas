@@ -123,6 +123,7 @@ begin
   case AIndex of
     egtProduction: Result := FRSAKeyProd;
     egtTest: Result := FRSAKeyTest;
+    else Result := nil;
   end;
 end;
 

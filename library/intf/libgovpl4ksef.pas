@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -395,12 +395,12 @@ end;
 
 procedure TlgoKSeF.SetAES256EncryptClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetAES256EncryptClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetAES256EncryptClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetBase64EncoderClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetBase64EncoderClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetBase64EncoderClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetCertificate(AValue: TlgoCertificate);
@@ -433,22 +433,22 @@ end;
 
 procedure TlgoKSeF.SetFormCodeSchemaVersion(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetFormCodeSchemaVersion(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetFormCodeSchemaVersion(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetFormCodeSystemCode(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetFormCodeSystemCode(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetFormCodeSystemCode(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetFormCodeTargetNamespace(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetFormCodeTargetNamespace(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetFormCodeTargetNamespace(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetFormCodeValue(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetFormCodeValue(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetFormCodeValue(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetGateType(AValue: TlgoKSeFGateType);
@@ -471,17 +471,17 @@ end;
 
 procedure TlgoKSeF.SetNIP(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetNIP(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetNIP(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetRandomGeneratorClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetRandomGeneratorClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetRandomGeneratorClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetRSAEncryptClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetRSAEncryptClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetRSAEncryptClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAKey);
@@ -499,12 +499,12 @@ end;
 
 procedure TlgoKSeF.SetSHA256HashClass(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetSHA256HashClass(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetSHA256HashClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetToken(AValue: UTF8String);
 begin
-  lgoCheckResult(lgpKSeF_SetToken(ExtObject, PChar(AValue)));
+  lgoCheckResult(lgpKSeF_SetToken(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetXAdES(AValue: TlgoXAdES);
@@ -565,7 +565,7 @@ function TlgoKSeF.SessionInitPZ(const ASignedInit: UTF8String
 var
   R: LGP_OBJECT;
 begin
-  lgoCheckResult(lgpKSeF_SessionInitPZ(ExtObject, PAnsiChar(ASignedInit), R));
+  lgoCheckResult(lgpKSeF_SessionInitPZ(ExtObject, LGP_PCHAR(ASignedInit), R));
   if R <> nil then
     Result := TKSeFInitSessionResponse.Create(R)
   else
