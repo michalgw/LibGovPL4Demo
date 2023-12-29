@@ -230,7 +230,7 @@ procedure lgoRegisterClasses(AClasses: array of TClass);
 var
   I: Integer;
 begin
-  for I := 0 to Length(AClasses) do
+  for I := 0 to Length(AClasses) - 1 do
     lgoRegisterClass(AClasses[I]);
 end;
 
