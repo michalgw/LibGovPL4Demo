@@ -15,8 +15,8 @@
       <ResourceType Value="res"/>
     </General>
     <BuildModes>
-      <Item Name="Win32" Default="True"/>
-      <Item Name="Win64">
+      <Item Name="Win32 Debug" Default="True"/>
+      <Item Name="Win64 Debug">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -34,6 +34,102 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY"/>
+            <OtherDefines Count="8">
+              <Define0 Value="LGP_ENABLE_WINCNG"/>
+              <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+              <Define2 Value="LGP_ENABLE_FPC"/>
+              <Define3 Value="LGP_ENABLE_MSXML"/>
+              <Define4 Value="LGP_ENABLE_WINHTTP"/>
+              <Define5 Value="LGP_ENABLE_WST"/>
+              <Define6 Value="LGP_ENABLE_LIBXML2"/>
+              <Define7 Value="LGP_LEGACY"/>
+            </OtherDefines>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Win32 Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binw32\libgovpl4"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <RelocatableUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY"/>
+            <OtherDefines Count="8">
+              <Define0 Value="LGP_ENABLE_WINCNG"/>
+              <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+              <Define2 Value="LGP_ENABLE_FPC"/>
+              <Define3 Value="LGP_ENABLE_MSXML"/>
+              <Define4 Value="LGP_ENABLE_WINHTTP"/>
+              <Define5 Value="LGP_ENABLE_WST"/>
+              <Define6 Value="LGP_ENABLE_LIBXML2"/>
+              <Define7 Value="LGP_LEGACY"/>
+            </OtherDefines>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Win64 Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binw64\libgovpl4"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <RelocatableUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
               <DebugInfoType Value="dsDwarf2Set"/>
             </Debugging>
             <Options>
@@ -178,6 +274,11 @@
     </SearchPaths>
     <CodeGeneration>
       <RelocatableUnit Value="True"/>
+      <TargetCPU Value="i386"/>
+      <TargetOS Value="win32"/>
+      <Optimizations>
+        <OptimizationLevel Value="0"/>
+      </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
