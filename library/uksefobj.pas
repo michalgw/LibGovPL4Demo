@@ -108,7 +108,14 @@ begin
       TKSeFRequestPaymentIdentifierResponse,
       TKSeFInvoiceQueryDetails,
       TKSeFInvoiceRequestKSeF,
-      TKSeFStatusResponse]);
+      TKSeFStatusResponse,
+      TKSeFAnonymousSubjectIdentifierTo,
+      TKSeFAnonymousSubjectIdentifierToNone,
+      TKSeFAnonymousSubjectIdentifierToCompany,
+      TKSeFAnonymousSubjectIdentifierToOtherTax,
+      TKSeFInvoiceDownloadRequest,
+      TKSeFInvoiceVerificationRequest,
+      TKSeFInvoiceVerificationResponse]);
   end;
 end;
 

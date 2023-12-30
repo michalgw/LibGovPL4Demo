@@ -100,7 +100,9 @@ function lgpKSeF_PaymentIdentifierGetReferenceNumbers(AKSeFObject: LGP_OBJECT; A
 function lgpKSeF_PaymentIdentifierRequest(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF_CommonInvoiceKSeF(AKSeFObject: LGP_OBJECT; AInvoiceRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpKSeF_CommonDownload(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber: LGP_PCHAR; ADownloadRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF_CommonStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AGateType: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_CommonVerification(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber: LGP_PCHAR; AVerificationRequest: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF_BatchSign(AKSeFObject: LGP_OBJECT; AZIPDataStream: LGP_OBJECT; APZ: LGP_INT32; AEncryptedStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT; AZIPFileName, APartFileName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF_BatchSend(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AInitUpload: LGP_PCHAR; var ANrRef: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -986,6 +988,22 @@ begin
   end;
 end;
 
+function lgpKSeF_CommonDownload(AKSeFObject: LGP_OBJECT;
+  AKsefReferenceNumber: LGP_PCHAR; ADownloadRequest: LGP_OBJECT;
+  AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    CheckObject(ADownloadRequest, TKSeFInvoiceDownloadRequest);
+    CheckObject(AOutStream, TStream);
+    TlgKSeF(AKSeFObject).CommonDownload(AKsefReferenceNumber, TKSeFInvoiceDownloadRequest(ADownloadRequest), TStream(AOutStream), TlgKSeFGateType(AGateType));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpKSeF_CommonStatus(AKSeFObject: LGP_OBJECT;
   AReferenceNumber: LGP_PCHAR; AGateType: LGP_INT32; var AResponse: LGP_OBJECT
   ): LGP_EXCEPTION; stdcall;
@@ -994,6 +1012,21 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     AResponse := TlgKSeF(AKSeFObject).CommonStatus(AReferenceNumber, TlgKSeFGateType(AGateType));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_CommonVerification(AKSeFObject: LGP_OBJECT;
+  AKsefReferenceNumber: LGP_PCHAR; AVerificationRequest: LGP_OBJECT;
+  AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    CheckObject(AVerificationRequest, TKSeFInvoiceVerificationRequest);
+    TlgKSeF(AKSeFObject).CommonVerification(AKsefReferenceNumber, TKSeFInvoiceVerificationRequest(AVerificationRequest), TlgKSeFGateType(AGateType));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

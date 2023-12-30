@@ -175,8 +175,14 @@ type
     { Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF }
     procedure CommonInvoiceKSeF(AInvoiceRequest: TKSeFInvoiceRequestKSeF; AOutStream: TStream; AGateType: TlgoKSeFGateType);
 
+    { Pobranie faktury z repozytorium KSeF na podstawie kryteriów opartych o numer KSeF i skrót dokumentu }
+    procedure CommonDownload(const AKsefReferenceNumber: UTF8String; ADownloadRequest: TKSeFInvoiceDownloadRequest; AOutStream: TStream; AGateType: TlgKSeFGateType);
+
     { Interfejs wspólny pobrania statusu przetwarzania wsadowego }
     function CommonStatus(const AReferenceNumber: UTF8String; const AGateType: TlgoKSeFGateType): TKSeFStatusResponse;
+
+    { Weryfikacja faktury }
+    function CommonVerification(const AKsefReferenceNumber: UTF8String; AVerificationRequest: TKSeFInvoiceVerificationRequest; const AGateType: TlgKSeFGateType): TKSeFInvoiceVerificationResponse;
 
     { Wysyłka wsadowa }
 
@@ -801,6 +807,21 @@ begin
   end;
 end;
 
+procedure TlgoKSeF.CommonDownload(const AKsefReferenceNumber: UTF8String;
+  ADownloadRequest: TKSeFInvoiceDownloadRequest; AOutStream: TStream;
+  AGateType: TlgKSeFGateType);
+var
+  LGStream: TlgoStream;
+begin
+  LGStream := TlgoStream.Create(AOutStream);
+  try
+    lgoCheckResult(lgpKSeF_CommonDownload(ExtObject, ADownloadRequest.ExtObject,
+      LGStream.StreamObj, LGP_INT32(AGateType)));
+  finally
+    LGStream.Free;
+  end;
+end;
+
 function TlgoKSeF.CommonStatus(const AReferenceNumber: UTF8String;
   const AGateType: TlgoKSeFGateType): TKSeFStatusResponse;
 var
@@ -809,6 +830,19 @@ begin
   lgoCheckResult(lgpKSeF_CommonStatus(ExtObject, LGP_PCHAR(AReferenceNumber), LGP_INT32(AGateType), Resp));
   if Resp <> nil then
     Result := TKSeFStatusResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CommonVerification(const AKsefReferenceNumber: UTF8String;
+  AVerificationRequest: TKSeFInvoiceVerificationRequest;
+  const AGateType: TlgKSeFGateType): TKSeFInvoiceVerificationResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CommonVerification(ExtObject, LGP_PCHAR(AKsefReferenceNumber), AVerificationRequest.ExtObject, LGP_INT32(AGateType), Resp));
+  if Resp <> nil then
+    Result := TKSeFInvoiceVerificationResponse.Create(Resp)
   else
     Result := nil;
 end;

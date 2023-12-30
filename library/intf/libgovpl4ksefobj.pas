@@ -657,10 +657,19 @@ type
 
   TKSeFQueryCriteriaInvoice = class(TKSeFRequest)
   private
+    function GetHidingDateFrom: TDateTime;
+    function GetHidingDateTo: TDateTime;
+    function GetIsHidden: Boolean;
     function GetSubjectType: TKSeFSubjectType;
+    procedure SetHidingDateFrom(AValue: TDateTime);
+    procedure SetHidingDateTo(AValue: TDateTime);
+    procedure SetIsHidden(AValue: Boolean);
     procedure SetSubjectType(AValue: TKSeFSubjectType);
   published
     property SubjectType: TKSeFSubjectType read GetSubjectType write SetSubjectType;
+    property HidingDateFrom: TDateTime read GetHidingDateFrom write SetHidingDateFrom;
+    property HidingDateTo: TDateTime read GetHidingDateTo write SetHidingDateTo;
+    property IsHidden: Boolean read GetIsHidden write SetIsHidden;
   end;
 
   TKSeFAmountType = (kat_none, kat_brutto, kat_netto, kat_vat);
@@ -909,6 +918,9 @@ type
     function GetCurrency: UTF8String;
     function GetFaP17Annotation: Boolean;
     function GetGross: UTF8String;
+    function GetHidden: Boolean;
+    function GetHidingTime: TDateTime;
+    function GetHidingTimeRaw: UTF8String;
     function GetInvoiceReferenceNumber: UTF8String;
     function GetInvoiceType: TKSeFInvoiceType;
     function GetInvoiceTypeRaw: UTF8String;
@@ -927,6 +939,9 @@ type
     property Currency: UTF8String read GetCurrency;
     property FaP17Annotation: Boolean read GetFaP17Annotation;
     property Gross: UTF8String read GetGross;
+    property Hidden: Boolean read GetHidden;
+    property HidingTime: TDateTime read GetHidingTime;
+    property HidingTimeRaw: UTF8String read GetHidingTimeRaw;
     property InvoiceHash: TKSeFFileUnlimitedHash read FInvoiceHash;
     property InvoiceReferenceNumber: UTF8String read GetInvoiceReferenceNumber;
     property InvoiceTypeRaw: UTF8String read GetInvoiceTypeRaw;
@@ -1069,11 +1084,17 @@ type
   TKSeFGetPaymentIdentifierReferenceNumbersResponse = class(TKSeFResponse)
   private
     function GetKsefReferenceNumberList: TStringArray;
+    function GetNumberOfElements: Integer;
+    function GetPageOffset: Integer;
+    function GetPageSize: Integer;
     function GetReferenceNumber: UTF8String;
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
   published
     property KsefReferenceNumberList: TStringArray read GetKsefReferenceNumberList;
+    property NumberOfElements: Integer read GetNumberOfElements;
+    property PageOffset: Integer read GetPageOffset;
+    property PageSize: Integer read GetPageSize;
     property ReferenceNumber: UTF8String read GetReferenceNumber;
     property TimestampRaw: UTF8String read GetTimestampRaw;
     property Timestamp: TDateTime read GetTimestamp;
@@ -1144,6 +1165,97 @@ type
     property TimestampRaw: UTF8String read GetTimestampRaw;
     property Timestamp: TDateTime read GetTimestamp;
     property Upo: UTF8String read GetUpo;
+  end;
+
+  { TKSeFAnonymousSubjectIdentifierTo }
+
+  TKSeFAnonymousSubjectIdentifierTo = class(TKSeFObject)
+  private
+    function GetType: UTF8String;
+  published
+    property &Type: UTF8String read GetType;
+  end;
+
+  { TKSeFAnonymousSubjectIdentifierToNone }
+
+  TKSeFAnonymousSubjectIdentifierToNone = class(TKSeFAnonymousSubjectIdentifierTo)
+  end;
+
+  { TKSeFAnonymousSubjectIdentifierToCompany }
+
+  TKSeFAnonymousSubjectIdentifierToCompany = class(TKSeFAnonymousSubjectIdentifierTo)
+  private
+    function GetIdentifier: UTF8String;
+    procedure SetIdentifier(AValue: UTF8String);
+  published
+    property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+  end;
+
+  { TKSeFAnonymousSubjectIdentifierToOtherTax }
+
+  TKSeFAnonymousSubjectIdentifierToOtherTax = class(TKSeFAnonymousSubjectIdentifierTo)
+  private
+    function GetIdentifier: UTF8String;
+    procedure SetIdentifier(AValue: UTF8String);
+  published
+    property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+  end;
+
+  { TKSeFInvoiceDownloadRequest }
+
+  TKSeFInvoiceDownloadRequest = class(TKSeFRequest)
+  private
+    FHashSHA: TKSeFHashSHA;
+    FSubjectTo: TKSeFAnonymousSubjectIdentifierTo;
+    function GetDueValue: Currency;
+    function GetInvoiceNumber: UTF8String;
+    procedure SetDueValue(AValue: Currency);
+    procedure SetHashSHA(AValue: TKSeFHashSHA);
+    procedure SetInvoiceNumber(AValue: UTF8String);
+    procedure SetSubjectTo(AValue: TKSeFAnonymousSubjectIdentifierTo);
+  public
+    destructor Destroy; override;
+  published
+    property DueValue: Currency read GetDueValue write SetDueValue;
+    property HashSHA: TKSeFHashSHA read FHashSHA write SetHashSHA;
+    property InvoiceNumber: UTF8String read GetInvoiceNumber write SetInvoiceNumber;
+    property SubjectTo: TKSeFAnonymousSubjectIdentifierTo read FSubjectTo write SetSubjectTo;
+  end;
+
+  { TKSeFInvoiceVerificationRequest }
+
+  TKSeFInvoiceVerificationRequest = class(TKSeFRequest)
+  private
+    FHashSHA: TKSeFHashSHA;
+    procedure SetHashSHA(AValue: TKSeFHashSHA);
+  public
+    destructor Destroy; override;
+  published
+    property HashSHA: TKSeFHashSHA read FHashSHA  write SetHashSHA;
+  end;
+
+  { TKSeFInvoiceVerificationResponse }
+
+  TKSeFInvoiceVerificationResponse = class(TKSeFResponse)
+  private
+    FSubjectBy: TKSeFSubjectIdentifierBy;
+    function GetAcquisitionTimestamp: TDateTime;
+    function GetAcquisitionTimestampRaw: UTF8String;
+    function GetHash: UTF8String;
+    function GetInvoiceType: TKSeFInvoiceType;
+    function GetKsefReferenceNumber: UTF8String;
+    function GetSchemaVersion: UTF8String;
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
+  published
+    property AcquisitionTimestamp: TDateTime read GetAcquisitionTimestamp;
+    property AcquisitionTimestampRaw: UTF8String read GetAcquisitionTimestampRaw;
+    property Hash: UTF8String read GetHash;
+    property InvoiceType: TKSeFInvoiceType read GetInvoiceType;
+    property KsefReferenceNumber: UTF8String read GetKsefReferenceNumber;
+    property SchemaVersion: UTF8String read GetSchemaVersion;
+    property SubjectBy: TKSeFSubjectIdentifierBy read FSubjectBy;
   end;
 
 procedure lgoRegister;
@@ -1222,6 +1334,13 @@ begin
     TKSeFInvoiceQueryDetails,
     TKSeFInvoiceRequestKSeF,
     TKSeFStatusResponse
+    TKSeFAnonymousSubjectIdentifierTo,
+    TKSeFAnonymousSubjectIdentifierToNone,
+    TKSeFAnonymousSubjectIdentifierToCompany,
+    TKSeFAnonymousSubjectIdentifierToOtherTax,
+    TKSeFInvoiceDownloadRequest,
+    TKSeFInvoiceVerificationRequest,
+    TKSeFInvoiceVerificationResponse
     ]);
   lgoRegisterExceptionClass(EKSeFException);
   lgoRegisterExceptionClass(EKSeFExceptionResponse);
@@ -1256,6 +1375,187 @@ end;
 function TKSeFStatusResponse.GetUpo: UTF8String;
 begin
   Result := GetStringProp('Upo');
+end;
+
+{ TKSeFAnonymousSubjectIdentifierTo }
+
+function TKSeFAnonymousSubjectIdentifierTo.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+{ TKSeFAnonymousSubjectIdentifierToCompany }
+
+function TKSeFAnonymousSubjectIdentifierToCompany.GetIdentifier: UTF8String;
+begin
+  Result := GetStringProp('Identifier');
+end;
+
+procedure TKSeFAnonymousSubjectIdentifierToCompany.SetIdentifier(
+  AValue: UTF8String);
+begin
+  SetStringProp('Identifier', AValue);
+end;
+
+{ TKSeFAnonymousSubjectIdentifierToOtherTax }
+
+function TKSeFAnonymousSubjectIdentifierToOtherTax.GetIdentifier: UTF8String;
+begin
+  Result := GetStringProp('Identifier');
+end;
+
+procedure TKSeFAnonymousSubjectIdentifierToOtherTax.SetIdentifier(
+  AValue: UTF8String);
+begin
+  SetStringProp('Identifier', AValue);
+end;
+
+{ TKSeFInvoiceDownloadRequest }
+
+function TKSeFInvoiceDownloadRequest.GetDueValue: Currency;
+begin
+  Result := GetCurrencyProp('DueValue');
+end;
+
+function TKSeFInvoiceDownloadRequest.GetInvoiceNumber: UTF8String;
+begin
+  Result := GetStringProp('InvoiceNumber');
+end;
+
+procedure TKSeFInvoiceDownloadRequest.SetDueValue(AValue: Currency);
+begin
+  SetCurrencyProp('DueValue', AValue));
+end;
+
+procedure TKSeFInvoiceDownloadRequest.SetHashSHA(AValue: TKSeFHashSHA);
+var
+  O: LGP_OBJECT;
+begin
+  if FHashSHA = AValue then Exit;
+  FHashSHA := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('HashSHA', O);
+end;
+
+procedure TKSeFInvoiceDownloadRequest.SetInvoiceNumber(AValue: UTF8String);
+begin
+  SetStringProp('InvoiceNumber', AValue);
+end;
+
+procedure TKSeFInvoiceDownloadRequest.SetSubjectTo(
+  AValue: TKSeFAnonymousSubjectIdentifierTo);
+var
+  O: LGP_OBJECT;
+begin
+  if FSubjectTo = AValue then Exit;
+  FSubjectTo := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('SubjectTo', O);
+end;
+
+destructor TKSeFInvoiceDownloadRequest.Destroy;
+begin
+  if Assigned(FHashSHA) then
+  begin
+    FHashSHA.Free;
+    SetObjectProp('HashSHA', nil);
+  end;
+  if Assigned(FSubjectTo) then
+  begin
+    FSubjectTo.Free;
+    SetObjectProp('SubjectTo', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFInvoiceVerificationRequest }
+
+procedure TKSeFInvoiceVerificationRequest.SetHashSHA(AValue: TKSeFHashSHA);
+var
+  O: LGP_OBJECT;
+begin
+  if FHashSHA = AValue then Exit;
+  FHashSHA := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('HashSHA', O);
+end;
+
+destructor TKSeFInvoiceVerificationRequest.Destroy;
+begin
+  if Assigned(FHashSHA) then
+  begin
+    FHashSHA.Free;
+    SetObjectProp('HashSHA', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFInvoiceVerificationResponse }
+
+function TKSeFInvoiceVerificationResponse.GetAcquisitionTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('AcquisitionTimestamp');
+end;
+
+function TKSeFInvoiceVerificationResponse.GetAcquisitionTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('AcquisitionTimestampRaw');
+end;
+
+function TKSeFInvoiceVerificationResponse.GetHash: UTF8String;
+begin
+  Result := GetStringProp('Hash');
+end;
+
+function TKSeFInvoiceVerificationResponse.GetInvoiceType: TKSeFInvoiceType;
+begin
+  Result := TKSeFInvoiceType(GetIntegerProp('InvoiceType'));
+end;
+
+function TKSeFInvoiceVerificationResponse.GetKsefReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefReferenceNumber');
+end;
+
+function TKSeFInvoiceVerificationResponse.GetSchemaVersion: UTF8String;
+begin
+  Result := GetStringProp('SchemaVersion');
+end;
+
+constructor TKSeFInvoiceVerificationResponse.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+  S: UTF8String;
+begin
+  inherited;
+  O := GetObjectProp('SubjectBy');
+  S := UpperCase(lgoClassName(O));
+  if O <> nil then
+  begin
+    if S = 'TKSEFSUBJECTIDENTIFIERBYCOMPANY' then
+      FSubjectBy := TKSeFSubjectIdentifierByCompany.Create(O)
+    else if S = 'TKSEFSUBJECTIDENTIFIERINTERNAL' then
+      FSubjectBy := TKSeFSubjectIdentifierInternal.Create(O);
+  end;
+end;
+
+destructor TKSeFInvoiceVerificationResponse.Destroy;
+begin
+  if Assigned(FSubjectBy) then
+  begin
+    FSubjectBy.Free;
+    SetObjectProp('SubjectBy', nil);
+  end;
+  inherited Destroy;
 end;
 
 function TKSeFInvoiceRequestKSeF.GetKsefReferenceNumber: UTF8String;
@@ -1407,6 +1707,21 @@ begin
   for I := 0 to SL.Count - 1 do
     Result[I] := SL[I];
   SL.Free;
+end;
+
+function TKSeFGetPaymentIdentifierReferenceNumbersResponse.GetNumberOfElements: Integer;
+begin
+  Result := GetIntegerProp('NumberOfElements');
+end;
+
+function TKSeFGetPaymentIdentifierReferenceNumbersResponse.GetPageOffset: Integer;
+begin
+  Result := GetIntegerProp('PageOffset');
+end;
+
+function TKSeFGetPaymentIdentifierReferenceNumbersResponse.GetPageSize: Integer;
+begin
+  Result := GetIntegerProp('PageSize');
 end;
 
 function TKSeFGetPaymentIdentifierReferenceNumbersResponse.GetReferenceNumber: UTF8String;
@@ -1676,6 +1991,21 @@ end;
 function TKSeFInvoiceHeader.GetGross: UTF8String;
 begin
   Result := GetStringProp('Gross');
+end;
+
+function TKSeFInvoiceHeader.GetHidden: Boolean;
+begin
+  Result := GetBooleanProp('Hidden');
+end;
+
+function TKSeFInvoiceHeader.GetHidingTime: TDateTime;
+begin
+  Result := GetDoubleProp('HidingTime');
+end;
+
+function TKSeFInvoiceHeader.GetHidingTimeRaw: UTF8String;
+begin
+  Result := GetStringProp('HidingTimeRaw');
 end;
 
 function TKSeFInvoiceHeader.GetInvoiceReferenceNumber: UTF8String;
@@ -2242,9 +2572,39 @@ end;
 
 { TKSeFQueryCriteriaInvoice }
 
+function TKSeFQueryCriteriaInvoice.GetHidingDateFrom: TDateTime;
+begin
+  Result := GetDoubleProp('HidingDateFrom');
+end;
+
+function TKSeFQueryCriteriaInvoice.GetHidingDateTo: TDateTime;
+begin
+  Result := GetDoubleProp('HidingDateTo');
+end;
+
+function TKSeFQueryCriteriaInvoice.GetIsHidden: Boolean;
+begin
+  Result := GetBooleanProp('IsHidden');
+end;
+
 function TKSeFQueryCriteriaInvoice.GetSubjectType: TKSeFSubjectType;
 begin
   Result := TKSeFSubjectType(GetIntegerProp('SubjectType'));
+end;
+
+procedure TKSeFQueryCriteriaInvoice.SetHidingDateFrom(AValue: TDateTime);
+begin
+  SetDoubleProp('HidingDateFrom', AValue);
+end;
+
+procedure TKSeFQueryCriteriaInvoice.SetHidingDateTo(AValue: TDateTime);
+begin
+  SetDoubleProp('HidingDateTo', AValue);
+end;
+
+procedure TKSeFQueryCriteriaInvoice.SetIsHidden(AValue: Boolean);
+begin
+  SetBooleanProp('IsHidden', AValue);
 end;
 
 procedure TKSeFQueryCriteriaInvoice.SetSubjectType(AValue: TKSeFSubjectType);

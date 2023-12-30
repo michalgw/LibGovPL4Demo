@@ -264,7 +264,9 @@ exports
   lgpKSeF_PaymentIdentifierRequest,
 
   lgpKSeF_CommonInvoiceKSeF,
+  lgpKSeF_CommonDownload,
   lgpKSeF_CommonStatus,
+  lgpKSeF_CommonVerification,
 
   lgpKSeF_BatchSign,
   lgpKSeF_BatchSend,
