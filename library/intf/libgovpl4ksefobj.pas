@@ -1333,7 +1333,7 @@ begin
     TKSeFRequestPaymentIdentifierResponse,
     TKSeFInvoiceQueryDetails,
     TKSeFInvoiceRequestKSeF,
-    TKSeFStatusResponse
+    TKSeFStatusResponse,
     TKSeFAnonymousSubjectIdentifierTo,
     TKSeFAnonymousSubjectIdentifierToNone,
     TKSeFAnonymousSubjectIdentifierToCompany,
@@ -1424,7 +1424,7 @@ end;
 
 procedure TKSeFInvoiceDownloadRequest.SetDueValue(AValue: Currency);
 begin
-  SetCurrencyProp('DueValue', AValue));
+  SetCurrencyProp('DueValue', AValue);
 end;
 
 procedure TKSeFInvoiceDownloadRequest.SetHashSHA(AValue: TKSeFHashSHA);

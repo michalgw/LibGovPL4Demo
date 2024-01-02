@@ -176,13 +176,13 @@ type
     procedure CommonInvoiceKSeF(AInvoiceRequest: TKSeFInvoiceRequestKSeF; AOutStream: TStream; AGateType: TlgoKSeFGateType);
 
     { Pobranie faktury z repozytorium KSeF na podstawie kryteriów opartych o numer KSeF i skrót dokumentu }
-    procedure CommonDownload(const AKsefReferenceNumber: UTF8String; ADownloadRequest: TKSeFInvoiceDownloadRequest; AOutStream: TStream; AGateType: TlgKSeFGateType);
+    procedure CommonDownload(const AKsefReferenceNumber: UTF8String; ADownloadRequest: TKSeFInvoiceDownloadRequest; AOutStream: TStream; AGateType: TlgoKSeFGateType);
 
     { Interfejs wspólny pobrania statusu przetwarzania wsadowego }
     function CommonStatus(const AReferenceNumber: UTF8String; const AGateType: TlgoKSeFGateType): TKSeFStatusResponse;
 
     { Weryfikacja faktury }
-    function CommonVerification(const AKsefReferenceNumber: UTF8String; AVerificationRequest: TKSeFInvoiceVerificationRequest; const AGateType: TlgKSeFGateType): TKSeFInvoiceVerificationResponse;
+    function CommonVerification(const AKsefReferenceNumber: UTF8String; AVerificationRequest: TKSeFInvoiceVerificationRequest; const AGateType: TlgoKSeFGateType): TKSeFInvoiceVerificationResponse;
 
     { Wysyłka wsadowa }
 
@@ -809,14 +809,14 @@ end;
 
 procedure TlgoKSeF.CommonDownload(const AKsefReferenceNumber: UTF8String;
   ADownloadRequest: TKSeFInvoiceDownloadRequest; AOutStream: TStream;
-  AGateType: TlgKSeFGateType);
+  AGateType: TlgoKSeFGateType);
 var
   LGStream: TlgoStream;
 begin
   LGStream := TlgoStream.Create(AOutStream);
   try
-    lgoCheckResult(lgpKSeF_CommonDownload(ExtObject, ADownloadRequest.ExtObject,
-      LGStream.StreamObj, LGP_INT32(AGateType)));
+    lgoCheckResult(lgpKSeF_CommonDownload(ExtObject, LGP_PCHAR(AKsefReferenceNumber),
+      ADownloadRequest.ExtObject, LGStream.StreamObj, LGP_INT32(AGateType)));
   finally
     LGStream.Free;
   end;
@@ -836,7 +836,7 @@ end;
 
 function TlgoKSeF.CommonVerification(const AKsefReferenceNumber: UTF8String;
   AVerificationRequest: TKSeFInvoiceVerificationRequest;
-  const AGateType: TlgKSeFGateType): TKSeFInvoiceVerificationResponse;
+  const AGateType: TlgoKSeFGateType): TKSeFInvoiceVerificationResponse;
 var
   Resp: LGP_OBJECT;
 begin
