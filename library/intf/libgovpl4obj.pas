@@ -114,6 +114,8 @@ procedure lgoRegisterClass(AClass: TClass);
 procedure lgoRegisterClasses(AClasses: array of TClass);
 function lgoFindClass(AClassName: String): TClass;
 
+function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT; inline;
+
 implementation
 
 uses
@@ -237,6 +239,14 @@ end;
 function lgoFindClass(AClassName: String): TClass;
 begin
   Result := lgoClassList.FindByName(AClassName);
+end;
+
+function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT; inline;
+begin
+  if Assigned(AObject) then
+    Result := AObject.ExtObject
+  else
+    Result := nil;
 end;
 
 { TlgoStream }
