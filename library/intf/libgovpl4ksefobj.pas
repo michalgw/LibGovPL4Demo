@@ -442,6 +442,164 @@ type
     property Timestamp: TDateTime read GetTimestamp;
   end;
 
+  { TKSeFCredentialsIdentifierRequest }
+
+  TKSeFCredentialsIdentifierRequest = class(TKSeFObject)
+  private
+    function GetIdentifier: UTF8String;
+    function GetType: UTF8String;
+    procedure SetIdentifier(AValue: UTF8String);
+    procedure SetType(AValue: UTF8String);
+  published
+    property &Type: UTF8String read GetType write SetType;
+    property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+  end;
+
+  { TKSeFQueryCriteriaCredentials }
+
+  TKSeFQueryCriteriaCredentials = class(TKSeFObject)
+  private
+    function GetType: UTF8String;
+    procedure SetType(AValue: UTF8String);
+  published
+    property &Type: UTF8String read GetType write SetType;
+  end;
+
+  { TKSeFQueryCriteriaCredentialsAll }
+
+  TKSeFQueryCriteriaCredentialsAll = class(TKSeFQueryCriteriaCredentials)
+  private
+    function GetQueryCredentialsScopeResultTypeRaw: UTF8String;
+    function GetQueryCredentialsTypeResultTypeRaw: UTF8String;
+    procedure SetQueryCredentialsScopeResultTypeRaw(AValue: UTF8String);
+    procedure SetQueryCredentialsTypeResultTypeRaw(AValue: UTF8String);
+  published
+    property QueryCredentialsScopeResultTypeRaw: UTF8String read GetQueryCredentialsScopeResultTypeRaw write SetQueryCredentialsScopeResultTypeRaw;
+    property QueryCredentialsTypeResultTypeRaw: UTF8String read GetQueryCredentialsTypeResultTypeRaw write SetQueryCredentialsTypeResultTypeRaw;
+  end;
+
+  { TKSeFQueryCriteriaCredentialsId }
+
+  TKSeFQueryCriteriaCredentialsId = class(TKSeFQueryCriteriaCredentials)
+  private
+    FCredentialsIdentifier: TKSeFCredentialsIdentifierRequest;
+    function GetQueryCredentialsScopeResultTypeRaw: UTF8String;
+    function GetQueryCredentialsTypeResultTypeRaw: UTF8String;
+    procedure SetCredentialsIdentifier(AValue: TKSeFCredentialsIdentifierRequest
+      );
+    procedure SetQueryCredentialsScopeResultTypeRaw(AValue: UTF8String);
+    procedure SetQueryCredentialsTypeResultTypeRaw(AValue: UTF8String);
+  published
+    property CredentialsIdentifier: TKSeFCredentialsIdentifierRequest read FCredentialsIdentifier write SetCredentialsIdentifier;
+    property QueryCredentialsScopeResultTypeRaw: UTF8String read GetQueryCredentialsScopeResultTypeRaw write SetQueryCredentialsScopeResultTypeRaw;
+    property QueryCredentialsTypeResultTypeRaw: UTF8String read GetQueryCredentialsTypeResultTypeRaw write SetQueryCredentialsTypeResultTypeRaw;
+  end;
+
+  { TKSeFQuerySyncCredentialsRequest }
+
+  TKSeFQuerySyncCredentialsRequest = class(TKSeFRequest)
+  private
+    FQueryCriteria: TKSeFQueryCriteriaCredentials;
+    procedure SetQueryCriteria(AValue: TKSeFQueryCriteriaCredentials);
+  published
+    property QueryCriteria: TKSeFQueryCriteriaCredentials read FQueryCriteria write SetQueryCriteria;
+  end;
+
+  { TKSeFCredentialsBaseTypeObject }
+
+  TKSeFCredentialsBaseTypeObject = class(TKSeFObject)
+  private
+    FCredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray;
+    FIdentifier: TKSeFCredentialsIdentifierResponse;
+    function GetType: UTF8String;
+  public
+    constructor Create(AObject: LGP_OBJECT); override;
+    destructor Destroy; override;
+    class function CreateFromObject(O: LGP_OBJECT): TKSeFCredentialsBaseTypeObject;
+  published
+    property &Type: UTF8String read GetType;
+    property CredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray read FCredentialsRoleList;
+    property Identifier: TKSeFCredentialsIdentifierResponse read FIdentifier write FIdentifier;
+  end;
+
+  TKSeFCredentialsContext = class(TKSeFCredentialsBaseTypeObject)
+  end;
+
+  { TKSeFCredentialsPlain }
+
+  TKSeFCredentialsPlain = class(TKSeFCredentialsBaseTypeObject)
+  private
+    FCredentialsRole: TKSeFCredentialsRoleResponseStandardPlain;
+  public
+    constructor Create(AObject: LGP_OBJECT); override;
+    destructor Destroy; override;
+  published
+    property CredentialsRole: TKSeFCredentialsRoleResponseStandardPlain read FCredentialsRole;
+  end;
+
+  { TKSeFCredentialsToken }
+
+  TKSeFCredentialsToken = class(TKSeFCredentialsBaseTypeObject)
+  private
+    FParent: TKSeFCredentialsPlain;
+    function GetDescription: UTF8String;
+    function GetLastUseTimestamp: TDateTime;
+    function GetLastUseTimestampRaw: UTF8String;
+    function GetRegistrationTimestamp: TDateTime;
+    function GetRegistrationTimestampRaw: UTF8String;
+    function GetStatus: Integer;
+  public
+    constructor Create(AObject: LGP_OBJECT); override;
+    destructor Destroy; override;
+  published
+    property Description: UTF8String read GetDescription;
+    property LastUseTimestamp: TDateTime read GetLastUseTimestamp;
+    property LastUseTimestampRaw: UTF8String read GetLastUseTimestampRaw;
+    property Parent: TKSeFCredentialsPlain read FParent;
+    property RegistrationTimestamp: TDateTime read GetRegistrationTimestamp;
+    property RegistrationTimestampRaw: UTF8String read GetRegistrationTimestampRaw;
+    property Status: Integer read GetStatus;
+  end;
+
+  { TKSeFCredentialsParent }
+
+  TKSeFCredentialsParent = class(TKSeFCredentialsBaseTypeObject)
+  private
+    FCredentialsRole: TKSeFCredentialsRoleResponseStandardPlain;
+  public
+    constructor Create(AObject: LGP_OBJECT); override;
+    destructor Destroy; override;
+  published
+    property CredentialsRole: TKSeFCredentialsRoleResponseStandardPlain read FCredentialsRole;
+  end;
+
+  { TKSeFCredentialsBaseTypeObjectArray }
+
+  TKSeFCredentialsBaseTypeObjectArray = class(TKSeFArray)
+  private
+    function GetItem(AIndex: Integer): TKSeFCredentialsBaseTypeObject;
+  public
+    property Items[AIndex: Integer]: TKSeFCredentialsBaseTypeObject read GetItem;
+  end;
+
+  { TKSeFQuerySyncCredentialsResponse }
+
+  TKSeFQuerySyncCredentialsResponse = class(TKSeFResponse)
+  private
+    FCredentialsList: TKSeFCredentialsBaseTypeObjectArray;
+    function GetReferenceNumber: UTF8String;
+    function GetTimestamp: TDateTime;
+    function GetTimestampRaw: UTF8String;
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
+  published
+    property CredentialsList: TKSeFCredentialsBaseTypeObjectArray read FCredentialsList;
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property Timestamp: TDateTime read GetTimestamp;
+    property TimestampRaw: UTF8String read GetTimestampRaw;
+  end;
+
   { TKSeFSendInvoiceResponse }
 
   TKSeFSendInvoiceResponse = class(TKSeFResponse)
@@ -1258,6 +1416,355 @@ type
     property SubjectBy: TKSeFSubjectIdentifierBy read FSubjectBy;
   end;
 
+  { TKSeFCredentialsIdentifierRequestInstitutional }
+
+  TKSeFCredentialsIdentifierRequestInstitutional = class(TKSeFObject)
+  private
+    function GetIdentifier: UTF8String;
+    function GetType: UTF8String;
+    procedure SetIdentifier(AValue: UTF8String);
+    procedure SetType(AValue: UTF8String);
+  published
+    property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+    property &Type: UTF8String read GetType write SetType;
+  end;
+
+  { TKSeFCredentialsIdentifierRequestInternal }
+
+  TKSeFCredentialsIdentifierRequestInternal = class(TKSeFCredentialsIdentifierRequestInstitutional)
+  end;
+
+  { TKSeFCredentialsIdentifierRequestInstitutionalNip }
+
+  TKSeFCredentialsIdentifierRequestInstitutionalNip = class(TKSeFCredentialsIdentifierRequestInstitutional)
+  end;
+
+  { TKSeFCredentialsIdentifierRequestIndividual }
+
+  TKSeFCredentialsIdentifierRequestIndividual = class(TKSeFObject)
+  private
+    function GetIdentifier: UTF8String;
+    function GetType: UTF8String;
+    procedure SetIdentifier(AValue: UTF8String);
+    procedure SetType(AValue: UTF8String);
+  published
+    property Identifier: UTF8String read GetIdentifier write SetIdentifier;
+    property &Type: UTF8String read GetType write SetType;
+  end;
+
+  { TKSeFCredentialsIdentifierRequestIndividualCertificateFingerprint }
+
+  TKSeFCredentialsIdentifierRequestIndividualCertificateFingerprint = class(TKSeFCredentialsIdentifierRequestIndividual)
+  end;
+
+  { TKSeFCredentialsIdentifierRequestIndividualNip }
+
+  TKSeFCredentialsIdentifierRequestIndividualNip = class(TKSeFCredentialsIdentifierRequestIndividual)
+  end;
+
+  { TKSeFCredentialsIdentifierRequestIndividualPesel }
+
+  TKSeFCredentialsIdentifierRequestIndividualPesel = class(TKSeFCredentialsIdentifierRequestIndividual)
+  end;
+
+  { TKSeFCredentialsRoleRequestContextDescribed }
+
+  TKSeFCredentialsRoleRequestContextDescribed = class(TKSeFObject)
+  private
+    function GetRoleDescription: UTF8String;
+    function GetRoleType: UTF8String;
+    procedure SetRoleDescription(AValue: UTF8String);
+    procedure SetRoleType(AValue: UTF8String);
+  published
+    property RoleDescription: UTF8String read GetRoleDescription write SetRoleDescription;
+    property RoleType: UTF8String read GetRoleType write SetRoleType;
+  end;
+
+  { TKSeFGrantContextCredentialsRequestType }
+
+  TKSeFGrantContextCredentialsRequestType = class(TKSeFObject)
+  private
+    FContextIdentifier: TKSeFCredentialsIdentifierRequestInstitutional;
+    FCredentialsIdentifier: TKSeFCredentialsIdentifierRequestIndividual;
+    FCredentialsRole: TKSeFCredentialsRoleRequestContextDescribed;
+    procedure SetContextIdentifier(
+      AValue: TKSeFCredentialsIdentifierRequestInstitutional);
+    procedure SetCredentialsIdentifier(
+      AValue: TKSeFCredentialsIdentifierRequestIndividual);
+    procedure SetCredentialsRole(
+      AValue: TKSeFCredentialsRoleRequestContextDescribed);
+  public
+    destructor Destroy; override;
+  published
+    property ContextIdentifier: TKSeFCredentialsIdentifierRequestInstitutional read FContextIdentifier write SetContextIdentifier;
+    property CredentialsIdentifier: TKSeFCredentialsIdentifierRequestIndividual read FCredentialsIdentifier write SetCredentialsIdentifier;
+    property CredentialsRole: TKSeFCredentialsRoleRequestContextDescribed read FCredentialsRole write SetCredentialsRole;
+  end;
+
+  TKSeFGrantContextCredentialsRequest = class(TKSeFRequest)
+  private
+    FGrantContextCredentials: TKSeFGrantContextCredentialsRequestType;
+    procedure SetGrantContextCredentials(
+      AValue: TKSeFGrantContextCredentialsRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property GrantContextCredentials: TKSeFGrantContextCredentialsRequestType read FGrantContextCredentials write SetGrantContextCredentials;
+  end;
+
+  { TKSeFStatusCredentialsResponse }
+
+  TKSeFStatusCredentialsResponse = class(TKSeFResponse)
+  private
+    function GetElementReferenceNumber: UTF8String;
+    function GetProcessingCode: Integer;
+    function GetProcessingDescription: UTF8String;
+    function GetReferenceNumber: UTF8String;
+    function GetTimestamp: TDateTime;
+    function GetTimestampRaw: UTF8String;
+  published
+    property ElementReferenceNumber: UTF8String read GetElementReferenceNumber;
+    property ProcessingCode: Integer read GetProcessingCode;
+    property ProcessingDescription: UTF8String read GetProcessingDescription;
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property Timestamp: TDateTime read GetTimestamp;
+    property TimestampRaw: UTF8String read GetTimestampRaw;
+  end;
+
+  { TKSeFCredentialsRoleRequestContextBase }
+
+  TKSeFCredentialsRoleRequestContextBase = class(TKSeFObject)
+  private
+    function GetRoleType: String;
+    procedure SetRoleType(AValue: String);
+  published
+    property RoleType: String read GetRoleType write SetRoleType;
+  end;
+
+  { TKSeFRevokeContextCredentialsRequestType }
+
+  TKSeFRevokeContextCredentialsRequestType = class(TKSeFObject)
+  private
+    FContextIdentifier: TKSeFCredentialsIdentifierRequestInstitutional;
+    FCredentialsIdentifier: TKSeFCredentialsIdentifierRequestIndividual;
+    FCredentialsRole: TKSeFCredentialsRoleRequestContextBase;
+    procedure SetContextIdentifier(
+      AValue: TKSeFCredentialsIdentifierRequestInstitutional);
+    procedure SetCredentialsIdentifier(
+      AValue: TKSeFCredentialsIdentifierRequestIndividual);
+    procedure SetCredentialsRole(AValue: TKSeFCredentialsRoleRequestContextBase
+      );
+  public
+    destructor Destroy; override;
+  published
+    property ContextIdentifier: TKSeFCredentialsIdentifierRequestInstitutional read FContextIdentifier write SetContextIdentifier;
+    property CredentialsIdentifier: TKSeFCredentialsIdentifierRequestIndividual read FCredentialsIdentifier write SetCredentialsIdentifier;
+    property CredentialsRole: TKSeFCredentialsRoleRequestContextBase read FCredentialsRole write SetCredentialsRole;
+  end;
+
+  TKSeFRevokeContextCredentialsRequest = class(TKSeFRequest)
+  private
+    FRevokeContextCredentials: TKSeFRevokeContextCredentialsRequestType;
+    procedure SetRevokeContextCredentials(
+      AValue: TKSeFRevokeContextCredentialsRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property RevokeContextCredentials: 	TKSeFRevokeContextCredentialsRequestType read FRevokeContextCredentials write SetRevokeContextCredentials;
+  end;
+
+  { TKSeFCredentialsRoleRequestToken }
+
+  TKSeFCredentialsRoleRequestToken = class(TKSeFObject)
+  private
+    function GetRoleDescription: UTF8String;
+    function GetRoleType: UTF8String;
+    procedure SetRoleDescription(AValue: UTF8String);
+    procedure SetRoleType(AValue: UTF8String);
+  published
+    property RoleDescription: UTF8String read GetRoleDescription write SetRoleDescription;
+    property RoleType: UTF8String read GetRoleType write SetRoleType;
+  end;
+
+  { TKSeFCredentialsRoleRequestTokenArray }
+
+  TKSeFCredentialsRoleRequestTokenArray = class(TKSeFArray)
+  private
+    function GetItem(AIndex: Integer): TKSeFCredentialsRoleRequestToken;
+  public
+    property Items[AIndex: Integer]: TKSeFCredentialsRoleRequestToken read GetItem;
+  end;
+
+  { TKSeFTKSeFGenerateTokenRequestType }
+
+  { TKSeFGenerateTokenRequestType }
+
+  TKSeFGenerateTokenRequestType = class(TKSeFObject)
+  private
+    FCredentialsRoleList: TKSeFCredentialsRoleRequestTokenArray;
+    function GetDescription: UTF8String;
+    procedure SetCredentialsRoleList(
+      AValue: TKSeFCredentialsRoleRequestTokenArray);
+    procedure SetDescription(AValue: UTF8String);
+  public
+    destructor Destroy; override;
+  published
+    property CredentialsRoleList: TKSeFCredentialsRoleRequestTokenArray read FCredentialsRoleList write SetCredentialsRoleList;
+    property Description: UTF8String read GetDescription write SetDescription;
+  end;
+
+  { TKSeFGenerateTokenRequest }
+
+  TKSeFGenerateTokenRequest = class(TKSeFRequest)
+  private
+    FGenerateToken: TKSeFGenerateTokenRequestType;
+    procedure SetGenerateToken(AValue: TKSeFGenerateTokenRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property GenerateToken: TKSeFGenerateTokenRequestType read FGenerateToken write SetGenerateToken;
+  end;
+
+  { TKSeFGenerateTokenResponse }
+
+  TKSeFGenerateTokenResponse = class(TKSeFResponse)
+  private
+    function GetAuthorisationToken: UTF8String;
+    function GetElementReferenceNumber: UTF8String;
+    function GetProcessingCode: Integer;
+    function GetProcessingDescription: UTF8String;
+    function GetReferenceNumber: UTF8String;
+    function GetTimestamp: TDateTime;
+    function GetTimestampRaw: UTF8String;
+  published
+    property AuthorisationToken: UTF8String read GetAuthorisationToken;
+    property ElementReferenceNumber: UTF8String read GetElementReferenceNumber;
+    property ProcessingCode: Integer read GetProcessingCode;
+    property ProcessingDescription: UTF8String read GetProcessingDescription;
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property Timestamp: TDateTime read GetTimestamp;
+    property TimestampRaw: UTF8String read GetTimestampRaw;
+  end;
+
+  { TKSeFCredentialsRoleRequestStandardDescribed }
+
+  TKSeFCredentialsRoleRequestStandardDescribed = class(TKSeFObject)
+  private
+    function GetRoleDescription: UTF8String;
+    function GetRoleType: UTF8String;
+    procedure SetRoleDescription(AValue: UTF8String);
+    procedure SetRoleType(AValue: UTF8String);
+  published
+    property RoleDescription: UTF8String read GetRoleDescription write SetRoleDescription;
+    property RoleType: UTF8String read GetRoleType write SetRoleType;
+  end;
+
+  { TKSeFCredentialsRoleRequestStandardDescribedArray }
+
+  TKSeFCredentialsRoleRequestStandardDescribedArray = class(TKSeFArray)
+  private
+    function GetItem(AIndex: Integer): TKSeFCredentialsRoleRequestStandardDescribed;
+  public
+    property Items[AIndex: Integer]: TKSeFCredentialsRoleRequestStandardDescribed read GetItem;
+  end;
+
+  { TKSeFGrantCredentialsRequestType }
+
+  TKSeFGrantCredentialsRequestType = class(TKSeFObject)
+  private
+    FCredentialsIdentifier: TKSeFCredentialsIdentifierRequest;
+    FCredentialsRoleList: TKSeFCredentialsRoleRequestStandardDescribedArray;
+    procedure SetCredentialsIdentifier(AValue: TKSeFCredentialsIdentifierRequest);
+    procedure SetCredentialsRoleList(AValue: TKSeFCredentialsRoleRequestStandardDescribedArray);
+  public
+    destructor Destroy; override;
+  published
+    property CredentialsIdentifier: TKSeFCredentialsIdentifierRequest read FCredentialsIdentifier write SetCredentialsIdentifier;
+    property CredentialsRoleList: TKSeFCredentialsRoleRequestStandardDescribedArray read FCredentialsRoleList write SetCredentialsRoleList;
+  end;
+
+  TKSeFGrantCredentialsRequest = class(TKSeFRequest)
+  private
+    FGrantCredentials: TKSeFGrantCredentialsRequestType;
+    procedure SetGrantCredentials(AValue: TKSeFGrantCredentialsRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property GrantCredentials: TKSeFGrantCredentialsRequestType read FGrantCredentials write SetGrantCredentials;
+  end;
+
+  { TKSeFCredentialsRoleRequestStandardBase }
+
+  TKSeFCredentialsRoleRequestStandardBase = class(TKSeFObject)
+  private
+    function GetRoleType: UTF8String;
+    procedure SetRoleType(AValue: UTF8String);
+  published
+    property RoleType: UTF8String read GetRoleType write SetRoleType;
+  end;
+
+  { TKSeFCredentialsRoleRequestStandardBaseArray }
+
+  TKSeFCredentialsRoleRequestStandardBaseArray = class(TKSeFArray)
+  private
+    function GetItem(AIndex: Integer): TKSeFCredentialsRoleRequestStandardBase;
+  public
+    property Items[AIndex: Integer]: TKSeFCredentialsRoleRequestStandardBase read GetItem;
+  end;
+
+  { TKSeFRevokeCredentialsRequestType }
+
+  TKSeFRevokeCredentialsRequestType = class(TKSeFObject)
+  private
+    FCredentialsIdentifier: TKSeFCredentialsIdentifierRequest;
+    FCredentialsRoleList: TKSeFCredentialsRoleRequestStandardBaseArray;
+    procedure SetCredentialsIdentifier(AValue: TKSeFCredentialsIdentifierRequest
+      );
+    procedure SetCredentialsRoleList(
+      AValue: TKSeFCredentialsRoleRequestStandardBaseArray);
+  public
+    destructor Destroy; override;
+  published
+    property CredentialsIdentifier: TKSeFCredentialsIdentifierRequest read FCredentialsIdentifier write SetCredentialsIdentifier;
+    property CredentialsRoleList: TKSeFCredentialsRoleRequestStandardBaseArray read FCredentialsRoleList write SetCredentialsRoleList;
+  end;
+
+  TKSeFRevokeCredentialsRequest = class(TKSeFRequest)
+  private
+    FRevokeCredentials: TKSeFRevokeCredentialsRequestType;
+    procedure SetRevokeCredentials(AValue: TKSeFRevokeCredentialsRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property RevokeCredentials: TKSeFRevokeCredentialsRequestType read FRevokeCredentials write SetRevokeCredentials;
+  end;
+
+  { TKSeFRevokeTokenRequestType }
+
+  TKSeFRevokeTokenRequestType = class(TKSeFObject)
+  private
+    FSourceTokenIdentifier: TKSeFCredentialsIdentifierRequest;
+    function GetTokenNumber: UTF8String;
+    procedure SetSourceTokenIdentifier(AValue: TKSeFCredentialsIdentifierRequest
+      );
+    procedure SetTokenNumber(AValue: UTF8String);
+  public
+    destructor Destroy; override;
+  published
+    property SourceTokenIdentifier: TKSeFCredentialsIdentifierRequest read FSourceTokenIdentifier write SetSourceTokenIdentifier;
+    property TokenNumber: UTF8String read GetTokenNumber write SetTokenNumber;
+  end;
+
+  TKSeFRevokeTokenRequest = class(TKSeFRequest)
+  private
+    FRevokeToken: TKSeFRevokeTokenRequestType;
+    procedure SetRevokeToken(AValue: TKSeFRevokeTokenRequestType);
+  public
+    destructor Destroy; override;
+  published
+    property RevokeToken: TKSeFRevokeTokenRequestType read FRevokeToken write SetRevokeToken;
+  end;
+
 procedure lgoRegister;
 
 implementation
@@ -1268,6 +1775,7 @@ begin
     TKSeFSubjectIdentifierBy,
     TKSeFSubjectIdentifierByCompany,
     TKSeFSubjectIdentifierInternal,
+    TKSeFSubjectCompleteName,
     TKSeFSubjectName,
     TKSeFSubjectFullName,
     TKSeFSubjectPersonName,
@@ -1278,6 +1786,7 @@ begin
     TKSeFCredentialsRoleResponseStandardDetails,
     TKSeFCredentialsRoleResponseStandardPlain,
     TKSeFCredentialsRoleResponseToken,
+    TKSeFCredentialsRoleResponseStandardContextDetails,
     TKSeFCredentialsRoleResponseBaseArray,
     TKSeFSessionContext,
     TKSeFInitialisedSession,
@@ -1288,7 +1797,12 @@ begin
     TKSeFTerminateSessionResponse,
     TKSeFSendInvoiceResponse,
     TKSeFInvoiceStatus,
+    TKSeFHideInvoiceRequestType,
+    TKSeFHideInvoiceRequest,
     TKSeFStatusInvoiceResponse,
+    TKSeFShowInvoiceRequestType,
+    TKSeFShowInvoiceRequest,
+    TKSeFVisibilityInvoiceResponse,
     TKSeFSubjectBy,
     TKSeFSubjectIdentifierTo,
     TKSeFSubjectIdentifierToNone,
@@ -1322,13 +1836,13 @@ begin
     TKSeFInvoiceDivisionPlainPartArray,
     TKSeFQueryInvoiceAsyncStatusResponse,
     TKSeFInternalIdentifierGeneratedResponse,
-    //TKSeFCredentialsIdentifierRequest,
-    //TKSeFQueryCriteriaCredentials,
-    //TKSeFQueryCriteriaCredentialsAll,
-    //TKSeFQueryCriteriaCredentialsId,
-    //TKSeFQuerySyncCredentialsRequest,
-    //TKSeFCredentialsBaseTypeObject,
-    //TKSeFQuerySyncCredentialsResponse,
+    TKSeFCredentialsIdentifierRequest,
+    TKSeFQueryCriteriaCredentials,
+    TKSeFQueryCriteriaCredentialsAll,
+    TKSeFQueryCriteriaCredentialsId,
+    TKSeFQuerySyncCredentialsRequest,
+    TKSeFCredentialsBaseTypeObject,
+    TKSeFQuerySyncCredentialsResponse,
     TKSeFGetPaymentIdentifierReferenceNumbersResponse,
     TKSeFRequestPaymentIdentifierResponse,
     TKSeFInvoiceQueryDetails,
@@ -1340,7 +1854,42 @@ begin
     TKSeFAnonymousSubjectIdentifierToOtherTax,
     TKSeFInvoiceDownloadRequest,
     TKSeFInvoiceVerificationRequest,
-    TKSeFInvoiceVerificationResponse
+    TKSeFInvoiceVerificationResponse,
+    TKSeFCredentialsContext,
+    TKSeFCredentialsPlain,
+    TKSeFCredentialsToken,
+    TKSeFCredentialsParent,
+    TKSeFCredentialsBaseTypeObjectArray,
+    TKSeFQuerySyncCredentialsResponse,
+    TKSeFRevokeTokenRequestType,
+    TKSeFRevokeTokenRequest,
+    TKSeFCredentialsIdentifierRequestInstitutional,
+    TKSeFCredentialsIdentifierRequestInternal,
+    TKSeFCredentialsIdentifierRequestInstitutionalNip,
+    TKSeFCredentialsIdentifierRequestIndividual,
+    TKSeFCredentialsIdentifierRequestIndividualCertificateFingerprint,
+    TKSeFCredentialsIdentifierRequestIndividualNip,
+    TKSeFCredentialsIdentifierRequestIndividualPesel,
+    TKSeFCredentialsRoleRequestContextDescribed,
+    TKSeFGrantContextCredentialsRequestType,
+    TKSeFGrantContextCredentialsRequest,
+    TKSeFStatusCredentialsResponse,
+    TKSeFCredentialsRoleRequestContextBase,
+    TKSeFRevokeContextCredentialsRequestType,
+    TKSeFRevokeContextCredentialsRequest,
+    TKSeFCredentialsRoleRequestToken,
+    TKSeFCredentialsRoleRequestTokenArray,
+    TKSeFGenerateTokenRequestType,
+    TKSeFGenerateTokenRequest,
+    TKSeFGenerateTokenResponse,
+    TKSeFCredentialsRoleRequestStandardDescribed,
+    TKSeFCredentialsRoleRequestStandardDescribedArray,
+    TKSeFGrantCredentialsRequestType,
+    TKSeFGrantCredentialsRequest,
+    TKSeFCredentialsRoleRequestStandardBase,
+    TKSeFCredentialsRoleRequestStandardBaseArray,
+    TKSeFRevokeCredentialsRequestType,
+    TKSeFRevokeCredentialsRequest
     ]);
   lgoRegisterExceptionClass(EKSeFException);
   lgoRegisterExceptionClass(EKSeFExceptionResponse);
@@ -1554,6 +2103,593 @@ begin
   begin
     FSubjectBy.Free;
     SetObjectProp('SubjectBy', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsIdentifierRequestInstitutional }
+
+function TKSeFCredentialsIdentifierRequestInstitutional.GetIdentifier: UTF8String;
+begin
+  Result := GetStringProp('Identifier');
+end;
+
+function TKSeFCredentialsIdentifierRequestInstitutional.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+procedure TKSeFCredentialsIdentifierRequestInstitutional.SetIdentifier(
+  AValue: UTF8String);
+begin
+  SetStringProp('Identifier', AValue);
+end;
+
+procedure TKSeFCredentialsIdentifierRequestInstitutional.SetType(
+  AValue: UTF8String);
+begin
+  SetStringProp('Type', AValue);
+end;
+
+{ TKSeFCredentialsIdentifierRequestIndividual }
+
+function TKSeFCredentialsIdentifierRequestIndividual.GetIdentifier: UTF8String;
+begin
+  Result := GetStringProp('Identifier');
+end;
+
+function TKSeFCredentialsIdentifierRequestIndividual.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+procedure TKSeFCredentialsIdentifierRequestIndividual.SetIdentifier(
+  AValue: UTF8String);
+begin
+  SetStringProp('Identifier', AValue);
+end;
+
+procedure TKSeFCredentialsIdentifierRequestIndividual.SetType(AValue: UTF8String
+  );
+begin
+  SetStringProp('Type', AValue);
+end;
+
+{ TKSeFCredentialsRoleRequestContextDescribed }
+
+function TKSeFCredentialsRoleRequestContextDescribed.GetRoleDescription: UTF8String;
+begin
+  Result := GetStringProp('RoleDescription');
+end;
+
+function TKSeFCredentialsRoleRequestContextDescribed.GetRoleType: UTF8String;
+begin
+  Result := GetStringProp('RoleType');
+end;
+
+procedure TKSeFCredentialsRoleRequestContextDescribed.SetRoleDescription(
+  AValue: UTF8String);
+begin
+  SetStringProp('RoleDescription', AValue);
+end;
+
+procedure TKSeFCredentialsRoleRequestContextDescribed.SetRoleType(
+  AValue: UTF8String);
+begin
+  SetStringProp('RoleType', AValue);
+end;
+
+{ TKSeFGrantContextCredentialsRequestType }
+
+procedure TKSeFGrantContextCredentialsRequestType.SetContextIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequestInstitutional);
+var
+  O: LGP_OBJECT;
+begin
+  if FContextIdentifier = AValue then Exit;
+  FContextIdentifier := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('ContextIdentifier', O);
+end;
+
+procedure TKSeFGrantContextCredentialsRequestType.SetCredentialsIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequestIndividual);
+var
+  O: LGP_OBJECT;
+begin
+  if FCredentialsIdentifier = AValue then Exit;
+  FCredentialsIdentifier := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('CredentialsIdentifier', O);
+end;
+
+procedure TKSeFGrantContextCredentialsRequestType.SetCredentialsRole(
+  AValue: TKSeFCredentialsRoleRequestContextDescribed);
+var
+  O: LGP_OBJECT;
+begin
+  if FCredentialsRole = AValue then Exit;
+  FCredentialsRole := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('CredentialsRole', O);
+end;
+
+destructor TKSeFGrantContextCredentialsRequestType.Destroy;
+begin
+  if Assigned(FContextIdentifier) then
+  begin
+    FContextIdentifier.Free;
+    SetObjectProp('ContextIdentifier', nil);
+  end;
+  if Assigned(FCredentialsIdentifier) then
+  begin
+    FCredentialsIdentifier.Free;
+    SetObjectProp('CredentialsIdentifier', nil);
+  end;
+  if Assigned(FCredentialsRole) then
+  begin
+    FCredentialsRole.Free;
+    SetObjectProp('CredentialsRole', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFGrantContextCredentialsRequest.SetGrantContextCredentials(
+  AValue: TKSeFGrantContextCredentialsRequestType);
+var
+  O: LGP_OBJECT;
+begin
+  if FGrantContextCredentials = AValue then Exit;
+  FGrantContextCredentials := AValue;
+  if AValue <> nil then
+    O := AValue.ExtObject
+  else
+    O := nil;
+  SetObjectProp('GrantContextCredentials', O);
+end;
+
+destructor TKSeFGrantContextCredentialsRequest.Destroy;
+begin
+  if Assigned(FGrantContextCredentials) then
+  begin
+    FGrantContextCredentials.Free;
+    SetObjectProp('GrantContextCredentials', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFStatusCredentialsResponse }
+
+function TKSeFStatusCredentialsResponse.GetElementReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ElementReferenceNumber');
+end;
+
+function TKSeFStatusCredentialsResponse.GetProcessingCode: Integer;
+begin
+  Result := GetIntegerProp('ProcessingCode');
+end;
+
+function TKSeFStatusCredentialsResponse.GetProcessingDescription: UTF8String;
+begin
+  Result := GetStringProp('ProcessingDescription');
+end;
+
+function TKSeFStatusCredentialsResponse.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeFStatusCredentialsResponse.GetTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('Timestamp');
+end;
+
+function TKSeFStatusCredentialsResponse.GetTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('TimestampRaw');
+end;
+
+{ TKSeFCredentialsRoleRequestContextBase }
+
+function TKSeFCredentialsRoleRequestContextBase.GetRoleType: String;
+begin
+  Result := GetStringProp('RoleType');
+end;
+
+procedure TKSeFCredentialsRoleRequestContextBase.SetRoleType(AValue: String);
+begin
+  SetStringProp('RoleType', AValue);
+end;
+
+{ TKSeFRevokeContextCredentialsRequestType }
+
+procedure TKSeFRevokeContextCredentialsRequestType.SetContextIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequestInstitutional);
+begin
+  if FContextIdentifier = AValue then Exit;
+  FContextIdentifier := AValue;
+  SetObjectProp('ContextIdentifier', lgoExtObject(FContextIdentifier));
+end;
+
+procedure TKSeFRevokeContextCredentialsRequestType.SetCredentialsIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequestIndividual);
+begin
+  if FCredentialsIdentifier = AValue then Exit;
+  FCredentialsIdentifier := AValue;
+  SetObjectProp('CredentialsIdentifier', lgoExtObject(FCredentialsIdentifier));
+end;
+
+procedure TKSeFRevokeContextCredentialsRequestType.SetCredentialsRole(
+  AValue: TKSeFCredentialsRoleRequestContextBase);
+begin
+  if FCredentialsRole = AValue then Exit;
+  FCredentialsRole := AValue;
+  SetObjectProp('CredentialsRole', lgoExtObject(FCredentialsRole));
+end;
+
+destructor TKSeFRevokeContextCredentialsRequestType.Destroy;
+begin
+  if Assigned(FContextIdentifier) then
+  begin
+    FContextIdentifier.Free;
+    SetObjectProp('ContextIdentifier', nil);
+  end;
+  if Assigned(FCredentialsIdentifier) then
+  begin
+    FCredentialsIdentifier.Free;
+    SetObjectProp('CredentialsIdentifier', nil);
+  end;
+  if Assigned(FCredentialsRole) then
+  begin
+    FCredentialsRole.Free;
+    SetObjectProp('CredentialsRole', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFRevokeContextCredentialsRequest.SetRevokeContextCredentials(
+  AValue: TKSeFRevokeContextCredentialsRequestType);
+begin
+  if FRevokeContextCredentials = AValue then Exit;
+  FRevokeContextCredentials := AValue;
+  SetObjectProp('RevokeContextCredentials', lgoExtObject(FRevokeContextCredentials));
+end;
+
+destructor TKSeFRevokeContextCredentialsRequest.Destroy;
+begin
+  if Assigned(FRevokeContextCredentials) then
+  begin
+    FRevokeContextCredentials.Free;
+    SetObjectProp('RevokeContextCredentials', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsRoleRequestToken }
+
+function TKSeFCredentialsRoleRequestToken.GetRoleDescription: UTF8String;
+begin
+  Result := GetStringProp('RoleDescription');
+end;
+
+function TKSeFCredentialsRoleRequestToken.GetRoleType: UTF8String;
+begin
+  Result := GetStringProp('RoleType');
+end;
+
+procedure TKSeFCredentialsRoleRequestToken.SetRoleDescription(AValue: UTF8String
+  );
+begin
+  SetStringProp('RoleDescription', AValue);
+end;
+
+procedure TKSeFCredentialsRoleRequestToken.SetRoleType(AValue: UTF8String);
+begin
+  SetStringProp('RoleType', AValue);
+end;
+
+{ TKSeFCredentialsRoleRequestTokenArray }
+
+function TKSeFCredentialsRoleRequestTokenArray.GetItem(AIndex: Integer
+  ): TKSeFCredentialsRoleRequestToken;
+begin
+  Result := TKSeFCredentialsRoleRequestToken(inherited GetItem(AIndex));
+end;
+
+{ TKSeFGenerateTokenRequestType }
+
+function TKSeFGenerateTokenRequestType.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+procedure TKSeFGenerateTokenRequestType.SetCredentialsRoleList(
+  AValue: TKSeFCredentialsRoleRequestTokenArray);
+begin
+  if FCredentialsRoleList = AValue then Exit;
+  FCredentialsRoleList := AValue;
+  SetObjectProp('CredentialsRoleList', lgoExtObject(FCredentialsRoleList));
+end;
+
+procedure TKSeFGenerateTokenRequestType.SetDescription(AValue: UTF8String);
+begin
+  SetStringProp('Description', AValue);
+end;
+
+destructor TKSeFGenerateTokenRequestType.Destroy;
+begin
+  if Assigned(FCredentialsRoleList) then
+  begin
+    FCredentialsRoleList.Free;
+    SetObjectProp('CredentialsRoleList', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFGenerateTokenRequest.SetGenerateToken(
+  AValue: TKSeFGenerateTokenRequestType);
+begin
+  if FGenerateToken = AValue then Exit;
+  FGenerateToken := AValue;
+  SetObjectProp('GenerateToken', lgoExtObject(FGenerateToken));
+end;
+
+destructor TKSeFGenerateTokenRequest.Destroy;
+begin
+  if Assigned(FGenerateToken) then
+  begin
+    FGenerateToken.Free;
+    SetObjectProp('GenerateToken', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFGenerateTokenResponse }
+
+function TKSeFGenerateTokenResponse.GetAuthorisationToken: UTF8String;
+begin
+  Result := GetStringProp('AuthorisationToken');
+end;
+
+function TKSeFGenerateTokenResponse.GetElementReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ElementReferenceNumber');
+end;
+
+function TKSeFGenerateTokenResponse.GetProcessingCode: Integer;
+begin
+  Result := GetIntegerProp('ProcessingCode');
+end;
+
+function TKSeFGenerateTokenResponse.GetProcessingDescription: UTF8String;
+begin
+  Result := GetStringProp('ProcessingDescription');
+end;
+
+function TKSeFGenerateTokenResponse.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeFGenerateTokenResponse.GetTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('Timestamp');
+end;
+
+function TKSeFGenerateTokenResponse.GetTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('TimestampRaw');
+end;
+
+{ TKSeFCredentialsRoleRequestStandardDescribed }
+
+function TKSeFCredentialsRoleRequestStandardDescribed.GetRoleDescription: UTF8String;
+begin
+  Result := GetStringProp('RoleDescription');
+end;
+
+function TKSeFCredentialsRoleRequestStandardDescribed.GetRoleType: UTF8String;
+begin
+  Result := GetStringProp('RoleType');
+end;
+
+procedure TKSeFCredentialsRoleRequestStandardDescribed.SetRoleDescription(
+  AValue: UTF8String);
+begin
+  SetStringProp('Description', AValue);
+end;
+
+procedure TKSeFCredentialsRoleRequestStandardDescribed.SetRoleType(
+  AValue: UTF8String);
+begin
+  SetStringProp('RoleType', AValue);
+end;
+
+{ TKSeFCredentialsRoleRequestStandardDescribedArray }
+
+function TKSeFCredentialsRoleRequestStandardDescribedArray.GetItem(
+  AIndex: Integer): TKSeFCredentialsRoleRequestStandardDescribed;
+begin
+  Result := TKSeFCredentialsRoleRequestStandardDescribed(inherited GetItem(AIndex));
+end;
+
+{ TKSeFGrantCredentialsRequestType }
+
+procedure TKSeFGrantCredentialsRequestType.SetCredentialsIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequest);
+begin
+  if FCredentialsIdentifier = AValue then Exit;
+  FCredentialsIdentifier := AValue;
+  SetObjectProp('CredentialsIdentifier', lgoExtObject(FCredentialsIdentifier));
+end;
+
+procedure TKSeFGrantCredentialsRequestType.SetCredentialsRoleList(
+  AValue: TKSeFCredentialsRoleRequestStandardDescribedArray);
+begin
+  if FCredentialsRoleList = AValue then Exit;
+  FCredentialsRoleList := AValue;
+  SetObjectProp('CredentialsRoleList', lgoExtObject(FCredentialsRoleList));
+end;
+
+destructor TKSeFGrantCredentialsRequestType.Destroy;
+begin
+  if Assigned(FCredentialsIdentifier) then
+  begin
+    FCredentialsIdentifier.Free;
+    SetObjectProp('CredentialsIdentifier', nil);
+  end;
+  if Assigned(FCredentialsRoleList) then
+  begin
+    FCredentialsRoleList.Free;
+    SetObjectProp('CredentialsRoleList', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFGrantCredentialsRequest.SetGrantCredentials(
+  AValue: TKSeFGrantCredentialsRequestType);
+begin
+  if FGrantCredentials = AValue then Exit;
+  FGrantCredentials := AValue;
+  SetObjectProp('GrantCredentials', lgoExtObject(AValue));
+end;
+
+destructor TKSeFGrantCredentialsRequest.Destroy;
+begin
+  if Assigned(FGrantCredentials) then
+  begin
+    FGrantCredentials.Free;
+    SetObjectProp('GrantCredentials', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsRoleRequestStandardBase }
+
+function TKSeFCredentialsRoleRequestStandardBase.GetRoleType: UTF8String;
+begin
+  Result := GetStringProp('RoleType');
+end;
+
+procedure TKSeFCredentialsRoleRequestStandardBase.SetRoleType(AValue: UTF8String
+  );
+begin
+  SetStringProp('RoleType', AValue);
+end;
+
+{ TKSeFCredentialsRoleRequestStandardBaseArray }
+
+function TKSeFCredentialsRoleRequestStandardBaseArray.GetItem(AIndex: Integer
+  ): TKSeFCredentialsRoleRequestStandardBase;
+begin
+  Result := TKSeFCredentialsRoleRequestStandardBase(inherited GetItem(AIndex));
+end;
+
+{ TKSeFRevokeCredentialsRequestType }
+
+procedure TKSeFRevokeCredentialsRequestType.SetCredentialsIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequest);
+begin
+  if FCredentialsIdentifier = AValue then Exit;
+  FCredentialsIdentifier := AValue;
+  SetObjectProp('CredentialsIdentifier', lgoExtObject(AValue));
+end;
+
+procedure TKSeFRevokeCredentialsRequestType.SetCredentialsRoleList(
+  AValue: TKSeFCredentialsRoleRequestStandardBaseArray);
+begin
+  if FCredentialsRoleList = AValue then Exit;
+  FCredentialsRoleList := AValue;
+  SetObjectProp('CredentialsRoleList', lgoExtObject(AValue));
+end;
+
+destructor TKSeFRevokeCredentialsRequestType.Destroy;
+begin
+  if Assigned(FCredentialsIdentifier) then
+  begin
+    FCredentialsIdentifier.Free;
+    SetObjectProp('CredentialsIdentifier', nil);
+  end;
+  if Assigned(FCredentialsRoleList) then
+  begin
+    FCredentialsRoleList.Free;
+    SetObjectProp('CredentialsRoleList', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFRevokeCredentialsRequest.SetRevokeCredentials(
+  AValue: TKSeFRevokeCredentialsRequestType);
+begin
+  if FRevokeCredentials = AValue then Exit;
+  FRevokeCredentials := AValue;
+  SetObjectProp('RevokeCredentials', lgoExtObject(AValue));
+end;
+
+destructor TKSeFRevokeCredentialsRequest.Destroy;
+begin
+  if Assigned(FRevokeCredentials) then
+  begin
+    FRevokeCredentials.Free;
+    SetObjectProp('RevokeCredentials', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFRevokeTokenRequestType }
+
+function TKSeFRevokeTokenRequestType.GetTokenNumber: UTF8String;
+begin
+  Result := GetStringProp('TokenNumber');
+end;
+
+procedure TKSeFRevokeTokenRequestType.SetSourceTokenIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequest);
+begin
+  if FSourceTokenIdentifier = AValue then Exit;
+  FSourceTokenIdentifier := AValue;
+  SetObjectProp('SourceTokenIdentifier', lgoExtObject(AValue));
+end;
+
+procedure TKSeFRevokeTokenRequestType.SetTokenNumber(AValue: UTF8String);
+begin
+  SetStringProp('TokenNumber', AValue);
+end;
+
+destructor TKSeFRevokeTokenRequestType.Destroy;
+begin
+  if Assigned(FSourceTokenIdentifier) then
+  begin
+    FSourceTokenIdentifier.Free;
+    SetObjectProp('SourceTokenIdentifier', nil);
+  end;
+  inherited Destroy;
+end;
+
+procedure TKSeFRevokeTokenRequest.SetRevokeToken(
+  AValue: TKSeFRevokeTokenRequestType);
+begin
+  if FRevokeToken = AValue then Exit;
+  FRevokeToken := AValue;
+  SetObjectProp('RevokeToken', lgoExtObject(AValue));
+end;
+
+destructor TKSeFRevokeTokenRequest.Destroy;
+begin
+  if Assigned(FRevokeToken) then
+  begin
+    FRevokeToken.Free;
+    SetObjectProp('RevokeToken', nil);
   end;
   inherited Destroy;
 end;
@@ -3041,6 +4177,280 @@ end;
 function TKSeFInternalIdentifierGeneratedResponse.GetTimestampRaw: UTF8String;
 begin
   Result := GetStringProp('TimestampRaw');
+end;
+
+function TKSeFCredentialsIdentifierRequest.GetIdentifier: UTF8String;
+begin
+  Result := GetStringProp('Identifier');
+end;
+
+function TKSeFCredentialsIdentifierRequest.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+procedure TKSeFCredentialsIdentifierRequest.SetIdentifier(AValue: UTF8String);
+begin
+  SetStringProp('Identifier', AValue);
+end;
+
+procedure TKSeFCredentialsIdentifierRequest.SetType(AValue: UTF8String);
+begin
+  SetStringProp('Type', AValue);
+end;
+
+function TKSeFQueryCriteriaCredentials.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+procedure TKSeFQueryCriteriaCredentials.SetType(AValue: UTF8String);
+begin
+  SetStringProp('Type', AValue);
+end;
+
+function TKSeFQueryCriteriaCredentialsAll.GetQueryCredentialsScopeResultTypeRaw: UTF8String;
+begin
+  Result := GetStringProp('QueryCredentialsScopeResultTypeRaw');
+end;
+
+function TKSeFQueryCriteriaCredentialsAll.GetQueryCredentialsTypeResultTypeRaw: UTF8String;
+begin
+  Result := GetStringProp('QueryCredentialsTypeResultTypeRaw');
+end;
+
+procedure TKSeFQueryCriteriaCredentialsAll.SetQueryCredentialsScopeResultTypeRaw
+  (AValue: UTF8String);
+begin
+  SetStringProp('QueryCredentialsScopeResultTypeRaw', AValue);
+end;
+
+procedure TKSeFQueryCriteriaCredentialsAll.SetQueryCredentialsTypeResultTypeRaw(
+  AValue: UTF8String);
+begin
+  SetStringProp('QueryCredentialsTypeResultTypeRaw', AValue);
+end;
+
+function TKSeFQueryCriteriaCredentialsId.GetQueryCredentialsScopeResultTypeRaw: UTF8String;
+begin
+  Result := GetStringProp('QueryCredentialsScopeResultTypeRaw');
+end;
+
+function TKSeFQueryCriteriaCredentialsId.GetQueryCredentialsTypeResultTypeRaw: UTF8String;
+begin
+  Result := GetStringProp('QueryCredentialsTypeResultTypeRaw');
+end;
+
+procedure TKSeFQueryCriteriaCredentialsId.SetCredentialsIdentifier(
+  AValue: TKSeFCredentialsIdentifierRequest);
+begin
+  if FCredentialsIdentifier = AValue then Exit;
+  FCredentialsIdentifier := AValue;
+  SetObjectProp('CredentialsIdentifier', lgoExtObject(AValue));
+end;
+
+procedure TKSeFQueryCriteriaCredentialsId.SetQueryCredentialsScopeResultTypeRaw(
+  AValue: UTF8String);
+begin
+  SetStringProp('QueryCredentialsScopeResultTypeRaw', AValue);
+end;
+
+procedure TKSeFQueryCriteriaCredentialsId.SetQueryCredentialsTypeResultTypeRaw(
+  AValue: UTF8String);
+begin
+  SetStringProp('QueryCredentialsTypeResultTypeRaw', AValue);
+end;
+
+procedure TKSeFQuerySyncCredentialsRequest.SetQueryCriteria(
+  AValue: TKSeFQueryCriteriaCredentials);
+begin
+  if FQueryCriteria = AValue then Exit;
+  FQueryCriteria := AValue;
+  SetObjectProp('QueryCriteria', lgoExtObject(AValue));
+end;
+
+function TKSeFCredentialsBaseTypeObject.GetType: UTF8String;
+begin
+  Result := GetStringProp('Type');
+end;
+
+constructor TKSeFCredentialsBaseTypeObject.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('CredentialsRoleList');
+  if O <> nil then
+    FCredentialsRoleList := TKSeFCredentialsRoleResponseBaseArray.Create(O);
+  O := GetObjectProp('Identifier');
+  if O <> nil then
+    FIdentifier := TKSeFCredentialsIdentifierResponse.Create(O);
+end;
+
+destructor TKSeFCredentialsBaseTypeObject.Destroy;
+begin
+  if Assigned(FCredentialsRoleList) then
+  begin
+    FCredentialsRoleList.Free;
+    SetObjectProp('CredentialsRoleList', nil);
+  end;
+  if Assigned(FIdentifier) then
+  begin
+    FIdentifier.Free;
+    SetObjectProp('Identifier', nil);
+  end;
+  inherited Destroy;
+end;
+
+class function TKSeFCredentialsBaseTypeObject.CreateFromObject(O: LGP_OBJECT
+  ): TKSeFCredentialsBaseTypeObject;
+var
+  C: TKSeFObjectClass;
+begin
+  C := TKSeFObjectClass(lgoFindClass(lgoClassName(O)));
+  if C <> nil then
+    Result := TKSeFCredentialsBaseTypeObject(C.Create(O))
+  else
+    Result := nil;
+end;
+
+{ TKSeFCredentialsPlain }
+
+constructor TKSeFCredentialsPlain.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('CredentialsRole');
+  if O <> nil then
+    FCredentialsRole := TKSeFCredentialsRoleResponseStandardPlain.Create(O);
+end;
+
+destructor TKSeFCredentialsPlain.Destroy;
+begin
+  if Assigned(FCredentialsRole) then
+  begin
+    FCredentialsRole.Free;
+    SetObjectProp('CredentialsRole', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsToken }
+
+function TKSeFCredentialsToken.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeFCredentialsToken.GetLastUseTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('LastUseTimestamp');
+end;
+
+function TKSeFCredentialsToken.GetLastUseTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('LastUseTimestampRaw');
+end;
+
+function TKSeFCredentialsToken.GetRegistrationTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('RegistrationTimestamp');
+end;
+
+function TKSeFCredentialsToken.GetRegistrationTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('RegistrationTimestampRaw');
+end;
+
+function TKSeFCredentialsToken.GetStatus: Integer;
+begin
+  Result := GetIntegerProp('Status');
+end;
+
+constructor TKSeFCredentialsToken.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('Parent');
+  if O <> nil then
+    FParent := TKSeFCredentialsPlain.Create(O);
+end;
+
+destructor TKSeFCredentialsToken.Destroy;
+begin
+  if Assigned(FParent) then
+  begin
+    FParent.Free;
+    SetObjectProp('Parent', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsParent }
+
+constructor TKSeFCredentialsParent.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('CredentialsRole');
+  if O <> nil then
+    FCredentialsRole := TKSeFCredentialsRoleResponseStandardPlain.Create(O);
+end;
+
+destructor TKSeFCredentialsParent.Destroy;
+begin
+  if Assigned(FCredentialsRole) then
+  begin
+    FCredentialsRole.Free;
+    SetObjectProp('CredentialsRole', nil);
+  end;
+  inherited Destroy;
+end;
+
+{ TKSeFCredentialsBaseTypeObjectArray }
+
+function TKSeFCredentialsBaseTypeObjectArray.GetItem(AIndex: Integer
+  ): TKSeFCredentialsBaseTypeObject;
+begin
+  Result := TKSeFCredentialsBaseTypeObject(inherited GetItem(AIndex));
+end;
+
+function TKSeFQuerySyncCredentialsResponse.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeFQuerySyncCredentialsResponse.GetTimestamp: TDateTime;
+begin
+  Result := GetDoubleProp('Timestamp');
+end;
+
+function TKSeFQuerySyncCredentialsResponse.GetTimestampRaw: UTF8String;
+begin
+  Result := GetStringProp('TimestampRaw');
+end;
+
+constructor TKSeFQuerySyncCredentialsResponse.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('CredentialsList');
+  if O <> nil then
+    FCredentialsList := TKSeFCredentialsBaseTypeObjectArray.Create(O);
+end;
+
+destructor TKSeFQuerySyncCredentialsResponse.Destroy;
+begin
+  if Assigned(FCredentialsList) then
+  begin
+    FCredentialsList.Free;
+    SetObjectProp('CredentialsList', nil);
+  end;
+  inherited Destroy;
 end;
 
 { TKSeFTerminateSessionResponse }

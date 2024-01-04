@@ -346,6 +346,16 @@ function lgpKSeF_QueryInvoiceAsyncFetch(AKSeFObject: LGP_OBJECT; AQueryElementRe
 function lgpKSeF_PaymentIdentifierGetReferenceNumbers(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_PaymentIdentifierRequest(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpKSeF_CredentialsContextGrant(AKSeFObject: LGP_OBJECT; AGrantContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsContextRevoke(AKSeFObject: LGP_OBJECT; ARevokeContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsGenerateToken(AKSeFObject: LGP_OBJECT; AGenerateTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsGrant(AKSeFObject: LGP_OBJECT; AGrantCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsRevoke(AKSeFObject: LGP_OBJECT; ARevokeCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsRevokeToken(AKSeFObject: LGP_OBJECT; ARevokeTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsStatus(AKSeFObject: LGP_OBJECT; ACredentialsElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_QueryCredentialContextSync(AKSeFObject: LGP_OBJECT; AContextNip, ASourceIdentifier, ATargetIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_QueryCredentialSync(AKSeFObject: LGP_OBJECT; AQuerySyncCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 function lgpKSeF_CommonInvoiceKSeF(AKSeFObject: LGP_OBJECT; AInvoiceRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_CommonDownload(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber: LGP_PCHAR; ADownloadRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_CommonStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AGateType: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -618,6 +628,16 @@ var
 
   lgpKSeF_PaymentIdentifierGetReferenceNumbers: function(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_PaymentIdentifierRequest: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF_CredentialsContextGrant: function(AKSeFObject: LGP_OBJECT; AGrantContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsContextRevoke: function(AKSeFObject: LGP_OBJECT; ARevokeContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsGenerateToken: function(AKSeFObject: LGP_OBJECT; AGenerateTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsGrant: function(AKSeFObject: LGP_OBJECT; AGrantCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsRevoke: function(AKSeFObject: LGP_OBJECT; ARevokeCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsRevokeToken: function(AKSeFObject: LGP_OBJECT; ARevokeTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsStatus: function(AKSeFObject: LGP_OBJECT; ACredentialsElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_QueryCredentialContextSync: function(AKSeFObject: LGP_OBJECT; AContextNip, ASourceIdentifier, ATargetIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_QueryCredentialSync: function(AKSeFObject: LGP_OBJECT; AQuerySyncCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF_CommonInvoiceKSeF: function(AKSeFObject: LGP_OBJECT; AInvoiceRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF_CommonDownload: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber: LGP_PCHAR; ADownloadRequest: LGP_OBJECT; AOutStream: LGP_OBJECT; AGateType: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -923,6 +943,16 @@ begin
 
     @lgpKSeF_PaymentIdentifierGetReferenceNumbers := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierGetReferenceNumbers');
     @lgpKSeF_PaymentIdentifierRequest := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierRequest');
+
+    @lgpKSeF_CredentialsContextGrant := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsContextGrant');
+    @lgpKSeF_CredentialsContextRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsContextRevoke');
+    @lgpKSeF_CredentialsGenerateToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsGenerateToken');
+    @lgpKSeF_CredentialsGrant := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsGrant');
+    @lgpKSeF_CredentialsRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsRevoke');
+    @lgpKSeF_CredentialsRevokeToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsRevokeToken');
+    @lgpKSeF_CredentialsStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsStatus');
+    @lgpKSeF_QueryCredentialContextSync := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryCredentialContextSync');
+    @lgpKSeF_QueryCredentialSync := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryCredentialSync');
 
     @lgpKSeF_CommonInvoiceKSeF := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CommonInvoiceKSeF');
     @lgpKSeF_CommonDownload := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CommonDownload');

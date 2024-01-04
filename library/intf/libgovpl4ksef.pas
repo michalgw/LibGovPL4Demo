@@ -145,6 +145,38 @@ type
       @returns(zwraca obiekt z informacją o anulowaniu ukrycia faktury) }
     function InvoiceVisibilityShow(const AKsefReferenceNumber, AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponse;
 
+    { Poświadczenia }
+
+    { Nadanie poświadczeń kontekstowych (@italic(Sesja interaktywna)) }
+    function CredentialsContextGrant(AGrantContextCredentialsRequest: TKSeFGrantContextCredentialsRequest): TKSeFStatusCredentialsResponse;
+
+    { Odebranie poświadczeń kontekstowych (@italic(Sesja interaktywna)) }
+    function CredentialsContextRevoke(ARevokeContextCredentialsRequest: TKSeFRevokeContextCredentialsRequest): TKSeFStatusCredentialsResponse;
+
+    { Generowanie tokena autoryzacyjnego (@italic(Sesja interaktywna)) }
+    function CredentialsGenerateToken(AGenerateTokenRequest: TKSeFGenerateTokenRequest): TKSeFGenerateTokenResponse;
+
+    { Nadanie poświadczeń (@italic(Sesja interaktywna)) }
+    function CredentialsGrant(AGrantCredentialsRequest: TKSeFGrantCredentialsRequest): TKSeFStatusCredentialsResponse;
+
+    { Odebranie poświadczeń (@italic(Sesja interaktywna)) }
+    function CredentialsRevoke(ARevokeCredentialsRequest: TKSeFRevokeCredentialsRequest): TKSeFStatusCredentialsResponse;
+
+    { Usunięcie tokena autoryzacyjnego (@italic(Sesja interaktywna)) }
+    function CredentialsRevokeToken(ARevokeTokenRequest: TKSeFRevokeTokenRequest): TKSeFStatusCredentialsResponse;
+
+    { Sprawdzenie statusu poświadczeń (@italic(Sesja interaktywna)) }
+    function CredentialsStatus(const ACredentialsElementReferenceNumber: UTF8String): TKSeFStatusCredentialsResponse;
+
+    { Zapytanie o poświadczenia nadane przez jednostkę nadrzędną (@italic(Sesja interaktywna))
+      @param(AContextNip Identyfikator kontekstu)
+      @param(ASourceIdentifier Identyfikator nadajacego uprawnienia)
+      @param(ATargetIdentifier Identyfikator uprawnionego) }
+    function QueryCredentialContextSync(const AContextNip, ASourceIdentifier, ATargetIdentifier: UTF8String): TKSeFQuerySyncCredentialsResponse;
+
+    { Zapytanie o poświadczenia (@italic(Sesja interaktywna)) }
+    function QueryCredentialSync(AQuerySyncCredentialsRequest: TKSeFQuerySyncCredentialsRequest): TKSeFQuerySyncCredentialsResponse;
+
     { Zapytania o faktury }
 
     { Zapytanie o faktury (synchroniczne). (@italic(Sesja interaktywna)) }
@@ -692,6 +724,122 @@ begin
     LGP_PCHAR(AHidingCancelationReason), Resp));
   if Resp <> nil then
     Result := TKSeFVisibilityInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsContextGrant(
+  AGrantContextCredentialsRequest: TKSeFGrantContextCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsContextGrant(ExtObject, AGrantContextCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsContextRevoke(
+  ARevokeContextCredentialsRequest: TKSeFRevokeContextCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsContextRevoke(ExtObject, ARevokeContextCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsGenerateToken(
+  AGenerateTokenRequest: TKSeFGenerateTokenRequest): TKSeFGenerateTokenResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsGenerateToken(ExtObject, AGenerateTokenRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFGenerateTokenResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsGrant(
+  AGrantCredentialsRequest: TKSeFGrantCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsGrant(ExtObject, AGrantCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsRevoke(
+  ARevokeCredentialsRequest: TKSeFRevokeCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsRevoke(ExtObject, ARevokeCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsRevokeToken(
+  ARevokeTokenRequest: TKSeFRevokeTokenRequest): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsRevokeToken(ExtObject, ARevokeTokenRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsStatus(
+  const ACredentialsElementReferenceNumber: UTF8String
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsStatus(ExtObject, LGP_PCHAR(ACredentialsElementReferenceNumber), Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.QueryCredentialContextSync(const AContextNip,
+  ASourceIdentifier, ATargetIdentifier: UTF8String
+  ): TKSeFQuerySyncCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_QueryCredentialContextSync(ExtObject, LGP_PCHAR(AContextNip),
+    LGP_PCHAR(ASourceIdentifier), LGP_PCHAR(ATargetIdentifier), Resp));
+  if Resp <> nil then
+    Result := TKSeFQuerySyncCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.QueryCredentialSync(
+  AQuerySyncCredentialsRequest: TKSeFQuerySyncCredentialsRequest
+  ): TKSeFQuerySyncCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_QueryCredentialSync(ExtObject, AQuerySyncCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFQuerySyncCredentialsResponse.Create(Resp)
   else
     Result := nil;
 end;

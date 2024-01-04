@@ -263,6 +263,16 @@ exports
   lgpKSeF_PaymentIdentifierGetReferenceNumbers,
   lgpKSeF_PaymentIdentifierRequest,
 
+  lgpKSeF_CredentialsContextGrant,
+  lgpKSeF_CredentialsContextRevoke,
+  lgpKSeF_CredentialsGenerateToken,
+  lgpKSeF_CredentialsGrant,
+  lgpKSeF_CredentialsRevoke,
+  lgpKSeF_CredentialsRevokeToken,
+  lgpKSeF_CredentialsStatus,
+  lgpKSeF_QueryCredentialContextSync,
+  lgpKSeF_QueryCredentialSync,
+
   lgpKSeF_CommonInvoiceKSeF,
   lgpKSeF_CommonDownload,
   lgpKSeF_CommonStatus,
