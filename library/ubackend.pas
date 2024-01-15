@@ -20,7 +20,7 @@ uses
   ;
 
 const
-  LGP_VERSION_NUMBER = $040003;
+  LGP_VERSION_NUMBER = $040004;
 
 function lgplVersion: LGP_UINT32; stdcall;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
