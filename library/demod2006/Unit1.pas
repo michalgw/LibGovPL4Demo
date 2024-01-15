@@ -86,12 +86,12 @@ type
     ComboBoxZip: TComboBox;
     DateTimePickerEDPDataU: TDateTimePicker;
     DateTimePickerJPKPDataU: TDateTimePicker;
-    DateTimePickerKSeFQInvCrDetInvFrom: TDateTimePicker;
-    DateTimePickerKSeFQInvCrDetInvTo: TDateTimePicker;
-    DateTimePickerKSeFQInvCrIncInvFrom: TDateTimePicker;
-    DateTimePickerKSeFQInvCrIncInvTo: TDateTimePicker;
-    DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker;
-    DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker;
+    DateTimePickerKSeFQInvCrDetInvFromD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrDetInvToD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrIncInvFromD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrIncInvToD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrRanInvFromD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrRanInvToD: TDateTimePicker;
     EditKSeFBatchNIP: TEdit;
     EditKSeFBatchNrRef: TEdit;
     EditKSeFStatusReferenceNumber: TEdit;
@@ -168,7 +168,7 @@ type
     GroupBox19: TGroupBox;
     GroupBox20: TGroupBox;
     GroupBoxKSeFSesGenIntId: TGroupBox;
-    GroupBox8: TGroupBox;
+    GroupBox66: TGroupBox;
     GroupBox9: TGroupBox;
     GroupBoxKSeFSesTerm: TGroupBox;
     GroupBox2: TGroupBox;
@@ -297,7 +297,6 @@ type
     surname: TLabel;
     ListViewCert: TListView;
     MemoKSeFQInvCrCurrencyCodes: TMemo;
-    MemoLog: TMemo;
     PageControl1: TPageControl;
     PageControlKSeFQInvSubjectType: TPageControl;
     Panel1: TScrollBox;
@@ -403,6 +402,26 @@ type
     EditKSeFInvShowNr: TEdit;
     EditKSeFInvShowReason: TEdit;
     ButtonKSeFInvShow: TButton;
+    DateTimePickerKSeFQInvCrDetInvFromT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrDetInvToT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrIncInvFromT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrIncInvToT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrRanInvFromT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrRanInvToT: TDateTimePicker;
+    CheckBoxKSeFQInvCrIsHidden: TCheckBox;
+    DateTimePickerKSeFQInvCrHidingDateFromD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrHidingDateFromT: TDateTimePicker;
+    DateTimePickerKSeFQInvCrHidingDateToD: TDateTimePicker;
+    DateTimePickerKSeFQInvCrHidingDateToT: TDateTimePicker;
+    CheckBoxKSeFQInvCrHidingDateFrom: TCheckBox;
+    CheckBoxKSeFQInvCrHidingDateTo: TCheckBox;
+    Panel5: TPanel;
+    Panel6: TPanel;
+    Splitter2: TSplitter;
+    MemoLog: TMemo;
+    ListViewObj: TListView;
+    ButtonObjShow: TButton;
+    ButtonObjClea: TButton;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -441,9 +460,13 @@ type
     procedure SBFileNameEditJPKRSAProdClick(Sender: TObject);
     procedure ButtonKSeFInvHideClick(Sender: TObject);
     procedure ButtonKSeFInvShowClick(Sender: TObject);
+    procedure ButtonObjShowClick(Sender: TObject);
+    procedure ButtonObjCleaClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
+    procedure ObjAdd(AObj: TKSeFObject);
   public
     Signer: TlgoCertificateSigner;
     Certyfikaty: TlgoCertificates;
@@ -474,7 +497,7 @@ implementation
 {$R *.dfm}
 
 uses
-  DateUtils;
+  DateUtils, Unit2;
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -857,6 +880,13 @@ begin
   MemoKSeFQInvCrCurrencyCodes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckBoxKSeFQInvCrFaP17Annotation.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
   CheckGroupKSeFQInvCrIInvoiceTypes.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+
+  // Tylko dla serwerow testowych >= 2.2.0
+  CheckBoxKSeFQInvCrIsHidden.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  DateTimePickerKSeFQInvCrHidingDateFromD.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  DateTimePickerKSeFQInvCrHidingDateFromT.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  DateTimePickerKSeFQInvCrHidingDateToD.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
+  DateTimePickerKSeFQInvCrHidingDateToT.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
 end;
 
 function TForm1.GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
@@ -872,8 +902,8 @@ begin
       with Result.QueryCriteria as TKSeFQueryCriteriaInvoiceDetail do
       begin
         SubjectType := TKSeFSubjectType(ComboBoxKSeFQInvCrSubTyp.ItemIndex);
-        InvoicingDateFrom := DateTimePickerKSeFQInvCrDetInvFrom.DateTime;
-        InvoicingDateTo := DateTimePickerKSeFQInvCrDetInvTo.DateTime;
+        InvoicingDateFrom := DateOf(DateTimePickerKSeFQInvCrDetInvFromD.Date) + TimeOf(DateTimePickerKSeFQInvCrDetInvFromT.Time);
+        InvoicingDateTo := DateOf(DateTimePickerKSeFQInvCrDetInvToD.Date) + TimeOf(DateTimePickerKSeFQInvCrDetInvToT.Time);
         AmountFrom := StrToCurr(FloatSpinEditKSeFQInvCAamountFrom.Text);
         AmountTo := StrToCurr(FloatSpinEditKSeFQInvCAamountTo.Text);
         AmountType := TKSeFAmountType(ComboBoxKSeFQInvCAamountType.ItemIndex);
@@ -936,8 +966,8 @@ begin
       with TKSeFQueryCriteriaInvoiceIncremental(Result.QueryCriteria) do
       begin
         SubjectType := TKSeFSubjectType(ComboBoxKSeFQInvCrSubTyp.ItemIndex);
-        AcquisitionTimestampThresholdFrom := DateTimePickerKSeFQInvCrIncInvFrom.DateTime;
-        AcquisitionTimestampThresholdTo := DateTimePickerKSeFQInvCrIncInvTo.DateTime;
+        AcquisitionTimestampThresholdFrom := DateOf(DateTimePickerKSeFQInvCrIncInvFromD.Date) + TimeOf(DateTimePickerKSeFQInvCrIncInvFromT.Time);
+        AcquisitionTimestampThresholdTo := DateOf(DateTimePickerKSeFQInvCrIncInvToD.Date) + TimeOf(DateTimePickerKSeFQInvCrIncInvToT.Time);
       end;
     end;
     2: begin
@@ -945,11 +975,26 @@ begin
       with TKSeFQueryCriteriaInvoiceRange(Result.QueryCriteria) do
       begin
         SubjectType := TKSeFSubjectType(ComboBoxKSeFQInvCrSubTyp.ItemIndex);
-        InvoicingDateFrom := DateTimePickerKSeFQInvCrDetInvFrom.DateTime;
-        invoicingDateTo := DateTimePickerKSeFQInvCrDetInvTo.DateTime;
+        InvoicingDateFrom := DateOf(DateTimePickerKSeFQInvCrDetInvFromD.Date) + TimeOf(DateTimePickerKSeFQInvCrDetInvFromT.Time);
+        invoicingDateTo := DateOf(DateTimePickerKSeFQInvCrDetInvToD.Date) + TimeOf(DateTimePickerKSeFQInvCrDetInvToT.Time);
       end;
     end;
   end;
+  if CheckBoxKSeFQInvCrIsHidden.Checked then
+    Result.QueryCriteria.IsHidden := True;
+  if CheckBoxKSeFQInvCrHidingDateFrom.Checked then
+    Result.QueryCriteria.HidingDateFrom := DateOf(DateTimePickerKSeFQInvCrHidingDateFromD.Date) + TimeOf(DateTimePickerKSeFQInvCrHidingDateFromT.Time);
+  if CheckBoxKSeFQInvCrHidingDateTo.Checked then
+    Result.QueryCriteria.HidingDateTo := DateOf(DateTimePickerKSeFQInvCrHidingDateToD.Date) + TimeOf(DateTimePickerKSeFQInvCrHidingDateToT.Time);
+end;
+
+procedure TForm1.ObjAdd(AObj: TKSeFObject);
+var
+  I: TListItem;
+begin
+  I := ListViewObj.Items.Add;
+  I.Caption := AObj.ClassName;
+  I.Data := AObj;
 end;
 
 procedure TForm1.Debug(ATekst: String; ALinia: Boolean);
@@ -1247,12 +1292,18 @@ begin
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
 
-  DateTimePickerKSeFQInvCrRanInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrRanInvTo.DateTime := Now;
-  DateTimePickerKSeFQInvCrIncInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
-  DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
+  DateTimePickerKSeFQInvCrRanInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrRanInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrRanInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrRanInvToT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrIncInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrIncInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrIncInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrIncInvToT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrDetInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrDetInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrDetInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrDetInvToT.DateTime := TimeOf(Now);
 end;
 
 procedure TForm1.ButtonShowCertClick(Sender: TObject);
@@ -1471,6 +1522,7 @@ begin
       Resp := KSeF.SessionInitToken;
       Debug('Odpowiedü:' + Utf8ToAnsi(Resp.RawResponse));
       UstawKSeFSesion(True);
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1481,8 +1533,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1504,6 +1556,7 @@ begin
       Resp := KSeF.SessionInitPZ(SignedInitAuth);
       Debug('Odpowiedü:' + Utf8ToAnsi(Resp.RawResponse));
       UstawKSeFSesion(True);
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1514,8 +1567,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1565,6 +1618,7 @@ begin
       Resp := KSeF.SessionInitSigned;
       Debug('Odpowiedü:' + Utf8ToAnsi(Resp.RawResponse));
       UstawKSeFSesion(True);
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1575,8 +1629,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1615,7 +1669,8 @@ begin
     Debug('Nr ref. KSeF faktury: ' + EditKSeFInvHideNr.Text);
     Debug('Przyczyna: ' + EditKSeFInvHideReason.Text);
     Resp := KSeF.InvoiceVisibilityHide(EditKSeFInvHideNr.Text, EditKSeFInvHideReason.Text);
-    Resp.Free;
+    //Resp.Free;
+    ObjAdd(Resp);
     Debug('Ukryto.');
   except
     on E: Exception do
@@ -1644,7 +1699,8 @@ begin
       Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
       EditKSeFInvStatNr.Text := Resp.ElementReferenceNumber;
       Debug('Wys≥ano, el. nr ref: ' + Resp.ElementReferenceNumber);
-      Resp.Free;
+      //Resp.Free;
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1669,7 +1725,8 @@ begin
     Debug('Nr ref. KSeF faktury: ' + EditKSeFInvShowNr.Text);
     Debug('Przyczyna: ' + EditKSeFInvShowReason.Text);
     Resp := KSeF.InvoiceVisibilityShow(EditKSeFInvShowNr.Text, EditKSeFInvShowReason.Text);
-    Resp.Free;
+    //Resp.Free;
+    ObjAdd(Resp);
     Debug('Anulowano ukrycie.');
   except
     on E: Exception do
@@ -1690,7 +1747,8 @@ begin
   try
     Resp := KSeF.InvoiceStatus(EditKSeFInvStatNr.Text);
     Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
-    Resp.Free;
+    //Resp.Free;
+    ObjAdd(Resp);
   except
     on E: Exception do
     begin
@@ -1717,6 +1775,7 @@ begin
         Resp := KSeF.SessionStatus(EditKSeFSesStatRef.Text, SpinEditKSeFSesPgSz.Value,
           SpinEditKSeFSesPgOf.Value, CheckBoxKSeFStatDet.Checked);
       Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1727,8 +1786,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1745,6 +1804,7 @@ begin
       begin
         Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
         UstawKSeFSesion(False);
+        ObjAdd(Resp);
       end;
     except
       on E: Exception do
@@ -1756,8 +1816,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1781,6 +1841,7 @@ begin
       end
       else
         Debug('NIE pobrano UPO');
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -1791,8 +1852,8 @@ begin
       end;
     end;
   finally
-    if Assigned(Resp) then
-      Resp.Free;
+    //if Assigned(Resp) then
+    //  Resp.Free;
   end;
 end;
 
@@ -1984,12 +2045,18 @@ begin
   EditKSeFQInvCrRefNo.Clear;
   EditKSeFQInvCrSubjectToId.Clear;
   EditKSeFQInvCrSubjectByIdent.Clear;
-  DateTimePickerKSeFQInvCrRanInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrRanInvTo.DateTime := Now;
-  DateTimePickerKSeFQInvCrIncInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
-  DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
-  DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
+  DateTimePickerKSeFQInvCrRanInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrRanInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrRanInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrRanInvToT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrIncInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrIncInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrIncInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrIncInvToT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrDetInvFromD.DateTime := DateOf(IncDay(Now, -30));
+  DateTimePickerKSeFQInvCrDetInvFromT.DateTime := TimeOf(Now);
+  DateTimePickerKSeFQInvCrDetInvToD.DateTime := DateOf(Now);
+  DateTimePickerKSeFQInvCrDetInvToT.DateTime := TimeOf(Now);
   CheckBoxKSeFQInvCrIInvTypVAT.Checked := False;
   CheckBoxKSeFQInvCrIInvTypKOR.Checked := False;
   CheckBoxKSeFQInvCrIInvTypZAL.Checked := False;
@@ -1998,6 +2065,11 @@ begin
   CheckBoxKSeFQInvCrIInvTypKOR_ZAL.Checked := False;
   CheckBoxKSeFQInvCrIInvTypKOR_ROZ.Checked := False;
   RadioGroupKSeFQInvCrSubjevtToType.ItemIndex := -1;
+  CheckBoxKSeFQInvCrIsHidden.Checked := False;
+  DateTimePickerKSeFQInvCrHidingDateFromD.Date := DateOf(Now);
+  DateTimePickerKSeFQInvCrHidingDateFromT.Time := TimeOf(Now);
+  DateTimePickerKSeFQInvCrHidingDateToD.Date := DateOf(Now);
+  DateTimePickerKSeFQInvCrHidingDateToT.Time := TimeOf(Now);
 end;
 
 procedure TForm1.ButtonKSeFQInvAsyncClick(Sender: TObject);
@@ -2008,12 +2080,14 @@ begin
   Debug('KSeF - Inicjowanie zapytania asynchronicznego o faktury', True);
   Req := GetQueriInvoiceCr;
   Debug('Zapytanie: ' + Req.AsJSONString);
+  ObjAdd(Req);
   try
     try
       Resp := KSeF.QueryInvoiceAsyncInit(Req);
       Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
       EditKSeFQInvAsyncQRefNo.Text := Resp.ElementReferenceNumber;
-      Resp.Free;
+      //Resp.Free;
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -2024,7 +2098,7 @@ begin
       end;
     end;
   finally
-    Req.Free;
+    //Req.Free;
   end;
 end;
 
@@ -2037,7 +2111,8 @@ begin
     Resp := KSeF.SessionGenerateInternalIdentifier(EditKSeFinputDigitsSequence.Text);
     Debug('Identyfikator: ' + Resp.InternalIdentifier);
     Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
-    Resp.Free;
+    //Resp.Free;
+    ObjAdd(Resp);
   except
     on E: Exception do
     begin
@@ -2099,6 +2174,7 @@ begin
           end;
         end;
       end;
+      ObjAdd(Req);
       Debug('Bramka: ' + ComboBoxKSeFComBramka.Text);
       Debug('Zapytanie: ' + Utf8ToAnsi(Req.AsJSONString));
       Debug('Plik wynikowy: ' + FileNameEditKSeFCInvFN.Text);
@@ -2115,7 +2191,7 @@ begin
     end;
   finally
     FA.Free;
-    Req.Free;
+    //Req.Free;
   end;
 end;
 
@@ -2285,7 +2361,8 @@ begin
     Debug('Liczba czÍúci: ' + IntToStr(Resp.NumberOfParts));
     if (Resp.ProcessingCode = 200) and Assigned(Resp.PartList) and (Resp.PartList.Count > 0) then
       EditKSeFQInvAsyncERefNo.Text := Resp.PartList.Items[0].PartReferenceNumber;
-    Resp.Free;
+    //Resp.Free;
+    ObjAdd(Resp);
   except
     on E: Exception do
     begin
@@ -2305,11 +2382,13 @@ begin
   Debug('KSeF - zapytanie o faktury synchronicznie', True);
   Req := GetQueriInvoiceCr;
   Debug('Zapytanie: ' + Req.AsJSONString);
+  ObjAdd(Req);
   try
     try
       Resp := KSeF.QueryInvoiceSync(Req, SpinEditKSeFQInvAsPS.Value, SpinEditKSeFQInvAsPS1.Value);
       Debug('Odpowiedü: ' + Utf8ToAnsi(Resp.RawResponse));
-      Resp.Free;
+      //Resp.Free;
+      ObjAdd(Resp);
     except
       on E: Exception do
       begin
@@ -2320,8 +2399,32 @@ begin
       end;
     end;
   finally
-    Req.Free;
+    //Req.Free;
   end;
+end;
+
+procedure TForm1.ButtonObjShowClick(Sender: TObject);
+begin
+  if ListViewObj.Selected <> nil then
+    ShowObject(TKSeFObject(ListViewObj.Selected.Data));
+end;
+
+procedure TForm1.ButtonObjCleaClick(Sender: TObject);
+var
+  I: TListItem;
+begin
+  while ListViewObj.Items.Count > 0 do
+  begin
+    I := ListViewObj.Items[0];
+    if I.Data <> nil then
+      TKSeFObject(I.Data).Free;
+    ListViewObj.Items.Delete(0);
+  end;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  ButtonObjCleaClick(nil);
 end;
 
 end.

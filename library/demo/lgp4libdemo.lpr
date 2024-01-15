@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, Unit1;
+  Forms, datetimectrls, Unit1, unit2;
 
 {$R *.res}
 
@@ -19,7 +19,7 @@ begin
   GlobalSkipIfNoLeaks := True;
   {$endIf}
   RequireDerivedFormResource := True;
-  Application.Scaled:=True;
+  Application.Scaled := True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
   Application.Run;
