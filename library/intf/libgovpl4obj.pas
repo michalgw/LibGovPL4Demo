@@ -1,4 +1,4 @@
-﻿{ **************************************************************************** }
+{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -114,7 +114,7 @@ procedure lgoRegisterClass(AClass: TClass);
 procedure lgoRegisterClasses(AClasses: array of TClass);
 function lgoFindClass(AClassName: String): TClass;
 
-function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT; inline;
+function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT;
 
 implementation
 
@@ -216,10 +216,12 @@ end;
 
 function lgoClassName(AObject: LGP_OBJECT): UTF8String;
 var
-  S: LGP_PCHAR;
+  P: LGP_PCHAR;
+  S: PShortString;
 begin
-  lgoCheckResult(lgpObject_ClassName(AObject, S));
-  Result := S;
+  lgoCheckResult(lgpObject_ClassName(AObject, P));
+  S := PShortString(P - 1);
+  Result := S^;
 end;
 
 procedure lgoRegisterClass(AClass: TClass);
@@ -241,7 +243,7 @@ begin
   Result := lgoClassList.FindByName(AClassName);
 end;
 
-function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT; inline;
+function lgoExtObject(const AObject: TlgoObject): LGP_OBJECT;
 begin
   if Assigned(AObject) then
     Result := AObject.ExtObject
@@ -409,11 +411,8 @@ begin
 end;
 
 function TlgoObject.ObjClassName: UTF8String;
-var
-  P: LGP_PCHAR;
 begin
-  lgoCheckResult(lgpObject_ClassName(ExtObject, P));
-  Result := P;
+  Result := lgoClassName(ExtObject);
 end;
 
 function TlgoObject.GetIntegerProp(AName: UTF8String): Integer;

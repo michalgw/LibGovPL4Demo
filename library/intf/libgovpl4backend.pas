@@ -1,4 +1,4 @@
-﻿{ **************************************************************************** }
+{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -296,11 +296,8 @@ begin
 end;
 
 function TlgoCertificate.ObjClassName: UTF8String;
-var
-  P: LGP_PCHAR;
 begin
-  lgoCheckResult(lgpObject_ClassName(FItem, P));
-  Result := P;
+  Result := lgoClassName(FItem);
 end;
 
 { TlgoRSAEncrypt }

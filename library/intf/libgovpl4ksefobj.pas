@@ -1,4 +1,4 @@
-﻿{ **************************************************************************** }
+{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -10,6 +10,11 @@ unit LibGovPl4KSeFObj;
 
 {$ifdef fpc}
 {$mode Delphi}
+{$endif}
+
+// W Delphi 7 nie mozna uzywac slowa kluczowego jako identyfikator
+{$ifdef VER150}
+{$define LGP_ESCPASKEYWORDS}
 {$endif}
 
 interface
@@ -78,6 +83,7 @@ type
 
   { TKSeFObject }
 
+  {$M+}
   { Podstawa obiektów żądań i odpowiedzi KSeF }
   TKSeFObject = class(TlgoCreatableObject)
   protected
@@ -86,6 +92,7 @@ type
     constructor Create;  overload; virtual;
     constructor Create(AClassName: UTF8String); overload; override;
   end;
+  {$M-}
 
   TKSeFObjectClass = class of TKSeFObject;
 
@@ -135,8 +142,10 @@ type
   TKSeFSubjectIdentifierBy = class(TKSeFObject)
   private
     function GetType: UTF8String;
+  public
+    class function CreateFromObject(O: LGP_OBJECT): TKSeFSubjectIdentifierBy;
   published
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
   end;
 
   { TKSeFSubjectIdentifierByCompany }
@@ -178,7 +187,7 @@ type
   public
     class function CreateFromObject(O: LGP_OBJECT): TKSeFSubjectName;
   published
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
     property TradeName: UTF8String read GetTradeName write SetTradeName;
   end;
 
@@ -216,15 +225,22 @@ type
     function GetType: UTF8String;
   published
     property Identifier: UTF8String read GetIdentifier;
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
   end;
+
+  TKSeFRoleType = (krt_owner, krt_introspection, krt_invoice_read, krt_invoice_write,
+    krt_payment_confirmation_write, krt_credentials_read, krt_credentials_manage,
+    krt_self_invoicing, krt_tax_representative, krt_enforcement_operations, krt_court_bailiff,
+    krt_enforcement_authority, krt_subunit_manage, krt_local_government_unit,
+    krt_local_government_sub_unit, krt_vat_group_unit, krt_vat_group_sub_unit);
 
   { TKSeFCredentialsRoleResponseBase }
 
   TKSeFCredentialsRoleResponseBase = class(TKSeFObject)
   private
     function GetRoleDescription: UTF8String;
-    function GetRoleType: UTF8String;
+    function GetRoleType: TKSeFRoleType;
+    function GetRoleTypeRaw: UTF8String;
     function GetStartTimestamp: TDateTime;
     function GetStartTimestampRaw: UTF8String;
     function GetType: UTF8String;
@@ -232,8 +248,9 @@ type
     property RoleDescription: UTF8String read GetRoleDescription;
     property StartTimestamp: TDateTime read GetStartTimestamp;
     property StartTimestampRaw: UTF8String read GetStartTimestampRaw;
-    property &Type: UTF8String read GetType;
-    property RoleType: UTF8String read GetRoleType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
+    property RoleType: TKSeFRoleType read GetRoleType;
+    property RoleTypeRaw: UTF8String read GetRoleTypeRaw;
   end;
 
   { TKSeFCredentialsRoleResponseGrantedForInstitution }
@@ -451,7 +468,7 @@ type
     procedure SetIdentifier(AValue: UTF8String);
     procedure SetType(AValue: UTF8String);
   published
-    property &Type: UTF8String read GetType write SetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType write SetType;
     property Identifier: UTF8String read GetIdentifier write SetIdentifier;
   end;
 
@@ -462,7 +479,7 @@ type
     function GetType: UTF8String;
     procedure SetType(AValue: UTF8String);
   published
-    property &Type: UTF8String read GetType write SetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType write SetType;
   end;
 
   { TKSeFQueryCriteriaCredentialsAll }
@@ -517,7 +534,7 @@ type
     destructor Destroy; override;
     class function CreateFromObject(O: LGP_OBJECT): TKSeFCredentialsBaseTypeObject;
   published
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
     property CredentialsRoleList: TKSeFCredentialsRoleResponseBaseArray read FCredentialsRoleList;
     property Identifier: TKSeFCredentialsIdentifierResponse read FIdentifier write FIdentifier;
   end;
@@ -743,6 +760,7 @@ type
     procedure SetIssuedByIdentifier(AValue: TKSeFSubjectIdentifierBy);
     procedure SetIssuedByName(AValue: TKSeFSubjectName);
   public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property IssuedByIdentifier: TKSeFSubjectIdentifierBy read GetIssuedByIdentifier write SetIssuedByIdentifier;
@@ -758,7 +776,7 @@ type
   public
     class function CreateFromObject(O: LGP_OBJECT): TKSeFSubjectIdentifierTo;
   published
-    property &Type: UTF8String read GetType write SetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType write SetType;
   end;
 
   TKSeFSubjectIdentifierToNone = class(TKSeFSubjectIdentifierTo)
@@ -805,6 +823,7 @@ type
     procedure SetIssuedToIdentifier(AValue: TKSeFSubjectIdentifierTo);
     procedure SetIssuedToName(AValue: TKSeFSubjectName);
   public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
     property IssuedToIdentifier: TKSeFSubjectIdentifierTo read GetIssuedToIdentifier write SetIssuedToIdentifier;
@@ -842,6 +861,7 @@ type
     function GetAmountTo: Currency;
     function GetAmountType: TKSeFAmountType;
     function GetCurrencyCodes: TStringArray;
+    function GetCurrencyCodesStr: UTF8String;
     function GetFaP17Annotation: Boolean;
     function GetInvoiceNumber: UTF8String;
     function GetInvoiceTypes: TKSeFInvoiceTypes;
@@ -852,6 +872,7 @@ type
     procedure SetAmountTo(AValue: Currency);
     procedure SetAmountType(AValue: TKSeFAmountType);
     procedure SetCurrencyCodes(AValue: TStringArray);
+    procedure SetCurrencyCodesStr(AValue: UTF8String);
     procedure SetFaP17Annotation(AValue: Boolean);
     procedure SetInvoiceNumber(AValue: UTF8String);
     procedure SetInvoiceTypes(AValue: TKSeFInvoiceTypes);
@@ -867,6 +888,7 @@ type
     property AmountTo: Currency read GetAmountTo write SetAmountTo;
     property AmountType: TKSeFAmountType read GetAmountType write SetAmountType;
     property CurrencyCodes: TStringArray read GetCurrencyCodes write SetCurrencyCodes;
+    property CurrencyCodesStr: UTF8String read GetCurrencyCodesStr write SetCurrencyCodesStr;
     property FaP17Annotation: Boolean read GetFaP17Annotation write SetFaP17Annotation;
     property InvoiceNumber: UTF8String read GetInvoiceNumber write SetInvoiceNumber;
     property InvoiceTypes: TKSeFInvoiceTypes read GetInvoiceTypes write SetInvoiceTypes;
@@ -924,7 +946,7 @@ type
   public
     class function CreateFromObject(O: LGP_OBJECT): TKSeFSubjectIdentifierOtherTo;
   published
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
   end;
 
   { TKSeFSubjectIdentifierOtherToInternal }
@@ -1175,8 +1197,8 @@ type
   TKSeFInvoiceDivisionPlainPart = class(TKSeFObject)
   private
     FPlainPartHash: TKSeFFileUnlimitedHash;
-    GeyPartExpirationRaw: UTF8String;
     function GetPartExpiration: TDateTime;
+    function GetPartExpirationRaw: UTF8String;
     function GetPartName: UTF8String;
     function GetPartNumber: Integer;
     function GetPartRangeFrom: TDateTime;
@@ -1188,7 +1210,7 @@ type
     constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
   published
-    property PartExpirationRaw: UTF8String read GeyPartExpirationRaw;
+    property PartExpirationRaw: UTF8String read GetPartExpirationRaw;
     property PartExpiration: TDateTime read GetPartExpiration;
     property PartName: UTF8String read GetPartName;
     property PartNumber: Integer read GetPartNumber;
@@ -1331,7 +1353,7 @@ type
   private
     function GetType: UTF8String;
   published
-    property &Type: UTF8String read GetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType;
   end;
 
   { TKSeFAnonymousSubjectIdentifierToNone }
@@ -1426,7 +1448,7 @@ type
     procedure SetType(AValue: UTF8String);
   published
     property Identifier: UTF8String read GetIdentifier write SetIdentifier;
-    property &Type: UTF8String read GetType write SetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType write SetType;
   end;
 
   { TKSeFCredentialsIdentifierRequestInternal }
@@ -1449,7 +1471,7 @@ type
     procedure SetType(AValue: UTF8String);
   published
     property Identifier: UTF8String read GetIdentifier write SetIdentifier;
-    property &Type: UTF8String read GetType write SetType;
+    property {$ifdef LGP_ESCPASKEYWORDS}_Type{$else}&Type{$endif}: UTF8String read GetType write SetType;
   end;
 
   { TKSeFCredentialsIdentifierRequestIndividualCertificateFingerprint }
@@ -2940,6 +2962,11 @@ begin
   Result := GetDoubleProp('PartExpiration');
 end;
 
+function TKSeFInvoiceDivisionPlainPart.GetPartExpirationRaw: UTF8String;
+begin
+  Result := GetStringProp('PartExpirationRaw');
+end;
+
 function TKSeFInvoiceDivisionPlainPart.GetPartName: UTF8String;
 begin
   Result := GetStringProp('PartName');
@@ -3220,6 +3247,41 @@ end;
 
 destructor TKSeFInvoiceHeader.Destroy;
 begin
+  if Assigned(FInvoiceHash) then
+  begin
+    FInvoiceHash.Free;
+    SetObjectProp('InvoiceHash', nil);
+  end;
+  if Assigned(FSubjectBy) then
+  begin
+    FSubjectBy.Free;
+    SetObjectProp('SubjectBy', nil);
+  end;
+  if Assigned(FSubjectByK) then
+  begin
+    FSubjectByK.Free;
+    SetObjectProp('SubjectByK', nil);
+  end;
+  if Assigned(FSubjectsAuthorizedList) then
+  begin
+    FSubjectsAuthorizedList.Free;
+    SetObjectProp('SubjectsAuthorizedList', nil);
+  end;
+  if Assigned(FSubjectsOtherList) then
+  begin
+    FSubjectsOtherList.Free;
+    SetObjectProp('SubjectsOtherList', nil);
+  end;
+  if Assigned(FSubjectTo) then
+  begin
+    FSubjectTo.Free;
+    SetObjectProp('SubjectTo', nil);
+  end;
+  if Assigned(FSubjectToKList) then
+  begin
+    FSubjectToKList.Free;
+    SetObjectProp('SubjectToKList', nil);
+  end;
   inherited Destroy;
 end;
 
@@ -3425,6 +3487,18 @@ begin
   Result := GetStringProp('Type');
 end;
 
+class function TKSeFSubjectIdentifierBy.CreateFromObject(O: LGP_OBJECT
+  ): TKSeFSubjectIdentifierBy;
+var
+  C: TKSeFObjectClass;
+begin
+  C := TKSeFObjectClass(lgoFindClass(lgoClassName(O)));
+  if C <> nil then
+    Result := TKSeFSubjectIdentifierBy(C.Create(O))
+  else
+    Result := nil;
+end;
+
 { TKSeFQueryInvoiceRequest }
 
 procedure TKSeFQueryInvoiceRequest.SetQueryCriteria(
@@ -3536,6 +3610,11 @@ begin
   SL.Free;
 end;
 
+function TKSeFQueryCriteriaInvoiceDetail.GetCurrencyCodesStr: UTF8String;
+begin
+  Result := GetStringProp('CurrencyCodesStr');
+end;
+
 function TKSeFQueryCriteriaInvoiceDetail.GetFaP17Annotation: Boolean;
 begin
   Result := GetBooleanProp('FaP17Annotation');
@@ -3622,9 +3701,15 @@ begin
   begin
     if S <> '' then
       S := S + ';';
-    S := AValue[I];
+    S := S + AValue[I];
   end;
   SetStringProp('CurrencyCodesStr', S);
+end;
+
+procedure TKSeFQueryCriteriaInvoiceDetail.SetCurrencyCodesStr(AValue: UTF8String
+  );
+begin
+  SetStringProp('CurrencyCodesStr', AValue);
 end;
 
 procedure TKSeFQueryCriteriaInvoiceDetail.SetFaP17Annotation(AValue: Boolean);
@@ -3785,6 +3870,19 @@ begin
   SetObjectProp('IssuedToName', O);
 end;
 
+constructor TKSeFSubjectTo.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('IssuedToIdentifier');
+  if O <> nil then
+    FIssuedToIdentifier := TKSeFSubjectIdentifierTo.CreateFromObject(O);
+  O := GetObjectProp('IssuedToName');
+  if O <> nil then
+    FIssuedToName := TKSeFSubjectName.CreateFromObject(O);
+end;
+
 destructor TKSeFSubjectTo.Destroy;
 begin
   if Assigned(FIssuedToIdentifier) then
@@ -3895,6 +3993,19 @@ begin
   else
     O := nil;
   SetObjectProp('IssuedByName', O);
+end;
+
+constructor TKSeFSubjectBy.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited Create(AObject);
+  O := GetObjectProp('IssuedByIdentifier');
+  if O <> nil then
+    FIssuedByIdentifier := TKSeFSubjectIdentifierBy.CreateFromObject(O);
+  O := GetObjectProp('IssuedByName');
+  if O <> nil then
+    FIssuedByName := TKSeFSubjectName.CreateFromObject(O);
 end;
 
 destructor TKSeFSubjectBy.Destroy;
@@ -4717,12 +4828,13 @@ begin
   O := GetObjectProp('ContextIdentifier');
   S := UpperCase(lgoClassName(O));
   if O <> nil then
-  begin
+    FContextIdentifier := TKSeFSubjectIdentifierBy.CreateFromObject(O);
+  {begin
     if S = 'TKSEFSUBJECTIDENTIFIERBYCOMPANY' then
       FContextIdentifier := TKSeFSubjectIdentifierByCompany.Create(O)
     else if S = 'TKSEFSUBJECTIDENTIFIERINTERNAL' then
       FContextIdentifier := TKSeFSubjectIdentifierInternal.Create(O);
-  end;
+  end;}
   O := GetObjectProp('ContextName');
   if O <>  nil then
     FContextName := TKSeFSubjectCompleteName.Create(O);
@@ -4744,7 +4856,10 @@ begin
     SetObjectProp('ContextName', nil);
   end;
   if FCredentialsRoleList <> nil then
+  begin
     FCredentialsRoleList.Free;
+    SetObjectProp('CredentialsRoleList', nil);
+  end;
   inherited Destroy;
 end;
 
@@ -4827,9 +4942,14 @@ begin
   Result := GetStringProp('RoleDescription');
 end;
 
-function TKSeFCredentialsRoleResponseBase.GetRoleType: UTF8String;
+function TKSeFCredentialsRoleResponseBase.GetRoleType: TKSeFRoleType;
 begin
-  Result := GetStringProp('RoleType');
+  Result := TKSeFRoleType(GetIntegerProp('RoleType'));
+end;
+
+function TKSeFCredentialsRoleResponseBase.GetRoleTypeRaw: UTF8String;
+begin
+  Result := GetStringProp('RoleTypeRaw');
 end;
 
 function TKSeFCredentialsRoleResponseBase.GetStartTimestamp: TDateTime;
