@@ -3534,6 +3534,15 @@ object Form1: TForm1
         TabOrder = 2
         OnClick = ButtonObjCleaClick
       end
+      object ButtonObjCount: TButton
+        Left = 168
+        Top = 8
+        Width = 75
+        Height = 25
+        Caption = 'Ilosc obj.'
+        TabOrder = 3
+        OnClick = ButtonObjCountClick
+      end
     end
     object MemoLog: TMemo
       Left = 284

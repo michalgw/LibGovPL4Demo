@@ -422,6 +422,7 @@ type
     ListViewObj: TListView;
     ButtonObjShow: TButton;
     ButtonObjClea: TButton;
+    ButtonObjCount: TButton;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -463,6 +464,7 @@ type
     procedure ButtonObjShowClick(Sender: TObject);
     procedure ButtonObjCleaClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ButtonObjCountClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
@@ -2425,6 +2427,11 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   ButtonObjCleaClick(nil);
+end;
+
+procedure TForm1.ButtonObjCountClick(Sender: TObject);
+begin
+  Debug('Ilosc obiektow: ' + IntToStr(lgpDbgObjectCount), True);
 end;
 
 end.

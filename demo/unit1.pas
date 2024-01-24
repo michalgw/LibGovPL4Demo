@@ -14,6 +14,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonObjCount: TButton;
     ButtonKSeFInvHide: TButton;
     ButtonKSeFBatchPodp: TButton;
     ButtonKSeFBatchSend: TButton;
@@ -375,6 +376,7 @@ type
     TabSheetEDekPodpisCert: TTabSheet;
     TabSheetCert: TTabSheet;
     TabSheetSetup: TTabSheet;
+    procedure ButtonObjCountClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -437,6 +439,10 @@ type
     KSeF: TlgKSeF;
     KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgRSAKey;
 
+    {$IFDEF LGP_DEBUG_OBJ}
+    ObjList: TList;
+    {$ENDIF}
+
     procedure Debug(ATekst: String; ALinia: Boolean = False);
     procedure Debug(ATekst: String; ADane: array of const);
     procedure DebugCert(ACertyfikat: TlgCertificate);
@@ -495,6 +501,19 @@ begin
     FS.Free;
   end;
 end;
+
+{$IFDEF LGP_DEBUG_OBJ}
+procedure DbgObjCreate(AObject: TObject);
+begin
+  if Form1.ObjList.IndexOf(AObject) < 0 then
+    Form1.ObjList.Add(AObject);
+end;
+
+procedure DbgObjDestroy(AObject: TObject);
+begin
+  Form1.ObjList.Remove(AObject);
+end;
+{$ENDIF}
 
 { TForm1 }
 
@@ -555,6 +574,13 @@ begin
   if ComboBoxRSAEnc.Items.Count > 0 then
     ComboBoxRSAEnc.ItemIndex := 0;
   PageControl1.ActivePageIndex := 0;
+  {$IFDEF LGP_DEBUG_OBJ}
+  ObjList := TList.Create;
+  KSeFObjectDbgCreate := @DbgObjCreate;
+  KSeFObjectDbgDestroy := @DbgObjDestroy;
+  {$ELSE}
+  ButtonObjCount.Enabled := False;
+  {$ENDIF}
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -583,6 +609,11 @@ begin
     KSeFRSADemo.Free;
   if Assigned(KSeFRSATest) then
     KSeFRSATest.Free;
+  {$IFDEF LGP_DEBUG_OBJ}
+  if ObjList.Count > 0 then
+    MessageDlg('Debug', 'Liczba pozostałych obiektów KSeF: ' + IntToStr(ObjList.Count), mtWarning, [mbOK], 0);
+  ObjList.Free;
+  {$ENDIF}
 end;
 
 procedure TForm1.RadioButtonKSeFBatchCertChange(Sender: TObject);
@@ -2015,6 +2046,13 @@ begin
     if Assigned(EncZIPFile) then
       EncZIPFile.Free;
   end;
+end;
+
+procedure TForm1.ButtonObjCountClick(Sender: TObject);
+begin
+  {$IFDEF LGP_DEBUG_OBJ}
+  Debug('Liczba obiektów KSeF: ' + IntToStr(ObjList.Count), True);
+  {$ENDIF}
 end;
 
 procedure TForm1.ButtonKSeFQInvAsyncFetchClick(Sender: TObject);

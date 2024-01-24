@@ -55,10 +55,58 @@ function lgpListObject_Remove(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_E
 function lgpListObject_GetOwnsObjects(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpListObject_SetOwnsObjects(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
+{$IFDEF LGP_DEBUG_OBJ}
+procedure lgpDbgObjectListInit;
+procedure lgpDbgObjectListDone;
+procedure lgpDbgAddObject(AObject: TObject);
+procedure lgpDbgRemoveObject(AObject: TObject);
+{$ENDIF}
+
+function lgpDbgObjectCount: LGP_INT32; stdcall;
+
 implementation
 
 uses
   uException, lgBackend, Rtti, lgKSeFTypes;
+
+{$IFDEF LGP_DEBUG_OBJ}
+var
+  LGPDbgObjectList: TList = nil;
+
+procedure lgpDbgObjectListInit;
+begin
+  if not Assigned(LGPDbgObjectList) then
+    LGPDbgObjectList := TList.Create;
+end;
+
+procedure lgpDbgObjectListDone;
+begin
+  if Assigned(LGPDbgObjectList) then
+    FreeAndNil(LGPDbgObjectList);
+end;
+
+procedure lgpDbgAddObject(AObject: TObject);
+begin
+  if Assigned(LGPDbgObjectList) then
+    if LGPDbgObjectList.IndexOf(AObject) < 0 then
+      LGPDbgObjectList.Add(AObject);
+end;
+
+procedure lgpDbgRemoveObject(AObject: TObject);
+begin
+  if Assigned(LGPDbgObjectList) and (LGPDbgObjectList.IndexOf(AObject) >= 0) then
+    LGPDbgObjectList.Remove(AObject);
+end;
+{$ENDIF}
+
+function lgpDbgObjectCount: LGP_INT32; stdcall;
+begin
+  Result := -1;
+  {$IFDEF LGP_DEBUG_OBJ}
+  if Assigned(LGPDbgObjectList) then
+    Result := LGPDbgObjectList.Count;
+  {$ENDIF}
+end;
 
 function ValidObject(AObject: LGP_OBJECT; AClass: TClass): Boolean;
 begin
@@ -84,7 +132,12 @@ begin
   Result := nil;
   try
     if ValidObject(AObject) then
-      TObject(AObject).Free
+    begin
+      {$ifdef LGP_DEBUG_OBJ}
+      lgpDbgRemoveObject(TObject(AObject));
+      {$endif}
+      TObject(AObject).Free;
+    end
     else
       Result := lgpCreateInvalidObjectException;
   except

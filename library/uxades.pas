@@ -58,6 +58,9 @@ begin
       if ValidObject(ASigner, TlgCertificateSigner) then
         Signer := TlgCertificateSigner(ASigner);
     end;
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AXAdESObject));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

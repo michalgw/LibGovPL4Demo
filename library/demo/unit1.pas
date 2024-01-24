@@ -16,6 +16,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonObjCount: TButton;
     ButtonObjShow: TButton;
     ButtonObjClear: TButton;
     ButtonKSeFBatchPodp: TButton;
@@ -377,6 +378,7 @@ type
     TabSheetEDekPodpisCert: TTabSheet;
     TabSheetCert: TTabSheet;
     TabSheetSetup: TTabSheet;
+    procedure ButtonObjCountClick(Sender: TObject);
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -2016,6 +2018,11 @@ begin
     if Assigned(OutEncZIPFile) then
       OutEncZIPFile.Free;
   end;
+end;
+
+procedure TForm1.ButtonObjCountClick(Sender: TObject);
+begin
+  Debug('Ilość obiektów: ' + IntToStr(lgpDbgObjectCount), True);
 end;
 
 procedure TForm1.ButtonKSeFBatchSendClick(Sender: TObject);

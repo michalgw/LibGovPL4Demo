@@ -107,6 +107,8 @@ exports
   lgpListObject_GetOwnsObjects,
   lgpListObject_SetOwnsObjects,
 
+  lgpDbgObjectCount,
+
   // Stream
   lgpStream_Create,
 

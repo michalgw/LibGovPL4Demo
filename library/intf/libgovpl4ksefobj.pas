@@ -506,6 +506,9 @@ type
       );
     procedure SetQueryCredentialsScopeResultTypeRaw(AValue: UTF8String);
     procedure SetQueryCredentialsTypeResultTypeRaw(AValue: UTF8String);
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
   published
     property CredentialsIdentifier: TKSeFCredentialsIdentifierRequest read FCredentialsIdentifier write SetCredentialsIdentifier;
     property QueryCredentialsScopeResultTypeRaw: UTF8String read GetQueryCredentialsScopeResultTypeRaw write SetQueryCredentialsScopeResultTypeRaw;
@@ -518,6 +521,9 @@ type
   private
     FQueryCriteria: TKSeFQueryCriteriaCredentials;
     procedure SetQueryCriteria(AValue: TKSeFQueryCriteriaCredentials);
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
   published
     property QueryCriteria: TKSeFQueryCriteriaCredentials read FQueryCriteria write SetQueryCriteria;
   end;
@@ -1062,10 +1068,13 @@ type
     function GetAlgorithm: UTF8String;
     function GetEncoding: UTF8String;
     function GetValue: UTF8String;
+    procedure SetAlgorithm(AValue: UTF8String);
+    procedure SetEncoding(AValue: UTF8String);
+    procedure SetValue(AValue: UTF8String);
   published
-    property Algorithm: UTF8String read GetAlgorithm;
-    property Encoding: UTF8String read GetEncoding;
-    property Value: UTF8String read GetValue;
+    property Algorithm: UTF8String read GetAlgorithm write SetAlgorithm;
+    property Encoding: UTF8String read GetEncoding write SetEncoding;
+    property Value: UTF8String read GetValue write SetValue;
   end;
 
   { TKSeFFileUnlimitedHash }
@@ -1557,10 +1566,10 @@ type
 
   TKSeFCredentialsRoleRequestContextBase = class(TKSeFObject)
   private
-    function GetRoleType: String;
-    procedure SetRoleType(AValue: String);
+    function GetRoleType: UTF8String;
+    procedure SetRoleType(AValue: UTF8String);
   published
-    property RoleType: String read GetRoleType write SetRoleType;
+    property RoleType: UTF8String read GetRoleType write SetRoleType;
   end;
 
   { TKSeFRevokeContextCredentialsRequestType }
@@ -2323,12 +2332,13 @@ end;
 
 { TKSeFCredentialsRoleRequestContextBase }
 
-function TKSeFCredentialsRoleRequestContextBase.GetRoleType: String;
+function TKSeFCredentialsRoleRequestContextBase.GetRoleType: UTF8String;
 begin
   Result := GetStringProp('RoleType');
 end;
 
-procedure TKSeFCredentialsRoleRequestContextBase.SetRoleType(AValue: String);
+procedure TKSeFCredentialsRoleRequestContextBase.SetRoleType(AValue: UTF8String
+  );
 begin
   SetStringProp('RoleType', AValue);
 end;
@@ -3327,6 +3337,21 @@ end;
 function TKSeFHashSHA.GetValue: UTF8String;
 begin
   Result := GetStringProp('Value');
+end;
+
+procedure TKSeFHashSHA.SetAlgorithm(AValue: UTF8String);
+begin
+  SetStringProp('Algorithm', AValue);
+end;
+
+procedure TKSeFHashSHA.SetEncoding(AValue: UTF8String);
+begin
+  SetStringProp('Encoding', AValue);
+end;
+
+procedure TKSeFHashSHA.SetValue(AValue: UTF8String);
+begin
+  SetStringProp('Value', AValue);
 end;
 
 { TKSeFSubjectAuthorizedArray }
@@ -4372,12 +4397,52 @@ begin
   SetStringProp('QueryCredentialsTypeResultTypeRaw', AValue);
 end;
 
+constructor TKSeFQueryCriteriaCredentialsId.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited;
+  O := GetObjectProp('CredentialsIdentifier');
+  if O <> nil then
+    FCredentialsIdentifier := TKSeFCredentialsIdentifierRequest.Create(O);
+end;
+
+destructor TKSeFQueryCriteriaCredentialsId.Destroy;
+begin
+  if Assigned(FCredentialsIdentifier) then
+  begin
+    FCredentialsIdentifier.Free;
+    SetObjectProp('CredentialsIdentifier', nil);
+  end;
+  inherited Destroy;
+end;
+
 procedure TKSeFQuerySyncCredentialsRequest.SetQueryCriteria(
   AValue: TKSeFQueryCriteriaCredentials);
 begin
   if FQueryCriteria = AValue then Exit;
   FQueryCriteria := AValue;
   SetObjectProp('QueryCriteria', lgoExtObject(AValue));
+end;
+
+constructor TKSeFQuerySyncCredentialsRequest.Create(AObject: LGP_OBJECT);
+var
+  O: LGP_OBJECT;
+begin
+  inherited;
+  O := GetObjectProp('QueryCriteria');
+  if O <> nil then
+    FQueryCriteria := TKSeFQueryCriteriaCredentials.Create(O);
+end;
+
+destructor TKSeFQuerySyncCredentialsRequest.Destroy;
+begin
+  if Assigned(FQueryCriteria) then
+  begin
+    FQueryCriteria.Free;
+    SetObjectProp('QueryCriteria', nil);
+  end;
+  inherited Destroy;
 end;
 
 function TKSeFCredentialsBaseTypeObject.GetType: UTF8String;

@@ -98,6 +98,9 @@ begin
   AStream := nil;
   try
     AStream := TFileStream.Create(AFileName, AMode);
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AStream));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -111,6 +114,9 @@ begin
   AStream := nil;
   try
     AStream := TStringStream.Create(AData);
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AStream));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

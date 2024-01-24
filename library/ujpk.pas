@@ -62,6 +62,9 @@ begin
   AJPKObj := nil;
   try
     AJPKObj := TlgJPK.Create(nil);
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AJPKObj));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

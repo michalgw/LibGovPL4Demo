@@ -102,6 +102,9 @@
           </Linking>
         </CompilerOptions>
       </Item>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="080315416815" Modes="Win32 Debug,Win64 Debug" Value="-dLGP_DEBUG_OBJ"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>

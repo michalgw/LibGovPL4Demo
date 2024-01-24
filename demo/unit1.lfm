@@ -3468,14 +3468,24 @@ object Form1: TForm1
           OnClick = ButtonObjClearClick
         end
         object Label122: TLabel
-          Left = 114
+          Left = 174
           Height = 24
           Top = 1
-          Width = 149
+          Width = 89
           Align = alClient
           Alignment = taCenter
           Caption = 'Obiekty KSeF'
           Layout = tlCenter
+        end
+        object ButtonObjCount: TButton
+          Left = 114
+          Height = 24
+          Top = 1
+          Width = 60
+          Align = alLeft
+          Caption = 'Ilość obj.'
+          TabOrder = 2
+          OnClick = ButtonObjCountClick
         end
       end
       object ListViewObj: TListView

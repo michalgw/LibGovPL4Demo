@@ -56,6 +56,9 @@ begin
       XMLCanonizator := XMLCanonizatorClasses.FindByClassName(AXMLCanonizator);
       EDekGate := EDekGateClasses.FindByClassName(AEDekGate);
     end;
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AEDekObj));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

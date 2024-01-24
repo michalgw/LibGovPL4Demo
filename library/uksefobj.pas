@@ -174,6 +174,11 @@ begin
   end;
 end;
 
+{$ifdef LGP_DEBUG_OBJ}
+initialization
+  KSeFObjectDbgCreate := @lgpDbgAddObject;
+  KSeFObjectDbgDestroy := @lgpDbgRemoveObject;
+{$endif}
 
 end.
 

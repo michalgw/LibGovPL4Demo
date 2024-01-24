@@ -124,6 +124,9 @@ begin
   Result := nil;
   try
     AKSeFObj := TlgKSeF.Create(nil);
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AKSeFObj));
+    {$endif}
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

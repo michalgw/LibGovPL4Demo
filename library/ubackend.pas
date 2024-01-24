@@ -161,6 +161,9 @@ end;
 function lgplInit: LGP_INT32; stdcall;
 begin
   lgpInitKSeFClasses;
+  {$IFDEF LGP_DEBUG_OBJ}
+  lgpDbgObjectListInit;
+  {$ENDIF}
   Result := 0;
 end;
 
@@ -173,6 +176,9 @@ begin
   {$IFDEF LGP_ENABLE_LIBXML2}
   if libXmlHandle <> 0 then
     xmlCleanupParser();
+  {$ENDIF}
+  {$IFDEF LGP_DEBUG_OBJ}
+  lgpDbgObjectListDone;
   {$ENDIF}
   Result := 0;
 end;
@@ -211,7 +217,12 @@ begin
   try
     HTTPClass := HTTPClientClasses.FindByClassName(AClassName);
     if HTTPClass <> nil then
+    begin
       AHttpClient := HTTPClass.Create;
+      {$ifdef LGP_DEBUG_OBJ}
+      lgpDbgAddObject(TObject(AHttpClient));
+      {$endif}
+    end;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -255,7 +266,12 @@ begin
     CheckObject(AKeyStream, TStream);
     RSAEncClass := RSAEncryptClasses.FindByClassName(AClassName);
     if RSAEncClass <> nil then
+    begin
       ARSAKey := RSAEncClass.CreateKey(TStream(AKeyStream));
+      {$ifdef LGP_DEBUG_OBJ}
+      lgpDbgAddObject(TObject(ARSAKey));
+      {$endif}
+    end;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -380,7 +396,12 @@ begin
   try
     CertSignerClass := CertSignerClasses.FindByClassName(AClassName);
     if CertSignerClass <> nil then
+    begin
       ACertSigner := CertSignerClass.Create(nil);
+      {$ifdef LGP_DEBUG_OBJ}
+      lgpDbgAddObject(TObject(ACertSigner));
+      {$endif}
+    end;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

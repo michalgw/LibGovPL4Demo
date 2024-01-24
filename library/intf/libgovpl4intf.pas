@@ -184,6 +184,8 @@ function lgpListObject_Remove(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_E
 function lgpListObject_GetOwnsObjects(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpListObject_SetOwnsObjects(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpDbgObjectCount: LGP_INT32; stdcall; external LGP_LIBNAME;
+
 // Stream
 function lgpStream_Create(AStreamObject: Pointer; AReadFunc: TlgpStreamReadFunc;
   AWriteFunc: TlgpStreamWriteFunc; ASeekFunc: TlgpStreamSeekFunc;
@@ -466,6 +468,8 @@ var
   lgpListObject_Remove: function(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpListObject_GetOwnsObjects: function(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpListObject_SetOwnsObjects: function(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  lgpDbgObjectCount: function: LGP_INT32; stdcall;
 
   // Stream
   lgpStream_Create: function(AStreamObject: Pointer; AReadFunc: TlgpStreamReadFunc;
@@ -785,6 +789,8 @@ begin
     @lgpListObject_Remove := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Remove');
     @lgpListObject_GetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetOwnsObjects');
     @lgpListObject_SetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_SetOwnsObjects');
+
+    @lgpDbgObjectCount  := GetProcAddress(LibGovPl4Handle, 'lgpDbgObjectCount');
 
     // Stream
     @lgpStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpStream_Create');
