@@ -34,15 +34,15 @@ const
   LGP_KSEF_SUBJECTTYPE_SUBJECTAUTHORIZED = 3;
 
 function lgpKSeF_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetRSAEncryptClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetBase64EncoderClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetAES256EncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF_GetAES256EncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetAES256EncryptClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetSHA256HashClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF_GetSHA256HashClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetSHA256HashClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetRandomGeneratorClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF_GetRandomGeneratorClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetRandomGeneratorClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF_GetRSAKey(AKSeFObject: LGP_OBJECT; AKeyType: LGP_INT32; var AKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetRSAKey(AKSeFObject: LGP_OBJECT; AKeyType: LGP_INT32; AKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -134,7 +134,7 @@ begin
 end;
 
 function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -143,7 +143,7 @@ begin
     with TObject(AKSeFObject) as TlgKSeF do
     begin
       if RSAEncryptClass <> nil then
-        AClassName := @(PVmt(RSAEncryptClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(RSAEncryptClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -159,7 +159,7 @@ begin
     CheckObject(AKSeFObject, TlgKSeF);
     with TObject(AKSeFObject) as TlgKSeF do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         RSAEncryptClass := nil
       else
         RSAEncryptClass := RSAEncryptClasses.FindByClassName(AClassName);
@@ -171,7 +171,7 @@ begin
 end;
 
 function lgpKSeF_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -180,7 +180,7 @@ begin
     with TObject(AKSeFObject) as TlgKSeF do
     begin
       if Base64EncoderClass <> nil then
-        AClassName := @(PVmt(Base64EncoderClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(Base64EncoderClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -196,7 +196,7 @@ begin
     CheckObject(AKSeFObject, TlgKSeF);
     with TObject(AKSeFObject) as TlgKSeF do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         Base64EncoderClass := nil
       else
         Base64EncoderClass := Base64EncoderClasses.FindByClassName(AClassName);
@@ -208,7 +208,7 @@ begin
 end;
 
 function lgpKSeF_GetAES256EncryptClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -217,7 +217,7 @@ begin
     with TObject(AKSeFObject) as TlgKSeF do
     begin
       if AES256EncryptClass <> nil then
-        AClassName := @(PVmt(AES256EncryptClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(AES256EncryptClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -233,7 +233,7 @@ begin
     CheckObject(AKSeFObject, TlgKSeF);
     with TObject(AKSeFObject) as TlgKSeF do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         AES256EncryptClass := nil
       else
         AES256EncryptClass := AES256EncryptClasses.FindByClassName(AClassName);
@@ -245,7 +245,7 @@ begin
 end;
 
 function lgpKSeF_GetSHA256HashClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -254,7 +254,7 @@ begin
     with TObject(AKSeFObject) as TlgKSeF do
     begin
       if SHA256HashClass <> nil then
-        AClassName := @(PVmt(SHA256HashClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(SHA256HashClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -270,7 +270,7 @@ begin
     CheckObject(AKSeFObject, TlgKSeF);
     with TObject(AKSeFObject) as TlgKSeF do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         SHA256HashClass := nil
       else
         SHA256HashClass := SHA256HashClasses.FindByClassName(AClassName);
@@ -282,7 +282,7 @@ begin
 end;
 
 function lgpKSeF_GetRandomGeneratorClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -291,7 +291,7 @@ begin
     with TObject(AKSeFObject) as TlgKSeF do
     begin
       if RandomGeneratorClass <> nil then
-        AClassName := @(PVmt(RandomGeneratorClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(RandomGeneratorClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -307,7 +307,7 @@ begin
     CheckObject(AKSeFObject, TlgKSeF);
     with TObject(AKSeFObject) as TlgKSeF do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         RandomGeneratorClass := nil
       else
         RandomGeneratorClass := RandomGeneratorClasses.FindByClassName(AClassName);

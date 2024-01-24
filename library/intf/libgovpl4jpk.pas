@@ -80,42 +80,57 @@ implementation
 
 function TlgoJPK.GetAES256EncryptClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetAES256EncryptClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetBase64EncoderClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetBase64EncoderClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetMD5HashClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetMD5HashClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetRandomGeneratorClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetRandomGeneratorClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetRSAEncryptClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetRSAEncryptClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetRSAKey(AIndex: TlgoEDekGateType): TlgoRSAKey;
@@ -129,26 +144,35 @@ end;
 
 function TlgoJPK.GetSHA256HashClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetSHA256HashClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetXMLReaderClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetXMLReaderClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoJPK.GetZipperClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpJPK_GetZipperClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 procedure TlgoJPK.SetAES256EncryptClass(AValue: UTF8String);

@@ -1034,6 +1034,29 @@ begin
   DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
   DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
+
+  Debug('XAdES', True);
+  Debug('Base64EncoderClass: ' + XAdES.SHA1HashClass);
+  Debug('Base64EncoderClass: ' + XAdES.SHA256HashClass);
+  Debug('Base64EncoderClass: ' + XAdES.Base64EncoderClass);
+  Debug('EDek', True);
+  Debug('XMLCanonizator: ' + EDek.XMLCanonizator);
+  Debug('EDekGate: ' + EDek.EDekGate);
+  Debug('JPK', True);
+  Debug('Base64EncoderClass: ' + JPK.Base64EncoderClass);
+  Debug('AES256EncryptClass: ' + JPK.AES256EncryptClass);
+  Debug('MD5HashClass: ' + JPK.MD5HashClass);
+  Debug('SHA256HashClass: ' + JPK.SHA256HashClass);
+  Debug('ZipperClass: ' + JPK.ZipperClass);
+  Debug('RSAEncryptClass: ' + JPK.RSAEncryptClass);
+  Debug('RandomGeneratorClass: ' + JPK.RandomGeneratorClass);
+  Debug('XMLReaderClass: ' + JPK.XMLReaderClass);
+  Debug('KSeF', True);
+  Debug('RSAEncryptClass: ' + KSeF.RSAEncryptClass);
+  Debug('Base64EncoderClass: ' + KSeF.Base64EncoderClass);
+  Debug('AES256EncryptClass: ' + KSeF.AES256EncryptClass);
+  Debug('SHA256HashClass: ' + KSeF.SHA256HashClass);
+  Debug('RandomGeneratorClass: ' + KSeF.RandomGeneratorClass);
 end;
 
 procedure TForm1.FileNameEditEDPAWejAcceptFileName(Sender: TObject;

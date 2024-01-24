@@ -17,21 +17,21 @@ uses
 
 function lgpJPK_Create(ABase64EncoderClass, AAES256EncryptClass, AMD5HashClass, ASHA256HashClass, AZipperClass, ARSAEncryptClass, ARandomGeneratorClass, AXMLReaderClass: LGP_PCHAR; var AJPKObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
-function lgpJPK_GetBase64EncoderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetBase64EncoderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetBase64EncoderClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetAES256EncryptClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetAES256EncryptClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetAES256EncryptClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetMD5HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetMD5HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetMD5HashClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetSHA256HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetSHA256HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetSHA256HashClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetZipperClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetZipperClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetZipperClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetRSAEncryptClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetRSAEncryptClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetRSAEncryptClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetRandomGeneratorClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetRandomGeneratorClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetRandomGeneratorClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpJPK_GetXMLReaderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpJPK_GetXMLReaderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpJPK_SetXMLReaderClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
 function lgpJPK_GetRSAKeyProd(AJPKObj: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -62,6 +62,17 @@ begin
   AJPKObj := nil;
   try
     AJPKObj := TlgJPK.Create(nil);
+    with TlgJPK(AJPKObj) do
+    begin
+      Base64EncoderClass := Base64EncoderClasses.FindByClassName(ABase64EncoderClass);
+      AES256EncryptClass := AES256EncryptClasses.FindByClassName(AAES256EncryptClass);
+      MD5HashClass := MD5HashClasses.FindByClassName(AMD5HashClass);
+      SHA256HashClass := SHA256HashClasses.FindByClassName(ASHA256HashClass);
+      ZipperClass := ZipperClasses.FindByClassName(AZipperClass);
+      RSAEncryptClass := RSAEncryptClasses.FindByClassName(ARSAEncryptClass);
+      RandomGeneratorClass := RandomGeneratorClasses.FindByClassName(ARandomGeneratorClass) ;
+      XMLReaderClass := XMLReaderClasses.FindByClassName(AXMLReaderClass);
+    end;
     {$ifdef LGP_DEBUG_OBJ}
     lgpDbgAddObject(TObject(AJPKObj));
     {$endif}
@@ -72,7 +83,7 @@ begin
 end;
 
 function lgpJPK_GetBase64EncoderClass(AJPKObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -81,7 +92,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if Base64EncoderClass <> nil then
-        AClassName := @(PVmt(Base64EncoderClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(Base64EncoderClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -97,7 +108,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         Base64EncoderClass := nil
       else
         Base64EncoderClass := Base64EncoderClasses.FindByClassName(AClassName);
@@ -109,7 +120,7 @@ begin
 end;
 
 function lgpJPK_GetAES256EncryptClass(AJPKObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -118,7 +129,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if AES256EncryptClass <> nil then
-        AClassName := @(PVmt(AES256EncryptClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(AES256EncryptClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -134,7 +145,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         AES256EncryptClass := nil
       else
         AES256EncryptClass := AES256EncryptClasses.FindByClassName(AClassName);
@@ -145,7 +156,7 @@ begin
   end;
 end;
 
-function lgpJPK_GetMD5HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR
+function lgpJPK_GetMD5HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING
   ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
@@ -155,7 +166,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if MD5HashClass <> nil then
-        AClassName := @(PVmt(MD5HashClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(MD5HashClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -171,7 +182,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         MD5HashClass := nil
       else
         MD5HashClass := MD5HashClasses.FindByClassName(AClassName);
@@ -183,7 +194,7 @@ begin
 end;
 
 function lgpJPK_GetSHA256HashClass(AJPKObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -192,7 +203,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if SHA256HashClass <> nil then
-        AClassName := @(PVmt(SHA256HashClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(SHA256HashClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -208,7 +219,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         SHA256HashClass := nil
       else
         SHA256HashClass := SHA256HashClasses.FindByClassName(AClassName);
@@ -219,7 +230,7 @@ begin
   end;
 end;
 
-function lgpJPK_GetZipperClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR
+function lgpJPK_GetZipperClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING
   ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
@@ -229,7 +240,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if ZipperClass <> nil then
-        AClassName := @(PVmt(ZipperClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(ZipperClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -245,7 +256,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         ZipperClass := nil
       else
         ZipperClass := ZipperClasses.FindByClassName(AClassName);
@@ -257,7 +268,7 @@ begin
 end;
 
 function lgpJPK_GetRSAEncryptClass(AJPKObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -266,7 +277,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if RSAEncryptClass <> nil then
-        AClassName := @(PVmt(RSAEncryptClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(RSAEncryptClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -282,7 +293,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         RSAEncryptClass := nil
       else
         RSAEncryptClass := RSAEncryptClasses.FindByClassName(AClassName);
@@ -294,7 +305,7 @@ begin
 end;
 
 function lgpJPK_GetRandomGeneratorClass(AJPKObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -303,7 +314,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if RandomGeneratorClass <> nil then
-        AClassName := @(PVmt(RandomGeneratorClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(RandomGeneratorClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -319,7 +330,7 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         RandomGeneratorClass := nil
       else
         RandomGeneratorClass := RandomGeneratorClasses.FindByClassName(AClassName);
@@ -330,7 +341,7 @@ begin
   end;
 end;
 
-function lgpJPK_GetXMLReaderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PCHAR
+function lgpJPK_GetXMLReaderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING
   ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
@@ -340,7 +351,7 @@ begin
     with TObject(AJPKObj) as TlgJPK do
     begin
       if XMLReaderClass <> nil then
-        AClassName := @(PVmt(XMLReaderClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(XMLReaderClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -356,10 +367,10 @@ begin
     CheckObject(AJPKObj, TlgJPK);
     with TObject(AJPKObj) as TlgJPK do
     begin
-      if AClassName = nil then
-        RandomGeneratorClass := nil
+      if AClassName = '' then
+        XMLReaderClass := nil
       else
-        RandomGeneratorClass := RandomGeneratorClasses.FindByClassName(AClassName);
+        XMLReaderClass := XMLReaderClasses.FindByClassName(AClassName);
     end;
   except
     on E: Exception do

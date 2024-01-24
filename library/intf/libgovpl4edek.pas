@@ -62,18 +62,24 @@ end;
 
 function TlgoEDeklaracja.GetEDekGate: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpEDek_GetEDekGateClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoEDeklaracja.GetXMLCanonizator: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpEDek_GetXMLCanonizatorClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 procedure TlgoEDeklaracja.SetCanonization(AValue: Boolean);

@@ -216,12 +216,13 @@ end;
 
 function lgoClassName(AObject: LGP_OBJECT): UTF8String;
 var
-  P: LGP_PCHAR;
-  S: PShortString;
+  S: LGP_PSSTRING;
 begin
-  lgoCheckResult(lgpObject_ClassName(AObject, P));
-  S := PShortString(P - 1);
-  Result := S^;
+  lgoCheckResult(lgpObject_ClassName(AObject, S));
+  if S <> nil then
+    Result := S^
+  else
+    Result := '';
 end;
 
 procedure lgoRegisterClass(AClass: TClass);

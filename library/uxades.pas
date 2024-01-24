@@ -23,11 +23,11 @@ const
 
 function lgpXAdES_Create(ASHA1HashClass, ASHA256HashClass, ABase64EncoderClass: LGP_PCHAR;
   ASigner: LGP_OBJECT; var AXAdESObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpXAdES_GetSHA1HashClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpXAdES_GetSHA1HashClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpXAdES_SetSHA1HashClass(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpXAdES_GetSHA256HashClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpXAdES_GetSHA256HashClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpXAdES_SetSHA256HashClass(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpXAdES_GetBase64EncoderClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpXAdES_GetBase64EncoderClass(AXAdESObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpXAdES_SetBase64EncoderClass(AXAdESObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpXAdES_GetSigner(AXAdESObject: LGP_OBJECT; var ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpXAdES_SetSigner(AXAdESObject: LGP_OBJECT; ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -68,7 +68,7 @@ begin
 end;
 
 function lgpXAdES_GetSHA1HashClass(AXAdESObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -77,7 +77,7 @@ begin
     with TObject(AXAdESObject) as TlgXAdES do
     begin
       if SHA1HashClass <> nil then
-        AClassName := @(PVmt(SHA1HashClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(SHA1HashClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -93,7 +93,7 @@ begin
     CheckObject(AXAdESObject, TlgXAdES);
     with TObject(AXAdESObject) as TlgXAdES do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         SHA1HashClass := nil
       else
         SHA1HashClass := SHA1HashClasses.FindByClassName(AClassName);
@@ -105,7 +105,7 @@ begin
 end;
 
 function lgpXAdES_GetSHA256HashClass(AXAdESObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -114,7 +114,7 @@ begin
     with TObject(AXAdESObject) as TlgXAdES do
     begin
       if SHA256HashClass <> nil then
-        AClassName := @(PVmt(SHA256HashClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(SHA256HashClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -130,7 +130,7 @@ begin
     CheckObject(AXAdESObject, TlgXAdES);
     with TObject(AXAdESObject) as TlgXAdES do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         SHA256HashClass := nil
       else
         SHA256HashClass := SHA256HashClasses.FindByClassName(AClassName);
@@ -142,7 +142,7 @@ begin
 end;
 
 function lgpXAdES_GetBase64EncoderClass(AXAdESObject: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -151,7 +151,7 @@ begin
     with TObject(AXAdESObject) as TlgXAdES do
     begin
       if Base64EncoderClass <> nil then
-        AClassName := @(PVmt(Base64EncoderClass.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(Base64EncoderClass.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -167,7 +167,7 @@ begin
     CheckObject(AXAdESObject, TlgXAdES);
     with TObject(AXAdESObject) as TlgXAdES do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         Base64EncoderClass := nil
       else
         Base64EncoderClass := Base64EncoderClasses.FindByClassName(AClassName);

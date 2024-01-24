@@ -292,18 +292,24 @@ implementation
 
 function TlgoKSeF.GetAES256EncryptClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpKSeF_GetAES256EncryptClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoKSeF.GetBase64EncoderClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpKSeF_GetBase64EncoderClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoKSeF.GetCertificateAuthType: TlgoKSeFCertificateAuthType;
@@ -380,18 +386,24 @@ end;
 
 function TlgoKSeF.GetRandomGeneratorClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpKSeF_GetRandomGeneratorClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoKSeF.GetRSAEncryptClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpKSeF_GetRSAEncryptClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoKSeF.GetRSAKey(AIndex: TlgoKSeFGateType): TlgoRSAKey;
@@ -417,10 +429,13 @@ end;
 
 function TlgoKSeF.GetSHA256HashClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpKSeF_GetSHA256HashClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoKSeF.GetToken: UTF8String;

@@ -62,10 +62,13 @@ implementation
 
 function TlgoXAdES.GetBase64EncoderClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpXAdES_GetBase64EncoderClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoXAdES.GetIncludeSigningTime: Boolean;
@@ -86,18 +89,24 @@ end;
 
 function TlgoXAdES.GetSHA1HashClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpXAdES_GetSHA1HashClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoXAdES.GetSHA256HashClass: UTF8String;
 var
-  P: LGP_PCHAR;
+  P: LGP_PSSTRING;
 begin
   lgoCheckResult(lgpXAdES_GetSHA256HashClass(ExtObject, P));
-  Result := P;
+  if P <> nil then
+    Result := P^
+  else
+    Result := '';
 end;
 
 function TlgoXAdES.GetSigningTime: TDateTime;

@@ -29,7 +29,7 @@ function ValidObject(AObject: LGP_OBJECT; AClass: TClass = nil): Boolean;
 procedure CheckObject(AObject: LGP_OBJECT; AClass: TClass = nil);
 
 function lgpObject_Free(AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpObject_ClassName(AObject: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpObject_ClassName(AObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpObject_GetStringProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpObject_SetStringProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpObject_GetIntegerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -146,13 +146,13 @@ begin
   end;
 end;
 
-function lgpObject_ClassName(AObject: LGP_OBJECT; var AClassName: LGP_PCHAR
+function lgpObject_ClassName(AObject: LGP_OBJECT; var AClassName: LGP_PSSTRING
   ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   try
     if ValidObject(AObject) then
-      AClassName := @(PVmt(TObject(AObject).ClassType)^.vClassName^[1])
+      AClassName := PVmt(TObject(AObject).ClassType)^.vClassName
     else
       Result := lgpCreateInvalidObjectException;
   except

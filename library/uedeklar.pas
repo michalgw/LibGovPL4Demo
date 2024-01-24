@@ -25,9 +25,9 @@ const
 function lgpEDek_Create(AXMLCanonizator, AEDekGate: LGP_PCHAR; var AEDekObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpEDek_GetXAdES(AEDekObj: LGP_OBJECT; var AXAdESObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpEDek_SetXAdES(AEDekObj: LGP_OBJECT; AXAdESObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpEDek_GetXMLCanonizatorClass(AEDekObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpEDek_GetXMLCanonizatorClass(AEDekObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpEDek_SetXMLCanonizatorClass(AEDekObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpEDek_GetEDekGateClass(AEDekObj: LGP_OBJECT; var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpEDek_GetEDekGateClass(AEDekObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpEDek_SetEDekGateClass(AEDekObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpEDek_GetCanonization(AEDekObj: LGP_OBJECT; var AC14N: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpEDek_SetCanonization(AEDekObj: LGP_OBJECT; AC14N: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -94,7 +94,7 @@ begin
 end;
 
 function lgpEDek_GetXMLCanonizatorClass(AEDekObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -103,7 +103,7 @@ begin
     with TObject(AEDekObj) as TlgEDeklaracja do
     begin
       if XMLCanonizator <> nil then
-        AClassName := @(PVmt(XMLCanonizator.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(XMLCanonizator.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -119,7 +119,7 @@ begin
     CheckObject(AEDekObj, TlgEDeklaracja);
     with TObject(AEDekObj) as TlgEDeklaracja do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         XMLCanonizator := nil
       else
         XMLCanonizator := XMLCanonizatorClasses.FindByClassName(AClassName);
@@ -131,7 +131,7 @@ begin
 end;
 
 function lgpEDek_GetEDekGateClass(AEDekObj: LGP_OBJECT;
-  var AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AClassName := nil;
@@ -140,7 +140,7 @@ begin
     with TObject(AEDekObj) as TlgEDeklaracja do
     begin
       if EDekGate <> nil then
-        AClassName := @(PVmt(EDekGate.ClassType)^.vClassName^[1]);
+        AClassName := PVmt(EDekGate.ClassType)^.vClassName;
     end;
   except
     on E: Exception do
@@ -156,7 +156,7 @@ begin
     CheckObject(AEDekObj, TlgEDeklaracja);
     with TObject(AEDekObj) as TlgEDeklaracja do
     begin
-      if AClassName = nil then
+      if AClassName = '' then
         EDekGate := nil
       else
         EDekGate := EDekGateClasses.FindByClassName(AClassName);

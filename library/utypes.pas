@@ -17,6 +17,7 @@ uses
 
 type
   LGP_PCHAR = PAnsiChar;
+  LGP_PSSTRING = PShortString;
   LGP_INT32 = Int32;
   LGP_UINT32 = UInt32;
   LGP_DOUBLE = Double;
