@@ -1,0 +1,8 @@
+description=Biblioteka LibGovPL 4 dla Harbour
+
+incpaths=.
+libpaths=.
+
+headers=hlibgovpl4.ch
+
+libs=${_HB_DYNPREF}${hb_name}${_HB_DYNSUFF}

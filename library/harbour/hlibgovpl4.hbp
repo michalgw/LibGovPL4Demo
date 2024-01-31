@@ -1,0 +1,30 @@
+#
+# $Id$
+#
+
+-3rd=hbide_version=1.0
+-3rd=hbide_type=Lib
+-3rd=hbide_title=hlibgovpl4
+-3rd=hbide_output=hlibgovpl4
+
+-hblib
+-inc
+
+-o${hb_name}
+
+-w3 -es2
+
+-3rd=hbide_file=${hb_name}.hbx
+
+xhb.hbc
+
+hlgintf.prg
+hlgbackend.prg
+hlgobject.prg
+hlgstream.prg
+hlgxades.prg
+hlgedek.prg
+hlgjpk.prg
+hlgksef.prg
+
+ 
