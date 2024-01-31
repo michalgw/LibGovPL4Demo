@@ -2826,7 +2826,7 @@ begin
     if lgoCheckResult(lgpObject_GetStringProp(AException, 'ReferenceNumber', S), False) then
       FReferenceNumber := lgoGetString(S);
     if lgoCheckResult(lgpObject_GetObjectProp(AException, 'ExceptionDetailList', S), False)
-      and lgoCheckResult(lgpListObject_GetCount(AException, Cnt), False)
+      and lgoCheckResult(lgpListObject_GetCount(S, Cnt), False)
       and (Cnt > 0) then
     begin
       SetLength(FExceptionDetailList, Cnt);
