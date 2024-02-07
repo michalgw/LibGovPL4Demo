@@ -117,6 +117,15 @@ exports
   lgpStringStream_Create,
   lgpStringStream_GetString,
 
+  lgpMemoryStream_Create,
+  lgpMemoryStream_GetData,
+
+  lgpStream_GetPosition,
+  lgpStream_SetPosition,
+  lgpStream_GetSize,
+  lgpStream_Read,
+  lgpStream_Write,
+
 // WST EDek Gate
   lgpWST_RegisterTransport,
   lgpWST_GetHTTPClient,

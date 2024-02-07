@@ -70,6 +70,15 @@ function lgpFileStream_Create(AFileName: LGP_PCHAR; AMode: LGP_INT32; var AStrea
 function lgpStringStream_Create(AData: LGP_PCHAR; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpStringStream_GetString(AStringStream: LGP_OBJECT; var AString: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+function lgpMemoryStream_Create(var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpMemoryStream_GetData(AMemoryStream: LGP_OBJECT; var AData: LGP_POINTER): LGP_EXCEPTION; stdcall;
+
+function lgpStream_GetPosition(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpStream_SetPosition(AStream: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpStream_GetSize(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpStream_Read(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AReaded: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpStream_Write(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AWritten: LGP_INT32): LGP_EXCEPTION; stdcall;
+
 implementation
 
 uses
@@ -131,6 +140,105 @@ begin
   try
     CheckObject(AStringStream, TStringStream);
     AString := TStringObject.Create(TStringStream(AStringStream).DataString);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpMemoryStream_Create(var AStream: LGP_OBJECT): LGP_EXCEPTION;
+  stdcall;
+begin
+  Result := nil;
+  AStream := nil;
+  try
+    AStream := TMemoryStream.Create;
+    {$ifdef LGP_DEBUG_OBJ}
+    lgpDbgAddObject(TObject(AStream));
+    {$endif}
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpMemoryStream_GetData(AMemoryStream: LGP_OBJECT;
+  var AData: LGP_POINTER): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AData := nil;
+  try
+    CheckObject(AMemoryStream, TMemoryStream);
+    AData := TMemoryStream(AMemoryStream).Memory;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStream_GetPosition(AStream: LGP_OBJECT; var AValue: LGP_INT32
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AValue := 0;
+  try
+    CheckObject(AStream, TStream);
+    AValue := TStream(AStream).Position;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStream_SetPosition(AStream: LGP_OBJECT; AValue: LGP_INT32
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AStream, TStream);
+    TStream(AStream).Position := AValue;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStream_GetSize(AStream: LGP_OBJECT; var AValue: LGP_INT32
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AValue := 0;
+  try
+    CheckObject(AStream, TStream);
+    AValue := TStream(AStream).Size;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStream_Read(AStream: LGP_OBJECT; AData: LGP_POINTER;
+  ADataSize: LGP_INT32; var AReaded: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AReaded := 0;
+  try
+    CheckObject(AStream, TStream);
+    AReaded := TStream(AStream).Read(AData^, ADataSize);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpStream_Write(AStream: LGP_OBJECT; AData: LGP_POINTER;
+  ADataSize: LGP_INT32; var AWritten: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AWritten := 0;
+  try
+    CheckObject(AStream, TStream);
+    AWritten := TStream(AStream).Write(AData^, ADataSize);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

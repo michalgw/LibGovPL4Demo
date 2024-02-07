@@ -198,6 +198,15 @@ function lgpFileStream_Create(AFileName: LGP_PCHAR; AMode: LGP_INT32; var AStrea
 function lgpStringStream_Create(AData: LGP_PCHAR; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpStringStream_GetString(AStringStream: LGP_OBJECT; var AString: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpMemoryStream_Create(var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpMemoryStream_GetData(AMemoryStream: LGP_OBJECT; var AData: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpStream_GetPosition(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpStream_SetPosition(AStream: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpStream_GetSize(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpStream_Read(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AReaded: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpStream_Write(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AWritten: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 // WST EDek Gate
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall; external LGP_LIBNAME;
 function lgpWST_GetHTTPClient(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -482,6 +491,15 @@ var
 
   lgpStringStream_Create: function(AData: LGP_PCHAR; var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpStringStream_GetString: function(AStringStream: LGP_OBJECT; var AString: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpMemoryStream_Create: function(var AStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpMemoryStream_GetData: function(AMemoryStream: LGP_OBJECT; var AData: LGP_POINTER): LGP_EXCEPTION; stdcall;
+
+  lgpStream_GetPosition: function(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpStream_SetPosition: function(AStream: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpStream_GetSize: function(AStream: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpStream_Read: function(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AReaded: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpStream_Write: function(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP_INT32; var AWritten: LGP_INT32): LGP_EXCEPTION; stdcall;
 
   // WST EDek Gate
   lgpWST_RegisterTransport: function: LGP_EXCEPTiON; stdcall;
@@ -800,6 +818,15 @@ begin
 
     @lgpStringStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpStringStream_Create');
     @lgpStringStream_GetString := GetProcAddress(LibGovPl4Handle, 'lgpStringStream_GetString');
+
+    @lgpMemoryStream_Create := GetProcAddress(LibGovPl4Handle, 'lgpMemoryStream_Create');
+    @lgpMemoryStream_GetData := GetProcAddress(LibGovPl4Handle, 'lgpMemoryStream_GetData');
+
+    @lgpStream_GetPosition := GetProcAddress(LibGovPl4Handle, 'lgpStream_GetPosition');
+    @lgpStream_SetPosition := GetProcAddress(LibGovPl4Handle, 'lgpStream_SetPosition');
+    @lgpStream_GetSize := GetProcAddress(LibGovPl4Handle, 'lgpStream_GetSize');
+    @lgpStream_Read := GetProcAddress(LibGovPl4Handle, 'lgpStream_Read');
+    @lgpStream_Write := GetProcAddress(LibGovPl4Handle, 'lgpStream_Write');
 
     // WST EDek Gate
     @lgpWST_RegisterTransport := GetProcAddress(LibGovPl4Handle, 'lgpWST_RegisterTransport');
