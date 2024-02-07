@@ -2,7 +2,8 @@
 
   LibGovPL 4
 
-  KSeF - inicjowanie sesji interaktywnej za pomoca certyfikatu kwalifikowanego
+  KSeF - wysylka wsadowa - przygotowanie paczki i podpisanie paczki,
+  wyslanie paczki
 
 */
 
@@ -30,19 +31,19 @@ FUNCTION Main()
    // Klucz publiczny RSA szyfrowania dokumentow przesylanych do KSeF
    LOCAL oRSAKey
    // Strumien plikowy
-   LOCAL oFileStream
+   LOCAL oFileStream, oMemoryStream
    // Obiekt klinta KSeF
    LOCAL oKSeF
-   LOCAL oResponse, oException
+   LOCAL oResponse, cInitUpload, cRefNum //, oException
 
    HB_LANGSELECT( 'PL' )
    hb_cdpSelect( 'PL852' )
 
-#ifdef LGP_DEBUG
+//#ifdef LGP_DEBUG
    SetMode( 25, 80 )
    AltD(1)
    AltD()
-#endif
+//#endif
 
    // Ladowanie biblioteki
    IF Empty( lgpLoadLib() )
@@ -90,8 +91,6 @@ FUNCTION Main()
    oKSeF:GateType := LGP_KSEF_GATETYPE_TEST
    // Ustaw kod przesylanych faktur - FA(2)
    oKSeF:FormCode := LGP_KSEF_FORM_CODE_FA2
-   // Wlacz dodatkowe szyfrowanie AES przesylanych dokumentow
-   oKSeF:Encryption := .T.
 
    // Pobierz i przypisz nr NIP dla klienta KSeF
    cInput := __Accept( "Wprowad« NIP:" )
@@ -108,32 +107,61 @@ FUNCTION Main()
       ? Str( nI ) + " - " + oCert:DisplayName + " (" + DToC( oCert:ValidFrom ) + " - " + DToC( oCert:ValidTo ) + ")"
    NEXT
 
-   // Wybierz certyfikat do nawiazania sesji KSeF
+   // Wybierz certyfikat do podpisu struktury InitUpload
    cInput := __Accept( "Wybierz certyfikat (1,2,3...):" )
    IF cInput == ""
       __Quit()
    ENDIF
    oKSeF:Certificate := oCertList:GetItem( Val( cInput ) )
 
-   TRY
-      ? "Inicjuj sesje"
-      oResponse := oKSeF:SessionInitSigned()
-      ? "Nr referencyjny sesji: " + oResponse:ReferenceNumber
-      ? "JSON: " + oResponse:RawResponse
-      oResponse := NIL
+   // Nazwa pliku zip z fakturami do wyslania
+   cInput := __Accept( "Wprowadz nazwe pliku paczki ZIP z fakturami:" )
+   IF cInput == ""
+      __Quit()
+   ENDIF
 
-      ? "Sprawd« status sesji"
-      oResponse := oKSeF:SessionStatus( "", 10, 0, .T. )
-      ? "Status przetwarzania: (" + Str( oResponse:ProcessingCode ) + ") " + oResponse:ProcessingDescription
-      ? "JSON: " + oResponse:RawResponse
-      oResponse := NIL
+//   TRY
+      // Przygotowanie paczki i podpis
+      ? "Szyfrowanie i podpis"
+      // Otwarcie pliku z paczka ZIP
+      oFileStream := TlgoFileStream():New( cInput, LGP_FM_OPEN_READ )
+      // Utworzenie strumienia wyjsciowego z zaszyrowana paczka ZIP
+      oMemoryStream := TlgoMemoryStream():New()
 
-      ? "Zamykanie sesji"
-      oResponse := oKSeF:SessionTerminate( .T. )
-      IF ! Empty( oResponse )
-         ? "JSON: " + oResponse:RawResponse
+      // Przygotuj - zaszyfruj paczke. utworz strukture InitUpload z podanymi nazwami plikow
+      oKSeF:BatchSign( oFileStream, .F., oMemoryStream, @cInitUpload, 'in.zip', 'out.enc' )
+      // Zwolnij plik wejsciowy ZIP
+      oFileStream := NIL
+
+      // Wyslanie przygotowanych danych na serwer KSeF i pobranie nr referencyjnego
+      ? "Wysylanie paczki"
+      oMemoryStream:Position := 0
+      cRefNum := oKSeF:BatchSend( oMemoryStream, cInitUpload )
+      ? "Wyslano, nr ref: " + cRefNum
+
+      oMemoryStream := NIL
+
+      cInput := ""
+      DO WHILE Upper( cInput ) <> "N"
+
+         ? "Sprawdzam status przetwarzania"
+         // Srpawdz status przetwarzania wyslanej paczki
+         oResponse := oKSeF:CommonStatus( cRefNum, LGP_KSEF_GATETYPE_TEST )
+
+         ? "Kod przetwarzania: " + Str( oResponse:ProcessingCode )
+         ? "Opis: " + oResponse:ProcessingDescription
+
+         cInput := __Accept( "Czy sprawdzic ponownie? (T/N)" )
+      ENDDO
+
+      IF oResponse:ProcessingCode == 200 .AND. Len( oResponse:Upo ) > 0
+        // UPO dostepne, zapisz do pliku
+        ? "UPO dostepne. Zapisuje do pliku upo.xml"
+        MemoWrit( "upo.xml", oResponse:Upo )
+        ? "UPO zapisano"
       ENDIF
-   CATCH oException
+
+/*   CATCH oException
       IF HB_ISCHAR( oException:subsystem ) .AND. Upper( oException:subsystem ) == 'EABORT'
          // Anulowano wprowadzanie nr PIN - kliknieto przycisk "Anuluj" w oknie wprowadzanie nr PIN
          ? "Anulowano"
@@ -141,7 +169,7 @@ FUNCTION Main()
          Throw( oException )
       ENDIF
    END
-
+*/
    // Zwolnij obiety przed wywolaniem lgpExit()
    oHTTPClient := NIL
    oCertSigner := NIL

@@ -2,38 +2,33 @@
 
   LibGovPL 4
 
-  KSeF - inicjowanie sesji interaktywnej za pomoca certyfikatu kwalifikowanego
+  KSeF - inicjowanie sesji interaktywnej za pomoca tokena, wysylanie faktury,
+  sprawdzenie statusu faktury
 
 */
 
 #include "hlibgovpl4.ch"
 #include "xhb.ch"
 
+#define LGP_DEBUG 1
+
 REQUEST HB_LANG_PL
 REQUEST HB_CODEPAGE_PL852
 
 FUNCTION Main()
 
-   LOCAL nI, nC, cInput
+   LOCAL cInput
    // Listy klas sterownikow
-   LOCAL aHTTPClientClasses, aCertificateSignerClasses, aRSAEncClasses
+   LOCAL aHTTPClientClasses, aRSAEncClasses
    // Klient HTTPS
    LOCAL oHTTPClient
-   // Obiekt sterownika podpisu kwalifikowanego
-   LOCAL oCertSigner
-   // Lista certyfikatow
-   LOCAL oCertList
-   // Certyfikat
-   LOCAL oCert
-   // Obiekt sygnatury XAdES
-   LOCAL oXAdES
    // Klucz publiczny RSA szyfrowania dokumentow przesylanych do KSeF
    LOCAL oRSAKey
    // Strumien plikowy
    LOCAL oFileStream
    // Obiekt klinta KSeF
    LOCAL oKSeF
-   LOCAL oResponse, oException
+   LOCAL oResponse, oStatusResp, oException
 
    HB_LANGSELECT( 'PL' )
    hb_cdpSelect( 'PL852' )
@@ -56,22 +51,10 @@ FUNCTION Main()
 
    // Pobierz liste klas sterownikow
    aHTTPClientClasses := lgoListDrivers( LGP_CLSTYPE_HTTP_CLIENT )
-   aCertificateSignerClasses := lgoListDrivers( LGP_CLSTYPE_CERT_SIGNER )
    aRSAEncClasses := lgoListDrivers( LGP_CLSTYPE_RSA_ENC )
 
    // Utworz obiekt klienta HTTPS uzywajac pierwszej klasy strownika
    oHTTPClient := TlgoHTTPClient():New( aHTTPClientClasses[ 1 ] )
-   oHTTPClient:IgnoreSSLErrors := .T.
-
-   // Utworz klase sterownika podpisu kwalifikowanego
-   oCertSigner := TlgoCertificateSigner():New( aCertificateSignerClasses[ 1 ] )
-   // Pobierz liste certyfikatow
-   oCertList := oCertSigner:List()
-
-   // Utworz obiekt sygnatury XAdES
-   oXAdES := TlgoXAdES():New()
-   // Ustaw obiekt podpisu kwalifikowanego
-   oXAdES:Signer := oCertSigner
 
    // Wczytanie klucza publicznego RSA ze wskazanego pliku uzywajac pierwszego na liscie sterownika
    oFileStream := TlgoFileStream():New( "kseftest.pem", LGP_FM_OPEN_READ )
@@ -80,8 +63,6 @@ FUNCTION Main()
 
    // Utworz obiekt klienta KSeF
    oKSeF := TlgoKSeF():New()
-   // Podlacz obiekt sygnatury XAdES
-   oKSeF:XAdES := oXAdES
    // Podlacz klucz RSA
    oKSeF:RSAKeyTest := oRSAKey
    // Podlacz klienta HTTPS
@@ -100,33 +81,44 @@ FUNCTION Main()
    ENDIF
    oKSeF:NIP := cInput
 
-   // Wyswietl liste certyfikatow
-   ? "Certyfikaty: " + Str( oCertList:Count() )
-   nC := oCertList:Count()
-   FOR nI := 1 TO nC
-      oCert := oCertList:GetItem( nI )
-      ? Str( nI ) + " - " + oCert:DisplayName + " (" + DToC( oCert:ValidFrom ) + " - " + DToC( oCert:ValidTo ) + ")"
-   NEXT
-
-   // Wybierz certyfikat do nawiazania sesji KSeF
-   cInput := __Accept( "Wybierz certyfikat (1,2,3...):" )
+   // Wybierz token do nawiazania sesji KSeF
+   cInput := __Accept( "Wprowad« token autoryzuj¥cy:" )
    IF cInput == ""
       __Quit()
    ENDIF
-   oKSeF:Certificate := oCertList:GetItem( Val( cInput ) )
+   oKSeF:Token := cInput
+
+   // Wprowadz nazwe pliku do wyslania
+   cInput := __Accept( "Wprowadz nazwe pliku FA do wyslania:" )
+   IF cInput == ""
+      __Quit()
+   ENDIF
 
    TRY
       ? "Inicjuj sesje"
-      oResponse := oKSeF:SessionInitSigned()
+      oResponse := oKSeF:SessionInitToken()
       ? "Nr referencyjny sesji: " + oResponse:ReferenceNumber
       ? "JSON: " + oResponse:RawResponse
       oResponse := NIL
 
-      ? "Sprawd« status sesji"
-      oResponse := oKSeF:SessionStatus( "", 10, 0, .T. )
-      ? "Status przetwarzania: (" + Str( oResponse:ProcessingCode ) + ") " + oResponse:ProcessingDescription
-      ? "JSON: " + oResponse:RawResponse
-      oResponse := NIL
+      ? "Wysylanie pliku " + cInput
+      oFileStream := TlgoFileStream():New( cInput, LGP_FM_OPEN_READ )
+      oResponse := oKSeF:InvoiceSend( oFileStream )
+      oFileStream := NIL
+
+      ? "Nr referencyjny przetwarzania wyslanej faktury: " + oResponse:ElementReferenceNumber
+
+      DO WHILE .T.
+         ? "Sprawdzanie statusu wyslanej faktury"
+         oStatusResp := oKSeF:InvoiceStatus( oResponse:ElementReferenceNumber )
+         ? "Status: " + Str( oStatusResp:ProcessingCode )
+         ? "Opis: " + oStatusResp:ProcessingDescription
+
+         cInput := __Accept( "Czy sprawdzicz ponownie? (T/N)" )
+         IF Upper( cInput ) == "N"
+            EXIT
+         ENDIF
+      ENDDO
 
       ? "Zamykanie sesji"
       oResponse := oKSeF:SessionTerminate( .T. )
@@ -134,24 +126,16 @@ FUNCTION Main()
          ? "JSON: " + oResponse:RawResponse
       ENDIF
    CATCH oException
-      IF HB_ISCHAR( oException:subsystem ) .AND. Upper( oException:subsystem ) == 'EABORT'
-         // Anulowano wprowadzanie nr PIN - kliknieto przycisk "Anuluj" w oknie wprowadzanie nr PIN
-         ? "Anulowano"
-      ELSE
-         Throw( oException )
-      ENDIF
+      Throw( oException )
    END
 
    // Zwolnij obiety przed wywolaniem lgpExit()
    oHTTPClient := NIL
-   oCertSigner := NIL
-   oCertList := NIL
-   oCert := NIL
-   oXAdES := NIL
    oRSAKey := NIL
    oFileStream := NIL
    oKSeF := NIL
    oResponse := NIL
+   oStatusResp := NIL
 
    // Zakoncz biblioteke
    lgplExit()

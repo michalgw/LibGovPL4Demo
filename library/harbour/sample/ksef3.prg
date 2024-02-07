@@ -2,7 +2,8 @@
 
   LibGovPL 4
 
-  KSeF - inicjowanie sesji interaktywnej za pomoca certyfikatu kwalifikowanego
+  KSeF - inicjowanie sesji interaktywnej za pomoca tokena, wysylanie faktury,
+  sprawdzenie statusu faktury
 
 */
 
@@ -14,26 +15,19 @@ REQUEST HB_CODEPAGE_PL852
 
 FUNCTION Main()
 
-   LOCAL nI, nC, cInput
+   LOCAL cInput, i
    // Listy klas sterownikow
-   LOCAL aHTTPClientClasses, aCertificateSignerClasses, aRSAEncClasses
+   LOCAL aHTTPClientClasses, aRSAEncClasses
    // Klient HTTPS
    LOCAL oHTTPClient
-   // Obiekt sterownika podpisu kwalifikowanego
-   LOCAL oCertSigner
-   // Lista certyfikatow
-   LOCAL oCertList
-   // Certyfikat
-   LOCAL oCert
-   // Obiekt sygnatury XAdES
-   LOCAL oXAdES
    // Klucz publiczny RSA szyfrowania dokumentow przesylanych do KSeF
    LOCAL oRSAKey
    // Strumien plikowy
    LOCAL oFileStream
    // Obiekt klinta KSeF
    LOCAL oKSeF
-   LOCAL oResponse, oException
+   LOCAL oQueryRequest, oQueryCriteria, oElement
+   LOCAL oResponse, oStatusResp, oException
 
    HB_LANGSELECT( 'PL' )
    hb_cdpSelect( 'PL852' )
@@ -56,22 +50,10 @@ FUNCTION Main()
 
    // Pobierz liste klas sterownikow
    aHTTPClientClasses := lgoListDrivers( LGP_CLSTYPE_HTTP_CLIENT )
-   aCertificateSignerClasses := lgoListDrivers( LGP_CLSTYPE_CERT_SIGNER )
    aRSAEncClasses := lgoListDrivers( LGP_CLSTYPE_RSA_ENC )
 
    // Utworz obiekt klienta HTTPS uzywajac pierwszej klasy strownika
    oHTTPClient := TlgoHTTPClient():New( aHTTPClientClasses[ 1 ] )
-   oHTTPClient:IgnoreSSLErrors := .T.
-
-   // Utworz klase sterownika podpisu kwalifikowanego
-   oCertSigner := TlgoCertificateSigner():New( aCertificateSignerClasses[ 1 ] )
-   // Pobierz liste certyfikatow
-   oCertList := oCertSigner:List()
-
-   // Utworz obiekt sygnatury XAdES
-   oXAdES := TlgoXAdES():New()
-   // Ustaw obiekt podpisu kwalifikowanego
-   oXAdES:Signer := oCertSigner
 
    // Wczytanie klucza publicznego RSA ze wskazanego pliku uzywajac pierwszego na liscie sterownika
    oFileStream := TlgoFileStream():New( "kseftest.pem", LGP_FM_OPEN_READ )
@@ -80,8 +62,6 @@ FUNCTION Main()
 
    // Utworz obiekt klienta KSeF
    oKSeF := TlgoKSeF():New()
-   // Podlacz obiekt sygnatury XAdES
-   oKSeF:XAdES := oXAdES
    // Podlacz klucz RSA
    oKSeF:RSAKeyTest := oRSAKey
    // Podlacz klienta HTTPS
@@ -100,33 +80,66 @@ FUNCTION Main()
    ENDIF
    oKSeF:NIP := cInput
 
-   // Wyswietl liste certyfikatow
-   ? "Certyfikaty: " + Str( oCertList:Count() )
-   nC := oCertList:Count()
-   FOR nI := 1 TO nC
-      oCert := oCertList:GetItem( nI )
-      ? Str( nI ) + " - " + oCert:DisplayName + " (" + DToC( oCert:ValidFrom ) + " - " + DToC( oCert:ValidTo ) + ")"
-   NEXT
-
-   // Wybierz certyfikat do nawiazania sesji KSeF
-   cInput := __Accept( "Wybierz certyfikat (1,2,3...):" )
+   // Wybierz token do nawiazania sesji KSeF
+   cInput := __Accept( "Wprowad« token autoryzuj¥cy:" )
    IF cInput == ""
       __Quit()
    ENDIF
-   oKSeF:Certificate := oCertList:GetItem( Val( cInput ) )
+   oKSeF:Token := cInput
 
    TRY
       ? "Inicjuj sesje"
-      oResponse := oKSeF:SessionInitSigned()
+      oResponse := oKSeF:SessionInitToken()
       ? "Nr referencyjny sesji: " + oResponse:ReferenceNumber
       ? "JSON: " + oResponse:RawResponse
       oResponse := NIL
 
-      ? "Sprawd« status sesji"
-      oResponse := oKSeF:SessionStatus( "", 10, 0, .T. )
-      ? "Status przetwarzania: (" + Str( oResponse:ProcessingCode ) + ") " + oResponse:ProcessingDescription
-      ? "JSON: " + oResponse:RawResponse
-      oResponse := NIL
+      // Odczekaj moment aby uniknacz bledu braku autoryzacji
+      __Accept( "Wcisnij Enter aby kontynuowac" )
+
+      oQueryCriteria := TKSeFQueryCriteriaInvoiceRange():New()
+      // Wyszukaj faktury sprzedazy
+      oQueryCriteria:SubjectType := LGP_KSEF_SUBJECTTYPE_SUBJECT1
+      // Wyszukaj faktury wystawione w przeciagu ostatnich 30 dni
+      oQueryCriteria:InvoicingDateFrom := AddMonth( hb_DateTime(), -1 )
+      oQueryCriteria:InvoicingDateTo := hb_DateTime()
+      ?? "Zakres daty wystawienia: "
+      ?? oQueryCriteria:InvoicingDateFrom
+      ?? " = "
+      ? oQueryCriteria:InvoicingDateTo
+
+      // Utworz obiekt zadania i przypisz kryteria.
+      oQueryRequest := TKSeFQueryInvoiceRequest():New()
+      oQueryRequest:QueryCriteria := oQueryCriteria
+
+      // Wyszukaj synchronicznie po zadanych kryteriach,
+      // pobierz 10 pierwszych wynikow
+      ? "Wyszukiwanie"
+      oResponse := oKSeF:QueryInvoiceSync( oQueryRequest, 10, 0 )
+
+      // Wyswietl wyniki
+      ? "Licba wynikow: " + Str( oResponse:NumberOfElements )
+
+      // Listy obiektow KSeF sa numerowane od zera ( 0 )
+      FOR i := 0 TO oResponse:NumberOfElements - 1
+         oElement := oResponse:InvoiceHeaderList:Items( i )
+         ? "Nr elementu: " + Str( i )
+         ? "Rodzaj: " + Str( oElement:InvoiceType )
+         ? "Nr fa: " + oElement:InvoiceReferenceNumber
+         ?? "Data: "
+         ? oElement:InvoicingDate
+         ? "Nr KSeF: " + oElement:KsefReferenceNumber
+         ? "-------"
+      NEXT
+
+      IF oResponse:InvoiceHeaderList:Count() > 0
+         oElement := oResponse:InvoiceHeaderList:Items( 0 )
+         ? "Pobieranie faktury nr: " + oElement:InvoiceReferenceNumber
+         oFileStream := TlgoFileStream():New( oElement:KsefReferenceNumber + ".xml", LGP_FM_CREATE )
+         oKSeF:InvoiceGet( oElement:KsefReferenceNumber, oFileStream )
+         oFileStream := NIL
+         ? "Zapisano do pliku " + oElement:KsefReferenceNumber + ".xml"
+      ENDIF
 
       ? "Zamykanie sesji"
       oResponse := oKSeF:SessionTerminate( .T. )
@@ -134,24 +147,19 @@ FUNCTION Main()
          ? "JSON: " + oResponse:RawResponse
       ENDIF
    CATCH oException
-      IF HB_ISCHAR( oException:subsystem ) .AND. Upper( oException:subsystem ) == 'EABORT'
-         // Anulowano wprowadzanie nr PIN - kliknieto przycisk "Anuluj" w oknie wprowadzanie nr PIN
-         ? "Anulowano"
-      ELSE
-         Throw( oException )
-      ENDIF
+      Throw( oException )
    END
 
    // Zwolnij obiety przed wywolaniem lgpExit()
+   oQueryRequest := NIL
+   oQueryCriteria := NIL
+   oElement := NIL
    oHTTPClient := NIL
-   oCertSigner := NIL
-   oCertList := NIL
-   oCert := NIL
-   oXAdES := NIL
    oRSAKey := NIL
    oFileStream := NIL
    oKSeF := NIL
    oResponse := NIL
+   oStatusResp := NIL
 
    // Zakoncz biblioteke
    lgplExit()
