@@ -484,6 +484,68 @@ FUNCTION lgpStringStream_GetString( pStringStream, pString )
 
 /*----------------------------------------------------------------------*/
 
+FUNCTION lgpMemoryStream_Create( pStream )
+
+   RETURN hb_DynCall( { "lgpMemoryStream_Create", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR }, @pStream )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpMemoryStream_GetData( pMemoryStream, pData )
+
+   RETURN hb_DynCall( { "lgpMemoryStream_GetData", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_VOID_PTR }, ;
+      pMemoryStream, @pData )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpStream_GetPosition( pStream, nValue )
+
+   RETURN hb_DynCall( { "lgpStream_GetPosition", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT }, ;
+      pStream, @nValue )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpStream_SetPosition( pStream, nValue )
+
+   RETURN hb_DynCall( { "lgpStream_SetPosition", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT }, ;
+      pStream, nValue )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpStream_GetSize( pStream, nValue )
+
+   RETURN hb_DynCall( { "lgpStream_GetSize", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT }, ;
+      pStream, @nValue )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpStream_Read( pStream, pData, nDataSize, nReaded )
+
+   RETURN hb_DynCall( { "lgpStream_Read", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT, ;
+      HB_DYN_CTYPE_INT }, pStream,, pData, nDataSize, @nReaded )
+
+/*----------------------------------------------------------------------*/
+
+FUNCTION lgpStream_Write( pStream, pData, nDataSize, nWritten )
+
+   RETURN hb_DynCall( { "lgpStream_Write", h_LibGovPL4, ;
+      hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
+      HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT, ;
+      HB_DYN_CTYPE_INT }, pStream,, pData, nDataSize, @nWritten )
+
+/*----------------------------------------------------------------------*/
+
 // WST EDek Gate
 FUNCTION lgpWST_RegisterTransport()
 
@@ -1997,14 +2059,14 @@ FUNCTION lgpKSeF_CommonVerification( pKSeFObject, cKsefReferenceNumber, pVerific
 
 /*----------------------------------------------------------------------*/
 
-FUNCTION lgpKSeF_BatchSign( pKSeFObject, pZIPDataStream, nPZ, pEncryptedStream, pInitUploadm, cAZIPFileName, cPartFileName )
+FUNCTION lgpKSeF_BatchSign( pKSeFObject, pZIPDataStream, nPZ, pEncryptedStream, pInitUpload, cAZIPFileName, cPartFileName )
 
    RETURN hb_DynCall( { "lgpKSeF_BatchSign", h_LibGovPL4, ;
       hb_bitOr( HB_DYN_CALLCONV_STDCALL, HB_DYN_CTYPE_VOID_PTR ), ;
       HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_INT, HB_DYN_CTYPE_VOID_PTR, HB_DYN_CTYPE_VOID_PTR, ;
       hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_ENC_UTF8, HB_DYC_OPT_NULLTERM ), ;
       hb_bitOr( HB_DYN_CTYPE_CHAR_PTR, HB_DYN_ENC_UTF8, HB_DYC_OPT_NULLTERM ) }, ;
-      pKSeFObject, pZIPDataStream, nPZ, pEncryptedStream, @pInitUploadm, cAZIPFileName, cPartFileName )
+      pKSeFObject, pZIPDataStream, nPZ, pEncryptedStream, @pInitUpload, cAZIPFileName, cPartFileName )
 
 /*----------------------------------------------------------------------*/
 

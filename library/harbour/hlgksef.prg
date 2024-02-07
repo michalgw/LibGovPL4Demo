@@ -183,7 +183,7 @@ METHOD InvoiceSend( oDataStream ) CLASS TlgoKSeF
 
    LOCAL pResp
 
-   lgoCheckResult( lgpKSeF_InvoiceGet( ::pExtObject, oDataStream:ExtObject, @pResp ) )
+   lgoCheckResult( lgpKSeF_InvoiceSend( ::pExtObject, oDataStream:ExtObject, @pResp ) )
 
    RETURN lgoCreateObject( pResp )
 
@@ -377,7 +377,10 @@ METHOD CommonVerification( cKsefReferenceNumber, oVerificationRequest, nGateType
 
 METHOD BatchSign( oZIPDataStream, lPZ, oEncryptedStream, cInitUpload, cZIPFileName, cPartFileName ) CLASS TlgoKSeF
 
-   lgoCheckResult( lgpKSeF_BatchSign( ::pExtObject, oZIPDataStream, lPZ, oEncryptedStream, @cInitUpload, cZIPFileName, cPartFileName ) )
+   LOCAL pIU
+
+   lgoCheckResult( lgpKSeF_BatchSign( ::pExtObject, oZIPDataStream:ExtObject, lPZ, oEncryptedStream:ExtObject, @pIU, cZIPFileName, cPartFileName ) )
+   cInitUpload := lgoGetString( pIU )
 
    RETURN NIL
 
@@ -773,11 +776,11 @@ METHOD Items( nIndex ) CLASS TKSeFArray
 
    LOCAL o, r
 
-   IF ( nIndex < Len( ::aItems ) .AND. ! Empty( ::aItems[ nIndex + 1 ] ) ) .OR. Len( ::aItems ) <= nIndex
+   IF ( nIndex < Len( ::aItems ) .AND. Empty( ::aItems[ nIndex + 1 ] ) ) .OR. Len( ::aItems ) <= nIndex
       lgoCheckResult( lgpListObject_GetItem( ::ExtObject, nIndex, @o ) )
       IF HB_ISPOINTER( o ) .AND. ! Empty( o )
          r := lgoCreateObject( o )
-         IF Len( ::aItems ) < nIndex
+         IF Len( ::aItems ) <= nIndex
             ASize( ::aItems, nIndex + 1 )
          ENDIF
          ::aItems[ nIndex + 1 ] := r
@@ -1949,7 +1952,7 @@ CREATE CLASS TKSeFSubjectBy INHERIT TKSeFObject
 
    HIDDEN:
    VAR oIssuedByIdentifier INIT NIL
-   VAR oFIssuedByIdentifier INIT NIL
+   VAR oIssuedByName INIT NIL
 
    VISIBLE:
    METHOD New( xClass ) CONSTRUCTOR
