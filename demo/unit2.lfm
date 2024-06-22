@@ -1,7 +1,7 @@
 object Form2: TForm2
-  Left = 257
+  Left = 207
   Height = 463
-  Top = 114
+  Top = 130
   Width = 655
   Caption = 'Eksplorator obiektów'
   ClientHeight = 463

@@ -115,6 +115,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="libgovpl4pkcs11"/>
+      </Item>
+      <Item>
         <PackageName Value="libgovpl4dcpcrypt"/>
       </Item>
       <Item>

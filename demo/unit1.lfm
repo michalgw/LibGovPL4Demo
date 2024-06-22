@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 425
+  Left = 341
   Height = 762
-  Top = 38
+  Top = 43
   Width = 698
   Caption = 'LibGovPL 4 Demo'
   ClientHeight = 762
@@ -15,10 +15,10 @@ object Form1: TForm1
     Height = 630
     Top = 0
     Width = 698
-    ActivePage = TabSheetKSeFQueryInvoice
+    ActivePage = TabSheetPKCS11
     Align = alClient
     MultiLine = True
-    TabIndex = 11
+    TabIndex = 13
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -32,28 +32,28 @@ object Form1: TForm1
         Top = 0
         Width = 690
         HorzScrollBar.Page = 259
-        VertScrollBar.Page = 494
+        VertScrollBar.Page = 508
         Align = alClient
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 508
-        ClientWidth = 686
+        ClientWidth = 669
         TabOrder = 0
         object Label1: TLabel
           Left = 0
           Height = 23
           Top = 0
-          Width = 370
+          Width = 361
           Caption = 'HTTP Client'
         end
         object ComboBoxHTTPCli: TComboBox
           AnchorSideRight.Side = asrBottom
-          Left = 370
+          Left = 361
           Height = 23
           Top = 0
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 0
@@ -62,14 +62,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 23
-          Width = 370
+          Width = 361
           Caption = 'Random nmber generator'
         end
         object ComboBoxRandGen: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 23
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 1
@@ -78,14 +78,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 46
-          Width = 370
+          Width = 361
           Caption = 'Base64 Encoder'
         end
         object ComboBoxBase64: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 46
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 2
@@ -94,14 +94,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 69
-          Width = 370
+          Width = 361
           Caption = 'MD5 Hash'
         end
         object ComboBoxMD5: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 69
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 3
@@ -110,14 +110,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 92
-          Width = 370
+          Width = 361
           Caption = 'SHA1 Hash'
         end
         object ComboBoxSHA1: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 92
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 4
@@ -126,14 +126,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 115
-          Width = 370
+          Width = 361
           Caption = 'SHA-256 Hash'
         end
         object ComboBoxSHA256: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 115
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 5
@@ -142,14 +142,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 138
-          Width = 370
+          Width = 361
           Caption = 'Signer'
         end
         object ComboBoxSign: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 138
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 6
@@ -158,14 +158,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 161
-          Width = 370
+          Width = 361
           Caption = 'eDeklaracja SOAP'
         end
         object ComboBoxEDek: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 161
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 7
@@ -174,14 +174,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 184
-          Width = 370
+          Width = 361
           Caption = 'XML C14N'
         end
         object ComboBoxXMLC14N: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 184
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 8
@@ -190,14 +190,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 207
-          Width = 370
+          Width = 361
           Caption = 'XML Reader'
         end
         object ComboBoxXMLRead: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 207
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 9
@@ -206,14 +206,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 230
-          Width = 370
+          Width = 361
           Caption = 'Zip file'
         end
         object ComboBoxZip: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 230
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 10
@@ -222,14 +222,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 253
-          Width = 370
+          Width = 361
           Caption = 'AES256 Encryption'
         end
         object ComboBoxAES256: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 253
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 11
@@ -238,14 +238,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 276
-          Width = 370
+          Width = 361
           Caption = 'RSA encryption'
         end
         object ComboBoxRSAEnc: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 276
-          Width = 316
+          Width = 308
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 12
@@ -254,14 +254,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 299
-          Width = 370
+          Width = 361
           Caption = 'XAdES - Rodzaj SHA'
         end
         object ComboBoxXAdESSHA: TComboBox
-          Left = 370
+          Left = 361
           Height = 23
           Top = 299
-          Width = 316
+          Width = 308
           ItemHeight = 15
           ItemIndex = 1
           Items.Strings = (
@@ -276,28 +276,28 @@ object Form1: TForm1
           Left = 0
           Height = 17
           Top = 322
-          Width = 370
+          Width = 361
           Caption = 'XAdES - Dołącz datę i czas'
         end
         object CheckBoxXAdESCzas: TCheckBox
-          Left = 370
+          Left = 361
           Height = 17
           Top = 322
-          Width = 316
+          Width = 308
           TabOrder = 14
         end
         object Label26: TLabel
           Left = 0
           Height = 17
           Top = 339
-          Width = 370
+          Width = 361
           Caption = 'eDeklaracja - kanonizuj XML'
         end
         object CheckBoxEDekC14N: TCheckBox
-          Left = 370
+          Left = 361
           Height = 17
           Top = 339
-          Width = 316
+          Width = 308
           Checked = True
           State = cbChecked
           TabOrder = 15
@@ -306,14 +306,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 356
-          Width = 370
+          Width = 361
           Caption = 'JPK - Klucz RSA produkcyjny'
         end
         object FileNameEditJPKRSAProd: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 356
-          Width = 316
+          Width = 308
           FileName = '..\pem\prod.pem'
           FilterIndex = 0
           HideDirectories = False
@@ -327,14 +327,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 379
-          Width = 370
+          Width = 361
           Caption = 'JPK - Klucz RSA testowy'
         end
         object FileNameEditJPKRSATest: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 379
-          Width = 316
+          Width = 308
           FileName = '..\pem\test.pem'
           FilterIndex = 0
           HideDirectories = False
@@ -348,14 +348,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 402
-          Width = 370
+          Width = 361
           Caption = 'KSeF - klucz RSA produkcyjny'
         end
         object FileNameEditKSeFRSAProd: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 402
-          Width = 316
+          Width = 308
           FileName = '..\pem\ksefprod.pem'
           FilterIndex = 0
           HideDirectories = False
@@ -369,14 +369,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 425
-          Width = 370
+          Width = 361
           Caption = 'KSeF - klucz RSA demo'
         end
         object FileNameEditKSeFRSADemo: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 425
-          Width = 316
+          Width = 308
           FileName = '..\pem\ksefdemo.pem'
           FilterIndex = 0
           HideDirectories = False
@@ -390,14 +390,14 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 448
-          Width = 370
+          Width = 361
           Caption = 'KSeF - klucz RSA tetowy'
         end
         object FileNameEditKSeFRSATest: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 448
-          Width = 316
+          Width = 308
           FileName = '..\pem\kseftest.pem'
           FilterIndex = 0
           HideDirectories = False
@@ -411,20 +411,39 @@ object Form1: TForm1
           Left = 0
           Height = 23
           Top = 471
-          Width = 370
+          Width = 361
           Caption = 'Plik biblioteki libxml2'
         end
         object FileNameEditLibXml2: TFileNameEdit
-          Left = 370
+          Left = 361
           Height = 23
           Top = 471
-          Width = 316
+          Width = 308
           FilterIndex = 0
           HideDirectories = False
           ButtonWidth = 23
           NumGlyphs = 1
           MaxLength = 0
           TabOrder = 21
+        end
+        object Label123: TLabel
+          Left = 0
+          Height = 23
+          Top = 494
+          Width = 361
+          Caption = 'Plik biblioteki PKCS11'
+        end
+        object FileNameEditLibPKCS11: TFileNameEdit
+          Left = 361
+          Height = 23
+          Top = 494
+          Width = 308
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 23
+          NumGlyphs = 1
+          MaxLength = 0
+          TabOrder = 22
         end
       end
       object Panel2: TPanel
@@ -3386,6 +3405,165 @@ object Form1: TForm1
             Width = 123
             Caption = 'Nadany nr referencyjny'
           end
+        end
+      end
+    end
+    object TabSheetPKCS11: TTabSheet
+      Caption = 'PKCS11'
+      ClientHeight = 562
+      ClientWidth = 690
+      TabVisible = False
+      object GroupBox23: TGroupBox
+        Left = 0
+        Height = 97
+        Top = 0
+        Width = 690
+        Align = alTop
+        AutoSize = True
+        Caption = 'Informacje'
+        ClientHeight = 77
+        ClientWidth = 686
+        TabOrder = 0
+        object ButtonPKCS11Info: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = GroupBox23
+          Left = 9
+          Height = 25
+          Top = 9
+          Width = 225
+          AutoSize = True
+          BorderSpacing.Around = 9
+          Caption = 'Pokaż informacje o bibliotece PKCS11'
+          TabOrder = 0
+          OnClick = ButtonPKCS11InfoClick
+        end
+        object ButtonPKCS11Slots: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = ButtonPKCS11Info
+          AnchorSideTop.Side = asrBottom
+          Left = 9
+          Height = 25
+          Top = 43
+          Width = 119
+          AutoSize = True
+          BorderSpacing.Around = 9
+          Caption = 'Pokaż listę slotów'
+          TabOrder = 1
+          OnClick = ButtonPKCS11SlotsClick
+        end
+      end
+      object GroupBox24: TGroupBox
+        Left = 0
+        Height = 127
+        Top = 97
+        Width = 690
+        Align = alTop
+        Caption = 'Sesja'
+        ClientHeight = 107
+        ClientWidth = 686
+        TabOrder = 1
+        object Label124: TLabel
+          Left = 23
+          Height = 15
+          Top = 11
+          Width = 51
+          Caption = 'Certyfikat'
+        end
+        object ComboBoxPKCS11Cert: TComboBox
+          Left = 96
+          Height = 23
+          Top = 8
+          Width = 576
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object Label125: TLabel
+          Left = 23
+          Height = 15
+          Top = 45
+          Width = 19
+          Caption = 'PIN'
+        end
+        object EditPKCS11PIN: TEdit
+          Left = 96
+          Height = 23
+          Top = 42
+          Width = 232
+          TabOrder = 1
+        end
+        object ButtonPKCS11SesStart: TButton
+          Left = 96
+          Height = 25
+          Top = 72
+          Width = 111
+          AutoSize = True
+          Caption = 'Rozpocznij sesję'
+          TabOrder = 2
+          OnClick = ButtonPKCS11SesStartClick
+        end
+        object ButtonPKCS11SesLogin: TButton
+          Left = 216
+          Height = 25
+          Top = 72
+          Width = 66
+          AutoSize = True
+          Caption = 'Zaloguj'
+          TabOrder = 3
+          OnClick = ButtonPKCS11SesLoginClick
+        end
+        object ButtonPKCS11SesLogout: TButton
+          Left = 288
+          Height = 25
+          Top = 72
+          Width = 70
+          AutoSize = True
+          Caption = 'Wyloguj'
+          TabOrder = 4
+          OnClick = ButtonPKCS11SesLogoutClick
+        end
+        object ButtonPKCS11SesClose: TButton
+          Left = 368
+          Height = 25
+          Top = 72
+          Width = 98
+          AutoSize = True
+          Caption = 'Zakończ sesję'
+          TabOrder = 5
+          OnClick = ButtonPKCS11SesCloseClick
+        end
+        object ButtonPKCS11SesInfo: TButton
+          Left = 472
+          Height = 25
+          Top = 72
+          Width = 116
+          AutoSize = True
+          Caption = 'Pokaż info o sesji'
+          TabOrder = 6
+          OnClick = ButtonPKCS11SesInfoClick
+        end
+        object Label126: TLabel
+          Left = 352
+          Height = 15
+          Top = 45
+          Width = 104
+          Caption = 'Rodzaj użytkownika'
+        end
+        object ComboBoxPKCS11UserType: TComboBox
+          Left = 464
+          Height = 23
+          Top = 42
+          Width = 140
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'SO'
+            'User'
+            'Context Specific'
+          )
+          Style = csDropDownList
+          TabOrder = 7
+          Text = 'User'
         end
       end
     end
