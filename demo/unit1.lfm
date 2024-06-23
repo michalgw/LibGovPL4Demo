@@ -151,8 +151,13 @@ object Form1: TForm1
           Top = 138
           Width = 308
           ItemHeight = 15
+          ItemIndex = 0
+          Items.Strings = (
+            '(brak obsługi podpisu kwalifikowanego)'
+          )
           Style = csDropDownList
           TabOrder = 6
+          Text = '(brak obsługi podpisu kwalifikowanego)'
         end
         object Label7: TLabel
           Left = 0

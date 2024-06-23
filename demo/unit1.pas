@@ -596,8 +596,8 @@ begin
     ComboBoxSHA256.ItemIndex := 0;
   if ComboBoxAES256.Items.Count > 0 then
     ComboBoxAES256.ItemIndex := 0;
-  if ComboBoxSign.Items.Count > 0 then
-    ComboBoxSign.ItemIndex := 0;
+  if ComboBoxSign.Items.Count > 1 then
+    ComboBoxSign.ItemIndex := 1;
   if ComboBoxEDek.Items.Count > 0 then
     ComboBoxEDek.ItemIndex := 0;
   if ComboBoxXMLC14N.Items.Count > 0 then
@@ -928,16 +928,16 @@ procedure TForm1.ButtonSetupClick(Sender: TObject);
 var
   FS: TFileStream = nil;
 begin
-  if (CertSignerClasses[ComboBoxSign.ItemIndex] = TlgPKCS11CertificateSigner) and
+  if (ComboBoxSign.ItemIndex > 0) and (CertSignerClasses[ComboBoxSign.ItemIndex - 1] = TlgPKCS11CertificateSigner) and
     (FileNameEditLibPKCS11.FileName = '') then
   begin
     MessageDlg('Wprowadź bibliotekę PKCS11', mtInformation, [mbOK], 0);
     Exit;
   end;
 
-  if not Assigned(Signer) and (ComboBoxSign.ItemIndex >= 0) then
+  if not Assigned(Signer) and (ComboBoxSign.ItemIndex > 0) then
   begin
-    Signer := CertSignerClasses[ComboBoxSign.ItemIndex].Create(Self);
+    Signer := CertSignerClasses[ComboBoxSign.ItemIndex - 1].Create(Self);
     {$IFDEF WINDOWS}
     if Signer is TlgCNGCertificateSigner then
       TlgCNGCertificateSigner(Signer).HWnd := Self.Handle
@@ -962,21 +962,24 @@ begin
   if ComboBoxHTTPCli.ItemIndex >= 0 then
     HTTPClient := HTTPClientClasses[ComboBoxHTTPCli.ItemIndex].Create;
 
-  XAdES := TlgXAdES.Create(Self);
   EDek := TlgEDeklaracja.Create(Self);
   JPK := TlgJPK.Create(Self);
 
-  with XAdES do
+  if Assigned(Signer) then
   begin
-    if ComboBoxSHA1.ItemIndex >= 0 then
-      SHA1HashClass := SHA1HashClasses[ComboBoxSHA1.ItemIndex];
-    if ComboBoxSHA256.ItemIndex >= 0 then
-      SHA256HashClass := SHA256HashClasses[ComboBoxSHA256.ItemIndex];
-    if ComboBoxBase64.ItemIndex >= 0 then
-      Base64EncoderClass := Base64EncoderClasses[ComboBoxBase64.ItemIndex];
-    Signer := Self.Signer;
-    SignType := TlgSignHashType(ComboBoxXAdESSHA.ItemIndex);
-    IncludeSigningTime := CheckBoxXAdESCzas.Checked;
+    XAdES := TlgXAdES.Create(Self);
+    with XAdES do
+    begin
+      if ComboBoxSHA1.ItemIndex >= 0 then
+        SHA1HashClass := SHA1HashClasses[ComboBoxSHA1.ItemIndex];
+      if ComboBoxSHA256.ItemIndex >= 0 then
+        SHA256HashClass := SHA256HashClasses[ComboBoxSHA256.ItemIndex];
+      if ComboBoxBase64.ItemIndex >= 0 then
+        Base64EncoderClass := Base64EncoderClasses[ComboBoxBase64.ItemIndex];
+      Signer := Self.Signer;
+      SignType := TlgSignHashType(ComboBoxXAdESSHA.ItemIndex);
+      IncludeSigningTime := CheckBoxXAdESCzas.Checked;
+    end;
   end;
 
   with EDek do
@@ -1082,21 +1085,26 @@ begin
       MessageDlg('Nie można załadować biblioteki: ' + FileNameEditLibXml2.FileName,
         mtError, [mbOK], 0);
 
-  LoadCertList;
-
   TabSheetSetup.Enabled := False;
-  TabSheetCert.TabVisible := True;
-  TabSheetEDekPodpisCert.TabVisible := True;
   TabSheetEDekPodpisAut.TabVisible := True;
   TabSheetEDekBramka.TabVisible := True;
-  TabSheetJPKPodpisCert.TabVisible := True;
   TabSheetJPKPodpisAut.TabVisible := True;
   TabSheetJPKBramka.TabVisible := True;
   TabSheetKsefSession.TabVisible := True;
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
-  if Signer is TlgPKCS11CertificateSigner then
-    TabSheetPKCS11.TabVisible := True;
+
+  if Assigned(Signer) then
+  begin
+    TabSheetCert.TabVisible := True;
+    TabSheetEDekPodpisCert.TabVisible := True;
+    TabSheetJPKPodpisCert.TabVisible := True;
+    if Signer is TlgPKCS11CertificateSigner then
+      TabSheetPKCS11.TabVisible := True;
+    LoadCertList;
+  end
+  else
+    GroupBoxKSeFSesInitCert.Visible := False;
 
   DateTimePickerKSeFQInvCrRanInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrRanInvTo.DateTime := Now;
