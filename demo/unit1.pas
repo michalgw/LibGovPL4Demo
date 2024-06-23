@@ -487,8 +487,18 @@ implementation
 {$R *.lfm}
 
 uses
-  lgCNG, lgMSXML, lgWinHTTP, lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2,
+  {$IFDEF WINDOWS}
+  lgCNG, lgMSXML, lgWinHTTP,
+  {$ENDIF}
+  lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2,
   lgDCPCrypt, lgPKCS11, Unit2, Rtti, DateUtils, xml2dyn, TypInfo;
+
+const
+  RSA_KEY_JPK_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'prod.pem';
+  RSA_KEY_JPK_TEST = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'test.pem';
+  RSA_KEY_KSEF_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'ksefprod.pem';
+  RSA_KEY_KSEF_DEMO = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'ksefdemo.pem';
+  RSA_KEY_KSEF_TEST = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'kseftest.pem';
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -606,6 +616,11 @@ begin
   {$ELSE}
   ButtonObjCount.Enabled := False;
   {$ENDIF}
+  FileNameEditJPKRSAProd.FileName := RSA_KEY_JPK_PROD;
+  FileNameEditJPKRSATest.FileName := RSA_KEY_JPK_TEST;
+  FileNameEditKSeFRSAProd.FileName := RSA_KEY_KSEF_PROD;
+  FileNameEditKSeFRSADemo.FileName := RSA_KEY_KSEF_DEMO;
+  FileNameEditKSeFRSATest.FileName := RSA_KEY_KSEF_TEST;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -923,9 +938,12 @@ begin
   if not Assigned(Signer) and (ComboBoxSign.ItemIndex >= 0) then
   begin
     Signer := CertSignerClasses[ComboBoxSign.ItemIndex].Create(Self);
+    {$IFDEF WINDOWS}
     if Signer is TlgCNGCertificateSigner then
       TlgCNGCertificateSigner(Signer).HWnd := Self.Handle
-    else if Signer is TlgPKCS11CertificateSigner then
+    else
+    {$ENDIF}
+    if Signer is TlgPKCS11CertificateSigner then
     begin
       try
         TlgPKCS11CertificateSigner(Signer).LoadLibrary(FileNameEditLibPKCS11.FileName);
@@ -1122,11 +1140,13 @@ end;
 procedure TForm1.ButtonShowCertClick(Sender: TObject);
 begin
   Debug('Pokaz info o certyfikacie', True);
+  {$IFDEF WINDOWS}
   if (ListViewCert.ItemIndex >= 0) and (Certyfikaty[ListViewCert.ItemIndex] is TlgCNGCertificate) then
   begin
     DebugCert(Certyfikaty[ListViewCert.ItemIndex]);
     TlgCNGCertificate(Certyfikaty[ListViewCert.ItemIndex]).ShowCertificateInfo(Self.Handle);
   end;
+  {$ENDIF}
 end;
 
 procedure TForm1.ButtonCertWybierzClick(Sender: TObject);
@@ -1138,8 +1158,10 @@ begin
   if Assigned(Cert) then
   begin
     DebugCert(Cert);
+    {$IFDEF WINDOWS}
     if Cert is TlgCNGCertificate then
       TlgCNGCertificate(Cert).ShowCertificateInfo(Self.Handle);
+    {$ENDIF}
     Cert.Free;
   end
   else
