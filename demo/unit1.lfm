@@ -15,10 +15,10 @@ object Form1: TForm1
     Height = 630
     Top = 0
     Width = 698
-    ActivePage = TabSheetKSeFBatch
+    ActivePage = TabSheetSetup
     Align = alClient
     MultiLine = True
-    TabIndex = 13
+    TabIndex = 0
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -616,106 +616,166 @@ object Form1: TForm1
       end
       object GroupBox24: TGroupBox
         Left = 0
-        Height = 127
+        Height = 123
         Top = 97
         Width = 690
         Align = alTop
+        AutoSize = True
         Caption = 'Sesja'
-        ClientHeight = 107
+        ClientHeight = 103
         ClientWidth = 686
         TabOrder = 1
         object Label124: TLabel
-          Left = 23
+          AnchorSideLeft.Control = GroupBox24
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrCenter
+          Left = 8
           Height = 15
-          Top = 11
+          Top = 12
           Width = 51
+          BorderSpacing.Around = 8
           Caption = 'Certyfikat'
         end
         object ComboBoxPKCS11Cert: TComboBox
-          Left = 96
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = GroupBox24
+          AnchorSideRight.Control = GroupBox24
+          AnchorSideRight.Side = asrBottom
+          Left = 67
           Height = 23
           Top = 8
-          Width = 576
+          Width = 611
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
           ItemHeight = 15
           Style = csDropDownList
           TabOrder = 0
         end
         object Label125: TLabel
-          Left = 23
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = Label124
+          AnchorSideRight.Side = asrBottom
+          Left = 40
           Height = 15
-          Top = 45
+          Top = 43
           Width = 19
+          Anchors = [akTop, akRight]
           Caption = 'PIN'
         end
         object EditPKCS11PIN: TEdit
-          Left = 96
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 67
           Height = 23
-          Top = 42
+          Top = 39
           Width = 232
+          BorderSpacing.Around = 8
+          EchoMode = emPassword
+          PasswordChar = '*'
           TabOrder = 1
         end
         object ButtonPKCS11SesStart: TButton
-          Left = 96
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 67
           Height = 25
-          Top = 72
+          Top = 70
           Width = 111
           AutoSize = True
+          BorderSpacing.Around = 8
           Caption = 'Rozpocznij sesję'
           TabOrder = 2
           OnClick = ButtonPKCS11SesStartClick
         end
         object ButtonPKCS11SesLogin: TButton
-          Left = 216
+          AnchorSideLeft.Control = ButtonPKCS11SesStart
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 186
           Height = 25
-          Top = 72
+          Top = 70
           Width = 66
           AutoSize = True
+          BorderSpacing.Around = 8
           Caption = 'Zaloguj'
           TabOrder = 3
           OnClick = ButtonPKCS11SesLoginClick
         end
         object ButtonPKCS11SesLogout: TButton
-          Left = 288
+          AnchorSideLeft.Control = ButtonPKCS11SesLogin
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 260
           Height = 25
-          Top = 72
+          Top = 70
           Width = 70
           AutoSize = True
+          BorderSpacing.Around = 8
           Caption = 'Wyloguj'
           TabOrder = 4
           OnClick = ButtonPKCS11SesLogoutClick
         end
         object ButtonPKCS11SesClose: TButton
-          Left = 368
+          AnchorSideLeft.Control = ButtonPKCS11SesLogout
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 338
           Height = 25
-          Top = 72
+          Top = 70
           Width = 98
           AutoSize = True
+          BorderSpacing.Around = 8
           Caption = 'Zakończ sesję'
           TabOrder = 5
           OnClick = ButtonPKCS11SesCloseClick
         end
         object ButtonPKCS11SesInfo: TButton
-          Left = 472
+          AnchorSideLeft.Control = ButtonPKCS11SesClose
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 444
           Height = 25
-          Top = 72
+          Top = 70
           Width = 116
           AutoSize = True
+          BorderSpacing.Around = 8
           Caption = 'Pokaż info o sesji'
           TabOrder = 6
           OnClick = ButtonPKCS11SesInfoClick
         end
         object Label126: TLabel
-          Left = 352
+          AnchorSideLeft.Control = EditPKCS11PIN
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11UserType
+          AnchorSideTop.Side = asrCenter
+          Left = 339
           Height = 15
-          Top = 45
+          Top = 43
           Width = 104
+          BorderSpacing.Left = 32
+          BorderSpacing.Around = 8
           Caption = 'Rodzaj użytkownika'
         end
         object ComboBoxPKCS11UserType: TComboBox
-          Left = 464
+          AnchorSideLeft.Control = Label126
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 451
           Height = 23
-          Top = 42
+          Top = 39
           Width = 140
+          BorderSpacing.Around = 8
           ItemHeight = 15
           ItemIndex = 1
           Items.Strings = (
