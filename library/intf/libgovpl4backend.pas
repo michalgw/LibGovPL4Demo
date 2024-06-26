@@ -12,6 +12,8 @@ unit LibGovPl4Backend;
 {$mode Delphi}
 {$endif}
 
+{$DEFINE LGP_HAVE_EXTRECORDS}
+
 interface
 
 uses
@@ -130,7 +132,608 @@ type
     ErrorCode: LongWord;
   end;
 
+  {$IFDEF LGP_ENABLE_PKCS11}
+
+  // PKCS#11
+
+  { TlgoPKCS11Info }
+
+  TlgoPKCS11Info = class(TlgoObject)
+  private
+    function GetCryptokitVersionMajor: Integer;
+    function GetCryptokitVersionMinor: Integer;
+    function GetCryptokitVersionStr: UTF8String;
+    function GetLibraryDescription: UTF8String;
+    function GetLibraryVersionMajor: Integer;
+    function GetLibraryVersionMinor: Integer;
+    function GetLibraryVersionStr: UTF8String;
+    function GetManufacturerID: UTF8String;
+  published
+    property CryptokitVersionStr: UTF8String read GetCryptokitVersionStr;
+    property CryptokitVersionMajor: Integer read GetCryptokitVersionMajor;
+    property CryptokitVersionMinor: Integer read GetCryptokitVersionMinor;
+    property ManufacturerID: UTF8String read GetManufacturerID;
+    property LibraryDescription: UTF8String read GetLibraryDescription;
+    property LibraryVersionStr: UTF8String read GetLibraryVersionStr;
+    property LibraryVersionMajor: Integer read GetLibraryVersionMajor;
+    property LibraryVersionMinor: Integer read GetLibraryVersionMinor;
+  end;
+
+  TlgPKCS11TokenFlag = (
+    ptfRNG, { has random # generator }
+    ptfWriteProtected, { token is write-protected }
+    ptfLoginRequired, { user must login }
+    ptfUserPINInitialized, { normal user's PIN is set }
+
+    { CKF_RESTORE_KEY_NOT_NEEDED.  If it is set,
+     * that means that *every* time the state of cryptographic
+     * operations of a session is successfully saved, all keys
+     * needed to continue those operations are stored in the state
+     }
+    ptfRestoreKeyNotNeeded,
+
+    { CKF_CLOCK_ON_TOKEN.  If it is set, that means
+     * that the token has some sort of clock.  The time on that
+     * clock is returned in the token info structure
+     }
+    ptfClockOnToken,
+
+    { CKF_PROTECTED_AUTHENTICATION_PATH.  If it is
+     * set, that means that there is some way for the user to login
+     * without sending a PIN through the Cryptoki library itself
+     }
+    ptfProtectedAuthenticationPath,
+
+    { CKF_DUAL_CRYPTO_OPERATIONS.  If it is true,
+     * that means that a single session with the token can perform
+     * dual simultaneous cryptographic operations (digest and
+     * encrypt; decrypt and digest; sign and encrypt; and decrypt
+     * and sign)
+     }
+    ptfDualCryptoOperations,
+
+    { CKF_TOKEN_INITIALIZED. If it is true, the
+     * token has been initialized using C_InitializeToken or an
+     * equivalent mechanism outside the scope of PKCS #11.
+     * Calling C_InitializeToken when this flag is set will cause
+     * the token to be reinitialized.
+     }
+    ptfTokenInitialized,
+
+    { CKF_SECONDARY_AUTHENTICATION. If it is
+     * true, the token supports secondary authentication for
+     * private key objects.
+     }
+    ptfSecondaryAuthentication,
+
+    { CKF_USER_PIN_COUNT_LOW. If it is true, an
+     * incorrect user login PIN has been entered at least once
+     * since the last successful authentication.
+     }
+    ptfUserPINCountLow,
+
+    { CKF_USER_PIN_FINAL_TRY. If it is true,
+     * supplying an incorrect user PIN will it to become locked.
+     }
+    ptfUserPINFinalTry,
+
+    { CKF_USER_PIN_LOCKED. If it is true, the
+     * user PIN has been locked. User login to the token is not
+     * possible.
+     }
+    ptfUserPINLocked,
+
+    { CKF_USER_PIN_TO_BE_CHANGED. If it is true,
+     * the user PIN value is the default value set by token
+     * initialization or manufacturing, or the PIN has been
+     * expired by the card.
+     }
+    ptfUserPINToBeChanged,
+
+    { CKF_SO_PIN_COUNT_LOW. If it is true, an
+     * incorrect SO login PIN has been entered at least once since
+     * the last successful authentication.
+     }
+    ptfSOPINCountLow,
+
+    { CKF_SO_PIN_FINAL_TRY. If it is true,
+     * supplying an incorrect SO PIN will it to become locked.
+     }
+    ptfSOPINFinalTry,
+
+    { CKF_SO_PIN_LOCKED. If it is true, the SO
+     * PIN has been locked. SO login to the token is not possible.
+     }
+    ptfSOPINLocked,
+
+    { CKF_SO_PIN_TO_BE_CHANGED. If it is true,
+     * the SO PIN value is the default value set by token
+     * initialization or manufacturing, or the PIN has been
+     * expired by the card.
+     }
+    ptfSOPINToBeChanged,
+
+    ptfErrorState);
+
+  TlgPKCS11TokenFlags = set of TlgPKCS11TokenFlag;
+
+  { TlgoPKCS11TokenInfo }
+
+  TlgoPKCS11TokenInfo = class(TlgoObject)
+  private
+    function GetFirmwareVersionMajor: Integer;
+    function GetFirmwareVersionMinor: Integer;
+    function GetFirmwareVersionStr: UTF8String;
+    function GetFlags: TlgPKCS11TokenFlags;
+    function GetFlagsRaw: LGP_CK_ULONG;
+    function GetFreePrivateMemory: LGP_CK_ULONG;
+    function GetFreePublicMemory: LGP_CK_ULONG;
+    function GetHardwareVersionMajor: Integer;
+    function GetHardwareVersionMinor: Integer;
+    function GetHardwareVersionStr: UTF8String;
+    function GetManufacturerID: UTF8String;
+    function GetMaxPinLen: LGP_CK_ULONG;
+    function GetMaxRwSessionCount: LGP_CK_ULONG;
+    function GetMaxSessionCount: LGP_CK_ULONG;
+    function GetMinPinLen: LGP_CK_ULONG;
+    function GetModel: UTF8String;
+    function GetRwSessionCount: LGP_CK_ULONG;
+    function GetSerialNumber: UTF8String;
+    function GetSessionCount: LGP_CK_ULONG;
+    function GetTokenLabel: UTF8String;
+    function GetTotalPrivateMemory: LGP_CK_ULONG;
+    function GetTotalPublicMemory: LGP_CK_ULONG;
+    function GetUtcTime: UTF8String;
+  public
+    destructor Destroy; override;
+  published
+    property TokenLabel: UTF8String read GetTokenLabel;
+    property ManufacturerID: UTF8String read GetManufacturerID;
+    property Model: UTF8String read GetModel;
+    property SerialNumber: UTF8String read GetSerialNumber;
+    property Flags: TlgPKCS11TokenFlags read GetFlags;
+    property FlagsRaw: LGP_CK_ULONG read GetFlagsRaw;
+    property MaxSessionCount: LGP_CK_ULONG read GetMaxSessionCount;
+    property SessionCount: LGP_CK_ULONG read GetSessionCount;
+    property MaxRwSessionCount: LGP_CK_ULONG read GetMaxRwSessionCount;
+    property RwSessionCount: LGP_CK_ULONG read GetRwSessionCount;
+    property MaxPinLen: LGP_CK_ULONG read GetMaxPinLen;
+    property MinPinLen: LGP_CK_ULONG read GetMinPinLen;
+    property TotalPublicMemory: LGP_CK_ULONG read GetTotalPublicMemory;
+    property FreePublicMemory: LGP_CK_ULONG read GetFreePublicMemory;
+    property TotalPrivateMemory: LGP_CK_ULONG read GetTotalPrivateMemory;
+    property FreePrivateMemory: LGP_CK_ULONG read GetFreePrivateMemory;
+    property HardwareVersionStr: UTF8String read GetHardwareVersionStr;
+    property HardwareVersionMajor: Integer read GetHardwareVersionMajor;
+    property HardwareVersionMinor: Integer read GetHardwareVersionMinor;
+    property FirmwareVersionStr: UTF8String read GetFirmwareVersionStr;
+    property FirmwareVersionMajor: Integer read GetFirmwareVersionMajor;
+    property FirmwareVersionMinor: Integer read GetFirmwareVersionMinor;
+    property UtcTime: UTF8String read GetUtcTime;
+  end;
+
+  TlgPKCS11SlotFlag = (
+    psfTokenPresent,     { a token is there }
+    psfRemovableDevice,  { removable devices }
+    psfHWSlot);          { hardware slot }
+
+  TlgPKCS11SlotFlags = set of TlgPKCS11SlotFlag;
+
+  { TlgoPKCS11SlotInfo }
+
+  TlgoPKCS11SlotInfo = class(TlgoObject)
+  private
+    FTokenInfo: TlgoPKCS11TokenInfo;
+    function GetFirmwareVersionMajor: Integer;
+    function GetFirmwareVersionMinor: Integer;
+    function GetFirmwareVersionStr: UTF8String;
+    function GetFlags: TlgPKCS11SlotFlags;
+    function GetFlagsRaw: LGP_CK_ULONG;
+    function GetHardwareVersionMajor: Integer;
+    function GetHardwareVersionMinor: Integer;
+    function GetHardwareVersionStr: UTF8String;
+    function GetManufacturerID: UTF8String;
+    function GetSlotDescription: UTF8String;
+    function GetSlotID: LGP_CK_ULONG;
+    function GetTokenInfo: TlgoPKCS11TokenInfo;
+    function GetTokenPresent: Boolean;
+  public
+    destructor Destroy; override;
+  published
+    property SlotID: LGP_CK_ULONG read GetSlotID;
+    property SlotDescription: UTF8String read GetSlotDescription;
+    property ManufacturerID: UTF8String read GetManufacturerID;
+    property Flags: TlgPKCS11SlotFlags read GetFlags;
+    property FlagsRaw: LGP_CK_ULONG read GetFlagsRaw;
+    property HardwareVersionStr: UTF8String read GetHardwareVersionStr;
+    property HardwareVersionMajor: Integer read GetHardwareVersionMajor;
+    property HardwareVersionMinor: Integer read GetHardwareVersionMinor;
+    property FirmwareVersionStr: UTF8String read GetFirmwareVersionStr;
+    property FirmwareVersionMajor: Integer read GetFirmwareVersionMajor;
+    property FirmwareVersionMinor: Integer read GetFirmwareVersionMinor;
+    property TokenPresent: Boolean read GetTokenPresent;
+    property TokenInfo: TlgoPKCS11TokenInfo read GetTokenInfo;
+  end;
+
+  { TlgoPKCS11SlotInfoList }
+
+  TlgoPKCS11SlotInfoList = class(TlgoObject)
+  private
+    FList: TList;
+  public
+    constructor Create(AObject: LGP_OBJECT); overload; override;
+    destructor Destroy; override;
+    function Count: Integer;
+    function GetItem(AIndex: Integer): TlgoPKCS11SlotInfo;
+  published
+    property Items[AIndex: Integer]: TlgoPKCS11SlotInfo read GetItem;
+  end;
+
+  TlgPKCS11SessionState = (pssROPublicSession, pssROUserFunctions,
+    pssRWPublicSession, pssRWUserFunctions, pssRWSOFunctions);
+
+  TlgPKCS11SessionFlag = (psfRWSession, psfSerialSession);
+  TlgPKCS11SessionFlags = set of TlgPKCS11SessionFlag;
+
+  TlgPKCS11UserType = (putSO, putUser, putContextSpecific);
+
+  { TlgoPKCS11Session }
+
+  {$IFDEF LGP_HAVE_EXTRECORDS}
+
+  TlgoPKCS11Session = record
+  private
+    function GetFlags: TlgPKCS11SessionFlags;
+    function GetFlagsRaw: LGP_CK_ULONG;
+    function GetHandle: LGP_CK_ULONG;
+    function GetSlotID: LGP_CK_ULONG;
+    function GetState: TlgPKCS11SessionState;
+  public
+    ExtObject: LGP_OBJECT;
+    function CheckActive: Boolean;
+    procedure Login(APIN: UTF8String; AUserType: TlgPKCS11UserType = putUser);
+    procedure Logout;
+    property Handle: LGP_CK_ULONG read GetHandle;
+    property SlotID: LGP_CK_ULONG read GetSlotID;
+    property State: TlgPKCS11SessionState read GetState;
+    property FlagsRaw: LGP_CK_ULONG read GetFlagsRaw;
+    property Flags: TlgPKCS11SessionFlags read GetFlags;
+  end;
+
+  {$ELSE}
+
+  TlgoPKCS11Session = class
+  public
+    class function CheckActive(ASession: LGP_OBJECT): Boolean;
+    class procedure Login(ASession: LGP_OBJECT; APIN: String; AUserType: TlgPKCS11UserType = putUser);
+    class procedure Logout(ASession: LGP_OBJECT);
+    class function GetHandle(ASession: LGP_OBJECT): LGP_CK_ULONG;
+    class function GetSlotID(ASession: LGP_OBJECT): LGP_CK_ULONG;
+    class function GetState(ASession: LGP_OBJECT): TlgPKCS11SessionState;
+    class function FlagsRaw(ASession: LGP_OBJECT): LGP_CK_ULONG;
+    class function Flags(ASession: LGP_OBJECT): TlgPKCS11SessionFlags;
+  end;
+
+  {$ENDIF}
+
+  { TlgoPKCS11Sessions }
+
+  TlgoPKCS11Sessions = class(TlgoObject)
+  private
+    function GetItem(AIndex: Integer): {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF};
+  public
+    destructor Destroy; override;
+    function Count: Integer;
+    property Items[AIndex: Integer]: {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF} read GetItem;
+  end;
+
+  { TlgoPKCS11Certificate }
+
+  TlgoPKCS11Certificate = class(TlgoCertificate)
+  private
+    function GetSession: {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF};
+  public
+    property Session: {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF} read GetSession;
+  end;
+
+  { TlgoPKCS11CertificateSigner }
+
+  TlgoPKCS11CertificateSigner = class(TlgoCertificateSigner)
+  private
+    FSessions: TlgoPKCS11Sessions;
+    function GetFunctionList: Pointer;
+    function GetLibFileName: UTF8String;
+    function GetLibLoaded: Boolean;
+  public
+    constructor Create(AClassName: UTF8String); override;
+    destructor Destroy; override;
+
+    procedure LoadLibrary(ALibFileName: String);
+    procedure FreeLibrary;
+
+    function GetInfo: TlgoPKCS11Info;
+    function GetSlots(AWithToken: Boolean = True): TlgoPKCS11SlotInfoList;
+
+    function SessionStart(ACert: TlgoCertificate): LGP_OBJECT; overload;
+    //function SessionStart(ASlotID: CK_SLOT_ID): LGP_OBJECT; overload;
+    procedure SessionClose(ASession: LGP_OBJECT); overload;
+    procedure SessionClose(ASessionIndex: Integer); overload;
+
+    procedure SessionCloseAll;
+
+    property FunctionList: Pointer read GetFunctionList;
+
+    class function CheckLibrary(const ALibFile: UTF8String; out AKomunikat: UTF8String): Boolean;
+    class function GetLibraryInfo(const ALibFile: UTF8String; out ALibInfo: TlgoPKCS11Info; out AKomunikat: UTF8String): Boolean;
+  published
+    property LibLoaded: Boolean read GetLibLoaded;
+    property LibFileName: UTF8String read GetLibFileName;
+    property Sessions: TlgoPKCS11Sessions read FSessions;
+  end;
+
+  {$ENDIF}
+
+function lgoCreateSigner(AClassName: String): TlgoCertificateSigner;
+function lgoCreateCertificate(AClassObject: LGP_OBJECT): TlgoCertificate;
+
 implementation
+
+{$IFDEF LGP_ENABLE_PKCS11}
+
+function CKTokenFlagsToSet(AFlags: LGP_CK_ULONG): TlgPKCS11TokenFlags;
+const
+  CKF_RNG                    = LGP_CK_ULONG($00000001);
+  CKF_WRITE_PROTECTED        = LGP_CK_ULONG($00000002);
+  CKF_LOGIN_REQUIRED         = LGP_CK_ULONG($00000004);
+  CKF_USER_PIN_INITIALIZED   = LGP_CK_ULONG($00000008);
+  CKF_RESTORE_KEY_NOT_NEEDED = LGP_CK_ULONG($00000020);
+  CKF_CLOCK_ON_TOKEN         = LGP_CK_ULONG($00000040);
+  CKF_PROTECTED_AUTHENTICATION_PATH = LGP_CK_ULONG($00000100);
+  CKF_DUAL_CRYPTO_OPERATIONS  = LGP_CK_ULONG($00000200);
+  CKF_TOKEN_INITIALIZED       = LGP_CK_ULONG($00000400);
+  CKF_SECONDARY_AUTHENTICATION = LGP_CK_ULONG($00000800);
+  CKF_USER_PIN_COUNT_LOW       = LGP_CK_ULONG($00010000);
+  CKF_USER_PIN_FINAL_TRY       = LGP_CK_ULONG($00020000);
+  CKF_USER_PIN_LOCKED          = LGP_CK_ULONG($00040000);
+  CKF_USER_PIN_TO_BE_CHANGED   = LGP_CK_ULONG($00080000);
+  CKF_SO_PIN_COUNT_LOW         = LGP_CK_ULONG($00100000);
+  CKF_SO_PIN_FINAL_TRY         = LGP_CK_ULONG($00200000);
+  CKF_SO_PIN_LOCKED            = LGP_CK_ULONG($00400000);
+  CKF_SO_PIN_TO_BE_CHANGED     = LGP_CK_ULONG($00800000);
+  CKF_ERROR_STATE              = LGP_CK_ULONG($01000000);
+begin
+  Result := [];
+  if AFlags and CKF_RNG <> 0 then
+    Include(Result, ptfRNG);
+  if AFlags and CKF_WRITE_PROTECTED <> 0 then
+    Include(Result, ptfWriteProtected);
+  if AFlags and CKF_LOGIN_REQUIRED <> 0 then
+    Include(Result, ptfLoginRequired);
+  if AFlags and CKF_USER_PIN_INITIALIZED <> 0 then
+    Include(Result, ptfUserPINInitialized);
+  if AFlags and CKF_RESTORE_KEY_NOT_NEEDED <> 0 then
+    Include(Result, ptfRestoreKeyNotNeeded);
+  if AFlags and CKF_CLOCK_ON_TOKEN <> 0 then
+    Include(Result, ptfClockOnToken);
+  if AFlags and CKF_PROTECTED_AUTHENTICATION_PATH <> 0 then
+    Include(Result, ptfProtectedAuthenticationPath);
+  if AFlags and CKF_DUAL_CRYPTO_OPERATIONS <> 0 then
+    Include(Result, ptfDualCryptoOperations);
+  if AFlags and CKF_TOKEN_INITIALIZED <> 0 then
+    Include(Result, ptfTokenInitialized);
+  if AFlags and CKF_SECONDARY_AUTHENTICATION <> 0 then
+    Include(Result, ptfSecondaryAuthentication);
+  if AFlags and CKF_USER_PIN_COUNT_LOW <> 0 then
+    Include(Result, ptfUserPINCountLow);
+  if AFlags and CKF_USER_PIN_FINAL_TRY <> 0 then
+    Include(Result, ptfUserPINFinalTry);
+  if AFlags and CKF_USER_PIN_LOCKED <> 0 then
+    Include(Result, ptfUserPINLocked);
+  if AFlags and CKF_USER_PIN_TO_BE_CHANGED <> 0 then
+    Include(Result, ptfUserPINToBeChanged);
+  if AFlags and CKF_SO_PIN_COUNT_LOW <> 0 then
+    Include(Result, ptfSOPINCountLow);
+  if AFlags and CKF_SO_PIN_FINAL_TRY <> 0 then
+    Include(Result, ptfSOPINFinalTry);
+  if AFlags and CKF_SO_PIN_LOCKED <> 0 then
+    Include(Result, ptfSOPINLocked);
+  if AFlags and CKF_SO_PIN_TO_BE_CHANGED <> 0 then
+    Include(Result, ptfSOPINToBeChanged);
+  if AFlags and CKF_ERROR_STATE <> 0 then
+    Include(Result, ptfErrorState);
+end;
+
+function CKSlotFlagsToSet(AFlags: LGP_CK_ULONG): TlgPKCS11SlotFlags;
+const
+  CKF_TOKEN_PRESENT     = LGP_CK_ULONG($00000001);
+  CKF_REMOVABLE_DEVICE  = LGP_CK_ULONG($00000002);
+  CKF_HW_SLOT           = LGP_CK_ULONG($00000004);
+begin
+  Result := [];
+  if AFlags and CKF_TOKEN_PRESENT <> 0 then
+    Include(Result, psfTokenPresent);
+  if AFlags and CKF_REMOVABLE_DEVICE <> 0 then
+    Include(Result, psfRemovableDevice);
+  if AFlags and CKF_HW_SLOT <> 0 then
+    Include(Result, psfHWSlot);
+end;
+
+function CKSessionFlagsToSet(AFlags: LGP_CK_ULONG): TlgPKCS11SessionFlags;
+const
+  CKF_RW_SESSION          = LGP_CK_ULONG($00000002);
+  CKF_SERIAL_SESSION      = LGP_CK_ULONG($00000004);
+begin
+  Result := [];
+  if AFlags and CKF_RW_SESSION <> 0 then
+    Include(Result, psfRWSession);
+  if AFlags and CKF_SERIAL_SESSION <> 0 then
+    Include(Result, psfSerialSession);
+end;
+
+{$ENDIF}
+
+function lgoCreateSigner(AClassName: String): TlgoCertificateSigner;
+begin
+  {$IFDEF LGP_ENABLE_PKCS11}
+  if SameText(AClassName, 'TlgPKCS11CertificateSigner') then
+    Result := TlgoPKCS11CertificateSigner.Create(AClassName)
+  else
+  {$ENDIF}
+    Result := TlgoCertificateSigner.Create(AClassName);
+end;
+
+function lgoCreateCertificate(AClassObject: LGP_OBJECT): TlgoCertificate;
+{$IFDEF LGP_ENABLE_PKCS11}
+var
+  CName: LGP_PSSTRING;
+{$ENDIF}
+begin
+  {$IFDEF LGP_ENABLE_PKCS11}
+  lgoCheckResult(lgpObject_ClassName(AClassObject, CName));
+  if SameText(CName^, 'TlgPKCS11Certificate') then
+    Result := TlgoPKCS11Certificate.Create
+  else
+  {$ENDIF}
+    Result := TlgoCertificate.Create;
+end;
+
+{ TlgoPKCS11Certificate }
+
+function TlgoPKCS11Certificate.GetSession: {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF};
+begin
+  lgoCheckResult(lgpPKCS11Certificate_GetSession(FItem, Result{$IFDEF LGP_HAVE_EXTRECORDS}.ExtObject{$ENDIF}));
+end;
+
+{ TlgoPKCS11Session }
+
+{$IFDEF LGP_HAVE_EXTRECORDS}
+
+function TlgoPKCS11Session.GetFlags: TlgPKCS11SessionFlags;
+begin
+  Result := CKSessionFlagsToSet(FlagsRaw);
+end;
+
+function TlgoPKCS11Session.GetFlagsRaw: LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetFlags(ExtObject, Result));
+end;
+
+function TlgoPKCS11Session.GetHandle: LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetHandle(ExtObject, Result));
+end;
+
+function TlgoPKCS11Session.GetSlotID: LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetSlotID(ExtObject, Result));
+end;
+
+function TlgoPKCS11Session.GetState: TlgPKCS11SessionState;
+var
+  Res: LGP_UINT32;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetState(ExtObject, Res));
+  Result := TlgPKCS11SessionState(Res);
+end;
+
+function TlgoPKCS11Session.CheckActive: Boolean;
+var
+  Res: LGP_INT32;
+begin
+  lgoCheckResult(lgpPKCS11Session_CheckActive(ExtObject, Res));
+  Result := Res <> 0;
+end;
+
+procedure TlgoPKCS11Session.Login(APIN: UTF8String; AUserType: TlgPKCS11UserType
+  );
+begin
+  lgoCheckResult(lgpPKCS11Session_Login(ExtObject, LGP_PCHAR(APIN), LGP_INT32(AUserType)));
+end;
+
+procedure TlgoPKCS11Session.Logout;
+begin
+  lgoCheckResult(lgpPKCS11Session_Logout(ExtObject));
+end;
+
+{$ELSE}
+
+class function TlgoPKCS11Session.CheckActive(ASession: LGP_OBJECT): Boolean;
+var
+  Res: LGP_INT32;
+begin
+  lgoCheckResult(lgpPKCS11Session_CheckActive(ASession, Res));
+  Result := Res <> 0;
+end;
+
+class procedure TlgoPKCS11Session.Login(ASession: LGP_OBJECT; APIN: String;
+  AUserType: TlgPKCS11UserType);
+begin
+  lgoCheckResult(lgpPKCS11Session_Login(ASession, LGP_PCHAR(APIN), LGP_INT32(AUserType)));
+end;
+
+class procedure TlgoPKCS11Session.Logout(ASession: LGP_OBJECT);
+begin
+  lgoCheckResult(lgpPKCS11Session_Logout(ASession));
+end;
+
+class function TlgoPKCS11Session.GetHandle(ASession: LGP_OBJECT): LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetHandle(ASession, Result));
+end;
+
+class function TlgoPKCS11Session.GetSlotID(ASession: LGP_OBJECT): LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetSlotID(ASession, Result));
+end;
+
+class function TlgoPKCS11Session.GetState(ASession: LGP_OBJECT
+  ): TlgPKCS11SessionState;
+var
+  Res: LGP_UINT32;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetState(ASession, Res));
+  Result := TlgPKCS11SessionState(Res);
+end;
+
+class function TlgoPKCS11Session.FlagsRaw(ASession: LGP_OBJECT): LGP_CK_ULONG;
+begin
+  lgoCheckResult(lgpPKCS11Session_GetFlags(ASession, Result));
+end;
+
+class function TlgoPKCS11Session.Flags(ASession: LGP_OBJECT): TlgPKCS11SessionFlags;
+const
+  CKF_RW_SESSION          = LGP_CK_ULONG($00000002); { session is r/w }
+  CKF_SERIAL_SESSION      = LGP_CK_ULONG($00000004); { no parallel    }
+var
+  Flags: LGP_CK_ULONG;
+begin
+  Result := [];
+  Flags := Self.FlagsRaw(ASession);
+  if Flags and CKF_RW_SESSION <> 0 then
+    Include(Result, psfRWSession);
+  if Flags and CKF_SERIAL_SESSION <> 0 then
+    Include(Result, psfSerialSession);
+end;
+
+{$ENDIF}
+
+{ TlgoPKCS11Sessions }
+
+function TlgoPKCS11Sessions.GetItem(AIndex: Integer): {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF};
+begin
+  lgoCheckResult(lgpListObject_GetItem(ExtObject, AIndex, Result{$IFDEF LGP_HAVE_EXTRECORDS}.ExtObject{$ENDIF}));
+end;
+
+destructor TlgoPKCS11Sessions.Destroy;
+begin
+  ExtObject := nil;
+  inherited Destroy;
+end;
+
+function TlgoPKCS11Sessions.Count: Integer;
+begin
+  lgoCheckResult(lgpListObject_GetCount(ExtObject, Result));
+end;
 
 { TlgoCertificateSigner }
 
@@ -181,6 +784,462 @@ begin
   end;
 end;
 
+{$IFDEF LGP_ENABLE_PKCS11}
+
+{ TlgoPKCS11Info }
+
+function TlgoPKCS11Info.GetCryptokitVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('CryptokitVersionMajor');
+end;
+
+function TlgoPKCS11Info.GetCryptokitVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('CryptokitVersionMinor');
+end;
+
+function TlgoPKCS11Info.GetCryptokitVersionStr: UTF8String;
+begin
+  Result := GetStringProp('CryptokitVersionStr');
+end;
+
+function TlgoPKCS11Info.GetLibraryDescription: UTF8String;
+begin
+  Result := GetStringProp('LibraryDescription');
+end;
+
+function TlgoPKCS11Info.GetLibraryVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('LibraryVersionMajor');
+end;
+
+function TlgoPKCS11Info.GetLibraryVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('LibraryVersionMinor');
+end;
+
+function TlgoPKCS11Info.GetLibraryVersionStr: UTF8String;
+begin
+  Result := GetStringProp('LibraryVersionStr');
+end;
+
+function TlgoPKCS11Info.GetManufacturerID: UTF8String;
+begin
+  Result := GetStringProp('ManufacturerID');
+end;
+
+{ TlgoPKCS11TokenInfo }
+
+function TlgoPKCS11TokenInfo.GetFirmwareVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('FirmwareVersionMajor');
+end;
+
+function TlgoPKCS11TokenInfo.GetFirmwareVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('FirmwareVersionMinor');
+end;
+
+function TlgoPKCS11TokenInfo.GetFirmwareVersionStr: UTF8String;
+begin
+  Result := GetStringProp('FirmwareVersionStr');
+end;
+
+function TlgoPKCS11TokenInfo.GetFlags: TlgPKCS11TokenFlags;
+begin
+  Result := CKTokenFlagsToSet(GetFlagsRaw);
+end;
+
+function TlgoPKCS11TokenInfo.GetFlagsRaw: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('FlagsRaw'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('FlagsRaw'));
+end;
+
+function TlgoPKCS11TokenInfo.GetFreePrivateMemory: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('FreePrivateMemory'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('FreePrivateMemory'));
+end;
+
+function TlgoPKCS11TokenInfo.GetFreePublicMemory: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('FreePublicMemory'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('FreePublicMemory'));
+end;
+
+function TlgoPKCS11TokenInfo.GetHardwareVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('HardwareVersionMajor');
+end;
+
+function TlgoPKCS11TokenInfo.GetHardwareVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('HardwareVersionMinor');
+end;
+
+function TlgoPKCS11TokenInfo.GetHardwareVersionStr: UTF8String;
+begin
+  Result := GetStringProp('HardwareVersionStr');
+end;
+
+function TlgoPKCS11TokenInfo.GetManufacturerID: UTF8String;
+begin
+  Result := GetStringProp('ManufacturerID');
+end;
+
+function TlgoPKCS11TokenInfo.GetMaxPinLen: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('MaxPinLen'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('MaxPinLen'));
+end;
+
+function TlgoPKCS11TokenInfo.GetMaxRwSessionCount: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('MaxRwSessionCount'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('MaxRwSessionCount'));
+end;
+
+function TlgoPKCS11TokenInfo.GetMaxSessionCount: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('MaxSessionCount'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('MaxSessionCount'));
+end;
+
+function TlgoPKCS11TokenInfo.GetMinPinLen: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('MinPinLen'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('MinPinLen'));
+end;
+
+function TlgoPKCS11TokenInfo.GetModel: UTF8String;
+begin
+  Result := GetStringProp('Model');
+end;
+
+function TlgoPKCS11TokenInfo.GetRwSessionCount: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('RwSessionCount'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('RwSessionCount'));
+end;
+
+function TlgoPKCS11TokenInfo.GetSerialNumber: UTF8String;
+begin
+  Result := GetStringProp('SerialNumber');
+end;
+
+function TlgoPKCS11TokenInfo.GetSessionCount: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('SessionCount'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('SessionCount'));
+end;
+
+function TlgoPKCS11TokenInfo.GetTokenLabel: UTF8String;
+begin
+  Result := GetStringProp('TokenLabel');
+end;
+
+function TlgoPKCS11TokenInfo.GetTotalPrivateMemory: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('TotalPrivateMemory'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('TotalPrivateMemory'));
+end;
+
+function TlgoPKCS11TokenInfo.GetTotalPublicMemory: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('TotalPublicMemory'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('TotalPublicMemory'));
+end;
+
+function TlgoPKCS11TokenInfo.GetUtcTime: UTF8String;
+begin
+  Result := GetStringProp('UtcTime');
+end;
+
+destructor TlgoPKCS11TokenInfo.Destroy;
+begin
+  ExtObject := nil;
+  inherited Destroy;
+end;
+
+{ TlgoPKCS11SlotInfo }
+
+function TlgoPKCS11SlotInfo.GetFirmwareVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('FirmwareVersionMajor');
+end;
+
+function TlgoPKCS11SlotInfo.GetFirmwareVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('FirmwareVersionMinor');
+end;
+
+function TlgoPKCS11SlotInfo.GetFirmwareVersionStr: UTF8String;
+begin
+  Result := GetStringProp('FirmwareVersionStr');
+end;
+
+function TlgoPKCS11SlotInfo.GetFlags: TlgPKCS11SlotFlags;
+begin
+  Result := CKSlotFlagsToSet(GetFlagsRaw);
+end;
+
+function TlgoPKCS11SlotInfo.GetFlagsRaw: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('FlagsRaw'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('FlagsRaw'));
+end;
+
+function TlgoPKCS11SlotInfo.GetHardwareVersionMajor: Integer;
+begin
+  Result := GetIntegerProp('HardwareVersionMajor');
+end;
+
+function TlgoPKCS11SlotInfo.GetHardwareVersionMinor: Integer;
+begin
+  Result := GetIntegerProp('HardwareVersionMinor');
+end;
+
+function TlgoPKCS11SlotInfo.GetHardwareVersionStr: UTF8String;
+begin
+  Result := GetStringProp('HardwareVersionStr');
+end;
+
+function TlgoPKCS11SlotInfo.GetManufacturerID: UTF8String;
+begin
+  Result := GetStringProp('ManufacturerID');
+end;
+
+function TlgoPKCS11SlotInfo.GetSlotDescription: UTF8String;
+begin
+  Result := GetStringProp('SlotDescription');
+end;
+
+function TlgoPKCS11SlotInfo.GetSlotID: LGP_CK_ULONG;
+begin
+  if SizeOf(Result) = 8 then
+    Result := LGP_CK_ULONG(GetInt64Prop('SlotID'))
+  else
+    Result := LGP_CK_ULONG(GetIntegerProp('SlotID'));
+end;
+
+function TlgoPKCS11SlotInfo.GetTokenInfo: TlgoPKCS11TokenInfo;
+var
+  O: LGP_OBJECT;
+begin
+  if not Assigned(FTokenInfo) then
+  begin
+    O := GetObjectProp('TokenInfo');
+    if O <> nil then
+      FTokenInfo := TlgoPKCS11TokenInfo.Create(O);
+  end;
+  Result := FTokenInfo;
+end;
+
+function TlgoPKCS11SlotInfo.GetTokenPresent: Boolean;
+begin
+  Result := GetBooleanProp('TokenPresent');
+end;
+
+destructor TlgoPKCS11SlotInfo.Destroy;
+begin
+  if Assigned(FTokenInfo) then
+  begin
+    FTokenInfo.Free;
+    SetObjectProp('TokenInfo', nil);
+  end;
+  ExtObject := nil;
+  inherited Destroy;
+end;
+
+{ TlgoPKCS11SlotInfoList }
+
+constructor TlgoPKCS11SlotInfoList.Create(AObject: LGP_OBJECT);
+begin
+  inherited Create(AObject);
+  FList := TList.Create;
+end;
+
+destructor TlgoPKCS11SlotInfoList.Destroy;
+begin
+  while FList.Count > 0 do
+  begin
+    TlgoPKCS11SlotInfo(FList[0]).Free;
+    FList.Delete(0);
+  end;
+  FList.Free;
+  inherited Destroy;
+end;
+
+function TlgoPKCS11SlotInfoList.Count: Integer;
+begin
+  lgoCheckResult(lgpListObject_GetCount(ExtObject, Result));
+end;
+
+function TlgoPKCS11SlotInfoList.GetItem(AIndex: Integer): TlgoPKCS11SlotInfo;
+var
+  Item: LGP_OBJECT;
+begin
+  if (FList.Count > AIndex) and (FList.Items[AIndex] <> nil) then
+    Result := TlgoPKCS11SlotInfo(FList[AIndex])
+  else
+  begin
+    lgoCheckResult(lgpListObject_GetItem(ExtObject, AIndex, Item));
+    if Item <> nil then
+    begin
+      Result := TlgoPKCS11SlotInfo.Create(Item);
+      if AIndex >= FList.Count then
+        FList.Count := AIndex + 1;
+      FList[AIndex] := Result;
+    end
+    else
+      Result := nil;
+  end;
+end;
+
+{ TlgoPKCS11CertificateSigner }
+
+function TlgoPKCS11CertificateSigner.GetLibFileName: UTF8String;
+begin
+  Result := GetStringProp('LibFileName');
+end;
+
+function TlgoPKCS11CertificateSigner.GetFunctionList: Pointer;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_FunctionList(ExtObject, Result));
+end;
+
+function TlgoPKCS11CertificateSigner.GetLibLoaded: Boolean;
+begin
+  Result := GetBooleanProp('LibLoaded');
+end;
+
+constructor TlgoPKCS11CertificateSigner.Create(AClassName: UTF8String);
+begin
+  inherited Create(AClassName);
+  FSessions := TlgoPKCS11Sessions.Create(GetObjectProp('Sessions'));
+end;
+
+destructor TlgoPKCS11CertificateSigner.Destroy;
+begin
+  FSessions.Free;
+  inherited Destroy;
+end;
+
+procedure TlgoPKCS11CertificateSigner.LoadLibrary(ALibFileName: String);
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_LoadLibrary(ExtObject, LGP_PCHAR(ALibFileName)));
+end;
+
+procedure TlgoPKCS11CertificateSigner.FreeLibrary;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_FreeLibrary(ExtObject));
+end;
+
+function TlgoPKCS11CertificateSigner.GetInfo: TlgoPKCS11Info;
+var
+  O: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_GetInfo(ExtObject, O));
+  if O <> nil then
+    Result := TlgoPKCS11Info.Create(O)
+  else
+    Result := nil;
+end;
+
+function TlgoPKCS11CertificateSigner.GetSlots(AWithToken: Boolean
+  ): TlgoPKCS11SlotInfoList;
+var
+  O: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_GetSlots(ExtObject, LGP_INT32(AWithToken), O));
+  if O <> nil then
+    Result := TlgoPKCS11SlotInfoList.Create(O)
+  else
+    Result := nil;
+end;
+
+function TlgoPKCS11CertificateSigner.SessionStart(ACert: TlgoCertificate
+  ): LGP_OBJECT;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_SessionStart(ExtObject, ACert.FItem, Result));
+end;
+
+//function TlgoPKCS11CertificateSigner.SessionStart(ASlotID: CK_SLOT_ID
+//  ): LGP_OBJECT;
+//begin
+//
+//end;
+
+procedure TlgoPKCS11CertificateSigner.SessionClose(ASession: LGP_OBJECT);
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_SessionClose(ExtObject, ASession));
+end;
+
+procedure TlgoPKCS11CertificateSigner.SessionClose(ASessionIndex: Integer);
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_SessionCloseIdx(ExtObject, ASessionIndex));
+end;
+
+procedure TlgoPKCS11CertificateSigner.SessionCloseAll;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_SessionCloseAll(ExtObject));
+end;
+
+class function TlgoPKCS11CertificateSigner.CheckLibrary(
+  const ALibFile: UTF8String; out AKomunikat: UTF8String): Boolean;
+var
+  Komunikat: LGP_OBJECT;
+  Res: LGP_INT32;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_CheckLibrary(LGP_PCHAR(ALibFile), Komunikat, Res));
+  Result := Res <> 0;
+  AKomunikat := lgoGetString(Komunikat);
+end;
+
+class function TlgoPKCS11CertificateSigner.GetLibraryInfo(
+  const ALibFile: UTF8String; out ALibInfo: TlgoPKCS11Info; out
+  AKomunikat: UTF8String): Boolean;
+var
+  Komunikat: LGP_OBJECT;
+  Res: LGP_INT32;
+  LibInfoObj: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpPKCS11CertificateSigner_GetLibraryInfo(LGP_PCHAR(ALibFile), LibInfoObj, Komunikat, Res));
+  Result := Res <> 0;
+  AKomunikat := lgoGetString(Komunikat);
+  if Result and (LibInfoObj <> nil) then
+    ALibInfo := TlgoPKCS11Info.Create(LibInfoObj)
+  else
+    ALibInfo := nil;
+end;
+
+{$ENDIF}
+
 { TlgoCertificates }
 
 constructor TlgoCertificates.Create;
@@ -215,7 +1274,7 @@ begin
     lgoCheckResult(lgpListObject_GetItem(ExtObject, AIndex, Item));
     if Item <> nil then
     begin
-      Result := TlgoCertificate.Create;
+      Result := lgoCreateCertificate(Item);
       Result.FList := Self;
       Result.FIndex := AIndex;
       Result.FItem := Item;

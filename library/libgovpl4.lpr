@@ -38,6 +38,9 @@ uses
 {$IFDEF LGP_ENABLE_DCPCRYPT}
   , lgDCPCrypt
 {$ENDIF}
+{$IFDEF LGP_ENABLE_PKCS11}
+  , lgPKCS11, uPKCS11
+{$ENDIF}
   ;
 
 
@@ -126,10 +129,37 @@ exports
   lgpStream_Read,
   lgpStream_Write,
 
-// WST EDek Gate
+  // WST EDek Gate
   lgpWST_RegisterTransport,
   lgpWST_GetHTTPClient,
   lgpWST_SetHTTPClient,
+
+  // PKCS#11
+  {$IFDEF LGP_ENABLE_PKCS11}
+  lgpPKCS11Certificate_GetSession,
+  lgpPKCS11Session_CheckActive,
+  lgpPKCS11Session_Login,
+  lgpPKCS11Session_Logout,
+  lgpPKCS11Session_GetSigner,
+  lgpPKCS11Session_GetHandle,
+  lgpPKCS11Session_GetSlotID,
+  lgpPKCS11Session_GetState,
+  lgpPKCS11Session_GetFlags,
+  lgpPKCS11CertificateSigner_LoadLibrary,
+  lgpPKCS11CertificateSigner_FreeLibrary,
+  lgpPKCS11CertificateSigner_GetInfo,
+  lgpPKCS11CertificateSigner_GetSlots,
+  lgpPKCS11CertificateSigner_SessionStart,
+  lgpPKCS11CertificateSigner_SessionClose,
+  lgpPKCS11CertificateSigner_SessionCloseIdx,
+  lgpPKCS11CertificateSigner_SessionCloseAll,
+  lgpPKCS11CertificateSigner_GetLibLoaded,
+  lgpPKCS11CertificateSigner_GetLibFileName,
+  lgpPKCS11CertificateSigner_GetSessions,
+  lgpPKCS11CertificateSigner_FunctionList,
+  lgpPKCS11CertificateSigner_CheckLibrary,
+  lgpPKCS11CertificateSigner_GetLibraryInfo,
+  {$ENDIF}
 
   // XAdES
   lgpXAdES_Create,

@@ -37,6 +37,8 @@ type
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
 
+  LGP_CK_ULONG = {$IFDEF WINDOWS}LongWord{$ELSE}PtrUInt{$ENDIF};
+
   {$IFNDEF FPC}
   TStringArray = TStringDynArray;
   {$ENDIF}
@@ -211,6 +213,35 @@ function lgpStream_Write(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall; external LGP_LIBNAME;
 function lgpWST_GetHTTPClient(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpWST_SetHTTPClient(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+{$IFDEF LGP_ENABLE_PKCS11}
+// PKCS#11
+function lgpPKCS11Certificate_GetSession(ACertificate: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpPKCS11Session_CheckActive(ASession: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_Login(ASession: LGP_OBJECT; APIN: LGP_PCHAR; AUserType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_Logout(ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_GetSigner(ASession: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_GetHandle(ASession: LGP_OBJECT; var AHandle: LGP_CK_ULONG): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_GetSlotID(ASession: LGP_OBJECT; var ASlotID: LGP_CK_ULONG): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_GetState(ASession: LGP_OBJECT; var AState: LGP_UINT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11Session_GetFlags(ASession: LGP_OBJECT; var AFlags: LGP_UINT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpPKCS11CertificateSigner_LoadLibrary(ASigner: LGP_OBJECT; ALibName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_FreeLibrary(ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetInfo(ASigner: LGP_OBJECT; var AInfo: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetSlots(ASigner: LGP_OBJECT; AWithToken: LGP_INT32; var AList: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_SessionStart(ASigner: LGP_OBJECT; ACertificate: LGP_OBJECT; var ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_SessionClose(ASigner: LGP_OBJECT; ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_SessionCloseIdx(ASigner: LGP_OBJECT; ASessionIndex: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_SessionCloseAll(ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetLibLoaded(ASigner: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetLibFileName(ASigner: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetSessions(ASigner: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_FunctionList(ASigner: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_CheckLibrary(ALibFile: LGP_PCHAR; var AKomunikat: LGP_OBJECT; var AResult: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpPKCS11CertificateSigner_GetLibraryInfo(ALibFile: LGP_PCHAR; var ALibInfo: LGP_OBJECT; var AKomunikat: LGP_OBJECT; var AResult: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+{$ENDIF}
 
 // XAdES
 function lgpXAdES_Create(ASHA1HashClass, ASHA256HashClass, ABase64EncoderClass: LGP_PCHAR;
@@ -505,6 +536,35 @@ var
   lgpWST_RegisterTransport: function: LGP_EXCEPTiON; stdcall;
   lgpWST_GetHTTPClient: function(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpWST_SetHTTPClient: function(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  {$IFDEF LGP_ENABLE_PKCS11}
+  // PKCS#11
+  lgpPKCS11Certificate_GetSession: function(ACertificate: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpPKCS11Session_CheckActive: function(ASession: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_Login: function(ASession: LGP_OBJECT; APIN: LGP_PCHAR; AUserType: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_Logout: function(ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+  lgpPKCS11Session_GetSigner: function(ASession: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_GetHandle: function(ASession: LGP_OBJECT; var AHandle: LGP_CK_ULONG): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_GetSlotID: function(ASession: LGP_OBJECT; var ASlotID: LGP_CK_ULONG): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_GetState: function(ASession: LGP_OBJECT; var AState: LGP_UINT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11Session_GetFlags: function(ASession: LGP_OBJECT; var AFlags: LGP_UINT32): LGP_EXCEPTION; stdcall;
+
+  lgpPKCS11CertificateSigner_LoadLibrary: function(ASigner: LGP_OBJECT; ALibName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_FreeLibrary: function(ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetInfo: function(ASigner: LGP_OBJECT; var AInfo: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetSlots: function(ASigner: LGP_OBJECT; AWithToken: LGP_INT32; var AList: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_SessionStart: function(ASigner: LGP_OBJECT; ACertificate: LGP_OBJECT; var ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_SessionClose: function(ASigner: LGP_OBJECT; ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_SessionCloseIdx: function(ASigner: LGP_OBJECT; ASessionIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_SessionCloseAll: function(ASigner: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetLibLoaded: function(ASigner: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetLibFileName: function(ASigner: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetSessions: function(ASigner: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_FunctionList: function(ASigner: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_CheckLibrary: function(ALibFile: LGP_PCHAR; var AKomunikat: LGP_OBJECT; var AResult: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpPKCS11CertificateSigner_GetLibraryInfo: function(ALibFile: LGP_PCHAR; var ALibInfo: LGP_OBJECT; var AKomunikat: LGP_OBJECT; var AResult: LGP_INT32): LGP_EXCEPTION; stdcall;
+  {$ENDIF}
 
   // XAdES
   lgpXAdES_Create: function(ASHA1HashClass, ASHA256HashClass, ABase64EncoderClass: LGP_PCHAR;
@@ -832,6 +892,35 @@ begin
     @lgpWST_RegisterTransport := GetProcAddress(LibGovPl4Handle, 'lgpWST_RegisterTransport');
     @lgpWST_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_GetHTTPClient');
     @lgpWST_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_SetHTTPClient');
+
+    {$IFDEF LGP_ENABLE_PKCS11}
+    // PKCS#11
+    @lgpPKCS11Certificate_GetSession := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Certificate_GetSession');
+
+    @lgpPKCS11Session_CheckActive := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_CheckActive');
+    @lgpPKCS11Session_Login := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_Login');
+    @lgpPKCS11Session_Logout := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_Logout');
+    @lgpPKCS11Session_GetSigner := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_GetSigner');
+    @lgpPKCS11Session_GetHandle := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_GetHandle');
+    @lgpPKCS11Session_GetSlotID := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_GetSlotID');
+    @lgpPKCS11Session_GetState := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_GetState');
+    @lgpPKCS11Session_GetFlags := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11Session_GetFlags');
+
+    @lgpPKCS11CertificateSigner_LoadLibrary := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_LoadLibrary');
+    @lgpPKCS11CertificateSigner_FreeLibrary := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_FreeLibrary');
+    @lgpPKCS11CertificateSigner_GetInfo := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetInfo');
+    @lgpPKCS11CertificateSigner_GetSlots := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetSlots');
+    @lgpPKCS11CertificateSigner_SessionStart := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_SessionStart');
+    @lgpPKCS11CertificateSigner_SessionClose := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_SessionClose');
+    @lgpPKCS11CertificateSigner_SessionCloseIdx := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_SessionCloseIdx');
+    @lgpPKCS11CertificateSigner_SessionCloseAll := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_SessionCloseAll');
+    @lgpPKCS11CertificateSigner_GetLibLoaded := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetLibLoaded');
+    @lgpPKCS11CertificateSigner_GetLibFileName := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetLibFileName');
+    @lgpPKCS11CertificateSigner_GetSessions := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetSessions');
+    @lgpPKCS11CertificateSigner_FunctionList := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_FunctionList');
+    @lgpPKCS11CertificateSigner_CheckLibrary := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_CheckLibrary');
+    @lgpPKCS11CertificateSigner_GetLibraryInfo := GetProcAddress(LibGovPl4Handle, 'lgpPKCS11CertificateSigner_GetLibraryInfo');
+    {$ENDIF}
 
     // XAdES
     @lgpXAdES_Create := GetProcAddress(LibGovPl4Handle, 'lgpXAdES_Create');

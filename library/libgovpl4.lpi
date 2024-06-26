@@ -175,6 +175,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="libgovpl4pkcs11"/>
+      </Item>
+      <Item>
         <PackageName Value="libgovpl4dcpcrypt"/>
       </Item>
       <Item>
@@ -267,6 +270,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uLegacy"/>
       </Unit>
+      <Unit>
+        <Filename Value="upkcs11.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uPKCS11"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -303,8 +311,9 @@
 -dLGP_ENABLE_WINHTTP
 -dLGP_ENABLE_WST
 -dLGP_ENABLE_LIBXML2
--dLGP_LEGACY"/>
-      <OtherDefines Count="8">
+-dLGP_LEGACY
+-dLGP_ENABLE_PKCS11"/>
+      <OtherDefines Count="9">
         <Define0 Value="LGP_ENABLE_WINCNG"/>
         <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
         <Define2 Value="LGP_ENABLE_FPC"/>
@@ -313,6 +322,7 @@
         <Define5 Value="LGP_ENABLE_WST"/>
         <Define6 Value="LGP_ENABLE_LIBXML2"/>
         <Define7 Value="LGP_LEGACY"/>
+        <Define8 Value="LGP_ENABLE_PKCS11"/>
       </OtherDefines>
     </Other>
   </CompilerOptions>

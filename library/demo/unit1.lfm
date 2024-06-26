@@ -1,446 +1,540 @@
 object Form1: TForm1
   Left = 252
-  Height = 783
+  Height = 867
   Top = 2
-  Width = 698
+  Width = 872
   Caption = 'LibGovPL 4 Demo'
-  ClientHeight = 783
-  ClientWidth = 698
+  ClientHeight = 867
+  ClientWidth = 872
+  DesignTimePPI = 120
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '3.0.0.2'
+  LCLVersion = '2.1.0.0'
   object PageControl1: TPageControl
     Left = 0
-    Height = 651
+    Height = 702
     Top = 0
-    Width = 698
+    Width = 872
     ActivePage = TabSheetSetup
     Align = alClient
     MultiLine = True
+    ParentFont = False
     TabIndex = 0
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
       Caption = 'Setup'
-      ClientHeight = 583
-      ClientWidth = 690
+      ClientHeight = 619
+      ClientWidth = 864
+      ParentFont = False
       object Panel1: TScrollBox
         Left = 0
-        Height = 533
+        Height = 557
         Top = 0
-        Width = 690
-        HorzScrollBar.Page = 259
-        VertScrollBar.Page = 494
+        Width = 864
+        HorzScrollBar.Page = 323
+        VertScrollBar.Page = 553
         Align = alClient
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 529
-        ClientWidth = 686
+        ClientHeight = 553
+        ClientWidth = 839
+        ParentFont = False
         TabOrder = 0
         object Label1: TLabel
           Left = 0
-          Height = 23
+          Height = 28
           Top = 0
-          Width = 370
+          Width = 452
           Caption = 'HTTP Client'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxHTTPCli: TComboBox
-          Left = 370
-          Height = 23
+          Left = 452
+          Height = 28
           Top = 0
-          Width = 316
-          ItemHeight = 15
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 0
         end
         object Label2: TLabel
           Left = 0
-          Height = 23
-          Top = 23
-          Width = 370
+          Height = 28
+          Top = 28
+          Width = 452
           Caption = 'Random nmber generator'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxRandGen: TComboBox
-          Left = 370
-          Height = 23
-          Top = 23
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 28
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 1
         end
         object Label11: TLabel
           Left = 0
-          Height = 23
-          Top = 46
-          Width = 370
+          Height = 28
+          Top = 56
+          Width = 452
           Caption = 'Base64 Encoder'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxBase64: TComboBox
-          Left = 370
-          Height = 23
-          Top = 46
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 56
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 2
         end
         object Label3: TLabel
           Left = 0
-          Height = 23
-          Top = 69
-          Width = 370
+          Height = 28
+          Top = 84
+          Width = 452
           Caption = 'MD5 Hash'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxMD5: TComboBox
-          Left = 370
-          Height = 23
-          Top = 69
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 84
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 3
         end
         object Label4: TLabel
           Left = 0
-          Height = 23
-          Top = 92
-          Width = 370
+          Height = 28
+          Top = 112
+          Width = 452
           Caption = 'SHA1 Hash'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxSHA1: TComboBox
-          Left = 370
-          Height = 23
-          Top = 92
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 112
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 4
         end
         object Label5: TLabel
           Left = 0
-          Height = 23
-          Top = 115
-          Width = 370
+          Height = 28
+          Top = 140
+          Width = 452
           Caption = 'SHA-256 Hash'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxSHA256: TComboBox
-          Left = 370
-          Height = 23
-          Top = 115
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 140
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 5
         end
         object Label6: TLabel
           Left = 0
-          Height = 23
-          Top = 138
-          Width = 370
+          Height = 28
+          Top = 168
+          Width = 452
           Caption = 'Signer'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxSign: TComboBox
-          Left = 370
-          Height = 23
-          Top = 138
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 168
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 6
         end
         object Label7: TLabel
           Left = 0
-          Height = 23
-          Top = 161
-          Width = 370
+          Height = 28
+          Top = 196
+          Width = 452
           Caption = 'eDeklaracja SOAP'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxEDek: TComboBox
-          Left = 370
-          Height = 23
-          Top = 161
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 196
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 7
         end
         object Label8: TLabel
           Left = 0
-          Height = 23
-          Top = 184
-          Width = 370
+          Height = 28
+          Top = 224
+          Width = 452
           Caption = 'XML C14N'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxXMLC14N: TComboBox
-          Left = 370
-          Height = 23
-          Top = 184
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 224
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 8
         end
         object Label9: TLabel
           Left = 0
-          Height = 23
-          Top = 207
-          Width = 370
+          Height = 28
+          Top = 252
+          Width = 452
           Caption = 'XML Reader'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxXMLRead: TComboBox
-          Left = 370
-          Height = 23
-          Top = 207
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 252
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 9
         end
         object Label10: TLabel
           Left = 0
-          Height = 23
-          Top = 230
-          Width = 370
+          Height = 28
+          Top = 280
+          Width = 452
           Caption = 'Zip file'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxZip: TComboBox
-          Left = 370
-          Height = 23
-          Top = 230
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 280
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 10
         end
         object Label12: TLabel
           Left = 0
-          Height = 23
-          Top = 253
-          Width = 370
+          Height = 28
+          Top = 308
+          Width = 452
           Caption = 'AES256 Encryption'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxAES256: TComboBox
-          Left = 370
-          Height = 23
-          Top = 253
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 308
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 11
         end
         object Label13: TLabel
           Left = 0
-          Height = 23
-          Top = 276
-          Width = 370
+          Height = 28
+          Top = 336
+          Width = 452
           Caption = 'RSA encryption'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxRSAEnc: TComboBox
-          Left = 370
-          Height = 23
-          Top = 276
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 336
+          Width = 387
+          ItemHeight = 20
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 12
         end
         object Label24: TLabel
           Left = 0
-          Height = 23
-          Top = 299
-          Width = 370
+          Height = 28
+          Top = 364
+          Width = 452
           Caption = 'XAdES - Rodzaj SHA'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxXAdESSHA: TComboBox
-          Left = 370
-          Height = 23
-          Top = 299
-          Width = 316
-          ItemHeight = 15
+          Left = 452
+          Height = 28
+          Top = 364
+          Width = 387
+          ItemHeight = 20
           ItemIndex = 1
           Items.Strings = (
             'SHA1'
             'SHA256'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 13
           Text = 'SHA256'
         end
         object Label25: TLabel
           Left = 0
-          Height = 17
-          Top = 322
-          Width = 370
+          Height = 23
+          Top = 392
+          Width = 452
           Caption = 'XAdES - Dołącz datę i czas'
+          ParentColor = False
+          ParentFont = False
         end
         object CheckBoxXAdESCzas: TCheckBox
-          Left = 370
-          Height = 17
-          Top = 322
-          Width = 316
+          Left = 452
+          Height = 23
+          Top = 392
+          Width = 387
+          ParentFont = False
           TabOrder = 14
         end
         object Label26: TLabel
           Left = 0
-          Height = 17
-          Top = 339
-          Width = 370
+          Height = 23
+          Top = 415
+          Width = 452
           Caption = 'eDeklaracja - kanonizuj XML'
+          ParentColor = False
+          ParentFont = False
         end
         object CheckBoxEDekC14N: TCheckBox
-          Left = 370
-          Height = 17
-          Top = 339
-          Width = 316
+          Left = 452
+          Height = 23
+          Top = 415
+          Width = 387
           Checked = True
+          ParentFont = False
           State = cbChecked
           TabOrder = 15
         end
         object Label33: TLabel
           Left = 0
-          Height = 23
-          Top = 356
-          Width = 370
+          Height = 28
+          Top = 438
+          Width = 452
           Caption = 'JPK - Klucz RSA produkcyjny'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditJPKRSAProd: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 356
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 438
+          Width = 387
           FileName = '..\pem\prod.pem'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 16
           Text = '..\pem\prod.pem'
         end
         object Label34: TLabel
           Left = 0
-          Height = 23
-          Top = 379
-          Width = 370
+          Height = 28
+          Top = 466
+          Width = 452
           Caption = 'JPK - Klucz RSA testowy'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditJPKRSATest: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 379
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 466
+          Width = 387
           FileName = '..\pem\test.pem'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 17
           Text = '..\pem\test.pem'
         end
         object Label55: TLabel
           Left = 0
-          Height = 23
-          Top = 402
-          Width = 370
+          Height = 28
+          Top = 494
+          Width = 452
           Caption = 'KSeF - klucz RSA produkcyjny'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditKSeFRSAProd: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 402
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 494
+          Width = 387
           FileName = '..\pem\ksefprod.pem'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 18
           Text = '..\pem\ksefprod.pem'
         end
         object Label56: TLabel
           Left = 0
-          Height = 23
-          Top = 425
-          Width = 370
+          Height = 28
+          Top = 522
+          Width = 452
           Caption = 'KSeF - klucz RSA demo'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditKSeFRSADemo: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 425
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 522
+          Width = 387
           FileName = '..\pem\ksefdemo.pem'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 19
           Text = '..\pem\ksefdemo.pem'
         end
         object Label57: TLabel
           Left = 0
-          Height = 23
-          Top = 448
-          Width = 370
+          Height = 28
+          Top = 550
+          Width = 452
           Caption = 'KSeF - klucz RSA tetowy'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditKSeFRSATest: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 448
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 550
+          Width = 387
           FileName = '..\pem\kseftest.pem'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 20
           Text = '..\pem\kseftest.pem'
         end
         object Label115: TLabel
           Left = 0
-          Height = 23
-          Top = 471
-          Width = 370
+          Height = 28
+          Top = 578
+          Width = 452
           Caption = 'Plik biblioteki libxml2'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditLibXML2: TFileNameEdit
-          Left = 370
-          Height = 23
-          Top = 471
-          Width = 316
+          Left = 452
+          Height = 28
+          Top = 578
+          Width = 387
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
+          ParentFont = False
           TabOrder = 21
+        end
+        object Label123: TLabel
+          Left = 0
+          Height = 28
+          Top = 606
+          Width = 452
+          Caption = 'Plik biblioteki PKCS#11'
+          ParentColor = False
+          ParentFont = False
+        end
+        object FileNameEditLibPKCS11: TFileNameEdit
+          Left = 452
+          Height = 28
+          Top = 606
+          Width = 387
+          FilterIndex = 0
+          HideDirectories = False
+          ButtonWidth = 29
+          NumGlyphs = 1
+          MaxLength = 0
+          ParentFont = False
+          TabOrder = 22
         end
       end
       object Panel2: TPanel
         Left = 0
-        Height = 50
-        Top = 533
-        Width = 690
+        Height = 62
+        Top = 557
+        Width = 864
         Align = alBottom
-        ClientHeight = 50
-        ClientWidth = 690
+        ClientHeight = 62
+        ClientWidth = 864
+        ParentFont = False
         TabOrder = 1
         object ButtonSetup: TButton
-          Left = 19
-          Height = 25
-          Top = 11
-          Width = 75
+          Left = 24
+          Height = 31
+          Top = 14
+          Width = 94
           Caption = 'Setup'
-          TabOrder = 0
           OnClick = ButtonSetupClick
+          ParentFont = False
+          TabOrder = 0
         end
       end
     end
@@ -448,6 +542,7 @@ object Form1: TForm1
       Caption = 'Certyfikaty'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ListViewCert: TListView
         Left = 0
@@ -458,33 +553,34 @@ object Form1: TForm1
         Columns = <        
           item
             Caption = 'Index'
-            Width = 60
+            Width = 75
           end        
           item
             Caption = 'Subject name'
-            Width = 200
+            Width = 250
           end        
           item
             Caption = 'Valid from'
-            Width = 90
+            Width = 112
           end        
           item
             Caption = 'Valid to'
-            Width = 90
+            Width = 112
           end        
           item
             Caption = 'Serial number'
-            Width = 200
+            Width = 250
           end        
           item
             Caption = 'Issuer'
-            Width = 300
+            Width = 375
           end        
           item
             Caption = 'Subject'
-            Width = 300
+            Width = 375
           end>
         HideSelection = False
+        ParentFont = False
         ReadOnly = True
         RowSelect = True
         TabOrder = 0
@@ -492,39 +588,281 @@ object Form1: TForm1
       end
       object Panel3: TPanel
         Left = 0
-        Height = 50
-        Top = 533
+        Height = 62
+        Top = 521
         Width = 690
         Align = alBottom
-        ClientHeight = 50
+        ClientHeight = 62
         ClientWidth = 690
+        ParentFont = False
         TabOrder = 1
         object ButtonShowCert: TButton
-          Left = 14
-          Height = 25
-          Top = 12
-          Width = 123
+          Left = 18
+          Height = 31
+          Top = 15
+          Width = 154
           Caption = 'Pokaż szczegóły'
-          TabOrder = 0
           OnClick = ButtonShowCertClick
+          ParentFont = False
+          TabOrder = 0
         end
         object ButtonCertWybierz: TButton
-          Left = 160
-          Height = 25
-          Top = 12
-          Width = 232
+          Left = 200
+          Height = 31
+          Top = 15
+          Width = 290
           Caption = 'Wybierz certyfikat i pokaż informacje'
-          TabOrder = 1
           OnClick = ButtonCertWybierzClick
+          ParentFont = False
+          TabOrder = 1
         end
         object ButtonCertReload: TButton
-          Left = 416
-          Height = 25
-          Top = 12
-          Width = 192
+          Left = 520
+          Height = 31
+          Top = 15
+          Width = 240
           Caption = 'Odświerz listę certyfikatów'
-          TabOrder = 2
           OnClick = ButtonCertReloadClick
+          ParentFont = False
+          TabOrder = 2
+        end
+      end
+    end
+    object TabSheetPKCS11: TTabSheet
+      Caption = 'PKCS#11'
+      ClientHeight = 619
+      ClientWidth = 864
+      ParentFont = False
+      TabVisible = False
+      object GroupBox24: TGroupBox
+        Left = 0
+        Height = 151
+        Top = 118
+        Width = 864
+        Align = alTop
+        AutoSize = True
+        Caption = 'Sesja'
+        ClientHeight = 126
+        ClientWidth = 860
+        ParentFont = False
+        TabOrder = 0
+        object Label124: TLabel
+          AnchorSideLeft.Control = GroupBox24
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrCenter
+          Left = 10
+          Height = 20
+          Top = 14
+          Width = 63
+          BorderSpacing.Around = 10
+          Caption = 'Certyfikat'
+          ParentColor = False
+          ParentFont = False
+        end
+        object ComboBoxPKCS11Cert: TComboBox
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = GroupBox24
+          AnchorSideRight.Control = GroupBox24
+          AnchorSideRight.Side = asrBottom
+          Left = 83
+          Height = 28
+          Top = 10
+          Width = 767
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 10
+          ItemHeight = 20
+          ParentFont = False
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object Label125: TLabel
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = Label124
+          AnchorSideRight.Side = asrBottom
+          Left = 50
+          Height = 20
+          Top = 52
+          Width = 23
+          Anchors = [akTop, akRight]
+          Caption = 'PIN'
+          ParentColor = False
+          ParentFont = False
+        end
+        object EditPKCS11PIN: TEdit
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 83
+          Height = 28
+          Top = 48
+          Width = 290
+          BorderSpacing.Around = 10
+          EchoMode = emPassword
+          ParentFont = False
+          PasswordChar = '*'
+          TabOrder = 1
+        end
+        object ButtonPKCS11SesStart: TButton
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 83
+          Height = 30
+          Top = 86
+          Width = 135
+          AutoSize = True
+          BorderSpacing.Around = 10
+          Caption = 'Rozpocznij sesję'
+          OnClick = ButtonPKCS11SesStartClick
+          ParentFont = False
+          TabOrder = 2
+        end
+        object ButtonPKCS11SesLogin: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesStart
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 228
+          Height = 30
+          Top = 86
+          Width = 77
+          AutoSize = True
+          BorderSpacing.Around = 10
+          Caption = 'Zaloguj'
+          OnClick = ButtonPKCS11SesLoginClick
+          ParentFont = False
+          TabOrder = 3
+        end
+        object ButtonPKCS11SesLogout: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesLogin
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 315
+          Height = 30
+          Top = 86
+          Width = 81
+          AutoSize = True
+          BorderSpacing.Around = 10
+          Caption = 'Wyloguj'
+          OnClick = ButtonPKCS11SesLogoutClick
+          ParentFont = False
+          TabOrder = 4
+        end
+        object ButtonPKCS11SesClose: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesLogout
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 406
+          Height = 30
+          Top = 86
+          Width = 117
+          AutoSize = True
+          BorderSpacing.Around = 10
+          Caption = 'Zakończ sesję'
+          OnClick = ButtonPKCS11SesCloseClick
+          ParentFont = False
+          TabOrder = 5
+        end
+        object ButtonPKCS11SesInfo: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesClose
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 533
+          Height = 30
+          Top = 86
+          Width = 140
+          AutoSize = True
+          BorderSpacing.Around = 10
+          Caption = 'Pokaż info o sesji'
+          OnClick = ButtonPKCS11SesInfoClick
+          ParentFont = False
+          TabOrder = 6
+        end
+        object Label126: TLabel
+          AnchorSideLeft.Control = EditPKCS11PIN
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11UserType
+          AnchorSideTop.Side = asrCenter
+          Left = 423
+          Height = 20
+          Top = 52
+          Width = 131
+          BorderSpacing.Left = 40
+          BorderSpacing.Around = 10
+          Caption = 'Rodzaj użytkownika'
+          ParentColor = False
+          ParentFont = False
+        end
+        object ComboBoxPKCS11UserType: TComboBox
+          AnchorSideLeft.Control = Label126
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 564
+          Height = 28
+          Top = 48
+          Width = 175
+          BorderSpacing.Around = 10
+          ItemHeight = 20
+          ItemIndex = 1
+          Items.Strings = (
+            'SO'
+            'User'
+            'Context Specific'
+          )
+          ParentFont = False
+          Style = csDropDownList
+          TabOrder = 7
+          Text = 'User'
+        end
+      end
+      object GroupBox23: TGroupBox
+        Left = 0
+        Height = 118
+        Top = 0
+        Width = 864
+        Align = alTop
+        AutoSize = True
+        Caption = 'Informacje'
+        ClientHeight = 93
+        ClientWidth = 860
+        ParentFont = False
+        TabOrder = 1
+        object ButtonPKCS11Info: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = GroupBox23
+          Left = 11
+          Height = 30
+          Top = 11
+          Width = 278
+          AutoSize = True
+          BorderSpacing.Around = 11
+          Caption = 'Pokaż informacje o bibliotece PKCS11'
+          OnClick = ButtonPKCS11InfoClick
+          ParentFont = False
+          TabOrder = 0
+        end
+        object ButtonPKCS11Slots: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = ButtonPKCS11Info
+          AnchorSideTop.Side = asrBottom
+          Left = 11
+          Height = 30
+          Top = 52
+          Width = 144
+          AutoSize = True
+          BorderSpacing.Around = 11
+          Caption = 'Pokaż listę slotów'
+          OnClick = ButtonPKCS11SlotsClick
+          ParentFont = False
+          TabOrder = 1
         end
       end
     end
@@ -532,200 +870,233 @@ object Form1: TForm1
       Caption = 'eDeklaracja podpis certyfikatem'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ComboBoxEdekCert: TComboBox
-        Left = 94
-        Height = 23
-        Top = 16
-        Width = 584
+        Left = 118
+        Height = 28
+        Top = 20
+        Width = 557
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 15
+        ItemHeight = 20
+        ParentFont = False
         Style = csDropDownList
         TabOrder = 0
       end
       object Label16: TLabel
-        Left = 21
+        Left = 26
         Height = 15
-        Top = 19
+        Top = 24
         Width = 51
         Caption = 'Certyfikat'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditEDPCWej: TFileNameEdit
-        Left = 94
+        Left = 118
         Height = 23
-        Top = 63
-        Width = 584
+        Top = 79
+        Width = 557
         OnAcceptFileName = FileNameEditEDPCWejAcceptFileName
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 1
       end
       object FileNameEditEDPCWyj: TFileNameEdit
-        Left = 94
+        Left = 118
         Height = 23
-        Top = 104
-        Width = 584
+        Top = 130
+        Width = 557
         DialogKind = dkSave
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 2
       end
       object Label14: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 64
+        Top = 80
         Width = 76
         Caption = 'Plik wejściowy'
+        ParentColor = False
+        ParentFont = False
       end
       object Label15: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 104
+        Top = 130
         Width = 75
         Caption = 'Plik wynikowy'
+        ParentColor = False
+        ParentFont = False
       end
       object ButtonEdekPodpiszCert: TButton
-        Left = 94
-        Height = 25
-        Top = 160
-        Width = 75
+        Left = 118
+        Height = 31
+        Top = 200
+        Width = 94
         Caption = 'Podpisz'
-        TabOrder = 3
         OnClick = ButtonEdekPodpiszCertClick
+        ParentFont = False
+        TabOrder = 3
       end
     end
     object TabSheetEDekPodpisAut: TTabSheet
       Caption = 'eDeklaracja podpis danymi aut.'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object Label17: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 177
+        Top = 221
         Width = 76
         Caption = 'Plik wejściowy'
+        ParentColor = False
+        ParentFont = False
       end
       object Label18: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 217
+        Top = 271
         Width = 75
         Caption = 'Plik wynikowy'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditEDPAWyj: TFileNameEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 217
-        Width = 566
+        Top = 271
+        Width = 535
         DialogKind = dkSave
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 0
       end
       object FileNameEditEDPAWej: TFileNameEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 176
-        Width = 566
+        Top = 220
+        Width = 535
         OnAcceptFileName = FileNameEditEDPAWejAcceptFileName
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 1
       end
       object ButtonEdekPodpiszAut: TButton
-        Left = 112
-        Height = 25
-        Top = 265
-        Width = 75
+        Left = 140
+        Height = 31
+        Top = 331
+        Width = 94
         Caption = 'Podpisz'
-        TabOrder = 2
         OnClick = ButtonEdekPodpiszAutClick
+        ParentFont = False
+        TabOrder = 2
       end
       object EditEDPNIP: TEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 16
-        Width = 200
+        Top = 20
+        Width = 250
+        ParentFont = False
         TabOrder = 3
       end
       object EditEDPImie: TEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 48
-        Width = 200
+        Top = 60
+        Width = 250
+        ParentFont = False
         TabOrder = 4
       end
       object EditEDPNazwisko: TEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 80
-        Width = 200
+        Top = 100
+        Width = 250
+        ParentFont = False
         TabOrder = 5
       end
       object Label19: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 16
+        Top = 20
         Width = 19
         Caption = 'NIP'
+        ParentColor = False
+        ParentFont = False
       end
       object Label20: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 46
+        Top = 58
         Width = 23
         Caption = 'Imię'
+        ParentColor = False
+        ParentFont = False
       end
       object Label21: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 80
+        Top = 100
         Width = 50
         Caption = 'Nazwisko'
+        ParentColor = False
+        ParentFont = False
       end
       object Label22: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 112
+        Top = 140
         Width = 79
         Caption = 'Data urodzenia'
+        ParentColor = False
+        ParentFont = False
       end
       object Label23: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 144
+        Top = 180
         Width = 92
         Caption = 'Kwota przychodu'
+        ParentColor = False
+        ParentFont = False
       end
       object DateTimePickerEDPDataU: TDateTimePicker
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 112
+        Top = 140
         Width = 83
         CenturyFrom = 1941
         MaxDate = 2958465
         MinDate = -53780
+        ParentFont = False
         TabOrder = 6
         TrailingSeparator = False
         TextForNullDate = 'NULL'
@@ -741,10 +1112,11 @@ object Form1: TForm1
         MonthNames = 'Long'
       end
       object FloatSpinEditEDPKwota: TFloatSpinEdit
-        Left = 112
+        Left = 140
         Height = 23
-        Top = 144
-        Width = 202
+        Top = 180
+        Width = 252
+        ParentFont = False
         TabOrder = 7
       end
     end
@@ -752,169 +1124,192 @@ object Form1: TForm1
       Caption = 'eDeklaracja bramka'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object GroupBox1: TGroupBox
-        Left = 8
-        Height = 175
-        Top = 9
-        Width = 670
+        Left = 10
+        Height = 219
+        Top = 11
+        Width = 665
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Wyślij podpisaną eDeklarację'
-        ClientHeight = 155
-        ClientWidth = 666
+        ClientHeight = 194
+        ClientWidth = 661
+        ParentFont = False
         TabOrder = 0
         object Label27: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 7
+          Top = 9
           Width = 72
           Caption = 'Plik deklaracji'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditEDBPlikWej: TFileNameEdit
-          Left = 112
+          Left = 140
           Height = 23
-          Top = 5
-          Width = 542
+          Top = 6
+          Width = 511
           Filter = 'Pliki eDeklaracji (*.xml;*.xades;*.xml.sig)|*.xml;*.xades;*.xml.sig|Wszystkie pliki (*.*)|*.*'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
+          ParentFont = False
           TabOrder = 0
         end
         object Label28: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 45
+          Top = 56
           Width = 81
           Caption = 'Rodzaj podpisu'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxEDBRodzPodp: TComboBox
-          Left = 112
-          Height = 23
-          Top = 41
-          Width = 168
-          ItemHeight = 15
+          Left = 140
+          Height = 28
+          Top = 51
+          Width = 210
+          ItemHeight = 20
           Items.Strings = (
             'Certyfikat'
             'Dane autoryzujące'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 1
         end
         object Label29: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 80
+          Top = 100
           Width = 40
           Caption = 'Bramka'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxEDBRodzBram: TComboBox
-          Left = 112
-          Height = 23
-          Top = 77
-          Width = 168
-          ItemHeight = 15
+          Left = 140
+          Height = 28
+          Top = 96
+          Width = 210
+          ItemHeight = 20
           ItemIndex = 1
           Items.Strings = (
             'Produkcyjna'
             'Testowa'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 2
           Text = 'Testowa'
         end
         object ButtonEDBWyslij: TButton
-          Left = 112
-          Height = 25
-          Top = 112
-          Width = 75
+          Left = 140
+          Height = 31
+          Top = 140
+          Width = 94
           Caption = 'Wyślij'
-          TabOrder = 3
           OnClick = ButtonEDBWyslijClick
+          ParentFont = False
+          TabOrder = 3
         end
       end
       object GroupBox2: TGroupBox
-        Left = 8
-        Height = 167
-        Top = 193
-        Width = 671
+        Left = 10
+        Height = 209
+        Top = 241
+        Width = 666
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Sprawdź status / pobierz UPO'
-        ClientHeight = 147
-        ClientWidth = 667
+        ClientHeight = 184
+        ClientWidth = 662
+        ParentFont = False
         TabOrder = 1
         object Label30: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 16
+          Top = 20
           Width = 57
           Caption = 'Numer ref.'
+          ParentColor = False
+          ParentFont = False
         end
         object EditEDBNrRef: TEdit
-          Left = 112
+          Left = 140
           Height = 23
-          Top = 8
-          Width = 542
+          Top = 10
+          Width = 511
           Anchors = [akTop, akLeft, akRight]
+          ParentFont = False
           TabOrder = 0
         end
         object Label31: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 48
+          Top = 60
           Width = 40
           Caption = 'Bramka'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxEDBRodzBramUPO: TComboBox
-          Left = 112
-          Height = 23
-          Top = 40
-          Width = 168
-          ItemHeight = 15
+          Left = 140
+          Height = 28
+          Top = 50
+          Width = 210
+          ItemHeight = 20
           ItemIndex = 1
           Items.Strings = (
             'Produkcyjna'
             'Testowa'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 1
           Text = 'Testowa'
         end
         object ButtonEDBUPO: TButton
-          Left = 112
-          Height = 25
-          Top = 104
-          Width = 184
+          Left = 140
+          Height = 31
+          Top = 130
+          Width = 230
           Caption = 'Sprawdź status / pobierz UPO'
-          TabOrder = 2
           OnClick = ButtonEDBUPOClick
+          ParentFont = False
+          TabOrder = 2
         end
         object FileNameEditEDBPlikWyj: TFileNameEdit
-          Left = 112
+          Left = 140
           Height = 23
-          Top = 72
-          Width = 542
+          Top = 90
+          Width = 511
           FileName = 'upo.xml'
           DialogKind = dkSave
           Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
+          ParentFont = False
           TabOrder = 3
           Text = 'upo.xml'
         end
         object Label32: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 80
+          Top = 100
           Width = 77
           Caption = 'Zapisz UPO do'
+          ParentColor = False
+          ParentFont = False
         end
       end
     end
@@ -922,125 +1317,143 @@ object Form1: TForm1
       Caption = 'JPK podpis certyfikatem'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object Label35: TLabel
-        Left = 21
+        Left = 26
         Height = 15
-        Top = 19
+        Top = 24
         Width = 51
         Caption = 'Certyfikat'
+        ParentColor = False
+        ParentFont = False
       end
       object ComboBoxJPKCert: TComboBox
-        Left = 94
-        Height = 23
-        Top = 16
-        Width = 584
+        Left = 118
+        Height = 28
+        Top = 20
+        Width = 557
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 15
+        ItemHeight = 20
+        ParentFont = False
         Style = csDropDownList
         TabOrder = 0
       end
       object Label36: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 64
+        Top = 80
         Width = 76
         Caption = 'Plik wejściowy'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPCWej: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 63
-        Width = 480
+        Top = 79
+        Width = 427
         OnAcceptFileName = FileNameEditJPKPCWejAcceptFileName
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 1
       end
       object Label37: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 168
+        Top = 210
         Width = 176
         Caption = 'Plik wynikowy (zaszyfrowany ZIP)'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPCEnc: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 168
-        Width = 480
+        Top = 210
+        Width = 427
         DialogKind = dkSave
         Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 2
       end
       object ButtonJPKPodpiszCert: TButton
-        Left = 198
-        Height = 25
-        Top = 248
-        Width = 75
+        Left = 248
+        Height = 31
+        Top = 310
+        Width = 94
         Caption = 'Podpisz'
-        TabOrder = 3
         OnClick = ButtonJPKPodpiszCertClick
+        ParentFont = False
+        TabOrder = 3
       end
       object Label38: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 208
+        Top = 260
         Width = 141
         Caption = 'Plik wynikowy (InitUpload)'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPCInitUpload: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 208
-        Width = 480
+        Top = 260
+        Width = 427
         DialogKind = dkSave
         Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 4
       end
       object CheckBoxJPKPCAdHoc: TCheckBox
-        Left = 198
+        Left = 248
         Height = 19
-        Top = 136
+        Top = 170
         Width = 124
         Caption = 'Na żądanie (AdHoc)'
+        ParentFont = False
         TabOrder = 5
       end
       object Label39: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 107
+        Top = 134
         Width = 40
         Caption = 'Bramka'
+        ParentColor = False
+        ParentFont = False
       end
       object ComboBoxJPKPCRodzBram: TComboBox
-        Left = 198
-        Height = 23
-        Top = 104
-        Width = 168
-        ItemHeight = 15
+        Left = 248
+        Height = 28
+        Top = 130
+        Width = 210
+        ItemHeight = 20
         ItemIndex = 1
         Items.Strings = (
           'Produkcyjna'
           'Testowa'
         )
+        ParentFont = False
         Style = csDropDownList
         TabOrder = 6
         Text = 'Testowa'
@@ -1050,162 +1463,189 @@ object Form1: TForm1
       Caption = 'JPK podpis danymi aut.'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object Label40: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 193
+        Top = 241
         Width = 76
         Caption = 'Plik wejściowy'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPAWej: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 192
-        Width = 480
+        Top = 240
+        Width = 427
         OnAcceptFileName = FileNameEditJPKPCWejAcceptFileName
         Filter = 'Pliki XML|*.xml|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 0
       end
       object Label41: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 236
+        Top = 295
         Width = 40
         Caption = 'Bramka'
+        ParentColor = False
+        ParentFont = False
       end
       object ComboBoxJPKPARodzBram: TComboBox
-        Left = 198
-        Height = 23
-        Top = 233
-        Width = 168
-        ItemHeight = 15
+        Left = 248
+        Height = 28
+        Top = 291
+        Width = 210
+        ItemHeight = 20
         ItemIndex = 1
         Items.Strings = (
           'Produkcyjna'
           'Testowa'
         )
+        ParentFont = False
         Style = csDropDownList
         TabOrder = 1
         Text = 'Testowa'
       end
       object CheckBoxJPKPAAdHoc: TCheckBox
-        Left = 198
+        Left = 248
         Height = 19
-        Top = 265
+        Top = 331
         Width = 124
         Caption = 'Na żądanie (AdHoc)'
+        ParentFont = False
         TabOrder = 2
       end
       object Label42: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 297
+        Top = 371
         Width = 176
         Caption = 'Plik wynikowy (zaszyfrowany ZIP)'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPAEnc: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 297
-        Width = 480
+        Top = 371
+        Width = 427
         DialogKind = dkSave
         Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 3
       end
       object Label43: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 337
+        Top = 421
         Width = 141
         Caption = 'Plik wynikowy (InitUpload)'
+        ParentColor = False
+        ParentFont = False
       end
       object FileNameEditJPKPAInitUpload: TFileNameEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 337
-        Width = 480
+        Top = 421
+        Width = 427
         DialogKind = dkSave
         Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
         FilterIndex = 0
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 29
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 4
       end
       object ButtonJPKPodpiszAut: TButton
-        Left = 198
-        Height = 25
-        Top = 377
-        Width = 75
+        Left = 248
+        Height = 31
+        Top = 471
+        Width = 94
         Caption = 'Podpisz'
-        TabOrder = 5
         OnClick = ButtonJPKPodpiszAutClick
+        ParentFont = False
+        TabOrder = 5
       end
       object Label44: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 16
+        Top = 20
         Width = 19
         Caption = 'NIP'
+        ParentColor = False
+        ParentFont = False
       end
       object Label45: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 46
+        Top = 58
         Width = 23
         Caption = 'Imię'
+        ParentColor = False
+        ParentFont = False
       end
       object Label46: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 80
+        Top = 100
         Width = 50
         Caption = 'Nazwisko'
+        ParentColor = False
+        ParentFont = False
       end
       object Label47: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 112
+        Top = 140
         Width = 79
         Caption = 'Data urodzenia'
+        ParentColor = False
+        ParentFont = False
       end
       object Label48: TLabel
-        Left = 8
+        Left = 10
         Height = 15
-        Top = 144
+        Top = 180
         Width = 92
         Caption = 'Kwota przychodu'
+        ParentColor = False
+        ParentFont = False
       end
       object FloatSpinEditJPKPKwota: TFloatSpinEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 144
-        Width = 202
+        Top = 180
+        Width = 252
+        ParentFont = False
         TabOrder = 6
       end
       object DateTimePickerJPKPDataU: TDateTimePicker
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 112
+        Top = 140
         Width = 83
         CenturyFrom = 1941
         MaxDate = 2958465
         MinDate = -53780
+        ParentFont = False
         TabOrder = 7
         TrailingSeparator = False
         TextForNullDate = 'NULL'
@@ -1221,24 +1661,27 @@ object Form1: TForm1
         MonthNames = 'Long'
       end
       object EditJPKPNazwisko: TEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 80
-        Width = 200
+        Top = 100
+        Width = 250
+        ParentFont = False
         TabOrder = 8
       end
       object EditJPKPImie: TEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 48
-        Width = 200
+        Top = 60
+        Width = 250
+        ParentFont = False
         TabOrder = 9
       end
       object EditJPKPNIP: TEdit
-        Left = 198
+        Left = 248
         Height = 23
-        Top = 16
-        Width = 200
+        Top = 20
+        Width = 250
+        ParentFont = False
         TabOrder = 10
       end
     end
@@ -1246,178 +1689,202 @@ object Form1: TForm1
       Caption = 'JPK bramka'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object GroupBox3: TGroupBox
-        Left = 5
-        Height = 196
-        Top = 4
-        Width = 675
+        Left = 6
+        Height = 245
+        Top = 5
+        Width = 672
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Wysyłanie'
-        ClientHeight = 176
-        ClientWidth = 671
+        ClientHeight = 220
+        ClientWidth = 668
+        ParentFont = False
         TabOrder = 0
         object Label49: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 9
+          Top = 11
           Width = 77
           Caption = 'Plik InitUpload'
+          ParentColor = False
+          ParentFont = False
         end
         object Label50: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 40
+          Top = 50
           Width = 92
           Caption = 'Plik zaszyfrowany'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditJPKBIU: TFileNameEdit
-          Left = 120
+          Left = 150
           Height = 23
-          Top = 3
-          Width = 543
+          Top = 4
+          Width = 511
           Filter = 'Pliki iu.sig|*.iu.sig|Wszystkie pliki|*.*'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
+          ParentFont = False
           TabOrder = 0
         end
         object FileNameEditJPKBEnc: TFileNameEdit
-          Left = 120
+          Left = 150
           Height = 23
-          Top = 32
-          Width = 543
+          Top = 40
+          Width = 511
           Filter = 'Pliki enc (*.enc)|*.enc|Wszystkie pliki|*.*'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
+          ParentFont = False
           TabOrder = 1
         end
         object CheckBoxJPKBCert: TCheckBox
-          Left = 120
+          Left = 150
           Height = 19
-          Top = 104
+          Top = 130
           Width = 516
           Caption = 'Zweryfikuj czy przesłany plik podpisano poprawnym certyfikatem z wymaganymi parametrami'
+          ParentFont = False
           TabOrder = 2
         end
         object ButtonJPKBWyslij: TButton
-          Left = 120
-          Height = 25
-          Top = 136
-          Width = 75
+          Left = 150
+          Height = 31
+          Top = 170
+          Width = 94
           Caption = 'Wyślij'
-          TabOrder = 3
           OnClick = ButtonJPKBWyslijClick
+          ParentFont = False
+          TabOrder = 3
         end
         object Label51: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 67
+          Top = 84
           Width = 40
           Caption = 'Bramka'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxJPKBRodzBram: TComboBox
-          Left = 120
-          Height = 23
-          Top = 64
-          Width = 168
-          ItemHeight = 15
+          Left = 150
+          Height = 28
+          Top = 80
+          Width = 210
+          ItemHeight = 20
           ItemIndex = 1
           Items.Strings = (
             'Produkcyjna'
             'Testowa'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 4
           Text = 'Testowa'
         end
       end
       object GroupBox4: TGroupBox
-        Left = 5
-        Height = 168
-        Top = 208
-        Width = 675
+        Left = 6
+        Height = 210
+        Top = 260
+        Width = 672
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Sprawdź status / pobierz UPO'
-        ClientHeight = 148
-        ClientWidth = 671
+        ClientHeight = 185
+        ClientWidth = 668
+        ParentFont = False
         TabOrder = 1
         object Label52: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 16
+          Top = 20
           Width = 57
           Caption = 'Numer ref.'
+          ParentColor = False
+          ParentFont = False
         end
         object EditJPKBNrRef: TEdit
-          Left = 112
+          Left = 140
           Height = 23
-          Top = 8
-          Width = 542
+          Top = 10
+          Width = 510
           Anchors = [akTop, akLeft, akRight]
+          ParentFont = False
           TabOrder = 0
         end
         object Label53: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 48
+          Top = 60
           Width = 40
           Caption = 'Bramka'
+          ParentColor = False
+          ParentFont = False
         end
         object ComboBoxJPKBRodzBramUPO: TComboBox
-          Left = 112
-          Height = 23
-          Top = 40
-          Width = 168
-          ItemHeight = 15
+          Left = 140
+          Height = 28
+          Top = 50
+          Width = 210
+          ItemHeight = 20
           ItemIndex = 1
           Items.Strings = (
             'Produkcyjna'
             'Testowa'
           )
+          ParentFont = False
           Style = csDropDownList
           TabOrder = 1
           Text = 'Testowa'
         end
         object Label54: TLabel
-          Left = 16
+          Left = 20
           Height = 15
-          Top = 80
+          Top = 100
           Width = 77
           Caption = 'Zapisz UPO do'
+          ParentColor = False
+          ParentFont = False
         end
         object FileNameEditJPKBPlikWyj: TFileNameEdit
-          Left = 112
+          Left = 140
           Height = 23
-          Top = 72
-          Width = 542
+          Top = 90
+          Width = 510
           FileName = 'upo.xml'
           DialogKind = dkSave
           Filter = 'Plik XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
           FilterIndex = 0
           HideDirectories = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           Anchors = [akTop, akLeft, akRight]
           MaxLength = 0
+          ParentFont = False
           TabOrder = 2
           Text = 'upo.xml'
         end
         object ButtonJPKBUPO: TButton
-          Left = 112
-          Height = 25
-          Top = 104
-          Width = 184
+          Left = 140
+          Height = 31
+          Top = 130
+          Width = 230
           Caption = 'Sprawdź status / pobierz UPO'
-          TabOrder = 3
           OnClick = ButtonJPKBUPOClick
+          ParentFont = False
+          TabOrder = 3
         end
       end
     end
@@ -1425,86 +1892,99 @@ object Form1: TForm1
       Caption = 'KSeF - Wspólne'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ScrollBox3: TScrollBox
         Left = 0
         Height = 583
         Top = 0
         Width = 690
-        HorzScrollBar.Page = 673
-        VertScrollBar.Page = 566
+        HorzScrollBar.Page = 669
+        VertScrollBar.Page = 562
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 566
-        ClientWidth = 673
+        ClientHeight = 562
+        ClientWidth = 669
+        ParentFont = False
         TabOrder = 0
         object GroupBox15: TGroupBox
           Left = 0
-          Height = 432
+          Height = 540
           Top = 50
           Width = 676
           Align = alTop
           Caption = 'Pobranie faktury'
-          ClientHeight = 412
+          ClientHeight = 515
           ClientWidth = 672
+          ParentFont = False
           TabOrder = 0
           object Label93: TLabel
-            Left = 24
+            Left = 30
             Height = 15
-            Top = 10
+            Top = 12
             Width = 117
             Caption = 'ksefReferenceNumber'
+            ParentColor = False
+            ParentFont = False
           end
           object Label94: TLabel
-            Left = 88
+            Left = 110
             Height = 15
-            Top = 34
+            Top = 42
             Width = 48
             Caption = 'dueValue'
+            ParentColor = False
+            ParentFont = False
           end
           object Label95: TLabel
-            Left = 9
+            Left = 11
             Height = 15
-            Top = 64
+            Top = 80
             Width = 127
             Caption = 'invoiceOryginalNumber'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFCInvRefNum: TEdit
-            Left = 152
+            Left = 190
             Height = 23
-            Top = 5
-            Width = 506
+            Top = 6
+            Width = 464
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object FloatSpinEditKSeFCInvDueValue: TFloatSpinEdit
-            Left = 152
+            Left = 190
             Height = 23
-            Top = 32
-            Width = 130
+            Top = 40
+            Width = 162
+            ParentFont = False
             TabOrder = 1
           end
           object EditKSeFCInvOrgNum: TEdit
-            Left = 152
+            Left = 190
             Height = 23
-            Top = 61
-            Width = 336
+            Top = 76
+            Width = 420
+            ParentFont = False
             TabOrder = 2
           end
           object GroupBox16: TGroupBox
-            Left = 9
-            Height = 105
-            Top = 88
-            Width = 663
+            Left = 11
+            Height = 131
+            Top = 110
+            Width = 829
             Caption = 'subjectToIdentifier'
-            ClientHeight = 85
-            ClientWidth = 659
+            ClientHeight = 106
+            ClientWidth = 825
+            ParentFont = False
             TabOrder = 3
             object RadioGroupKSeFCInvSubToType: TRadioGroup
-              Left = 13
-              Height = 41
+              Left = 16
+              Height = 51
               Top = 0
-              Width = 641
+              Width = 637
               Anchors = [akTop, akLeft, akRight]
               AutoFill = True
               Caption = 'Type'
@@ -1515,235 +1995,271 @@ object Form1: TForm1
               ChildSizing.ShrinkVertical = crsScaleChilds
               ChildSizing.Layout = cclLeftToRightThenTopToBottom
               ChildSizing.ControlsPerLine = 3
-              ClientHeight = 21
-              ClientWidth = 637
+              ClientHeight = 26
+              ClientWidth = 633
               Columns = 3
               Items.Strings = (
                 'none'
                 'onip'
                 'other'
               )
+              ParentFont = False
               TabOrder = 0
             end
             object Label96: TLabel
-              Left = 18
+              Left = 22
               Height = 15
-              Top = 55
+              Top = 69
               Width = 47
               Caption = 'identifier'
+              ParentColor = False
+              ParentFont = False
             end
             object EditKSeFCInvSubToIdent: TEdit
-              Left = 72
+              Left = 90
               Height = 23
-              Top = 49
-              Width = 371
+              Top = 61
+              Width = 464
+              ParentFont = False
               TabOrder = 1
             end
           end
           object GroupBox17: TGroupBox
-            Left = 9
-            Height = 137
-            Top = 199
-            Width = 663
+            Left = 11
+            Height = 171
+            Top = 249
+            Width = 829
             Caption = 'subjectToName'
-            ClientHeight = 117
-            ClientWidth = 659
+            ClientHeight = 146
+            ClientWidth = 825
+            ParentFont = False
             TabOrder = 4
             object Label97: TLabel
-              Left = 13
+              Left = 16
               Height = 15
-              Top = 4
+              Top = 5
               Width = 59
               Caption = 'tradeName'
+              ParentColor = False
+              ParentFont = False
             end
             object EditKSeFCInvSubToTradeName: TEdit
-              Left = 86
+              Left = 108
               Height = 23
               Top = 0
-              Width = 568
+              Width = 710
+              ParentFont = False
               TabOrder = 0
             end
             object RadioButtonKSeFCInvSubToFullName: TRadioButton
-              Left = 19
+              Left = 24
               Height = 19
-              Top = 37
+              Top = 46
               Width = 69
               Caption = 'FullName'
+              ParentFont = False
               TabOrder = 1
             end
             object EditKSeFCInvSubToFullName: TEdit
-              Left = 80
+              Left = 100
               Height = 23
-              Top = 64
-              Width = 248
+              Top = 80
+              Width = 310
+              ParentFont = False
               TabOrder = 2
             end
             object Label98: TLabel
-              Left = 19
+              Left = 24
               Height = 15
-              Top = 69
+              Top = 86
               Width = 49
               Caption = 'fullName'
+              ParentColor = False
+              ParentFont = False
             end
             object RadioButtonKSeFCInvSubToPersonName: TRadioButton
-              Left = 359
+              Left = 449
               Height = 19
-              Top = 37
+              Top = 46
               Width = 86
               Caption = 'PersonName'
+              ParentFont = False
               TabOrder = 3
             end
             object EditKSeFCInvSubToFirstName: TEdit
-              Left = 420
+              Left = 525
               Height = 23
-              Top = 64
-              Width = 228
+              Top = 80
+              Width = 285
+              ParentFont = False
               TabOrder = 4
             end
             object EditKSeFCInvSubToSurname: TEdit
-              Left = 420
+              Left = 525
               Height = 23
-              Top = 88
-              Width = 228
+              Top = 110
+              Width = 285
+              ParentFont = False
               TabOrder = 5
             end
             object firstName: TLabel
-              Left = 359
+              Left = 449
               Height = 15
-              Top = 66
+              Top = 82
               Width = 52
               Caption = 'firstName'
+              ParentColor = False
+              ParentFont = False
             end
             object surname: TLabel
-              Left = 358
+              Left = 448
               Height = 15
-              Top = 90
+              Top = 112
               Width = 46
               Caption = 'surname'
+              ParentColor = False
+              ParentFont = False
             end
           end
           object Label99: TLabel
-            Left = 7
+            Left = 9
             Height = 15
-            Top = 346
+            Top = 432
             Width = 75
             Caption = 'Plik wynikowy'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFCInvFN: TFileNameEdit
-            Left = 97
+            Left = 121
             Height = 23
-            Top = 344
-            Width = 561
+            Top = 430
+            Width = 533
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 5
           end
           object ButtonKSeFCInvGet: TButton
-            Left = 16
-            Height = 25
-            Top = 381
-            Width = 75
+            Left = 20
+            Height = 31
+            Top = 476
+            Width = 94
             Caption = 'Pobierz'
-            TabOrder = 6
             OnClick = ButtonKSeFCInvGetClick
+            ParentFont = False
+            TabOrder = 6
           end
           object ButtonKSeFCInvClear: TButton
-            Left = 123
-            Height = 25
-            Top = 381
-            Width = 75
+            Left = 154
+            Height = 31
+            Top = 476
+            Width = 94
             Caption = 'Czyść'
-            TabOrder = 7
             OnClick = ButtonKSeFCInvClearClick
+            ParentFont = False
+            TabOrder = 7
           end
         end
         object GroupBox18: TGroupBox
           Left = 0
-          Height = 120
+          Height = 150
           Top = 482
           Width = 676
           Align = alTop
           Caption = 'Sprawdź status / pobierz UPO'
-          ClientHeight = 100
+          ClientHeight = 125
           ClientWidth = 672
+          ParentFont = False
           TabOrder = 1
           object Label100: TLabel
-            Left = 16
+            Left = 20
             Height = 15
-            Top = 8
+            Top = 10
             Width = 99
             Caption = 'ReferenceNumber '
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFStatusReferenceNumber: TEdit
-            Left = 123
+            Left = 154
             Height = 23
-            Top = 5
-            Width = 534
+            Top = 6
+            Width = 499
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object Label101: TLabel
-            Left = 9
+            Left = 11
             Height = 15
-            Top = 37
+            Top = 46
             Width = 110
             Caption = 'Plik wynikowy z UPO'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFUPO: TFileNameEdit
-            Left = 124
+            Left = 155
             Height = 23
-            Top = 34
-            Width = 534
+            Top = 42
+            Width = 499
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 1
           end
           object ButtonKSeFStatusUPO: TButton
-            Left = 124
-            Height = 25
-            Top = 64
-            Width = 188
+            Left = 155
+            Height = 31
+            Top = 80
+            Width = 235
             Caption = 'Sprawdź status / pobierz UPO'
-            TabOrder = 2
             OnClick = ButtonKSeFStatusUPOClick
+            ParentFont = False
+            TabOrder = 2
           end
         end
         object Panel4: TPanel
           Left = 0
-          Height = 50
+          Height = 62
           Top = 0
           Width = 676
           Align = alTop
-          ClientHeight = 50
+          ClientHeight = 62
           ClientWidth = 676
+          ParentFont = False
           TabOrder = 2
           object Label102: TLabel
-            Left = 18
+            Left = 22
             Height = 15
-            Top = 20
+            Top = 25
             Width = 40
             Caption = 'Bramka'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFComBramka: TComboBox
-            Left = 83
-            Height = 23
-            Top = 16
-            Width = 176
-            ItemHeight = 15
+            Left = 104
+            Height = 28
+            Top = 20
+            Width = 220
+            ItemHeight = 20
             ItemIndex = 2
             Items.Strings = (
               'Produkcyjna'
               'Demo'
               'Testowa'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 0
             Text = 'Testowa'
@@ -1755,92 +2271,105 @@ object Form1: TForm1
       Caption = 'KSeF - Sesja'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ScrollBox1: TScrollBox
         Left = 0
         Height = 583
         Top = 0
         Width = 690
-        HorzScrollBar.Page = 637
-        VertScrollBar.Page = 583
+        HorzScrollBar.Page = 669
+        VertScrollBar.Page = 562
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 583
-        ClientWidth = 673
+        ClientHeight = 562
+        ClientWidth = 669
+        ParentFont = False
         TabOrder = 0
         object GroupBoxKSeFSesPar: TGroupBox
           Left = 0
-          Height = 97
+          Height = 121
           Top = 0
           Width = 673
           Align = alTop
           Caption = 'Parametry sesji'
-          ClientHeight = 77
+          ClientHeight = 96
           ClientWidth = 669
+          ParentFont = False
           TabOrder = 0
           object Label58: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 10
+            Top = 12
             Width = 19
             Caption = 'NIP'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFNIP: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 5
-            Width = 122
+            Top = 6
+            Width = 152
+            ParentFont = False
             TabOrder = 0
           end
           object Label59: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 42
+            Top = 52
             Width = 40
             Caption = 'Bramka'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFBramka: TComboBox
-            Left = 88
-            Height = 23
-            Top = 39
-            Width = 176
-            ItemHeight = 15
+            Left = 110
+            Height = 28
+            Top = 49
+            Width = 220
+            ItemHeight = 20
             ItemIndex = 2
             Items.Strings = (
               'Produkcyjna'
               'Demo'
               'Testowa'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 1
             Text = 'Testowa'
           end
           object CheckBoxKSeFEncrypt: TCheckBox
-            Left = 317
+            Left = 396
             Height = 19
-            Top = 10
+            Top = 12
             Width = 186
             Caption = 'Szyfrowanie dokumentów (AES)'
+            ParentFont = False
             TabOrder = 2
           end
           object Label68: TLabel
-            Left = 317
+            Left = 396
             Height = 15
-            Top = 42
+            Top = 52
             Width = 81
             Caption = 'Kod formularza'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFInitFormCode: TComboBox
-            Left = 416
-            Height = 23
-            Top = 39
-            Width = 76
-            ItemHeight = 15
+            Left = 520
+            Height = 28
+            Top = 49
+            Width = 95
+            ItemHeight = 20
             ItemIndex = 0
             Items.Strings = (
               'FA(1)'
               'FA(2)'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 3
             Text = 'FA(1)'
@@ -1848,58 +2377,66 @@ object Form1: TForm1
         end
         object GroupBoxKSeFSesInitCert: TGroupBox
           Left = 0
-          Height = 123
+          Height = 154
           Top = 97
           Width = 673
           Align = alTop
           Caption = 'Inicjuj certyfikatem'
-          ClientHeight = 103
+          ClientHeight = 129
           ClientWidth = 669
+          ParentFont = False
           TabOrder = 1
           object Label60: TLabel
-            Left = 19
+            Left = 24
             Height = 15
-            Top = 15
+            Top = 19
             Width = 51
             Caption = 'Certyfikat'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFCert: TComboBox
-            Left = 126
-            Height = 23
-            Top = 10
-            Width = 531
+            Left = 158
+            Height = 28
+            Top = 12
+            Width = 496
             Anchors = [akTop, akLeft, akRight]
-            ItemHeight = 15
+            ItemHeight = 20
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 0
           end
           object ButtonKSeFInitSigned: TButton
-            Left = 126
-            Height = 25
-            Top = 72
-            Width = 75
+            Left = 158
+            Height = 31
+            Top = 90
+            Width = 94
             Caption = 'Inicjuj'
-            TabOrder = 1
             OnClick = ButtonKSeFInitSignedClick
+            ParentFont = False
+            TabOrder = 1
           end
           object Label67: TLabel
-            Left = 19
+            Left = 24
             Height = 15
-            Top = 46
+            Top = 58
             Width = 95
             Caption = 'Rodzaj autoryzacji'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFCertAuthType: TComboBox
-            Left = 126
-            Height = 23
-            Top = 43
-            Width = 164
-            ItemHeight = 15
+            Left = 158
+            Height = 28
+            Top = 54
+            Width = 205
+            ItemHeight = 20
             ItemIndex = 0
             Items.Strings = (
               'Numer seryjny'
               'Odcisk palca certyfikatu'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 2
             Text = 'Numer seryjny'
@@ -1907,239 +2444,272 @@ object Form1: TForm1
         end
         object GroupBoxKSeFSesInitTok: TGroupBox
           Left = 0
-          Height = 88
+          Height = 110
           Top = 220
           Width = 673
           Align = alTop
           Caption = 'Inicjuj tokenem'
-          ClientHeight = 68
+          ClientHeight = 85
           ClientWidth = 669
+          ParentFont = False
           TabOrder = 2
           object Label61: TLabel
-            Left = 26
+            Left = 32
             Height = 15
-            Top = 8
+            Top = 10
             Width = 31
             Caption = 'Token'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFToken: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 6
-            Width = 569
+            Top = 8
+            Width = 544
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonKSeFIniToken: TButton
-            Left = 88
-            Height = 25
-            Top = 32
-            Width = 75
+            Left = 110
+            Height = 31
+            Top = 40
+            Width = 94
             Caption = 'Inicjuj'
-            TabOrder = 1
             OnClick = ButtonKSeFIniTokenClick
+            ParentFont = False
+            TabOrder = 1
           end
         end
         object GroupBoxKSeFSesInitPZ: TGroupBox
           Left = 0
-          Height = 161
+          Height = 201
           Top = 308
           Width = 673
           Align = alTop
           Caption = 'Inicjuj profilem zaufanym'
-          ClientHeight = 141
+          ClientHeight = 176
           ClientWidth = 669
+          ParentFont = False
           TabOrder = 3
           object Label62: TLabel
-            Left = 17
+            Left = 21
             Height = 15
-            Top = 7
+            Top = 9
             Width = 140
             Caption = 'Wynikowy plik do podpisu'
+            ParentColor = False
+            ParentFont = False
           end
           object Label63: TLabel
-            Left = 17
+            Left = 21
             Height = 15
-            Top = 80
+            Top = 100
             Width = 106
             Caption = 'Podpisany w PZ plik'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFInitPZOut: TFileNameEdit
-            Left = 176
+            Left = 220
             Height = 23
-            Top = 8
-            Width = 480
+            Top = 10
+            Width = 433
             DialogKind = dkSave
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonKSeFInitPZZapisz: TButton
-            Left = 176
-            Height = 25
-            Top = 40
-            Width = 75
+            Left = 220
+            Height = 31
+            Top = 50
+            Width = 94
             Caption = 'Zapisz'
-            TabOrder = 1
             OnClick = ButtonKSeFInitPZZapiszClick
+            ParentFont = False
+            TabOrder = 1
           end
           object ButtonKSeFInitPZ: TButton
-            Left = 176
-            Height = 25
-            Top = 112
-            Width = 75
+            Left = 220
+            Height = 31
+            Top = 140
+            Width = 94
             Caption = 'Inicjuj'
-            TabOrder = 2
             OnClick = ButtonKSeFInitPZClick
+            ParentFont = False
+            TabOrder = 2
           end
           object FileNameEditKSeFInitPZIn: TFileNameEdit
-            Left = 176
+            Left = 220
             Height = 23
-            Top = 80
-            Width = 479
+            Top = 100
+            Width = 431
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 3
           end
         end
         object GroupBoxKSeFSesStat: TGroupBox
           Left = 0
-          Height = 121
+          Height = 151
           Top = 469
           Width = 673
           Align = alTop
           Caption = 'Status'
-          ClientHeight = 101
+          ClientHeight = 126
           ClientWidth = 669
           Enabled = False
+          ParentFont = False
           TabOrder = 4
           object Label64: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 7
+            Top = 9
             Width = 210
             Caption = 'Nr ref lub puste dla statusu sesji ogólnej'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFSesStatRef: TEdit
-            Left = 248
+            Left = 310
             Height = 23
-            Top = 3
-            Width = 385
+            Top = 4
+            Width = 481
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonkSeFSesStat: TButton
-            Left = 19
-            Height = 25
-            Top = 64
-            Width = 112
+            Left = 24
+            Height = 31
+            Top = 80
+            Width = 140
             Caption = 'Sprawdź status'
-            TabOrder = 1
             OnClick = ButtonkSeFSesStatClick
+            ParentFont = False
+            TabOrder = 1
           end
           object CheckBoxKSeFStatDet: TCheckBox
-            Left = 352
+            Left = 440
             Height = 19
-            Top = 34
+            Top = 42
             Width = 69
             Caption = 'Szczegóły'
             Checked = True
+            ParentFont = False
             State = cbChecked
             TabOrder = 2
           end
           object Label65: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 34
+            Top = 42
             Width = 46
             Caption = 'PageSize'
+            ParentColor = False
+            ParentFont = False
           end
           object Label66: TLabel
-            Left = 176
+            Left = 220
             Height = 15
-            Top = 34
+            Top = 42
             Width = 58
             Caption = 'PageOffset'
+            ParentColor = False
+            ParentFont = False
           end
           object SpinEditKSeFSesPgSz: TSpinEdit
-            Left = 80
+            Left = 100
             Height = 23
-            Top = 32
-            Width = 71
+            Top = 40
+            Width = 89
+            ParentFont = False
             TabOrder = 3
             Value = 10
           end
           object SpinEditKSeFSesPgOf: TSpinEdit
-            Left = 248
+            Left = 310
             Height = 23
-            Top = 32
-            Width = 70
+            Top = 40
+            Width = 88
+            ParentFont = False
             TabOrder = 4
           end
         end
         object GroupBoxKSeFSesTerm: TGroupBox
           Left = 0
-          Height = 61
+          Height = 76
           Top = 590
           Width = 673
           Align = alTop
           Caption = 'Zakończenie sesji'
-          ClientHeight = 41
+          ClientHeight = 51
           ClientWidth = 669
           Enabled = False
+          ParentFont = False
           TabOrder = 5
           object ButtonKSeFSesTerm: TButton
-            Left = 24
-            Height = 25
-            Top = 5
-            Width = 123
+            Left = 30
+            Height = 31
+            Top = 6
+            Width = 154
             Caption = 'Zakończ sesjię'
-            TabOrder = 0
             OnClick = ButtonKSeFSesTermClick
+            ParentFont = False
+            TabOrder = 0
           end
         end
         object GroupBoxKSeFSesGenIntId: TGroupBox
           Left = 0
-          Height = 65
+          Height = 81
           Top = 651
           Width = 673
           Align = alTop
           Caption = 'Wygenerowanie identyfikatora wewnetrznego'
-          ClientHeight = 45
+          ClientHeight = 56
           ClientWidth = 669
           Enabled = False
+          ParentFont = False
           TabOrder = 6
           object Label92: TLabel
-            Left = 12
+            Left = 15
             Height = 15
-            Top = 14
+            Top = 18
             Width = 112
             Caption = 'inputDigitsSequence '
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFinputDigitsSequence: TEdit
-            Left = 128
+            Left = 160
             Height = 23
-            Top = 11
-            Width = 448
+            Top = 14
+            Width = 393
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonKSeFGenIntId: TButton
-            Left = 592
-            Height = 25
-            Top = 8
-            Width = 75
+            Left = 573
+            Height = 31
+            Top = 10
+            Width = 94
             Anchors = [akTop, akRight]
             Caption = 'Generuj'
-            TabOrder = 1
             OnClick = ButtonKSeFGenIntIdClick
+            ParentFont = False
+            TabOrder = 1
           end
         end
       end
@@ -2148,247 +2718,283 @@ object Form1: TForm1
       Caption = 'KSeF - Faktury'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ScrollBox5: TScrollBox
         Left = 0
         Height = 583
         Top = 0
         Width = 690
-        HorzScrollBar.Page = 287
-        VertScrollBar.Page = 544
+        HorzScrollBar.Page = 358
+        VertScrollBar.Page = 583
         Align = alClient
         BorderStyle = bsNone
         ClientHeight = 583
-        ClientWidth = 690
+        ClientWidth = 669
+        ParentFont = False
         TabOrder = 0
         object GroupBox21: TGroupBox
           Left = 0
-          Height = 116
+          Height = 145
           Top = 312
           Width = 690
           Align = alTop
           Caption = 'Ukrywanie wybranej faktury'
-          ClientHeight = 96
+          ClientHeight = 120
           ClientWidth = 686
+          ParentFont = False
           TabOrder = 0
           object Label116: TLabel
-            Left = 15
+            Left = 19
             Height = 15
-            Top = 9
+            Top = 11
             Width = 61
             Caption = 'Nr ref. KSeF'
+            ParentColor = False
+            ParentFont = False
           end
           object Label117: TLabel
-            Left = 24
+            Left = 30
             Height = 15
-            Top = 35
+            Top = 44
             Width = 52
             Caption = 'Przyczyna'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFInvHideNr: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 5
-            Width = 585
+            Top = 6
+            Width = 560
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object EditKSeFInvHideReason: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 33
-            Width = 585
+            Top = 41
+            Width = 560
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 1
           end
           object ButtonKSeFInvHide: TButton
-            Left = 88
-            Height = 25
-            Top = 64
-            Width = 75
+            Left = 110
+            Height = 31
+            Top = 80
+            Width = 94
             Caption = 'Ukryj'
-            TabOrder = 2
             OnClick = ButtonKSeFInvHideClick
+            ParentFont = False
+            TabOrder = 2
           end
         end
         object GroupBox22: TGroupBox
           Left = 0
-          Height = 116
+          Height = 145
           Top = 428
           Width = 690
           Align = alTop
           Caption = 'Anulowanie ukrycia wybranej faktury'
-          ClientHeight = 96
+          ClientHeight = 120
           ClientWidth = 686
+          ParentFont = False
           TabOrder = 1
           object Label118: TLabel
-            Left = 15
+            Left = 19
             Height = 15
-            Top = 9
+            Top = 11
             Width = 61
             Caption = 'Nr ref. KSeF'
+            ParentColor = False
+            ParentFont = False
           end
           object Label119: TLabel
-            Left = 24
+            Left = 30
             Height = 15
-            Top = 35
+            Top = 44
             Width = 52
             Caption = 'Przyczyna'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFInvShowNr: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 5
-            Width = 585
+            Top = 6
+            Width = 560
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object EditKSeFInvShowReason: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 33
-            Width = 585
+            Top = 41
+            Width = 560
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 1
           end
           object ButtonKSeFInvShow: TButton
-            Left = 88
-            Height = 25
-            Top = 64
-            Width = 115
+            Left = 110
+            Height = 31
+            Top = 80
+            Width = 144
             Caption = 'Cofnij ukrycie'
-            TabOrder = 2
             OnClick = ButtonKSeFInvShowClick
+            ParentFont = False
+            TabOrder = 2
           end
         end
         object GroupBox7: TGroupBox
           Left = 0
-          Height = 120
+          Height = 150
           Top = 192
           Width = 690
           Align = alTop
           Caption = 'Pobieranie faktury'
-          ClientHeight = 100
+          ClientHeight = 125
           ClientWidth = 686
+          ParentFont = False
           TabOrder = 2
           object Label71: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 8
+            Top = 10
             Width = 127
             Caption = 'KSeF Reference Number'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFInvGetNr: TEdit
-            Left = 144
+            Left = 180
             Height = 23
-            Top = 3
-            Width = 529
+            Top = 4
+            Width = 490
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object Label72: TLabel
-            Left = 32
+            Left = 40
             Height = 15
-            Top = 37
+            Top = 46
             Width = 102
             Caption = 'Plik wynikowy XML'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFGetFN: TFileNameEdit
-            Left = 144
+            Left = 180
             Height = 23
-            Top = 32
-            Width = 531
+            Top = 40
+            Width = 492
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 1
           end
           object ButtonKSeFInvGet: TButton
-            Left = 144
-            Height = 25
-            Top = 64
-            Width = 75
+            Left = 180
+            Height = 31
+            Top = 80
+            Width = 94
             Caption = 'Pobierz'
-            TabOrder = 2
             OnClick = ButtonKSeFInvGetClick
+            ParentFont = False
+            TabOrder = 2
           end
         end
         object GroupBox6: TGroupBox
           Left = 0
-          Height = 96
+          Height = 120
           Top = 96
           Width = 690
           Align = alTop
           Caption = 'Sprawdź status faktury'
-          ClientHeight = 76
+          ClientHeight = 95
           ClientWidth = 686
+          ParentFont = False
           TabOrder = 3
           object Label70: TLabel
-            Left = 15
+            Left = 19
             Height = 15
-            Top = 9
+            Top = 11
             Width = 186
             Caption = 'Invoice Element Reference Number'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFInvStatNr: TEdit
-            Left = 208
+            Left = 260
             Height = 23
-            Top = 6
-            Width = 466
+            Top = 8
+            Width = 411
             Anchors = [akTop, akLeft, akRight]
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonKSeFInvStat: TButton
-            Left = 208
-            Height = 25
-            Top = 40
-            Width = 75
+            Left = 260
+            Height = 31
+            Top = 50
+            Width = 94
             Caption = 'Sprawdź'
-            TabOrder = 1
             OnClick = ButtonKSeFInvStatClick
+            ParentFont = False
+            TabOrder = 1
           end
         end
         object GroupBox5: TGroupBox
           Left = 0
-          Height = 96
+          Height = 120
           Top = 0
           Width = 690
           Align = alTop
           Caption = 'Wysyłanie faktury'
-          ClientHeight = 76
+          ClientHeight = 95
           ClientWidth = 686
+          ParentFont = False
           TabOrder = 4
           object Label69: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 8
+            Top = 10
             Width = 86
             Caption = 'Plik XML faktury'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFInvSend: TFileNameEdit
-            Left = 104
+            Left = 130
             Height = 23
-            Top = 5
-            Width = 576
+            Top = 6
+            Width = 548
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 0
           end
           object ButtonKSeFInvSend: TButton
-            Left = 104
-            Height = 25
-            Top = 40
-            Width = 75
+            Left = 130
+            Height = 31
+            Top = 50
+            Width = 94
             Caption = 'Wyślij'
-            TabOrder = 1
             OnClick = ButtonKSeFInvSendClick
+            ParentFont = False
+            TabOrder = 1
           end
         end
       end
@@ -2397,90 +3003,103 @@ object Form1: TForm1
       Caption = 'KSeF - Zapytania - Faktury'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ScrollBox2: TScrollBox
         Left = 0
         Height = 583
         Top = 0
         Width = 690
-        HorzScrollBar.Page = 663
-        VertScrollBar.Page = 579
+        HorzScrollBar.Page = 665
+        VertScrollBar.Page = 558
         Align = alClient
-        ClientHeight = 579
-        ClientWidth = 669
+        ClientHeight = 558
+        ClientWidth = 665
+        ParentFont = False
         TabOrder = 0
         object GroupBox10: TGroupBox
           Left = 0
-          Height = 56
+          Height = 70
           Top = 480
           Width = 669
           Align = alTop
           Caption = 'Zapytaj synchronicznie'
-          ClientHeight = 36
+          ClientHeight = 45
           ClientWidth = 665
+          ParentFont = False
           TabOrder = 0
           object Label85: TLabel
-            Left = 18
+            Left = 22
             Height = 15
-            Top = 9
+            Top = 11
             Width = 49
             Caption = 'PageSize '
+            ParentColor = False
+            ParentFont = False
           end
           object SpinEditKSeFQInvAsPS: TSpinEdit
-            Left = 75
+            Left = 94
             Height = 23
-            Top = 4
-            Width = 85
+            Top = 5
+            Width = 106
+            ParentFont = False
             TabOrder = 0
             Value = 10
           end
           object SpinEditKSeFQInvAsPS1: TSpinEdit
-            Left = 264
+            Left = 330
             Height = 23
-            Top = 4
-            Width = 85
+            Top = 5
+            Width = 106
+            ParentFont = False
             TabOrder = 1
           end
           object Label86: TLabel
-            Left = 192
+            Left = 240
             Height = 15
-            Top = 8
+            Top = 10
             Width = 58
             Caption = 'PageOffset'
+            ParentColor = False
+            ParentFont = False
           end
           object ButtonKSeFQInvSync: TButton
-            Left = 392
-            Height = 25
-            Top = 4
-            Width = 75
+            Left = 490
+            Height = 31
+            Top = 5
+            Width = 94
             Caption = 'Zapytaj'
-            TabOrder = 2
             OnClick = ButtonKSeFQInvSyncClick
+            ParentFont = False
+            TabOrder = 2
           end
         end
         object GroupBox8: TGroupBox
           Left = 0
-          Height = 480
+          Height = 600
           Top = 0
           Width = 669
           Align = alTop
           Caption = 'Kryteria'
-          ClientHeight = 460
+          ClientHeight = 575
           ClientWidth = 665
+          ParentFont = False
           TabOrder = 1
           object Label73: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 6
+            Top = 8
             Width = 91
             Caption = 'Rodzaj podmiotu'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFQInvCrSubTyp: TComboBox
-            Left = 129
-            Height = 23
+            Left = 161
+            Height = 28
             Top = 1
-            Width = 135
-            ItemHeight = 15
+            Width = 169
+            ItemHeight = 20
             ItemIndex = 0
             Items.Strings = (
               'subject1'
@@ -2488,65 +3107,77 @@ object Form1: TForm1
               'subject3'
               'subjectAuthorized'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 0
             Text = 'subject1'
           end
           object PageControlKSeFQInvSubjectType: TPageControl
-            Left = 11
-            Height = 384
-            Top = 64
-            Width = 648
+            Left = 14
+            Height = 480
+            Top = 80
+            Width = 810
             ActivePage = TabSheetKSeFQInvCrDetail
+            ParentFont = False
             TabIndex = 0
             TabOrder = 1
             object TabSheetKSeFQInvCrDetail: TTabSheet
               Caption = 'Szczegółowo'
               ClientHeight = 356
               ClientWidth = 640
+              ParentFont = False
               object Label74: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 19
+                Top = 24
                 Width = 70
                 Caption = 'amountFrom'
+                ParentColor = False
+                ParentFont = False
               end
               object FloatSpinEditKSeFQInvCAamountFrom: TFloatSpinEdit
-                Left = 94
+                Left = 118
                 Height = 23
-                Top = 16
-                Width = 106
+                Top = 20
+                Width = 132
+                ParentFont = False
                 TabOrder = 0
               end
               object Label75: TLabel
-                Left = 232
+                Left = 290
                 Height = 15
-                Top = 19
+                Top = 24
                 Width = 54
                 Caption = 'amountTo'
+                ParentColor = False
+                ParentFont = False
               end
               object FloatSpinEditKSeFQInvCAamountTo: TFloatSpinEdit
-                Left = 296
+                Left = 370
                 Height = 23
-                Top = 16
-                Width = 106
+                Top = 20
+                Width = 132
+                ParentFont = False
                 TabOrder = 1
               end
               object Label76: TLabel
-                Left = 448
+                Left = 560
                 Height = 15
-                Top = 19
+                Top = 24
                 Width = 66
                 Caption = 'amountType'
+                ParentColor = False
+                ParentFont = False
               end
               object GroupBox9: TGroupBox
-                Left = 12
-                Height = 105
-                Top = 48
-                Width = 96
+                Left = 15
+                Height = 131
+                Top = 60
+                Width = 120
                 Caption = 'currencyCodes'
-                ClientHeight = 85
-                ClientWidth = 92
+                ClientHeight = 106
+                ClientWidth = 116
+                ParentFont = False
                 TabOrder = 2
                 object MemoKSeFQInvCrCurrencyCodes: TMemo
                   Left = 0
@@ -2554,36 +3185,41 @@ object Form1: TForm1
                   Top = 0
                   Width = 92
                   Align = alClient
+                  ParentFont = False
                   TabOrder = 0
                 end
               end
               object CheckBoxKSeFQInvCrFaP17Annotation: TCheckBox
-                Left = 128
+                Left = 160
                 Height = 19
-                Top = 57
+                Top = 71
                 Width = 107
                 Caption = 'faP17Annotation'
+                ParentFont = False
                 TabOrder = 3
               end
               object Label77: TLabel
-                Left = 130
+                Left = 162
                 Height = 15
-                Top = 87
+                Top = 109
                 Width = 82
                 Caption = 'invoiceNumber'
+                ParentColor = False
+                ParentFont = False
               end
               object EditKSeFQInvCrInvoiceNumber: TEdit
-                Left = 224
+                Left = 280
                 Height = 23
-                Top = 84
-                Width = 408
+                Top = 105
+                Width = 510
+                ParentFont = False
                 TabOrder = 4
               end
               object CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup
-                Left = 128
-                Height = 44
-                Top = 109
-                Width = 504
+                Left = 160
+                Height = 55
+                Top = 136
+                Width = 630
                 AutoFill = True
                 Caption = 'invoiceTypes'
                 ChildSizing.LeftRightSpacing = 6
@@ -2594,8 +3230,8 @@ object Form1: TForm1
                 ChildSizing.ShrinkVertical = crsScaleChilds
                 ChildSizing.Layout = cclLeftToRightThenTopToBottom
                 ChildSizing.ControlsPerLine = 8
-                ClientHeight = 24
-                ClientWidth = 500
+                ClientHeight = 30
+                ClientWidth = 626
                 Columns = 8
                 Items.Strings = (
                   'VAT'
@@ -2606,26 +3242,30 @@ object Form1: TForm1
                   'KOR_ZAL'
                   'KOR_ROZ'
                 )
+                ParentFont = False
                 TabOrder = 5
                 Data = {
                   0700000002020202020202
                 }
               end
               object Label78: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 173
+                Top = 216
                 Width = 101
                 Caption = 'invoicingDateFrom'
+                ParentColor = False
+                ParentFont = False
               end
               object DateTimePickerKSeFQInvCrDetInvFrom: TDateTimePicker
-                Left = 123
+                Left = 154
                 Height = 23
-                Top = 168
+                Top = 210
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 6
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2641,13 +3281,14 @@ object Form1: TForm1
                 MonthNames = 'Long'
               end
               object DateTimePickerKSeFQInvCrDetInvTo: TDateTimePicker
-                Left = 392
+                Left = 490
                 Height = 23
-                Top = 165
+                Top = 206
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 7
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2663,52 +3304,61 @@ object Form1: TForm1
                 MonthNames = 'Long'
               end
               object Label79: TLabel
-                Left = 296
+                Left = 370
                 Height = 15
-                Top = 170
+                Top = 212
                 Width = 85
                 Caption = 'invoicingDateTo'
+                ParentColor = False
+                ParentFont = False
               end
               object Label80: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 200
+                Top = 250
                 Width = 117
                 Caption = 'ksefReferenceNumber'
+                ParentColor = False
+                ParentFont = False
               end
               object EditKSeFQInvCrRefNo: TEdit
-                Left = 136
+                Left = 170
                 Height = 23
-                Top = 198
-                Width = 491
+                Top = 248
+                Width = 614
+                ParentFont = False
                 TabOrder = 8
               end
               object Label87: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 232
+                Top = 290
                 Width = 84
                 Caption = 'subjectBy ident.'
+                ParentColor = False
+                ParentFont = False
               end
               object EditKSeFQInvCrSubjectByIdent: TEdit
-                Left = 115
+                Left = 144
                 Height = 23
-                Top = 228
-                Width = 285
+                Top = 285
+                Width = 356
+                ParentFont = False
                 TabOrder = 9
               end
               object GroupBox11: TGroupBox
-                Left = 11
-                Height = 91
-                Top = 261
-                Width = 616
+                Left = 14
+                Height = 114
+                Top = 326
+                Width = 770
                 Caption = 'subjectTo'
-                ClientHeight = 71
-                ClientWidth = 612
+                ClientHeight = 89
+                ClientWidth = 766
+                ParentFont = False
                 TabOrder = 10
                 object RadioGroupKSeFQInvCrSubjevtToType: TRadioGroup
                   Left = 0
-                  Height = 41
+                  Height = 51
                   Top = 0
                   Width = 612
                   Align = alTop
@@ -2721,7 +3371,7 @@ object Form1: TForm1
                   ChildSizing.ShrinkVertical = crsScaleChilds
                   ChildSizing.Layout = cclLeftToRightThenTopToBottom
                   ChildSizing.ControlsPerLine = 4
-                  ClientHeight = 21
+                  ClientHeight = 26
                   ClientWidth = 608
                   Columns = 4
                   Items.Strings = (
@@ -2730,29 +3380,33 @@ object Form1: TForm1
                     'other'
                     'vatUE'
                   )
+                  ParentFont = False
                   TabOrder = 0
                 end
                 object EditKSeFQInvCrSubjectToId: TEdit
-                  Left = 96
+                  Left = 120
                   Height = 23
-                  Top = 45
-                  Width = 512
+                  Top = 56
+                  Width = 640
+                  ParentFont = False
                   TabOrder = 1
                 end
                 object Label88: TLabel
-                  Left = 32
+                  Left = 40
                   Height = 15
-                  Top = 48
+                  Top = 60
                   Width = 30
                   Caption = 'ident.'
+                  ParentColor = False
+                  ParentFont = False
                 end
               end
               object ComboBoxKSeFQInvCAamountType: TComboBox
-                Left = 523
-                Height = 23
-                Top = 16
-                Width = 100
-                ItemHeight = 15
+                Left = 654
+                Height = 28
+                Top = 20
+                Width = 125
+                ItemHeight = 20
                 ItemIndex = 0
                 Items.Strings = (
                   'none'
@@ -2760,6 +3414,7 @@ object Form1: TForm1
                   'netto'
                   'vat'
                 )
+                ParentFont = False
                 Style = csDropDownList
                 TabOrder = 11
                 Text = 'none'
@@ -2769,21 +3424,25 @@ object Form1: TForm1
               Caption = 'Narastająco'
               ClientHeight = 356
               ClientWidth = 640
+              ParentFont = False
               object Label81: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 24
+                Top = 30
                 Width = 197
                 Caption = 'acquisitionTimestampThresholdFrom'
+                ParentColor = False
+                ParentFont = False
               end
               object DateTimePickerKSeFQInvCrIncInvFrom: TDateTimePicker
-                Left = 216
+                Left = 270
                 Height = 23
-                Top = 19
+                Top = 24
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 0
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2799,20 +3458,23 @@ object Form1: TForm1
                 MonthNames = 'Long'
               end
               object Label82: TLabel
-                Left = 12
+                Left = 15
                 Height = 15
-                Top = 61
+                Top = 76
                 Width = 181
                 Caption = 'acquisitionTimestampThresholdTo'
+                ParentColor = False
+                ParentFont = False
               end
               object DateTimePickerKSeFQInvCrIncInvTo: TDateTimePicker
-                Left = 216
+                Left = 270
                 Height = 23
-                Top = 56
+                Top = 70
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 1
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2832,21 +3494,25 @@ object Form1: TForm1
               Caption = 'Zakres'
               ClientHeight = 356
               ClientWidth = 640
+              ParentFont = False
               object Label83: TLabel
-                Left = 8
+                Left = 10
                 Height = 15
-                Top = 16
+                Top = 20
                 Width = 101
                 Caption = 'invoicingDateFrom'
+                ParentColor = False
+                ParentFont = False
               end
               object DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker
-                Left = 119
+                Left = 149
                 Height = 23
-                Top = 11
+                Top = 14
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 0
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2862,20 +3528,23 @@ object Form1: TForm1
                 MonthNames = 'Long'
               end
               object Label84: TLabel
-                Left = 296
+                Left = 370
                 Height = 15
-                Top = 13
+                Top = 16
                 Width = 85
                 Caption = 'invoicingDateTo'
+                ParentColor = False
+                ParentFont = False
               end
               object DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker
-                Left = 392
+                Left = 490
                 Height = 23
-                Top = 8
+                Top = 10
                 Width = 137
                 CenturyFrom = 1941
                 MaxDate = 2958465
                 MinDate = -53780
+                ParentFont = False
                 TabOrder = 1
                 TrailingSeparator = False
                 TextForNullDate = 'NULL'
@@ -2893,22 +3562,24 @@ object Form1: TForm1
             end
           end
           object ButtonKSeFQInvClear: TButton
-            Left = 576
-            Height = 25
+            Left = 720
+            Height = 31
             Top = 1
-            Width = 75
+            Width = 94
             Caption = 'Wyczyść'
-            TabOrder = 2
             OnClick = ButtonKSeFQInvClearClick
+            ParentFont = False
+            TabOrder = 2
           end
           object DateTimePickerKSeFQInvCrHidingDateTo: TDateTimePicker
-            Left = 511
+            Left = 639
             Height = 23
-            Top = 34
+            Top = 42
             Width = 137
             CenturyFrom = 1941
             MaxDate = 2958465
             MinDate = -53780
+            ParentFont = False
             TabOrder = 3
             TrailingSeparator = False
             TextForNullDate = 'NULL'
@@ -2924,20 +3595,23 @@ object Form1: TForm1
             MonthNames = 'Long'
           end
           object Label121: TLabel
-            Left = 432
+            Left = 540
             Height = 15
-            Top = 38
+            Top = 48
             Width = 70
             Caption = 'hidingDateTo'
+            ParentColor = False
+            ParentFont = False
           end
           object DateTimePickerKSeFQInvCrHidingDateFrom: TDateTimePicker
-            Left = 224
+            Left = 280
             Height = 23
-            Top = 34
+            Top = 42
             Width = 137
             CenturyFrom = 1941
             MaxDate = 2958465
             MinDate = -53780
+            ParentFont = False
             TabOrder = 4
             TrailingSeparator = False
             TextForNullDate = 'NULL'
@@ -2953,131 +3627,149 @@ object Form1: TForm1
             MonthNames = 'Long'
           end
           object Label120: TLabel
-            Left = 129
+            Left = 161
             Height = 15
-            Top = 38
+            Top = 48
             Width = 86
             Caption = 'hidingDateFrom'
+            ParentColor = False
+            ParentFont = False
           end
           object CheckBoxKSeFQInvCrIsHidden: TCheckBox
-            Left = 25
+            Left = 31
             Height = 19
-            Top = 38
+            Top = 48
             Width = 65
             Caption = 'isHidden'
+            ParentFont = False
             TabOrder = 5
           end
         end
         object GroupBox12: TGroupBox
           Left = 0
-          Height = 248
+          Height = 310
           Top = 536
           Width = 669
           Align = alTop
           Caption = 'Zapytanie asynchroniczne'
-          ClientHeight = 228
+          ClientHeight = 285
           ClientWidth = 665
+          ParentFont = False
           TabOrder = 2
           object ButtonKSeFQInvAsync: TButton
-            Left = 16
-            Height = 25
-            Top = 4
-            Width = 75
+            Left = 20
+            Height = 31
+            Top = 5
+            Width = 94
             Caption = 'Zapytaj'
-            TabOrder = 0
             OnClick = ButtonKSeFQInvAsyncClick
+            ParentFont = False
+            TabOrder = 0
           end
           object GroupBox13: TGroupBox
-            Left = 11
-            Height = 62
-            Top = 40
-            Width = 643
+            Left = 14
+            Height = 78
+            Top = 50
+            Width = 637
             Anchors = [akTop, akLeft, akRight]
             Caption = 'Status zapytania'
-            ClientHeight = 42
-            ClientWidth = 639
+            ClientHeight = 53
+            ClientWidth = 633
+            ParentFont = False
             TabOrder = 1
             object Label89: TLabel
-              Left = 8
+              Left = 10
               Height = 15
-              Top = 10
+              Top = 12
               Width = 86
               Caption = 'Nr ref. zapytania'
+              ParentColor = False
+              ParentFont = False
             end
             object EditKSeFQInvAsyncQRefNo: TEdit
-              Left = 104
+              Left = 130
               Height = 23
               Top = 2
-              Width = 422
+              Width = 368
               Anchors = [akTop, akLeft, akRight]
+              ParentFont = False
               TabOrder = 0
             end
             object ButtonKSeFQInvAsyncStat: TButton
-              Left = 532
-              Height = 25
+              Left = 505
+              Height = 31
               Top = 0
-              Width = 99
+              Width = 124
               Anchors = [akTop, akRight]
               Caption = 'Sprawdź status'
-              TabOrder = 1
               OnClick = ButtonKSeFQInvAsyncStatClick
+              ParentFont = False
+              TabOrder = 1
             end
           end
           object GroupBox14: TGroupBox
-            Left = 12
-            Height = 117
-            Top = 107
-            Width = 648
+            Left = 15
+            Height = 146
+            Top = 134
+            Width = 644
             Anchors = [akTop, akLeft, akRight]
             Caption = 'Pobieranie wyniku zapytania'
-            ClientHeight = 97
-            ClientWidth = 644
+            ClientHeight = 121
+            ClientWidth = 640
+            ParentFont = False
             TabOrder = 2
             object Label90: TLabel
-              Left = 16
+              Left = 20
               Height = 15
-              Top = 7
+              Top = 9
               Width = 86
               Caption = 'Nr ref. elementu'
+              ParentColor = False
+              ParentFont = False
             end
             object EditKSeFQInvAsyncERefNo: TEdit
-              Left = 120
+              Left = 150
               Height = 23
-              Top = 6
-              Width = 506
+              Top = 8
+              Width = 472
               Anchors = [akTop, akLeft, akRight]
+              ParentFont = False
               TabOrder = 0
             end
             object FileNameEditKSeFQInvAsyncFN: TFileNameEdit
-              Left = 120
+              Left = 150
               Height = 23
-              Top = 36
-              Width = 505
+              Top = 45
+              Width = 470
               DialogKind = dkSave
               Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
               FilterIndex = 0
               HideDirectories = False
-              ButtonWidth = 23
+              ButtonWidth = 29
               NumGlyphs = 1
               Anchors = [akTop, akLeft, akRight]
               MaxLength = 0
+              ParentFont = False
               TabOrder = 1
             end
             object Label91: TLabel
-              Left = 16
+              Left = 20
               Height = 15
-              Top = 39
+              Top = 49
               Width = 93
               Caption = 'Plik docelowy ZIP'
+              ParentColor = False
+              ParentFont = False
             end
             object ButtonKSeFQInvAsyncFetch: TButton
-              Left = 114
-              Height = 25
-              Top = 64
-              Width = 75
+              Left = 142
+              Height = 31
+              Top = 80
+              Width = 94
               Caption = 'Pobierz'
-              TabOrder = 2
               OnClick = ButtonKSeFQInvAsyncFetchClick
+              ParentFont = False
+              TabOrder = 2
             end
           end
         end
@@ -3087,301 +3779,344 @@ object Form1: TForm1
       Caption = 'KSeF - Wysyłka wsadowa'
       ClientHeight = 583
       ClientWidth = 690
+      ParentFont = False
       TabVisible = False
       object ScrollBox4: TScrollBox
         Left = 0
         Height = 583
         Top = 0
         Width = 690
-        HorzScrollBar.Page = 683
-        VertScrollBar.Page = 480
+        HorzScrollBar.Page = 665
+        VertScrollBar.Page = 558
         Align = alClient
-        ClientHeight = 579
-        ClientWidth = 686
+        ClientHeight = 558
+        ClientWidth = 665
+        ParentFont = False
         TabOrder = 0
         object GroupBox19: TGroupBox
           Left = 0
-          Height = 296
+          Height = 370
           Top = 0
           Width = 686
           Align = alTop
           Caption = 'Podpis / przygotowanie'
-          ClientHeight = 276
+          ClientHeight = 345
           ClientWidth = 682
+          ParentFont = False
           TabOrder = 0
           object Label103: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 84
+            Top = 105
             Width = 96
             Caption = 'Plik wejściowy ZIP'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFBatchInZIP: TFileNameEdit
-            Left = 123
+            Left = 154
             Height = 23
-            Top = 80
-            Width = 552
+            Top = 100
+            Width = 519
             OnAcceptFileName = FileNameEditKSeFBatchInZIPAcceptFileName
             Filter = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*'
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 0
           end
           object Label104: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 112
+            Top = 140
             Width = 81
             Caption = 'Rodzaj podpisu'
+            ParentColor = False
+            ParentFont = False
           end
           object RadioButtonKSeFBatchCert: TRadioButton
-            Left = 123
+            Left = 154
             Height = 19
-            Top = 112
+            Top = 140
             Width = 123
             Caption = 'Podpis certyfikatem'
             Checked = True
+            OnChange = RadioButtonKSeFBatchCertChange
+            ParentFont = False
             TabOrder = 2
             TabStop = True
-            OnChange = RadioButtonKSeFBatchCertChange
           end
           object RadioButtonKSeFBatchPZ: TRadioButton
-            Left = 328
+            Left = 410
             Height = 19
-            Top = 112
+            Top = 140
             Width = 90
             Caption = 'Profil zaufany'
+            ParentFont = False
             TabOrder = 1
           end
           object Label105: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 42
+            Top = 52
             Width = 40
             Caption = 'Bramka'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFBatchBramka: TComboBox
-            Left = 88
-            Height = 23
-            Top = 39
-            Width = 176
-            ItemHeight = 15
+            Left = 110
+            Height = 28
+            Top = 49
+            Width = 220
+            ItemHeight = 20
             ItemIndex = 2
             Items.Strings = (
               'Produkcyjna'
               'Demo'
               'Testowa'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 3
             Text = 'Testowa'
           end
           object Label106: TLabel
-            Left = 317
+            Left = 396
             Height = 15
-            Top = 42
+            Top = 52
             Width = 81
             Caption = 'Kod formularza'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFBatchInitFormCode: TComboBox
-            Left = 416
-            Height = 23
-            Top = 39
-            Width = 76
-            ItemHeight = 15
+            Left = 520
+            Height = 28
+            Top = 49
+            Width = 95
+            ItemHeight = 20
             ItemIndex = 0
             Items.Strings = (
               'FA(1)'
               'FA(2)'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 4
             Text = 'FA(1)'
           end
           object Label107: TLabel
-            Left = 23
+            Left = 29
             Height = 15
-            Top = 10
+            Top = 12
             Width = 19
             Caption = 'NIP'
+            ParentColor = False
+            ParentFont = False
           end
           object EditKSeFBatchNIP: TEdit
-            Left = 88
+            Left = 110
             Height = 23
-            Top = 5
-            Width = 122
+            Top = 6
+            Width = 152
+            ParentFont = False
             TabOrder = 5
           end
           object Label108: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 149
+            Top = 186
             Width = 51
             Caption = 'Certyfikat'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFBatchCert: TComboBox
-            Left = 123
-            Height = 23
-            Top = 144
-            Width = 552
+            Left = 154
+            Height = 28
+            Top = 180
+            Width = 519
             Anchors = [akTop, akLeft, akRight]
-            ItemHeight = 15
+            ItemHeight = 20
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 6
           end
           object FileNameEditKSeFBatchOutInitUp: TFileNameEdit
-            Left = 160
+            Left = 200
             Height = 23
-            Top = 176
-            Width = 515
+            Top = 220
+            Width = 473
             DialogKind = dkSave
             Filter = 'Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 7
           end
           object FileNameEditKSeFBatchOutEncZIP: TFileNameEdit
-            Left = 160
+            Left = 200
             Height = 23
-            Top = 208
-            Width = 515
+            Top = 260
+            Width = 473
             DialogKind = dkSave
             Filter = 'Plik part (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             Anchors = [akTop, akLeft, akRight]
             MaxLength = 0
+            ParentFont = False
             TabOrder = 8
           end
           object Label109: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 183
+            Top = 229
             Width = 134
             Caption = 'Plik wyjściowy InitUpload'
+            ParentColor = False
+            ParentFont = False
           end
           object Label110: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 213
+            Top = 266
             Width = 128
             Caption = 'Plik yjściowy zaszyfr. ZIP'
+            ParentColor = False
+            ParentFont = False
           end
           object ButtonKSeFBatchPodp: TButton
-            Left = 160
-            Height = 25
-            Top = 240
-            Width = 120
+            Left = 200
+            Height = 31
+            Top = 300
+            Width = 150
             Caption = 'Podpisz / szyfruj'
-            TabOrder = 9
             OnClick = ButtonKSeFBatchPodpClick
+            ParentFont = False
+            TabOrder = 9
           end
         end
         object GroupBox20: TGroupBox
           Left = 0
-          Height = 184
+          Height = 230
           Top = 296
           Width = 686
           Align = alTop
           Caption = 'Wysyłka'
-          ClientHeight = 164
+          ClientHeight = 205
           ClientWidth = 682
+          ParentFont = False
           TabOrder = 1
           object Label111: TLabel
-            Left = 7
+            Left = 9
             Height = 15
-            Top = 4
+            Top = 5
             Width = 135
             Caption = 'Podpisany plik InitUpload'
+            ParentColor = False
+            ParentFont = False
           end
           object FileNameEditKSeFBatchSendIU: TFileNameEdit
-            Left = 158
+            Left = 198
             Height = 23
             Top = 0
-            Width = 521
+            Width = 651
             Filter = 'Pliki XML (*.xml;*.sig)|*.xml;*.sig|Wszystkie pliki (*.*)|*.*'
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             MaxLength = 0
+            ParentFont = False
             TabOrder = 0
           end
           object FileNameEditKSeFBatchSendEnc: TFileNameEdit
-            Left = 158
+            Left = 198
             Height = 23
-            Top = 32
-            Width = 521
+            Top = 40
+            Width = 651
             Filter = 'Pliki danych (*.part1)|*.part1|Wszystkie pliki (*.*)|*.*'
             FilterIndex = 0
             HideDirectories = False
-            ButtonWidth = 23
+            ButtonWidth = 29
             NumGlyphs = 1
             MaxLength = 0
+            ParentFont = False
             TabOrder = 1
           end
           object Label112: TLabel
-            Left = 8
+            Left = 10
             Height = 15
-            Top = 37
+            Top = 46
             Width = 114
             Caption = 'Zaszyfrowany plik ZIP'
+            ParentColor = False
+            ParentFont = False
           end
           object Label113: TLabel
-            Left = 96
+            Left = 120
             Height = 15
-            Top = 67
+            Top = 84
             Width = 40
             Caption = 'Bramka'
+            ParentColor = False
+            ParentFont = False
           end
           object ComboBoxKSeFBatchSendBramka: TComboBox
-            Left = 161
-            Height = 23
-            Top = 64
-            Width = 176
-            ItemHeight = 15
+            Left = 201
+            Height = 28
+            Top = 80
+            Width = 220
+            ItemHeight = 20
             ItemIndex = 2
             Items.Strings = (
               'Produkcyjna'
               'Demo'
               'Testowa'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 2
             Text = 'Testowa'
           end
           object ButtonKSeFBatchSend: TButton
-            Left = 158
-            Height = 25
-            Top = 96
-            Width = 75
+            Left = 198
+            Height = 31
+            Top = 120
+            Width = 94
             Caption = 'Wyślij'
-            TabOrder = 3
             OnClick = ButtonKSeFBatchSendClick
+            ParentFont = False
+            TabOrder = 3
           end
           object EditKSeFBatchNrRef: TEdit
-            Left = 158
+            Left = 198
             Height = 23
-            Top = 128
-            Width = 363
+            Top = 160
+            Width = 454
+            ParentFont = False
             TabOrder = 4
           end
           object Label114: TLabel
-            Left = 19
+            Left = 24
             Height = 15
-            Top = 133
+            Top = 166
             Width = 123
             Caption = 'Nadany nr referencyjny'
+            ParentColor = False
+            ParentFont = False
           end
         end
       end
@@ -3390,114 +4125,124 @@ object Form1: TForm1
   object Splitter1: TSplitter
     Cursor = crVSplit
     Left = 0
-    Height = 5
-    Top = 651
-    Width = 698
+    Height = 6
+    Top = 702
+    Width = 872
     Align = alBottom
     ResizeAnchor = akBottom
   end
   object Panel5: TPanel
     Left = 0
-    Height = 127
-    Top = 656
-    Width = 698
+    Height = 159
+    Top = 708
+    Width = 872
     Align = alBottom
-    ClientHeight = 127
-    ClientWidth = 698
+    ClientHeight = 159
+    ClientWidth = 872
+    ParentFont = False
     TabOrder = 2
     object MemoLog: TMemo
-      Left = 272
-      Height = 125
+      Left = 339
+      Height = 157
       Top = 1
-      Width = 425
+      Width = 532
       Align = alClient
       Lines.Strings = (
         'MemoLog'
       )
+      ParentFont = False
       ScrollBars = ssAutoBoth
       TabOrder = 0
       WordWrap = False
     end
     object Splitter2: TSplitter
-      Left = 267
-      Height = 125
+      Left = 333
+      Height = 157
       Top = 1
-      Width = 5
+      Width = 6
     end
     object Panel6: TPanel
       Left = 1
-      Height = 125
+      Height = 157
       Top = 1
-      Width = 266
+      Width = 332
       Align = alLeft
-      ClientHeight = 125
-      ClientWidth = 266
+      ClientHeight = 157
+      ClientWidth = 332
+      ParentFont = False
       TabOrder = 2
       object Panel7: TPanel
         Left = 1
-        Height = 26
+        Height = 32
         Top = 1
-        Width = 264
+        Width = 330
         Align = alTop
-        ClientHeight = 26
-        ClientWidth = 264
+        ClientHeight = 32
+        ClientWidth = 330
+        ParentFont = False
         TabOrder = 0
         object ButtonObjShow: TButton
           Left = 1
-          Height = 24
+          Height = 30
           Top = 1
-          Width = 57
+          Width = 65
           Align = alLeft
           AutoSize = True
           Caption = 'Pokaż'
-          TabOrder = 0
           OnClick = ButtonObjShowClick
+          ParentFont = False
+          TabOrder = 0
         end
         object ButtonObjClear: TButton
-          Left = 58
-          Height = 24
+          Left = 66
+          Height = 30
           Top = 1
-          Width = 56
+          Width = 62
           Align = alLeft
           AutoSize = True
           Caption = 'Czyść'
-          TabOrder = 1
           OnClick = ButtonObjClearClick
+          ParentFont = False
+          TabOrder = 1
         end
         object Label122: TLabel
-          Left = 177
-          Height = 24
+          Left = 207
+          Height = 30
           Top = 1
-          Width = 86
+          Width = 122
           Align = alClient
           Alignment = taCenter
           Caption = 'Obiekty KSeF'
           Layout = tlCenter
+          ParentColor = False
+          ParentFont = False
         end
         object ButtonObjCount: TButton
-          Left = 114
-          Height = 24
+          Left = 128
+          Height = 30
           Top = 1
-          Width = 63
+          Width = 79
           Align = alLeft
           Caption = 'Ilość obj.'
-          TabOrder = 2
           OnClick = ButtonObjCountClick
+          ParentFont = False
+          TabOrder = 2
         end
       end
       object ListViewObj: TListView
         Left = 1
-        Height = 97
-        Top = 27
-        Width = 264
+        Height = 123
+        Top = 33
+        Width = 330
         Align = alClient
         AutoWidthLastColumn = True
         Columns = <        
           item
             Caption = 'Class'
-            Width = 260
+            Width = 326
           end>
         HideSelection = False
+        ParentFont = False
         ReadOnly = True
         TabOrder = 1
         ViewStyle = vsReport

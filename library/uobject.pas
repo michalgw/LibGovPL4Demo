@@ -67,7 +67,7 @@ function lgpDbgObjectCount: LGP_INT32; stdcall;
 implementation
 
 uses
-  uException, lgBackend, Rtti, lgKSeFTypes;
+  uException, lgBackend, Rtti, lgKSeFTypes, Contnrs;
 
 {$IFDEF LGP_DEBUG_OBJ}
 var
@@ -517,7 +517,7 @@ begin
       Ctx := TRttiContext.Create;
       RT := Ctx.GetType(TObject(AObject).ClassType);
       P := RT.GetProperty(APropName);
-      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration, tkInt64]) then
+      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration, tkInt64, tkQWord]) then
         AValue := P.GetValue(AObject).AsInt64
       else
         Result := lgpCreateExceptioObject('Invalid property');
@@ -544,7 +544,7 @@ begin
       Ctx := TRttiContext.Create;
       RT := Ctx.GetType(TObject(AObject).ClassType);
       P := RT.GetProperty(APropName);
-      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration, tkInt64]) then
+      if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration, tkInt64, tkQWord]) then
         if P.IsWritable then
           P.SetValue(AObject, AValue)
         else
@@ -599,6 +599,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       AValue := (Obj as TlgCertificates).Count
+    else if Obj is TObjectList then
+      AValue := (Obj as TObjectList).Count
     else if Supports(Obj, IKSeFArray_GUID) then
       AValue := (Obj as IKSeFArray).IntfCount
     else if Obj is TlgpKSeFExceptionDetailList then
@@ -621,6 +623,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       AItem := (Obj as TlgCertificates).Items[AIndex]
+    else if Obj is TObjectList then
+      AItem := (Obj as TObjectList).Items[AIndex]
     else if Supports(Obj, IKSeFArray_GUID) then
       AItem := (Obj as IKSeFArray).IntfGetItem(AIndex)
     else if Obj is TlgpKSeFExceptionDetailList then
@@ -643,6 +647,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       (Obj as TlgCertificates).Delete(AIndex)
+    else if Obj is TObjectList then
+      (Obj as TObjectList).Delete(AIndex)
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).Delete(AIndex)
     else
@@ -663,6 +669,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       (Obj as TlgCertificates).Remove(TlgCertificate(AItem))
+    else if Obj is TObjectList then
+      (Obj as TObjectList).Remove(TObject(AItem))
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
     else
@@ -683,6 +691,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       AValue := Integer((Obj as TlgCertificates).OwnsObjects)
+    else if Obj is TObjectList then
+      AValue := Integer((Obj as TObjectList).OwnsObjects)
     else if Supports(Obj, IKSeFArray_GUID) then
       AValue := Integer((Obj as IKSeFArray).IntfGetOwnObj)
     else
@@ -703,6 +713,8 @@ begin
     CheckObject(AListObject, TObject);
     if Obj is TlgCertificates then
       (Obj as TlgCertificates).OwnsObjects := AValue <> 0
+    else if Obj is TObjectList then
+      (Obj as TObjectList).OwnsObjects := AValue <> 0
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).IntfSetOwnObj(AValue <> 0)
     else

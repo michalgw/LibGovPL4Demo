@@ -28,6 +28,8 @@ type
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
 
+  LGP_CK_ULONG = {$IFDEF WINDOWS}LongWord{$ELSE}PtrUInt{$ENDIF};
+
 const
   LGP_CLSTYPE_HTTP_CLIENT    = 0;
   LGP_CLSTYPE_CERT_SIGNER    = 1;
