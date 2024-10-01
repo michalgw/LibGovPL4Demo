@@ -160,96 +160,96 @@ type
   end;
 
   TlgPKCS11TokenFlag = (
-    ptfRNG, { has random # generator }
-    ptfWriteProtected, { token is write-protected }
-    ptfLoginRequired, { user must login }
-    ptfUserPINInitialized, { normal user's PIN is set }
+    ptfRNG,                //< has random # generator
+    ptfWriteProtected,     //< token is write-protected
+    ptfLoginRequired,      //< user must login
+    ptfUserPINInitialized, //< normal user's PIN is set
 
     { CKF_RESTORE_KEY_NOT_NEEDED.  If it is set,
-     * that means that *every* time the state of cryptographic
-     * operations of a session is successfully saved, all keys
-     * needed to continue those operations are stored in the state
+      that means that *every* time the state of cryptographic
+      operations of a session is successfully saved, all keys
+      needed to continue those operations are stored in the state
      }
     ptfRestoreKeyNotNeeded,
 
     { CKF_CLOCK_ON_TOKEN.  If it is set, that means
-     * that the token has some sort of clock.  The time on that
-     * clock is returned in the token info structure
+      that the token has some sort of clock.  The time on that
+      clock is returned in the token info structure
      }
     ptfClockOnToken,
 
     { CKF_PROTECTED_AUTHENTICATION_PATH.  If it is
-     * set, that means that there is some way for the user to login
-     * without sending a PIN through the Cryptoki library itself
+      set, that means that there is some way for the user to login
+      without sending a PIN through the Cryptoki library itself
      }
     ptfProtectedAuthenticationPath,
 
     { CKF_DUAL_CRYPTO_OPERATIONS.  If it is true,
-     * that means that a single session with the token can perform
-     * dual simultaneous cryptographic operations (digest and
-     * encrypt; decrypt and digest; sign and encrypt; and decrypt
-     * and sign)
+      that means that a single session with the token can perform
+      dual simultaneous cryptographic operations (digest and
+      encrypt; decrypt and digest; sign and encrypt; and decrypt
+      and sign)
      }
     ptfDualCryptoOperations,
 
     { CKF_TOKEN_INITIALIZED. If it is true, the
-     * token has been initialized using C_InitializeToken or an
-     * equivalent mechanism outside the scope of PKCS #11.
-     * Calling C_InitializeToken when this flag is set will cause
-     * the token to be reinitialized.
+      token has been initialized using C_InitializeToken or an
+      equivalent mechanism outside the scope of PKCS #11.
+      Calling C_InitializeToken when this flag is set will cause
+      the token to be reinitialized.
      }
     ptfTokenInitialized,
 
     { CKF_SECONDARY_AUTHENTICATION. If it is
-     * true, the token supports secondary authentication for
-     * private key objects.
+      true, the token supports secondary authentication for
+      private key objects.
      }
     ptfSecondaryAuthentication,
 
     { CKF_USER_PIN_COUNT_LOW. If it is true, an
-     * incorrect user login PIN has been entered at least once
-     * since the last successful authentication.
+      incorrect user login PIN has been entered at least once
+      since the last successful authentication.
      }
     ptfUserPINCountLow,
 
     { CKF_USER_PIN_FINAL_TRY. If it is true,
-     * supplying an incorrect user PIN will it to become locked.
+      supplying an incorrect user PIN will it to become locked.
      }
     ptfUserPINFinalTry,
 
     { CKF_USER_PIN_LOCKED. If it is true, the
-     * user PIN has been locked. User login to the token is not
-     * possible.
+      user PIN has been locked. User login to the token is not
+      possible.
      }
     ptfUserPINLocked,
 
     { CKF_USER_PIN_TO_BE_CHANGED. If it is true,
-     * the user PIN value is the default value set by token
-     * initialization or manufacturing, or the PIN has been
-     * expired by the card.
+      the user PIN value is the default value set by token
+      initialization or manufacturing, or the PIN has been
+      expired by the card.
      }
     ptfUserPINToBeChanged,
 
     { CKF_SO_PIN_COUNT_LOW. If it is true, an
-     * incorrect SO login PIN has been entered at least once since
-     * the last successful authentication.
+      incorrect SO login PIN has been entered at least once since
+      the last successful authentication.
      }
     ptfSOPINCountLow,
 
     { CKF_SO_PIN_FINAL_TRY. If it is true,
-     * supplying an incorrect SO PIN will it to become locked.
+      supplying an incorrect SO PIN will it to become locked.
      }
     ptfSOPINFinalTry,
 
     { CKF_SO_PIN_LOCKED. If it is true, the SO
-     * PIN has been locked. SO login to the token is not possible.
+      PIN has been locked. SO login to the token is not possible.
      }
     ptfSOPINLocked,
 
     { CKF_SO_PIN_TO_BE_CHANGED. If it is true,
-     * the SO PIN value is the default value set by token
-     * initialization or manufacturing, or the PIN has been
-     * expired by the card.
+      the SO PIN value is the default value set by token
+      initialization or manufacturing, or the PIN has been
+      expired by the card.
      }
     ptfSOPINToBeChanged,
 
@@ -313,9 +313,9 @@ type
   end;
 
   TlgPKCS11SlotFlag = (
-    psfTokenPresent,     { a token is there }
-    psfRemovableDevice,  { removable devices }
-    psfHWSlot);          { hardware slot }
+    psfTokenPresent,     //< a token is there
+    psfRemovableDevice,  //< removable devices
+    psfHWSlot);          //< hardware slot
 
   TlgPKCS11SlotFlags = set of TlgPKCS11SlotFlag;
 
