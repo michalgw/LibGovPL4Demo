@@ -49,8 +49,9 @@
 -dLGP_ENABLE_WST
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
--dLGP_DEBUG_OBJ"/>
-            <OtherDefines Count="9">
+-dLGP_DEBUG_OBJ
+-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="10">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -60,6 +61,7 @@
               <Define6 Value="LGP_ENABLE_LIBXML2"/>
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_DEBUG_OBJ"/>
+              <Define9 Value="LGP_ENABLE_PKCS11"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -98,8 +100,9 @@
 -dLGP_ENABLE_WINHTTP
 -dLGP_ENABLE_WST
 -dLGP_ENABLE_LIBXML2
--dLGP_LEGACY"/>
-            <OtherDefines Count="8">
+-dLGP_LEGACY
+-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="10">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -108,6 +111,8 @@
               <Define5 Value="LGP_ENABLE_WST"/>
               <Define6 Value="LGP_ENABLE_LIBXML2"/>
               <Define7 Value="LGP_LEGACY"/>
+              <Define8 Value="LGP_ENABLE_PKCS11"/>
+              <Define9 Value="LGP_DEBUG_OBJ"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -147,8 +152,8 @@
 -dLGP_ENABLE_WST
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
--dLGP_DEBUG_OBJ"/>
-            <OtherDefines Count="9">
+-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="10">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -158,12 +163,116 @@
               <Define6 Value="LGP_ENABLE_LIBXML2"/>
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_DEBUG_OBJ"/>
+              <Define9 Value="LGP_ENABLE_PKCS11"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
       </Item>
-      <SharedMatrixOptions Count="1">
+      <Item Name="Win32 Release demo">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binw32\libgovpl4"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <RelocatableUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY
+-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="10">
+              <Define0 Value="LGP_ENABLE_WINCNG"/>
+              <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+              <Define2 Value="LGP_ENABLE_FPC"/>
+              <Define3 Value="LGP_ENABLE_MSXML"/>
+              <Define4 Value="LGP_ENABLE_WINHTTP"/>
+              <Define5 Value="LGP_ENABLE_WST"/>
+              <Define6 Value="LGP_ENABLE_LIBXML2"/>
+              <Define7 Value="LGP_LEGACY"/>
+              <Define8 Value="LGP_ENABLE_PKCS11"/>
+              <Define9 Value="LGP_DEBUG_OBJ"/>
+            </OtherDefines>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Win64 Release demo">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binw64\libgovpl4"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <RelocatableUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+            </Debugging>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_WINCNG
+-dLGP_ENABLE_DCPCRYPT
+-dLGP_ENABLE_FPC
+-dLGP_ENABLE_MSXML
+-dLGP_ENABLE_WINHTTP
+-dLGP_ENABLE_WST
+-dLGP_ENABLE_LIBXML2
+-dLGP_LEGACY
+-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="10">
+              <Define0 Value="LGP_ENABLE_WINCNG"/>
+              <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
+              <Define2 Value="LGP_ENABLE_FPC"/>
+              <Define3 Value="LGP_ENABLE_MSXML"/>
+              <Define4 Value="LGP_ENABLE_WINHTTP"/>
+              <Define5 Value="LGP_ENABLE_WST"/>
+              <Define6 Value="LGP_ENABLE_LIBXML2"/>
+              <Define7 Value="LGP_LEGACY"/>
+              <Define8 Value="LGP_DEBUG_OBJ"/>
+              <Define9 Value="LGP_ENABLE_PKCS11"/>
+            </OtherDefines>
+          </Other>
+        </CompilerOptions>
+      </Item>
+      <SharedMatrixOptions Count="2">
         <Item1 ID="227454027016" Modes="Win32 Debug,Win64 Debug" Value="-dLGP_DEBUG_OBJ"/>
+        <Item2 ID="003248634267" Modes="Win64 Release demo,Win32 Release demo" Value="-dLGPL_DEMO"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -312,8 +421,9 @@
 -dLGP_ENABLE_WST
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
--dLGP_ENABLE_PKCS11"/>
-      <OtherDefines Count="9">
+-dLGP_ENABLE_PKCS11
+-dLGP_DEBUG_OBJ"/>
+      <OtherDefines Count="10">
         <Define0 Value="LGP_ENABLE_WINCNG"/>
         <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
         <Define2 Value="LGP_ENABLE_FPC"/>
@@ -323,6 +433,7 @@
         <Define6 Value="LGP_ENABLE_LIBXML2"/>
         <Define7 Value="LGP_LEGACY"/>
         <Define8 Value="LGP_ENABLE_PKCS11"/>
+        <Define9 Value="LGP_DEBUG_OBJ"/>
       </OtherDefines>
     </Other>
   </CompilerOptions>

@@ -43,6 +43,12 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="1">
+              <Define0 Value="LGP_ENABLE_PKCS11"/>
+            </OtherDefines>
+          </Other>
         </CompilerOptions>
       </Item>
       <Item Name="Win32 Release">
@@ -74,6 +80,12 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="1">
+              <Define0 Value="LGP_ENABLE_PKCS11"/>
+            </OtherDefines>
+          </Other>
         </CompilerOptions>
       </Item>
       <Item Name="Win64 Release">
@@ -105,6 +117,12 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CustomOptions Value="-dLGP_ENABLE_PKCS11"/>
+            <OtherDefines Count="1">
+              <Define0 Value="LGP_ENABLE_PKCS11"/>
+            </OtherDefines>
+          </Other>
         </CompilerOptions>
       </Item>
     </BuildModes>
