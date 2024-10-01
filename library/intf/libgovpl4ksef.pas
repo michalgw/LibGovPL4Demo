@@ -131,21 +131,47 @@ type
     { Sprawdzenie statusu wysłanej faktury. (@italic(Sesja interaktywna))
       @param(AInvoiceElementReferenceNumber numer referencyjny faktury)
       @returns(zwracany obiekt z informacją o statusie przetwarzania faktury) }
-    function InvoiceStatus(const AInvoiceElementReferenceNumber: UTF8String): TKSeFStatusInvoiceResponse;
+    function InvoiceStatus(const AInvoiceElementReferenceNumber: UTF8String; const AKSeFNumberVariant: TlgoKSeFNumberVariant = knvDefault): TKSeFStatusInvoiceResponse;
 
     { Ukrywanie wybranej faktury. (@italic(Sesja interaktywna))
       @param(AKsefReferenceNumber numer referencyjny faktury)
       @param(AHidingReason przyczyna ukrycia faktury)
-      @returns(zwraca obiekt z informacją o ukryciu faktury) }
-    function InvoiceVisibilityHide(const AKsefReferenceNumber, AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+      @returns(zwraca obiekt z informacją o statusie ukrycia faktury) }
+    function InvoiceVisibilityHide(const AKsefReferenceNumber, AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponseStatusMain;
 
     { Anulowanie ukrycia wybranej faktury. (@italic(Sesja interaktywna))
       @param(AKsefReferenceNumber numer referencyjny faktury)
       @param(AHidingReason przyczyna anulowania ukrycia faktury)
-      @returns(zwraca obiekt z informacją o anulowaniu ukrycia faktury) }
-    function InvoiceVisibilityShow(const AKsefReferenceNumber, AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+      @returns(zwraca obiekt z informacją o statusie anulowania ukrycia faktury) }
+    function InvoiceVisibilityShow(const AKsefReferenceNumber, AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponseStatusMain;
+
+    { Sprawdzenie statusu operacji ukrycia/odsłonienia faktury }
+    function InvoiceVisibilityStatus(const AHidingElementReferenceNumber: UTF8String; const AKSeFNumberVariant: TlgoKSeFNumberVariant = knvDefault): TKSeFVisibilityInvoiceStatusResponse;
+
+    { Sprawdzenie statusu widoczności faktury }
+    function InvoiceVisibility(const AKSeFReferenceNumber: UTF8String; const AKSeFNumberVariant: TlgoKSeFNumberVariant = knvDefault): TKSeFVisibilityInvoiceGetResponse;
+
+    { Wycofanie faktury scamowej }
+    //function InvoiceScamCancel(ACancelScamInvoiceRequest: TKSeFCancelScamInvoiceRequest): TKSeFScamInvoiceResponse; overload;
+    function InvoiceScamCancel(const AKSeFReferenceNumber: UTF8String; const AReportCancelationReason: UTF8String): TKSeFScamInvoiceResponse; //overload;
+
+    { Zgłoszenie faktury scamowej }
+    //function InvoiceScamReport(AReportScamInvoiceRequest: TKSeFReportScamInvoiceRequest): TKSeFScamInvoiceResponse; overload;
+    function InvoiceScamReport(const AKSeFReferenceNumber: UTF8String; const AReportReason: UTF8String): TKSeFScamInvoiceResponse; //overload;
+
+    { Pobranie statusu zgłoszenia nadużycia faktury }
+    function InvoiceScamStatus(AScamElementReferenceNumber: UTF8String): TKSeFScamInvoiceResponse;
+
+    { Pobranie zgłoszenia nadużycia faktury }
+    function InvoiceScam(AKSeFReferenceNumber: UTF8String): TKSeFScamInvoiceStatusResponse;
 
     { Poświadczenia }
+
+    { Nadanie poświadczeń dla biura rachunkowego }
+    function CredentialsAccountingGrant(AGrantAccountingCredentialsRequest: TKSeFGrantAccountingCredentialsRequest): TKSeFStatusCredentialsResponse;
+
+    { Odebranie poświadczeń biur rachunkowych }
+    function CredentialsAccountingRevoke(ARevokeAccountingCredentialsRequest: TKSeFRevokeAccountingCredentialsRequest): TKSeFStatusCredentialsResponse;
 
     { Nadanie poświadczeń kontekstowych (@italic(Sesja interaktywna)) }
     function CredentialsContextGrant(AGrantContextCredentialsRequest: TKSeFGrantContextCredentialsRequest): TKSeFStatusCredentialsResponse;
@@ -705,12 +731,13 @@ begin
   end;
 end;
 
-function TlgoKSeF.InvoiceStatus(const AInvoiceElementReferenceNumber: UTF8String
-  ): TKSeFStatusInvoiceResponse;
+function TlgoKSeF.InvoiceStatus(
+  const AInvoiceElementReferenceNumber: UTF8String;
+  const AKSeFNumberVariant: TlgoKSeFNumberVariant): TKSeFStatusInvoiceResponse;
 var
   Resp: LGP_OBJECT;
 begin
-  lgoCheckResult(lgpKSeF_InvoiceStatus(ExtObject, LGP_PCHAR(AInvoiceElementReferenceNumber), Resp));
+  lgoCheckResult(lgpKSeF_InvoiceStatus(ExtObject, LGP_PCHAR(AInvoiceElementReferenceNumber), LGP_INT32(AKSeFNumberVariant), Resp));
   if Resp <> nil then
     Result := TKSeFStatusInvoiceResponse.Create(Resp)
   else
@@ -718,27 +745,133 @@ begin
 end;
 
 function TlgoKSeF.InvoiceVisibilityHide(const AKsefReferenceNumber,
-  AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+  AHidingReason: UTF8String): TKSeFVisibilityInvoiceResponseStatusMain;
 var
   Resp: LGP_OBJECT;
 begin
   lgoCheckResult(lgpKSeF_InvoiceVisibilityHide(ExtObject, LGP_PCHAR(AKsefReferenceNumber),
     LGP_PCHAR(AHidingReason),  Resp));
   if Resp <> nil then
-    Result := TKSeFVisibilityInvoiceResponse.Create(Resp)
+    Result := TKSeFVisibilityInvoiceResponseStatusMain.Create(Resp)
   else
     Result := nil;
 end;
 
 function TlgoKSeF.InvoiceVisibilityShow(const AKsefReferenceNumber,
-  AHidingCancelationReason: UTF8String): TKSeFVisibilityInvoiceResponse;
+  AHidingCancelationReason: UTF8String
+  ): TKSeFVisibilityInvoiceResponseStatusMain;
 var
   Resp: LGP_OBJECT;
 begin
   lgoCheckResult(lgpKSeF_InvoiceVisibilityShow(ExtObject, LGP_PCHAR(AKsefReferenceNumber),
     LGP_PCHAR(AHidingCancelationReason), Resp));
   if Resp <> nil then
-    Result := TKSeFVisibilityInvoiceResponse.Create(Resp)
+    Result := TKSeFVisibilityInvoiceResponseStatusMain.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceVisibilityStatus(
+  const AHidingElementReferenceNumber: UTF8String;
+  const AKSeFNumberVariant: TlgoKSeFNumberVariant
+  ): TKSeFVisibilityInvoiceStatusResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceVisibilityStatus(ExtObject, LGP_PCHAR(AHidingElementReferenceNumber),
+    LGP_INT32(AKSeFNumberVariant), Resp));
+  if Resp <> nil then
+    Result := TKSeFVisibilityInvoiceStatusResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceVisibility(const AKSeFReferenceNumber: UTF8String;
+  const AKSeFNumberVariant: TlgoKSeFNumberVariant
+  ): TKSeFVisibilityInvoiceGetResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceVisibility(ExtObject, LGP_PCHAR(AKSeFReferenceNumber),
+    LGP_INT32(AKSeFNumberVariant), Resp));
+  if Resp <> nil then
+    Result := TKSeFVisibilityInvoiceGetResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceScamCancel(const AKSeFReferenceNumber: UTF8String;
+  const AReportCancelationReason: UTF8String): TKSeFScamInvoiceResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceScamCancel(ExtObject, LGP_PCHAR(AKSeFReferenceNumber),
+    LGP_PCHAR(AReportCancelationReason), Resp));
+  if Resp <> nil then
+    Result := TKSeFScamInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceScamReport(const AKSeFReferenceNumber: UTF8String;
+  const AReportReason: UTF8String): TKSeFScamInvoiceResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceScamReport(ExtObject, LGP_PCHAR(AKSeFReferenceNumber),
+    LGP_PCHAR(AReportReason), Resp));
+  if Resp <> nil then
+    Result := TKSeFScamInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceScamStatus(AScamElementReferenceNumber: UTF8String
+  ): TKSeFScamInvoiceResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceScamStatus(ExtObject, LGP_PCHAR(AScamElementReferenceNumber), Resp));
+  if Resp <> nil then
+    Result := TKSeFScamInvoiceResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.InvoiceScam(AKSeFReferenceNumber: UTF8String
+  ): TKSeFScamInvoiceStatusResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_InvoiceScam(ExtObject, LGP_PCHAR(AKSeFReferenceNumber), Resp));
+  if Resp <> nil then
+    Result := TKSeFScamInvoiceStatusResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsAccountingGrant(
+  AGrantAccountingCredentialsRequest: TKSeFGrantAccountingCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsAccountingGrant(ExtObject, AGrantAccountingCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF.CredentialsAccountingRevoke(
+  ARevokeAccountingCredentialsRequest: TKSeFRevokeAccountingCredentialsRequest
+  ): TKSeFStatusCredentialsResponse;
+var
+  Resp: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpKSeF_CredentialsAccountingRevoke(ExtObject, ARevokeAccountingCredentialsRequest.ExtObject, Resp));
+  if Resp <> nil then
+    Result := TKSeFStatusCredentialsResponse.Create(Resp)
   else
     Result := nil;
 end;

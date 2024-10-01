@@ -87,9 +87,15 @@ function lgpKSeF_SessionGenerateInternalIdentifier(AKSeFObject: LGP_OBJECT; AInp
 
 function lgpKSeF_InvoiceGet(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_InvoiceSend(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_InvoiceVisibilityHide(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_InvoiceVisibilityShow(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceVisibilityStatus(AKSeFObject: LGP_OBJECT; AHidingElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceVisibility(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceScamCancel(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceScamReport(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceScamStatus(AKSeFObject: LGP_OBJECT; AScamElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_InvoiceScam(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF_QueryInvoiceSync(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_QueryInvoiceAsyncInit(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -99,6 +105,8 @@ function lgpKSeF_QueryInvoiceAsyncFetch(AKSeFObject: LGP_OBJECT; AQueryElementRe
 function lgpKSeF_PaymentIdentifierGetReferenceNumbers(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_PaymentIdentifierRequest(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+function lgpKSeF_CredentialsAccountingGrant(AKSeFObject: LGP_OBJECT; AGrantAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_CredentialsAccountingRevoke(AKSeFObject: LGP_OBJECT; ARevokeAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_CredentialsContextGrant(AKSeFObject: LGP_OBJECT; AGrantContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_CredentialsContextRevoke(AKSeFObject: LGP_OBJECT; ARevokeContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF_CredentialsGenerateToken(AKSeFObject: LGP_OBJECT; AGenerateTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -857,13 +865,13 @@ begin
 end;
 
 function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT;
-  AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT
-  ): LGP_EXCEPTION; stdcall;
+  AInvoiceElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF);
-    AResponse := TlgKSeF(AKSeFObject).InvoiceStatus(AInvoiceElementReferenceNumber);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceStatus(AInvoiceElementReferenceNumber, TlgKSeFNumberVariant(AKSeFNumberVariant));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -892,6 +900,90 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     AResponse := TlgKSeF(AKSeFObject).InvoiceVisibilityShow(AKsefReferenceNumber, AHidingCancelationReason);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceVisibilityStatus(AKSeFObject: LGP_OBJECT;
+  AHidingElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceVisibilityStatus(AHidingElementReferenceNumber, TlgKSeFNumberVariant(AKSeFNumberVariant));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceVisibility(AKSeFObject: LGP_OBJECT;
+  AKSeFReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceVisibility(AKSeFReferenceNumber, TlgKSeFNumberVariant(AKSeFNumberVariant));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceScamCancel(AKSeFObject: LGP_OBJECT;
+  AKSeFReferenceNumber: LGP_PCHAR; AReportCancelationReason: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceScamCancel(AKSeFReferenceNumber, AReportCancelationReason);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceScamReport(AKSeFObject: LGP_OBJECT;
+  AKSeFReferenceNumber: LGP_PCHAR; AReportReason: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceScamReport(AKSeFReferenceNumber, AReportReason);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceScamStatus(AKSeFObject: LGP_OBJECT;
+  AScamElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceScamStatus(AScamElementReferenceNumber);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_InvoiceScam(AKSeFObject: LGP_OBJECT;
+  AKSeFReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION;
+  stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    AResponse := TlgKSeF(AKSeFObject).InvoiceScam(AKSeFReferenceNumber);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -979,6 +1071,36 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     AResponse := TlgKSeF(AKSeFObject).PaymentIdentifierRequest(String(AKsefReferenceNumberList).Split([';']));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_CredentialsAccountingGrant(AKSeFObject: LGP_OBJECT;
+  AGrantAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    CheckObject(AGrantAccountingCredentialsRequest, TKSeFGrantAccountingCredentialsRequest);
+    AResponse := TlgKSeF(AKSeFObject).CredentialsAccountingGrant(TKSeFGrantAccountingCredentialsRequest(AGrantAccountingCredentialsRequest));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_CredentialsAccountingRevoke(AKSeFObject: LGP_OBJECT;
+  ARevokeAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    CheckObject(ARevokeAccountingCredentialsRequest, TKSeFRevokeAccountingCredentialsRequest);
+    AResponse := TlgKSeF(AKSeFObject).CredentialsAccountingRevoke(TKSeFRevokeAccountingCredentialsRequest(ARevokeAccountingCredentialsRequest));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

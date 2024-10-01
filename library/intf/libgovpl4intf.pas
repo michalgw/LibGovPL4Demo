@@ -377,9 +377,15 @@ function lgpKSeF_SessionGenerateInternalIdentifier(AKSeFObject: LGP_OBJECT; AInp
 
 function lgpKSeF_InvoiceGet(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_InvoiceSend(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceStatus(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_InvoiceVisibilityHide(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_InvoiceVisibilityShow(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceVisibilityStatus(AKSeFObject: LGP_OBJECT; AHidingElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceVisibility(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceScamCancel(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceScamReport(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceScamStatus(AKSeFObject: LGP_OBJECT; AScamElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_InvoiceScam(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF_QueryInvoiceSync(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_QueryInvoiceAsyncInit(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -389,6 +395,8 @@ function lgpKSeF_QueryInvoiceAsyncFetch(AKSeFObject: LGP_OBJECT; AQueryElementRe
 function lgpKSeF_PaymentIdentifierGetReferenceNumbers(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_PaymentIdentifierRequest(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpKSeF_CredentialsAccountingGrant(AKSeFObject: LGP_OBJECT; AGrantAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_CredentialsAccountingRevoke(AKSeFObject: LGP_OBJECT; ARevokeAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_CredentialsContextGrant(AKSeFObject: LGP_OBJECT; AGrantContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_CredentialsContextRevoke(AKSeFObject: LGP_OBJECT; ARevokeContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_CredentialsGenerateToken(AKSeFObject: LGP_OBJECT; AGenerateTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -700,9 +708,15 @@ var
 
   lgpKSeF_InvoiceGet: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AOutputStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_InvoiceSend: function(AKSeFObject: LGP_OBJECT; ADataStream: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF_InvoiceStatus: function(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceStatus: function(AKSeFObject: LGP_OBJECT; AInvoiceElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_InvoiceVisibilityHide: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_InvoiceVisibilityShow: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumber, AHidingCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceVisibilityStatus: function(AKSeFObject: LGP_OBJECT; AHidingElementReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceVisibility: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AKSeFNumberVariant: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceScamCancel: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportCancelationReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceScamReport: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; AReportReason: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceScamStatus: function(AKSeFObject: LGP_OBJECT; AScamElementReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_InvoiceScam: function(AKSeFObject: LGP_OBJECT; AKSeFReferenceNumber: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF_QueryInvoiceSync: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; APageSize, APageOffset: LGP_INT32; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_QueryInvoiceAsyncInit: function(AKSeFObject: LGP_OBJECT; AQueryCriteria: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -712,6 +726,8 @@ var
   lgpKSeF_PaymentIdentifierGetReferenceNumbers: function(AKSeFObject: LGP_OBJECT; APaymentIdentifier: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_PaymentIdentifierRequest: function(AKSeFObject: LGP_OBJECT; AKsefReferenceNumberList: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+  lgpKSeF_CredentialsAccountingGrant: function(AKSeFObject: LGP_OBJECT; AGrantAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_CredentialsAccountingRevoke: function(AKSeFObject: LGP_OBJECT; ARevokeAccountingCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_CredentialsContextGrant: function(AKSeFObject: LGP_OBJECT; AGrantContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_CredentialsContextRevoke: function(AKSeFObject: LGP_OBJECT; ARevokeContextCredentialsRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF_CredentialsGenerateToken: function(AKSeFObject: LGP_OBJECT; AGenerateTokenRequest: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -1058,6 +1074,12 @@ begin
     @lgpKSeF_InvoiceStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceStatus');
     @lgpKSeF_InvoiceVisibilityHide := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibilityHide');
     @lgpKSeF_InvoiceVisibilityShow := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibilityShow');
+    @lgpKSeF_InvoiceVisibilityStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibilityStatus');
+    @lgpKSeF_InvoiceVisibility := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceVisibility');
+    @lgpKSeF_InvoiceScamCancel := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceScamCancel');
+    @lgpKSeF_InvoiceScamReport := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceScamReport');
+    @lgpKSeF_InvoiceScamStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceScamStatus');
+    @lgpKSeF_InvoiceScam := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_InvoiceScam');
 
     @lgpKSeF_QueryInvoiceSync := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceSync');
     @lgpKSeF_QueryInvoiceAsyncInit := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_QueryInvoiceAsyncInit');
@@ -1067,6 +1089,8 @@ begin
     @lgpKSeF_PaymentIdentifierGetReferenceNumbers := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierGetReferenceNumbers');
     @lgpKSeF_PaymentIdentifierRequest := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_PaymentIdentifierRequest');
 
+    @lgpKSeF_CredentialsAccountingGrant := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsAccountingGrant');
+    @lgpKSeF_CredentialsAccountingRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsAccountingRevoke');
     @lgpKSeF_CredentialsContextGrant := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsContextGrant');
     @lgpKSeF_CredentialsContextRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsContextRevoke');
     @lgpKSeF_CredentialsGenerateToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CredentialsGenerateToken');

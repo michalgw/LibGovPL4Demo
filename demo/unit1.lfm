@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 274
+  Left = 177
   Height = 762
-  Top = 49
+  Top = 64
   Width = 698
   Caption = 'LibGovPL 4 Demo'
   ClientHeight = 762

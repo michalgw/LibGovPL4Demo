@@ -2129,7 +2129,7 @@ end;
 
 procedure TForm1.ButtonKSeFInvHideClick(Sender: TObject);
 var
-  Resp: TKSeFVisibilityInvoiceResponse;
+  Resp: TKSeFVisibilityInvoiceResponseStatusMain;
 begin
   Debug('KSeF - ukrywanie wybranej faktury', True);
   try
@@ -2152,7 +2152,7 @@ end;
 
 procedure TForm1.ButtonKSeFInvShowClick(Sender: TObject);
 var
-  Resp: TKSeFVisibilityInvoiceResponse;
+  Resp: TKSeFVisibilityInvoiceResponseStatusMain;
 begin
   Debug('KSeF - Anulowanie ukrycia wybranej faktury', True);
   try

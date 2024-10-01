@@ -295,6 +295,12 @@ exports
   lgpKSeF_InvoiceStatus,
   lgpKSeF_InvoiceVisibilityHide,
   lgpKSeF_InvoiceVisibilityShow,
+  lgpKSeF_InvoiceVisibilityStatus,
+  lgpKSeF_InvoiceVisibility,
+  lgpKSeF_InvoiceScamCancel,
+  lgpKSeF_InvoiceScamReport,
+  lgpKSeF_InvoiceScamStatus,
+  lgpKSeF_InvoiceScam,
 
   lgpKSeF_QueryInvoiceSync,
   lgpKSeF_QueryInvoiceAsyncInit,
@@ -304,6 +310,8 @@ exports
   lgpKSeF_PaymentIdentifierGetReferenceNumbers,
   lgpKSeF_PaymentIdentifierRequest,
 
+  lgpKSeF_CredentialsAccountingGrant,
+  lgpKSeF_CredentialsAccountingRevoke,
   lgpKSeF_CredentialsContextGrant,
   lgpKSeF_CredentialsContextRevoke,
   lgpKSeF_CredentialsGenerateToken,
