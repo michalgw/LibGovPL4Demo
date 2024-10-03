@@ -37,7 +37,11 @@ type
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
 
+  {$IFNDEF FPC}
+  LGP_CK_ULONG = LongWord;
+  {$ELSE}
   LGP_CK_ULONG = {$IFDEF WINDOWS}LongWord{$ELSE}PtrUInt{$ENDIF};
+  {$ENDIF}
 
   {$IFNDEF FPC}
   TStringArray = TStringDynArray;
