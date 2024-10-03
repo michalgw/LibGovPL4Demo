@@ -1964,8 +1964,8 @@ type
     FCredentialsRoleList: TKSeFCredentialRoleRequestAccountingBaseArray;
     FPartnerCredentialIdentifier: TKSeFCredentialsIdentifierRequestAccounting;
     FTargetCredentialIdentifier: TKSeFCredentialsIdentifierRequest;
-    procedure SetCredentialsRoleList(
-      AValue: TKSeFCredentialRoleRequestAccountingBaseArray);
+    //procedure SetCredentialsRoleList(
+    //  AValue: TKSeFCredentialRoleRequestAccountingBaseArray);
     procedure SetPartnerCredentialIdentifier(
       AValue: TKSeFCredentialsIdentifierRequestAccounting);
     procedure SetTargetCredentialIdentifier(
@@ -3161,7 +3161,7 @@ end;
 
 { TKSeFCredentialAccountingRequestType }
 
-procedure TKSeFCredentialAccountingRequestType.SetCredentialsRoleList(
+{procedure TKSeFCredentialAccountingRequestType.SetCredentialsRoleList(
   AValue: TKSeFCredentialRoleRequestAccountingBaseArray);
 var
   O: LGP_OBJECT;
@@ -3173,7 +3173,7 @@ begin
   else
     O := nil;
   SetObjectProp('CredentialsRoleList', O);
-end;
+end;}
 
 procedure TKSeFCredentialAccountingRequestType.SetPartnerCredentialIdentifier(
   AValue: TKSeFCredentialsIdentifierRequestAccounting);
