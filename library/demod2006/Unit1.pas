@@ -2735,11 +2735,6 @@ begin
 end;
 
 procedure TForm1.ButtonPKCS11SesInfoClick(Sender: TObject);
-{$IF CompilerVersion >= 18.0}
-var
-  S: String;
-  F: TlgPKCS11SessionFlags;
-{$IFEND}
 begin
   if ComboBoxPKCS11Cert.ItemIndex < 0 then
   begin
@@ -2757,10 +2752,8 @@ begin
     {$IF CompilerVersion >= 18.0}
     with TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session do
     begin
-      WriteStr(S, State);
-      Debug('State: ' + S);
-      F := Flags;
-      Debug('Flags: ' + SetToString(PTypeInfo(TypeInfo(TlgPKCS11SessionFlags)), @F));
+      Debug('State: ' + GetEnumName(TypeInfo(TlgPKCS11SessionState), Ord(State)));
+      Debug('Flags: ' + PKCS11SessionFlagsToStr(Flags));
     end;
     {$ELSE}
     Debug('State: ' + GetEnumName(TypeInfo(TlgPKCS11SessionState), Ord(TlgoPKCS11Session.GetState(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session))));
