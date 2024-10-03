@@ -259,6 +259,23 @@ object Form1: TForm1
           Caption = '...'
           OnClick = SBFileNameEditJPKRSAProdClick
         end
+        object Label120: TLabel
+          Left = -2
+          Top = 651
+          Width = 137
+          Height = 17
+          Caption = 'Plik biblioteki PKCS#11'
+        end
+        object SpeedButton28: TSpeedButton
+          Tag = 34
+          Left = 845
+          Top = 647
+          Width = 30
+          Height = 29
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
         object ComboBoxHTTPCli: TComboBox
           Left = 472
           Top = 0
@@ -411,6 +428,7 @@ object Form1: TForm1
           Top = 466
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 16
           Text = '..\pem\prod.pem'
         end
@@ -419,6 +437,7 @@ object Form1: TForm1
           Top = 496
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 17
           Text = '..\pem\test.pem'
         end
@@ -427,6 +446,7 @@ object Form1: TForm1
           Top = 526
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 18
           Text = '..\pem\ksefprod.pem'
         end
@@ -435,6 +455,7 @@ object Form1: TForm1
           Top = 556
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 19
           Text = '..\pem\ksefdemo.pem'
         end
@@ -443,6 +464,7 @@ object Form1: TForm1
           Top = 586
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 20
           Text = '..\pem\kseftest.pem'
         end
@@ -451,7 +473,16 @@ object Form1: TForm1
           Top = 617
           Width = 371
           Height = 25
+          Anchors = [akLeft, akTop, akRight]
           TabOrder = 21
+        end
+        object FileNameEditLibPKCS11: TEdit
+          Left = 471
+          Top = 647
+          Width = 371
+          Height = 25
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 22
         end
       end
       object Panel2: TPanel
@@ -552,6 +583,156 @@ object Form1: TForm1
         end
       end
     end
+    object TabSheetPKCS11: TTabSheet
+      Caption = 'PKCS#11'
+      ImageIndex = 13
+      TabVisible = False
+      object GroupBox23: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 905
+        Height = 97
+        Align = alTop
+        Caption = 'Informacje'
+        TabOrder = 0
+        object ButtonPKCS11Info: TButton
+          Left = 17
+          Top = 25
+          Width = 248
+          Height = 25
+          Caption = 'Pokaz informacje o bibliotece PKCS11'
+          TabOrder = 0
+          OnClick = ButtonPKCS11InfoClick
+        end
+        object ButtonPKCS11Slots: TButton
+          Left = 17
+          Top = 59
+          Width = 136
+          Height = 25
+          Caption = 'Pokaz liste slotow'
+          TabOrder = 1
+          OnClick = ButtonPKCS11SlotsClick
+        end
+      end
+      object GroupBox24: TGroupBox
+        Left = 0
+        Top = 97
+        Width = 905
+        Height = 123
+        Align = alTop
+        Caption = 'Sesja'
+        TabOrder = 1
+        DesignSize = (
+          905
+          123)
+        object Label124: TLabel
+          Left = 8
+          Top = 28
+          Width = 59
+          Height = 17
+          Caption = 'Certyfikat'
+          Color = clBtnFace
+          ParentColor = False
+        end
+        object Label125: TLabel
+          Left = 48
+          Top = 59
+          Width = 21
+          Height = 17
+          Anchors = [akTop, akRight]
+          Caption = 'PIN'
+          Color = clBtnFace
+          ParentColor = False
+        end
+        object Label126: TLabel
+          Left = 331
+          Top = 59
+          Width = 122
+          Height = 17
+          Caption = 'Rodzaj uzytkownika'
+          Color = clBtnFace
+          ParentColor = False
+        end
+        object ComboBoxPKCS11Cert: TComboBox
+          Left = 75
+          Top = 24
+          Width = 611
+          Height = 25
+          Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
+          ItemHeight = 17
+          TabOrder = 0
+        end
+        object EditPKCS11PIN: TEdit
+          Left = 75
+          Top = 55
+          Width = 232
+          Height = 25
+          PasswordChar = '*'
+          TabOrder = 1
+        end
+        object ButtonPKCS11SesStart: TButton
+          Left = 75
+          Top = 86
+          Width = 111
+          Height = 25
+          Caption = 'Rozpocznij sesje'
+          TabOrder = 2
+          OnClick = ButtonPKCS11SesStartClick
+        end
+        object ButtonPKCS11SesLogin: TButton
+          Left = 194
+          Top = 86
+          Width = 66
+          Height = 25
+          Caption = 'Zaloguj'
+          TabOrder = 3
+          OnClick = ButtonPKCS11SesLoginClick
+        end
+        object ButtonPKCS11SesLogout: TButton
+          Left = 268
+          Top = 86
+          Width = 70
+          Height = 25
+          Caption = 'Wyloguj'
+          TabOrder = 4
+          OnClick = ButtonPKCS11SesLogoutClick
+        end
+        object ButtonPKCS11SesClose: TButton
+          Left = 346
+          Top = 86
+          Width = 98
+          Height = 25
+          Caption = 'Zakoncz sesje'
+          TabOrder = 5
+          OnClick = ButtonPKCS11SesCloseClick
+        end
+        object ButtonPKCS11SesInfo: TButton
+          Left = 452
+          Top = 86
+          Width = 116
+          Height = 25
+          Caption = 'Pokaz info o sesji'
+          TabOrder = 6
+          OnClick = ButtonPKCS11SesInfoClick
+        end
+        object ComboBoxPKCS11UserType: TComboBox
+          Left = 459
+          Top = 55
+          Width = 140
+          Height = 25
+          Style = csDropDownList
+          ItemHeight = 17
+          ItemIndex = 1
+          TabOrder = 7
+          Text = 'User'
+          Items.Strings = (
+            'SO'
+            'User'
+            'Context Specific')
+        end
+      end
+    end
     object TabSheetEDekPodpisCert: TTabSheet
       Caption = 'eDeklaracja podpis certyfikatem'
       TabVisible = False
@@ -613,7 +794,7 @@ object Form1: TForm1
         Left = 123
         Top = 82
         Width = 737
-        Height = 21
+        Height = 25
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 1
       end
@@ -621,7 +802,7 @@ object Form1: TForm1
         Left = 123
         Top = 136
         Width = 737
-        Height = 21
+        Height = 25
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 2
       end
@@ -828,7 +1009,7 @@ object Form1: TForm1
           Left = 146
           Top = 22
           Width = 688
-          Height = 21
+          Height = 25
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
         end
@@ -914,7 +1095,7 @@ object Form1: TForm1
           Left = 146
           Top = 21
           Width = 709
-          Height = 21
+          Height = 25
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
         end
@@ -945,7 +1126,7 @@ object Form1: TForm1
           Left = 146
           Top = 94
           Width = 688
-          Height = 21
+          Height = 25
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 3
           Text = 'upo.xml'
@@ -1192,7 +1373,7 @@ object Form1: TForm1
         Left = 259
         Top = 251
         Width = 599
-        Height = 21
+        Height = 25
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 0
       end
@@ -1222,7 +1403,7 @@ object Form1: TForm1
         Left = 259
         Top = 388
         Width = 599
-        Height = 21
+        Height = 25
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 3
       end
@@ -1230,7 +1411,7 @@ object Form1: TForm1
         Left = 259
         Top = 441
         Width = 599
-        Height = 21
+        Height = 25
         Anchors = [akLeft, akTop, akRight]
         TabOrder = 4
       end
@@ -1247,7 +1428,7 @@ object Form1: TForm1
         Left = 259
         Top = 188
         Width = 264
-        Height = 21
+        Height = 25
         TabOrder = 6
         Text = '0'
       end
@@ -1266,21 +1447,21 @@ object Form1: TForm1
         Left = 259
         Top = 105
         Width = 261
-        Height = 21
+        Height = 25
         TabOrder = 8
       end
       object EditJPKPImie: TEdit
         Left = 259
         Top = 63
         Width = 261
-        Height = 21
+        Height = 25
         TabOrder = 9
       end
       object EditJPKPNIP: TEdit
         Left = 259
         Top = 21
         Width = 261
-        Height = 21
+        Height = 25
         TabOrder = 10
       end
     end
@@ -3557,10 +3738,12 @@ object Form1: TForm1
     end
   end
   object OpenDialog1: TOpenDialog
+    Options = [ofHideReadOnly, ofNoChangeDir, ofEnableSizing]
     Left = 240
     Top = 312
   end
   object SaveDialog1: TSaveDialog
+    Options = [ofHideReadOnly, ofNoChangeDir, ofEnableSizing]
     Left = 272
     Top = 312
   end

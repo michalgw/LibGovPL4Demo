@@ -423,6 +423,25 @@ type
     ButtonObjShow: TButton;
     ButtonObjClea: TButton;
     ButtonObjCount: TButton;
+    Label120: TLabel;
+    FileNameEditLibPKCS11: TEdit;
+    SpeedButton28: TSpeedButton;
+    TabSheetPKCS11: TTabSheet;
+    GroupBox23: TGroupBox;
+    ButtonPKCS11Info: TButton;
+    ButtonPKCS11Slots: TButton;
+    GroupBox24: TGroupBox;
+    Label124: TLabel;
+    ComboBoxPKCS11Cert: TComboBox;
+    Label125: TLabel;
+    EditPKCS11PIN: TEdit;
+    ButtonPKCS11SesStart: TButton;
+    ButtonPKCS11SesLogin: TButton;
+    ButtonPKCS11SesLogout: TButton;
+    ButtonPKCS11SesClose: TButton;
+    ButtonPKCS11SesInfo: TButton;
+    Label126: TLabel;
+    ComboBoxPKCS11UserType: TComboBox;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -465,6 +484,13 @@ type
     procedure ButtonObjCleaClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonObjCountClick(Sender: TObject);
+    procedure ButtonPKCS11InfoClick(Sender: TObject);
+    procedure ButtonPKCS11SlotsClick(Sender: TObject);
+    procedure ButtonPKCS11SesStartClick(Sender: TObject);
+    procedure ButtonPKCS11SesLoginClick(Sender: TObject);
+    procedure ButtonPKCS11SesLogoutClick(Sender: TObject);
+    procedure ButtonPKCS11SesCloseClick(Sender: TObject);
+    procedure ButtonPKCS11SesInfoClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
@@ -833,6 +859,11 @@ begin
       D := SaveDialog1;
       D.Filter := FLT_ZIP;
     end;
+    34: begin
+      E := FileNameEditLibPKCS11;
+      D := OpenDialog1;
+      D.Filter := FLT_DLL;
+    end;
   end;
   if D = nil then
     Exit;
@@ -1119,6 +1150,7 @@ begin
   ComboBoxJPKCert.Items.Clear;
   ComboBoxKSeFCert.Items.Clear;
   ComboBoxKSeFBatchCert.Items.Clear;
+  ComboBoxPKCS11Cert.Items.Clear;
 
   Certyfikaty := Signer.List;
   for I := 0 to Certyfikaty.Count - 1 do
@@ -1141,18 +1173,39 @@ begin
       ComboBoxJPKCert.Items.Add(S);
       ComboBoxKSeFCert.Items.Add(S);
       ComboBoxKSeFBatchCert.Items.Add(S);
+      ComboBoxPKCS11Cert.Items.Add(S);
     end;
   end;
 end;
 
 procedure TForm1.ButtonSetupClick(Sender: TObject);
+const
+  PKCS11LIBCLASS = 'TlgPKCS11CertificateSigner';
 var
   FS: TFileStream;
 begin
   FS := nil;
+  if SameText(ComboBoxSign.Text, PKCS11LIBCLASS) and (FileNameEditLibPKCS11.Text = '') then
+  begin
+    MessageDlg('WprowadŸ nazwê pliku biblioteki PKCS#11', mtInformation, [mbOK], 0);
+    Exit;
+  end;
   if not Assigned(Signer) and (ComboBoxSign.ItemIndex >= 0) then
   begin
-    Signer := TlgoCertificateSigner.Create(ComboBoxSign.Text);
+    Signer := lgoCreateSigner(ComboBoxSign.Text);
+    if SameText(Signer.ObjClassName, PKCS11LIBCLASS) then
+    begin
+      try
+        TlgoPKCS11CertificateSigner(Signer).LoadLibrary(FileNameEditLibPKCS11.Text);
+      except
+        on E: Exception do
+        begin
+          MessageDlg('Wyst¹pi³ b³¹d podczas próby za³adowania biblioteki PKCS#11', mtError, [mbOK], 0);
+          FreeAndNil(Signer);
+          Exit;
+        end;
+      end;
+    end;
     if SameText(Signer.ObjClassName, 'TlgCNGCertificateSigner') then
       lgoCheckResult(lgpCNGCertificateSigner_SetHWnd(Signer.ExtObject, Self.Handle));
   end;
@@ -1293,6 +1346,8 @@ begin
   TabSheetKsefSession.TabVisible := True;
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
+  if Signer is TlgoPKCS11CertificateSigner then
+    TabSheetPKCS11.TabVisible := True;
 
   DateTimePickerKSeFQInvCrRanInvFromD.DateTime := DateOf(IncDay(Now, -30));
   DateTimePickerKSeFQInvCrRanInvFromT.DateTime := TimeOf(Now);
@@ -1329,6 +1384,8 @@ begin
   Debug('AES256EncryptClass: ' + KSeF.AES256EncryptClass);
   Debug('SHA256HashClass: ' + KSeF.SHA256HashClass);
   Debug('RandomGeneratorClass: ' + KSeF.RandomGeneratorClass);
+  if Signer is TlgoPKCS11CertificateSigner then
+    ButtonPKCS11InfoClick(nil);
 end;
 
 procedure TForm1.ButtonShowCertClick(Sender: TObject);
@@ -1530,7 +1587,6 @@ procedure TForm1.ButtonKSeFIniTokenClick(Sender: TObject);
 var
   Resp: TKSeFInitSessionResponse;
 begin
-  Resp := nil;
   if EditKSeFToken.Text = '' then
   begin
     MessageDlg('WprowadŸ token', mtInformation, [mbOK], 0);
@@ -1568,7 +1624,6 @@ var
   SignedInitAuth: String;
   Resp: TKSeFInitSessionResponse;
 begin
-  Resp := nil;
   Debug('KSeF - SessionInitPZ', True);
   KSeF.NIP := EditKSeFNIP.Text;
   KSeF.Encryption := CheckBoxKSeFEncrypt.Checked;
@@ -1625,7 +1680,6 @@ procedure TForm1.ButtonKSeFInitSignedClick(Sender: TObject);
 var
   Resp: TKSeFInitSessionResponse;
 begin
-  Resp := nil;
   if ComboBoxKSeFCert.ItemIndex < 0 then
   begin
     MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
@@ -1687,7 +1741,7 @@ end;
 
 procedure TForm1.ButtonKSeFInvHideClick(Sender: TObject);
 var
-  Resp: TKSeFVisibilityInvoiceResponse;
+  Resp: TKSeFVisibilityInvoiceResponseStatusMain;
 begin
   Debug('KSeF - ukrywanie wybranej faktury', True);
   try
@@ -1743,7 +1797,7 @@ end;
 
 procedure TForm1.ButtonKSeFInvShowClick(Sender: TObject);
 var
-  Resp: TKSeFVisibilityInvoiceResponse;
+  Resp: TKSeFVisibilityInvoiceResponseStatusMain;
 begin
   Debug('KSeF - Anulowanie ukrycia wybranej faktury', True);
   try
@@ -1789,7 +1843,6 @@ procedure TForm1.ButtonkSeFSesStatClick(Sender: TObject);
 var
   Resp: TKSeFSessionStatusResponse;
 begin
-  Resp := nil;
   Debug('Sprawdzenie statusu sesji', True);
   try
     try
@@ -1820,7 +1873,6 @@ procedure TForm1.ButtonKSeFSesTermClick(Sender: TObject);
 var
   Resp: TKSeFTerminateSessionResponse;
 begin
-  Resp := nil;
   Debug('Koñczenie sesji', True);
   try
     try
@@ -1850,7 +1902,6 @@ procedure TForm1.ButtonKSeFStatusUPOClick(Sender: TObject);
 var
   Resp: TKSeFStatusResponse;
 begin
-  Resp := nil;
   Debug('KSeF - sprawdŸ status wysy³ki wsadowej', True);
   try
     try
@@ -2155,7 +2206,6 @@ var
   Req: TKSeFInvoiceRequestKSeF;
 begin
   FA := nil;
-  Req := nil;
   Debug('KSeF - interfejs ogólny - pobranie faktury', True);
   try
     try
@@ -2455,6 +2505,274 @@ end;
 procedure TForm1.ButtonObjCountClick(Sender: TObject);
 begin
   Debug('Ilosc obiektow: ' + IntToStr(lgpDbgObjectCount), True);
+end;
+
+procedure TForm1.ButtonPKCS11InfoClick(Sender: TObject);
+begin
+  Debug('Info o bibliotece PKCS11:', True);
+  try
+    with TlgoPKCS11CertificateSigner(Signer).GetInfo do
+    begin
+      Debug('Wersja Cryptokit: ' + CryptokitVersionStr);
+      Debug('ID producenta: ' + Utf8ToAnsi(ManufacturerID));
+      Debug('Wersja biblioteki: ' + LibraryVersionStr);
+      Debug('Opis biblioteki: ' + Utf8ToAnsi(LibraryDescription));
+      Free;
+    end;
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas pobierania informacji o bibliotece PKCS11: ' + E.Message);
+      MessageDlg('B³¹d podczas pobierania informacji o bibliotece PKCS11: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+function PKCS11SlotFlagsToStr(AFlags: TlgPKCS11SlotFlags): String;
+var
+  F: TlgPKCS11SlotFlag;
+begin
+  Result := '';
+  for F := Low(TlgPKCS11SlotFlag) to High(TlgPKCS11SlotFlag) do
+    if F in AFlags then
+      Result := Result + GetEnumName(TypeInfo(TlgPKCS11SlotFlag), Ord(F)) + ',';
+end;
+
+function PKCS11TokenFlagsToStr(AFlags: TlgPKCS11TokenFlags): String;
+var
+  F: TlgPKCS11TokenFlag;
+begin
+  Result := '';
+  for F := Low(TlgPKCS11TokenFlag) to High(TlgPKCS11TokenFlag) do
+    if F in AFlags then
+      Result := Result + GetEnumName(TypeInfo(TlgPKCS11TokenFlag), Ord(F)) + ',';
+end;
+
+function PKCS11SessionFlagsToStr(AFlags: TlgPKCS11SessionFlags): String;
+var
+  F: TlgPKCS11SessionFlag;
+begin
+  Result := '';
+  for F := Low(TlgPKCS11SessionFlag) to High(TlgPKCS11SessionFlag) do
+    if F in AFlags then
+      Result := Result + GetEnumName(TypeInfo(TlgPKCS11SessionFlag), Ord(F)) + ',';
+end;
+
+procedure TForm1.ButtonPKCS11SlotsClick(Sender: TObject);
+var
+  Slots: TlgoPKCS11SlotInfoList;
+  Info: TlgoPKCS11SlotInfo;
+  I: Integer;
+  SFlags: TlgPKCS11SlotFlags;
+  TFlags: TlgPKCS11TokenFlags;
+begin
+  Slots := nil;
+  Debug('Lista slotów PKCS11', True);
+  try
+    try
+      Slots := TlgoPKCS11CertificateSigner(Signer).GetSlots(False);
+      Debug('Lista slotów: ' + IntToStr(Slots.Count));
+      for I := 0 to Slots.Count - 1 do
+      begin
+        Info := Slots.Items[I];
+        Debug('Slot ' + IntToStr(I));
+        Debug('  SlotDescription: ' + Utf8ToAnsi(Info.SlotDescription));
+        Debug('  ManufacturerID: ' + Info.ManufacturerID);
+        SFlags := Info.Flags;
+        //Debug('  Flags: ' + SetToString(PTypeInfo(TypeInfo(TlgPKCS11SlotFlags)), @SFlags));
+        Debug('  Flags:' + PKCS11SlotFlagsToStr(SFlags));
+        Debug('  HardwareVersion: ' + Info.HardwareVersionStr);
+        Debug('  FirmwareVersion: ' + Info.FirmwareVersionStr);
+        Debug('  TokenPresent: ' + BoolToStr(Info.TokenPresent));
+        if Info.TokenInfo <> nil then
+        begin
+          Debug('  TokenInfo:');
+          Debug('    TokenLabel:' + Utf8ToAnsi(Info.TokenInfo.TokenLabel));
+          Debug('    ManufacturerID:' + Info.TokenInfo.ManufacturerID);
+          Debug('    Model:' + Utf8ToAnsi(Info.TokenInfo.Model));
+          Debug('    SerialNumber:' + Info.TokenInfo.SerialNumber);
+          TFlags := Info.TokenInfo.Flags;
+          //Debug('    Flags:' + SetToString(PTypeInfo(TypeInfo(TlgPKCS11TokenFlags)), @TFlags));
+          Debug('    Flags:' + PKCS11TokenFlagsToStr(TFlags));
+          Debug('    MaxSessionCount:' + IntToStr(Info.TokenInfo.MaxSessionCount));
+          Debug('    SessionCount:' + IntToStr(Info.TokenInfo.SessionCount));
+          Debug('    MaxRwSessionCount:' + IntToStr(Info.TokenInfo.MaxRwSessionCount));
+          Debug('    RwSessionCount:' + IntToStr(Info.TokenInfo.RwSessionCount));
+          Debug('    MaxPinLen:' + IntToStr(Info.TokenInfo.MaxPinLen));
+          Debug('    MinPinLen:' + IntToStr(Info.TokenInfo.MinPinLen));
+          Debug('    TotalPublicMemory:' + IntToStr(Info.TokenInfo.TotalPublicMemory));
+          Debug('    FreePublicMemory:' + IntToStr(Info.TokenInfo.FreePublicMemory));
+          Debug('    TotalPrivateMemory:' + IntToStr(Info.TokenInfo.TotalPrivateMemory));
+          Debug('    FreePrivateMemory:' + IntToStr(Info.TokenInfo.FreePrivateMemory));
+          Debug('    HardwareVersion:' + Info.TokenInfo.HardwareVersionStr);
+          Debug('    FirmwareVersion:' + Info.TokenInfo.FirmwareVersionStr);
+          Debug('    UtcTime:' + Info.TokenInfo.UtcTime);
+        end;
+      end;
+    except
+      on E: Exception do
+      begin
+        Debug('B³¹d podczas próby pobrania listy slotów: ' + E.Message);
+        MessageDlg('B³¹d podczas próby pobrania listy slotów: ' + E.Message, mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    if Assigned(Slots) then
+      Slots.Free;
+  end;
+end;
+
+procedure TForm1.ButtonPKCS11SesStartClick(Sender: TObject);
+begin
+  if ComboBoxPKCS11Cert.ItemIndex < 0 then
+  begin
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('PKCS11: Rozpocznij sesjê dla certyfikatu (' + IntToStr(ComboBoxPKCS11Cert.ItemIndex) + '): ' + Utf8ToAnsi(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex].DisplayName), True);
+  try
+    if Assigned(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND}) then
+    begin
+      Debug('Sesja ju¿ zosta³a rozpoczêta');
+      MessageDlg('Sesja ju¿ zosta³a rozpoczêta', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+    TlgoPKCS11CertificateSigner(Signer).SessionStart(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]));
+    Debug('Nowa sesja rozpoczêta');
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas próby rozpoczêcia sesji: ' + E.Message);
+      MessageDlg('B³¹d podczas próby rozpoczêcia sesji: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonPKCS11SesLoginClick(Sender: TObject);
+begin
+  if ComboBoxPKCS11Cert.ItemIndex < 0 then
+  begin
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('PKCS11: Zaloguj (' + IntToStr(ComboBoxPKCS11Cert.ItemIndex) + '): ' + Utf8ToAnsi(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex].DisplayName), True);
+  try
+    if TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND} = nil then
+    begin
+      Debug('Sesja nie zosta³a rozpoczêta');
+      MessageDlg('Sesja nie zosta³a rozpoczêta', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+    {$IF CompilerVersion >= 18.0}
+    TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session.Login(EditPKCS11PIN.Text, TlgPKCS11UserType(ComboBoxPKCS11UserType.ItemIndex));
+    {$ELSE}
+    TlgoPKCS11Session.Login(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session, EditPKCS11PIN.Text, TlgPKCS11UserType(ComboBoxPKCS11UserType.ItemIndex));
+    {$IFEND}
+    Debug('Zalogowano');
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas próby zalogowania: ' + E.Message);
+      MessageDlg('B³¹d podczas próby zalogowania: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonPKCS11SesLogoutClick(Sender: TObject);
+begin
+  if ComboBoxPKCS11Cert.ItemIndex < 0 then
+  begin
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('PKCS11: Wyloguj (' + IntToStr(ComboBoxPKCS11Cert.ItemIndex) + '): ' + Utf8ToAnsi(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex].DisplayName), True);
+  try
+    if TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND} = nil then
+    begin
+      Debug('Sesja nie zosta³a rozpoczêta');
+      MessageDlg('Sesja nie zosta³a rozpoczêta', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+    {$IF CompilerVersion >= 18.0}
+    TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session.Logout;
+    {$ELSE}
+    TlgoPKCS11Session.Logout(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session);
+    {$IFEND}
+    Debug('Wylogowano');
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas próby wylogowania: ' + E.Message);
+      MessageDlg('B³¹d podczas próby wylogowania: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonPKCS11SesCloseClick(Sender: TObject);
+begin
+  if ComboBoxPKCS11Cert.ItemIndex < 0 then
+  begin
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('PKCS11: Zakoñcz sesjê (' + IntToStr(ComboBoxPKCS11Cert.ItemIndex) + '): ' + Utf8ToAnsi(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex].DisplayName), True);
+  try
+    if TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND} = nil then
+    begin
+      Debug('Sesja nie zosta³a rozpoczêta');
+      MessageDlg('Sesja nie zosta³a rozpoczêta', mtInformation, [mbOK], 0);
+      Exit;
+    end;
+    TlgoPKCS11CertificateSigner(Signer).SessionClose(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND});
+    Debug('Sesja zakoñczona');
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas próby zamkniêcia sesji: ' + E.Message);
+      MessageDlg('B³¹d podczas próby zamkniêcia sesji: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonPKCS11SesInfoClick(Sender: TObject);
+{$IF CompilerVersion >= 18.0}
+var
+  S: String;
+  F: TlgPKCS11SessionFlags;
+{$IFEND}
+begin
+  if ComboBoxPKCS11Cert.ItemIndex < 0 then
+  begin
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('PKCS11: Info o sesji (' + IntToStr(ComboBoxPKCS11Cert.ItemIndex) + '): ' + Utf8ToAnsi(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex].DisplayName), True);
+  if TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session{$IF CompilerVersion >= 18.0}.ExtObject{$IFEND} = nil then
+  begin
+    Debug('Sesja nie zosta³a rozpoczêta');
+    MessageDlg('Sesja nie zosta³a rozpoczêta', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  try
+    {$IF CompilerVersion >= 18.0}
+    with TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session do
+    begin
+      WriteStr(S, State);
+      Debug('State: ' + S);
+      F := Flags;
+      Debug('Flags: ' + SetToString(PTypeInfo(TypeInfo(TlgPKCS11SessionFlags)), @F));
+    end;
+    {$ELSE}
+    Debug('State: ' + GetEnumName(TypeInfo(TlgPKCS11SessionState), Ord(TlgoPKCS11Session.GetState(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session))));
+    Debug('Flags: ' + PKCS11SessionFlagsToStr(TlgoPKCS11Session.Flags(TlgoPKCS11Certificate(Certyfikaty[ComboBoxPKCS11Cert.ItemIndex]).Session)));
+    {$IFEND}
+  except
+    on E: Exception do
+    begin
+      Debug('B³¹d podczas próby pobrania informacji o sesji: ' + E.Message);
+      MessageDlg('B³¹d podczas próby pobrania informacji o sesji: ' + E.Message, mtError, [mbOK], 0);
+    end;
+  end;
 end;
 
 end.
