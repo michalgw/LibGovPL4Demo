@@ -1,4 +1,4 @@
-{ **************************************************************************** }
+﻿{ **************************************************************************** }
 {                                                                              }
 { LibGovPl4                                                                    }
 {                                                                              }
@@ -454,7 +454,7 @@ type
     constructor Create(AClassName: UTF8String); override;
     destructor Destroy; override;
 
-    procedure LoadLibrary(ALibFileName: String);
+    procedure LoadLibrary(ALibFileName: UTF8String);
     procedure FreeLibrary;
 
     function GetInfo: TlgoPKCS11Info;
@@ -1160,7 +1160,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TlgoPKCS11CertificateSigner.LoadLibrary(ALibFileName: String);
+procedure TlgoPKCS11CertificateSigner.LoadLibrary(ALibFileName: UTF8String);
 begin
   lgoCheckResult(lgpPKCS11CertificateSigner_LoadLibrary(ExtObject, LGP_PCHAR(ALibFileName)));
 end;
