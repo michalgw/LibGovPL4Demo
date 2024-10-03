@@ -12,7 +12,13 @@ unit LibGovPl4Backend;
 {$mode Delphi}
 {$endif}
 
-{$DEFINE LGP_HAVE_EXTRECORDS}
+{$IFNDEF FPC}
+  {$IF CompilerVersion >= 18.0}
+    {$DEFINE LGP_HAVE_EXTRECORDS}
+  {$IFEND}
+{$ELSE}
+  {$DEFINE LGP_HAVE_EXTRECORDS}
+{$ENDIF}
 
 interface
 
@@ -365,7 +371,7 @@ type
     destructor Destroy; override;
     function Count: Integer;
     function GetItem(AIndex: Integer): TlgoPKCS11SlotInfo;
-  published
+  //published
     property Items[AIndex: Integer]: TlgoPKCS11SlotInfo read GetItem;
   end;
 
@@ -597,6 +603,8 @@ begin
     Result := TlgoCertificate.Create;
 end;
 
+{$IFDEF LGP_ENABLE_PKCS11}
+
 { TlgoPKCS11Certificate }
 
 function TlgoPKCS11Certificate.GetSession: {$IFDEF LGP_HAVE_EXTRECORDS}TlgoPKCS11Session{$ELSE}LGP_OBJECT{$ENDIF};
@@ -734,6 +742,8 @@ function TlgoPKCS11Sessions.Count: Integer;
 begin
   lgoCheckResult(lgpListObject_GetCount(ExtObject, Result));
 end;
+
+{$ENDIF}
 
 { TlgoCertificateSigner }
 
