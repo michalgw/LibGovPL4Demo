@@ -282,6 +282,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 0
         end
@@ -291,6 +292,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 1
         end
@@ -300,6 +302,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 2
         end
@@ -309,6 +312,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 3
         end
@@ -318,6 +322,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 4
         end
@@ -327,6 +332,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 5
         end
@@ -336,6 +342,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 6
         end
@@ -345,6 +352,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 7
         end
@@ -354,6 +362,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 8
         end
@@ -363,6 +372,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 9
         end
@@ -372,6 +382,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 10
         end
@@ -381,6 +392,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 11
         end
@@ -390,6 +402,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           TabOrder = 12
         end
@@ -399,6 +412,7 @@ object Form1: TForm1
           Width = 403
           Height = 25
           Style = csDropDownList
+          Anchors = [akLeft, akTop, akRight]
           ItemHeight = 17
           ItemIndex = 1
           TabOrder = 13
@@ -660,7 +674,7 @@ object Form1: TForm1
           Height = 25
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 17
+          ItemHeight = 0
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
