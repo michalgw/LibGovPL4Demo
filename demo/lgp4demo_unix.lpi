@@ -102,7 +102,7 @@
           </Linking>
         </CompilerOptions>
       </Item>
-      <Item Name="Unix64 Debug">
+      <Item Name="Unix64 Gtk2 Debug">
         <MacroValues Count="1">
           <Macro3 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -110,7 +110,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\blin64\lgp4demo-gtk2"/>
+            <Filename Value="..\binl64\lgp4demo-gtk2"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -133,7 +133,7 @@
           </Linking>
         </CompilerOptions>
       </Item>
-      <Item Name="Unix64 Release">
+      <Item Name="Unix64 Gtk2 Release">
         <MacroValues Count="1">
           <Macro3 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -141,7 +141,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\blin64\lgp4demo-gtk2"/>
+            <Filename Value="..\binl64\lgp4demo-gtk2"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -165,10 +165,74 @@
           </Linking>
         </CompilerOptions>
       </Item>
-      <SharedMatrixOptions Count="3">
-        <Item1 ID="080315416815" Modes="Win32 Debug,Win64 Debug,Unix64 Debug" Value="-dLGP_DEBUG_OBJ"/>
-        <Item2 ID="092777850271" Modes="Win32 Release,Win64 Release,Unix64 Release" Value="-dLGP_DEMO"/>
-        <Item3 ID="971238377209" Modes="Unix64 Debug,Unix64 Release" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+      <Item Name="Unix64 Qt5 Debug">
+        <MacroValues Count="1">
+          <Macro4 Name="LCLWidgetType" Value="qt5"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binl64\lgp4demo-qt5"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="linux"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf3"/>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <Item Name="Unix64 Qt5 Release">
+        <MacroValues Count="1">
+          <Macro4 Name="LCLWidgetType" Value="qt5"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\binl64\lgp4demo-qt5"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="linux"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <RunWithoutDebug Value="True"/>
+              <DebugInfoType Value="dsDwarf3"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item>
+      <SharedMatrixOptions Count="4">
+        <Item1 ID="080315416815" Modes="Win32 Debug,Win64 Debug" Value="-dLGP_DEBUG_OBJ"/>
+        <Item2 ID="092777850271" Modes="Win32 Release,Win64 Release" Value="-dLGP_DEMO"/>
+        <Item3 ID="971238377209" Modes="Unix64 Gtk2 Debug,Unix64 Gtk2 Release" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item4 ID="776108311376" Modes="Unix64 Qt5 Debug,Unix64 Qt5 Release" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt5"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -211,6 +275,7 @@
       <Unit>
         <Filename Value="lgp4demo_unix.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="lgp4demo"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
