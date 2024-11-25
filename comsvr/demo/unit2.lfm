@@ -1,0 +1,21 @@
+object Form2: TForm2
+  Left = 259
+  Height = 463
+  Top = 115
+  Width = 655
+  Caption = 'Eksplorator obiektów'
+  ClientHeight = 463
+  ClientWidth = 655
+  Position = poOwnerFormCenter
+  LCLVersion = '3.7.0.0'
+  object TreeView1: TTreeView
+    Left = 0
+    Height = 463
+    Top = 0
+    Width = 655
+    Align = alClient
+    ReadOnly = True
+    TabOrder = 0
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+end

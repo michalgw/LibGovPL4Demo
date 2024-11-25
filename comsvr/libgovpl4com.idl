@@ -1,0 +1,1364 @@
+[
+  uuid(923701A2-ECEF-4DD8-A560-51B56CB1FE75),
+  version(1.0),
+  helpstring("LibGovPl4com Library"),
+]
+library LibGovPL
+{
+
+  importlib("stdole2.tlb");
+
+  interface IlgcErrorInfo;
+  interface IlgcBaseObject;
+  interface IlgcBackend;
+  interface IlgcWSTBackend;
+  interface IlgcLibXMLBackend;
+  interface IlgcOpenSSLBackend;
+  interface IlgcObject;
+  interface IlgcList;
+  interface IlgcStringStream;
+  interface IlgcFileStream;
+  interface IlgcHTTPClient;
+  interface IlgcCertificate;
+  interface IlgcCertificateSigner;
+  interface IlgcCNGCertificateSigner;
+  interface IlgcPKCS11Info;
+  interface IlgcPKCS11TokenInfo;
+  interface IlgcPKCS11SlotInfo;
+  interface IlgcPKCS11Session;
+  interface IlgcPKCS11Certificate;
+  interface IlgcPKCS11CertificateSigner;
+  interface IlgcPKCS11Backend;
+  interface IlgcXAdES;
+  interface IlgcEDeklaracjaStatus;
+  interface IlgcEDeklaracja;
+  interface IlgcJPK;
+  interface IlgcKSeFRequest;
+  interface IlgcKSeFResponse;
+  interface IlgcKSeFBase;
+  interface IlgcKSeF_2_6_0;
+  coclass lgcErrorInfo;
+  coclass lgcBaseObject;
+  coclass lgcBackend;
+  coclass lgcWSTBackend;
+  coclass lgcLibXMLBackend;
+  coclass lgcOpenSSLBackend;
+  coclass lgcObject;
+  coclass lgcList;
+  coclass lgcStringStream;
+  coclass lgcFilmStream;
+  coclass lgcHTTPClient;
+  coclass lgcCertificate;
+  coclass lgcCertificateSigner;
+  coclass lgcCNGCertificateSigner;
+  coclass lgcPKCS11Info;
+  coclass lgcPKCS11TokenInfo;
+  coclass lgcPKCS11SlotInfo;
+  coclass lgcPKCS11Session;
+  coclass lgcPKCS11Certificate;
+  coclass lgcPKCS11CertificateSigner;
+  coclass lgcPKCS11Backend;
+  coclass lgcXAdES;
+  coclass lgcEDeklaracjaStatus;
+  coclass lgcEDeklaracja;
+  coclass lgcJPK;
+  coclass lgcKSeFRequest;
+  coclass lgcKSeFResponse;
+  coclass lgcKSeFBase;
+  coclass lgcKSeF_2_6_0;
+
+  [
+    uuid(9A89AA77-09DD-4E0B-B1D5-1838779E7C87)
+  ]
+  enum lgcClassType
+  {
+    lgcCTHTTPClient = 0,
+    lgcCTCertSigner = 1,
+    lgcCTRandGenerator = 2,
+    lgcCTBase64Encoder = 3,
+    lgcCTMD5Hash = 4,
+    lgcCTSHA1Hash = 5,
+    lgcCTSHA256Hash = 6,
+    lgcCTAES256Encrypt = 7,
+    lgcCTRSAEncrypt = 8,
+    lgcCTZipper = 9,
+    lgcCTXMLReader = 10,
+    lgcCTXMLC14N = 11,
+    lgcCTEdekGate = 12
+  };
+
+  [
+    uuid(adca3ab4-444b-4b28-80fb-dc7a8284c192)
+  ]
+  enum lgcPKCS11UserType
+  {
+    lgcP11UTSO = 0,
+    lgcP11UTUser = 1,
+    lgcP11UTContextSpecific = 2
+  };
+
+  [
+    uuid(660eb7e9-f85a-45f2-92da-a8cd62201773)
+  ]
+  enum lgcPKCS11SessionState
+  {
+    lgcP11SSROPublicSession = 0,
+    lgcP11SSROUserFunctions = 1,
+    lgcP11SSRWPublicSession = 2,
+    lgcP11SSRWUserFunctions = 3,
+    lgcP11SSRWSOFunctions = 4
+  };
+
+  [
+    uuid(367CDD37-0161-4909-AD46-E0432B339BE8)
+  ]
+  enum lgcEDekGateType
+  {
+    lgcEGTProduction = 0,
+    lgcEGTTest = 1
+  };
+
+  [
+    uuid(506ED9D7-21ED-4ACF-AFF6-2C2E6EA7432A)
+  ]
+  enum lgcEDekSignType
+  {
+    lgcESTCertificate = 0,
+    lgcESTAuthData = 1
+  };
+
+  [
+    uuid(841d9993-f1e2-4ff3-8348-ddfc01d24b92)
+  ]
+  enum lgcSignHashType
+  {
+    lgcSHTSHA1 = 0,
+    lgcSHTSHA256 = 1
+  };
+
+  [
+    uuid(85a8523e-116c-4d9f-bd02-309a44d7c6e4)
+  ]
+  enum lgcXAdESSerialNoFormat
+  {
+    lgcXSFDecimal = 0,
+    lgcXSFHex = 1
+  };
+
+  [
+    uuid(4e2d8329-97df-409c-9d49-87b26d0826ba)
+  ]
+  enum  lgcKSeFGateType
+  {
+    lgcKTGProd = 0,
+    lgcKTGDemo = 1,
+    lgcKTGTest = 2
+  };
+
+  [
+    uuid(533a0542-74a2-453e-9205-8f0d207a3a72)
+  ]
+  enum  lgcKSeFCertificateAuthType
+  {
+    lgcCATSerialNumber = 0,
+    lgcCATFingerprint = 1
+  };
+
+  [
+    uuid(d864b31e-60d6-4c19-9601-e7d514b67c1e)
+  ]
+  enum lgcKSeFNumberVariant
+  {
+    lgcKNVDefault = 0,
+    lgcKNV35 = 1,
+    lgcKNV36 = 2
+  };
+
+  [
+    uuid(a852bd9f-6a0a-4079-8b99-f63bc822476a)
+  ]
+  enum lgcPropertyType
+  {
+    lgcPTUnknown = 0,
+    lgcPTString = 1,
+    lgcPTInt32 = 2,
+    lgcPTInt64 = 3,
+    lgcPTDouble = 4,
+    lgcPTCurrency = 5,
+    lgcPTBoolean = 6,
+    lgcPTDateTime = 7,
+    lgcPTObject = 8,
+    lgcPTObjectList = 9
+  };
+
+  [
+    uuid(7a7593ec-7729-44ed-893a-8919a9e952fb)
+  ]
+  enum lgcFileMode
+  {
+    lgcFMOpenRead       = 0x0000,
+    lgcFMOpenWrite      = 0x0001,
+    lgcFMOpenReadWrite  = 0x0002,
+
+    lgcFMShareCompat    = 0x0000,
+    lgcFMShareExclusive = 0x0010,
+    lgcFMShareDenyWrite = 0x0020,
+    lgcFMShareDenyRead  = 0x0030,
+    lgcFMShareDenyNone  = 0x0040
+  };
+
+  [
+    uuid(617c8313-e12f-47fa-a01e-ac0a212c8855),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcBaseObject: IDispatch
+  {
+    [id(1001)]
+    HRESULT _stdcall GetObjClassName([out, retval] BSTR* Value);
+    [id(1002)]
+    HRESULT _stdcall ClearLastError();
+    [propget, id(1003)]
+    HRESULT _stdcall LastError([out, retval] IDispatch** Value);
+  };
+
+  [
+    uuid(393A6861-4A95-4CED-8B93-3A8FFA77F5C3),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcBackend: IlgcBaseObject
+  {
+    [id(2001)]
+    HRESULT _stdcall GetLibVersion([out, retval] BSTR* Value);
+    [id(2002)]
+    HRESULT _stdcall GetDebugInfo([in] long CounterType, [out, retval] VARIANT* Value);
+    [id(2003)]
+    HRESULT _stdcall GetClassCount([in] enum lgcClassType ClsType, [out, retval] long* nCount);
+    [id(2004)]
+    HRESULT _stdcall GetClassName([in] enum lgcClassType ClsType, [in] long ClassIndex, [out, retval] BSTR* ClsName);
+    [id(2005)]
+    HRESULT _stdcall GetClassNames([in] enum lgcClassType ClsType, [out, retval] VARIANT* ClsNames);
+    [id(2006)]
+    HRESULT _stdcall CreateFileStream([in] BSTR FileName, [in] long Mode, [out, retval]  IDispatch** Instance);
+    [id(2007)]
+    HRESULT _stdcall CreateHTTPClient([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+    [id(2008)]
+    HRESULT _stdcall CreateRSAKey([in] BSTR ClsName, [in] VARIANT Source, [out, retval] IDispatch** NewObject);
+    [id(2009)]
+    HRESULT _stdcall CreateCertificateSigner([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+    [id(2010)]
+    HRESULT _stdcall CreateXAdES([out, retval] IDispatch** NewObject);
+    [id(2011)]
+    HRESULT _stdcall CreateEDeklaracja([out, retval] IDispatch** NewObject);
+    [id(2012)]
+    HRESULT _stdcall CreateJPK([out, retval] IDispatch** NewObject);
+    [id(2013)]
+    HRESULT _stdcall CreateKSeF([out, retval] IDispatch** NewObject);
+  };
+
+  [
+    uuid(9043b49e-3089-4fdb-9575-3dbe9ad258ae),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcErrorInfo: IDispatch
+  {
+    [propget, id(3001)]
+    HRESULT _stdcall ExceptionClass([out, retval] BSTR* ClsName);
+    [propget, id(3002)]
+    HRESULT _stdcall Message([out, retval] BSTR* Msg);
+    [propget, id(3003)]
+    HRESULT _stdcall ExtraInfo([out, retval] VARIANT* Value);
+    [propget, id(3004)]
+    HRESULT _stdcall HandlerClass([out, retval] BSTR* ClsName);
+  };
+
+  [
+    uuid(d829deda-20a8-4c28-9a38-7f42f599c8d7),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcWSTBackend: IlgcBaseObject
+  {
+    [id(4001)]
+    HRESULT _stdcall RegisterTransport();
+    [propget, id(4002)]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [propput, id(4002)]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
+  }
+
+  [
+    uuid(d87a7a97-38cd-4172-92b0-5aa97becb494),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcLibXMLBackend: IlgcBaseObject
+  {
+    [id(5001)]
+    HRESULT _stdcall LoadLibXML([in] BSTR LibFileName);
+  }
+
+  [
+    uuid(516ec757-193c-42b4-9b5a-fe64059129ad),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcOpenSSLBackend: IlgcBaseObject
+  {
+    [id(6001)]
+    HRESULT _stdcall LoadOpenSSL([in] BSTR SSLName, [in] BSTR CryptoName);
+  }
+
+  [
+    uuid(A7720948-5883-4F9E-8355-F57381433787),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcObject: IlgcBaseObject
+  {
+    [propget, id(7001)]
+    HRESULT _stdcall ExtObject([out, retval] void** Value);
+    [propget, id(7002)]
+    HRESULT _stdcall StringProp([in] BSTR Name, [out, retval] BSTR* Value);
+    [propput, id(7002)]
+    HRESULT _stdcall StringProp([in] BSTR Name, [in] BSTR Value);
+    [propget, id(7003)]
+    HRESULT _stdcall IntegerProp([in] BSTR Name, [out, retval] long* Value);
+    [propput, id(7003)]
+    HRESULT _stdcall IntegerProp([in] BSTR Name, [in] long Value);
+    [propget, id(7004)]
+    HRESULT _stdcall DoubleProp([in] BSTR Name, [out, retval] double* Value);
+    [propput, id(7004)]
+    HRESULT _stdcall DoubleProp([in] BSTR Name, [in] double Value);
+    [propget, id(7005)]
+    HRESULT _stdcall CurrencyProp([in] BSTR Name, [out, retval] CURRENCY* Value);
+    [propput, id(7005)]
+    HRESULT _stdcall CurrencyProp([in] BSTR Name, [in] CURRENCY Value);
+    [propget, id(7006)]
+    HRESULT _stdcall BooleanProp([in] BSTR Name, [out, retval] VARIANT_BOOL* Value);
+    [propput, id(7006)]
+    HRESULT _stdcall BooleanProp([in] BSTR Name, [in] VARIANT_BOOL Value);
+    [propget, id(7007)]
+    HRESULT _stdcall Int64Prop([in] BSTR Name, [out, retval] __int64* Value);
+    [propput, id(7007)]
+    HRESULT _stdcall Int64Prop([in] BSTR Name, [in] __int64 Value);
+    [propget, id(7008)]
+    HRESULT _stdcall DateProp([in] BSTR Name, [out, retval] DATE* Value);
+    [propput, id(7008)]
+    HRESULT _stdcall DateProp([in] BSTR Name, [in] DATE Value);
+    [id(7009)]
+    HRESULT _stdcall ListProps([out, retval] VARIANT* List);
+    [id(7010)]
+    HRESULT _stdcall PropType([in] BSTR PropName, [out, retval] enum lgcPropertyType* Value);
+    [id(7011)]
+    HRESULT _stdcall ObjectPropClass([in] BSTR PropName, [out, retval] BSTR* PropClsName);
+    [id(7012)]
+    HRESULT _stdcall SetObjectProp([in] BSTR Name, [in] VARIANT Value);
+    [id(7013)]
+    HRESULT _stdcall GetObjectProp([in] BSTR Name, [out, retval] VARIANT* Value);
+  };
+
+  [
+    uuid(f0a18ad2-8f91-4c8e-845a-b2f3524a390a),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcList: IlgcBaseObject
+  {
+    [id(1)]
+    HRESULT _stdcall Add([in] VARIANT Item, [in, optional] VARIANT Key);
+    [id(2)]
+    HRESULT _stdcall Remove([in] VARIANT Index);
+    [propget, id(3)]
+    HRESULT _stdcall Count([out, retval] long* Cnt);
+    [propget, id(DISPID_VALUE)]
+    HRESULT _stdcall Item([in] VARIANT Index, [out, retval] VARIANT* Value);
+    [restricted, id(DISPID_NEWENUM)]
+    HRESULT _stdcall _NewEnum([out, retval] IUnknown** NwEnum);
+    [id(8001)]
+    HRESULT _stdcall Delete([in] long ObjIndex);
+  };
+
+  [
+    uuid(5f50981b-976d-4e90-a682-e2dc34115cda),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcStringStream: IlgcBaseObject
+  {
+    [propget, id(9001)]
+    HRESULT _stdcall Data([out, retval] BSTR* Value);
+    [propput, id(9001)]
+    HRESULT _stdcall Data([in] BSTR Value);
+    [id(9002)]
+    HRESULT _stdcall Clear();
+    [id(9003)]
+    HRESULT _stdcall LoadFromFile([in] BSTR AFileName);
+    [id(9004)]
+    HRESULT _stdcall SaveToFile([in] BSTR AfileName);
+  };
+
+  [
+    uuid(2b2e8876-c57e-4879-afd6-6af218d4705d),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcFileStream: IlgcBaseObject
+  {
+    [propget, id(10001)]
+    HRESULT _stdcall FileName([out, retval] BSTR* Value);
+  };
+
+  [
+    uuid(bcf17136-365b-4af4-9720-44eb9e4cabb0),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcMemoryStream: IlgcBaseObject
+  {
+    [propget, id(11001)]
+    HRESULT _stdcall Data([out, retval] VARIANT* Value);
+    [propput, id(11001)]
+    HRESULT _stdcall Data([in] VARIANT Value);
+    [id(11002)]
+    HRESULT _stdcall Clear();
+    [id(11003)]
+    HRESULT _stdcall LoadFromFile([in] BSTR AFileName);
+    [id(11004)]
+    HRESULT _stdcall SaveToFile([in] BSTR AfileName);
+  };
+
+  [
+    uuid(0587DB7A-AAFF-4900-B734-4BACE3EEE8FA),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcHTTPClient: IlgcBaseObject
+  {
+    [propget, id(12001)]
+    HRESULT _stdcall IgnoreSSLErrors([out, retval] VARIANT_BOOL* Value);
+    [propput, id(12001)]
+    HRESULT _stdcall IgnoreSSLErrors([in] VARIANT_BOOL Value);
+  };
+
+  [
+    uuid(322d506b-4c30-43d1-a75e-f4d308d79022),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcCertificate: IlgcBaseObject
+  {
+    [propget, id(13001)]
+    HRESULT _stdcall DisplayName([out, retval] BSTR* Value);
+    [propget, id(13002)]
+    HRESULT _stdcall Subject([out, retval] BSTR* Value);
+    [propget, id(13003)]
+    HRESULT _stdcall Issuer([out, retval] BSTR* Value);
+    [propget, id(13004)]
+    HRESULT _stdcall SerialNoDec([out, retval] BSTR* Value);
+    [propget, id(13005)]
+    HRESULT _stdcall SerialNoHex([out, retval] BSTR* Value);
+    [propget, id(13006)]
+    HRESULT _stdcall ValidFrom([out, retval] VARIANT* Value);
+    [propget, id(13007)]
+    HRESULT _stdcall ValidTo([out, retval] VARIANT* Value);
+    [propput, id(13008)]
+    HRESULT _stdcall PIN([in] BSTR Value);
+    [id(13009)]
+    HRESULT _stdcall ShowCertificateInfo([in] VARIANT WinHandle);
+  };
+
+  [
+    uuid(913a275a-8d26-4762-8c08-4d2ca11d214d),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcCertificateSigner: IlgcBaseObject
+  {
+    [id(14001)]
+    HRESULT _stdcall List([out, retval] IDispatch** Value);
+    [id(14002)]
+    HRESULT _stdcall UISelect([out, retval] IDispatch** Certificate);
+  };
+
+  [
+    uuid(a1ae7a86-2200-494b-8c4d-ff5e0c97c268),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcCNGCertificateSigner: IlgcCertificateSigner
+  {
+    [propget, id(15001)]
+    HRESULT _stdcall WinHandle([out, retval] VARIANT* Value);
+    [propput, id(15001)]
+    HRESULT _stdcall WinHandle([in] VARIANT Value);
+  };
+
+  [
+    uuid(fa907e32-d103-4c20-b955-a0a6d478c7c7),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11Info: IlgcBaseObject
+  {
+    [propget, id(16001)]
+    HRESULT _stdcall CryptokitVersionStr([out, retval] BSTR* Value);
+    [propget, id(16002)]
+    HRESULT _stdcall CryptokitVersionMajor([out, retval] long* Value);
+    [propget, id(16003)]
+    HRESULT _stdcall CryptokitVersionMinor([out, retval] long* Value);
+    [propget, id(16004)]
+    HRESULT _stdcall ManufacturerID([out, retval] BSTR* Value);
+    [propget, id(16005)]
+    HRESULT _stdcall LibraryDescription([out, retval] BSTR* Value);
+    [propget, id(16006)]
+    HRESULT _stdcall LibraryVersionStr([out, retval] BSTR* Value);
+    [propget, id(16007)]
+    HRESULT _stdcall LibraryVersionMajor([out, retval] long* Value);
+    [propget, id(16008)]
+    HRESULT _stdcall LibraryVersionMinor([out, retval] long* Value);
+  };
+
+  [
+    uuid(b4bb1edb-4f32-4b0c-b390-566f02237a55),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11TokenInfo: IlgcBaseObject
+  {
+    [propget, id(17001)]
+    HRESULT _stdcall TokenLabel([out, retval] BSTR* Value);
+    [propget, id(17002)]
+    HRESULT _stdcall ManufacturerID([out, retval] BSTR* Value);
+    [propget, id(17003)]
+    HRESULT _stdcall Model([out, retval] BSTR* Value);
+    [propget, id(17004)]
+    HRESULT _stdcall SerialNumber([out, retval] BSTR* Value);
+    [propget, id(17005)]
+    HRESULT _stdcall Flags([out, retval] unsigned long* Value);
+    [propget, id(17006)]
+    HRESULT _stdcall MaxSessionCount([out, retval] unsigned long* Value);
+    [propget, id(17007)]
+    HRESULT _stdcall SessionCount([out, retval] unsigned long* Value);
+    [propget, id(17008)]
+    HRESULT _stdcall MaxRwSessionCount([out, retval] unsigned long* Value);
+    [propget, id(17009)]
+    HRESULT _stdcall RwSessionCount([out, retval] unsigned long* Value);
+    [propget, id(17010)]
+    HRESULT _stdcall MaxPinLen([out, retval] unsigned long* Value);
+    [propget, id(17011)]
+    HRESULT _stdcall MinPinLen([out, retval] unsigned long* Value);
+    [propget, id(17012)]
+    HRESULT _stdcall TotalPublicMemory([out, retval] unsigned long* Value);
+    [propget, id(17013)]
+    HRESULT _stdcall FreePublicMemory([out, retval] unsigned long* Value);
+    [propget, id(17014)]
+    HRESULT _stdcall TotalPrivateMemory([out, retval] unsigned long* Value);
+    [propget, id(17015)]
+    HRESULT _stdcall FreePrivateMemory([out, retval] unsigned long* Value);
+    [propget, id(17016)]
+    HRESULT _stdcall HardwareVersionStr([out, retval] BSTR* Value);
+    [propget, id(17017)]
+    HRESULT _stdcall HardwareVersionMajor([out, retval] long* Value);
+    [propget, id(17018)]
+    HRESULT _stdcall HardwareVersionMinor([out, retval] long* Value);
+    [propget, id(17019)]
+    HRESULT _stdcall FirmwareVersionStr([out, retval] BSTR* Value);
+    [propget, id(17020)]
+    HRESULT _stdcall FirmwareVersionMajor([out, retval] long* Value);
+    [propget, id(17021)]
+    HRESULT _stdcall FirmwareVersionMinor([out, retval] long* Value);
+    [propget, id(17022)]
+    HRESULT _stdcall UtcTime([out, retval] BSTR* Value);
+  };
+
+  [
+    uuid(597607f4-ca0a-4722-bbc9-eb15ecaeba49),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11SlotInfo: IlgcBaseObject
+  {
+    [propget, id(18001)]
+    HRESULT _stdcall SlotID([out, retval] unsigned long* Value);
+    [propget, id(18002)]
+    HRESULT _stdcall SlotDescription([out, retval] BSTR* Value);
+    [propget, id(18003)]
+    HRESULT _stdcall ManufacturerID([out, retval] BSTR* Value);
+    [propget, id(18004)]
+    HRESULT _stdcall Flags([out, retval] unsigned long* Value);
+    [propget, id(18005)]
+    HRESULT _stdcall HardwareVersionStr([out, retval] BSTR* Value);
+    [propget, id(18006)]
+    HRESULT _stdcall HardwareVersionMajor([out, retval] long* Value);
+    [propget, id(18007)]
+    HRESULT _stdcall HardwareVersionMinor([out, retval] long* Value);
+    [propget, id(18008)]
+    HRESULT _stdcall FirmwareVersionStr([out, retval] BSTR* Value);
+    [propget, id(18009)]
+    HRESULT _stdcall FirmwareVersionMajor([out, retval] long* Value);
+    [propget, id(18010)]
+    HRESULT _stdcall FirmwareVersionMinor([out, retval] long* Value);
+    [propget, id(18011)]
+    HRESULT _stdcall TokenPresent([out, retval] VARIANT_BOOL* Value);
+    [propget, id(18012)]
+    HRESULT _stdcall TokenInfo([out, retval] IDispatch** Value);
+  };
+
+  [
+    uuid(bb0c246d-ba87-44c4-b614-53fb1d4ae900),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11Session: IlgcBaseObject
+  {
+    [id(19001)]
+    HRESULT _stdcall CheckActive([out, retval] VARIANT_BOOL* Value);
+    [id(19002)]
+    HRESULT _stdcall Login([in] BSTR Pin, [in] enum lgcPKCS11UserType UserType);
+    [id(19003)]
+    HRESULT _stdcall Logout();
+    [propget, id(19004)]
+    HRESULT _stdcall Handle([out, retval] unsigned long* Value);
+    [propget, id(19005)]
+    HRESULT _stdcall SlotID([out, retval] unsigned long* Value);
+    [propget, id(19006)]
+    HRESULT _stdcall State([out, retval] enum lgcPKCS11SessionState* Value);
+    [propget, id(19007)]
+    HRESULT _stdcall Flags([out, retval] unsigned long* Value);
+  };
+
+  [
+    uuid(a14eb3d8-25c5-4c22-b6aa-3e7ea2884d78),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11Certificate: IlgcCertificate
+  {
+    [propget, id(20001)]
+    HRESULT _stdcall Session([out, retval] IDispatch** Value);
+  };
+
+  [
+    uuid(02f51066-4584-476a-b0db-cdfca648b534),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11CertificateSigner: IlgcCertificateSigner
+  {
+    [id(21001)]
+    HRESULT _stdcall LoadLibrary([in] BSTR LibFileName);
+    [id(21002)]
+    HRESULT _stdcall FreeLibrary();
+    [id(21003)]
+    HRESULT _stdcall GetInfo([out, retval] IDispatch** Value);
+    [id(21004)]
+    HRESULT _stdcall GetSlots([in] VARIANT_BOOL WithToken, [out, retval] IDispatch** Infos);
+    [id(21005)]
+    HRESULT _stdcall SessionStart([in] IDispatch* Certificate, [out, retval] IDispatch** Session);
+    [id(21006)]
+    HRESULT _stdcall SessionClose([in] VARIANT IndexOrSession);
+    [id(21007)]
+    HRESULT _stdcall SessionCloseAll();
+    [propget, id(21008)]
+    HRESULT _stdcall LibLoaded([out, retval] VARIANT_BOOL* Value);
+    [propget, id(21009)]
+    HRESULT _stdcall LibFileName([out, retval] BSTR* Value);
+    [propget, id(21010)]
+    HRESULT _stdcall Sessions([out, retval] IDispatch** Value);
+  };
+
+  [
+    uuid(4b3c369b-79d4-4b26-862c-691e41e74ad1),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcPKCS11Backend: IlgcBaseObject
+  {
+    [id(22001)]
+    HRESULT _stdcall CheckLibrary([in] BSTR LibFileName, [out, retval] VARIANT_BOOL* LibIsValid);
+    [id(22002)]
+    HRESULT _stdcall GetLibraryInfo([in] BSTR LibFileName, [out, retval] IDispatch** LibInfo);
+  };
+
+  [
+    uuid(50dc95df-a1c2-460d-8a46-d90be7016886),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcXAdES: IlgcBaseObject
+  {
+    [propget, id(23001)]
+    HRESULT _stdcall SHA1HashClass([out, retval] BSTR* Value);
+    [propput, id(23001)]
+    HRESULT _stdcall SHA1HashClass([in] BSTR Value);
+    [propget, id(23002)]
+    HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
+    [propput, id(23002)]
+    HRESULT _stdcall SHA256HashClass([in] BSTR Value);
+    [propget, id(23003)]
+    HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
+    [propput, id(23003)]
+    HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
+    [propget, id(23004)]
+    HRESULT _stdcall Signer([out, retval] IDispatch** Value);
+    [propput, id(23004)]
+    HRESULT _stdcall Signer([in] IDispatch* Value);
+    [propget, id(23005)]
+    HRESULT _stdcall SignType([out, retval] enum lgcSignHashType* Value);
+    [propput, id(23005)]
+    HRESULT _stdcall SignType([in] enum lgcSignHashType Value);
+    [propget, id(23006)]
+    HRESULT _stdcall SerialNoFormat([out, retval] enum lgcXAdESSerialNoFormat* Value);
+    [propput, id(23006)]
+    HRESULT _stdcall SerialNoFormat([in] enum lgcXAdESSerialNoFormat Value);
+    [propget, id(23007)]
+    HRESULT _stdcall IncludeSigningTime([out, retval] VARIANT_BOOL* Value);
+    [propput, id(23007)]
+    HRESULT _stdcall IncludeSigningTime([in] VARIANT_BOOL Value);
+    [propget, id(23008)]
+    HRESULT _stdcall SigningTime([out, retval] VARIANT* Value);
+    [propput, id(23008)]
+    HRESULT _stdcall SigningTime([in] VARIANT Value);
+  };
+
+  [
+    uuid(79e8257a-ae97-4d81-be00-6b69700bdfce),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcEDeklaracjaStatus: IlgcBaseObject
+  {
+    [propget, id(24001)]
+    HRESULT _stdcall NrRef([out, retval] BSTR* Value);
+    [propget, id(24002)]
+    HRESULT _stdcall Status([out, retval] long* Value);
+    [propget, id(24003)]
+    HRESULT _stdcall Opis([out, retval] BSTR* Value);
+    [propget, id(24004)]
+    HRESULT _stdcall PobranoUPO([out, retval] VARIANT_BOOL* Value);
+    [propget, id(24005)]
+    HRESULT _stdcall UPO([out, retval] BSTR* Value);
+    [propget, id(24006)]
+    HRESULT _stdcall Timestamp([out, retval] VARIANT*);
+    [propget, id(24007)]
+    HRESULT _stdcall Szczegoly([out, retval] BSTR*);
+  };
+
+  [
+    uuid(4c7e267d-d83d-4713-9120-cb57d7881f33),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcEDeklaracja: IlgcBaseObject
+  {
+    [id(25001)]
+    HRESULT _stdcall PodpiszCertyfikatem([in] BSTR Dane, [in] IDispatch* Certyfikat, [out, retval] BSTR* DanePodpisane);
+    [id(25002)]
+    HRESULT _stdcall PodpiszDanymiAut([in] BSTR Dane, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] BSTR Nip, [in] DATE DataUr, [in] CURRENCY Kwota, [out, retval] BSTR* DanePodpisane);
+    [id(25003)]
+    HRESULT _stdcall Wyslij([in] BSTR DanePodpisane, [in] enum lgcEDekGateType RodzajBramki, [in] enum lgcEDekSignType RodzajPodpisu, [out, retval] IDispatch** Status);
+    [id(25004)]
+    HRESULT _stdcall PobierzUPO([in] BSTR NrRef, [in] enum lgcEDekGateType RodzajBramki, [out, retval] IDispatch** Status);
+    [propget, id(25005)]
+    HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
+    [propput, id(25005)]
+    HRESULT _stdcall XAdES([in] IDispatch* Value);
+    [propget, id(25006)]
+    HRESULT _stdcall XMLCanonizator([out, retval] BSTR* Value);
+    [propput, id(25006)]
+    HRESULT _stdcall XMLCanonizator([in] BSTR Value);
+    [propget, id(25007)]
+    HRESULT _stdcall EDekGate([out, retval] BSTR* Value);
+    [propput, id(25007)]
+    HRESULT _stdcall EDekGate([in] BSTR Value);
+    [propget, id(25008)]
+    HRESULT _stdcall Canonization([out, retval] VARIANT_BOOL* Value);
+    [propput, id(25008)]
+    HRESULT _stdcall Canonization([in] VARIANT_BOOL Value);
+  };
+
+  [
+    uuid(5eb2f974-0d10-44d4-aa8f-e557bb91ff30),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcJPK: IlgcBaseObject
+  {
+    [id(26001)]
+    HRESULT _stdcall SignCertificate([in] IDispatch* Certificate, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
+    [id(26002)]
+    HRESULT _stdcall SignAuthData([in] BSTR Nip, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] DATE DataUr, [in] CURRENCY Kwota, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
+    [id(26003)]
+    HRESULT _stdcall Send([in] BSTR InitUpload, [in] VARIANT EncryptedData, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL VerifySign, [out, retval] BSTR* RefNo);
+    [id(26004)]
+    HRESULT _stdcall RequestUPO([in] BSTR RefNo,[in] enum lgcEDekGateType GateType, [out, retval] IDispatch** Status);
+    [propget, id(26005)]
+    HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
+    [propput, id(26005)]
+    HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
+    [propget, id(26006)]
+    HRESULT _stdcall AES256EncryptClass([out, retval] BSTR* Value);
+    [propput, id(26006)]
+    HRESULT _stdcall AES256EncryptClass([in] BSTR Value);
+    [propget, id(26007)]
+    HRESULT _stdcall MD5HashClass([out, retval] BSTR* Value);
+    [propput, id(26007)]
+    HRESULT _stdcall MD5HashClass([in] BSTR Value);
+    [propget, id(26008)]
+    HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
+    [propput, id(26008)]
+    HRESULT _stdcall SHA256HashClass([in] BSTR Value);
+    [propget, id(26009)]
+    HRESULT _stdcall ZipperClass([out, retval] BSTR* Value);
+    [propput, id(26009)]
+    HRESULT _stdcall ZipperClass([in] BSTR Value);
+    [propget, id(26010)]
+    HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
+    [propput, id(26010)]
+    HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
+    [propget, id(26011)]
+    HRESULT _stdcall RandomGeneratorClass([out, retval] BSTR* Value);
+    [propput, id(26011)]
+    HRESULT _stdcall RandomGeneratorClass([in] BSTR Value);
+    [propget, id(26012)]
+    HRESULT _stdcall XMLReaderClass([out, retval] BSTR* Value);
+    [propput, id(26012)]
+    HRESULT _stdcall XMLReaderClass([in] BSTR Value);
+    [propget, id(26013)]
+    HRESULT _stdcall RSAKeyProd([out, retval] IDispatch** Value);
+    [propput, id(26013)]
+    HRESULT _stdcall RSAKeyProd([in] IDispatch* Value);
+    [propget, id(26014)]
+    HRESULT _stdcall RSAKeyTest([out, retval] IDispatch** Value);
+    [propput, id(26014)]
+    HRESULT _stdcall RSAKeyTest([in] IDispatch* Value);
+    [propget, id(26015)]
+    HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
+    [propput, id(26015)]
+    HRESULT _stdcall XAdES([in] IDispatch* Value);
+    [propget, id(26016)]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [propput, id(26016)]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
+  };
+
+  [
+    uuid(7b4ef1ce-8fc8-433c-99e4-a446e6f62d98),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcKSeFRequest: IlgcObject
+  {
+    [id(27001)]
+    HRESULT _stdcall GetAsJSON([out, retval] BSTR* Value);
+  }
+
+  [
+    uuid(9ed3df16-92da-4edc-bc63-fc17cddf9bdc),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcKSeFResponse: IlgcObject
+  {
+    [id(28001)]
+    HRESULT _stdcall GetRawResponse([out, retval] BSTR* Value);
+  }
+
+  [
+    uuid(452578ac-f2ae-4771-9fcf-5f4dc66021cd),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcKSeFBase: IlgcBaseObject
+  {
+    [propget, id(29001)]
+    HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
+    [propput, id(29001)]
+    HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
+    [propget, id(29002)]
+    HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
+    [propput, id(29002)]
+    HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
+    [propget, id(29003)]
+    HRESULT _stdcall AES256EncryptClass([out, retval] BSTR* Value);
+    [propput, id(29003)]
+    HRESULT _stdcall AES256EncryptClass([in] BSTR Value);
+    [propget, id(29004)]
+    HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
+    [propput, id(29004)]
+    HRESULT _stdcall SHA256HashClass([in] BSTR Value);
+    [propget, id(29005)]
+    HRESULT _stdcall RandomGeneratorClass([out, retval] BSTR* Value);
+    [propput, id(29005)]
+    HRESULT _stdcall RandomGeneratorClass([in] BSTR Value);
+    [propget, id(29006)]
+    HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
+    [propput, id(29006)]
+    HRESULT _stdcall XAdES([in] IDispatch* Value);
+    [propget, id(29007)]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [propput, id(29007)]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
+    [propget, id(29008)]
+    HRESULT _stdcall GateType([out, retval] enum lgcKSeFGateType* Value);
+    [propput, id(29008)]
+    HRESULT _stdcall GateType([in] enum lgcKSeFGateType Value);
+    [propget, id(29009)]
+    HRESULT _stdcall NIP([out, retval] BSTR* Value);
+    [propput, id(29009)]
+    HRESULT _stdcall NIP([in] BSTR Value);
+    [propget, id(29010)]
+    HRESULT _stdcall FormCode([out, retval] long* Value);
+    [propput, id(29010)]
+    HRESULT _stdcall FormCode([in] long Value);
+    [propget, id(29011)]
+    HRESULT _stdcall FormCodeSystemCode([out, retval] BSTR* Value);
+    [propput, id(29011)]
+    HRESULT _stdcall FormCodeSystemCode([in] BSTR Value);
+    [propget, id(29012)]
+    HRESULT _stdcall FormCodeSchemaVersion([out, retval] BSTR* Value);
+    [propput, id(29012)]
+    HRESULT _stdcall FormCodeSchemaVersion([in] BSTR Value);
+    [propget, id(29013)]
+    HRESULT _stdcall FormCodeTargetNamespace([out, retval] BSTR* Value);
+    [propput, id(29013)]
+    HRESULT _stdcall FormCodeTargetNamespace([in] BSTR Value);
+    [propget, id(29014)]
+    HRESULT _stdcall FormCodeValue([out, retval] BSTR* Value);
+    [propput, id(29014)]
+    HRESULT _stdcall FormCodeValue([in] BSTR Value);
+    [propget, id(29015)]
+    HRESULT _stdcall Certificate([out, retval] IDispatch** Value);
+    [propput, id(29015)]
+    HRESULT _stdcall Certificate([in] IDispatch* Value);
+    [propget, id(29016)]
+    HRESULT _stdcall CertificateAuthType([out, retval] enum lgcKSeFGateType* Value);
+    [propput, id(29016)]
+    HRESULT _stdcall CertificateAuthType([in] enum lgcKSeFGateType Value);
+    [propget, id(29017)]
+    HRESULT _stdcall Token([out, retval] BSTR* Value);
+    [propput, id(29017)]
+    HRESULT _stdcall Token([in] BSTR Value);
+    [propget, id(29018)]
+    HRESULT _stdcall Encryption([out, retval] VARIANT_BOOL* Value);
+    [propput, id(29018)]
+    HRESULT _stdcall Encryption([in] VARIANT_BOOL Value);
+    [propget, id(29019)]
+    HRESULT _stdcall SessionToken([out, retval] BSTR* Value);
+    [propget, id(29020)]
+    HRESULT _stdcall SessionActive([out, retval] VARIANT_BOOL* Value);
+    [propget, id(29021)]
+    HRESULT _stdcall RSAKeyProd([out, retval] IDispatch** Value);
+    [propput, id(29021)]
+    HRESULT _stdcall RSAKeyProd([in] IDispatch* Value);
+    [propget, id(29022)]
+    HRESULT _stdcall RSAKeyDemo([out, retval] IDispatch** Value);
+    [propput, id(29022)]
+    HRESULT _stdcall RSAKeyDemo([in] IDispatch* Value);
+    [propget, id(29023)]
+    HRESULT _stdcall RSAKeyTest([out, retval] IDispatch** Value);
+    [propput, id(29023)]
+    HRESULT _stdcall RSAKeyTest([in] IDispatch* Value);
+    [id(29024)]
+    HRESULT _stdcall GenerateAESKey();
+    [id(29025)]
+    HRESULT _stdcall CreateKSeFObject([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+  };
+
+  [
+    uuid(c44aac54-ce22-421c-b159-b864df2eb753),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcKSeF_2_6_0: IlgcKSeFBase
+  {
+    [id(29051)]
+    HRESULT _stdcall SessionInitSigned([out, retval] IDispatch** Response);
+    [id(29052)]
+    HRESULT _stdcall SessionInitToken([out, retval] IDispatch** Response);
+    [id(29053)]
+    HRESULT _stdcall SessionChalangePZ([out, retval] BSTR* Response);
+    [id(29054)]
+    HRESULT _stdcall SessionInitPZ([in] BSTR SignedInit, [out, retval] IDispatch** Response);
+    [id(29055)]
+    HRESULT _stdcall SessionStatus([in] BSTR ReferenceNumber, [in] long PageSize, [in] long PageOffset, [in] VARIANT_BOOL IncludeDetails, [out, retval] IDispatch** Response);
+    [id(29056)]
+    HRESULT _stdcall SessionTerminate([in] VARIANT_BOOL Force, [out, retval] IDispatch** Response);
+    [id(29057)]
+    HRESULT _stdcall SessionGenerateInternalIdentifier([in] BSTR InputDigitsSequence, [out, retval] IDispatch** Response);
+    [id(29058)]
+    HRESULT _stdcall InvoiceGet([in] BSTR KSeFReferenceNumber, [in] VARIANT OutputStream);
+    [id(29059)]
+    HRESULT _stdcall InvoiceSend([in] VARIANT DataStream, [out, retval] IDispatch** Response);
+    [id(29060)]
+    HRESULT _stdcall InvoiceStatus([in] BSTR InvoiceElementReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+    [id(29061)]
+    HRESULT _stdcall InvoiceVisibilityHide([in] BSTR KsefReferenceNumber, [in] BSTR HidingReason, [out, retval] IDispatch** Response);
+    [id(29062)]
+    HRESULT _stdcall InvoiceVisibilityShow([in] BSTR KsefReferenceNumber, [in] BSTR HidingCancelationReason, [out, retval] IDispatch** Response);
+    [id(29063)]
+    HRESULT _stdcall InvoiceVisibilityStatus([in] BSTR HidingElementReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+    [id(29064)]
+    HRESULT _stdcall InvoiceVisibility([in] BSTR KSeFReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+    [id(29065)]
+    HRESULT _stdcall InvoiceScamCancel([in] BSTR KSeFReferenceNumber, [in] BSTR ReportCancelationReason, [out, retval] IDispatch** Response);
+    [id(29066)]
+    HRESULT _stdcall InvoiceScamReport([in] BSTR KSeFReferenceNumber, [in] BSTR ReportReason, [out, retval] IDispatch** Response);
+    [id(29067)]
+    HRESULT _stdcall InvoiceScamStatus([in] BSTR ScamElementReferenceNumber, [out, retval] IDispatch** Response);
+    [id(29068)]
+    HRESULT _stdcall InvoiceScam([in] BSTR KSeFReferenceNumber, [out, retval] IDispatch** Response);
+    [id(29069)]
+    HRESULT _stdcall CredentialsAccountingGrant([in] IDispatch* GrantAccountingCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29070)]
+    HRESULT _stdcall CredentialsAccountingRevoke([in] IDispatch* RevokeAccountingCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29071)]
+    HRESULT _stdcall CredentialsContextGrant([in] IDispatch* GrantContextCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29072)]
+    HRESULT _stdcall CredentialsContextRevoke([in] IDispatch* RevokeContextCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29073)]
+    HRESULT _stdcall CredentialsGenerateToken([in] IDispatch* GenerateTokenRequest, [out, retval] IDispatch** Response);
+    [id(29074)]
+    HRESULT _stdcall CredentialsGrant([in] IDispatch* GrantCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29075)]
+    HRESULT _stdcall CredentialsRevoke([in] IDispatch* RevokeCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29076)]
+    HRESULT _stdcall CredentialsRevokeToken([in] IDispatch* RevokeTokenRequest, [out, retval] IDispatch** Response);
+    [id(29077)]
+    HRESULT _stdcall CredentialsStatus([in] BSTR CredentialsElementReferenceNumber, [out, retval] IDispatch** Response);
+    [id(29078)]
+    HRESULT _stdcall QueryCredentialContextSync([in] BSTR ContextNip, [in] BSTR SourceIdentifier, [in] BSTR TargetIdentifier, [out, retval] IDispatch** Response);
+    [id(29079)]
+    HRESULT _stdcall QueryCredentialSync([in] IDispatch* QuerySyncCredentialsRequest, [out, retval] IDispatch** Response);
+    [id(29080)]
+    HRESULT _stdcall QueryInvoiceSync([in] IDispatch* QueryCriteria, [in] long PageSize, [in] long PageOffset, [out, retval] IDispatch** Response);
+    [id(29081)]
+    HRESULT _stdcall QueryInvoiceAsyncInit([in] IDispatch* QueryCriteria, [out, retval] IDispatch** Response);
+    [id(29082)]
+    HRESULT _stdcall QueryInvoiceAsyncStatus([in] BSTR QueryElementReferenceNumber, [out, retval] IDispatch** Response);
+    [id(29083)]
+    HRESULT _stdcall QueryInvoiceAsyncFetch([in] BSTR QueryElementReferenceNumber, [in] BSTR PartElementReferenceNumber, [in] VARIANT Response);
+    [id(29084)]
+    HRESULT _stdcall QueryInvoiceAsyncFetch2([in] IDispatch* StatusResponse, [in] long PartIndex, [in] VARIANT Response);
+    [id(29085)]
+    HRESULT _stdcall PaymentIdentifierGetReferenceNumbers([in] BSTR PaymentIdentifier, [out, retval] IDispatch** Response);
+    [id(29086)]
+    HRESULT _stdcall PaymentIdentifierRequest([in] VARIANT KsefReferenceNumberList, [out, retval] IDispatch** Response);
+    [id(29087)]
+    HRESULT _stdcall CommonInvoiceKSeF([in] IDispatch* InvoiceRequest, [in] VARIANT OutStream, [in] enum lgcKSeFGateType GateType);
+    [id(29088)]
+    HRESULT _stdcall CommonDownload([in] BSTR KsefReferenceNumber, [in] IDispatch* DownloadRequest, [in] VARIANT OutStream, [in] enum lgcKSeFGateType GateType);
+    [id(29089)]
+    HRESULT _stdcall CommonStatus([in] BSTR ReferenceNumber, [in] enum lgcKSeFGateType GateType, [out, retval] IDispatch** Response);
+    [id(29090)]
+    HRESULT _stdcall CommonVerification([in] BSTR KsefReferenceNumber, [in] IDispatch* VerificationRequest, [in] enum lgcKSeFGateType GateType, [out, retval] IDispatch** Response);
+    [id(29091)]
+    HRESULT _stdcall BatchSign([in] VARIANT ZIPDataStream, [in] VARIANT_BOOL PZ, [in] VARIANT EncryptedStream, [in] BSTR ZIPFileName, [in] BSTR PartFileName, [out, retval] BSTR* InitUpload);
+    [id(29092)]
+    HRESULT _stdcall BatchSend([in] VARIANT PartStream, [in] BSTR InitUpload, [out, retval] BSTR* Result);
+  }
+
+  [
+    uuid(635b56f7-b613-4e78-8ae3-b37c4591668b),
+    version(1.0)
+  ]
+  coclass lgcErrorInfo
+  {
+    [default] interface IlgcErrorInfo;
+  };
+
+  [
+    uuid(2966d8cf-42f7-4aff-9bb4-f3fa1da714a6),
+    version(1.0)
+  ]
+  coclass lgcBaseObject
+  {
+    [default] interface IlgcBaseObject;
+  };
+
+  [
+    uuid(2FAD736C-1297-4705-B19F-AD1EE260A9A2),
+    version(1.0)
+  ]
+  coclass lgcBackend
+  {
+    [default] interface IlgcBackend;
+  };
+
+  [
+    uuid(bcc209cd-4297-48d7-a37d-c15fac40e5e0),
+    version(1.0)
+  ]
+  coclass lgcObject
+  {
+    [default] interface IlgcObject;
+  };
+
+  [
+    uuid(8bac56de-067c-4302-8eb7-a6f8cf305b2a),
+    version(1.0),
+  ]
+  coclass lgcList
+  {
+    [default] interface IlgcList;
+  };
+
+  [
+    uuid(04cf0786-a71d-4415-930b-3f83efdaa785),
+    version(1.0)
+  ]
+  coclass lgcWSTBackend
+  {
+    [default] interface IlgcWSTBackend;
+  }
+
+  [
+    uuid(9e2861c0-9ff3-48e8-9c88-6a00c8109dc2),
+    version(1.0)
+  ]
+  coclass lgcLibXMLBackend
+  {
+    [default] interface IlgcLibXMLBackend;
+  }
+
+  [
+    uuid(ec4729f3-7024-45c5-84dd-f0eee1bd0b6b),
+    version(1.0)
+  ]
+  coclass lgcOpenSSLBackend
+  {
+    [default] interface IlgcOpenSSLBackend;
+  }
+
+  [
+    uuid(abb6bb86-f269-4e8a-98b5-e647b0cfa3ec),
+    version(1.0),
+  ]
+  coclass lgcStringStream
+  {
+    [default] interface IlgcStringStream;
+  };
+
+  [
+    uuid(fa48c1da-7774-4663-837f-40e473bbf8bb),
+    version(1.0),
+  ]
+  coclass lgcFileStream
+  {
+    [default] interface IlgcFileStream;
+  };
+
+  [
+    uuid(e444dd02-f45d-4223-bd84-0bb223abceaf),
+    version(1.0),
+  ]
+  coclass lgcMemoryStream
+  {
+    [default] interface IlgcMemoryStream;
+  };
+
+  [
+    uuid(9cc81eaa-644d-4554-a55d-8eab6452511a),
+    version(1.0)
+  ]
+  coclass lgcHTTPClient
+  {
+    [default] interface IlgcHTTPClient;
+  };
+
+  [
+    uuid(c706cfe8-c856-4d00-b0b4-0fde4edc3e24),
+    version(1.0)
+  ]
+  coclass lgcCertificate
+  {
+    [default] interface IlgcCertificate;
+  };
+
+  [
+    uuid(223f3d90-f22d-4d41-8bfd-b792c1f62d94),
+    version(1.0)
+  ]
+  coclass lgcCertificateSigner
+  {
+    [default] interface IlgcCertificateSigner;
+  };
+
+  [
+    uuid(146721d2-fac8-4268-b0dd-cf3281292560),
+    version(1.0),
+  ]
+  coclass lgcCNGCertificateSigner
+  {
+    [default] interface IlgcCNGCertificateSigner;
+  };
+
+  [
+    uuid(95c1bb09-0646-43a0-927b-0d3103e0f3fa),
+    version(1.0)
+  ]
+  coclass lgcPKCS11Info
+  {
+    [default] interface IlgcPKCS11Info;
+  };
+
+  [
+    uuid(3bf254c8-f3c5-4d35-b2c0-da0c2a17c0ad),
+    version(1.0)
+  ]
+  coclass lgcPKCS11TokenInfo
+  {
+    [default] interface IlgcPKCS11TokenInfo;
+  };
+
+  [
+    uuid(792248a8-5fbd-4e62-899c-6fc9b2fb34cf),
+    version(1.0)
+  ]
+  coclass lgcPKCS11SlotInfo
+  {
+    [default] interface IlgcPKCS11SlotInfo;
+  };
+
+  [
+    uuid(9fe1b11e-84ae-42b4-be72-7d67c9618f51),
+    version(1.0)
+  ]
+  coclass lgcPKCS11Session
+  {
+    [default] interface IlgcPKCS11Session;
+  };
+
+  [
+    uuid(2c30f57f-8a42-4e99-bb74-c98b9642a069),
+    version(1.0)
+  ]
+  coclass lgcPKCS11Certificate
+  {
+    [default] interface IlgcPKCS11Certificate;
+  };
+
+  [
+    uuid(f8b3fb4e-78ac-432e-bdac-704948690547),
+    version(1.0)
+  ]
+  coclass lgcPKCS11CertificateSigner
+  {
+    [default] interface IlgcPKCS11CertificateSigner;
+  };
+
+  [
+    uuid(328df6a8-3e5d-40a8-905a-281a9571726c),
+    version(1.0)
+  ]
+  coclass lgcPKCS11Backend
+  {
+    [default] interface IlgcPKCS11Backend;
+  };
+
+  [
+    uuid(3c94f1fa-4a88-42ff-b2c9-b4fb9121e3e2),
+    version(1.0)
+  ]
+  coclass lgcXAdES
+  {
+    [default] interface IlgcXAdES;
+  };
+
+  [
+    uuid(39a1afdc-a1e7-4034-99e7-be8fb01861bf),
+    version(1.0)
+  ]
+  coclass lgcEDeklaracjaStatus
+  {
+    [default] interface IlgcEDeklaracjaStatus;
+  };
+
+  [
+    uuid(bb0ac581-5b43-4757-8625-94041a59d459),
+    version(1.0)
+  ]
+  coclass lgcEDeklaracja
+  {
+    [default] interface IlgcEDeklaracja;
+  };
+
+  [
+    uuid(5bd3b376-ee5b-40ac-91f3-b6a093640651),
+    version(1.0)
+  ]
+  coclass lgcJPK
+  {
+    [default] interface IlgcJPK;
+  };
+
+  [
+    uuid(3c4a4763-d416-4cf7-bbf5-fe3ed580d12b),
+    version(1.0)
+  ]
+  coclass lgcKSeFRequest
+  {
+    [default] interface IlgcKSeFRequest;
+  }
+
+  [
+    uuid(a6040209-ea0a-4861-a425-b0b486cfe55b),
+    version(1.0)
+  ]
+  coclass lgcKSeFResponse
+  {
+    [default] interface IlgcKSeFResponse;
+  }
+
+  [
+    uuid(15c1bb69-a675-48e5-a7e8-fdf9bcba50a8),
+    version(1.0)
+  ]
+  coclass lgcKSeFBase
+  {
+    [default] interface IlgcKSeFBase;
+  }
+
+  [
+    uuid(448ac566-e8a4-4560-b717-6cb3526efc49),
+    version(1.0)
+  ]
+  coclass lgcKSeF_2_6_0
+  {
+    [default] interface IlgcKSeF_2_6_0;
+  }
+
+};
