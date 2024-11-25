@@ -43,6 +43,7 @@ function lgpCertificate_GetSerialNoDec(ACertificate: LGP_OBJECT; var AValue: LGP
 function lgpCertificate_GetSerialNoHex(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetValidFrom(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetValidTo(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
 function lgpCNGCertificate_ShowCertificateInfo(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
 
@@ -363,6 +364,19 @@ begin
   try
     CheckObject(ACertificate, TlgCertificate);
     AValue := (TObject(ACertificate) as TlgCertificate).ValidTo;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    (TObject(ACertificate) as TlgCertificate).PIN := AValue;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

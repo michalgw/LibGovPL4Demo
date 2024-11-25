@@ -936,6 +936,7 @@ type
     function GetAmountFrom: Currency;
     function GetAmountTo: Currency;
     function GetAmountType: TKSeFAmountType;
+    function GetAmountTypeStr: UTF8String;
     function GetCurrencyCodes: TStringArray;
     function GetCurrencyCodesStr: UTF8String;
     function GetFaP17Annotation: Boolean;
@@ -947,6 +948,7 @@ type
     procedure SetAmountFrom(AValue: Currency);
     procedure SetAmountTo(AValue: Currency);
     procedure SetAmountType(AValue: TKSeFAmountType);
+    procedure SetAmountTypeStr(AValue: UTF8String);
     procedure SetCurrencyCodes(AValue: TStringArray);
     procedure SetCurrencyCodesStr(AValue: UTF8String);
     procedure SetFaP17Annotation(AValue: Boolean);
@@ -963,6 +965,7 @@ type
     property AmountFrom: Currency read GetAmountFrom write SetAmountFrom;
     property AmountTo: Currency read GetAmountTo write SetAmountTo;
     property AmountType: TKSeFAmountType read GetAmountType write SetAmountType;
+    property AmountTypeStr: UTF8String read GetAmountTypeStr write SetAmountTypeStr;
     property CurrencyCodes: TStringArray read GetCurrencyCodes write SetCurrencyCodes;
     property CurrencyCodesStr: UTF8String read GetCurrencyCodesStr write SetCurrencyCodesStr;
     property FaP17Annotation: Boolean read GetFaP17Annotation write SetFaP17Annotation;
@@ -1417,6 +1420,7 @@ type
     function GetTimestamp: TDateTime;
     function GetTimestampRaw: UTF8String;
     function GetUpo: UTF8String;
+    function GetUpoDecoded: UTF8String;
   published
     property ProcessingCode: Integer read GetProcessingCode;
     property ProcessingDescription: UTF8String read GetProcessingDescription;
@@ -1424,6 +1428,7 @@ type
     property TimestampRaw: UTF8String read GetTimestampRaw;
     property Timestamp: TDateTime read GetTimestamp;
     property Upo: UTF8String read GetUpo;
+    property UpoDecoded: UTF8String read GetUpoDecoded;
   end;
 
   { TKSeFAnonymousSubjectIdentifierTo }
@@ -1502,6 +1507,7 @@ type
     function GetAcquisitionTimestampRaw: UTF8String;
     function GetHash: UTF8String;
     function GetInvoiceType: TKSeFInvoiceType;
+    function GetInvoiceTypeStr: UTF8String;
     function GetKsefReferenceNumber: UTF8String;
     function GetSchemaVersion: UTF8String;
   public
@@ -1512,6 +1518,7 @@ type
     property AcquisitionTimestampRaw: UTF8String read GetAcquisitionTimestampRaw;
     property Hash: UTF8String read GetHash;
     property InvoiceType: TKSeFInvoiceType read GetInvoiceType;
+    property InvoiceTypeStr: UTF8String read GetInvoiceTypeStr;
     property KsefReferenceNumber: UTF8String read GetKsefReferenceNumber;
     property SchemaVersion: UTF8String read GetSchemaVersion;
     property SubjectBy: TKSeFSubjectIdentifierBy read FSubjectBy;
@@ -2275,6 +2282,11 @@ begin
   Result := GetStringProp('Upo');
 end;
 
+function TKSeFStatusResponse.GetUpoDecoded: UTF8String;
+begin
+  Result := GetStringProp('UpoDecoded');
+end;
+
 { TKSeFAnonymousSubjectIdentifierTo }
 
 function TKSeFAnonymousSubjectIdentifierTo.GetType: UTF8String;
@@ -2417,6 +2429,11 @@ end;
 function TKSeFInvoiceVerificationResponse.GetInvoiceType: TKSeFInvoiceType;
 begin
   Result := TKSeFInvoiceType(GetIntegerProp('InvoiceType'));
+end;
+
+function TKSeFInvoiceVerificationResponse.GetInvoiceTypeStr: UTF8String;
+begin
+  Result := GetStringProp('InvoiceTypeStr');
 end;
 
 function TKSeFInvoiceVerificationResponse.GetKsefReferenceNumber: UTF8String;
@@ -4354,6 +4371,11 @@ begin
   Result := TKSeFAmountType(GetIntegerProp('AmountType'));
 end;
 
+function TKSeFQueryCriteriaInvoiceDetail.GetAmountTypeStr: UTF8String;
+begin
+  Result := GetStringProp('AmountTypeStr');
+end;
+
 function TKSeFQueryCriteriaInvoiceDetail.GetCurrencyCodes: TStringArray;
 var
   SL: TStringList;
@@ -4446,6 +4468,11 @@ procedure TKSeFQueryCriteriaInvoiceDetail.SetAmountType(AValue: TKSeFAmountType
   );
 begin
   SetIntegerProp('AmountType', Ord(AValue));
+end;
+
+procedure TKSeFQueryCriteriaInvoiceDetail.SetAmountTypeStr(AValue: UTF8String);
+begin
+  SetStringProp('AmountTypeStr', AValue);
 end;
 
 procedure TKSeFQueryCriteriaInvoiceDetail.SetCurrencyCodes(AValue: TStringArray

@@ -67,6 +67,7 @@ exports
   lgpCertificate_GetSerialNoHex,
   lgpCertificate_GetValidFrom,
   lgpCertificate_GetValidTo,
+  lgpCertificate_SetPIN,
 
   lgpCNGCertificate_ShowCertificateInfo,
 

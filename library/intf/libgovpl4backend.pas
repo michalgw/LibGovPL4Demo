@@ -91,6 +91,7 @@ type
     function GetSubject: UTF8String;
     function GetValidFrom: TDateTime;
     function GetValidTo: TDateTime;
+    procedure SetPIN(AValue: UTF8String);
   public
     destructor Destroy; override;
     function ObjClassName: UTF8String;
@@ -103,6 +104,7 @@ type
     property SerialNoHex: UTF8String read GetSerialNoHex;
     property ValidFrom: TDateTime read GetValidFrom;
     property ValidTo: TDateTime read GetValidTo;
+    property PIN: UTF8String write SetPIN;
   end;
 
   { TlgoCertificates }
@@ -1347,6 +1349,11 @@ end;
 function TlgoCertificate.GetValidTo: TDateTime;
 begin
   lgoCheckResult(lgpCertificate_GetValidTo(FItem, Result));
+end;
+
+procedure TlgoCertificate.SetPIN(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpCertificate_SetPIN(FItem, LGP_PCHAR(AValue)));
 end;
 
 destructor TlgoCertificate.Destroy;
