@@ -1149,10 +1149,13 @@ procedure TForm1.ButtonShowCertClick(Sender: TObject);
 begin
   Debug('Pokaz info o certyfikacie', True);
   {$IFDEF WINDOWS}
-  if (ListViewCert.ItemIndex >= 0) and (Certyfikaty[ListViewCert.ItemIndex] is TlgCNGCertificate) then
+  if (ListViewCert.ItemIndex >= 0) then
   begin
     DebugCert(Certyfikaty[ListViewCert.ItemIndex]);
-    TlgCNGCertificate(Certyfikaty[ListViewCert.ItemIndex]).ShowCertificateInfo(Self.Handle);
+    if (Certyfikaty[ListViewCert.ItemIndex] is TlgCNGCertificate) then
+      TlgCNGCertificate(Certyfikaty[ListViewCert.ItemIndex]).ShowCertificateInfo(Self.Handle)
+    else if (Certyfikaty[ListViewCert.ItemIndex] is TlgPKCS11Certificate) then
+      TlgPKCS11Certificate(Certyfikaty[ListViewCert.ItemIndex]).ShowCertificateInfo(Self.Handle)
   end;
   {$ENDIF}
 end;
