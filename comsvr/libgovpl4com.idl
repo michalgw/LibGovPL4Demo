@@ -1,10 +1,17 @@
+///
+/// Biblioteka LibGovPL
+/// (c) 2024 GM Systems Michał Gawrycki
+///
+
 [
   uuid(923701A2-ECEF-4DD8-A560-51B56CB1FE75),
   version(1.0),
-  helpstring("LibGovPl4com Library"),
+  helpstring("LibGovPL COM/OLE Automation library"),
 ]
 library LibGovPL
 {
+
+/// \cond
 
   importlib("stdole2.tlb");
 
@@ -67,28 +74,38 @@ library LibGovPL
   coclass lgcKSeFBase;
   coclass lgcKSeF_2_6_0;
 
+/// \endcond
+
+  ///
+  /// Klasy sterowników zaplecza.
+  ///
   [
-    uuid(9A89AA77-09DD-4E0B-B1D5-1838779E7C87)
+    uuid(9A89AA77-09DD-4E0B-B1D5-1838779E7C87),
+    helpstring("Rodzaje klas sterownikow")
   ]
   enum lgcClassType
   {
-    lgcCTHTTPClient = 0,
-    lgcCTCertSigner = 1,
-    lgcCTRandGenerator = 2,
-    lgcCTBase64Encoder = 3,
-    lgcCTMD5Hash = 4,
-    lgcCTSHA1Hash = 5,
-    lgcCTSHA256Hash = 6,
-    lgcCTAES256Encrypt = 7,
-    lgcCTRSAEncrypt = 8,
-    lgcCTZipper = 9,
-    lgcCTXMLReader = 10,
-    lgcCTXMLC14N = 11,
-    lgcCTEdekGate = 12
+    lgcCTHTTPClient = 0,        ///< Obsługi połączenia HTTPS.
+    lgcCTCertSigner = 1,        ///< Obsługi certyfikatów i podpisu.
+    lgcCTRandGenerator = 2,     ///< Generator liczb pseudolosowych.
+    lgcCTBase64Encoder = 3,     ///< Enkoder Base64.
+    lgcCTMD5Hash = 4,           ///< Funkcja skrótu MD5.
+    lgcCTSHA1Hash = 5,          ///< Funkcja skrótu SHA1.
+    lgcCTSHA256Hash = 6,        ///< Funkcja skrótu SHA256.
+    lgcCTAES256Encrypt = 7,     ///< Szyfrowanie symetryczne AES256.
+    lgcCTRSAEncrypt = 8,        ///< Szyfrowanie asymetryczne RSA.
+    lgcCTZipper = 9,            ///< Kompresor ZIP.
+    lgcCTXMLReader = 10,        ///< Czytnik XML.
+    lgcCTXMLC14N = 11,          ///< Konwersja XML do postaci kanonicznej.
+    lgcCTEdekGate = 12          ///< Obsługa bramki e-deklaracji.
   };
 
+  ///
+  /// Rodzaj użytkownika PKCS#11.
+  ///
   [
-    uuid(adca3ab4-444b-4b28-80fb-dc7a8284c192)
+    uuid(adca3ab4-444b-4b28-80fb-dc7a8284c192),
+    helpstring("Rodzaj uzytkownika PKCS#11")
   ]
   enum lgcPKCS11UserType
   {
@@ -97,8 +114,12 @@ library LibGovPL
     lgcP11UTContextSpecific = 2
   };
 
+  ///
+  /// Status sesji PKCS#11
+  ///
   [
-    uuid(660eb7e9-f85a-45f2-92da-a8cd62201773)
+    uuid(660eb7e9-f85a-45f2-92da-a8cd62201773),
+    helpstring("Status sesji PKCS#11")
   ]
   enum lgcPKCS11SessionState
   {
@@ -109,26 +130,39 @@ library LibGovPL
     lgcP11SSRWSOFunctions = 4
   };
 
+  ///
+  /// Rodzaj bramki e-deklaracji/JPK.
+  ///
   [
-    uuid(367CDD37-0161-4909-AD46-E0432B339BE8)
+    uuid(367CDD37-0161-4909-AD46-E0432B339BE8),
+    helpstring("Rodzaj bramki (produkcyjna/demo)")
   ]
   enum lgcEDekGateType
   {
-    lgcEGTProduction = 0,
-    lgcEGTTest = 1
+    lgcEGTProduction = 0,   ///< Bramka produkcyjna.
+    lgcEGTTest = 1          ///< Bramka testowa.
   };
 
+  ///
+  /// Rodzaj podpisu e-deklaracji/JPK.
+  ///
   [
-    uuid(506ED9D7-21ED-4ACF-AFF6-2C2E6EA7432A)
+    uuid(506ED9D7-21ED-4ACF-AFF6-2C2E6EA7432A),
+    helpstring("Rodzaj autoryzacji e-deklaracji (podpis kwalifikowany/dane autoryzujące)")
   ]
   enum lgcEDekSignType
   {
-    lgcESTCertificate = 0,
-    lgcESTAuthData = 1
+    lgcESTCertificate = 0,    ///< Podpis certyfikatem.
+    lgcESTAuthData = 1        ///< Podpis danymi autoryzującymi (kwota przychodu).
   };
 
+
+  ///
+  /// Wariant funkcji mieszającej SHA (SHA1/SHA256).
+  ///
   [
-    uuid(841d9993-f1e2-4ff3-8348-ddfc01d24b92)
+    uuid(841d9993-f1e2-4ff3-8348-ddfc01d24b92),
+    helpstring("Wariant funkcji mieszającej SHA (SHA1/SHA256)")
   ]
   enum lgcSignHashType
   {
@@ -136,63 +170,87 @@ library LibGovPL
     lgcSHTSHA256 = 1
   };
 
+  ///
+  /// Format numeru seryjnego w sygnaturze XAdES.
+  ///
   [
-    uuid(85a8523e-116c-4d9f-bd02-309a44d7c6e4)
+    uuid(85a8523e-116c-4d9f-bd02-309a44d7c6e4),
+    helpstring("Wariant numeru seryjnego certyfikatu w podpisie XAdES (dziesiętnie/szesnastkowo)")
   ]
   enum lgcXAdESSerialNoFormat
   {
-    lgcXSFDecimal = 0,
-    lgcXSFHex = 1
+    lgcXSFDecimal = 0,    ///< Liczba dziesiętna.
+    lgcXSFHex = 1         ///< Liczba szesnastkowa.
   };
 
+  ///
+  /// Rodzaj bramki/serwera KSeF.
+  ///
   [
-    uuid(4e2d8329-97df-409c-9d49-87b26d0826ba)
+    uuid(4e2d8329-97df-409c-9d49-87b26d0826ba),
+    helpstring("Rodzaj bramki KSeF (produkcyjna/demo/testowa")
   ]
   enum  lgcKSeFGateType
   {
-    lgcKTGProd = 0,
-    lgcKTGDemo = 1,
-    lgcKTGTest = 2
+    lgcKTGProd = 0,     ///< Serwer produkcyjny.
+    lgcKTGDemo = 1,     ///< Serwer demo.
+    lgcKTGTest = 2      ///< Serwer testowy.
   };
 
+  ///
+  /// Rodzaj autoryzacji certyfikatu w systemie KSeF.
+  ///
   [
-    uuid(533a0542-74a2-453e-9205-8f0d207a3a72)
+    uuid(533a0542-74a2-453e-9205-8f0d207a3a72),
+    helpstring("Rodzaj autoryzacji certyfikatu (nr seryjny/odcisk palca)")
   ]
   enum  lgcKSeFCertificateAuthType
   {
-    lgcCATSerialNumber = 0,
-    lgcCATFingerprint = 1
+    lgcCATSerialNumber = 0,     ///< Numer seryjny.
+    lgcCATFingerprint = 1       ///< Odcisk palca.
   };
 
+  ///
+  /// Wariant numeru referencyjnego KSeF.
+  ///
   [
-    uuid(d864b31e-60d6-4c19-9601-e7d514b67c1e)
+    uuid(d864b31e-60d6-4c19-9601-e7d514b67c1e),
+    helpstring("Wariant numeru referencyjnego KSeF (nieokreslony/35 znakow/36 znakow)")
   ]
   enum lgcKSeFNumberVariant
   {
-    lgcKNVDefault = 0,
-    lgcKNV35 = 1,
-    lgcKNV36 = 2
+    lgcKNVDefault = 0,    ///< Domyślny/nieokreślony.
+    lgcKNV35 = 1,         ///< Nr o długości 35 znaków.
+    lgcKNV36 = 2          ///< Nr o długości 36 znaków.
   };
 
+  ///
+  /// Typ właściwości obiektu.
+  ///
   [
-    uuid(a852bd9f-6a0a-4079-8b99-f63bc822476a)
+    uuid(a852bd9f-6a0a-4079-8b99-f63bc822476a),
+    helpstring("Rodzaj wlasciwosci obiektu")
   ]
   enum lgcPropertyType
   {
-    lgcPTUnknown = 0,
-    lgcPTString = 1,
-    lgcPTInt32 = 2,
-    lgcPTInt64 = 3,
-    lgcPTDouble = 4,
-    lgcPTCurrency = 5,
-    lgcPTBoolean = 6,
-    lgcPTDateTime = 7,
-    lgcPTObject = 8,
-    lgcPTObjectList = 9
+    lgcPTUnknown = 0,       ///< Nieznany / nieprawidłowa właściwość.
+    lgcPTString = 1,        ///< Łańcuch znaków.
+    lgcPTInt32 = 2,         ///< Liczba całkowita ze znakiem o długości 32bit.
+    lgcPTInt64 = 3,         ///< Liczba całkowita ze znakiem o długości 64bit.
+    lgcPTDouble = 4,        ///< Liczba zmiennoprzecinkowa typu double.
+    lgcPTCurrency = 5,      ///< Liczba stałoprzecinkowa (typ CURRENCY).
+    lgcPTBoolean = 6,       ///< Wartość logiczna.
+    lgcPTDateTime = 7,      ///< Data i czas.
+    lgcPTObject = 8,        ///< Obiekt.
+    lgcPTObjectList = 9     ///< Obiekt listy / tablicy.
   };
 
+  ///
+  /// Tryb otwarcia pliku.
+  ///
   [
-    uuid(7a7593ec-7729-44ed-893a-8919a9e952fb)
+    uuid(7a7593ec-7729-44ed-893a-8919a9e952fb),
+    helpstring("Tryb otwarcia pliku")
   ]
   enum lgcFileMode
   {
@@ -204,25 +262,50 @@ library LibGovPL
     lgcFMShareExclusive = 0x0010,
     lgcFMShareDenyWrite = 0x0020,
     lgcFMShareDenyRead  = 0x0030,
-    lgcFMShareDenyNone  = 0x0040
+    lgcFMShareDenyNone  = 0x0040,
+    
+    lgcFMCreate         = 0xFF00
   };
 
+  ///
+  /// Podstawowy obiekt.
+  ///
   [
     uuid(617c8313-e12f-47fa-a01e-ac0a212c8855),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Podstawowy obiekt biblioteki")
   ]
   interface IlgcBaseObject: IDispatch
   {
-    [id(1001)]
+    ///
+    /// Pobranie nazwy pierwotnej klasy.
+    /// @return Nazwa klasy.
+    ///
+    [id(1001),
+    helpstring("Pobranie nazwy pierwotnej klasy")]
     HRESULT _stdcall GetObjClassName([out, retval] BSTR* Value);
-    [id(1002)]
+
+    ///
+    /// Usuwanie informacji o ostatnim błędzie.
+    /// Właściwość LastError zostanie ustawiona wartość null.
+    ///
+    [id(1002),
+    helpstring("Usuwanie informacji o ostatnim bledzie")]
     HRESULT _stdcall ClearLastError();
-    [propget, id(1003)]
+
+    ///
+    /// Informacja o ostatnim błędzie.
+    ///
+    [propget, id(1003),
+    helpstring("Informacja o ostatnim bledzie (typ IlgcErrorInfo)")]
     HRESULT _stdcall LastError([out, retval] IDispatch** Value);
   };
 
+  ///
+  /// Obiekt zaplecza biblioteki.
+  ///
   [
     uuid(393A6861-4A95-4CED-8B93-3A8FFA77F5C3),
     version(1.0),
@@ -231,291 +314,677 @@ library LibGovPL
   ]
   interface IlgcBackend: IlgcBaseObject
   {
-    [id(2001)]
+    [id(2001),
+    helpstring("Ustawienie danych licencji")]
+    HRESULT _stdcall SetLicenseKey([in] BSTR Param1, [in] BSTR Param2, [in] BSTR Param3);
+
+    ///
+    /// Pobierz wersję biblioteki.
+    ///
+    [id(2002),
+    helpstring("Pobranie wersji biblioteki")]
     HRESULT _stdcall GetLibVersion([out, retval] BSTR* Value);
-    [id(2002)]
+
+    ///
+    /// Pobierz informacje o stanie biblioteki.
+    ///
+    [id(2003),
+    helpstring("Pobranie informacji i statystyk")]
     HRESULT _stdcall GetDebugInfo([in] long CounterType, [out, retval] VARIANT* Value);
-    [id(2003)]
+
+    ///
+    /// Pobranie liczby dostępnych klas danego sterownika.
+    /// @param ClsType typ sterownika (lgcClassType).
+    /// @return Ilość klas.
+    ///
+    [id(2004),
+    helpstring("Pobranie liczby klas danego rodzaju sterownika")]
     HRESULT _stdcall GetClassCount([in] enum lgcClassType ClsType, [out, retval] long* nCount);
-    [id(2004)]
+
+    ///
+    /// Pobranie nazwy klasy sterownika.
+    /// @param ClsType typ sterownika (lgcClassType).
+    /// @param ClassIndex indeks klasy sterownika.
+    /// @return Nazwa klasy.
+    ///
+    [id(2005),
+    helpstring("Pobranie nazwy klasy sterownika")]
     HRESULT _stdcall GetClassName([in] enum lgcClassType ClsType, [in] long ClassIndex, [out, retval] BSTR* ClsName);
-    [id(2005)]
+
+    ///
+    /// Pobranie listy nazw dostępnych sterowników danego typu.
+    /// @param ClsType typ sterownika (lgcClassType).
+    /// @return Tablica typu VARIANT zawierająca listę nazw klas.
+    ///
+    [id(2006),
+    helpstring("Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string)")]
     HRESULT _stdcall GetClassNames([in] enum lgcClassType ClsType, [out, retval] VARIANT* ClsNames);
-    [id(2006)]
+
+    ///
+    /// Utworzenie instancji obiektu strumienia plikowego.
+    /// Zwraca nowy obiekt strumienia pliku (IlgcFileStream) o podanej nazwie.
+    /// @param FileName nazwa pliku do otwarcia/utworzenia.
+    /// @param Mode tryb otwarcia / utworzenia pliku (lgcFileMode).
+    /// @return instancja obiektu implementującego interfejsy IlgcFileStream oraz IStream.
+    ///
+    [id(2007),
+    helpstring("Utworzenie nowego strumienia plikowego o podanej nazwie i trybie otwarcia")]
     HRESULT _stdcall CreateFileStream([in] BSTR FileName, [in] long Mode, [out, retval]  IDispatch** Instance);
-    [id(2007)]
+
+    ///
+    /// Utworzenie instancji obiektu połączenia HTTPS podanej klasy.
+    /// @param ClsName nazwa klasy obsługi połączenia HTTPS.
+    /// @return Instancja obiektu połączenia HTTPS.
+    ///
+    [id(2008),
+    helpstring("Utworzenie instancji klienta polaczen HTTP o zadanej nazwie klasy sterownika")]
     HRESULT _stdcall CreateHTTPClient([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
-    [id(2008)]
+
+    ///
+    /// Utworzenie obiektu zawierającego klucz publiczny RSA.
+    /// @param ClsName nazwa klasy funkcji szyfru RSA, dla której będzie tworzony klucz RSA.
+    /// @param Source źródło danych klucza PEM - parametr może przyjąć:
+    ///    - łańcuch znaków zawierający klucz RSA w formacie PEM.
+    ///    - łańcuch znaków zawierający nazwę pliku z kluczem w formie PEM, z którego zostanie załadowany.
+    ///    - Instancja obiektu implementująca interfejs IStream (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    /// @return instancja obiektu klucza publicznego RSA.
+    ///
+    [id(2009),
+    helpstring("Utworzenie instancji klucza publicznego RSA o zadanej nazwie klasy i wskazanym zrodle (nazwa pliku, lancuch z zawartoscia klucza lub obiekt implementujacy IStream)")]
     HRESULT _stdcall CreateRSAKey([in] BSTR ClsName, [in] VARIANT Source, [out, retval] IDispatch** NewObject);
-    [id(2009)]
+
+    ///
+    /// Utworzenie obiektu obsługi podpisu certyfikatem.
+    /// @param ClsName nazwa klasy sterownika podpisu certyfikatem.
+    /// @return instancja obiektu obsługi podpisu certyfikatem (IlgcCertificateSigner).
+    ///
+    [id(2010),
+    helpstring("Utworzenie instancji mechanizmu podpisu certyfikatem kwalifikowanym o zadanej nazwie klasy sterownika")]
     HRESULT _stdcall CreateCertificateSigner([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
-    [id(2010)]
+
+    ///
+    /// Tworzenie instancji obiektu sygnatury XAdES.
+    /// Obiekt może być współdzielony.
+    /// @return instancja obiektu sygnatury XAdES implementujący interfejs IlgcXAdES.
+    ///
+    [id(2011),
+    helpstring("Tworzenie instancji obiektu sygnatury XAdES")]
     HRESULT _stdcall CreateXAdES([out, retval] IDispatch** NewObject);
-    [id(2011)]
+
+    ///
+    /// Tworzenie instancji obiektu obsługi e-deklaracji.
+    /// @return instancja obiektu implementującego IlgcEDeklaracja.
+    ///
+    [id(2012),
+    helpstring("Tworzenie instancji obiektu obslugi e-deklaracji")]
     HRESULT _stdcall CreateEDeklaracja([out, retval] IDispatch** NewObject);
-    [id(2012)]
+
+    ///
+    /// Tworzenie instancji obiektu obsługi JPK.
+    /// @return instancja obiektu implementującego interfejs IlgcJPK.
+    ///
+    [id(2013),
+    helpstring("Tworzenie instancji obiektu obslugi JPK")]
     HRESULT _stdcall CreateJPK([out, retval] IDispatch** NewObject);
-    [id(2013)]
+
+    ///
+    /// Tworzenie instacji obiektu klienta KSeF.
+    /// @return instancja obiektu implementującego interfejs IlgcKSeFBase w danej wersji (obecnie IlgcKSeF_2_6_0).
+    ///
+    [id(2014),
+    helpstring("Tworzenie instancji obiektu obslugi KSeF")]
     HRESULT _stdcall CreateKSeF([out, retval] IDispatch** NewObject);
   };
 
+  ///
+  /// Rozszerzona informacja o ostatnim błędzie.
+  ///
   [
     uuid(9043b49e-3089-4fdb-9575-3dbe9ad258ae),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Informacje o ostatnim bledzie/wyjatku")
   ]
   interface IlgcErrorInfo: IDispatch
   {
-    [propget, id(3001)]
+    ///
+    /// Nazwa klasy wyjątku.
+    ///
+    [propget, id(3001),
+    helpstring("Nazwa klasy wyjatku")]
     HRESULT _stdcall ExceptionClass([out, retval] BSTR* ClsName);
-    [propget, id(3002)]
+
+    ///
+    /// Komunikat błędu.
+    ///
+    [propget, id(3002),
+    helpstring("Komunikat bledu")]
     HRESULT _stdcall Message([out, retval] BSTR* Msg);
-    [propget, id(3003)]
+
+    ///
+    /// Dodatkowe informacje - tablica VARIANT.
+    ///
+    [propget, id(3003),
+    helpstring("Dodatkowe informacje (tablica typu VARIANT)")]
     HRESULT _stdcall ExtraInfo([out, retval] VARIANT* Value);
-    [propget, id(3004)]
+
+    ///
+    /// Nazwa klasy w ramach której wystąpił wyjątek.
+    ///
+    [propget, id(3004),
+    helpstring("Klasa obslugujaca wyjatek")]
     HRESULT _stdcall HandlerClass([out, retval] BSTR* ClsName);
   };
 
+  ///
+  /// Zaplecze bramki e-deklaracji (klient SOAP oparty o WST).
+  ///
   [
     uuid(d829deda-20a8-4c28-9a38-7f42f599c8d7),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obsluga biblioteki Web Service Toolkit - SOAP dla bramki e-deklaracji")
   ]
   interface IlgcWSTBackend: IlgcBaseObject
   {
-    [id(4001)]
+    ///
+    /// Rejestracja protokołu transportu.
+    /// Powinno się wywołać tą funkcję raz przed użyciem bramki e-deklaracji.
+    ///
+    [id(4001),
+    helpstring("Rejestracja protokolu - nalezy wywolac raz przed uzyciem bramki e-deklaracji")]
     HRESULT _stdcall RegisterTransport();
-    [propget, id(4002)]
+
+    ///
+    /// Instancja obiektu klienta HTTPS.
+    ///
+    [propget, id(4002),
+    helpstring("Instancja klienta HTTP")]
     HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
-    [propput, id(4002)]
+    [propput, id(4002),
+    helpstring("Instancja klienta HTTP")]
     HRESULT _stdcall HTTPClient([in] IDispatch* Value);
   }
 
+  ///
+  /// Zaplecze biblioteki LibXML2.
+  ///
   [
     uuid(d87a7a97-38cd-4172-92b0-5aa97becb494),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Zaplecze biblioteki LibXML2")
   ]
   interface IlgcLibXMLBackend: IlgcBaseObject
   {
-    [id(5001)]
+    ///
+    /// Załadowanie biblioteki LibXML2 ze wskazanej lokalizacji.
+    /// @param LibFileName nazwa pliku biblioteki LibXML2 (libxml2.dll).
+    ///
+    [id(5001),
+    helpstring("Ladowanie blblioteki libxml ze wskazanego pliku")]
     HRESULT _stdcall LoadLibXML([in] BSTR LibFileName);
   }
 
+  ///
+  /// Zaplecze bilioteki OpenSSL.
+  ///
   [
     uuid(516ec757-193c-42b4-9b5a-fe64059129ad),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Zaplecze biblioteki OpenSSL")
   ]
   interface IlgcOpenSSLBackend: IlgcBaseObject
   {
-    [id(6001)]
+    ///
+    /// Załadowanie bibliotek OpenSSL ze wskazanych plików.
+    /// @param SSLName plik biblioteki SSL (np ssleay32.dll).
+    /// @param CryptoName plik biblioteki cryptograficznej (np libeay32.dll).
+    ///
+    [id(6001),
+    helpstring("Ladowanie bibliotek OpenSSL ze wskazanych plikow")]
     HRESULT _stdcall LoadOpenSSL([in] BSTR SSLName, [in] BSTR CryptoName);
   }
 
+  ///
+  /// Podstawowy obiekt otaczający z dostępem do właściwości.
+  /// Obiekt reprezentujący żądania i odpowiedzi KSeF.
+  /// Dostęp do właściwości obiektu pierwotnego możliwy również przy pomocy późnego wiązania (late binding).
+  ///
   [
     uuid(A7720948-5883-4F9E-8355-F57381433787),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt reprezentujacy dane zadania i odpowiedzi KSeF, dostep do wlasciwosci realizowany rowniez przez pozne wiazanie (late binding)")
   ]
   interface IlgcObject: IlgcBaseObject
   {
-    [propget, id(7001)]
+    [propget, id(7001),
+    helpstring("Pobranie wkaznika wewnetrznego obiektu")]
     HRESULT _stdcall ExtObject([out, retval] void** Value);
-    [propget, id(7002)]
+
+    ///
+    /// Dostęp do właściwości typu znakowego (string).
+    ///
+    [propget, id(7002),
+    helpstring("Pogranie wlasciwosci obiektu typu string o wskazanej nazwie")]
     HRESULT _stdcall StringProp([in] BSTR Name, [out, retval] BSTR* Value);
-    [propput, id(7002)]
+    [propput, id(7002),
+    helpstring("Ustawienie wlasciwosci obiektu typu string o wskazanej nazwie")]
     HRESULT _stdcall StringProp([in] BSTR Name, [in] BSTR Value);
-    [propget, id(7003)]
+
+    ///
+    /// Dostęp do właściwości typu całkowitego ze znakiem o długości 32 bit.
+    ///
+    [propget, id(7003),
+    helpstring("Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie")]
     HRESULT _stdcall IntegerProp([in] BSTR Name, [out, retval] long* Value);
-    [propput, id(7003)]
+    [propput, id(7003),
+    helpstring("Ustawienie wlasciwosci obiektu typu int32 o wskazanej nazwie")]
     HRESULT _stdcall IntegerProp([in] BSTR Name, [in] long Value);
-    [propget, id(7004)]
+
+    ///
+    /// Dostęp do właściwości typu zmiennoprzecinkowego podwójnej precyzji (double).
+    ///
+    [propget, id(7004),
+    helpstring("Pogranie wlasciwosci obiektu typu double o wskazanej nazwie")]
     HRESULT _stdcall DoubleProp([in] BSTR Name, [out, retval] double* Value);
-    [propput, id(7004)]
+    [propput, id(7004),
+    helpstring("Ustawienie wlasciwosci obiektu typu double o wskazanej nazwie")]
     HRESULT _stdcall DoubleProp([in] BSTR Name, [in] double Value);
-    [propget, id(7005)]
+
+    ///
+    /// Dostęp do właściwości typu CURRENCY.
+    ///
+    [propget, id(7005),
+    helpstring("Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie")]
     HRESULT _stdcall CurrencyProp([in] BSTR Name, [out, retval] CURRENCY* Value);
-    [propput, id(7005)]
+    [propput, id(7005),
+    helpstring("Ustawienie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie")]
     HRESULT _stdcall CurrencyProp([in] BSTR Name, [in] CURRENCY Value);
-    [propget, id(7006)]
+
+    ///
+    /// Dostęp do właściwości typu logicznego (bool).
+    ///
+    [propget, id(7006),
+    helpstring("Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie")]
     HRESULT _stdcall BooleanProp([in] BSTR Name, [out, retval] VARIANT_BOOL* Value);
-    [propput, id(7006)]
+    [propput, id(7006),
+    helpstring("Ustawienie wlasciwosci obiektu typu bool o wskazanej nazwie")]
     HRESULT _stdcall BooleanProp([in] BSTR Name, [in] VARIANT_BOOL Value);
-    [propget, id(7007)]
+
+    ///
+    /// Dostęp do właściwości typu całkowitego ze znakiem o długości 64 bit.
+    ///
+    [propget, id(7007),
+    helpstring("Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie")]
     HRESULT _stdcall Int64Prop([in] BSTR Name, [out, retval] __int64* Value);
-    [propput, id(7007)]
+    [propput, id(7007),
+    helpstring("Ustawienie wlasciwosci obiektu typu int64 o wskazanej nazwie")]
     HRESULT _stdcall Int64Prop([in] BSTR Name, [in] __int64 Value);
-    [propget, id(7008)]
+
+    ///
+    /// Dostęp do właściwości typu DATE.
+    ///
+    [propget, id(7008),
+    helpstring("Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie")]
     HRESULT _stdcall DateProp([in] BSTR Name, [out, retval] DATE* Value);
-    [propput, id(7008)]
+    [propput, id(7008),
+    helpstring("Ustawienie wlasciwosci obiektu typu DATE o wskazanej nazwie")]
     HRESULT _stdcall DateProp([in] BSTR Name, [in] DATE Value);
-    [id(7009)]
+
+    ///
+    /// Pobranie listy nazw właściwości obiektu.
+    /// Zwracana jest lista typu VARIANT.
+    ///
+    [id(7009),
+    helpstring("Pobranie listy wlasciwosci obiektu")]
     HRESULT _stdcall ListProps([out, retval] VARIANT* List);
-    [id(7010)]
+
+    ///
+    /// Pobranie typu danej właściwości obiektu.
+    /// Zwracana jest wartość typu lgcPropertyType.
+    ///
+    [id(7010),
+    helpstring("Pobranie typu danej wlasciwosci")]
     HRESULT _stdcall PropType([in] BSTR PropName, [out, retval] enum lgcPropertyType* Value);
-    [id(7011)]
+
+    ///
+    /// Pobranie nazwy klasy właściwości typu obiektowego.
+    ///
+    [id(7011),
+    helpstring("Pobranie nazwy klasy zadanej wlasciwosci typu object")]
     HRESULT _stdcall ObjectPropClass([in] BSTR PropName, [out, retval] BSTR* PropClsName);
-    [id(7012)]
+
+    ///
+    /// Ustawienie właściwości typu obiektowego.
+    ///
+    [id(7012),
+    helpstring("Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie")]
     HRESULT _stdcall SetObjectProp([in] BSTR Name, [in] VARIANT Value);
-    [id(7013)]
+
+    ///
+    /// Pobranie właściwości typu obiektowego.
+    ///
+    [id(7013),
+    helpstring("Pobranie wasiwosci obiektu typu object o wskazanej nazwie")]
     HRESULT _stdcall GetObjectProp([in] BSTR Name, [out, retval] VARIANT* Value);
   };
 
+  ///
+  /// Podstawowa lista/kolekcja obiektów.
+  ///
   [
     uuid(f0a18ad2-8f91-4c8e-845a-b2f3524a390a),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt definiujacy liste")
   ]
   interface IlgcList: IlgcBaseObject
   {
-    [id(1)]
+    ///
+    /// Dodanie elementu do listy.
+    ///
+    [id(1),
+    helpstring("Dodanie elementu do listy")]
     HRESULT _stdcall Add([in] VARIANT Item, [in, optional] VARIANT Key);
-    [id(2)]
+
+    ///
+    /// Usunięcie obiektu o podanym indeksie.
+    ///
+    [id(2),
+    helpstring("Usuniecie elementu z listy")]
     HRESULT _stdcall Remove([in] VARIANT Index);
-    [propget, id(3)]
+
+    ///
+    /// Zwraca liczbę elementów.
+    ///
+    [propget, id(3),
+    helpstring("Zwraca liczbe elementow listy")]
     HRESULT _stdcall Count([out, retval] long* Cnt);
-    [propget, id(DISPID_VALUE)]
+
+    ///
+    /// Pobranie elementu o zadanym indeksie.
+    ///
+    [propget, id(DISPID_VALUE),
+    helpstring("Pobranie wskazanego elementu listy")]
     HRESULT _stdcall Item([in] VARIANT Index, [out, retval] VARIANT* Value);
-    [restricted, id(DISPID_NEWENUM)]
+
+    ///
+    /// Utworzenie enumeratora typu IEnumVARIANT.
+    ///
+    [restricted, id(DISPID_NEWENUM),
+    helpstring("Utworzenie nowego enumaratora implementujacego IEnumVARIANT")]
     HRESULT _stdcall _NewEnum([out, retval] IUnknown** NwEnum);
-    [id(8001)]
+
+    [id(8001),
+    helpstring("Usuniecie danego elementu")]
     HRESULT _stdcall Delete([in] long ObjIndex);
   };
 
+  ///
+  /// Strumień IStream z buforem opartym o zmienną znakową.
+  ///
   [
     uuid(5f50981b-976d-4e90-a682-e2dc34115cda),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt implementujacy IStream na podstawie string")
   ]
   interface IlgcStringStream: IlgcBaseObject
   {
-    [propget, id(9001)]
+    ///
+    /// Dostęp do aktualnej zawartości bufora.
+    ///
+    [propget, id(9001),
+    helpstring("Pobranie aktualnej zawartosci strumienia")]
     HRESULT _stdcall Data([out, retval] BSTR* Value);
-    [propput, id(9001)]
+    [propput, id(9001),
+    helpstring("Ustawienie nowej zawartosci strumienia")]
     HRESULT _stdcall Data([in] BSTR Value);
-    [id(9002)]
+
+    ///
+    /// Czyszczenie zawartości bufora.
+    ///
+    [id(9002),
+    helpstring("Czyszczenie zawartowci strumienia")]
     HRESULT _stdcall Clear();
-    [id(9003)]
+
+    ///
+    /// Wczytanie zawartości bufora ze wskazanego pliku.
+    ///
+    [id(9003),
+    helpstring("Wczytanie zawartosci ze wskazanego pliku")]
     HRESULT _stdcall LoadFromFile([in] BSTR AFileName);
-    [id(9004)]
+
+    ///
+    /// Zapis zawartości bufora do wskazanego pliku.
+    ///
+    [id(9004),
+    helpstring("Zapisanie zawartosci do wskazanego pliku")]
     HRESULT _stdcall SaveToFile([in] BSTR AfileName);
   };
 
+  ///
+  /// Strumień IStream oparty o wskazany plik.
+  /// Obiekt tworzony przez metodę IlgcBackend.CreateFileStream.
+  ///
   [
     uuid(2b2e8876-c57e-4879-afd6-6af218d4705d),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt implementujacy IStream na podstawie pliku, tworzony za pomoca IlgcBackend")
   ]
   interface IlgcFileStream: IlgcBaseObject
   {
-    [propget, id(10001)]
+    ///
+    /// Nazwa pliku przypisana do strumienia.
+    ///
+    [propget, id(10001),
+    helpstring("Nazwa otwartego pliku")]
     HRESULT _stdcall FileName([out, retval] BSTR* Value);
   };
 
+  ///
+  /// Strumień IStream z buforem opartym o dane w pamięci.
+  ///
   [
     uuid(bcf17136-365b-4af4-9720-44eb9e4cabb0),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt implementujacy IStream na podstawie bufora w pamieci")
   ]
   interface IlgcMemoryStream: IlgcBaseObject
   {
-    [propget, id(11001)]
+    ///
+    /// Dostęp do zawartości bufoea - dane w formie tablicy VARIANT z elementami typu unsigned char VT_UI1.
+    ///
+    [propget, id(11001),
+    helpstring("Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1)")]
     HRESULT _stdcall Data([out, retval] VARIANT* Value);
-    [propput, id(11001)]
+    [propput, id(11001),
+    helpstring("Ustawienie zawartosci bufora danych na podstawie tablicy VARIANT z elementami typu unsigned char (VT_UI1)")]
     HRESULT _stdcall Data([in] VARIANT Value);
-    [id(11002)]
+
+    ///
+    /// Czyszczenie zawartości bufora.
+    ///
+    [id(11002),
+    helpstring("Czyszczenie bufora")]
     HRESULT _stdcall Clear();
-    [id(11003)]
+
+    ///
+    /// Załadowanie zawartości wskazanego pliku do bufora.
+    ///
+    [id(11003),
+    helpstring("Ladowanie zawartosci bufora ze wskazanego pliku")]
     HRESULT _stdcall LoadFromFile([in] BSTR AFileName);
-    [id(11004)]
+
+    ///
+    /// Zapisanie zawartości bufora do wskazanego pliku.
+    ///
+    [id(11004),
+    helpstring("Zapisanie zawartosci bufora do wskazanego pliku")]
     HRESULT _stdcall SaveToFile([in] BSTR AfileName);
   };
 
+  ///
+  /// Obiekt połączenia HTTPS.
+  ///
   [
     uuid(0587DB7A-AAFF-4900-B734-4BACE3EEE8FA),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt polaczenia HTTP")
   ]
   interface IlgcHTTPClient: IlgcBaseObject
   {
+    ///
+    /// Czy mają być ignorowane błędy połączenia SSL/TLS.
+    ///
     [propget, id(12001)]
     HRESULT _stdcall IgnoreSSLErrors([out, retval] VARIANT_BOOL* Value);
     [propput, id(12001)]
     HRESULT _stdcall IgnoreSSLErrors([in] VARIANT_BOOL Value);
   };
 
+  ///
+  /// Obiekt reprezentujący certyfikat kwalifikowany.
+  ///
   [
     uuid(322d506b-4c30-43d1-a75e-f4d308d79022),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Certyfikat dla podpisu elektronicznego")
   ]
   interface IlgcCertificate: IlgcBaseObject
   {
+    ///
+    /// Pobranie nazwy przyjaznej podmiotu certyfikatu.
+    ///
     [propget, id(13001)]
     HRESULT _stdcall DisplayName([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie informacji o podmiocie.
+    ///
     [propget, id(13002)]
     HRESULT _stdcall Subject([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie informacji o wystawcy.
+    ///
     [propget, id(13003)]
     HRESULT _stdcall Issuer([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie numeru seryjnego w formie dziesiętnej.
+    ///
     [propget, id(13004)]
     HRESULT _stdcall SerialNoDec([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie numeru seryjnego w formie szesnastkowej.
+    ///
     [propget, id(13005)]
     HRESULT _stdcall SerialNoHex([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie daty rozpoczęcia okresu ważności certyfikatu.
+    ///
     [propget, id(13006)]
     HRESULT _stdcall ValidFrom([out, retval] VARIANT* Value);
+
+    ///
+    /// Pobranie daty zakończenia okresu ważności certyfikatu.
+    ///
     [propget, id(13007)]
     HRESULT _stdcall ValidTo([out, retval] VARIANT* Value);
+
+    ///
+    /// Wprowadzenie numeru PIN zabezpieczającego dostęp do klucza prywatnego.
+    ///
     [propput, id(13008)]
     HRESULT _stdcall PIN([in] BSTR Value);
+
+    ///
+    /// Pokaż okno systemowe z informacją o certyfikacie.
+    ///
     [id(13009)]
     HRESULT _stdcall ShowCertificateInfo([in] VARIANT WinHandle);
   };
 
+  ///
+  /// Obiekt podpisu certyfikatem kwalifikowanym.
+  ///
   [
     uuid(913a275a-8d26-4762-8c08-4d2ca11d214d),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm podpisu kwalifikowanego")
   ]
   interface IlgcCertificateSigner: IlgcBaseObject
   {
-    [id(14001)]
+    ///
+    /// Pobierz listę certyfikatów (IlgcList).
+    ///
+    [id(14001),
+    helpstring("Pobranie listy certyfikatow")]
     HRESULT _stdcall List([out, retval] IDispatch** Value);
-    [id(14002)]
+
+    ///
+    /// Wybór certyfikatu za pomocą systemowego okna wyboru certyfikatu.
+    /// Dostępne jedynie w klasie sterownika "TlgCNGCertificateSigner".
+    /// Sterownik nie posiadający tej funkcji zawsze zwraca null.
+    ///
+    [id(14002),
+    helpstring("Wybor certyfikatu za pomoca systemowego okna dialogowego")]
     HRESULT _stdcall UISelect([out, retval] IDispatch** Certificate);
   };
 
+  ///
+  /// Obiekt podpisu certyfikatu przy pomocy CryptAPI/CNG
+  ///
   [
     uuid(a1ae7a86-2200-494b-8c4d-ff5e0c97c268),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm podpisu kwalifikowanego opartego o CryptAPI/CNG")
   ]
   interface IlgcCNGCertificateSigner: IlgcCertificateSigner
   {
+    ///
+    /// Uchwyt okna rodzica dla okienek wyboru certyfikatu i informacji o certyfikacie.
+    ///
     [propget, id(15001)]
     HRESULT _stdcall WinHandle([out, retval] VARIANT* Value);
     [propput, id(15001)]
     HRESULT _stdcall WinHandle([in] VARIANT Value);
   };
 
+  ///
+  /// Informacje o bibliotece PKCS#11/CryptokiAPI.
+  ///
   [
     uuid(fa907e32-d103-4c20-b955-a0a6d478c7c7),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Informacje o bibliotece PKCS#11")
   ]
   interface IlgcPKCS11Info: IlgcBaseObject
   {
@@ -537,11 +1006,15 @@ library LibGovPL
     HRESULT _stdcall LibraryVersionMinor([out, retval] long* Value);
   };
 
+  ///
+  /// Informacje o tokenie PKCS#11
+  ///
   [
     uuid(b4bb1edb-4f32-4b0c-b390-566f02237a55),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Informacje o tokenie PKCS#11")
   ]
   interface IlgcPKCS11TokenInfo: IlgcBaseObject
   {
@@ -591,11 +1064,15 @@ library LibGovPL
     HRESULT _stdcall UtcTime([out, retval] BSTR* Value);
   };
 
+  ///
+  /// Informacje o slocie PKCS#11
+  ///
   [
     uuid(597607f4-ca0a-4722-bbc9-eb15ecaeba49),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Informacje o slocie PKCS#11")
   ]
   interface IlgcPKCS11SlotInfo: IlgcBaseObject
   {
@@ -625,471 +1102,1301 @@ library LibGovPL
     HRESULT _stdcall TokenInfo([out, retval] IDispatch** Value);
   };
 
+  ///
+  /// Sesja PKCS#11
+  ///
   [
     uuid(bb0c246d-ba87-44c4-b614-53fb1d4ae900),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Objekt reprezentujacy sesje PKCS#11")
   ]
   interface IlgcPKCS11Session: IlgcBaseObject
   {
-    [id(19001)]
+    ///
+    /// Sprawdź, czy sesja jest aktywna.
+    ///
+    [id(19001),
+    helpstring("Sprawdz, czy sesja jest nadal aktywna")]
     HRESULT _stdcall CheckActive([out, retval] VARIANT_BOOL* Value);
-    [id(19002)]
+
+    ///
+    /// Zalogowanie użytkownika.
+    /// @param Pin nr PIN.
+    /// @param UserType rodzaj użytkownika (lgcPKCS11UserType).
+    ///
+    [id(19002),
+    helpstring("Zaloguj uzytkownika podanym PIN")]
     HRESULT _stdcall Login([in] BSTR Pin, [in] enum lgcPKCS11UserType UserType);
-    [id(19003)]
+
+    ///
+    /// Wyloguj użytkownika.
+    ///
+    [id(19003),
+    helpstring("Wyloguj uzytkownika")]
     HRESULT _stdcall Logout();
-    [propget, id(19004)]
+
+    ///
+    /// Uchwyt sesji PKCS#11.
+    ///
+    [propget, id(19004),
+    helpstring("Uchwyt sesji PKCS#11")]
     HRESULT _stdcall Handle([out, retval] unsigned long* Value);
-    [propget, id(19005)]
+
+    ///
+    /// Nr ID slotu.
+    ///
+    [propget, id(19005),
+    helpstring("Nr ID slotu")]
     HRESULT _stdcall SlotID([out, retval] unsigned long* Value);
-    [propget, id(19006)]
+
+    ///
+    /// Pobranie statusu sesji PKCS#11 (lgcPKCS11SessionState).
+    ///
+    [propget, id(19006),
+    helpstring("Pobranie statusu sesji")]
     HRESULT _stdcall State([out, retval] enum lgcPKCS11SessionState* Value);
-    [propget, id(19007)]
+
+    ///
+    /// Pobranie flag sesji PKCS#11.
+    ///
+    [propget, id(19007),
+    helpstring("Pobranie flag sesni")]
     HRESULT _stdcall Flags([out, retval] unsigned long* Value);
   };
 
+  ///
+  /// Obiekt reprezentujący certyfikat uzyskany przy pomocy sterownika PKCS#11.
+  ///
   [
     uuid(a14eb3d8-25c5-4c22-b6aa-3e7ea2884d78),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Certyfikat dla mechanizmu PKCS#11")
   ]
   interface IlgcPKCS11Certificate: IlgcCertificate
   {
-    [propget, id(20001)]
+    ///
+    /// Pobranie aktywnej sesji PKCS#11 nawiązanej dla danego certyfikatu.
+    /// Jeśli wcześniej została nawiązana sesja to zwracany jest obiekt implementujący interfejs IlgcPKCS11Session.
+    /// Jeśli sesja nie została nawiązana zwracany jest wartość null.
+    ///
+    [propget, id(20001),
+    helpstring("Pobranie sesji PKCS#11 nawiazanej dla danego zertyfikatu")]
     HRESULT _stdcall Session([out, retval] IDispatch** Value);
   };
 
+  ///
+  /// Obiekt podpisu certyfikatem za pomocą biblioteki PKCS#11/CryptokiAPI.
+  ///
   [
     uuid(02f51066-4584-476a-b0db-cdfca648b534),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm podpisu kwalifikowanego za pomoca biblioteki PKCS#11/CryptokiAPI")
   ]
   interface IlgcPKCS11CertificateSigner: IlgcCertificateSigner
   {
-    [id(21001)]
+    ///
+    /// Załadowanie biblioteki PKCS#11/CryptokiAPI ze wskazanego pliku.
+    ///
+    [id(21001),
+    helpstring("Zaladowanie biblioteki PKCS#11/CryptokiAPI ze wskazanego pliku")]
     HRESULT _stdcall LoadLibrary([in] BSTR LibFileName);
-    [id(21002)]
+
+    ///
+    /// Zwolnienie załadowanej biblioteki PKCS#11/CryptokiAPI.
+    ///
+    [id(21002),
+    helpstring("Zwolnienie zaladowanej biblioteki")]
     HRESULT _stdcall FreeLibrary();
-    [id(21003)]
+
+    ///
+    /// Pobranie informacji o załadowanej bibliotece PKCS#11/CryptokiAPI.
+    /// @return obiekt informacji o bibliotece PKCS#11 (IlgcPKCS11Info).
+    ///
+    [id(21003),
+    helpstring("Pobranie informacji o bibliotece PKCS#11")]
     HRESULT _stdcall GetInfo([out, retval] IDispatch** Value);
-    [id(21004)]
+
+    ///
+    /// Pobranie listy slotów.
+    /// @param WithToken czy pobierane mają być jedynie sloty z istniejącym tokenem (true) lub wszystkie sloty (fales).
+    /// @return zwraca listę wykrytych slotów w postaci IlgcList.
+    ///
+    [id(21004),
+    helpstring("Pobranie listy slotow (z mozliwoscia oreslenia czy tylko sloty z obecnym tokenem")]
     HRESULT _stdcall GetSlots([in] VARIANT_BOOL WithToken, [out, retval] IDispatch** Infos);
-    [id(21005)]
+
+    ///
+    /// Rozpoczęcie sesji PKCS#11 dla podanego certyfikatu.
+    /// @param Certificate obiekt certyfikatu (IlgcPKCS11Certificate).
+    /// @return zwraca obiekt IlgcPKCS11Session rozpoczętej sesji.
+    ///
+    [id(21005),
+    helpstring("Rozpoczecie sesji dla danego certyfikatu")]
     HRESULT _stdcall SessionStart([in] IDispatch* Certificate, [out, retval] IDispatch** Session);
-    [id(21006)]
+
+    ///
+    /// Zamknięcie aktywnej sesji.
+    /// @param IndexOrSession przyjmuje:
+    ///   - liczba całkowita - indeks sesji w liście sesji (IlgcPKCS#11CertificateSigner.Sessions).
+    ///   - obiekt sesji, która ma być zamknięta.
+    ///
+    [id(21006),
+    helpstring("Zamkniecie sesji dla wskazanego sertyfikatu lub indeksu sesji")]
     HRESULT _stdcall SessionClose([in] VARIANT IndexOrSession);
-    [id(21007)]
+
+    ///
+    /// Zamknij wszystkie otwarte sesje.
+    ///
+    [id(21007),
+    helpstring("Zamknij wszystkie otwarte sesje")]
     HRESULT _stdcall SessionCloseAll();
-    [propget, id(21008)]
+
+    ///
+    /// Czy biblioteka PKCS#11/CyptokiAPI została załadowana?
+    ///
+    [propget, id(21008),
+    helpstring("Sprawdz czy biblioteka PKCS#11 zostala zaladowana")]
     HRESULT _stdcall LibLoaded([out, retval] VARIANT_BOOL* Value);
-    [propget, id(21009)]
+
+    ///
+    /// Zwraca nazwę pliku załadowanej biblioteki PKCS#11/CryptokiAPI.
+    ///
+    [propget, id(21009),
+    helpstring("Pobranie nazwy pliku aktualnie zaladowanej biblioteki PKCS#11")]
     HRESULT _stdcall LibFileName([out, retval] BSTR* Value);
-    [propget, id(21010)]
+
+    ///
+    /// Lista sesji (IlgcList).
+    ///
+    [propget, id(21010),
+    helpstring("Pobranie listy aktywnych sesji")]
     HRESULT _stdcall Sessions([out, retval] IDispatch** Value);
   };
 
+  ///
+  /// Zaplecze biblioteki PKCS#11/CryptokiAPI.
+  ///
   [
     uuid(4b3c369b-79d4-4b26-862c-691e41e74ad1),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Zaplecze PKCS#11")
   ]
   interface IlgcPKCS11Backend: IlgcBaseObject
   {
-    [id(22001)]
+    ///
+    /// Sprawdź, czy wskazany plik jest poprawną biblioteką PKCS#11/CryptokiAPI.
+    /// @param LibFileName nazwa pliku biblioteki.
+    /// @return zwraca true jeśli wskazana biblioteka jest poprawną biblioteką PKCS#11/CryptokiAPI.
+    ///
+    [id(22001),
+    helpstring("Sprawdz, czy wskazany plik jest biblioteka PKCS#11/CryptokiAPI")]
     HRESULT _stdcall CheckLibrary([in] BSTR LibFileName, [out, retval] VARIANT_BOOL* LibIsValid);
-    [id(22002)]
+
+    ///
+    /// Pobierz informacje o wskazanej bibliotece PKCS#11/CryptokiAPI.
+    /// @return obiekt informacji o bibliotece PKCS#11 (IlgcPKCS11Info).
+    ///
+    [id(22002),
+    helpstring("Pobranie informacji o skazanej bibliotece PKCS#11/CryptokiAPI")]
     HRESULT _stdcall GetLibraryInfo([in] BSTR LibFileName, [out, retval] IDispatch** LibInfo);
   };
 
+  ///
+  /// Obiekt sygnatury XAdES-BES.
+  /// Obiekt może być współdzielony przez inne obiekty (IlgcEDeklaracja/IlgcJPK/IlgcKSeFBase).
+  ///
   [
     uuid(50dc95df-a1c2-460d-8a46-d90be7016886),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm sygnatury XAdES")
   ]
   interface IlgcXAdES: IlgcBaseObject
   {
-    [propget, id(23001)]
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu SHA1.
+    /// Wykorzystywane w przypadku używania skrótu SHA1 w sygnaturze.
+    ///
+    [propget, id(23001),
+    helpstring("Pobranie nazwy klasy sterownika skrotu SHA1")]
     HRESULT _stdcall SHA1HashClass([out, retval] BSTR* Value);
-    [propput, id(23001)]
+    [propput, id(23001),
+    helpstring("Ustawienie nazwy klasy sterownika skrotu SHA1")]
     HRESULT _stdcall SHA1HashClass([in] BSTR Value);
-    [propget, id(23002)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu SHA256.
+    /// Wykorzystywane w przypadku używania skrótu SHA256 w sygnaturze.
+    ///
+    [propget, id(23002),
+    helpstring("Pobranie nazwy klasy sterownika skrotu SHA256")]
     HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
-    [propput, id(23002)]
+    [propput, id(23002),
+    helpstring("Ustawienie nazwy klasy sterownika skrotu SHA256")]
     HRESULT _stdcall SHA256HashClass([in] BSTR Value);
-    [propget, id(23003)]
+
+    ///
+    /// Nazwa klasy sterownika enkodera base64.
+    ///
+    [propget, id(23003),
+    helpstring("Pobranie nazwy klasy sterownika kodera Base64")]
     HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
-    [propput, id(23003)]
+    [propput, id(23003),
+    helpstring("Ustawienie nazwy klasy sterownika kodera Base64")]
     HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
-    [propget, id(23004)]
+
+    ///
+    /// Obiekt mechanizmu podpisu certyfikatem.
+    ///
+    [propget, id(23004),
+    helpstring("Pobranie obiektu mechanizmu podpisu certyfikatem")]
     HRESULT _stdcall Signer([out, retval] IDispatch** Value);
-    [propput, id(23004)]
+    [propput, id(23004),
+    helpstring("Ustawienie obiektu mechanizmu podpisu certyfikatem")]
     HRESULT _stdcall Signer([in] IDispatch* Value);
-    [propget, id(23005)]
+
+    ///
+    /// Rodzaj funkcji skrótu użyty w sygnaturze (SHA1/SHA256 - lgcSignHashType).
+    ///
+    [propget, id(23005),
+    helpstring("Pobranie rodzaju funkcji skrot uzytej w sygnaturze")]
     HRESULT _stdcall SignType([out, retval] enum lgcSignHashType* Value);
-    [propput, id(23005)]
+    [propput, id(23005),
+    helpstring("Ustawienie rodzaju funkcji skrot uzytej w sygnaturze")]
     HRESULT _stdcall SignType([in] enum lgcSignHashType Value);
-    [propget, id(23006)]
+
+    ///
+    /// Format numeru seryjnego certyfikatu umieszczonego w sygnaturze XAdES (dziesiętnie/szesnastkowo - lgcXAdESSerialNoFormat).
+    ///
+    [propget, id(23006),
+    helpstring("Pobranie wariantu numeru seryjnego certyfikatu w sygnaturze (dziesietnie/szesnastkowo)")]
     HRESULT _stdcall SerialNoFormat([out, retval] enum lgcXAdESSerialNoFormat* Value);
-    [propput, id(23006)]
+    [propput, id(23006),
+    helpstring("Ustawienie wariantu numeru seryjnego certyfikatu w sygnaturze (dziesietnie/szesnastkowo)")]
     HRESULT _stdcall SerialNoFormat([in] enum lgcXAdESSerialNoFormat Value);
-    [propget, id(23007)]
+
+    ///
+    /// Czy ma być dodane pole z deklaracją daty i czasu podpisu.
+    ///
+    [propget, id(23007),
+    helpstring("Czy dodawac date i czas podpisu do sygnatury")]
     HRESULT _stdcall IncludeSigningTime([out, retval] VARIANT_BOOL* Value);
-    [propput, id(23007)]
+    [propput, id(23007),
+    helpstring("Czy dodawac date i czas podpisu do sygnatury")]
     HRESULT _stdcall IncludeSigningTime([in] VARIANT_BOOL Value);
-    [propget, id(23008)]
+
+    ///
+    /// Deklarowana data i czas podpisu (opcjonalne).
+    ///
+    [propget, id(23008),
+    helpstring("Data i czas podpisu do sygnatury")]
     HRESULT _stdcall SigningTime([out, retval] VARIANT* Value);
-    [propput, id(23008)]
+    [propput, id(23008),
+    helpstring("Data i czas podpisu do sygnatury")]
     HRESULT _stdcall SigningTime([in] VARIANT Value);
   };
 
+  ///
+  /// Obiekt reprezentujący status przetwarzania e-deklaracji i pliku JPK.
+  ///
   [
     uuid(79e8257a-ae97-4d81-be00-6b69700bdfce),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt reprezentujacy status przetwarzania e-deklaracji/JPK oraz ewentualnie UPO")
   ]
   interface IlgcEDeklaracjaStatus: IlgcBaseObject
   {
-    [propget, id(24001)]
+    ///
+    /// Numer referencyjny dokumentu.
+    ///
+    [propget, id(24001),
+    helpstring("Nr referencyjny deklaracji")]
     HRESULT _stdcall NrRef([out, retval] BSTR* Value);
-    [propget, id(24002)]
+
+    ///
+    /// Status przetwarzania dokumentu
+    ///
+    [propget, id(24002),
+    helpstring("Status przetwarzania")]
     HRESULT _stdcall Status([out, retval] long* Value);
-    [propget, id(24003)]
+
+    ///
+    /// Opis statusu przetwarzania.
+    ///
+    [propget, id(24003),
+    helpstring("Opis statusu przetwarzania")]
     HRESULT _stdcall Opis([out, retval] BSTR* Value);
-    [propget, id(24004)]
+
+    ///
+    /// Czy UPO (Urzędowe Potwierdzenie Odbioru) zostało pobrane.
+    ///
+    [propget, id(24004),
+    helpstring("Czy pobrano UPO")]
     HRESULT _stdcall PobranoUPO([out, retval] VARIANT_BOOL* Value);
-    [propget, id(24005)]
+
+    ///
+    /// W przypadku pobrania UPO zawiera treść UPO.
+    ///
+    [propget, id(24005),
+    helpstring("Zawartosc UPO")]
     HRESULT _stdcall UPO([out, retval] BSTR* Value);
-    [propget, id(24006)]
+
+    ///
+    /// Timestamp zwrócony przez serwer bramki JPK. W przypadku e-deklaracji aktualna data i czas.
+    ///
+    [propget, id(24006),
+    helpstring("Data i czas odpowiedzi")]
     HRESULT _stdcall Timestamp([out, retval] VARIANT*);
-    [propget, id(24007)]
+
+    ///
+    /// Szczegóły przetwarzania dokumentu.
+    ///
+    [propget, id(24007),
+    helpstring("Szczegolowy opis")]
     HRESULT _stdcall Szczegoly([out, retval] BSTR*);
   };
 
+  ///
+  /// Obiekt obsługi podpisu i bramki e-deklaracji.
+  ///
   [
     uuid(4c7e267d-d83d-4713-9120-cb57d7881f33),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm obslugi e-deklaracji")
   ]
   interface IlgcEDeklaracja: IlgcBaseObject
   {
-    [id(25001)]
+    ///
+    /// Podpis eDeklaracji wskazanym certyfikatem.
+    /// @param Dane łańcuch znaków zawierający dane XML deklaracji. 
+    ///             Jeśli właściwość "Canonization" ma wartość true to dane wejściowe 
+    ///             zostanąskonwertowane do postaci kanonicznej przy pomocy wskazanego 
+    ///             sterownika (właściwość "XMLCanonizator").
+    /// @param Certyfikat obiekt certyfikatu którym będzie podpisywana deklaracja.
+    /// @return łańcuch znaków zawierający podpisaną deklarację.
+    ///
+    [id(25001),
+    helpstring("Podpisz deklaracje certyfikatem")]
     HRESULT _stdcall PodpiszCertyfikatem([in] BSTR Dane, [in] IDispatch* Certyfikat, [out, retval] BSTR* DanePodpisane);
-    [id(25002)]
+
+    ///
+    /// Podpis eDeklaracji wskazanym certyfikatem.
+    /// @param Dane łańcuch znaków zawierający dane XML deklaracji. 
+    /// @param ImiePierwsze imię pierwsze.
+    /// @param Nazwisko nazwisko.
+    /// @param Nip nr NIP.
+    /// @param DataUr data urodzenia.
+    /// @param Kwota kwota przychodu.
+    ///
+    [id(25002),
+    helpstring("Podpisz deklaracje danymi autoryzujacymi")]
     HRESULT _stdcall PodpiszDanymiAut([in] BSTR Dane, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] BSTR Nip, [in] DATE DataUr, [in] CURRENCY Kwota, [out, retval] BSTR* DanePodpisane);
-    [id(25003)]
+
+    ///
+    /// Wyślij podpisaną deklarację na wskazaną bramkę.
+    /// @param DanePodpisane podpisane dane XML deklaracji przeznaczonej do wysłania.
+    /// @param RodzajBramki rodzaj bramki (produkcyjna/testowa).
+    /// @param RodzajPodpisu rodzaj podpisu wysyłanej deklaracji (certyfikat/dane autoryzujące - lgcEDekSignType).
+    /// @return zwraca obiekt IlgcEDeklaracjaStatus z informacją o numerze nadanym referencyjnym i statusie wysłanej deklaracji.
+    ///
+    [id(25003),
+    helpstring("Wyslij podpisana deklaracje na podana bramke")]
     HRESULT _stdcall Wyslij([in] BSTR DanePodpisane, [in] enum lgcEDekGateType RodzajBramki, [in] enum lgcEDekSignType RodzajPodpisu, [out, retval] IDispatch** Status);
-    [id(25004)]
+
+    ///
+    /// Sprawdź status / pobierz UPO.
+    /// @param NrRef numer referencyjny sprawdzanej deklaracji.
+    /// @param RodzajBramki rodzaj bramki (produkcyjna/testowa - lgcEDekGateType).
+    /// @return zwraca obiekt IlgcEDeklaracjaStatus z informacją o statusie przetwarzania deklaracji i ewentualnie pobranym UPO.
+    ///
+    [id(25004),
+    helpstring("Sprawdz status przetwarzania / pobierz UPO")]
     HRESULT _stdcall PobierzUPO([in] BSTR NrRef, [in] enum lgcEDekGateType RodzajBramki, [out, retval] IDispatch** Status);
-    [propget, id(25005)]
+
+    ///
+    /// Właściwość wskazująca na obiekt IlgcXAdES wykorzystywany do podpisu certyfikatem.
+    /// Nie jest wykorzystywany w przypadku podpisu danymi autoryzującymi.
+    ///
+    [propget, id(25005),
+    helpstring("Obiekt podpisu XAdES")]
     HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
-    [propput, id(25005)]
+    [propput, id(25005),
+    helpstring("Obiekt podpisu XAdES")]
     HRESULT _stdcall XAdES([in] IDispatch* Value);
-    [propget, id(25006)]
+
+    ///
+    /// Nazwa klasy obiektu C14N dla danych XML.
+    /// Nie używane w przypadku dostarczania deklaracji w postaci kanonicznego XML (właściwość "Canonization" = false).
+    ///
+    [propget, id(25006),
+    helpstring("Nazwa klasy obiektu mechanizmu C14N dla danych XML (w przypadku dostarczania danych XML deklaracji w postaci innej niz kanoniczna")]
     HRESULT _stdcall XMLCanonizator([out, retval] BSTR* Value);
-    [propput, id(25006)]
+    [propput, id(25006),
+    helpstring("Nazwa klasy obiektu mechanizmu C14N dla danych XML (w przypadku dostarczania danych XML deklaracji w postaci innej niz kanoniczna")]
     HRESULT _stdcall XMLCanonizator([in] BSTR Value);
-    [propget, id(25007)]
+
+    ///
+    /// Klasa obsługi komunikacji SOAP bramki e-deklaracji.
+    ///
+    [propget, id(25007),
+    helpstring("Klasa obslugi komunikacji SOAP bramki e-deklaracji")]
     HRESULT _stdcall EDekGate([out, retval] BSTR* Value);
-    [propput, id(25007)]
+    [propput, id(25007),
+    helpstring("Klasa obslugi komunikacji SOAP bramki e-deklaracji")]
     HRESULT _stdcall EDekGate([in] BSTR Value);
-    [propget, id(25008)]
+
+    ///
+    /// Czy ma byc przeprowadzana C14N na danych e-deklaracji?
+    /// Jeśli dane XML nie są dostarczane w postaci kanonicznej.
+    ///
+    [propget, id(25008),
+    helpstring("Czy ma byc przeprowadzana C14N na danych e-deklaracji")]
     HRESULT _stdcall Canonization([out, retval] VARIANT_BOOL* Value);
-    [propput, id(25008)]
+    [propput, id(25008),
+    helpstring("Czy ma byc przeprowadzana C14N na danych e-deklaracji")]
     HRESULT _stdcall Canonization([in] VARIANT_BOOL Value);
   };
 
+  ///
+  /// Obiekt obsługi podpisu i bramki JPK.
+  ///
   [
     uuid(5eb2f974-0d10-44d4-aa8f-e557bb91ff30),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Mechanizm obslugi JPK")
   ]
   interface IlgcJPK: IlgcBaseObject
   {
-    [id(26001)]
+    ///
+    /// Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym.
+    /// @param Certificate obiekt certyfikatu, którym zostanie podpisana struktura InitUpload.
+    /// @param GateType rodzaj bramki, dla której zostaną przygotowane dane (produkcyjna/testowa - lgcEDekGateType).
+    /// @param AdHoc czy deklaracja jest wysyłana "na żądanie".
+    /// @param InputStream dane wejściowe. Parametr może przyjąć:
+    ///                    - łańcuch znaków zawierający zawartość XML pliku JPK (jeśli podany łańcuch rozpoczyna się od znaku "<").
+    ///                    - łańcuch znaków zawierający nazwę pliku zawierającego dane XML deklaracji JPK.
+    ///                    - obiekt implementujący IStream dostarczający dane XML deklaracji (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    /// @param OutputStream zaszyfrowany plik ZIP z danymi XML. Parametr może przyjąć:
+    ///                     - łańcuch znaków zawierający nawę pliku, do którego zostaną zapisane dane.
+    ///                     - obiekt implementujący IStream za pomocą którego zostaną zapisane dane (np IlgcFileStream, IlgcMemoryStream).
+    /// @return łańcuch znaków z podpisaną strukturą InitUpload.
+    ///
+    [id(26001),
+    helpstring("Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym")]
     HRESULT _stdcall SignCertificate([in] IDispatch* Certificate, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
-    [id(26002)]
+
+    ///
+    /// Przygotowanie i podpis dokumentu JPK danymi autoryzującymi (kwota przychodu).
+    /// @param Nip nr NIP.
+    /// @param ImiePierwsze imię pierwsze.
+    /// @param Nazwisko nazwisko.
+    /// @param DataUr data urodzenia.
+    /// @param Kwota kwota przychodu.
+    /// @param GateType rodzaj bramki, dla której zostaną przygotowane dane (produkcyjna/testowa - lgcEDekGateType).
+    /// @param AdHoc czy deklaracja jest wysyłana "na żądanie".
+    /// @param InputStream dane wejściowe. Parametr może przyjąć:
+    ///                    - łańcuch znaków zawierający zawartość XML pliku JPK (jeśli podany łańcuch rozpoczyna się od znaku "<").
+    ///                    - łańcuch znaków zawierający nazwę pliku zawierającego dane XML deklaracji JPK.
+    ///                    - obiekt implementujący IStream dostarczający dane XML deklaracji (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    /// @param OutputStream zaszyfrowany plik ZIP z danymi XML. Parametr może przyjąć:
+    ///                     - łańcuch znaków zawierający nazwę pliku, do którego zostaną zapisane dane.
+    ///                     - obiekt implementujący IStream za pomocą którego zostaną zapisane dane (np IlgcFileStream, IlgcMemoryStream).
+    /// @return łańcuch znaków z podpisaną strukturą InitUpload.
+    ///
+    [id(26002),
+    helpstring("Przygotowanie i podpis dokumentu JPK danymi autoryzującymi")]
     HRESULT _stdcall SignAuthData([in] BSTR Nip, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] DATE DataUr, [in] CURRENCY Kwota, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
-    [id(26003)]
+
+    ///
+    /// Wysłanie wcześniej przygotowanej deklaracji JPK i struktury InitUpload.
+    /// @param InitUpload podpisana struktura InitUpload
+    /// @param EncryptedData strumień zawierający skompresowane i zaszyfrowane dane deklaracji JPK.
+    /// @param GateType rodzaj bramki (produkcyjna/testowa - lgcEDekGateType).
+    /// @param VerifySign czy ma być weryfikowana poprawność certyfikatu, którym podpisywano strukturę InitUpload. Uwaga: parametr dozwolony tylko przy bramce testowej.
+    /// @return zwracany jest łańcuch znaków zawierający nadany numer referencyjny wysłanego dokumentu.
+    ///
+    [id(26003),
+    helpstring("Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload")]
     HRESULT _stdcall Send([in] BSTR InitUpload, [in] VARIANT EncryptedData, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL VerifySign, [out, retval] BSTR* RefNo);
-    [id(26004)]
+
+    ///
+    /// Sprawdzenie statusu przetwarzania wysłanego dokumentu JPK i ewentualnie pobranie UPO.
+    /// @param RefNo nr referencyjny sprawdzanego dokumentu.
+    /// @param GateType rodzaj bramki (produkcyjna/testowa - lgcEDekGateType).
+    /// @return obiekt IlgcEDeklaracjaStatus zawierająca informacje o statusie dokumentu i ewentualnie dane pobranego UPO.
+    ///
+    [id(26004),
+    helpstring("Sprawdzenie statusu przetwarzania wysłanego dokumentu JPK i ewentualnie pobranie UPO")]
     HRESULT _stdcall RequestUPO([in] BSTR RefNo,[in] enum lgcEDekGateType GateType, [out, retval] IDispatch** Status);
-    [propget, id(26005)]
+
+    ///
+    /// Nazwa klasy sterownika enkodera base64.
+    ///
+    [propget, id(26005),
+    helpstring("Klasa sterownika eknodera Base64")]
     HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
-    [propput, id(26005)]
+    [propput, id(26005),
+    helpstring("Klasa sterownika eknodera Base64")]
     HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
-    [propget, id(26006)]
+
+    ///
+    /// Nazwa klasy sterownika szyfrowania AES256.
+    ///
+    [propget, id(26006),
+    helpstring("Klasa sterownika szyfrowania AES256")]
     HRESULT _stdcall AES256EncryptClass([out, retval] BSTR* Value);
-    [propput, id(26006)]
+    [propput, id(26006),
+    helpstring("Klasa sterownika szyfrowania AES256")]
     HRESULT _stdcall AES256EncryptClass([in] BSTR Value);
-    [propget, id(26007)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu MD5.
+    ///
+    [propget, id(26007),
+    helpstring("Klasa funkcji skrotu MD5")]
     HRESULT _stdcall MD5HashClass([out, retval] BSTR* Value);
-    [propput, id(26007)]
+    [propput, id(26007),
+    helpstring("Klasa funkcji skrotu MD5")]
     HRESULT _stdcall MD5HashClass([in] BSTR Value);
-    [propget, id(26008)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu SHA256.
+    ///
+    [propget, id(26008),
+    helpstring("Klasa funkcji skrotu SHA256")]
     HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
-    [propput, id(26008)]
+    [propput, id(26008),
+    helpstring("Klasa funkcji skrotu SHA256")]
     HRESULT _stdcall SHA256HashClass([in] BSTR Value);
-    [propget, id(26009)]
+
+    ///
+    /// Nazwa klasy sterownika archiwum ZIP.
+    ///
+    [propget, id(26009),
+    helpstring("Klasa kompresora ZIP")]
     HRESULT _stdcall ZipperClass([out, retval] BSTR* Value);
-    [propput, id(26009)]
+    [propput, id(26009),
+    helpstring("Klasa kompresora ZIP")]
     HRESULT _stdcall ZipperClass([in] BSTR Value);
-    [propget, id(26010)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji szyfrowania RSA.
+    ///
+    [propget, id(26010),
+    helpstring("Klasa sterownika szyfrowania RSA")]
     HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
-    [propput, id(26010)]
+    [propput, id(26010),
+    helpstring("Klasa sterownika szyfrowania RSA")]
     HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
-    [propget, id(26011)]
+
+    ///
+    /// Nazwa klasy sterownika generatora liczb pseudolosowych.
+    ///
+    [propget, id(26011),
+    helpstring("Klasa generatora liczb pseudolosowych")]
     HRESULT _stdcall RandomGeneratorClass([out, retval] BSTR* Value);
-    [propput, id(26011)]
+    [propput, id(26011),
+    helpstring("Klasa generatora liczb pseudolosowych")]
     HRESULT _stdcall RandomGeneratorClass([in] BSTR Value);
-    [propget, id(26012)]
+
+    ///
+    /// Nazwa klasy sterownika czytnika XML.
+    ///
+    [propget, id(26012),
+    helpstring("Klasa czytnika XML")]
     HRESULT _stdcall XMLReaderClass([out, retval] BSTR* Value);
-    [propput, id(26012)]
+    [propput, id(26012),
+    helpstring("Klasa czytnika XML")]
     HRESULT _stdcall XMLReaderClass([in] BSTR Value);
-    [propget, id(26013)]
+
+    ///
+    /// Obiekt klucza publicznego RSA dla bramki produkcyjnej.
+    ///
+    [propget, id(26013),
+    helpstring("Klucz szyfrowania RSA dla bramki produkcyjnej")]
     HRESULT _stdcall RSAKeyProd([out, retval] IDispatch** Value);
-    [propput, id(26013)]
+    [propput, id(26013),
+    helpstring("Klucz szyfrowania RSA dla bramki produkcyjnej")]
     HRESULT _stdcall RSAKeyProd([in] IDispatch* Value);
-    [propget, id(26014)]
+
+    ///
+    /// Obiekt klucza publicznego RSA dla bramki testowej.
+    ///
+    [propget, id(26014),
+    helpstring("Klucz szyfrowania RSA dla bramki testowej")]
     HRESULT _stdcall RSAKeyTest([out, retval] IDispatch** Value);
-    [propput, id(26014)]
+    [propput, id(26014),
+    helpstring("Klucz szyfrowania RSA dla bramki testowej")]
     HRESULT _stdcall RSAKeyTest([in] IDispatch* Value);
-    [propget, id(26015)]
+
+    ///
+    /// Właściwość wskazująca na obiekt IlgcXAdES wykorzystywany do podpisu certyfikatem.
+    /// Nie jest wykorzystywany w przypadku podpisu danymi autoryzującymi.
+    ///
+    [propget, id(26015),
+    helpstring("Objekt XAdES")]
     HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
-    [propput, id(26015)]
+    [propput, id(26015),
+    helpstring("Objekt XAdES")]
     HRESULT _stdcall XAdES([in] IDispatch* Value);
-    [propget, id(26016)]
+
+    ///
+    /// Obiekt połączenia HTTPS.
+    ///
+    [propget, id(26016),
+    helpstring("Objekt klienta HTTPS")]
     HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
-    [propput, id(26016)]
+    [propput, id(26016),
+    helpstring("Objekt klienta HTTPS")]
     HRESULT _stdcall HTTPClient([in] IDispatch* Value);
   };
 
+  ///
+  /// Obiekt reprezentujący zapytanie KSeF.
+  ///
   [
     uuid(7b4ef1ce-8fc8-433c-99e4-a446e6f62d98),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt reprezentujacy zadanie KSeF")
   ]
   interface IlgcKSeFRequest: IlgcObject
   {
-    [id(27001)]
+    ///
+    /// Pobranie zapytania w formie JSON.
+    ///
+    [id(27001),
+    helpstring("Pobranie zadania w formie JSON")]
     HRESULT _stdcall GetAsJSON([out, retval] BSTR* Value);
   }
 
+  ///
+  /// Obiekt reprezentujący odpowiedź KSeF.
+  ///
   [
     uuid(9ed3df16-92da-4edc-bc63-fc17cddf9bdc),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Obiekt reprezentujacy odpowiedz KSeF")
   ]
   interface IlgcKSeFResponse: IlgcObject
   {
-    [id(28001)]
+    ///
+    /// Pobierz odpowiedź w postaci JSON.
+    ///
+    [id(28001),
+    helpstring("Pobranie odpowiedzi w formie JSON")]
     HRESULT _stdcall GetRawResponse([out, retval] BSTR* Value);
   }
 
+  ///
+  /// Podstawa obiektu komunikacji KSeF.
+  ///
   [
     uuid(452578ac-f2ae-4771-9fcf-5f4dc66021cd),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Podstawa obslugi KSeF")
   ]
   interface IlgcKSeFBase: IlgcBaseObject
   {
-    [propget, id(29001)]
+    ///
+    /// Nazwa klasy sterownika funkcji szyfrowania RSA.
+    ///
+    [propget, id(29001),
+    helpstring("Klasa sterownika szyfrowania RSA")]
     HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
-    [propput, id(29001)]
+    [propput, id(29001),
+    helpstring("Klasa sterownika szyfrowania RSA")]
     HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
-    [propget, id(29002)]
+
+    ///
+    /// Nazwa klasy sterownika enkodera base64.
+    ///
+    [propget, id(29002),
+    helpstring("Klasa enkodera Base64")]
     HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
-    [propput, id(29002)]
+    [propput, id(29002),
+    helpstring("Klasa enkodera Base64")]
     HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
-    [propget, id(29003)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji szyfrowania AES256.
+    ///
+    [propget, id(29003),
+    helpstring("Klasa sterownika szyfrowania AES256")]
     HRESULT _stdcall AES256EncryptClass([out, retval] BSTR* Value);
-    [propput, id(29003)]
+    [propput, id(29003),
+    helpstring("Klasa sterownika szyfrowania AES256")]
     HRESULT _stdcall AES256EncryptClass([in] BSTR Value);
-    [propget, id(29004)]
+
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu SHA256.
+    ///
+    [propget, id(29004),
+    helpstring("Klasa funkcji skrótu SHA256")]
     HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
-    [propput, id(29004)]
+    [propput, id(29004),
+    helpstring("Klasa funkcji skrótu SHA256")]
     HRESULT _stdcall SHA256HashClass([in] BSTR Value);
-    [propget, id(29005)]
+
+    ///
+    /// Nazwa klasy sterownika generatora liczb pseudolosowych.
+    ///
+    [propget, id(29005),
+    helpstring("Klasa generatora liczb pseudolosowych")]
     HRESULT _stdcall RandomGeneratorClass([out, retval] BSTR* Value);
-    [propput, id(29005)]
+    [propput, id(29005),
+    helpstring("Klasa generatora liczb pseudolosowych")]
     HRESULT _stdcall RandomGeneratorClass([in] BSTR Value);
-    [propget, id(29006)]
+
+    ///
+    /// Właściwość wskazująca na obiekt IlgcXAdES wykorzystywany do podpisu certyfikatem.
+    /// Nie jest wykorzystywany w przypadku nawiązywania sesji tokenem lub PZ.
+    ///
+    [propget, id(29006),
+    helpstring("Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload")]
     HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
-    [propput, id(29006)]
+    [propput, id(29006),
+    helpstring("Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload")]
     HRESULT _stdcall XAdES([in] IDispatch* Value);
-    [propget, id(29007)]
+
+    ///
+    /// Obiekt połączenia HTTPS.
+    ///
+    [propget, id(29007),
+    helpstring("Obiekt połączenia HTTPS")]
     HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
-    [propput, id(29007)]
+    [propput, id(29007),
+    helpstring("Obiekt połączenia HTTPS")]
     HRESULT _stdcall HTTPClient([in] IDispatch* Value);
-    [propget, id(29008)]
+
+    ///
+    /// Rodzaj bramki/serwera KSeF (produkcyjna/demo/testowa - lgcKSeFGateType).
+    ///
+    [propget, id(29008),
+    helpstring("Rodzaj bramki (produkcyjna/demo/testowa)")]
     HRESULT _stdcall GateType([out, retval] enum lgcKSeFGateType* Value);
-    [propput, id(29008)]
+    [propput, id(29008),
+    helpstring("Rodzaj bramki (produkcyjna/demo/testowa)")]
     HRESULT _stdcall GateType([in] enum lgcKSeFGateType Value);
-    [propget, id(29009)]
+
+    ///
+    /// Nr NIP podmiotu.
+    ///
+    [propget, id(29009),
+    helpstring("Nr NIP podmiotu")]
     HRESULT _stdcall NIP([out, retval] BSTR* Value);
-    [propput, id(29009)]
+    [propput, id(29009),
+    helpstring("Nr NIP podmiotu")]
     HRESULT _stdcall NIP([in] BSTR Value);
-    [propget, id(29010)]
+
+    ///
+    /// Rodzaj przesyłanego dokumentu (0 - FA(1), 1 - FA(2)).
+    /// Ustawienie tej właściwości spowoduje przypisanie domyślnych wartości właściwości 
+    /// "FormCodeSystemCode", "FormCodeSchemaVersion", "FormCodeTargetNamespace" i "FormCodeValue"
+    /// zgodnie z odpowiadającymi danej wersji dokumentu FA.
+    ///
+    [propget, id(29010),
+    helpstring("Predefiniowany rodzaj FA")]
     HRESULT _stdcall FormCode([out, retval] long* Value);
     [propput, id(29010)]
     HRESULT _stdcall FormCode([in] long Value);
     [propget, id(29011)]
+
+    ///
+    /// Kod systemowy przesyłanych dokumentów.
+    ///
     HRESULT _stdcall FormCodeSystemCode([out, retval] BSTR* Value);
     [propput, id(29011)]
     HRESULT _stdcall FormCodeSystemCode([in] BSTR Value);
     [propget, id(29012)]
+
+    ///
+    /// Wersja schemy przesyłanych dokumentów.
+    ///
     HRESULT _stdcall FormCodeSchemaVersion([out, retval] BSTR* Value);
     [propput, id(29012)]
     HRESULT _stdcall FormCodeSchemaVersion([in] BSTR Value);
     [propget, id(29013)]
+
+    ///
+    /// Docelowa przestrzeń nazw przeyłanego dokumentu.
+    ///
     HRESULT _stdcall FormCodeTargetNamespace([out, retval] BSTR* Value);
     [propput, id(29013)]
     HRESULT _stdcall FormCodeTargetNamespace([in] BSTR Value);
     [propget, id(29014)]
+
+    ///
+    /// Nazwa rodzaju i wersji przesyłanedo dokumentu.
+    ///
     HRESULT _stdcall FormCodeValue([out, retval] BSTR* Value);
     [propput, id(29014)]
     HRESULT _stdcall FormCodeValue([in] BSTR Value);
-    [propget, id(29015)]
+
+    ///
+    /// Obiekt certyfikatu podpisu kwalifikowanego lub pieczęci wykorzystywanego 
+    /// do nawiązania sesji lub podpisu struktury InitUpload wysyłki wsadowej.
+    ///
+    [propget, id(29015),
+    helpstring("Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyłki wsadowej")]
     HRESULT _stdcall Certificate([out, retval] IDispatch** Value);
-    [propput, id(29015)]
+    [propput, id(29015),
+    helpstring("Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyłki wsadowej")]
     HRESULT _stdcall Certificate([in] IDispatch* Value);
-    [propget, id(29016)]
-    HRESULT _stdcall CertificateAuthType([out, retval] enum lgcKSeFGateType* Value);
-    [propput, id(29016)]
-    HRESULT _stdcall CertificateAuthType([in] enum lgcKSeFGateType Value);
-    [propget, id(29017)]
+
+    ///
+    /// Rodzaj autoryzacji certyfikatu (nr seryjny/odcisk palca - lgcKSeFCertificateAuthType).
+    ///
+    [propget, id(29016),
+    helpstring("Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczęci elektronicznej")]
+    HRESULT _stdcall CertificateAuthType([out, retval] enum lgcKSeFCertificateAuthType* Value);
+    [propput, id(29016),
+    helpstring("Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczęci elektronicznej")]
+    HRESULT _stdcall CertificateAuthType([in] enum lgcKSeFCertificateAuthType Value);
+
+    ///
+    /// Token do nawiązania sesji interaktywnej.
+    ///
+    [propget, id(29017),
+    helpstring("Token do nawiązania sesji interaktywnej")]
     HRESULT _stdcall Token([out, retval] BSTR* Value);
-    [propput, id(29017)]
+    [propput, id(29017),
+    helpstring("Token do nawiązania sesji interaktywnej")]
     HRESULT _stdcall Token([in] BSTR Value);
-    [propget, id(29018)]
+
+    ///
+    /// Czy ma być włączone dodatkowe szyfrowanie AES przesyłanych dokumentów?
+    ///
+    [propget, id(29018),
+    helpstring("Aktywacja opcionalnego szyfrowania AES")]
     HRESULT _stdcall Encryption([out, retval] VARIANT_BOOL* Value);
-    [propput, id(29018)]
+    [propput, id(29018),
+    helpstring("Aktywacja opcionalnego szyfrowania AES")]
     HRESULT _stdcall Encryption([in] VARIANT_BOOL Value);
-    [propget, id(29019)]
+
+    ///
+    /// Uzyskany token sesji interaktywnej.
+    ///
+    [propget, id(29019),
+    helpstring("Token sesji")]
     HRESULT _stdcall SessionToken([out, retval] BSTR* Value);
-    [propget, id(29020)]
+
+    ///
+    /// Czy sesja interaktywna jest aktywna?
+    ///
+    [propget, id(29020),
+    helpstring("Czy sesjia aktywna")]
     HRESULT _stdcall SessionActive([out, retval] VARIANT_BOOL* Value);
-    [propget, id(29021)]
+
+    ///
+    /// Obiekt klucza publicznego RSA dla bramki produkcyjnej.
+    ///
+    [propget, id(29021),
+    helpstring("Klucz szyfrowania RSA dla bramki produkcyjnej")]
     HRESULT _stdcall RSAKeyProd([out, retval] IDispatch** Value);
-    [propput, id(29021)]
+    [propput, id(29021),
+    helpstring("Klucz szyfrowania RSA dla bramki produkcyjnej")]
     HRESULT _stdcall RSAKeyProd([in] IDispatch* Value);
-    [propget, id(29022)]
+
+    ///
+    /// Obiekt klucza publicznego RSA dla bramki demo.
+    ///
+    [propget, id(29022),
+    helpstring("Klucz szyfrowania RSA dla bramki demo")]
     HRESULT _stdcall RSAKeyDemo([out, retval] IDispatch** Value);
-    [propput, id(29022)]
+    [propput, id(29022),
+    helpstring("Klucz szyfrowania RSA dla bramki demo")]
     HRESULT _stdcall RSAKeyDemo([in] IDispatch* Value);
-    [propget, id(29023)]
+
+    ///
+    /// Obiekt klucza publicznego RSA dla bramki testowej.
+    ///
+    [propget, id(29023),
+    helpstring("Klucz szyfrowania RSA dla bramki testowj")]
     HRESULT _stdcall RSAKeyTest([out, retval] IDispatch** Value);
-    [propput, id(29023)]
+    [propput, id(29023),
+    helpstring("Klucz szyfrowania RSA dla bramki testowj")]
     HRESULT _stdcall RSAKeyTest([in] IDispatch* Value);
-    [id(29024)]
+
+    ///
+    /// Generuj klucz AES dla dodatkowego szyfrowania. W razie potrzeby kluc jest generowany automatycznie przed nwiązaniem połączenia.
+    ///
+    [id(29024),
+    helpstring("Generuj klucz AES dla dodatkowego szyfrowania. W razie potrzeby wywolywane automatycznie przy polaczeniu")]
     HRESULT _stdcall GenerateAESKey();
-    [id(29025)]
+    [id(29025),
+
+    ///
+    /// Tworzenie obiektów żądania KSeF.
+    /// @param ClsName nazwa klasy, która zostanie utworzona.
+    /// @return zwracana jest instancja obiektu KSeF implementująca interfejs IlgcObject.
+    ///
+    helpstring("Tworzenie obiektu KSeF o podanej nazwie klasy")]
     HRESULT _stdcall CreateKSeFObject([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
   };
 
+  ///
+  /// Obiekt implementujący API KSeF w wersji 2.6.0
+  ///
   [
     uuid(c44aac54-ce22-421c-b159-b864df2eb753),
     version(1.0),
     dual,
-    oleautomation
+    oleautomation,
+    helpstring("Implementacja KSeF w wersji 2.6.0")
   ]
   interface IlgcKSeF_2_6_0: IlgcKSeFBase
   {
-    [id(29051)]
+    ///
+    /// Inicjalizacja sesji za pomocą certyfikatu kwalifikowanego lub pieczęci.
+    /// @return zwracany obiekt IlgcKSeFResponse z informacją o zainicjowanej sesji (obiekt KSeF: TKSeFInitSessionResponse).
+    ///
+    [id(29051),
+    helpstring("Inicjalizacja sesji za pomoca certyfikatu kwalifikowanego lub pieczeci")]
     HRESULT _stdcall SessionInitSigned([out, retval] IDispatch** Response);
-    [id(29052)]
+
+    ///
+    /// Inicjalizacja sesji za pomocą tokena.
+    /// @return zwracany obiekt IlgcKSeFResponse z informacją o zainicjowanej sesji (obiekt KSeF: TKSeFInitSessionResponse).
+    ///
+    [id(29052),
+    helpstring("Inicjalizacja sesji za pomoca tokena")]
     HRESULT _stdcall SessionInitToken([out, retval] IDispatch** Response);
-    [id(29053)]
+
+    ///
+    /// Wygenerowanie struktury InitSession w celu podpisania przy pomocy Profilu Zaufanego.
+    /// @return zwracany jest łańcuch zawierający strukturę InitSession,
+    /// którą należy podpisać Profilem Zaufanym.
+    ///
+    [id(29053),
+    helpstring("Wygenerowanie struktury InitSession w celu podpisania przy pomocy Profilu Zaufanego")]
     HRESULT _stdcall SessionChalangePZ([out, retval] BSTR* Response);
-    [id(29054)]
+
+    ///
+    /// Inicjalizacja sesji za pomocą wcześniej wygenerowanej struktury InitSession, podpisanej przy pomocy PZ.
+    /// @param SignedInit łańcuch zawierający podpisaną w PZ strukturę InitUpload.
+    /// @return zwracany obiekt IlgcKSeDResponse z informacją o zainicjowanej sesji (obiekt KSeF: TKSeFInitSessionResponse).
+    ///
+    [id(29054),
+    helpstring("Inicjalizacja sesji za pomoca wcześniej wygenerowanej struktury InitSession, podpisanej przy pomocy PZ")]
     HRESULT _stdcall SessionInitPZ([in] BSTR SignedInit, [out, retval] IDispatch** Response);
-    [id(29055)]
+
+    ///
+    /// Sprawdzenie statusu aktywnej sesji interaktywnej. (Sesja interaktywna)
+    /// @param ReferenceNumber nr referencyjny lub puste dla informacji o sesji ogólnej.
+    /// @param PageSize ilość wyników na stronę.
+    /// @param PageOffset numer strony.
+    /// @param IncludeDetails czy mają zostać pobrane dane szczegółowe.
+    /// @return zwracany obiekt IlgcKSeFResponse z informacją o statusie sesji (obiekt KSeF: TKSeFSessionStatusResponse)
+    ///
+    [id(29055),
+    helpstring("Sprawdzenie statusu aktywnej sesji interaktywnej")]
     HRESULT _stdcall SessionStatus([in] BSTR ReferenceNumber, [in] long PageSize, [in] long PageOffset, [in] VARIANT_BOOL IncludeDetails, [out, retval] IDispatch** Response);
-    [id(29056)]
+
+    ///
+    /// Wymuszenie zamknięcia aktywnej sesji. (Sesja interaktywna)
+    /// @param Force wymuszenie - wywołane wyjątki podczas zamykania sesji zostaną przechwycone (np jeśli sesja uległa przeterminowaniu).
+    /// @return zwracany obiekt IlgcKSeFResponse ze zwróconą z serwera KSeF informacją o zakończeniu sesji (obiekt KSeF: TKSeFTerminateSessionResponse).
+    ///
+    [id(29056),
+    helpstring("Wymuszenie zamknięcia aktywnej sesji")]
     HRESULT _stdcall SessionTerminate([in] VARIANT_BOOL Force, [out, retval] IDispatch** Response);
-    [id(29057)]
+
+    ///
+    /// Wygenerowanie identyfikatora wewnętrznego.
+    ///
+    [id(29057),
+    helpstring("Wygenerowanie identyfikatora wewnetrznego")]
     HRESULT _stdcall SessionGenerateInternalIdentifier([in] BSTR InputDigitsSequence, [out, retval] IDispatch** Response);
-    [id(29058)]
+
+    ///
+    /// Pobranie faktury po numerze identyfikacyjnym KSeF. (Sesja interaktywna)
+    /// @param KSeFReferenceNumber numer referencyjny żądanej faktury.
+    /// @param OutputStream strumień do którego zostanie zapisana pobrana faktura, może przyjąć:
+    ///                     - łańcuch zawierający nazwę pliku do którego zostanie zapisana pobrana faktura.
+    ///                     - obiekt implementujący interfejs IStream za pomocą którego zostaną zapisane dane pobranej faktury (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    ///
+    [id(29058),
+    helpstring("Pobranie faktury po numerze identyfikacyjnym KSeF")]
     HRESULT _stdcall InvoiceGet([in] BSTR KSeFReferenceNumber, [in] VARIANT OutputStream);
-    [id(29059)]
+
+    ///
+    /// Wysyłka faktury. (Sesja interaktywna)
+    /// @param DataStream strumień zawierający dane XML faktury, może przyjąć:
+    ///                   - łańcuch znaków zawierający fakturę w formie XML (jeśli łańcuch rozpoczyna się znakiem "<").
+    ///                   - łańcuch znaków zawierający nazwę pliku zawierającego fakturę.
+    ///                   - obiekt implementujący interfejs IStream za pomocą którego pobrane zostaną dane faktury do wysłania.
+    /// @return zwracana struktura zawierająca nadany numer referencyjny oraz informacje o statusie przetwarzania faktury (obiekt KSeF: TKSeFSendInvoiceResponse).
+    ///
+    [id(29059),
+    helpstring("Wysyłka faktury")]
     HRESULT _stdcall InvoiceSend([in] VARIANT DataStream, [out, retval] IDispatch** Response);
-    [id(29060)]
-    HRESULT _stdcall InvoiceStatus([in] BSTR InvoiceElementReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
-    [id(29061)]
+
+    ///
+    /// Sprawdzenie statusu wysłanej faktury. (Sesja interaktywna)
+    /// @param InvoiceElementReferenceNumber numer referencyjny wysłanej faktury (pobrany z odpowiedzi TKSeFSendInvoiceResponse).
+    /// @param KSeFNumberVariant wariant nr KSeF (lgcKSeFNumberVariant).
+    /// @return zwracany obiekt z informacją o statusie przetwarzania faktury (obiekt KSeF: TKSeFStatusInvoiceResponse).
+    ///
+    [id(29060),
+    helpstring("Sprawdzenie statusu wysłanej faktury")]
+    HRESULT _stdcall InvoiceStatus([in] BSTR InvoiceElementReferenceNumber, [in, defaultvalue(lgcKNVDefault)] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+
+    ///
+    /// Ukrywanie wybranej faktury. (Sesja interaktywna).
+    /// @param KsefReferenceNumber numer referencyjny faktury.
+    /// @param HidingReason przyczyna ukrycia faktury.
+    /// @return zwraca obiekt z informacją o statusie ukrycia faktury (obiekt KSeF: TKSeFVisibilityInvoiceResponseStatusMain).
+    ///
+    [id(29061),
+    helpstring("Ukrywanie wybranej faktury")]
     HRESULT _stdcall InvoiceVisibilityHide([in] BSTR KsefReferenceNumber, [in] BSTR HidingReason, [out, retval] IDispatch** Response);
-    [id(29062)]
+
+    ///
+    /// Anulowanie ukrycia wybranej faktury. (Sesja interaktywna).
+    /// @param KsefReferenceNumber numer referencyjny faktury.
+    /// @param HidingReason przyczyna anulowania ukrycia faktury.
+    /// @return zwraca obiekt z informacją o statusie anulowania ukrycia faktury (obiekt KSeF: TKSeFVisibilityInvoiceResponseStatusMain).
+    ///
+    [id(29062),
+    helpstring("Anulowanie ukrycia wybranej faktury")]
     HRESULT _stdcall InvoiceVisibilityShow([in] BSTR KsefReferenceNumber, [in] BSTR HidingCancelationReason, [out, retval] IDispatch** Response);
-    [id(29063)]
-    HRESULT _stdcall InvoiceVisibilityStatus([in] BSTR HidingElementReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
-    [id(29064)]
-    HRESULT _stdcall InvoiceVisibility([in] BSTR KSeFReferenceNumber, [in] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
-    [id(29065)]
+
+    ///
+    /// Sprawdzenie statusu operacji ukrycia/odsłonienia faktury (Sesja interaktywna).
+    ///
+    [id(29063),
+    helpstring("Sprawdzenie statusu operacji ukrycia/odsłonienia faktury")]
+    HRESULT _stdcall InvoiceVisibilityStatus([in] BSTR HidingElementReferenceNumber, [in, defaultvalue(lgcKNVDefault)] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+
+    ///
+    /// Sprawdzenie statusu widoczności faktury (Sesja interaktywna).
+    ///
+    [id(29064),
+    helpstring("Sprawdzenie statusu widoczności faktury")]
+    HRESULT _stdcall InvoiceVisibility([in] BSTR KSeFReferenceNumber, [in, defaultvalue(lgcKNVDefault)] enum lgcKSeFNumberVariant KSeFNumberVariant, [out, retval] IDispatch** Response);
+
+    ///
+    /// Wycofanie faktury scamowej (Sesja interaktywna).
+    ///
+    [id(29065),
+    helpstring("Wycofanie faktury scamowej")]
     HRESULT _stdcall InvoiceScamCancel([in] BSTR KSeFReferenceNumber, [in] BSTR ReportCancelationReason, [out, retval] IDispatch** Response);
-    [id(29066)]
+
+    ///
+    /// Zgłoszenie faktury scamowej (Sesja interaktywna).
+    ///
+    [id(29066),
+    helpstring("Zgłoszenie faktury scamowej")]
     HRESULT _stdcall InvoiceScamReport([in] BSTR KSeFReferenceNumber, [in] BSTR ReportReason, [out, retval] IDispatch** Response);
-    [id(29067)]
+
+    ///
+    /// Pobranie statusu zgłoszenia nadużycia faktury (Sesja interaktywna).
+    ///
+    [id(29067),
+    helpstring("Pobranie statusu zgłoszenia nadużycia faktury")]
     HRESULT _stdcall InvoiceScamStatus([in] BSTR ScamElementReferenceNumber, [out, retval] IDispatch** Response);
-    [id(29068)]
+
+    ///
+    /// Pobranie zgłoszenia nadużycia faktury (Sesja interaktywna).
+    ///
+    [id(29068),
+    helpstring("Pobranie zgłoszenia nadużycia faktury")]
     HRESULT _stdcall InvoiceScam([in] BSTR KSeFReferenceNumber, [out, retval] IDispatch** Response);
-    [id(29069)]
+
+    ///
+    /// Nadanie poświadczeń dla biura rachunkowego (Sesja interaktywna).
+    ///
+    [id(29069),
+    helpstring("Nadanie poświadczeń dla biura rachunkowego")]
     HRESULT _stdcall CredentialsAccountingGrant([in] IDispatch* GrantAccountingCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29070)]
+
+    ///
+    /// Odebranie poświadczeń biur rachunkowych (Sesja interaktywna).
+    ///
+    [id(29070),
+    helpstring("Odebranie poświadczeń biur rachunkowych")]
     HRESULT _stdcall CredentialsAccountingRevoke([in] IDispatch* RevokeAccountingCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29071)]
+
+    ///
+    /// Nadanie poświadczeń kontekstowych (Sesja interaktywna).
+    ///
+    [id(29071),
+    helpstring("Nadanie poświadczeń kontekstowych")]
     HRESULT _stdcall CredentialsContextGrant([in] IDispatch* GrantContextCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29072)]
+
+    ///
+    /// Odebranie poświadczeń kontekstowych (Sesja interaktywna).
+    ///
+    [id(29072),
+    helpstring("Odebranie poświadczeń kontekstowych")]
     HRESULT _stdcall CredentialsContextRevoke([in] IDispatch* RevokeContextCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29073)]
+
+    ///
+    /// Generowanie tokena autoryzacyjnego (Sesja interaktywna).
+    ///
+    [id(29073),
+    helpstring("Generowanie tokena autoryzacyjnego")]
     HRESULT _stdcall CredentialsGenerateToken([in] IDispatch* GenerateTokenRequest, [out, retval] IDispatch** Response);
-    [id(29074)]
+
+    ///
+    /// Nadanie poświadczeń (Sesja interaktywna).
+    ///
+    [id(29074),
+    helpstring("Nadanie poświadczeń")]
     HRESULT _stdcall CredentialsGrant([in] IDispatch* GrantCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29075)]
+
+    ///
+    /// Odebranie poświadczeń (Sesja interaktywna).
+    ///
+    [id(29075),
+    helpstring("Odebranie poświadczeń")]
     HRESULT _stdcall CredentialsRevoke([in] IDispatch* RevokeCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29076)]
+
+    ///
+    /// Usunięcie tokena autoryzacyjnego (Sesja interaktywna).
+    ///
+    [id(29076),
+    helpstring("Usunięcie tokena autoryzacyjnego")]
     HRESULT _stdcall CredentialsRevokeToken([in] IDispatch* RevokeTokenRequest, [out, retval] IDispatch** Response);
-    [id(29077)]
+
+    ///
+    /// Sprawdzenie statusu poświadczeń (Sesja interaktywna).
+    ///
+    [id(29077),
+    helpstring("Sprawdzenie statusu poświadczeń")]
     HRESULT _stdcall CredentialsStatus([in] BSTR CredentialsElementReferenceNumber, [out, retval] IDispatch** Response);
-    [id(29078)]
+
+    ///
+    /// Zapytanie o poświadczenia nadane przez jednostkę nadrzędną (Sesja interaktywna).
+    /// @param ContextNip Identyfikator kontekstu.
+    /// @param SourceIdentifier Identyfikator nadającego uprawnienia.
+    /// @param TargetIdentifier Identyfikator uprawnionego.
+    ///
+    [id(29078),
+    helpstring("Zapytanie o poświadczenia nadane przez jednostkę nadrzędną")]
     HRESULT _stdcall QueryCredentialContextSync([in] BSTR ContextNip, [in] BSTR SourceIdentifier, [in] BSTR TargetIdentifier, [out, retval] IDispatch** Response);
-    [id(29079)]
+
+    ///
+    /// Zapytanie o poświadczenia (Sesja interaktywna).
+    ///
+    [id(29079),
+    helpstring("Zapytanie o poświadczenia")]
     HRESULT _stdcall QueryCredentialSync([in] IDispatch* QuerySyncCredentialsRequest, [out, retval] IDispatch** Response);
-    [id(29080)]
+
+    ///
+    /// Zapytanie o faktury (synchroniczne). (Sesja interaktywna).
+    ///
+    [id(29080),
+    helpstring("Zapytanie o faktury (synchroniczne)")]
     HRESULT _stdcall QueryInvoiceSync([in] IDispatch* QueryCriteria, [in] long PageSize, [in] long PageOffset, [out, retval] IDispatch** Response);
-    [id(29081)]
+
+    ///
+    /// Inicjalizacja asynchronicznego zapytania o faktury. (Sesja interaktywna).
+    ///
+    [id(29081),
+    helpstring("Inicjalizacja asynchronicznego zapytania o faktury")]
     HRESULT _stdcall QueryInvoiceAsyncInit([in] IDispatch* QueryCriteria, [out, retval] IDispatch** Response);
-    [id(29082)]
+
+    ///
+    /// Sprawdzenie statusu asynchronicznego zapytania o faktury. (Sesja interaktywna).
+    ///
+    [id(29082),
+    helpstring("Sprawdzenie statusu asynchronicznego zapytania o faktury")]
     HRESULT _stdcall QueryInvoiceAsyncStatus([in] BSTR QueryElementReferenceNumber, [out, retval] IDispatch** Response);
-    [id(29083)]
+
+    ///
+    /// Pobranie wyników asynchronicznego zapytania o faktury. Sesja interaktywna)
+    ///
+    [id(29083),
+    helpstring("Pobranie wyników asynchronicznego zapytania o faktury")]
     HRESULT _stdcall QueryInvoiceAsyncFetch([in] BSTR QueryElementReferenceNumber, [in] BSTR PartElementReferenceNumber, [in] VARIANT Response);
-    [id(29084)]
+
+    ///
+    /// Pobranie wyników asynchronicznego zapytania o faktury. Sesja interaktywna)
+    ///
+    [id(29084),
+    helpstring("Pobranie wyników asynchronicznego zapytania o faktury")]
     HRESULT _stdcall QueryInvoiceAsyncFetch2([in] IDispatch* StatusResponse, [in] long PartIndex, [in] VARIANT Response);
-    [id(29085)]
+
+    ///
+    /// Pobranie listy faktur dla identyfikatora płatności. (Sesja interaktywna).
+    ///
+    [id(29085),
+    helpstring("Pobranie listy faktur dla identyfikatora płatności")]
     HRESULT _stdcall PaymentIdentifierGetReferenceNumbers([in] BSTR PaymentIdentifier, [out, retval] IDispatch** Response);
-    [id(29086)]
+
+    ///
+    /// Wygenerowanie identyfikatora płatności. (Sesja interaktywna).
+    ///
+    [id(29086),
+    helpstring("Wygenerowanie identyfikatora płatności")]
     HRESULT _stdcall PaymentIdentifierRequest([in] VARIANT KsefReferenceNumberList, [out, retval] IDispatch** Response);
-    [id(29087)]
+
+    ///
+    /// Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF (Interfejsy wspólne).
+    ///
+    [id(29087),
+    helpstring("Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF")]
     HRESULT _stdcall CommonInvoiceKSeF([in] IDispatch* InvoiceRequest, [in] VARIANT OutStream, [in] enum lgcKSeFGateType GateType);
-    [id(29088)]
+
+    ///
+    /// Pobranie faktury z repozytorium KSeF na podstawie kryteriów opartych o numer KSeF i skrót dokumentu (Interfejsy wspólne).
+    ///
+    [id(29088),
+    helpstring("Pobranie faktury z repozytorium KSeF na podstawie kryteriów opartych o numer KSeF i skrót dokumentu")]
     HRESULT _stdcall CommonDownload([in] BSTR KsefReferenceNumber, [in] IDispatch* DownloadRequest, [in] VARIANT OutStream, [in] enum lgcKSeFGateType GateType);
-    [id(29089)]
+
+    ///
+    /// Interfejs wspólny pobrania statusu przetwarzania wsadowego (Interfejsy wspólne).
+    ///
+    [id(29089),
+    helpstring("Interfejs wspólny pobrania statusu przetwarzania wsadowego")]
     HRESULT _stdcall CommonStatus([in] BSTR ReferenceNumber, [in] enum lgcKSeFGateType GateType, [out, retval] IDispatch** Response);
-    [id(29090)]
+
+    ///
+    /// Weryfikacja faktury.
+    ///
+    [id(29090),
+    helpstring("Weryfikacja faktury")]
     HRESULT _stdcall CommonVerification([in] BSTR KsefReferenceNumber, [in] IDispatch* VerificationRequest, [in] enum lgcKSeFGateType GateType, [out, retval] IDispatch** Response);
-    [id(29091)]
+
+    ///
+    /// Przygotowanie danych i podpisanie struktury InitUpload (Wysyłka wsadowa).
+    ///
+    [id(29091),
+    helpstring("Przygotowanie danych i podpisanie struktury InitUpload")]
     HRESULT _stdcall BatchSign([in] VARIANT ZIPDataStream, [in] VARIANT_BOOL PZ, [in] VARIANT EncryptedStream, [in] BSTR ZIPFileName, [in] BSTR PartFileName, [out, retval] BSTR* InitUpload);
-    [id(29092)]
+
+    ///
+    /// Wysłanie uprzednio przygotowanych danych faktur i podpisanej struktury InitUpload (Wysyłka wsadowa).
+    ///
+    [id(29092),
+    helpstring("Wysłanie uprzednio przygotowanych danych faktur i podpisanej struktury InitUpload")]
     HRESULT _stdcall BatchSend([in] VARIANT PartStream, [in] BSTR InitUpload, [out, retval] BSTR* Result);
   }
+
+/// \cond
 
   [
     uuid(635b56f7-b613-4e78-8ae3-b37c4591668b),
@@ -1360,5 +2667,7 @@ library LibGovPL
   {
     [default] interface IlgcKSeF_2_6_0;
   }
+
+/// \endcond
 
 };
