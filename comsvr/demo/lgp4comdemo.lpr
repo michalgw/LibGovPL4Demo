@@ -12,6 +12,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, datetimectrls, Unit1, unit2, LibGovPL_1_0_TLB;
 
+{$R lgp4comdemoman.rc}
 {$R *.res}
 
 begin
