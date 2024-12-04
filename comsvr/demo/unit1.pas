@@ -602,6 +602,7 @@ begin
   if Assigned(WSTBackend) then
     WSTBackend.HTTPClient := nil;
   WSTBackend := nil;
+  Backend.ClearLastError;
 
   // Czy pozostaly jakies obiekty (poza Backend)?
   IloscObiektowCOM := Backend.GetDebugInfo(1);
