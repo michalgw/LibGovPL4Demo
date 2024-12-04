@@ -19,9 +19,6 @@ uses
   {$ENDIF}
   ;
 
-const
-  LGP_VERSION_NUMBER = $040004;
-
 function lgplVersion: LGP_UINT32; stdcall;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
 function lgplDriverCount(AClassType: LGP_INT32): LGP_INT32; stdcall;
@@ -71,15 +68,38 @@ var
 implementation
 
 uses
-  uException, uKSeFObj, DateUtils
+  uException, uKSeFObj, DateUtils, FileInfo
   {$IFDEF LGP_ENABLE_LIBXML2}
   , xml2dyn
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  , winpeimagereader
+  {$ENDIF}
+  {$IFDEF UNIX}
+  , elfreader
+  {$ENDIF}
+  {$IFDEF DARWIN}
+  , machoreader
   {$ENDIF}
   ;
 
 function lgplVersion: LGP_UINT32; stdcall;
+var
+  FVer: TFileVersionInfo;
+  VerArr: array of String;
 begin
-  Result := LGP_VERSION_NUMBER;
+  Result := 0;
+  FVer := TFileVersionInfo.Create(nil);
+  try
+    FVer.ReadFileInfo;
+    VerArr := FVer.VersionStrings.Values['FileVersion'].Split(['.',',']);
+    FVer.Free;
+    if Length(VerArr) >= 3 then
+      Result := ((StrToIntDef(VerArr[0], 0) and $FF) shl 16) +
+        ((StrToIntDef(VerArr[1], 0) and $FF) shl 8) +
+        (StrToIntDef(VerArr[2], 0) and $FF);
+  except
+  end;
 end;
 
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;

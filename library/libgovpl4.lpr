@@ -43,6 +43,14 @@ uses
 {$ENDIF}
   ;
 
+{$IFNDEF LGP_NO_VERINFO}
+  {$IFDEF WIN32}
+    {$R verinfo32.rc}
+  {$ENDIF}
+  {$IFDEF WIN64}
+    {$R verinfo64.rc}
+  {$ENDIF}
+{$ENDIF}
 
 exports
   // Backend
