@@ -12,14 +12,14 @@ unit LibGovPL_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 22/11/2024 16:53:30 from Type Library described below.
+// File generated on 04/12/2024 20:08:47 from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: c:\DELPHI\libgovpl4com32.dll (1)
+// Type Lib: c:\DELPHI\libgovpl4com64.dll (1)
 // LIBID: {923701A2-ECEF-4DD8-A560-51B56CB1FE75}
 // LCID: 0
 // Helpfile: 
-// HelpString: LibGovPl4com Library
+// HelpString: LibGovPL COM/OLE Automation library
 // DepndLst: 
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
 // ************************************************************************ //
@@ -197,6 +197,13 @@ const
   lgcKTGDemo = $00000001;
   lgcKTGTest = $00000002;
 
+// Constants for enum lgcKSeFCertificateAuthType
+type
+  lgcKSeFCertificateAuthType = TOleEnum;
+const
+  lgcCATSerialNumber = $00000000;
+  lgcCATFingerprint = $00000001;
+
 // Constants for enum lgcKSeFNumberVariant
 type
   lgcKSeFNumberVariant = TOleEnum;
@@ -204,13 +211,6 @@ const
   lgcKNVDefault = $00000000;
   lgcKNV35 = $00000001;
   lgcKNV36 = $00000002;
-
-// Constants for enum lgcKSeFCertificateAuthType
-type
-  lgcKSeFCertificateAuthType = TOleEnum;
-const
-  lgcCATSerialNumber = $00000000;
-  lgcCATFingerprint = $00000001;
 
 // Constants for enum lgcFileMode
 type
@@ -224,6 +224,7 @@ const
   lgcFMShareDenyWrite = $00000020;
   lgcFMShareDenyRead = $00000030;
   lgcFMShareDenyNone = $00000040;
+  lgcFMCreate = $0000FF00;
 
 type
 
@@ -389,6 +390,8 @@ type
 // *********************************************************************//
   IlgcBackend = interface(IlgcBaseObject)
     ['{393A6861-4A95-4CED-8B93-3A8FFA77F5C3}']
+    procedure SetLicenseKey(const Param1: WideString; const Param2: WideString; 
+                            const Param3: WideString); safecall;
     function GetLibVersion: WideString; safecall;
     function GetDebugInfo(CounterType: Integer): OleVariant; safecall;
     function GetClassCount(ClsType: lgcClassType): Integer; safecall;
@@ -411,19 +414,21 @@ type
 // *********************************************************************//
   IlgcBackendDisp = dispinterface
     ['{393A6861-4A95-4CED-8B93-3A8FFA77F5C3}']
-    function GetLibVersion: WideString; dispid 2001;
-    function GetDebugInfo(CounterType: Integer): OleVariant; dispid 2002;
-    function GetClassCount(ClsType: lgcClassType): Integer; dispid 2003;
-    function GetClassName(ClsType: lgcClassType; ClassIndex: Integer): WideString; dispid 2004;
-    function GetClassNames(ClsType: lgcClassType): OleVariant; dispid 2005;
-    function CreateFileStream(const FileName: WideString; Mode: Integer): IDispatch; dispid 2006;
-    function CreateHTTPClient(const ClsName: WideString): IDispatch; dispid 2007;
-    function CreateRSAKey(const ClsName: WideString; Source: OleVariant): IDispatch; dispid 2008;
-    function CreateCertificateSigner(const ClsName: WideString): IDispatch; dispid 2009;
-    function CreateXAdES: IDispatch; dispid 2010;
-    function CreateEDeklaracja: IDispatch; dispid 2011;
-    function CreateJPK: IDispatch; dispid 2012;
-    function CreateKSeF: IDispatch; dispid 2013;
+    procedure SetLicenseKey(const Param1: WideString; const Param2: WideString; 
+                            const Param3: WideString); dispid 2001;
+    function GetLibVersion: WideString; dispid 2002;
+    function GetDebugInfo(CounterType: Integer): OleVariant; dispid 2003;
+    function GetClassCount(ClsType: lgcClassType): Integer; dispid 2004;
+    function GetClassName(ClsType: lgcClassType; ClassIndex: Integer): WideString; dispid 2005;
+    function GetClassNames(ClsType: lgcClassType): OleVariant; dispid 2006;
+    function CreateFileStream(const FileName: WideString; Mode: Integer): IDispatch; dispid 2007;
+    function CreateHTTPClient(const ClsName: WideString): IDispatch; dispid 2008;
+    function CreateRSAKey(const ClsName: WideString; Source: OleVariant): IDispatch; dispid 2009;
+    function CreateCertificateSigner(const ClsName: WideString): IDispatch; dispid 2010;
+    function CreateXAdES: IDispatch; dispid 2011;
+    function CreateEDeklaracja: IDispatch; dispid 2012;
+    function CreateJPK: IDispatch; dispid 2013;
+    function CreateKSeF: IDispatch; dispid 2014;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -1452,8 +1457,8 @@ type
     procedure Set_FormCodeValue(const Value: WideString); safecall;
     function Get_Certificate: IDispatch; safecall;
     procedure Set_Certificate(const Value: IDispatch); safecall;
-    function Get_CertificateAuthType: lgcKSeFGateType; safecall;
-    procedure Set_CertificateAuthType(Value: lgcKSeFGateType); safecall;
+    function Get_CertificateAuthType: lgcKSeFCertificateAuthType; safecall;
+    procedure Set_CertificateAuthType(Value: lgcKSeFCertificateAuthType); safecall;
     function Get_Token: WideString; safecall;
     procedure Set_Token(const Value: WideString); safecall;
     function Get_Encryption: WordBool; safecall;
@@ -1483,7 +1488,7 @@ type
     property FormCodeTargetNamespace: WideString read Get_FormCodeTargetNamespace write Set_FormCodeTargetNamespace;
     property FormCodeValue: WideString read Get_FormCodeValue write Set_FormCodeValue;
     property Certificate: IDispatch read Get_Certificate write Set_Certificate;
-    property CertificateAuthType: lgcKSeFGateType read Get_CertificateAuthType write Set_CertificateAuthType;
+    property CertificateAuthType: lgcKSeFCertificateAuthType read Get_CertificateAuthType write Set_CertificateAuthType;
     property Token: WideString read Get_Token write Set_Token;
     property Encryption: WordBool read Get_Encryption write Set_Encryption;
     property SessionToken: WideString read Get_SessionToken;
@@ -1515,7 +1520,7 @@ type
     property FormCodeTargetNamespace: WideString dispid 29013;
     property FormCodeValue: WideString dispid 29014;
     property Certificate: IDispatch dispid 29015;
-    property CertificateAuthType: lgcKSeFGateType dispid 29016;
+    property CertificateAuthType: lgcKSeFCertificateAuthType dispid 29016;
     property Token: WideString dispid 29017;
     property Encryption: WordBool dispid 29018;
     property SessionToken: WideString readonly dispid 29019;
@@ -1679,7 +1684,7 @@ type
     property FormCodeTargetNamespace: WideString dispid 29013;
     property FormCodeValue: WideString dispid 29014;
     property Certificate: IDispatch dispid 29015;
-    property CertificateAuthType: lgcKSeFGateType dispid 29016;
+    property CertificateAuthType: lgcKSeFCertificateAuthType dispid 29016;
     property Token: WideString dispid 29017;
     property Encryption: WordBool dispid 29018;
     property SessionToken: WideString readonly dispid 29019;
