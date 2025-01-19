@@ -70,7 +70,7 @@ implementation
 uses
   uException, uKSeFObj, DateUtils, FileInfo
   {$IFDEF LGP_ENABLE_LIBXML2}
-  , xml2dyn
+  , xml2dyn, lgLibXML2
   {$ENDIF}
   {$IFDEF WINDOWS}
   , winpeimagereader
@@ -121,6 +121,8 @@ begin
         LGP_CLSTYPE_XML_READER: LGPDrivers[AClassType] := XMLReaderClasses.GetNames;
         LGP_CLSTYPE_XML_C14N: LGPDrivers[AClassType] := XMLCanonizatorClasses.GetNames;
         LGP_CLSTYPE_EDEK_GATE: LGPDrivers[AClassType] := EDekGateClasses.GetNames;
+        LGP_CLSTYPE_XML_VALIDATOR: LGPDrivers[AClassType] := XMLValidatorClasses.GetNames;
+        LGP_CLSTYPE_XML_XSLT: LGPDrivers[AClassType] := XMLXSLTClasses.GetNames;
       end;
     Result := PChar(LGPDrivers[AClassType]);
   end
@@ -144,6 +146,8 @@ begin
     LGP_CLSTYPE_XML_READER: Result := XMLReaderClasses.Count;
     LGP_CLSTYPE_XML_C14N: Result := XMLCanonizatorClasses.Count;
     LGP_CLSTYPE_EDEK_GATE: Result := EDekGateClasses.Count;
+    LGP_CLSTYPE_XML_VALIDATOR: Result := XMLValidatorClasses.Count;
+    LGP_CLSTYPE_XML_XSLT: Result := XMLXSLTClasses.Count
     else Result := 0;
   end;
 end;
@@ -168,6 +172,8 @@ begin
       LGP_CLSTYPE_XML_READER: C := XMLReaderClasses[ADriverIndex];
       LGP_CLSTYPE_XML_C14N: C := XMLCanonizatorClasses[ADriverIndex];
       LGP_CLSTYPE_EDEK_GATE: C := EDekGateClasses[ADriverIndex];
+      LGP_CLSTYPE_XML_VALIDATOR: C := XMLValidatorClasses[ADriverIndex];
+      LGP_CLSTYPE_XML_XSLT: C := XMLXSLTClasses[ADriverIndex];
       else C := nil;
     end;
   except
@@ -195,8 +201,7 @@ begin
   //{$endif}
   lgpFreeKSeFClasses;
   {$IFDEF LGP_ENABLE_LIBXML2}
-  if libXmlHandle <> 0 then
-    xmlCleanupParser();
+  lgLibXml2Done;
   {$ENDIF}
   {$IFDEF LGP_DEBUG_OBJ}
   lgpDbgObjectListDone;
@@ -223,6 +228,8 @@ begin
       LGP_CLSTYPE_XML_READER: XMLReaderClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_XML_C14N: XMLCanonizatorClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_EDEK_GATE: EDekGateClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_XML_VALIDATOR: XMLValidatorClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_XML_XSLT: XMLXSLTClasses.SetDefault(ADriverName);
     end
   else
     Result := 1;

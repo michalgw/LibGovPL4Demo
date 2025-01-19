@@ -1,0 +1,84 @@
+object Form3: TForm3
+  Left = 257
+  Height = 116
+  Top = 114
+  Width = 490
+  Caption = 'Dodaj schema/szablon'
+  ClientHeight = 116
+  ClientWidth = 490
+  Position = poOwnerFormCenter
+  LCLVersion = '3.7.0.0'
+  object Label1: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = EditNS
+    AnchorSideTop.Side = asrCenter
+    Left = 8
+    Height = 15
+    Top = 12
+    Width = 154
+    BorderSpacing.Around = 8
+    Caption = 'Przestrzeń nazw (namespace)'
+  end
+  object Label2: TLabel
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = FileNameEditRes
+    AnchorSideTop.Side = asrCenter
+    Left = 8
+    Height = 15
+    Top = 43
+    Width = 103
+    BorderSpacing.Around = 8
+    Caption = 'Plik lub URL zasobu'
+  end
+  object EditNS: TEdit
+    AnchorSideLeft.Control = Label1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 170
+    Height = 23
+    Top = 8
+    Width = 312
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    TabOrder = 0
+    Text = 'http://'
+  end
+  object FileNameEditRes: TFileNameEdit
+    AnchorSideLeft.Control = Label2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideTop.Control = EditNS
+    AnchorSideTop.Side = asrBottom
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 119
+    Height = 23
+    Top = 39
+    Width = 363
+    FilterIndex = 0
+    HideDirectories = False
+    ButtonWidth = 23
+    NumGlyphs = 1
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Around = 8
+    MaxLength = 0
+    TabOrder = 1
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 76
+    Width = 478
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 2
+    ShowButtons = [pbOK, pbCancel]
+  end
+end

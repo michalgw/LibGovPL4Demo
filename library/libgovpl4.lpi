@@ -384,6 +384,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uPKCS11"/>
       </Unit>
+      <Unit>
+        <Filename Value="uxml.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uXML"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

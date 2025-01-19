@@ -44,6 +44,10 @@ library LibGovPL
   interface IlgcKSeFResponse;
   interface IlgcKSeFBase;
   interface IlgcKSeF_2_6_0;
+  interface IlgcXMLReader;
+  interface IlgcXMLValidationError;
+  interface IlgcXMLValidator;
+  interface IlgcXMLXSLTransformation;
   coclass lgcErrorInfo;
   coclass lgcBaseObject;
   coclass lgcBackend;
@@ -73,6 +77,10 @@ library LibGovPL
   coclass lgcKSeFResponse;
   coclass lgcKSeFBase;
   coclass lgcKSeF_2_6_0;
+  coclass lgcXMLReader;
+  coclass lgcXMLValidationError;
+  coclass lgcXMLValidator;
+  coclass lgcXMLXSLTransformation;
 
 /// \endcond
 
@@ -97,7 +105,9 @@ library LibGovPL
     lgcCTZipper = 9,            ///< Kompresor ZIP.
     lgcCTXMLReader = 10,        ///< Czytnik XML.
     lgcCTXMLC14N = 11,          ///< Konwersja XML do postaci kanonicznej.
-    lgcCTEdekGate = 12          ///< Obsługa bramki e-deklaracji.
+    lgcCTEdekGate = 12,         ///< Obsługa bramki e-deklaracji.
+    lgcCTXMLValidator = 13,     ///< Walidacja XML
+    lgcCTXMLXSLT = 14           ///< Transformacja XSLT
   };
 
   ///
@@ -434,6 +444,15 @@ library LibGovPL
     [id(2014),
     helpstring("Tworzenie instancji obiektu obslugi KSeF")]
     HRESULT _stdcall CreateKSeF([out, retval] IDispatch** NewObject);
+
+    [id(2015)]
+    HRESULT _stdcall CreateXMLReader([in] BSTR ClsName, [in] VARIANT Source, [out, retval] IDispatch** NewObject);
+
+    [id(2016)]
+    HRESULT _stdcall CreateXMLValidator([in] BSTR ClsName, [out, retval] IDispatch** NewObj);
+
+    [id(2017)]
+    HRESULT _stdcall CreateXMLXSLTranformation([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
   };
 
   ///
@@ -520,13 +539,31 @@ library LibGovPL
   ]
   interface IlgcLibXMLBackend: IlgcBaseObject
   {
+    [id(5001)]
+    HRESULT _stdcall LibXMLLoaded([out, retval] VARIANT_BOOL* Value);
+    [id(5002)]
+    HRESULT _stdcall LibXSLTLoaded([out, retval] VARIANT_BOOL* Value);    
     ///
     /// Załadowanie biblioteki LibXML2 ze wskazanej lokalizacji.
     /// @param LibFileName nazwa pliku biblioteki LibXML2 (libxml2.dll).
     ///
-    [id(5001),
+    [id(5003),
     helpstring("Ladowanie blblioteki libxml ze wskazanego pliku")]
-    HRESULT _stdcall LoadLibXML([in] BSTR LibFileName);
+    HRESULT _stdcall LoadLibXML([in] BSTR LibFileName, [out, retval] VARIANT_BOOL* Success);
+    [id(5004)]
+    HRESULT _stdcall LoadLibXSLT([in] BSTR LibXSLTFileName, [in] BSTR LibEXSLTFileName, [out, retval] VARIANT_BOOL* Success);
+    [propget, id(5005)]
+    HRESULT _stdcall CacheExternals([out, retval] VARIANT_BOOL* Value);
+    [propput, id(5005)]
+    HRESULT _stdcall CacheExternals([in] VARIANT_BOOL Value);
+    [propget, id(5006)]
+    HRESULT _stdcall CacheDir([out, retval] BSTR* Value);
+    [propput, id(5006)]
+    HRESULT _stdcall CacheDir([in] BSTR Value);
+    [propget, id(5007)]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [propput, id(5007)]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
   }
 
   ///
@@ -720,7 +757,7 @@ library LibGovPL
     ///
     /// Utworzenie enumeratora typu IEnumVARIANT.
     ///
-    [restricted, id(DISPID_NEWENUM),
+    [restricted, id(DISPID_NEWENUM), propget,
     helpstring("Utworzenie nowego enumaratora implementujacego IEnumVARIANT")]
     HRESULT _stdcall _NewEnum([out, retval] IUnknown** NwEnum);
 
@@ -2396,6 +2433,67 @@ library LibGovPL
     HRESULT _stdcall BatchSend([in] VARIANT PartStream, [in] BSTR InitUpload, [out, retval] BSTR* Result);
   }
 
+  [
+    uuid(58a611b0-0289-43f6-8452-e4513a68c6a0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcXMLReader: IlgcBaseObject
+  {
+    [id(30001)]
+    HRESULT _stdcall SimpleReadValue([in] BSTR XPath, [out, retval] BSTR* Value);
+
+    [id(30002)]
+    HRESULT _stdcall ReadValue([in] BSTR XPatch, [out] BSTR* Value, [out, retval] VARIANT_BOOL* Found);
+  }
+
+  [
+    uuid(87bd38c1-4a49-44a1-91a0-90a41f3008fa),
+    dual,
+    oleautomation
+  ]
+  interface IlgcXMLValidationError: IlgcBaseObject
+  {
+    [propget, id(31001)]
+    HRESULT _stdcall ErrorCode([out, retval] long* Value);
+    [propget, id(31002)]
+    HRESULT _stdcall Message([out, retval] BSTR* Value);
+    [propget, id(31003)]
+    HRESULT _stdcall Line([out, retval] long* Value);
+    [propget, id(31004)]
+    HRESULT _stdcall Path([out, retval] BSTR* Value);
+    [propget, id(31005)]
+    HRESULT _stdcall SimplePath([out, retval] BSTR* Value);
+  }
+
+  [
+    uuid(dbf692fb-d430-4214-abca-69903927b349),
+    dual,
+    oleautomation
+  ]
+  interface IlgcXMLValidator: IlgcBaseObject
+  {
+    [id(32001)]
+    HRESULT _stdcall AddSchema([in] BSTR NameSpace, [in] VARIANT Source);
+    [id(32002)]
+    HRESULT _stdcall Validate([in] VARIANT Source, [out, retval] IDispatch** Errors);
+    [id(32003)]
+    HRESULT _stdcall Validate2([in] VARIANT Source, [out] IDIspatch** Errors, [out, retval] VARIANT_BOOL* IsValid);
+  }
+
+  [
+    uuid(0a7f7305-fb5c-40fe-a1e9-8408d6c45b1c),
+    dual,
+    oleautomation
+  ]
+  interface IlgcXMLXSLTransformation: IlgcBaseObject
+  {
+    [id(33001)]
+    HRESULT _stdcall AddStyle([in] BSTR NameSpace, [in] VARIANT Source);
+    [id(33002)]
+    HRESULT _stdcall Transform([in] VARIANT Source, [in] VARIANT OutStream);
+  }
+
 /// \cond
 
   [
@@ -2666,6 +2764,42 @@ library LibGovPL
   coclass lgcKSeF_2_6_0
   {
     [default] interface IlgcKSeF_2_6_0;
+  }
+
+  [
+    uuid(aa86db95-050e-4ef1-b52e-a61c9e207c03),
+    version(1.0)
+  ]
+  coclass lgcXMLReader
+  {
+    [default] interface IlgcXMLReader;
+  }
+
+  [
+    uuid(98197903-7883-41ee-bb4f-92249cce89e4),
+    version(1.0)
+  ]
+  coclass lgcXMLValidationError
+  {
+    [default] interface IlgcXMLValidationError;
+  }
+
+  [
+    uuid(4d41d696-5f71-4d88-839b-70a76dfac1ae),
+    version(1.0)
+  ]
+  coclass lgcXMLValidator
+  {
+    [default] interface IlgcXMLValidator;
+  }
+
+  [
+    uuid(94e6cc10-1eaa-406c-84e5-02c42da06ea3),
+    version(1.0)
+  ]
+  coclass lgcXMLXSLTransformation
+  {
+    [default] interface IlgcXMLXSLTransformation;
   }
 
 /// \endcond

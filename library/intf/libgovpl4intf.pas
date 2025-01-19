@@ -71,8 +71,10 @@ const
   LGP_CLSTYPE_XML_READER     = 10;
   LGP_CLSTYPE_XML_C14N       = 11;
   LGP_CLSTYPE_EDEK_GATE      = 12;
+  LGP_CLSTYPE_XML_VALIDATOR  = 13;
+  LGP_CLSTYPE_XML_XSLT       = 14;
 
-  LGP_CLSTYPE_MAX = LGP_CLSTYPE_EDEK_GATE;
+  LGP_CLSTYPE_MAX = LGP_CLSTYPE_XML_XSLT;
 
   LGP_XADES_SHA1 = 1;
   LGP_XADES_SHA256 = 2;
@@ -218,6 +220,35 @@ function lgpStream_Write(AStream: LGP_OBJECT; AData: LGP_POINTER; ADataSize: LGP
 function lgpWST_RegisterTransport: LGP_EXCEPTiON; stdcall; external LGP_LIBNAME;
 function lgpWST_GetHTTPClient(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpWST_SetHTTPClient(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+// XML
+function lgpXMLReader_CreateFromFile(AClassName: LGP_PCHAR; AFileName: LGP_PCHAR; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLReader_CreateFromStream(AClassName: LGP_PCHAR; AStream: LGP_OBJECT; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLReader_CreateFromString(AClassName: LGP_PCHAR; AString: LGP_PCHAR; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLReader_ReadValue(AReader: LGP_OBJECT; AXPath: LGP_PCHAR; var AValue: LGP_OBJECT; var AFound: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpXMLValidator_Create(AClassName: LGP_PCHAR; var AValidator: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLValidator_AddSchemaLocation(AValidator: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLValidator_AddSchemaReader(AValidator: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLValidator_ClearSchemas(AValidator: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLValidator_Validate(AValidator: LGP_OBJECT; AXMLDoc: LGP_OBJECT; var AErrors: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpXMLXSLTransformation_Create(AClassName: LGP_PCHAR; var ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLXSLTransformation_AddStyleLocation(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLXSLTransformation_AddStyleReader(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLXSLTransformation_ClearStyles(ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpLibXML2Backend_LibXMLLoaded: LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_LibXSLTLoaded: LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_LoadLibXML(ALibXML: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_LoadLibXSLT(ALibXSLT, ALibEXSLT: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_GetCacheExternals: LGP_INT32; stdcall; external LGP_LIBNAME;
+procedure lgpLibXML2Backend_SetCacheExternals(AValue: LGP_INT32); stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_GetCacheDir: LGP_PCHAR; stdcall; external LGP_LIBNAME;
+procedure lgpLibXML2Backend_SetCacheDir(AValue: LGP_PCHAR); stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_GetHTTPClient: LGP_OBJECT; stdcall; external LGP_LIBNAME;
+function lgpLibXML2Backend_SetHTTPClient(AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 {$IFDEF LGP_ENABLE_PKCS11}
 // PKCS#11
@@ -550,6 +581,35 @@ var
   lgpWST_RegisterTransport: function: LGP_EXCEPTiON; stdcall;
   lgpWST_GetHTTPClient: function(var AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpWST_SetHTTPClient: function(AHTTPClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  // XML
+  lgpXMLReader_CreateFromFile: function(AClassName: LGP_PCHAR; AFileName: LGP_PCHAR; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLReader_CreateFromStream: function(AClassName: LGP_PCHAR; AStream: LGP_OBJECT; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLReader_CreateFromString: function(AClassName: LGP_PCHAR; AString: LGP_PCHAR; var AReader: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLReader_ReadValue: function(AReader: LGP_OBJECT; AXPath: LGP_PCHAR; var AValue: LGP_OBJECT; var AFound: LGP_INT32): LGP_EXCEPTION; stdcall;
+
+  lgpXMLValidator_Create: function(AClassName: LGP_PCHAR; var AValidator: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLValidator_AddSchemaLocation: function(AValidator: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXMLValidator_AddSchemaReader: function(AValidator: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLValidator_ClearSchemas: function(AValidator: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLValidator_Validate: function(AValidator: LGP_OBJECT; AXMLDoc: LGP_OBJECT; var AErrors: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpXMLXSLTransformation_Create: function(AClassName: LGP_PCHAR; var ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLXSLTransformation_AddStyleLocation: function(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpXMLXSLTransformation_AddStyleReader: function(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLXSLTransformation_ClearStyles: function(ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLXSLTransformation_Transform: function (ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpLibXML2Backend_LibXMLLoaded: function: LGP_INT32; stdcall;
+  lgpLibXML2Backend_LibXSLTLoaded: function: LGP_INT32; stdcall;
+  lgpLibXML2Backend_LoadLibXML: function(ALibXML: LGP_PCHAR): LGP_INT32; stdcall;
+  lgpLibXML2Backend_LoadLibXSLT: function(ALibXSLT, ALibEXSLT: LGP_PCHAR): LGP_INT32; stdcall;
+  lgpLibXML2Backend_GetCacheExternals: function: LGP_INT32; stdcall;
+  lgpLibXML2Backend_SetCacheExternals: procedure(AValue: LGP_INT32);
+  lgpLibXML2Backend_GetCacheDir: function: LGP_PCHAR; stdcall;
+  lgpLibXML2Backend_SetCacheDir: procedure(AValue: LGP_PCHAR); stdcall;
+  lgpLibXML2Backend_GetHTTPClient: function: LGP_OBJECT; stdcall;
+  lgpLibXML2Backend_SetHTTPClient: function(AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   {$IFDEF LGP_ENABLE_PKCS11}
   // PKCS#11
@@ -915,6 +975,35 @@ begin
     @lgpWST_RegisterTransport := GetProcAddress(LibGovPl4Handle, 'lgpWST_RegisterTransport');
     @lgpWST_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_GetHTTPClient');
     @lgpWST_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpWST_SetHTTPClient');
+
+    // XML
+    @lgpXMLReader_CreateFromFile := GetProcAddress(LibGovPl4Handle, 'lgpXMLReader_CreateFromFile');
+    @lgpXMLReader_CreateFromStream := GetProcAddress(LibGovPl4Handle, 'lgpXMLReader_CreateFromStream');
+    @lgpXMLReader_CreateFromString := GetProcAddress(LibGovPl4Handle, 'lgpXMLReader_CreateFromString');
+    @lgpXMLReader_ReadValue := GetProcAddress(LibGovPl4Handle, 'lgpXMLReader_ReadValue');
+
+    @lgpXMLValidator_Create := GetProcAddress(LibGovPl4Handle, 'lgpXMLValidator_Create');
+    @lgpXMLValidator_AddSchemaLocation := GetProcAddress(LibGovPl4Handle, 'lgpXMLValidator_AddSchemaLocation');
+    @lgpXMLValidator_AddSchemaReader := GetProcAddress(LibGovPl4Handle, 'lgpXMLValidator_AddSchemaReader');
+    @lgpXMLValidator_ClearSchemas := GetProcAddress(LibGovPl4Handle, 'lgpXMLValidator_ClearSchemas');
+    @lgpXMLValidator_Validate := GetProcAddress(LibGovPl4Handle, 'lgpXMLValidator_Validate');
+
+    @lgpXMLXSLTransformation_Create := GetProcAddress(LibGovPl4Handle, 'lgpXMLXSLTransformation_Create');
+    @lgpXMLXSLTransformation_AddStyleLocation := GetProcAddress(LibGovPl4Handle, 'lgpXMLXSLTransformation_AddStyleLocation');
+    @lgpXMLXSLTransformation_AddStyleReader := GetProcAddress(LibGovPl4Handle, 'lgpXMLXSLTransformation_AddStyleReader');
+    @lgpXMLXSLTransformation_ClearStyles := GetProcAddress(LibGovPl4Handle, 'lgpXMLXSLTransformation_ClearStyles');
+    @lgpXMLXSLTransformation_Transform := GetProcAddress(LibGovPl4Handle, 'lgpXMLXSLTransformation_Transform');
+
+    @lgpLibXML2Backend_LibXMLLoaded := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_LibXMLLoaded');
+    @lgpLibXML2Backend_LibXSLTLoaded := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_LibXSLTLoaded');
+    @lgpLibXML2Backend_LoadLibXML := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_LoadLibXML');
+    @lgpLibXML2Backend_LoadLibXSLT := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_LoadLibXSLT');
+    @lgpLibXML2Backend_GetCacheExternals := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_GetCacheExternals');
+    @lgpLibXML2Backend_SetCacheExternals := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_SetCacheExternals');
+    @lgpLibXML2Backend_GetCacheDir := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_GetCacheDir');
+    @lgpLibXML2Backend_SetCacheDir := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_SetCacheDir');
+    @lgpLibXML2Backend_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_GetHTTPClient');
+    @lgpLibXML2Backend_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_SetHTTPClient');
 
     {$IFDEF LGP_ENABLE_PKCS11}
     // PKCS#11

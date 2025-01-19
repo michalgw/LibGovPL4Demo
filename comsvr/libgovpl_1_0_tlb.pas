@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2024-12-04 18:01:11 from D:\lazarus-projekty\libgovpl4demo\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2025-01-19 20:23:02 from D:\lazarus-projekty\libgovpl4demo\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -242,6 +242,38 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeF_2_6_0disp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF_2_6_0disp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF_2_6_0disp.Invoke
+//  Warning: 'GUID' not automatable in IlgcXMLReaderdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLReaderdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLReaderdisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcXMLReaderdisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcXMLReaderdisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcXMLReaderdisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcXMLReaderdisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcXMLReaderdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcXMLValidationErrordisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLValidationErrordisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLValidationErrordisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcXMLValidationErrordisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcXMLValidationErrordisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcXMLValidationErrordisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcXMLValidationErrordisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcXMLValidationErrordisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcXMLValidatordisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLValidatordisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLValidatordisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcXMLValidatordisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcXMLValidatordisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcXMLValidatordisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcXMLValidatordisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcXMLValidatordisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcXMLXSLTransformationdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLXSLTransformationdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcXMLXSLTransformationdisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcXMLXSLTransformationdisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcXMLXSLTransformationdisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcXMLXSLTransformationdisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcXMLXSLTransformationdisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcXMLXSLTransformationdisp.Invoke
 //  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.GetTypeInfo
@@ -287,6 +319,10 @@ Const
   IID_IlgcKSeFResponse : TGUID = '{9ED3DF16-92DA-4EDC-BC63-FC17CDDF9BDC}';
   IID_IlgcKSeFBase : TGUID = '{452578AC-F2AE-4771-9FCF-5F4DC66021CD}';
   IID_IlgcKSeF_2_6_0 : TGUID = '{C44AAC54-CE22-421C-B159-B864DF2EB753}';
+  IID_IlgcXMLReader : TGUID = '{58A611B0-0289-43F6-8452-E4513A68C6A0}';
+  IID_IlgcXMLValidationError : TGUID = '{87BD38C1-4A49-44A1-91A0-90A41F3008FA}';
+  IID_IlgcXMLValidator : TGUID = '{DBF692FB-D430-4214-ABCA-69903927B349}';
+  IID_IlgcXMLXSLTransformation : TGUID = '{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}';
   IID_IlgcMemoryStream : TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   CLASS_lgcErrorInfo : TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject : TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
@@ -318,6 +354,10 @@ Const
   CLASS_lgcKSeFResponse : TGUID = '{A6040209-EA0A-4861-A425-B0B486CFE55B}';
   CLASS_lgcKSeFBase : TGUID = '{15C1BB69-A675-48E5-A7E8-FDF9BCBA50A8}';
   CLASS_lgcKSeF_2_6_0 : TGUID = '{448AC566-E8A4-4560-B717-6CB3526EFC49}';
+  CLASS_lgcXMLReader : TGUID = '{AA86DB95-050E-4EF1-B52E-A61C9E207C03}';
+  CLASS_lgcXMLValidationError : TGUID = '{98197903-7883-41EE-BB4F-92249CCE89E4}';
+  CLASS_lgcXMLValidator : TGUID = '{4D41D696-5F71-4D88-839B-70A76DFAC1AE}';
+  CLASS_lgcXMLXSLTransformation : TGUID = '{94E6CC10-1EAA-406C-84E5-02C42DA06EA3}';
 
 //Enums
 
@@ -337,6 +377,8 @@ Const
   lgcCTXMLReader = $000000000000000A;
   lgcCTXMLC14N = $000000000000000B;
   lgcCTEdekGate = $000000000000000C;
+  lgcCTXMLValidator = $000000000000000D;
+  lgcCTXMLXSLT = $000000000000000E;
 Type
   lgcPropertyType =LongWord;
 Const
@@ -474,6 +516,14 @@ Type
  IlgcKSeFBaseDisp = dispinterface;
  IlgcKSeF_2_6_0 = interface;
  IlgcKSeF_2_6_0Disp = dispinterface;
+ IlgcXMLReader = interface;
+ IlgcXMLReaderDisp = dispinterface;
+ IlgcXMLValidationError = interface;
+ IlgcXMLValidationErrorDisp = dispinterface;
+ IlgcXMLValidator = interface;
+ IlgcXMLValidatorDisp = dispinterface;
+ IlgcXMLXSLTransformation = interface;
+ IlgcXMLXSLTransformationDisp = dispinterface;
  IlgcMemoryStream = interface;
  IlgcMemoryStreamDisp = dispinterface;
 
@@ -509,6 +559,10 @@ Type
  lgcKSeFResponse = IlgcKSeFResponse;
  lgcKSeFBase = IlgcKSeFBase;
  lgcKSeF_2_6_0 = IlgcKSeF_2_6_0;
+ lgcXMLReader = IlgcXMLReader;
+ lgcXMLValidationError = IlgcXMLValidationError;
+ lgcXMLValidator = IlgcXMLValidator;
+ lgcXMLXSLTransformation = IlgcXMLXSLTransformation;
 
 //records, unions, aliases
 
@@ -636,6 +690,12 @@ Type
    function CreateJPK:IDispatch;safecall;
     // CreateKSeF : Tworzenie instancji obiektu obslugi KSeF 
    function CreateKSeF:IDispatch;safecall;
+    // CreateXMLReader :  
+   function CreateXMLReader(ClsName:WideString;Source:OleVariant):IDispatch;safecall;
+    // CreateXMLValidator :  
+   function CreateXMLValidator(ClsName:WideString):IDispatch;safecall;
+    // CreateXMLXSLTranformation :  
+   function CreateXMLXSLTranformation(ClsName:WideString):IDispatch;safecall;
   end;
 
 
@@ -689,6 +749,12 @@ Type
    function CreateJPK:IDispatch;dispid 2013;
     // CreateKSeF : Tworzenie instancji obiektu obslugi KSeF 
    function CreateKSeF:IDispatch;dispid 2014;
+    // CreateXMLReader :  
+   function CreateXMLReader(ClsName:WideString;Source:OleVariant):IDispatch;dispid 2015;
+    // CreateXMLValidator :  
+   function CreateXMLValidator(ClsName:WideString):IDispatch;dispid 2016;
+    // CreateXMLXSLTranformation :  
+   function CreateXMLXSLTranformation(ClsName:WideString):IDispatch;dispid 2017;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
   end;
@@ -742,8 +808,26 @@ Type
 
  IlgcLibXMLBackend = interface(IlgcBaseObject)
    ['{D87A7A97-38CD-4172-92B0-5AA97BECB494}']
+    // LibXMLLoaded :  
+   function LibXMLLoaded:WordBool;safecall;
+    // LibXSLTLoaded :  
+   function LibXSLTLoaded:WordBool;safecall;
     // LoadLibXML : Ladowanie blblioteki libxml ze wskazanego pliku 
-   procedure LoadLibXML(LibFileName:WideString);safecall;
+   function LoadLibXML(LibFileName:WideString):WordBool;safecall;
+    // LoadLibXSLT :  
+   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString):WordBool;safecall;
+   function Get_CacheExternals : WordBool; safecall;
+   procedure Set_CacheExternals(const Value:WordBool); safecall;
+   function Get_CacheDir : WideString; safecall;
+   procedure Set_CacheDir(const Value:WideString); safecall;
+   function Get_HTTPClient : IDispatch; safecall;
+   procedure Set_HTTPClient(const Value:IDispatch); safecall;
+    // CacheExternals :  
+   property CacheExternals:WordBool read Get_CacheExternals write Set_CacheExternals;
+    // CacheDir :  
+   property CacheDir:WideString read Get_CacheDir write Set_CacheDir;
+    // HTTPClient :  
+   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
   end;
 
 
@@ -769,10 +853,22 @@ Type
    function GetObjClassName:WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
+    // LibXMLLoaded :  
+   function LibXMLLoaded:WordBool;dispid 5001;
+    // LibXSLTLoaded :  
+   function LibXSLTLoaded:WordBool;dispid 5002;
     // LoadLibXML : Ladowanie blblioteki libxml ze wskazanego pliku 
-   procedure LoadLibXML(LibFileName:WideString);dispid 5001;
+   function LoadLibXML(LibFileName:WideString):WordBool;dispid 5003;
+    // LoadLibXSLT :  
+   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString):WordBool;dispid 5004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
+    // CacheExternals :  
+   property CacheExternals:WordBool dispid 5005;
+    // CacheDir :  
+   property CacheDir:WideString dispid 5006;
+    // HTTPClient :  
+   property HTTPClient:IDispatch dispid 5007;
   end;
 
 
@@ -925,14 +1021,15 @@ Type
    procedure Remove(Index:OleVariant);safecall;
    function Get_Count : Integer; safecall;
    function Get_Item(Index:OleVariant) : OleVariant; safecall;
-    // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
-   function _NewEnum:IUnknown;safecall;
+   function Get__NewEnum : IUnknown; safecall;
     // Delete : Usuniecie danego elementu 
    procedure Delete(ObjIndex:Integer);safecall;
     // Count : Zwraca liczbe elementow listy 
    property Count:Integer read Get_Count;
     // Item : Pobranie wskazanego elementu listy 
    property Item[Index:OleVariant]:OleVariant read Get_Item; default;
+    // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
+   property _NewEnum:IUnknown read Get__NewEnum;
   end;
 
 
@@ -962,8 +1059,6 @@ Type
    procedure Add(Item:OleVariant;Key:OleVariant);dispid 1;
     // Remove : Usuniecie elementu z listy 
    procedure Remove(Index:OleVariant);dispid 2;
-    // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
-   function _NewEnum:IUnknown;dispid -4;
     // Delete : Usuniecie danego elementu 
    procedure Delete(ObjIndex:Integer);dispid 8001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
@@ -972,6 +1067,8 @@ Type
    property Count:Integer  readonly dispid 3;
     // Item : Pobranie wskazanego elementu listy 
    property Item[Index:OleVariant]:OleVariant  readonly dispid 0; default;
+    // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
+   property _NewEnum:IUnknown  readonly dispid -4;
   end;
 
 
@@ -2733,6 +2830,195 @@ Type
   end;
 
 
+// IlgcXMLReader : 
+
+ IlgcXMLReader = interface(IlgcBaseObject)
+   ['{58A611B0-0289-43F6-8452-E4513A68C6A0}']
+    // SimpleReadValue :  
+   function SimpleReadValue(XPath:WideString):WideString;safecall;
+    // ReadValue :  
+   function ReadValue(XPatch:WideString;out Value:WideString):WordBool;safecall;
+  end;
+
+
+// IlgcXMLReader : 
+
+ IlgcXMLReaderDisp = dispinterface
+   ['{58A611B0-0289-43F6-8452-E4513A68C6A0}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // SimpleReadValue :  
+   function SimpleReadValue(XPath:WideString):WideString;dispid 30001;
+    // ReadValue :  
+   function ReadValue(XPatch:WideString;out Value:WideString):WordBool;dispid 30002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
+// IlgcXMLValidationError : 
+
+ IlgcXMLValidationError = interface(IlgcBaseObject)
+   ['{87BD38C1-4A49-44A1-91A0-90A41F3008FA}']
+   function Get_ErrorCode : Integer; safecall;
+   function Get_Message : WideString; safecall;
+   function Get_Line : Integer; safecall;
+   function Get_Path : WideString; safecall;
+   function Get_SimplePath : WideString; safecall;
+    // ErrorCode :  
+   property ErrorCode:Integer read Get_ErrorCode;
+    // Message :  
+   property Message:WideString read Get_Message;
+    // Line :  
+   property Line:Integer read Get_Line;
+    // Path :  
+   property Path:WideString read Get_Path;
+    // SimplePath :  
+   property SimplePath:WideString read Get_SimplePath;
+  end;
+
+
+// IlgcXMLValidationError : 
+
+ IlgcXMLValidationErrorDisp = dispinterface
+   ['{87BD38C1-4A49-44A1-91A0-90A41F3008FA}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // ErrorCode :  
+   property ErrorCode:Integer  readonly dispid 31001;
+    // Message :  
+   property Message:WideString  readonly dispid 31002;
+    // Line :  
+   property Line:Integer  readonly dispid 31003;
+    // Path :  
+   property Path:WideString  readonly dispid 31004;
+    // SimplePath :  
+   property SimplePath:WideString  readonly dispid 31005;
+  end;
+
+
+// IlgcXMLValidator : 
+
+ IlgcXMLValidator = interface(IlgcBaseObject)
+   ['{DBF692FB-D430-4214-ABCA-69903927B349}']
+    // AddSchema :  
+   procedure AddSchema(NameSpace:WideString;Source:OleVariant);safecall;
+    // Validate :  
+   function Validate(Source:OleVariant):IDispatch;safecall;
+    // Validate2 :  
+   function Validate2(Source:OleVariant;out Errors:IDispatch):WordBool;safecall;
+  end;
+
+
+// IlgcXMLValidator : 
+
+ IlgcXMLValidatorDisp = dispinterface
+   ['{DBF692FB-D430-4214-ABCA-69903927B349}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // AddSchema :  
+   procedure AddSchema(NameSpace:WideString;Source:OleVariant);dispid 32001;
+    // Validate :  
+   function Validate(Source:OleVariant):IDispatch;dispid 32002;
+    // Validate2 :  
+   function Validate2(Source:OleVariant;out Errors:IDispatch):WordBool;dispid 32003;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
+// IlgcXMLXSLTransformation : 
+
+ IlgcXMLXSLTransformation = interface(IlgcBaseObject)
+   ['{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}']
+    // AddStyle :  
+   procedure AddStyle(NameSpace:WideString;Source:OleVariant);safecall;
+    // Transform :  
+   procedure Transform(Source:OleVariant;OutStream:OleVariant);safecall;
+  end;
+
+
+// IlgcXMLXSLTransformation : 
+
+ IlgcXMLXSLTransformationDisp = dispinterface
+   ['{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // AddStyle :  
+   procedure AddStyle(NameSpace:WideString;Source:OleVariant);dispid 33001;
+    // Transform :  
+   procedure Transform(Source:OleVariant;OutStream:OleVariant);dispid 33002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
 // IlgcMemoryStream : Obiekt implementujacy IStream na podstawie bufora w pamieci
 
  IlgcMemoryStream = interface(IlgcBaseObject)
@@ -2963,6 +3249,30 @@ Type
   Public
     Class Function Create: IlgcKSeF_2_6_0;
     Class Function CreateRemote(const MachineName: string): IlgcKSeF_2_6_0;
+  end;
+
+  ColgcXMLReader = Class
+  Public
+    Class Function Create: IlgcXMLReader;
+    Class Function CreateRemote(const MachineName: string): IlgcXMLReader;
+  end;
+
+  ColgcXMLValidationError = Class
+  Public
+    Class Function Create: IlgcXMLValidationError;
+    Class Function CreateRemote(const MachineName: string): IlgcXMLValidationError;
+  end;
+
+  ColgcXMLValidator = Class
+  Public
+    Class Function Create: IlgcXMLValidator;
+    Class Function CreateRemote(const MachineName: string): IlgcXMLValidator;
+  end;
+
+  ColgcXMLXSLTransformation = Class
+  Public
+    Class Function Create: IlgcXMLXSLTransformation;
+    Class Function CreateRemote(const MachineName: string): IlgcXMLXSLTransformation;
   end;
 
 implementation
@@ -3267,6 +3577,46 @@ end;
 Class Function ColgcKSeF_2_6_0.CreateRemote(const MachineName: string): IlgcKSeF_2_6_0;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF_2_6_0) as IlgcKSeF_2_6_0;
+end;
+
+Class Function ColgcXMLReader.Create: IlgcXMLReader;
+begin
+  Result := CreateComObject(CLASS_lgcXMLReader) as IlgcXMLReader;
+end;
+
+Class Function ColgcXMLReader.CreateRemote(const MachineName: string): IlgcXMLReader;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLReader) as IlgcXMLReader;
+end;
+
+Class Function ColgcXMLValidationError.Create: IlgcXMLValidationError;
+begin
+  Result := CreateComObject(CLASS_lgcXMLValidationError) as IlgcXMLValidationError;
+end;
+
+Class Function ColgcXMLValidationError.CreateRemote(const MachineName: string): IlgcXMLValidationError;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLValidationError) as IlgcXMLValidationError;
+end;
+
+Class Function ColgcXMLValidator.Create: IlgcXMLValidator;
+begin
+  Result := CreateComObject(CLASS_lgcXMLValidator) as IlgcXMLValidator;
+end;
+
+Class Function ColgcXMLValidator.CreateRemote(const MachineName: string): IlgcXMLValidator;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLValidator) as IlgcXMLValidator;
+end;
+
+Class Function ColgcXMLXSLTransformation.Create: IlgcXMLXSLTransformation;
+begin
+  Result := CreateComObject(CLASS_lgcXMLXSLTransformation) as IlgcXMLXSLTransformation;
+end;
+
+Class Function ColgcXMLXSLTransformation.CreateRemote(const MachineName: string): IlgcXMLXSLTransformation;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLXSLTransformation) as IlgcXMLXSLTransformation;
 end;
 
 end.

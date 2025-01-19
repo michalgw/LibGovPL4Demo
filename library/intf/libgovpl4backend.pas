@@ -48,6 +48,8 @@ type
     class function XMLReaderClasses: TlgoUTF8StringArray;
     class function ZipperClasses: TlgoUTF8StringArray;
     class function RSAEncryptClasses: TlgoUTF8StringArray;
+    class function XMLValidatorClasses: TlgoUTF8StringArray;
+    class function XMLXSLTClasses: TlgoUTF8StringArray;
   end;
 
   TlgoEDekGateType = (egtProduction, egtTest);
@@ -1471,6 +1473,16 @@ end;
 class function TlgoBackend.RSAEncryptClasses: TlgoUTF8StringArray;
 begin
   Result := ListDrivers(LGP_CLSTYPE_RSA_ENC);
+end;
+
+class function TlgoBackend.XMLValidatorClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_XML_VALIDATOR);
+end;
+
+class function TlgoBackend.XMLXSLTClasses: TlgoUTF8StringArray;
+begin
+  Result := ListDrivers(LGP_CLSTYPE_XML_XSLT);
 end;
 
 { TlgoHTTPClient }

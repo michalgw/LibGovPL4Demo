@@ -14,6 +14,10 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonXMLVerAdd: TButton;
+    ButtonXMLTransAdd: TButton;
+    ButtonXMLTrans: TButton;
+    ButtonXMLVer: TButton;
     ButtonPKCS11SesClose: TButton;
     ButtonPKCS11SesInfo: TButton;
     ButtonPKCS11SesLogin: TButton;
@@ -58,6 +62,8 @@ type
     ButtonPKCS11Slots: TButton;
     ButtonShowCert: TButton;
     ButtonSetup: TButton;
+    CheckBoxLibXML2Cache: TCheckBox;
+    CheckBoxXMLTransOpen: TCheckBox;
     CheckBoxKSeFQInvCrIsHidden: TCheckBox;
     CheckBoxKSeFQInvCrFaP17Annotation: TCheckBox;
     CheckBoxKSeFStatDet: TCheckBox;
@@ -114,6 +120,7 @@ type
     DateTimePickerKSeFQInvCrIncInvTo: TDateTimePicker;
     DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker;
     DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker;
+    DirectoryEditLibXML2Cache: TDirectoryEdit;
     EditPKCS11PIN: TEdit;
     EditKSeFInvHideNr: TEdit;
     EditKSeFInvShowNr: TEdit;
@@ -149,6 +156,11 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
+    FileNameEditLibXlst: TFileNameEdit;
+    FileNameEditLibExslt: TFileNameEdit;
+    FileNameEditXMLTransSrc: TFileNameEdit;
+    FileNameEditXMLTransDst: TFileNameEdit;
+    FileNameEditXMLVer: TFileNameEdit;
     FileNameEditKSeFGetFN: TFileNameEdit;
     FileNameEditKSeFInvSend: TFileNameEdit;
     FileNameEditLibXml2: TFileNameEdit;
@@ -204,6 +216,9 @@ type
     GroupBox22: TGroupBox;
     GroupBox23: TGroupBox;
     GroupBox24: TGroupBox;
+    GroupBox25: TGroupBox;
+    GroupBox26: TGroupBox;
+    GroupBoxLibXML2Par: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -250,7 +265,13 @@ type
     Label124: TLabel;
     Label125: TLabel;
     Label126: TLabel;
+    Label127: TLabel;
+    Label128: TLabel;
+    Label129: TLabel;
     Label13: TLabel;
+    Label130: TLabel;
+    Label131: TLabel;
+    Label132: TLabel;
     Label16: TLabel;
     Label14: TLabel;
     Label15: TLabel;
@@ -354,6 +375,7 @@ type
     Panel7: TPanel;
     RadioButtonKSeFBatchCert: TRadioButton;
     RadioButtonKSeFBatchPZ: TRadioButton;
+    RadioGroupXMLVal: TRadioGroup;
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     Splitter2: TSplitter;
@@ -377,6 +399,7 @@ type
     SpinEditKSeFSesPgSz: TSpinEdit;
     SpinEditKSeFSesPgOf: TSpinEdit;
     Splitter1: TSplitter;
+    TabSheetXMLVer: TTabSheet;
     TabSheetPKCS11: TTabSheet;
     TabSheetKSeFBatch: TTabSheet;
     TabSheetKSeFCommon: TTabSheet;
@@ -438,6 +461,10 @@ type
     procedure ButtonPKCS11SlotsClick(Sender: TObject);
     procedure ButtonShowCertClick(Sender: TObject);
     procedure ButtonSetupClick(Sender: TObject);
+    procedure ButtonXMLTransAddClick(Sender: TObject);
+    procedure ButtonXMLTransClick(Sender: TObject);
+    procedure ButtonXMLVerAddClick(Sender: TObject);
+    procedure ButtonXMLVerClick(Sender: TObject);
     procedure FileNameEditKSeFBatchInZIPAcceptFileName(Sender: TObject; var Value: String);
     procedure FileNameEditEDPAWejAcceptFileName(Sender: TObject;
       var Value: String);
@@ -445,14 +472,20 @@ type
       var Value: String);
     procedure FileNameEditJPKPCWejAcceptFileName(Sender: TObject;
       var Value: String);
+    procedure FileNameEditXMLTransSrcAcceptFileName(Sender: TObject;
+      var Value: String);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure RadioButtonKSeFBatchCertChange(Sender: TObject);
+    procedure RadioGroupXMLValClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
     procedure ObjAdd(AObj: TKSeFObject);
+    procedure SetupValidator;
+    procedure SetupTrans;
+    procedure SetupLXML;
   public
     Signer: TlgCertificateSigner;
     Certyfikaty: TlgCertificates;
@@ -467,6 +500,9 @@ type
     {$IFDEF LGP_DEBUG_OBJ}
     ObjList: TList;
     {$ENDIF}
+
+    XValidator: TlgXMLValidator;
+    XTrans: TlgXMLXSLTransformation;
 
     procedure Debug(ATekst: String; ALinia: Boolean = False);
     procedure Debug(ATekst: String; ADane: array of const);
@@ -490,8 +526,8 @@ uses
   {$IFDEF WINDOWS}
   lgCNG, lgMSXML, lgWinHTTP,
   {$ENDIF}
-  lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2,
-  lgDCPCrypt, lgPKCS11, Unit2, Rtti, DateUtils, xml2dyn, TypInfo;
+  lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2, lgDCPCrypt, lgPKCS11, Unit2,
+  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn;
 
 const
   RSA_KEY_JPK_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'prod.pem';
@@ -621,6 +657,8 @@ begin
   FileNameEditKSeFRSAProd.FileName := RSA_KEY_KSEF_PROD;
   FileNameEditKSeFRSADemo.FileName := RSA_KEY_KSEF_DEMO;
   FileNameEditKSeFRSATest.FileName := RSA_KEY_KSEF_TEST;
+
+  DirectoryEditLibXML2Cache.Directory := IncludeTrailingPathDelimiter(ExtractFileDir(Application.ExeName)) + 'cache';
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -649,6 +687,10 @@ begin
     KSeFRSADemo.Free;
   if Assigned(KSeFRSATest) then
     KSeFRSATest.Free;
+  if Assigned(XValidator) then
+    XValidator.Free;
+  if Assigned(XTrans) then
+    XTrans.Free;
   {$IFDEF LGP_DEBUG_OBJ}
   if ObjList.Count > 0 then
     MessageDlg('Debug', 'Liczba pozostałych obiektów KSeF: ' + IntToStr(ObjList.Count), mtWarning, [mbOK], 0);
@@ -659,6 +701,11 @@ end;
 procedure TForm1.RadioButtonKSeFBatchCertChange(Sender: TObject);
 begin
   ComboBoxKSeFBatchCert.Enabled := RadioButtonKSeFBatchCert.Checked;
+end;
+
+procedure TForm1.RadioGroupXMLValClick(Sender: TObject);
+begin
+  GroupBoxLibXML2Par.Enabled := RadioGroupXMLVal.ItemIndex = 1;
 end;
 
 procedure TForm1.UstawKSeFSesion(AWartosc: Boolean);
@@ -774,6 +821,43 @@ begin
   I := ListViewObj.Items.Add;
   I.Caption := AObj.ClassName;
   I.Data := AObj;
+end;
+
+procedure TForm1.SetupValidator;
+begin
+  if Assigned(XValidator) and (((XValidator is TlgMSXMLValidator) and (RadioGroupXMLVal.ItemIndex = 1))
+    or ((XValidator is TlgLibXML2Validator) and (RadioGroupXMLVal.ItemIndex = 0))) then
+    FreeAndNil(XValidator);
+  if not Assigned(XValidator) then
+    if RadioGroupXMLVal.ItemIndex = 0 then
+      XValidator := TlgMSXMLValidator.Create
+    else
+      XValidator := TlgLibXML2Validator.Create;
+  if RadioGroupXMLVal.ItemIndex = 1 then
+    SetupLXML;
+end;
+
+procedure TForm1.SetupTrans;
+begin
+  if Assigned(XTrans) and (((XTrans is TlgMSXMLXSLTransformation) and (RadioGroupXMLVal.ItemIndex = 1))
+    or ((XTrans is TlgLibXML2XSLTransformation) and (RadioGroupXMLVal.ItemIndex = 0))) then
+    FreeAndNil(XTrans);
+  if not Assigned(XTrans) then
+    if RadioGroupXMLVal.ItemIndex = 0 then
+      XTrans := TlgMSXMLXSLTransformation.Create
+    else
+      XTrans := TlgLibXML2XSLTransformation.Create;
+  if RadioGroupXMLVal.ItemIndex = 1 then
+    SetupLXML;
+end;
+
+procedure TForm1.SetupLXML;
+begin
+  TlgLibXML2Backend.CacheExternals := CheckBoxLibXML2Cache.Checked;
+  TlgLibXML2Backend.CacheDir := DirectoryEditLibXML2Cache.Directory;
+  if not DirectoryExists(DirectoryEditLibXML2Cache.Directory) then
+    CreateDir(DirectoryEditLibXML2Cache.Directory);
+  TlgLibXML2Backend.HTTPClient := HTTPClient;
 end;
 
 procedure TForm1.Debug(ATekst: String; ALinia: Boolean);
@@ -1081,9 +1165,12 @@ begin
   end;
 
   if FileNameEditLibXml2.FileName <> '' then
-    if not LoadLibXML(FileNameEditLibXml2.FileName) then
+    if not TlgLibXML2Backend.LoadLibXML(FileNameEditLibXml2.FileName) then
       MessageDlg('Nie można załadować biblioteki: ' + FileNameEditLibXml2.FileName,
         mtError, [mbOK], 0);
+  if (FileNameEditLibXlst.FileName <> '') or (FileNameEditLibExslt.FileName <> '')  then
+    if not TlgLibXML2Backend.LoadLibXSLT(FileNameEditLibXlst.FileName, FileNameEditLibExslt.FileName) then
+      MessageDlg('Nie można załadować biblioteki libxslt lub libexslt.', mtError, [mbOK], 0);
 
   TabSheetSetup.Enabled := False;
   TabSheetEDekPodpisAut.TabVisible := True;
@@ -1093,6 +1180,8 @@ begin
   TabSheetKsefSession.TabVisible := True;
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
+  TabSheetXMLVer.TabVisible := True;
+  RadioGroupXMLValClick(nil);
 
   if Assigned(Signer) then
   begin
@@ -1112,6 +1201,124 @@ begin
   DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
   DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
+end;
+
+procedure TForm1.ButtonXMLTransAddClick(Sender: TObject);
+begin
+  Debug('Dodawanie szablonu', True);
+  SetupTrans;
+  with TForm3.Create(Self) do
+  begin
+    if ShowModal = mrOK then
+      XValidator.AddSchema(EditNS.Text, FileNameEditRes.FileName);
+    Debug('Dodano szablon:');
+    Debug('NS: ' + EditNS.Text);
+    Debug('Zasób: ' + FileNameEditRes.FileName);
+    Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLTransClick(Sender: TObject);
+var
+  XDoc: TlgXMLReader = nil;
+  FS: TFileStream = nil;
+begin
+  SetupTrans;
+  if (FileNameEditXMLTransSrc.FileName = '') or (FileNameEditXMLTransDst.FileName = '') then
+  begin
+    MessageDlg('Wprowadź nazwę pliku.', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('Transformacja XML na podstawie XSLT', True);
+  Debug('Plik wejściowy: ' + FileNameEditXMLTransSrc.FileName);
+  try
+    try
+      if RadioGroupXMLVal.ItemIndex = 0 then
+        XDoc := TlgMSXMLReader.CreateFromFile(FileNameEditXMLTransSrc.FileName)
+      else
+        XDoc := TlgLibXML2Reader.CreateFromFile(FileNameEditXMLTransSrc.FileName);
+      FS := TFileStream.Create(FileNameEditXMLTransDst.FileName, fmCreate);
+      XTrans.Transform(XDoc, FS);
+      Debug('Zapisano do pliku: ' + FileNameEditXMLTransDst.FileName);
+      if CheckBoxXMLTransOpen.Checked then
+        OpenDocument(FileNameEditXMLTransDst.FileName);
+    except
+      on E: Exception do
+      begin
+        Debug('Błąd podzas transformacji XSLT (%s): %s', [E.ClassName, E.Message]);
+        MessageDlg(Format('Błąd podzas transformacji XSLT (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    if Assigned(FS) then
+      FS.Free;
+    if Assigned(XDoc) then
+      XDoc.Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLVerAddClick(Sender: TObject);
+begin
+  Debug('Dodawanie schematu', True);
+  SetupValidator;
+  with TForm3.Create(Self) do
+  begin
+    if ShowModal = mrOK then
+      XValidator.AddSchema(EditNS.Text, FileNameEditRes.FileName);
+    Debug('Dodano schemat:');
+    Debug('NS: ' + EditNS.Text);
+    Debug('Zasób: ' + FileNameEditRes.FileName);
+    Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLVerClick(Sender: TObject);
+var
+  Errors: TlgXMLValidationErrors = ();
+  XDoc: TlgXMLReader = nil;
+  I: Integer;
+begin
+  if FileNameEditXMLVer.FileName = '' then
+  begin
+    MessageDlg('Wprowadź nazwę pliku do weryfikacji.', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('Weryfikacja pliku', True);
+  Debug('Plik: ' + FileNameEditXMLVer.FileName);
+  SetupValidator;
+  try
+    try
+      if RadioGroupXMLVal.ItemIndex = 0 then
+        XDoc := TlgMSXMLReader.CreateFromFile(FileNameEditXMLVer.FileName)
+      else
+        XDoc := TlgLibXML2Reader.CreateFromFile(FileNameEditXMLVer.FileName);
+      if XValidator.Validate(XDoc, Errors) then
+        Debug('Jest poprawny')
+      else
+      begin
+        Debug('NIE jest poprawny');
+        Debug('Błędy:');
+        for I := 0 to Length(Errors) - 1 do
+        begin
+          Debug('Nr błędu: ' + IntToStr(Errors[I].ErrorCode));
+          Debug('Linia: ' + IntToStr(Errors[I].Line));
+          Debug('Komunikat: ' + Errors[I].Message);
+          Debug('Element: ' + Errors[I].Path);
+          Debug('Sciezka: ' + Errors[I].SimplePath);
+          Debug('-------');
+        end;
+      end;
+    except
+      on E: Exception do
+      begin
+        Debug('Błąd podzas walidacji XML (%s): %s', [E.ClassName, E.Message]);
+        MessageDlg(Format('Błąd podzas walidacji XML (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    if Assigned(XDoc) then
+      XDoc.Free;
+  end;
 end;
 
 procedure TForm1.FileNameEditKSeFBatchInZIPAcceptFileName(Sender: TObject; var Value: String
@@ -1138,6 +1345,12 @@ procedure TForm1.FileNameEditJPKPCWejAcceptFileName(Sender: TObject;
 begin
   FileNameEditJPKPCEnc.FileName := Value + '.enc';
   FileNameEditJPKPCInitUpload.FileName := Value + '.iu.sig';
+end;
+
+procedure TForm1.FileNameEditXMLTransSrcAcceptFileName(Sender: TObject;
+  var Value: String);
+begin
+  FileNameEditXMLTransDst.FileName := Value + '.html';
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -2446,6 +2659,9 @@ begin
     //Req.Free;
   end;
 end;
+
+finalization
+  lgLibXml2Done;
 
 end.
 

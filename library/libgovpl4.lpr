@@ -39,7 +39,7 @@ uses
   , lgDCPCrypt
 {$ENDIF}
 {$IFDEF LGP_ENABLE_PKCS11}
-  , lgPKCS11, uPKCS11
+  , lgPKCS11, uPKCS11, uXML
 {$ENDIF}
   ;
 
@@ -142,6 +142,38 @@ exports
   lgpWST_RegisterTransport,
   lgpWST_GetHTTPClient,
   lgpWST_SetHTTPClient,
+
+  // XML Reader
+  lgpXMLReader_CreateFromFile,
+  lgpXMLReader_CreateFromStream,
+  lgpXMLReader_CreateFromString,
+  lgpXMLReader_ReadValue,
+
+  // XML Validator
+  lgpXMLValidator_Create,
+  lgpXMLValidator_AddSchemaLocation,
+  lgpXMLValidator_AddSchemaReader,
+  lgpXMLValidator_ClearSchemas,
+  lgpXMLValidator_Validate,
+
+  // XML XSLT
+  lgpXMLXSLTransformation_Create,
+  lgpXMLXSLTransformation_AddStyleLocation,
+  lgpXMLXSLTransformation_AddStyleReader,
+  lgpXMLXSLTransformation_ClearStyles,
+  lgpXMLXSLTransformation_Transform,
+
+  // LibXML2 Backend
+  lgpLibXML2Backend_LibXMLLoaded,
+  lgpLibXML2Backend_LibXSLTLoaded,
+  lgpLibXML2Backend_LoadLibXML,
+  lgpLibXML2Backend_LoadLibXSLT,
+  lgpLibXML2Backend_GetCacheExternals,
+  lgpLibXML2Backend_SetCacheExternals,
+  lgpLibXML2Backend_GetCacheDir,
+  lgpLibXML2Backend_SetCacheDir,
+  lgpLibXML2Backend_GetHTTPClient,
+  lgpLibXML2Backend_SetHTTPClient,
 
   // PKCS#11
   {$IFDEF LGP_ENABLE_PKCS11}
