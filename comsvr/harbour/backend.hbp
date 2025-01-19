@@ -1,0 +1,32 @@
+#
+# $Id$
+#
+
+-3rd=hbide_version=1.0
+-3rd=hbide_title=Backend
+-3rd=hbide_output=backend
+
+#    hbmk2 Flags
+#
+-hbexe
+
+
+
+
+#    GT Requested 
+#
+-gtwin
+
+hbwin.hbc
+
+#    Compilable Sources 
+#
+#
+#    .prg
+#
+backend.prg
+
+#    Other Files 
+#
+
+backend.rc

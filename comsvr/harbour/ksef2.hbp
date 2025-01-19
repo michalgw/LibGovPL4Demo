@@ -1,0 +1,30 @@
+#
+# $Id$
+#
+
+-3rd=hbide_version=1.0
+-3rd=hbide_title=KSeF2
+-3rd=hbide_output=KSeF2
+
+#    hbmk2 Flags
+#
+-hbexe
+
+#    GT Requested 
+#
+-gtwin
+
+hbwin.hbc
+xhb.hbc
+
+#    Compilable Sources 
+#
+#
+#    .prg
+#
+ksef2.prg
+
+#    Other Files 
+#
+
+ksef2.rc
