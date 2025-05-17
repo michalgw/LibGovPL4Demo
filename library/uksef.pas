@@ -73,6 +73,7 @@ function lgpKSeF_SetToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEP
 function lgpKSeF_GetEncryption(AKSeFObject: LGP_OBJECT; var AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetEncryption(AKSeFObject: LGP_OBJECT; AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF_GetSessionToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF_SetSessionToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF_GetSessionActive(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF_GenerateAESKey(AKSeFObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -705,6 +706,19 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     AValue := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF).SessionToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF_SetSessionToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF);
+    (TObject(AKSeFObject) as TlgKSeF).SessionToken := AValue;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
