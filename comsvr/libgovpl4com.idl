@@ -48,6 +48,10 @@ library LibGovPL
   interface IlgcXMLValidationError;
   interface IlgcXMLValidator;
   interface IlgcXMLXSLTransformation;
+  interface IlgcViesCheckVatResponse;
+  interface IlgcViesCountryStatus;
+  interface IlgcViesStatusInformationResponse;
+  interface IlgcViesService;
   coclass lgcErrorInfo;
   coclass lgcBaseObject;
   coclass lgcBackend;
@@ -81,6 +85,10 @@ library LibGovPL
   coclass lgcXMLValidationError;
   coclass lgcXMLValidator;
   coclass lgcXMLXSLTransformation;
+  coclass lgcViesCheckVatResponse;
+  coclass lgcViesCountryStatus;
+  coclass lgcViesStatusInformationResponse;
+  coclass lgcViesService;
 
 /// \endcond
 
@@ -275,6 +283,34 @@ library LibGovPL
     lgcFMShareDenyNone  = 0x0040,
     
     lgcFMCreate         = 0xFF00
+  };
+
+  ///
+  /// VIES MatchType
+  ///
+  [
+    uuid(d195bc5e-cc3c-48c8-830e-6a338f387820),
+    helpstring("VIES MatchType")
+  ]
+  enum lgcViesMatchType
+  {
+    lgcVMTValid         = 0,
+    lgcVMTInvalid       = 1, 
+    lgcVMTNot_Processed = 2
+  };
+
+  ///
+  /// VIES AvailabilityStatus
+  ///
+  [
+    uuid(ba31bd8b-7f5c-4477-a06e-1d02d6dc9d63),
+    helpstring("VIES AvailabilityStatus")
+  ]
+  enum lgcViesAvailabilityStatus
+  {
+    lgcVASAvailable          = 0,
+    lgcVASUnavailable        = 1,
+    lgcVASMonitoringDisabled = 2
   };
 
   ///
@@ -2037,6 +2073,9 @@ library LibGovPL
     [propget, id(29019),
     helpstring("Token sesji")]
     HRESULT _stdcall SessionToken([out, retval] BSTR* Value);
+    [propput, id(29019),
+    helpstring("Token sesji")]
+    HRESULT _stdcall SessionToken([in] BSTR Value);
 
     ///
     /// Czy sesja interaktywna jest aktywna?
@@ -2435,6 +2474,7 @@ library LibGovPL
 
   [
     uuid(58a611b0-0289-43f6-8452-e4513a68c6a0),
+    version(1.0),
     dual,
     oleautomation
   ]
@@ -2449,6 +2489,7 @@ library LibGovPL
 
   [
     uuid(87bd38c1-4a49-44a1-91a0-90a41f3008fa),
+    version(1.0),
     dual,
     oleautomation
   ]
@@ -2468,6 +2509,7 @@ library LibGovPL
 
   [
     uuid(dbf692fb-d430-4214-abca-69903927b349),
+    version(1.0),
     dual,
     oleautomation
   ]
@@ -2483,6 +2525,7 @@ library LibGovPL
 
   [
     uuid(0a7f7305-fb5c-40fe-a1e9-8408d6c45b1c),
+    version(1.0),
     dual,
     oleautomation
   ]
@@ -2492,6 +2535,108 @@ library LibGovPL
     HRESULT _stdcall AddStyle([in] BSTR NameSpace, [in] VARIANT Source);
     [id(33002)]
     HRESULT _stdcall Transform([in] VARIANT Source, [in] VARIANT OutStream);
+  }
+
+  [
+    uuid(92194bc6-a566-4783-bb67-13fd91450c1a),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcViesCheckVatResponse: IlgcBaseObject
+  {
+    [id(34001), propget]
+    HRESULT _stdcall CountryCode([out, retval] BSTR* Value);
+    [id(34002), propget]
+    HRESULT _stdcall VatNumber([out, retval] BSTR* Value);
+    [id(34003), propget]
+    HRESULT _stdcall RequestDate([out, retval] VARIANT* Value);
+    [id(34004), propget]
+    HRESULT _stdcall Valid([out, retval] VARIANT_BOOL* Value);
+    [id(34005), propget]
+    HRESULT _stdcall RequestIdentifier([out, retval] BSTR* Value);
+    [id(34006), propget]
+    HRESULT _stdcall Name([out, retval] BSTR* Value);
+    [id(34007), propget]
+    HRESULT _stdcall Address([out, retval] BSTR* Value);
+    [id(34008), propget]
+    HRESULT _stdcall TraderName([out, retval] BSTR* Value);
+    [id(34009), propget]
+    HRESULT _stdcall TraderStreet([out, retval] BSTR* Value);
+    [id(34010), propget]
+    HRESULT _stdcall TraderPostalCode([out, retval] BSTR* Value);
+    [id(34011), propget]
+    HRESULT _stdcall TraderCity([out, retval] BSTR* Value);
+    [id(34012), propget]
+    HRESULT _stdcall TraderCompanyType([out, retval] BSTR* Value);
+    [id(34013), propget]
+    HRESULT _stdcall TraderNameMatch([out, retval] enum lgcViesMatchType* Value);
+    [id(34014), propget]
+    HRESULT _stdcall TraderStreetMatch([out, retval] enum lgcViesMatchType* Value);
+    [id(34015), propget]
+    HRESULT _stdcall TraderPostalCodeMatch([out, retval] enum lgcViesMatchType* Value);
+    [id(34016), propget]
+    HRESULT _stdcall TraderCityMatch([out, retval] enum lgcViesMatchType* Value);
+    [id(34017), propget]
+    HRESULT _stdcall TraderCompanyTypeMatch([out, retval] enum lgcViesMatchType* Value);
+    [id(34018), propget]
+    HRESULT _stdcall RawResponse([out, retval] BSTR* Value);
+  }
+
+  [
+    uuid(92283d36-304c-49d5-9a4e-6e163403776e),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcViesCountryStatus: IlgcBaseObject
+  {
+    [id(35001), propget]
+    HRESULT _stdcall CountryCode([out, retval] BSTR* Value);
+    [id(35002), propget]
+    HRESULT _stdcall Availability([out, retval] enum lgcViesAvailabilityStatus* Value);
+  }
+
+  [
+    uuid(3bd250f9-8f41-435f-be76-734a0b4fdffc),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcViesStatusInformationResponse: IlgcBaseObject
+  {
+    [id(36001), propget]
+    HRESULT _stdcall VowAvaiable([out, retval] VARIANT_BOOL* Value);
+    [id(36002), propget]
+    HRESULT _stdcall Countries([out, retval] IDispatch** Value);
+  }
+
+  [
+    uuid(0779a838-d9cc-4d00-b40c-e5cad9599619),
+    version(1.0),
+    dual,
+    oleautomation
+  ]
+  interface IlgcViesService: IlgcBaseObject
+  {
+    [id(37001)]
+    HRESULT _stdcall CheckVatNumber([in] BSTR ACountryCode, 
+      [in] BSTR AVatNumber, [in] BSTR ARequesterMemberStateCode, 
+      [in] BSTR ARequesterNumber, [in] BSTR ATraderName, [in] BSTR ATraderStreet, 
+      [in] BSTR ATraderPostalCode, [in] BSTR ATraderCity, [in] BSTR ATraderCompanyType,
+      [in] IDispatch* AHTTPClient, [out, retval] IDIspatch** Response);
+    [id(37002)]
+    HRESULT _stdcall CheckVatTestService([in] BSTR ACountryCode, 
+      [in] BSTR AVatNumber, [in] BSTR ARequesterMemberStateCode, 
+      [in] BSTR ARequesterNumber, [in] BSTR ATraderName, [in] BSTR ATraderStreet, 
+      [in] BSTR ATraderPostalCode, [in] BSTR ATraderCity, [in] BSTR ATraderCompanyType,
+      [in] IDispatch* AHTTPClient, [out, retval] IDIspatch** Response);
+    [id(37003)]
+    HRESULT _stdcall CheckStatus([in] IDispatch* AHTTPClient, [out, retval] IDIspatch** Response);
+    [id(37004), propget]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [id(37004), propput]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
   }
 
 /// \cond
@@ -2800,6 +2945,42 @@ library LibGovPL
   coclass lgcXMLXSLTransformation
   {
     [default] interface IlgcXMLXSLTransformation;
+  }
+
+  [
+    uuid(ed639e66-d7b5-4a29-a167-00aaacb139f7),
+    version(1.0)
+  ]
+  coclass lgcViesCheckVatResponse
+  {
+    [default] interface IlgcViesCheckVatResponse;
+  }
+
+  [
+    uuid(82ef6c75-dae6-4663-ab78-f99e3b8c2524),
+    version(1.0)
+  ]
+  coclass lgcViesCountryStatus
+  {
+    [default] interface IlgcViesCountryStatus;
+  }
+
+  [
+    uuid(83d1c325-91a6-4303-98a7-178e80cb4a38),
+    version(1.0)
+  ]
+  coclass lgcViesStatusInformationResponse
+  {
+    [default] interface IlgcViesStatusInformationResponse;
+  }
+
+  [
+    uuid(79e69563-82ee-43c0-a469-aa21be8c670f),
+    version(1.0)
+  ]
+  coclass lgcViesService
+  {
+    [default] interface IlgcViesService;
   }
 
 /// \endcond

@@ -64,6 +64,7 @@ type
     procedure SetRandomGeneratorClass(AValue: UTF8String);
     procedure SetRSAEncryptClass(AValue: UTF8String);
     procedure SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAKey);
+    procedure SetSessionToken(AValue: UTF8String);
     procedure SetSHA256HashClass(AValue: UTF8String);
     procedure SetToken(AValue: UTF8String);
     procedure SetXAdES(AValue: TlgoXAdES);
@@ -307,7 +308,7 @@ type
     { Informacja o sesji }
 
     { Token sesji }
-    property SessionToken: UTF8String read GetSessionToken;
+    property SessionToken: UTF8String read GetSessionToken write SetSessionToken;
     { Czy sesjia aktywna }
     property SessionActive: Boolean read GetSessionActive;
   end;
@@ -574,6 +575,11 @@ begin
     O := AValue.ExtObject;
   lgoCheckResult(lgpKSeF_SetRSAKey(ExtObject, Integer(AIndex), O));
   FRSAKeys[AIndex] := AValue;
+end;
+
+procedure TlgoKSeF.SetSessionToken(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF_SetSessionToken(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF.SetSHA256HashClass(AValue: UTF8String);

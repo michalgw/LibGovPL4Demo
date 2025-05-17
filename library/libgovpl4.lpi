@@ -389,6 +389,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uXML"/>
       </Unit>
+      <Unit>
+        <Filename Value="uvies.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uVies"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

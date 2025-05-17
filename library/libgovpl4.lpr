@@ -39,7 +39,7 @@ uses
   , lgDCPCrypt
 {$ENDIF}
 {$IFDEF LGP_ENABLE_PKCS11}
-  , lgPKCS11, uPKCS11, uXML
+  , lgPKCS11, uPKCS11, uXML, uVies
 {$ENDIF}
   ;
 
@@ -319,6 +319,7 @@ exports
   lgpKSeF_GetEncryption,
   lgpKSeF_SetEncryption,
   lgpKSeF_GetSessionToken,
+  lgpKSeF_SetSessionToken,
   lgpKSeF_GetSessionActive,
 
   lgpKSeF_GenerateAESKey,
@@ -372,7 +373,12 @@ exports
   lgpKSeF_BatchSend,
 
   // KSeF Obj
-  lgpKSeF_CreateKSeFClass
+  lgpKSeF_CreateKSeFClass,
+
+  // VIES
+  lgpViesService_CheckVatNumber,
+  lgpViesService_CheckVatTestService,
+  lgpViesService_CheckStatus
 
   // Zgodność z poprzednią wersją biblioteki
 {$IFDEF LGP_LEGACY}

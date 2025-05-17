@@ -15,10 +15,10 @@ object Form1: TForm1
     Height = 594
     Top = 0
     Width = 698
-    ActivePage = TabSheetXMLVer
+    ActivePage = TabSheetVies
     Align = alClient
     MultiLine = True
-    TabIndex = 14
+    TabIndex = 15
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -5313,6 +5313,352 @@ object Form1: TForm1
           MaxLength = 0
           TabOrder = 1
           Text = 'cache\'
+        end
+      end
+    end
+    object TabSheetVies: TTabSheet
+      Caption = 'Vies'
+      ClientHeight = 526
+      ClientWidth = 690
+      TabVisible = False
+      object GroupBox27: TGroupBox
+        Left = 0
+        Height = 340
+        Top = 0
+        Width = 690
+        Align = alTop
+        AutoSize = True
+        Caption = 'VIES'
+        ClientHeight = 320
+        ClientWidth = 686
+        TabOrder = 0
+        object Label133: TLabel
+          AnchorSideTop.Control = ComboBoxViesCountry
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = ComboBoxViesCountry
+          Left = 79
+          Height = 15
+          Top = 12
+          Width = 50
+          Anchors = [akTop, akRight]
+          BorderSpacing.Around = 8
+          Caption = 'Kod kraju'
+        end
+        object ComboBoxViesCountry: TComboBox
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = GroupBox27
+          Left = 137
+          Height = 23
+          Top = 8
+          Width = 60
+          BorderSpacing.Around = 8
+          ItemHeight = 15
+          Items.Strings = (
+            'AT'
+            'BE'
+            'BG'
+            'CY'
+            'CZ'
+            'DK'
+            'DE'
+            'EE'
+            'EL'
+            'ES'
+            'FI'
+            'FR'
+            'HR'
+            'HU'
+            'IE'
+            'IT'
+            'LV'
+            'LT'
+            'LU'
+            'MT'
+            'NL'
+            'PL'
+            'PT'
+            'RO'
+            'SE'
+            'SI'
+            'SK'
+            'XI'
+          )
+          TabOrder = 0
+        end
+        object Label134: TLabel
+          AnchorSideTop.Control = EditViesVatNum
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesVatNum
+          Left = 70
+          Height = 15
+          Top = 43
+          Width = 59
+          Anchors = [akTop, akRight]
+          Caption = 'Numer VAT'
+        end
+        object EditViesVatNum: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxViesCountry
+          AnchorSideTop.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 39
+          Width = 156
+          BorderSpacing.Around = 8
+          TabOrder = 1
+        end
+        object Label135: TLabel
+          AnchorSideTop.Control = ComboBoxViesReqCountry
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = ComboBoxViesReqCountry
+          Left = 17
+          Height = 15
+          Top = 74
+          Width = 112
+          Anchors = [akTop, akRight]
+          Caption = 'Kod kraju żądającego'
+        end
+        object Label136: TLabel
+          AnchorSideLeft.Control = GroupBox27
+          AnchorSideTop.Control = EditViesReqVatNum
+          AnchorSideTop.Side = asrCenter
+          Left = 8
+          Height = 15
+          Top = 105
+          Width = 121
+          BorderSpacing.Around = 8
+          Caption = 'Numer VAT żądającego'
+        end
+        object ComboBoxViesReqCountry: TComboBox
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesVatNum
+          AnchorSideTop.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 70
+          Width = 60
+          BorderSpacing.Around = 8
+          ItemHeight = 15
+          Items.Strings = (
+            'AT'
+            'BE'
+            'BG'
+            'CY'
+            'CZ'
+            'DK'
+            'DE'
+            'EE'
+            'EL'
+            'ES'
+            'FI'
+            'FR'
+            'HR'
+            'HU'
+            'IE'
+            'IT'
+            'LV'
+            'LT'
+            'LU'
+            'MT'
+            'NL'
+            'PL'
+            'PT'
+            'RO'
+            'SE'
+            'SI'
+            'SK'
+            'XI'
+          )
+          TabOrder = 2
+        end
+        object EditViesReqVatNum: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxViesReqCountry
+          AnchorSideTop.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 101
+          Width = 156
+          BorderSpacing.Around = 8
+          TabOrder = 3
+        end
+        object Label137: TLabel
+          AnchorSideTop.Control = EditViesTraderName
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesTraderName
+          Left = 94
+          Height = 15
+          Top = 136
+          Width = 35
+          Anchors = [akTop, akRight]
+          Caption = 'Nazwa'
+        end
+        object EditViesTraderName: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesReqVatNum
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox27
+          AnchorSideRight.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 132
+          Width = 541
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          TabOrder = 4
+        end
+        object Label138: TLabel
+          AnchorSideTop.Control = EditViesTraderStreet
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesTraderStreet
+          Left = 103
+          Height = 15
+          Top = 167
+          Width = 26
+          Anchors = [akTop, akRight]
+          Caption = 'Ulica'
+        end
+        object EditViesTraderStreet: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderName
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox27
+          AnchorSideRight.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 163
+          Width = 541
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          TabOrder = 5
+        end
+        object Label139: TLabel
+          AnchorSideTop.Control = EditViesTraderPostalCode
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesTraderPostalCode
+          Left = 73
+          Height = 15
+          Top = 198
+          Width = 56
+          Anchors = [akTop, akRight]
+          Caption = 'Kod poczt.'
+        end
+        object EditViesTraderPostalCode: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderStreet
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox27
+          AnchorSideRight.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 194
+          Width = 541
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          TabOrder = 6
+        end
+        object Label140: TLabel
+          AnchorSideTop.Control = EditViesTraderCity
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesTraderCity
+          Left = 61
+          Height = 15
+          Top = 229
+          Width = 68
+          Anchors = [akTop, akRight]
+          Caption = 'Miejscowość'
+        end
+        object EditViesTraderCity: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderPostalCode
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox27
+          AnchorSideRight.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 225
+          Width = 541
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          TabOrder = 7
+        end
+        object Label141: TLabel
+          AnchorSideTop.Control = EditViesTraderCompanyType
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = EditViesTraderCompanyType
+          Left = 94
+          Height = 15
+          Top = 260
+          Width = 35
+          Anchors = [akTop, akRight]
+          Caption = 'Rodzaj'
+        end
+        object EditViesTraderCompanyType: TEdit
+          AnchorSideLeft.Control = Label136
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderCity
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox27
+          AnchorSideRight.Side = asrBottom
+          Left = 137
+          Height = 23
+          Top = 256
+          Width = 541
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          TabOrder = 8
+        end
+        object ButtonViesVatCheck: TButton
+          AnchorSideLeft.Control = GroupBox27
+          AnchorSideTop.Control = EditViesTraderCompanyType
+          AnchorSideTop.Side = asrBottom
+          Left = 8
+          Height = 25
+          Top = 287
+          Width = 104
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Sprawdź status'
+          TabOrder = 9
+          OnClick = ButtonViesVatCheckClick
+        end
+        object ButtonViesVatTestService: TButton
+          AnchorSideLeft.Control = ButtonViesVatCheck
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderCompanyType
+          AnchorSideTop.Side = asrBottom
+          Left = 120
+          Height = 25
+          Top = 287
+          Width = 92
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Testuj serwis'
+          TabOrder = 10
+          OnClick = ButtonViesVatCheckClick
+        end
+        object ButtonViesCheckStatus: TButton
+          AnchorSideLeft.Control = ButtonViesVatTestService
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditViesTraderCompanyType
+          AnchorSideTop.Side = asrBottom
+          Left = 220
+          Height = 25
+          Top = 287
+          Width = 139
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Sprawdź status usługi'
+          TabOrder = 11
+          OnClick = ButtonViesCheckStatusClick
         end
       end
     end

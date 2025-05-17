@@ -14,6 +14,9 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonViesVatCheck: TButton;
+    ButtonViesVatTestService: TButton;
+    ButtonViesCheckStatus: TButton;
     ButtonXMLVerAdd: TButton;
     ButtonXMLTransAdd: TButton;
     ButtonXMLTrans: TButton;
@@ -74,6 +77,7 @@ type
     CheckBoxJPKPAAdHoc: TCheckBox;
     CheckBoxXAdESCzas: TCheckBox;
     CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup;
+    ComboBoxViesCountry: TComboBox;
     ComboBoxPKCS11UserType: TComboBox;
     ComboBoxPKCS11Cert: TComboBox;
     ComboBoxKSeFQInvCAamountType: TComboBox;
@@ -95,6 +99,7 @@ type
     ComboBoxKSeFBramka: TComboBox;
     ComboBoxKSeFCert: TComboBox;
     ComboBoxKSeFQInvCrSubTyp: TComboBox;
+    ComboBoxViesReqCountry: TComboBox;
     ComboBoxXAdESSHA: TComboBox;
     ComboBoxEdekCert: TComboBox;
     ComboBoxAES256: TComboBox;
@@ -121,6 +126,12 @@ type
     DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker;
     DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker;
     DirectoryEditLibXML2Cache: TDirectoryEdit;
+    EditViesTraderName: TEdit;
+    EditViesTraderStreet: TEdit;
+    EditViesTraderPostalCode: TEdit;
+    EditViesTraderCity: TEdit;
+    EditViesTraderCompanyType: TEdit;
+    EditViesVatNum: TEdit;
     EditPKCS11PIN: TEdit;
     EditKSeFInvHideNr: TEdit;
     EditKSeFInvShowNr: TEdit;
@@ -156,6 +167,7 @@ type
     EditJPKPNIP: TEdit;
     EditKSeFNIP: TEdit;
     EditKSeFToken: TEdit;
+    EditViesReqVatNum: TEdit;
     FileNameEditLibXlst: TFileNameEdit;
     FileNameEditLibExslt: TFileNameEdit;
     FileNameEditXMLTransSrc: TFileNameEdit;
@@ -218,6 +230,7 @@ type
     GroupBox24: TGroupBox;
     GroupBox25: TGroupBox;
     GroupBox26: TGroupBox;
+    GroupBox27: TGroupBox;
     GroupBoxLibXML2Par: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
@@ -272,6 +285,15 @@ type
     Label130: TLabel;
     Label131: TLabel;
     Label132: TLabel;
+    Label133: TLabel;
+    Label134: TLabel;
+    Label135: TLabel;
+    Label136: TLabel;
+    Label137: TLabel;
+    Label138: TLabel;
+    Label139: TLabel;
+    Label140: TLabel;
+    Label141: TLabel;
     Label16: TLabel;
     Label14: TLabel;
     Label15: TLabel;
@@ -399,6 +421,7 @@ type
     SpinEditKSeFSesPgSz: TSpinEdit;
     SpinEditKSeFSesPgOf: TSpinEdit;
     Splitter1: TSplitter;
+    TabSheetVies: TTabSheet;
     TabSheetXMLVer: TTabSheet;
     TabSheetPKCS11: TTabSheet;
     TabSheetKSeFBatch: TTabSheet;
@@ -461,6 +484,8 @@ type
     procedure ButtonPKCS11SlotsClick(Sender: TObject);
     procedure ButtonShowCertClick(Sender: TObject);
     procedure ButtonSetupClick(Sender: TObject);
+    procedure ButtonViesCheckStatusClick(Sender: TObject);
+    procedure ButtonViesVatCheckClick(Sender: TObject);
     procedure ButtonXMLTransAddClick(Sender: TObject);
     procedure ButtonXMLTransClick(Sender: TObject);
     procedure ButtonXMLVerAddClick(Sender: TObject);
@@ -527,7 +552,7 @@ uses
   lgCNG, lgMSXML, lgWinHTTP,
   {$ENDIF}
   lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2, lgDCPCrypt, lgPKCS11, Unit2,
-  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn;
+  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn, lgVies;
 
 const
   RSA_KEY_JPK_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'prod.pem';
@@ -1181,6 +1206,7 @@ begin
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
   TabSheetXMLVer.TabVisible := True;
+  TabSheetVies.TabVisible := True;
   RadioGroupXMLValClick(nil);
 
   if Assigned(Signer) then
@@ -1201,6 +1227,77 @@ begin
   DateTimePickerKSeFQInvCrIncInvTo.DateTime := Now;
   DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
+end;
+
+procedure TForm1.ButtonViesCheckStatusClick(Sender: TObject);
+var
+  Resp: TlgViesStatusInformationResponse;
+  C: TlgViesCountryStatus;
+begin
+  Debug('VIES - Sprawdź status usługi', True);
+  try
+    Resp := TlgViesService.CheckStatus(HTTPClient);
+    Debug('VoW dostępne: ' + BoolToStr(Resp.VowAvaiable, 'Tak', 'Nie'));
+    Debug('Liczba krajów: ' + IntToStr(Length(Resp.Countries)));
+    for C in Resp.Countries do
+      Debug('  ' + C.CountryCode + ': ' + C.Availability.ToString);
+  except
+    on E: Exception do
+    begin
+      Debug('Błąd podzas sprawdzania VIES (%s): %s', [E.ClassName, E.Message]);
+      MessageDlg(Format('Błąd podzas sprawdzania VIES (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
+  end;
+end;
+
+procedure TForm1.ButtonViesVatCheckClick(Sender: TObject);
+var
+  Resp: TlgViesCheckVatResponse;
+  S: String;
+begin
+  Debug('VIES - Sprawdź VAT' + specialize IfThen<String>(Sender = ButtonViesVatTestService, ' (TEST)', ''), True);
+  try
+    if Sender = ButtonViesVatTestService then
+      Resp := TlgViesService.CheckVatTestService(ComboBoxViesCountry.Text, EditViesVatNum.Text,
+        ComboBoxViesReqCountry.Text, EditViesReqVatNum.Text, EditViesTraderName.Text,
+        EditViesTraderStreet.Text, EditViesTraderPostalCode.Text, EditViesTraderCity.Text,
+        EditViesTraderCompanyType.Text, HTTPClient)
+    else
+      Resp := TlgViesService.CheckVatNumber(ComboBoxViesCountry.Text, EditViesVatNum.Text,
+        ComboBoxViesReqCountry.Text, EditViesReqVatNum.Text, EditViesTraderName.Text,
+        EditViesTraderStreet.Text, EditViesTraderPostalCode.Text, EditViesTraderCity.Text,
+        EditViesTraderCompanyType.Text, HTTPClient);
+    Debug('Odpowiedź:');
+    Debug('  Kod kraju: ' + Resp.CountryCode);
+    Debug('  Nr VAT: ' + Resp.VatNumber);
+    Debug('  Data żądania: ' + DateTimeToStr(Resp.RequestDate));
+    Debug('  Prawidłowy: ' + BoolToStr(Resp.Valid, 'Tak', 'Nie'));
+    Debug('  Identyfikator żądania: ' + Resp.RequestIdentifier);
+    Debug('  Nazwa: ' + Resp.Name);
+    Debug('  Adres: ' + Resp.Address);
+    Debug('  Nazwa handlowa: ' + Resp.TraderName);
+    Debug('  Ulica: ' + Resp.TraderStreet);
+    Debug('  Kod poczt.: ' + Resp.TraderPostalCode);
+    Debug('  Miejscowość: ' + Resp.TraderCity);
+    Debug('  Rodzaj firmy: ' + Resp.TraderCompanyType);
+    WriteStr(S, Resp.TraderNameMatch);
+    Debug('  Dopasowanie nazwy: ' + S);
+    WriteStr(S, Resp.TraderStreetMatch);
+    Debug('  Dopasowanie ulicy: ' + S);
+    WriteStr(S, Resp.TraderPostalCodeMatch);
+    Debug('  Dopasowanie kodu poczt.: ' + S);
+    WriteStr(S, Resp.TraderCityMatch);
+    Debug('  Dopasowanie miejscowości: ' + S);
+    WriteStr(S, Resp.TraderCompanyTypeMatch);
+    Debug('  Dopasowanie rodzaju: ' + S);
+    Debug('  RawResponse: ' + Resp.RawResponse);
+  except
+    on E: Exception do
+    begin
+      Debug('Błąd podzas sprawdzania VIES (%s): %s', [E.ClassName, E.Message]);
+      MessageDlg(Format('Błąd podzas sprawdzania VIES (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+    end;
+  end;
 end;
 
 procedure TForm1.ButtonXMLTransAddClick(Sender: TObject);

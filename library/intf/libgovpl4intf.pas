@@ -399,6 +399,7 @@ function lgpKSeF_SetToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEP
 function lgpKSeF_GetEncryption(AKSeFObject: LGP_OBJECT; var AEnc: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_SetEncryption(AKSeFObject: LGP_OBJECT; AEnc: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_GetSessionToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF_SetSessionToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_GetSessionActive(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF_GenerateAESKey(AKSeFObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -453,6 +454,18 @@ function lgpKSeF_BatchSend(AKSeFObject: LGP_OBJECT; APartStream: LGP_OBJECT; AIn
 
 // KSeF Obj
 function lgpKSeF_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
+
+// VIES
+function lgpViesService_CheckVatNumber(ACountryCode, AVatNumber,
+  ARequesterMemberStateCode, ARequesterNumber, ATraderName, ATraderStreet,
+  ATraderPostalCode, ATraderCity, ATraderCompanyType: LGP_PCHAR;
+  AHTTPClient: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpViesService_CheckVatTestService(ACountryCode, AVatNumber,
+  ARequesterMemberStateCode, ARequesterNumber, ATraderName, ATraderStreet,
+  ATraderPostalCode, ATraderCity, ATraderCompanyType: LGP_PCHAR;
+  AHTTPClient: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpViesService_CheckStatus(AHTTPClient: LGP_OBJECT;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 // Zgodnosc z poprzednia wersja biblioteki
 function edekInicjuj(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall; external LGP_LIBNAME;
@@ -760,6 +773,7 @@ var
   lgpKSeF_GetEncryption: function(AKSeFObject: LGP_OBJECT; var AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF_SetEncryption: function(AKSeFObject: LGP_OBJECT; AEnc: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF_GetSessionToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF_SetSessionToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF_GetSessionActive: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
   lgpKSeF_GenerateAESKey: function(AKSeFObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -814,6 +828,19 @@ var
 
   // KSeF Obj
   lgpKSeF_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
+
+  // VIES
+  lgpViesService_CheckVatNumber: function(ACountryCode, AVatNumber,
+    ARequesterMemberStateCode, ARequesterNumber, ATraderName, ATraderStreet,
+    ATraderPostalCode, ATraderCity, ATraderCompanyType: LGP_PCHAR;
+    AHTTPClient: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpViesService_CheckVatTestService: function(ACountryCode, AVatNumber,
+    ARequesterMemberStateCode, ARequesterNumber, ATraderName, ATraderStreet,
+    ATraderPostalCode, ATraderCity, ATraderCompanyType: LGP_PCHAR;
+    AHTTPClient: LGP_OBJECT; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpViesService_CheckStatus: function(AHTTPClient: LGP_OBJECT;
+    var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
 
   // Zgodnosc z poprzednia wersja biblioteki
   edekInicjuj: function(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall;
@@ -1153,6 +1180,7 @@ begin
     @lgpKSeF_GetEncryption := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetEncryption');
     @lgpKSeF_SetEncryption := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetEncryption');
     @lgpKSeF_GetSessionToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetSessionToken');
+    @lgpKSeF_SetSessionToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetSessionToken');
     @lgpKSeF_GetSessionActive := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetSessionActive');
 
     @lgpKSeF_GenerateAESKey := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GenerateAESKey');
@@ -1207,6 +1235,11 @@ begin
 
     // KSeF Obj
     @lgpKSeF_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_CreateKSeFClass');
+
+    //VIES
+    @lgpViesService_CheckVatNumber := GetProcAddress(LibGovPl4Handle, 'lgpViesService_CheckVatNumber');
+    @lgpViesService_CheckVatTestService := GetProcAddress(LibGovPl4Handle, 'lgpViesService_CheckVatTestService');
+    @lgpViesService_CheckStatus := GetProcAddress(LibGovPl4Handle, 'lgpViesService_CheckStatus');
 
     // Zgodnosc z poprzednia wersja biblioteki
     @edekInicjuj := GetProcAddress(LibGovPl4Handle, 'edekInicjuj');

@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2025-01-19 20:23:02 from D:\lazarus-projekty\libgovpl4demo\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2025-05-17 17:43:45 from D:\lazarus-projekty\libgovpl4demo\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -274,6 +274,38 @@ interface
 //  Warning: 'GUID' not automatable in IlgcXMLXSLTransformationdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcXMLXSLTransformationdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcXMLXSLTransformationdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcViesCheckVatResponsedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesCheckVatResponsedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesCheckVatResponsedisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcViesCheckVatResponsedisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcViesCheckVatResponsedisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcViesCheckVatResponsedisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcViesCheckVatResponsedisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcViesCheckVatResponsedisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcViesCountryStatusdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesCountryStatusdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesCountryStatusdisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcViesCountryStatusdisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcViesCountryStatusdisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcViesCountryStatusdisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcViesCountryStatusdisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcViesCountryStatusdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcViesStatusInformationResponsedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesStatusInformationResponsedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesStatusInformationResponsedisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcViesStatusInformationResponsedisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcViesStatusInformationResponsedisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcViesStatusInformationResponsedisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcViesStatusInformationResponsedisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcViesStatusInformationResponsedisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcViesServicedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesServicedisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcViesServicedisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcViesServicedisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcViesServicedisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcViesServicedisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcViesServicedisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcViesServicedisp.Invoke
 //  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.GetTypeInfo
@@ -323,6 +355,10 @@ Const
   IID_IlgcXMLValidationError : TGUID = '{87BD38C1-4A49-44A1-91A0-90A41F3008FA}';
   IID_IlgcXMLValidator : TGUID = '{DBF692FB-D430-4214-ABCA-69903927B349}';
   IID_IlgcXMLXSLTransformation : TGUID = '{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}';
+  IID_IlgcViesCheckVatResponse : TGUID = '{92194BC6-A566-4783-BB67-13FD91450C1A}';
+  IID_IlgcViesCountryStatus : TGUID = '{92283D36-304C-49D5-9A4E-6E163403776E}';
+  IID_IlgcViesStatusInformationResponse : TGUID = '{3BD250F9-8F41-435F-BE76-734A0B4FDFFC}';
+  IID_IlgcViesService : TGUID = '{0779A838-D9CC-4D00-B40C-E5CAD9599619}';
   IID_IlgcMemoryStream : TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   CLASS_lgcErrorInfo : TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject : TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
@@ -358,6 +394,10 @@ Const
   CLASS_lgcXMLValidationError : TGUID = '{98197903-7883-41EE-BB4F-92249CCE89E4}';
   CLASS_lgcXMLValidator : TGUID = '{4D41D696-5F71-4D88-839B-70A76DFAC1AE}';
   CLASS_lgcXMLXSLTransformation : TGUID = '{94E6CC10-1EAA-406C-84E5-02C42DA06EA3}';
+  CLASS_lgcViesCheckVatResponse : TGUID = '{ED639E66-D7B5-4A29-A167-00AAACB139F7}';
+  CLASS_lgcViesCountryStatus : TGUID = '{82EF6C75-DAE6-4663-AB78-F99E3B8C2524}';
+  CLASS_lgcViesStatusInformationResponse : TGUID = '{83D1C325-91A6-4303-98A7-178E80CB4A38}';
+  CLASS_lgcViesService : TGUID = '{79E69563-82EE-43C0-A469-AA21BE8C670F}';
 
 //Enums
 
@@ -444,6 +484,18 @@ Const
   lgcKNV35 = $0000000000000001;
   lgcKNV36 = $0000000000000002;
 Type
+  lgcViesMatchType =LongWord;
+Const
+  lgcVMTValid = $0000000000000000;
+  lgcVMTInvalid = $0000000000000001;
+  lgcVMTNot_Processed = $0000000000000002;
+Type
+  lgcViesAvailabilityStatus =LongWord;
+Const
+  lgcVASAvailable = $0000000000000000;
+  lgcVASUnavailable = $0000000000000001;
+  lgcVASMonitoringDisabled = $0000000000000002;
+Type
   lgcFileMode =LongWord;
 Const
   lgcFMOpenRead = $0000000000000000;
@@ -524,6 +576,14 @@ Type
  IlgcXMLValidatorDisp = dispinterface;
  IlgcXMLXSLTransformation = interface;
  IlgcXMLXSLTransformationDisp = dispinterface;
+ IlgcViesCheckVatResponse = interface;
+ IlgcViesCheckVatResponseDisp = dispinterface;
+ IlgcViesCountryStatus = interface;
+ IlgcViesCountryStatusDisp = dispinterface;
+ IlgcViesStatusInformationResponse = interface;
+ IlgcViesStatusInformationResponseDisp = dispinterface;
+ IlgcViesService = interface;
+ IlgcViesServiceDisp = dispinterface;
  IlgcMemoryStream = interface;
  IlgcMemoryStreamDisp = dispinterface;
 
@@ -563,6 +623,10 @@ Type
  lgcXMLValidationError = IlgcXMLValidationError;
  lgcXMLValidator = IlgcXMLValidator;
  lgcXMLXSLTransformation = IlgcXMLXSLTransformation;
+ lgcViesCheckVatResponse = IlgcViesCheckVatResponse;
+ lgcViesCountryStatus = IlgcViesCountryStatus;
+ lgcViesStatusInformationResponse = IlgcViesStatusInformationResponse;
+ lgcViesService = IlgcViesService;
 
 //records, unions, aliases
 
@@ -2441,6 +2505,7 @@ Type
    function Get_Encryption : WordBool; safecall;
    procedure Set_Encryption(const Value:WordBool); safecall;
    function Get_SessionToken : WideString; safecall;
+   procedure Set_SessionToken(const Value:WideString); safecall;
    function Get_SessionActive : WordBool; safecall;
    function Get_RSAKeyProd : IDispatch; safecall;
    procedure Set_RSAKeyProd(const Value:IDispatch); safecall;
@@ -2489,7 +2554,7 @@ Type
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
    property Encryption:WordBool read Get_Encryption write Set_Encryption;
     // SessionToken : Token sesji 
-   property SessionToken:WideString read Get_SessionToken;
+   property SessionToken:WideString read Get_SessionToken write Set_SessionToken;
     // SessionActive : Czy sesjia aktywna 
    property SessionActive:WordBool read Get_SessionActive;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
@@ -2566,7 +2631,7 @@ Type
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
    property Encryption:WordBool dispid 29018;
     // SessionToken : Token sesji 
-   property SessionToken:WideString  readonly dispid 29019;
+   property SessionToken:WideString dispid 29019;
     // SessionActive : Czy sesjia aktywna 
    property SessionActive:WordBool  readonly dispid 29020;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
@@ -2818,7 +2883,7 @@ Type
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
    property Encryption:WordBool dispid 29018;
     // SessionToken : Token sesji 
-   property SessionToken:WideString  readonly dispid 29019;
+   property SessionToken:WideString dispid 29019;
     // SessionActive : Czy sesjia aktywna 
    property SessionActive:WordBool  readonly dispid 29020;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
@@ -3016,6 +3081,270 @@ Type
    procedure Transform(Source:OleVariant;OutStream:OleVariant);dispid 33002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
+// IlgcViesCheckVatResponse : 
+
+ IlgcViesCheckVatResponse = interface(IlgcBaseObject)
+   ['{92194BC6-A566-4783-BB67-13FD91450C1A}']
+   function Get_CountryCode : WideString; safecall;
+   function Get_VatNumber : WideString; safecall;
+   function Get_RequestDate : OleVariant; safecall;
+   function Get_Valid : WordBool; safecall;
+   function Get_RequestIdentifier : WideString; safecall;
+   function Get_Name : WideString; safecall;
+   function Get_Address : WideString; safecall;
+   function Get_TraderName : WideString; safecall;
+   function Get_TraderStreet : WideString; safecall;
+   function Get_TraderPostalCode : WideString; safecall;
+   function Get_TraderCity : WideString; safecall;
+   function Get_TraderCompanyType : WideString; safecall;
+   function Get_TraderNameMatch : lgcViesMatchType; safecall;
+   function Get_TraderStreetMatch : lgcViesMatchType; safecall;
+   function Get_TraderPostalCodeMatch : lgcViesMatchType; safecall;
+   function Get_TraderCityMatch : lgcViesMatchType; safecall;
+   function Get_TraderCompanyTypeMatch : lgcViesMatchType; safecall;
+   function Get_RawResponse : WideString; safecall;
+    // CountryCode :  
+   property CountryCode:WideString read Get_CountryCode;
+    // VatNumber :  
+   property VatNumber:WideString read Get_VatNumber;
+    // RequestDate :  
+   property RequestDate:OleVariant read Get_RequestDate;
+    // Valid :  
+   property Valid:WordBool read Get_Valid;
+    // RequestIdentifier :  
+   property RequestIdentifier:WideString read Get_RequestIdentifier;
+    // Name :  
+   property Name:WideString read Get_Name;
+    // Address :  
+   property Address:WideString read Get_Address;
+    // TraderName :  
+   property TraderName:WideString read Get_TraderName;
+    // TraderStreet :  
+   property TraderStreet:WideString read Get_TraderStreet;
+    // TraderPostalCode :  
+   property TraderPostalCode:WideString read Get_TraderPostalCode;
+    // TraderCity :  
+   property TraderCity:WideString read Get_TraderCity;
+    // TraderCompanyType :  
+   property TraderCompanyType:WideString read Get_TraderCompanyType;
+    // TraderNameMatch :  
+   property TraderNameMatch:lgcViesMatchType read Get_TraderNameMatch;
+    // TraderStreetMatch :  
+   property TraderStreetMatch:lgcViesMatchType read Get_TraderStreetMatch;
+    // TraderPostalCodeMatch :  
+   property TraderPostalCodeMatch:lgcViesMatchType read Get_TraderPostalCodeMatch;
+    // TraderCityMatch :  
+   property TraderCityMatch:lgcViesMatchType read Get_TraderCityMatch;
+    // TraderCompanyTypeMatch :  
+   property TraderCompanyTypeMatch:lgcViesMatchType read Get_TraderCompanyTypeMatch;
+    // RawResponse :  
+   property RawResponse:WideString read Get_RawResponse;
+  end;
+
+
+// IlgcViesCheckVatResponse : 
+
+ IlgcViesCheckVatResponseDisp = dispinterface
+   ['{92194BC6-A566-4783-BB67-13FD91450C1A}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // CountryCode :  
+   property CountryCode:WideString  readonly dispid 34001;
+    // VatNumber :  
+   property VatNumber:WideString  readonly dispid 34002;
+    // RequestDate :  
+   property RequestDate:OleVariant  readonly dispid 34003;
+    // Valid :  
+   property Valid:WordBool  readonly dispid 34004;
+    // RequestIdentifier :  
+   property RequestIdentifier:WideString  readonly dispid 34005;
+    // Name :  
+   property Name:WideString  readonly dispid 34006;
+    // Address :  
+   property Address:WideString  readonly dispid 34007;
+    // TraderName :  
+   property TraderName:WideString  readonly dispid 34008;
+    // TraderStreet :  
+   property TraderStreet:WideString  readonly dispid 34009;
+    // TraderPostalCode :  
+   property TraderPostalCode:WideString  readonly dispid 34010;
+    // TraderCity :  
+   property TraderCity:WideString  readonly dispid 34011;
+    // TraderCompanyType :  
+   property TraderCompanyType:WideString  readonly dispid 34012;
+    // TraderNameMatch :  
+   property TraderNameMatch:lgcViesMatchType  readonly dispid 34013;
+    // TraderStreetMatch :  
+   property TraderStreetMatch:lgcViesMatchType  readonly dispid 34014;
+    // TraderPostalCodeMatch :  
+   property TraderPostalCodeMatch:lgcViesMatchType  readonly dispid 34015;
+    // TraderCityMatch :  
+   property TraderCityMatch:lgcViesMatchType  readonly dispid 34016;
+    // TraderCompanyTypeMatch :  
+   property TraderCompanyTypeMatch:lgcViesMatchType  readonly dispid 34017;
+    // RawResponse :  
+   property RawResponse:WideString  readonly dispid 34018;
+  end;
+
+
+// IlgcViesCountryStatus : 
+
+ IlgcViesCountryStatus = interface(IlgcBaseObject)
+   ['{92283D36-304C-49D5-9A4E-6E163403776E}']
+   function Get_CountryCode : WideString; safecall;
+   function Get_Availability : lgcViesAvailabilityStatus; safecall;
+    // CountryCode :  
+   property CountryCode:WideString read Get_CountryCode;
+    // Availability :  
+   property Availability:lgcViesAvailabilityStatus read Get_Availability;
+  end;
+
+
+// IlgcViesCountryStatus : 
+
+ IlgcViesCountryStatusDisp = dispinterface
+   ['{92283D36-304C-49D5-9A4E-6E163403776E}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // CountryCode :  
+   property CountryCode:WideString  readonly dispid 35001;
+    // Availability :  
+   property Availability:lgcViesAvailabilityStatus  readonly dispid 35002;
+  end;
+
+
+// IlgcViesStatusInformationResponse : 
+
+ IlgcViesStatusInformationResponse = interface(IlgcBaseObject)
+   ['{3BD250F9-8F41-435F-BE76-734A0B4FDFFC}']
+   function Get_VowAvaiable : WordBool; safecall;
+   function Get_Countries : IDispatch; safecall;
+    // VowAvaiable :  
+   property VowAvaiable:WordBool read Get_VowAvaiable;
+    // Countries :  
+   property Countries:IDispatch read Get_Countries;
+  end;
+
+
+// IlgcViesStatusInformationResponse : 
+
+ IlgcViesStatusInformationResponseDisp = dispinterface
+   ['{3BD250F9-8F41-435F-BE76-734A0B4FDFFC}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // VowAvaiable :  
+   property VowAvaiable:WordBool  readonly dispid 36001;
+    // Countries :  
+   property Countries:IDispatch  readonly dispid 36002;
+  end;
+
+
+// IlgcViesService : 
+
+ IlgcViesService = interface(IlgcBaseObject)
+   ['{0779A838-D9CC-4D00-B40C-E5CAD9599619}']
+    // CheckVatNumber :  
+   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;safecall;
+    // CheckVatTestService :  
+   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;safecall;
+    // CheckStatus :  
+   function CheckStatus(AHTTPClient:IDispatch):IDispatch;safecall;
+   function Get_HTTPClient : IDispatch; safecall;
+   procedure Set_HTTPClient(const Value:IDispatch); safecall;
+    // HTTPClient :  
+   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+  end;
+
+
+// IlgcViesService : 
+
+ IlgcViesServiceDisp = dispinterface
+   ['{0779A838-D9CC-4D00-B40C-E5CAD9599619}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // CheckVatNumber :  
+   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;dispid 37001;
+    // CheckVatTestService :  
+   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;dispid 37002;
+    // CheckStatus :  
+   function CheckStatus(AHTTPClient:IDispatch):IDispatch;dispid 37003;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // HTTPClient :  
+   property HTTPClient:IDispatch dispid 37004;
   end;
 
 
@@ -3273,6 +3602,30 @@ Type
   Public
     Class Function Create: IlgcXMLXSLTransformation;
     Class Function CreateRemote(const MachineName: string): IlgcXMLXSLTransformation;
+  end;
+
+  ColgcViesCheckVatResponse = Class
+  Public
+    Class Function Create: IlgcViesCheckVatResponse;
+    Class Function CreateRemote(const MachineName: string): IlgcViesCheckVatResponse;
+  end;
+
+  ColgcViesCountryStatus = Class
+  Public
+    Class Function Create: IlgcViesCountryStatus;
+    Class Function CreateRemote(const MachineName: string): IlgcViesCountryStatus;
+  end;
+
+  ColgcViesStatusInformationResponse = Class
+  Public
+    Class Function Create: IlgcViesStatusInformationResponse;
+    Class Function CreateRemote(const MachineName: string): IlgcViesStatusInformationResponse;
+  end;
+
+  ColgcViesService = Class
+  Public
+    Class Function Create: IlgcViesService;
+    Class Function CreateRemote(const MachineName: string): IlgcViesService;
   end;
 
 implementation
@@ -3617,6 +3970,46 @@ end;
 Class Function ColgcXMLXSLTransformation.CreateRemote(const MachineName: string): IlgcXMLXSLTransformation;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLXSLTransformation) as IlgcXMLXSLTransformation;
+end;
+
+Class Function ColgcViesCheckVatResponse.Create: IlgcViesCheckVatResponse;
+begin
+  Result := CreateComObject(CLASS_lgcViesCheckVatResponse) as IlgcViesCheckVatResponse;
+end;
+
+Class Function ColgcViesCheckVatResponse.CreateRemote(const MachineName: string): IlgcViesCheckVatResponse;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcViesCheckVatResponse) as IlgcViesCheckVatResponse;
+end;
+
+Class Function ColgcViesCountryStatus.Create: IlgcViesCountryStatus;
+begin
+  Result := CreateComObject(CLASS_lgcViesCountryStatus) as IlgcViesCountryStatus;
+end;
+
+Class Function ColgcViesCountryStatus.CreateRemote(const MachineName: string): IlgcViesCountryStatus;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcViesCountryStatus) as IlgcViesCountryStatus;
+end;
+
+Class Function ColgcViesStatusInformationResponse.Create: IlgcViesStatusInformationResponse;
+begin
+  Result := CreateComObject(CLASS_lgcViesStatusInformationResponse) as IlgcViesStatusInformationResponse;
+end;
+
+Class Function ColgcViesStatusInformationResponse.CreateRemote(const MachineName: string): IlgcViesStatusInformationResponse;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcViesStatusInformationResponse) as IlgcViesStatusInformationResponse;
+end;
+
+Class Function ColgcViesService.Create: IlgcViesService;
+begin
+  Result := CreateComObject(CLASS_lgcViesService) as IlgcViesService;
+end;
+
+Class Function ColgcViesService.CreateRemote(const MachineName: string): IlgcViesService;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcViesService) as IlgcViesService;
 end;
 
 end.
