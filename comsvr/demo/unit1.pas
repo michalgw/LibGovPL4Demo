@@ -632,8 +632,8 @@ begin
     ComboBoxSHA256.ItemIndex := 0;
   if ComboBoxAES256.Items.Count > 0 then
     ComboBoxAES256.ItemIndex := 0;
-  if ComboBoxSign.Items.Count > 0 then
-    ComboBoxSign.ItemIndex := 0;
+  if ComboBoxSign.Items.Count > 1 then
+    ComboBoxSign.ItemIndex := 1;
   if ComboBoxEDek.Items.Count > 0 then
     ComboBoxEDek.ItemIndex := 0;
   if ComboBoxXMLC14N.Items.Count > 0 then
@@ -993,7 +993,7 @@ begin
     MessageDlg('Wprowadź nazwę pliku biblioteki PKCS#11', mtInformation, [mbOK], 0);
     Exit;
   end;
-  if not Assigned(Signer) and (ComboBoxSign.ItemIndex >= 0) then
+  if not Assigned(Signer) and (ComboBoxSign.ItemIndex > 0) then
   begin
     Signer := Backend.CreateCertificateSigner(ComboBoxSign.Text) as IlgcCertificateSigner;
     if Supports(Signer, IlgcPKCS11CertificateSigner, IP11Signer) then
@@ -1016,21 +1016,24 @@ begin
   if ComboBoxHTTPCli.ItemIndex >= 0 then
     HTTPClient := Backend.CreateHTTPClient(ComboBoxHTTPCli.Text) as IlgcHTTPClient;
 
-  XAdES := Backend.CreateXAdES as IlgcXAdES;
   EDek := Backend.CreateEDeklaracja as IlgcEDeklaracja;
   JPK := Backend.CreateJPK as IlgcJPK;
 
-  with XAdES do
+  if Assigned(Signer) then
   begin
-    if ComboBoxSHA1.ItemIndex >= 0 then
-      SHA1HashClass := ComboBoxSHA1.Text;
-    if ComboBoxSHA256.ItemIndex >= 0 then
-      SHA256HashClass := ComboBoxSHA256.Text;
-    if ComboBoxBase64.ItemIndex >= 0 then
-      Base64EncoderClass := ComboBoxBase64.Text;
-    Signer := Self.Signer;
-    SignType := ComboBoxXAdESSHA.ItemIndex;
-    IncludeSigningTime := CheckBoxXAdESCzas.Checked;
+    XAdES := Backend.CreateXAdES as IlgcXAdES;
+    with XAdES do
+    begin
+      if ComboBoxSHA1.ItemIndex >= 0 then
+        SHA1HashClass := ComboBoxSHA1.Text;
+      if ComboBoxSHA256.ItemIndex >= 0 then
+        SHA256HashClass := ComboBoxSHA256.Text;
+      if ComboBoxBase64.ItemIndex >= 0 then
+        Base64EncoderClass := ComboBoxBase64.Text;
+      Signer := Self.Signer;
+      SignType := ComboBoxXAdESSHA.ItemIndex;
+      IncludeSigningTime := CheckBoxXAdESCzas.Checked;
+    end;
   end;
 
   with EDek do
@@ -1115,24 +1118,29 @@ begin
     if not LibXMLBackend.LoadLibXSLT(FileNameEditLibXlst.FileName, FileNameEditLibExslt.FileName) then
       MessageDlg('Nie można załadować biblioteki libxslt lub libexslt.', mtError, [mbOK], 0);
 
-  LoadCertList;
-
   TabSheetSetup.Enabled := False;
-  TabSheetCert.TabVisible := True;
-  TabSheetEDekPodpisCert.TabVisible := True;
   TabSheetEDekPodpisAut.TabVisible := True;
   TabSheetEDekBramka.TabVisible := True;
-  TabSheetJPKPodpisCert.TabVisible := True;
   TabSheetJPKPodpisAut.TabVisible := True;
   TabSheetJPKBramka.TabVisible := True;
   TabSheetKsefSession.TabVisible := True;
   TabSheetKSeFCommon.TabVisible := True;
   TabSheetKSeFBatch.TabVisible := True;
-  if Signer is IlgcPKCS11CertificateSigner then
-    TabSheetPKCS11.TabVisible := True;
   TabSheetXMLVer.TabVisible := True;
   RadioGroupXMLValClick(nil);
   TabSheetVies.TabVisible := True;
+
+  if Assigned(Signer) then
+  begin
+    TabSheetCert.TabVisible := True;
+    TabSheetEDekPodpisCert.TabVisible := True;
+    TabSheetJPKPodpisCert.TabVisible := True;
+    if Signer is IlgcPKCS11CertificateSigner then
+      TabSheetPKCS11.TabVisible := True;
+    LoadCertList;
+  end
+  else
+    GroupBoxKSeFSesInitCert.Visible := False;
 
   DateTimePickerKSeFQInvCrRanInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrRanInvTo.DateTime := Now;
@@ -1141,10 +1149,13 @@ begin
   DateTimePickerKSeFQInvCrDetInvFrom.DateTime := IncDay(Now, -30);
   DateTimePickerKSeFQInvCrDetInvTo.DateTime := Now;
 
-  Debug('XAdES', True);
-  Debug('SHA1HashClass: ' + XAdES.SHA1HashClass);
-  Debug('SHA256HashClass: ' + XAdES.SHA256HashClass);
-  Debug('Base64EncoderClass: ' + XAdES.Base64EncoderClass);
+  if Assigned(XAdES) then
+  begin
+    Debug('XAdES', True);
+    Debug('SHA1HashClass: ' + XAdES.SHA1HashClass);
+    Debug('SHA256HashClass: ' + XAdES.SHA256HashClass);
+    Debug('Base64EncoderClass: ' + XAdES.Base64EncoderClass);
+  end;
   Debug('EDek', True);
   Debug('XMLCanonizator: ' + EDek.XMLCanonizator);
   Debug('EDekGate: ' + EDek.EDekGate);
@@ -1163,7 +1174,7 @@ begin
   Debug('AES256EncryptClass: ' + KSeF.AES256EncryptClass);
   Debug('SHA256HashClass: ' + KSeF.SHA256HashClass);
   Debug('RandomGeneratorClass: ' + KSeF.RandomGeneratorClass);
-  if Signer is IlgcPKCS11CertificateSigner then
+  if Assigned(Signer) and (Signer is IlgcPKCS11CertificateSigner) then
     ButtonPKCS11InfoClick(nil);
 end;
 
