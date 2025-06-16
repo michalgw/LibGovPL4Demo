@@ -6,14 +6,17 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, EditBtn, Spin, DateTimePicker, lgBackend, lgXAdES, lgEDeklaracja,
-  lgJPK, lgKSeF, lgKSeFTypes;
+  ExtCtrls, EditBtn, Spin, Grids, DateTimePicker, lgBackend, lgXAdES,
+  lgEDeklaracja, lgJPK, lgKSeF, lgKSeFTypes;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonKSeFCreGTokGen: TButton;
+    ButtonKSeFCreGTokClr: TButton;
+    ButtonKSeFCreQ: TButton;
     ButtonViesVatCheck: TButton;
     ButtonViesVatTestService: TButton;
     ButtonViesCheckStatus: TButton;
@@ -77,6 +80,10 @@ type
     CheckBoxJPKPAAdHoc: TCheckBox;
     CheckBoxXAdESCzas: TCheckBox;
     CheckGroupKSeFQInvCrIInvoiceTypes: TCheckGroup;
+    ComboBoxKSeFCreQCriType: TComboBox;
+    ComboBoxKSeFCreQCriType1: TComboBox;
+    ComboBoxKSeFCreQCSRT: TComboBox;
+    ComboBoxKSeFCreQCTRT: TComboBox;
     ComboBoxViesCountry: TComboBox;
     ComboBoxPKCS11UserType: TComboBox;
     ComboBoxPKCS11Cert: TComboBox;
@@ -126,6 +133,9 @@ type
     DateTimePickerKSeFQInvCrRanInvFrom: TDateTimePicker;
     DateTimePickerKSeFQInvCrRanInvTo: TDateTimePicker;
     DirectoryEditLibXML2Cache: TDirectoryEdit;
+    EditKSeFCreGTokDesc: TEdit;
+    EditKSeFCreQCriId: TEdit;
+    EditKSeFCreQCriId1: TEdit;
     EditViesTraderName: TEdit;
     EditViesTraderStreet: TEdit;
     EditViesTraderPostalCode: TEdit;
@@ -231,6 +241,11 @@ type
     GroupBox25: TGroupBox;
     GroupBox26: TGroupBox;
     GroupBox27: TGroupBox;
+    GroupBox28: TGroupBox;
+    GroupBox29: TGroupBox;
+    GroupBox30: TGroupBox;
+    GroupBoxKSeFCreQId: TGroupBox;
+    GroupBoxKSeFCreQId1: TGroupBox;
     GroupBoxLibXML2Par: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
@@ -294,6 +309,14 @@ type
     Label139: TLabel;
     Label140: TLabel;
     Label141: TLabel;
+    Label142: TLabel;
+    Label143: TLabel;
+    Label144: TLabel;
+    Label145: TLabel;
+    Label146: TLabel;
+    Label147: TLabel;
+    Label148: TLabel;
+    Label149: TLabel;
     Label16: TLabel;
     Label14: TLabel;
     Label15: TLabel;
@@ -395,12 +418,17 @@ type
     Panel5: TPanel;
     Panel6: TPanel;
     Panel7: TPanel;
+    RadioButtonKSeFCreQAll: TRadioButton;
+    RadioButtonKSeFCreQById: TRadioButton;
     RadioButtonKSeFBatchCert: TRadioButton;
     RadioButtonKSeFBatchPZ: TRadioButton;
     RadioGroupXMLVal: TRadioGroup;
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
+    ScrollBox6: TScrollBox;
+    ScrollBox7: TScrollBox;
     Splitter2: TSplitter;
+    StringGridKSeFCreGTok: TStringGrid;
     surname: TLabel;
     ListViewCert: TListView;
     MemoKSeFQInvCrCurrencyCodes: TMemo;
@@ -421,6 +449,8 @@ type
     SpinEditKSeFSesPgSz: TSpinEdit;
     SpinEditKSeFSesPgOf: TSpinEdit;
     Splitter1: TSplitter;
+    TabSheetKSeFCredentials: TTabSheet;
+    TabSheetKSeFQueryCredentials: TTabSheet;
     TabSheetVies: TTabSheet;
     TabSheetXMLVer: TTabSheet;
     TabSheetPKCS11: TTabSheet;
@@ -440,6 +470,9 @@ type
     TabSheetEDekPodpisCert: TTabSheet;
     TabSheetCert: TTabSheet;
     TabSheetSetup: TTabSheet;
+    procedure ButtonKSeFCreGTokClrClick(Sender: TObject);
+    procedure ButtonKSeFCreGTokGenClick(Sender: TObject);
+    procedure ButtonKSeFCreQClick(Sender: TObject);
     procedure ButtonObjCountClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
@@ -503,6 +536,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure RadioButtonKSeFBatchCertChange(Sender: TObject);
+    procedure RadioButtonKSeFCreQByIdClick(Sender: TObject);
     procedure RadioGroupXMLValClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
@@ -728,6 +762,11 @@ begin
   ComboBoxKSeFBatchCert.Enabled := RadioButtonKSeFBatchCert.Checked;
 end;
 
+procedure TForm1.RadioButtonKSeFCreQByIdClick(Sender: TObject);
+begin
+  GroupBoxKSeFCreQId.Enabled := RadioButtonKSeFCreQById.Checked;
+end;
+
 procedure TForm1.RadioGroupXMLValClick(Sender: TObject);
 begin
   GroupBoxLibXML2Par.Enabled := RadioGroupXMLVal.ItemIndex = 1;
@@ -744,6 +783,8 @@ begin
   GroupBoxKSeFSesInitPZ.Enabled := not AWartosc;
   TabSheetKSeFFaktury.TabVisible := AWartosc;
   TabSheetKSeFQueryInvoice.TabVisible := AWartosc;
+  TabSheetKSeFQueryCredentials.TabVisible := AWartosc;
+  TabSheetKSeFCredentials.TabVisible := AWartosc;
 
   // Tylko dla serwerów testowych i prod >= 2.0.0
   //FloatSpinEditKSeFQInvCAamountFrom.Enabled := ComboBoxKSeFBramka.ItemIndex = 2;
@@ -1876,6 +1917,8 @@ begin
         Resp := KSeF.SessionStatus(EditKSeFSesStatRef.Text, SpinEditKSeFSesPgSz.Value,
           SpinEditKSeFSesPgOf.Value, CheckBoxKSeFStatDet.Checked);
       Debug('Odpowiedź: ' + Resp.RawResponse);
+      Debug('Kod przetwarzania: ' + IntToStr(Resp.ProcessingCode));
+      Debug('Opis przetwarzania: ' + Resp.ProcessingDescription);
       ObjAdd(Resp);
     except
       on E: Exception do
@@ -2654,6 +2697,110 @@ begin
   {$IFDEF LGP_DEBUG_OBJ}
   Debug('Liczba obiektów KSeF: ' + IntToStr(ObjList.Count), True);
   {$ENDIF}
+end;
+
+procedure TForm1.ButtonKSeFCreQClick(Sender: TObject);
+var
+  Req: TKSeFQuerySyncCredentialsRequest;
+  Resp: TKSeFQuerySyncCredentialsResponse;
+begin
+  Debug('KSeF - Zapytanie o poświadczenia', True);
+  Req := TKSeFQuerySyncCredentialsRequest.Create;
+  if RadioButtonKSeFCreQById.Checked then
+  begin
+    Req.QueryCriteria := TKSeFQueryCriteriaCredentialsId.Create;
+    with TKSeFQueryCriteriaCredentialsId(Req.QueryCriteria) do
+    begin
+      QueryCredentialsScopeResultTypeRaw := ComboBoxKSeFCreQCSRT.Text;
+      QueryCredentialsTypeResultTypeRaw := ComboBoxKSeFCreQCTRT.Text;
+      CredentialsIdentifier := TKSeFCredentialsIdentifierRequest.Create;
+      CredentialsIdentifier.&Type := ComboBoxKSeFCreQCriType.Text;
+      CredentialsIdentifier.Identifier := EditKSeFCreQCriId.Text;
+    end;
+  end
+  else
+  begin
+    Req.QueryCriteria := TKSeFQueryCriteriaCredentialsAll.Create;
+    with TKSeFQueryCriteriaCredentialsAll(Req.QueryCriteria) do
+    begin
+      QueryCredentialsScopeResultTypeRaw := ComboBoxKSeFCreQCSRT.Text;
+      QueryCredentialsTypeResultTypeRaw := ComboBoxKSeFCreQCTRT.Text;
+    end;
+  end;
+  Debug('Zapytanie: ' + Req.GetJSONString);
+  ObjAdd(Req);
+  try
+    try
+      Resp := KSeF.QueryCredentialSync(Req);
+      Debug('Odpowiedź: ' + Resp.RawResponse);
+      //Resp.Free;
+      ObjAdd(Resp);
+    except
+      on E: Exception do
+      begin
+        Debug('Błąd podczas zapytania o poświadczenia (%s): %s', [E.ClassName, E.Message]);
+        if E is EKSeFExceptionResponse then
+          Debug('Odpowiedź: ' + EKSeFExceptionResponse(E).RawData);
+        MessageDlg(Format('Błąd podczas zapytania o poświadczenia (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    //Req.Free;
+  end;
+end;
+
+procedure TForm1.ButtonKSeFCreGTokClrClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  EditKSeFCreGTokDesc.Text := '';
+  for I := 1 to 6 do
+  begin
+    StringGridKSeFCreGTok.Cells[0, I] := '';
+    StringGridKSeFCreGTok.Cells[1, I] := '';
+  end;
+end;
+
+procedure TForm1.ButtonKSeFCreGTokGenClick(Sender: TObject);
+var
+  Req: TKSeFGenerateTokenRequest;
+  Resp: TKSeFGenerateTokenResponse;
+  Role: TKSeFCredentialsRoleRequestToken;
+  I: Integer;
+begin
+  Debug('KSeF - Poświadczenia - Generowanie tokena autoryzacyjnego', True);
+  Req := TKSeFGenerateTokenRequest.Create;
+  Req.GenerateToken := TKSeFGenerateTokenRequestType.Create;
+  Req.GenerateToken.Description := EditKSeFCreGTokDesc.Text;
+  for I := 1 to 6 do
+    if (StringGridKSeFCreGTok.Cells[0, I] <> '') and (StringGridKSeFCreGTok.Cells[1, I] <> '') then
+    begin
+      Role := TKSeFCredentialsRoleRequestToken.Create;
+      Role.RoleDescription := StringGridKSeFCreGTok.Cells[0, I];
+      Role.RoleType := StringGridKSeFCreGTok.Cells[1, I];
+      Req.GenerateToken.CredentialsRoleList.Add(Role);
+    end;
+  Debug('Zapytanie: ' + Req.GetJSONString);
+  ObjAdd(Req);
+  try
+    try
+      Resp := KSeF.CredentialsGenerateToken(Req);
+      Debug('Odpowiedź: ' + Resp.RawResponse);
+      Debug('Wygenerowany token: ' + Resp.AuthorisationToken);
+      //Resp.Free;
+      ObjAdd(Resp);
+    except
+      on E: Exception do
+      begin
+        Debug('Błąd podczas żądania generowania tokena autoryzacyjnego (%s): %s', [E.ClassName, E.Message]);
+        if E is EKSeFExceptionResponse then
+          Debug('Odpowiedź: ' + EKSeFExceptionResponse(E).RawData);
+        MessageDlg(Format('Błąd podczas żądania generowania tokena autoryzacyjnego (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    //Req.Free;
+  end;
 end;
 
 procedure TForm1.ButtonKSeFQInvAsyncFetchClick(Sender: TObject);

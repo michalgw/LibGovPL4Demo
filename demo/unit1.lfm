@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 177
+  Left = 257
   Height = 726
-  Top = 64
+  Top = 104
   Width = 698
   Caption = 'LibGovPL 4 Demo'
   ClientHeight = 726
@@ -15,30 +15,30 @@ object Form1: TForm1
     Height = 594
     Top = 0
     Width = 698
-    ActivePage = TabSheetVies
+    ActivePage = TabSheetKSeFCredentials
     Align = alClient
     MultiLine = True
-    TabIndex = 15
+    TabIndex = 14
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
       Caption = 'Setup'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       object Panel1: TScrollBox
         AnchorSideRight.Side = asrBottom
         Left = 0
-        Height = 483
+        Height = 463
         Top = 0
         Width = 690
         HorzScrollBar.Page = 259
-        VertScrollBar.Page = 479
+        VertScrollBar.Page = 459
         Align = alClient
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
         ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
-        ClientHeight = 479
+        ClientHeight = 459
         ClientWidth = 669
         TabOrder = 0
         object Label1: TLabel
@@ -492,7 +492,7 @@ object Form1: TForm1
       object Panel2: TPanel
         Left = 0
         Height = 43
-        Top = 483
+        Top = 463
         Width = 690
         Align = alBottom
         AutoSize = True
@@ -516,12 +516,12 @@ object Form1: TForm1
     end
     object TabSheetCert: TTabSheet
       Caption = 'Certyfikaty'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ListViewCert: TListView
         Left = 0
-        Height = 483
+        Height = 463
         Top = 0
         Width = 690
         Align = alClient
@@ -563,7 +563,7 @@ object Form1: TForm1
       object Panel3: TPanel
         Left = 0
         Height = 43
-        Top = 483
+        Top = 463
         Width = 690
         Align = alBottom
         AutoSize = True
@@ -615,7 +615,7 @@ object Form1: TForm1
     end
     object TabSheetPKCS11: TTabSheet
       Caption = 'PKCS11'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object GroupBox23: TGroupBox
@@ -834,7 +834,7 @@ object Form1: TForm1
     end
     object TabSheetEDekPodpisCert: TTabSheet
       Caption = 'eDeklaracja podpis certyfikatem'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ComboBoxEdekCert: TComboBox
@@ -948,7 +948,7 @@ object Form1: TForm1
     end
     object TabSheetEDekPodpisAut: TTabSheet
       Caption = 'eDeklaracja podpis danymi aut.'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object Label17: TLabel
@@ -1168,7 +1168,7 @@ object Form1: TForm1
     end
     object TabSheetEDekBramka: TTabSheet
       Caption = 'eDeklaracja bramka'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object GroupBox1: TGroupBox
@@ -1412,7 +1412,7 @@ object Form1: TForm1
     end
     object TabSheetJPKPodpisCert: TTabSheet
       Caption = 'JPK podpis certyfikatem'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object Label35: TLabel
@@ -1605,7 +1605,7 @@ object Form1: TForm1
     end
     object TabSheetJPKPodpisAut: TTabSheet
       Caption = 'JPK podpis danymi aut.'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object Label40: TLabel
@@ -1905,7 +1905,7 @@ object Form1: TForm1
     end
     object TabSheetJPKBramka: TTabSheet
       Caption = 'JPK bramka'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object GroupBox3: TGroupBox
@@ -2168,19 +2168,19 @@ object Form1: TForm1
     end
     object TabSheetKSeFCommon: TTabSheet
       Caption = 'KSeF - Wspólne'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ScrollBox3: TScrollBox
         Left = 0
-        Height = 526
+        Height = 506
         Top = 0
         Width = 690
         HorzScrollBar.Page = 657
-        VertScrollBar.Page = 526
+        VertScrollBar.Page = 506
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 526
+        ClientHeight = 506
         ClientWidth = 673
         TabOrder = 0
         object GroupBox15: TGroupBox
@@ -2665,19 +2665,19 @@ object Form1: TForm1
     end
     object TabSheetKsefSession: TTabSheet
       Caption = 'KSeF - Sesja'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ScrollBox1: TScrollBox
         Left = 0
-        Height = 526
+        Height = 506
         Top = 0
         Width = 690
         HorzScrollBar.Page = 470
-        VertScrollBar.Page = 526
+        VertScrollBar.Page = 506
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 526
+        ClientHeight = 506
         ClientWidth = 673
         TabOrder = 0
         object GroupBoxKSeFSesPar: TGroupBox
@@ -3232,19 +3232,19 @@ object Form1: TForm1
     end
     object TabSheetKSeFFaktury: TTabSheet
       Caption = 'KSeF - Faktury'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ScrollBox5: TScrollBox
         Left = 0
-        Height = 526
+        Height = 506
         Top = 0
         Width = 690
         HorzScrollBar.Page = 294
-        VertScrollBar.Page = 526
+        VertScrollBar.Page = 506
         Align = alClient
         BorderStyle = bsNone
-        ClientHeight = 526
+        ClientHeight = 506
         ClientWidth = 673
         TabOrder = 0
         object GroupBox7: TGroupBox
@@ -3596,18 +3596,18 @@ object Form1: TForm1
     end
     object TabSheetKSeFQueryInvoice: TTabSheet
       Caption = 'KSeF - Zapytania - Faktury'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ScrollBox2: TScrollBox
         Left = 0
-        Height = 526
+        Height = 506
         Top = 0
         Width = 690
         HorzScrollBar.Page = 650
-        VertScrollBar.Page = 522
+        VertScrollBar.Page = 502
         Align = alClient
-        ClientHeight = 522
+        ClientHeight = 502
         ClientWidth = 669
         TabOrder = 0
         object GroupBox10: TGroupBox
@@ -4582,20 +4582,441 @@ object Form1: TForm1
         end
       end
     end
+    object TabSheetKSeFQueryCredentials: TTabSheet
+      Caption = 'KSeF - Zapytania - Poświadczenia'
+      ClientHeight = 506
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox6: TScrollBox
+        Left = 0
+        Height = 506
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 440
+        VertScrollBar.Page = 244
+        Align = alClient
+        ClientHeight = 502
+        ClientWidth = 686
+        TabOrder = 0
+        object GroupBox28: TGroupBox
+          Left = 0
+          Height = 244
+          Top = 0
+          Width = 686
+          Align = alTop
+          AutoSize = True
+          Caption = 'Zapitanie o poświadczenia'
+          ClientHeight = 224
+          ClientWidth = 682
+          TabOrder = 0
+          object Label142: TLabel
+            AnchorSideLeft.Control = GroupBox28
+            AnchorSideTop.Control = ComboBoxKSeFCreQCSRT
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 177
+            BorderSpacing.Around = 8
+            Caption = 'queryCredentialsScopeResultType'
+          end
+          object ComboBoxKSeFCreQCSRT: TComboBox
+            AnchorSideLeft.Control = Label142
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox28
+            Left = 193
+            Height = 23
+            Top = 8
+            Width = 100
+            BorderSpacing.Around = 8
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'current'
+            )
+            TabOrder = 0
+            Text = 'current'
+          end
+          object Label143: TLabel
+            AnchorSideLeft.Control = GroupBox28
+            Left = 8
+            Height = 15
+            Top = 44
+            Width = 169
+            BorderSpacing.Around = 8
+            Caption = 'queryCredentialsTypeResultType'
+          end
+          object ComboBoxKSeFCreQCTRT: TComboBox
+            AnchorSideLeft.Control = Label143
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = ComboBoxKSeFCreQCSRT
+            AnchorSideTop.Side = asrBottom
+            Left = 185
+            Height = 23
+            Top = 39
+            Width = 100
+            BorderSpacing.Around = 8
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'all'
+              'standard'
+              'token'
+            )
+            TabOrder = 1
+            Text = 'all'
+          end
+          object RadioButtonKSeFCreQAll: TRadioButton
+            AnchorSideLeft.Control = GroupBox28
+            AnchorSideTop.Control = ComboBoxKSeFCreQCTRT
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 19
+            Top = 70
+            Width = 149
+            BorderSpacing.Around = 8
+            Caption = 'Wszystkie poświadczenia'
+            Checked = True
+            TabOrder = 5
+            TabStop = True
+            OnClick = RadioButtonKSeFCreQByIdClick
+          end
+          object RadioButtonKSeFCreQById: TRadioButton
+            AnchorSideLeft.Control = GroupBox28
+            AnchorSideTop.Control = RadioButtonKSeFCreQAll
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 19
+            Top = 97
+            Width = 141
+            BorderSpacing.Around = 8
+            Caption = 'Tylko wg identyfikatora'
+            TabOrder = 2
+            OnClick = RadioButtonKSeFCreQByIdClick
+          end
+          object GroupBoxKSeFCreQId: TGroupBox
+            AnchorSideLeft.Control = GroupBox28
+            AnchorSideTop.Control = RadioButtonKSeFCreQById
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox28
+            AnchorSideRight.Side = asrBottom
+            Left = 8
+            Height = 59
+            Top = 124
+            Width = 666
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Identyfikator poświadczeń'
+            ClientHeight = 39
+            ClientWidth = 662
+            Enabled = False
+            TabOrder = 3
+            object Label144: TLabel
+              AnchorSideLeft.Control = GroupBoxKSeFCreQId
+              AnchorSideTop.Control = EditKSeFCreQCriId
+              AnchorSideTop.Side = asrCenter
+              Left = 8
+              Height = 15
+              Top = 12
+              Width = 47
+              BorderSpacing.Around = 8
+              Caption = 'identifier'
+            end
+            object EditKSeFCreQCriId: TEdit
+              AnchorSideLeft.Control = Label144
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = GroupBoxKSeFCreQId
+              Left = 63
+              Height = 23
+              Top = 8
+              Width = 153
+              BorderSpacing.Around = 8
+              TabOrder = 0
+            end
+            object Label145: TLabel
+              AnchorSideLeft.Control = EditKSeFCreQCriId
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = ComboBoxKSeFCreQCriType
+              AnchorSideTop.Side = asrCenter
+              Left = 256
+              Height = 15
+              Top = 12
+              Width = 23
+              BorderSpacing.Left = 32
+              BorderSpacing.Around = 8
+              Caption = 'type'
+            end
+            object ComboBoxKSeFCreQCriType: TComboBox
+              AnchorSideLeft.Control = Label145
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = GroupBoxKSeFCreQId
+              Left = 287
+              Height = 23
+              Top = 8
+              Width = 121
+              BorderSpacing.Around = 8
+              ItemHeight = 15
+              ItemIndex = 1
+              Items.Strings = (
+                'fingerprint'
+                'nip'
+                'onip'
+                'peppolId'
+                'pesel'
+              )
+              TabOrder = 1
+              Text = 'nip'
+            end
+          end
+          object ButtonKSeFCreQ: TButton
+            AnchorSideLeft.Control = GroupBox28
+            AnchorSideTop.Control = GroupBoxKSeFCreQId
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 191
+            Width = 65
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Zapytaj'
+            TabOrder = 4
+            OnClick = ButtonKSeFCreQClick
+          end
+        end
+      end
+    end
+    object TabSheetKSeFCredentials: TTabSheet
+      Caption = 'KSeF - Poświadczenia'
+      ClientHeight = 506
+      ClientWidth = 690
+      TabVisible = False
+      object ScrollBox7: TScrollBox
+        Left = 0
+        Height = 506
+        Top = 0
+        Width = 690
+        HorzScrollBar.Page = 440
+        VertScrollBar.Page = 400
+        Align = alClient
+        ClientHeight = 502
+        ClientWidth = 686
+        TabOrder = 0
+        object GroupBox29: TGroupBox
+          Left = 0
+          Height = 258
+          Top = 0
+          Width = 686
+          Align = alTop
+          AutoSize = True
+          Caption = 'Generowanie tokena autoryzacyjnego'
+          ClientHeight = 238
+          ClientWidth = 682
+          TabOrder = 0
+          object Label146: TLabel
+            AnchorSideLeft.Control = GroupBox29
+            AnchorSideTop.Control = EditKSeFCreGTokDesc
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 60
+            BorderSpacing.Around = 8
+            Caption = 'Description'
+          end
+          object EditKSeFCreGTokDesc: TEdit
+            AnchorSideLeft.Control = Label146
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox29
+            AnchorSideRight.Control = GroupBox29
+            AnchorSideRight.Side = asrBottom
+            Left = 76
+            Height = 23
+            Top = 8
+            Width = 598
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 0
+          end
+          object StringGridKSeFCreGTok: TStringGrid
+            AnchorSideLeft.Control = GroupBox29
+            AnchorSideTop.Control = EditKSeFCreGTokDesc
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox29
+            AnchorSideRight.Side = asrBottom
+            Left = 8
+            Height = 158
+            Top = 39
+            Width = 666
+            Anchors = [akTop, akLeft, akRight]
+            AutoFillColumns = True
+            BorderSpacing.Around = 8
+            ColCount = 2
+            Columns = <            
+              item
+                SizePriority = 1
+                Title.Caption = 'roleDescription'
+                Width = 462
+              end            
+              item
+                PickList.Strings = (
+                  'invoice_read'
+                  'invoice_write'
+                  'payment_confirmation_write'
+                  'credentials_read'
+                  'credentials_manage'
+                  'enforcement_operations'
+                )
+                SizePriority = 0
+                Title.Caption = 'roleType'
+                Width = 200
+              end>
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll]
+            RowCount = 7
+            TabOrder = 1
+            ColWidths = (
+              462
+              200
+            )
+          end
+          object ButtonKSeFCreGTokGen: TButton
+            AnchorSideLeft.Control = GroupBox29
+            AnchorSideTop.Control = StringGridKSeFCreGTok
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 205
+            Width = 100
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Generuj token'
+            TabOrder = 2
+            OnClick = ButtonKSeFCreGTokGenClick
+          end
+          object ButtonKSeFCreGTokClr: TButton
+            AnchorSideLeft.Control = ButtonKSeFCreGTokGen
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = StringGridKSeFCreGTok
+            AnchorSideTop.Side = asrBottom
+            Left = 116
+            Height = 25
+            Top = 205
+            Width = 82
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Czyść pola'
+            TabOrder = 3
+            OnClick = ButtonKSeFCreGTokClrClick
+          end
+        end
+        object GroupBox30: TGroupBox
+          Left = 0
+          Height = 142
+          Top = 258
+          Width = 686
+          Align = alTop
+          Caption = 'Usunięcie tokena autoryzacyjnego'
+          ClientHeight = 122
+          ClientWidth = 682
+          TabOrder = 1
+          object GroupBoxKSeFCreQId1: TGroupBox
+            AnchorSideLeft.Control = GroupBox30
+            AnchorSideTop.Control = GroupBox30
+            AnchorSideRight.Control = GroupBox30
+            AnchorSideRight.Side = asrBottom
+            Left = 8
+            Height = 59
+            Top = 8
+            Width = 666
+            Anchors = [akTop, akLeft, akRight]
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Identyfikator poświadczeń'
+            ClientHeight = 39
+            ClientWidth = 662
+            TabOrder = 0
+            object Label147: TLabel
+              AnchorSideLeft.Control = GroupBoxKSeFCreQId1
+              AnchorSideTop.Control = EditKSeFCreQCriId1
+              AnchorSideTop.Side = asrCenter
+              Left = 8
+              Height = 15
+              Top = 12
+              Width = 47
+              BorderSpacing.Around = 8
+              Caption = 'identifier'
+            end
+            object EditKSeFCreQCriId1: TEdit
+              AnchorSideLeft.Control = Label147
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = GroupBoxKSeFCreQId1
+              Left = 63
+              Height = 23
+              Top = 8
+              Width = 153
+              BorderSpacing.Around = 8
+              TabOrder = 0
+            end
+            object Label148: TLabel
+              AnchorSideLeft.Control = EditKSeFCreQCriId1
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = ComboBoxKSeFCreQCriType1
+              AnchorSideTop.Side = asrCenter
+              Left = 256
+              Height = 15
+              Top = 12
+              Width = 23
+              BorderSpacing.Left = 32
+              BorderSpacing.Around = 8
+              Caption = 'type'
+            end
+            object ComboBoxKSeFCreQCriType1: TComboBox
+              AnchorSideLeft.Control = Label148
+              AnchorSideLeft.Side = asrBottom
+              AnchorSideTop.Control = GroupBoxKSeFCreQId1
+              Left = 287
+              Height = 23
+              Top = 8
+              Width = 121
+              BorderSpacing.Around = 8
+              ItemHeight = 15
+              ItemIndex = 1
+              Items.Strings = (
+                'fingerprint'
+                'nip'
+                'onip'
+                'peppolId'
+                'pesel'
+              )
+              TabOrder = 1
+              Text = 'nip'
+            end
+          end
+          object Label149: TLabel
+            Left = 17
+            Height = 15
+            Top = 83
+            Width = 46
+            Caption = 'Label149'
+          end
+        end
+      end
+    end
     object TabSheetKSeFBatch: TTabSheet
       Caption = 'KSeF - Wysyłka wsadowa'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object ScrollBox4: TScrollBox
         Left = 0
-        Height = 526
+        Height = 506
         Top = 0
         Width = 690
         HorzScrollBar.Page = 684
         VertScrollBar.Page = 459
         Align = alClient
-        ClientHeight = 522
+        ClientHeight = 502
         ClientWidth = 686
         TabOrder = 0
         object GroupBox19: TGroupBox
@@ -5035,7 +5456,7 @@ object Form1: TForm1
     end
     object TabSheetXMLVer: TTabSheet
       Caption = 'Weryfikacja / Transformacja XML'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object GroupBox25: TGroupBox
@@ -5318,7 +5739,7 @@ object Form1: TForm1
     end
     object TabSheetVies: TTabSheet
       Caption = 'Vies'
-      ClientHeight = 526
+      ClientHeight = 506
       ClientWidth = 690
       TabVisible = False
       object GroupBox27: TGroupBox

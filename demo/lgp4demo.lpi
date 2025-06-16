@@ -181,6 +181,13 @@
         <UnitName Value="Unit3"/>
       </Unit>
     </Units>
+    <Debugger>
+      <ClassConfig Version="1">
+        <Config ConfigName="New" ConfigClass="TGDBMIServerDebugger" Active="True" UID="{41C12769-0D36-42B3-B986-006C2C3DBB88}">
+          <Properties Debugger_Remote_Hostname="192.168.1.200" Debugger_Remote_Port="61000" SkipSettingLocalExeName="True"/>
+        </Config>
+      </ClassConfig>
+    </Debugger>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
