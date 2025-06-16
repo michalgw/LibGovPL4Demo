@@ -10,7 +10,8 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, Unit1, unit2, Unit3, LibGovPL_1_0_TLB;
+  Forms, datetimectrls, pascalscript, Unit1, unit2, Unit3, LibGovPL_1_0_TLB,
+  unit4;
 
 {$R lgp4comdemoman.rc}
 {$R *.res}
@@ -23,6 +24,7 @@ begin
   Application.Scaled := True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm4, Form4);
   Application.Run;
 end.
 

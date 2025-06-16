@@ -4813,10 +4813,10 @@ object Form1: TForm1
     ParentFont = False
     TabOrder = 2
     object MemoLog: TMemo
-      Left = 272
+      Left = 320
       Height = 125
       Top = 1
-      Width = 425
+      Width = 377
       Align = alClient
       Lines.Strings = (
         'MemoLog'
@@ -4827,7 +4827,7 @@ object Form1: TForm1
       WordWrap = False
     end
     object Splitter2: TSplitter
-      Left = 267
+      Left = 315
       Height = 125
       Top = 1
       Width = 5
@@ -4836,20 +4836,20 @@ object Form1: TForm1
       Left = 1
       Height = 125
       Top = 1
-      Width = 266
+      Width = 314
       Align = alLeft
       ClientHeight = 125
-      ClientWidth = 266
+      ClientWidth = 314
       ParentFont = False
       TabOrder = 2
       object Panel7: TPanel
         Left = 1
         Height = 26
         Top = 1
-        Width = 264
+        Width = 312
         Align = alTop
         ClientHeight = 26
-        ClientWidth = 264
+        ClientWidth = 312
         ParentFont = False
         TabOrder = 0
         object ButtonObjShow: TButton
@@ -4877,10 +4877,10 @@ object Form1: TForm1
           OnClick = ButtonObjClearClick
         end
         object Label122: TLabel
-          Left = 177
+          Left = 236
           Height = 24
           Top = 1
-          Width = 86
+          Width = 75
           Align = alClient
           Alignment = taCenter
           Caption = 'Obiekty KSeF'
@@ -4899,18 +4899,29 @@ object Form1: TForm1
           TabOrder = 2
           OnClick = ButtonObjCountClick
         end
+        object ButtonSkrypt: TButton
+          Left = 177
+          Height = 24
+          Top = 1
+          Width = 59
+          Align = alLeft
+          AutoSize = True
+          Caption = 'Skrypt'
+          TabOrder = 3
+          OnClick = ButtonSkryptClick
+        end
       end
       object ListViewObj: TListView
         Left = 1
         Height = 97
         Top = 27
-        Width = 264
+        Width = 312
         Align = alClient
         AutoWidthLastColumn = True
         Columns = <        
           item
             Caption = 'Class'
-            Width = 260
+            Width = 308
           end>
         HideSelection = False
         ParentFont = False

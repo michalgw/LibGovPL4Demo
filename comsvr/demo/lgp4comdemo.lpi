@@ -134,6 +134,15 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="pascalscript"/>
+      </Item>
+      <Item>
+        <PackageName Value="SynEditDsgn"/>
+      </Item>
+      <Item>
+        <PackageName Value="SynEdit"/>
+      </Item>
+      <Item>
         <PackageName Value="DateTimeCtrlsDsgn"/>
       </Item>
       <Item>
@@ -173,8 +182,17 @@
         <Filename Value="unit3.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form3"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit4.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form4"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit4"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -209,6 +227,9 @@
         <IgnoredMessages idx6058="True" idx4105="True" idx4104="True"/>
       </CompilerMessages>
       <CustomOptions Value="-dLGP_ENABLE_PKCS11"/>
+      <OtherDefines Count="1">
+        <Define0 Value="LGP_ENABLE_PKCS11"/>
+      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

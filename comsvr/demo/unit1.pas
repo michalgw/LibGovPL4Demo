@@ -14,6 +14,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonSkrypt: TButton;
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
     ButtonObjClear: TButton;
@@ -484,6 +485,7 @@ type
     procedure ButtonPKCS11SlotsClick(Sender: TObject);
     procedure ButtonShowCertClick(Sender: TObject);
     procedure ButtonSetupClick(Sender: TObject);
+    procedure ButtonSkryptClick(Sender: TObject);
     procedure ButtonViesCheckStatusClick(Sender: TObject);
     procedure ButtonViesVatCheckClick(Sender: TObject);
     procedure ButtonXMLTransAddClick(Sender: TObject);
@@ -509,7 +511,6 @@ type
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueryInvoiceCr: IlgcKSeFRequest;
-    procedure ObjAdd(AObj: IlgcObject);
     procedure SetupValidator;
     procedure SetupTrans;
     procedure SetupLXML;
@@ -534,6 +535,7 @@ type
 
     ViesService: IlgcViesService;
 
+    procedure ObjAdd(AObj: IlgcObject);
     procedure Debug(ATekst: String; ALinia: Boolean = False);
     procedure Debug(ATekst: String; ADane: array of const);
     procedure DebugCert(ACertyfikat: IlgcCertificate);
@@ -551,7 +553,7 @@ implementation
 {$R *.lfm}
 
 uses
-  DateUtils, Unit2, Variants, ComObj, ActiveX, Unit3, LCLIntf;
+  DateUtils, Unit2, Variants, ComObj, ActiveX, Unit3, Unit4, LCLIntf;
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -1176,6 +1178,11 @@ begin
   Debug('RandomGeneratorClass: ' + KSeF.RandomGeneratorClass);
   if Assigned(Signer) and (Signer is IlgcPKCS11CertificateSigner) then
     ButtonPKCS11InfoClick(nil);
+end;
+
+procedure TForm1.ButtonSkryptClick(Sender: TObject);
+begin
+  Form4.Visible := True;
 end;
 
 procedure TForm1.ButtonViesCheckStatusClick(Sender: TObject);
