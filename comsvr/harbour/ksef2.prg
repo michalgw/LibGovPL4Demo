@@ -49,7 +49,7 @@ FUNCTION Main()
       oKSeF:Nip := "1111111111"
       oKSeF:GateType := LGC_KTG_DEMO // Rodzaj serwera KSeF: 0 - produkcja, 1 - demo, 2 - test
       oKSeF:Encryption := .T. // Wlacz dodatkowe szyfrowanie dokumentow algorytmem AES
-      oKSeF:FormCode := 1 // Wersja struktury wysylanych plikow FA: 0 - FA(1), 1 - FA(2)
+      oKSeF:FormCode := 2 // Wersja struktury wysylanych plikow FA: 1 - FA(1), 2 - FA(2). 0 - wlasny, wymaga wypelnienia FormCodeSystemCode, FormCodeSchemaVersion, FormCodeTargetNamespace, FormCodeValue
 
       // Czyscimy informacje o ostatnim bledzie
       oBackend:ClearLastError()

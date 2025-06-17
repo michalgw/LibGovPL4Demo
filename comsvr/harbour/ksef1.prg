@@ -29,7 +29,7 @@ FUNCTION Main()
       oKSeF:Nip := "1111111111"
       oKSeF:Token := "1111111111222222222233333333333344444444444445555555555555666666"
       oKSeF:GateType := LGC_KTG_TEST // Rodzaj serwera KSeF: 0 - produkcja, 1 - demo, 2 - test
-      oKSeF:FormCode := 1 // Wersja struktury wysylanych plikow FA: 0 - FA(1), 1 - FA(2)
+      oKSeF:FormCode := 2 // Wersja struktury wysylanych plikow FA: 1 - FA(1), 2 - FA(2). 0 - wlasny, wymaga wypelnienia FormCodeSystemCode, FormCodeSchemaVersion, FormCodeTargetNamespace, FormCodeValue
 
       // Nawiazywanie sesji interaktywnej tokenem
       oResponse := oKSeF:SessionInitToken()

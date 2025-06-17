@@ -28,7 +28,7 @@ namespace ksef1
                 ksef.Nip = "1111111111";
                 ksef.Token = "1111111111222222222233333333333344444444444445555555555555666666";
                 ksef.GateType = lgcKSeFGateType.lgcKTGTest; // Rodzaj serwera KSeF: 0 - produkcja, 1 - demo, 2 - test
-                ksef.FormCode = 1; // Wersja struktury wysylanych plikow FA: 0 - FA(1), 1 - FA(2)
+                ksef.FormCode = 2; // Wersja struktury wysylanych plikow FA: 1 - FA(1), 2 - FA(2). 0 - wlasny, wymaga wypelnienia FormCodeSystemCode, FormCodeSchemaVersion, FormCodeTargetNamespace, FormCodeValue
 
                 // Nawiazywanie sesji interaktywnej tokenem
                 dynamic response = ksef.SessionInitToken();
