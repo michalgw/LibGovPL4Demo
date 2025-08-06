@@ -326,7 +326,7 @@ var
   DataStr: TlgoStream;
   RefNo: LGP_OBJECT;
 begin
-  DataStr := TlgoStream(AEncryptedData);
+  DataStr := TlgoStream.Create(AEncryptedData);
   try
     lgoCheckResult(lgpJPK_Send(ExtObject, LGP_PCHAR(AInitUpload), DataStr.StreamObj,
       RefNo, LGP_INT32(AGateType), LGP_INT32(AVerifySign)));
