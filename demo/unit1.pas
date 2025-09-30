@@ -14,6 +14,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonCertLoadFromFile: TButton;
     ButtonKSeFCreGTokGen: TButton;
     ButtonKSeFCreGTokClr: TButton;
     ButtonKSeFCreQ: TButton;
@@ -470,6 +471,7 @@ type
     TabSheetEDekPodpisCert: TTabSheet;
     TabSheetCert: TTabSheet;
     TabSheetSetup: TTabSheet;
+    procedure ButtonCertLoadFromFileClick(Sender: TObject);
     procedure ButtonKSeFCreGTokClrClick(Sender: TObject);
     procedure ButtonKSeFCreGTokGenClick(Sender: TObject);
     procedure ButtonKSeFCreQClick(Sender: TObject);
@@ -572,6 +574,7 @@ type
     procedure DebugKSeFResponse(AResp: TKSeFResponse);
 
     procedure LoadCertList;
+    procedure UpdateCertList;
   end;
 
 var
@@ -586,7 +589,8 @@ uses
   lgCNG, lgMSXML, lgWinHTTP,
   {$ENDIF}
   lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2, lgDCPCrypt, lgPKCS11, Unit2,
-  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn, lgVies;
+  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn, Unit4,
+  lgVies, lgOpenSSL;
 
 const
   RSA_KEY_JPK_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'prod.pem';
@@ -939,6 +943,8 @@ begin
 end;
 
 procedure TForm1.DebugCert(ACertyfikat: TlgCertificate);
+var
+  K: TlgCertificateKeyUsage;
 begin
   MemoLog.Append('Certyfikat (' + ACertyfikat.ClassName + ')');
   MemoLog.Append('  Nr seryjny: ' + ACertyfikat.SerialNoDec + ' (' + ACertyfikat.SerialNoHex + ')');
@@ -947,6 +953,9 @@ begin
   MemoLog.Append('  Podmiot: ' + ACertyfikat.Subject);
   MemoLog.Append('  Wydawca: ' + ACertyfikat.Issuer);
   MemoLog.Append('  Rodzaj podpisu: ' + ACertyfikat.Signature);
+  K := ACertyfikat.KeyUsage;
+  MemoLog.Append('  Użycie: ' + SetToString(PTypeInfo(TypeInfo(TlgCertificateKeyUsage)), @K));
+  MemoLog.Append('  Algorytm klucza publicznego: ' + ACertyfikat.PublicKeyAlgorithm);
 end;
 
 procedure TForm1.DebugAuth(AImie, ANazwisko, ANIP: String; ADataU: TDate;
@@ -1031,16 +1040,21 @@ begin
 end;
 
 procedure TForm1.LoadCertList;
+begin
+  Debug('Pobieranie listy certyfikatów', True);
+  if Assigned(Certyfikaty) then
+    Certyfikaty.Free;
+  Certyfikaty := Signer.List;
+  UpdateCertList;
+end;
+
+procedure TForm1.UpdateCertList;
 var
   I: Integer;
   LI: TListItem;
   S: String;
+  K: TlgCertificateKeyUsage;
 begin
-  Debug('Pobieranie listy certyfikatów', True);
-
-  if Assigned(Certyfikaty) then
-    Certyfikaty.Free;
-
   ListViewCert.Items.Clear;
   ComboBoxEdekCert.Items.Clear;
   ComboBoxJPKCert.Items.Clear;
@@ -1048,7 +1062,9 @@ begin
   ComboBoxKSeFBatchCert.Items.Clear;
   ComboBoxPKCS11Cert.Items.Clear;
 
-  Certyfikaty := Signer.List;
+  if Certyfikaty = nil then
+    Exit;
+
   for I := 0 to Certyfikaty.Count - 1 do
   begin
     Debug('Certyfikat nr ' + IntToStr(I));
@@ -1063,6 +1079,8 @@ begin
       LI.SubItems.Add(SerialNoDec);
       LI.SubItems.Add(Issuer);
       LI.SubItems.Add(Subject);
+      K := KeyUsage;
+      LI.SubItems.Add(SetToString(PTypeInfo(TypeInfo(TlgCertificateKeyUsage)), @K));
 
       S := DisplayName + ' (' + DateToStr(ValidFrom) + ' - ' + DateToStr(ValidTo) + ')';
       ComboBoxEdekCert.Items.Add(S);
@@ -2758,6 +2776,39 @@ begin
   begin
     StringGridKSeFCreGTok.Cells[0, I] := '';
     StringGridKSeFCreGTok.Cells[1, I] := '';
+  end;
+end;
+
+procedure TForm1.ButtonCertLoadFromFileClick(Sender: TObject);
+var
+  CertFileName, PrivKeyFileName, Password: String;
+  CertFormat, KeyFormat: TlgEncodingType;
+  CertStream: TFileStream = nil;
+  PrivKeyStream: TFileStream = nil;
+  Cert: TlgCertificate;
+begin
+  CertFormat := letPEM;
+  KeyFormat := letPEM;
+  CertFileName := '';
+  PrivKeyFileName := '';
+  Password := '';
+  if TForm4.Execute(CertFileName, PrivKeyFileName, Password, CertFormat, KeyFormat) then
+  begin
+    try
+      CertStream := TFileStream.Create(CertFileName, fmOpenRead);
+      if PrivKeyFileName <> '' then
+        PrivKeyStream := TFileStream.Create(PrivKeyFileName, fmOpenRead);
+      Cert := Signer.LoadFromStream(CertStream, CertFormat, PrivKeyStream, KeyFormat, Password);
+      if not Assigned(Certyfikaty) then
+        Certyfikaty := TlgCertificates.Create(True);
+      Certyfikaty.Add(Cert);
+      UpdateCertList;
+    finally
+      if CertStream <> nil then
+        CertStream.Free;
+      if PrivKeyStream <> nil then
+        PrivKeyStream.Free;
+    end;
   end;
 end;
 

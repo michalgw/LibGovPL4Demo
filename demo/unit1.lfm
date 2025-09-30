@@ -9,16 +9,16 @@ object Form1: TForm1
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '3.7.0.0'
+  LCLVersion = '3.9.0.0'
   object PageControl1: TPageControl
     Left = 0
     Height = 594
     Top = 0
     Width = 698
-    ActivePage = TabSheetKSeFCredentials
+    ActivePage = TabSheetCert
     Align = alClient
     MultiLine = True
-    TabIndex = 14
+    TabIndex = 1
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -553,6 +553,10 @@ object Form1: TForm1
           item
             Caption = 'Subject'
             Width = 300
+          end        
+          item
+            Caption = 'Key usage'
+            Width = 100
           end>
         HideSelection = False
         ReadOnly = True
@@ -610,6 +614,20 @@ object Form1: TForm1
           Caption = 'Odświerz listę certyfikatów'
           TabOrder = 2
           OnClick = ButtonCertReloadClick
+        end
+        object ButtonCertLoadFromFile: TButton
+          AnchorSideLeft.Control = ButtonCertReload
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel3
+          Left = 529
+          Height = 25
+          Top = 9
+          Width = 156
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Wczytaj certyfikat z pliku'
+          TabOrder = 3
+          OnClick = ButtonCertLoadFromFileClick
         end
       end
     end
@@ -4854,9 +4872,8 @@ object Form1: TForm1
             ColCount = 2
             Columns = <            
               item
-                SizePriority = 1
                 Title.Caption = 'roleDescription'
-                Width = 462
+                Width = 445
               end            
               item
                 PickList.Strings = (
@@ -4876,7 +4893,7 @@ object Form1: TForm1
             RowCount = 7
             TabOrder = 1
             ColWidths = (
-              462
+              445
               200
             )
           end
