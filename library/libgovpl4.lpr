@@ -12,7 +12,7 @@ library libgovpl4;
 
 uses
   LazUTF8, Classes, uBackend, uException, uObject, uStream, uTypes, uXAdES, uKSeF,
-  uKSeFObj, uJPK, uEDeklar, uWSTEDG
+  uKSeFObj, uJPK, uEDeklar, uWSTEDG, uXML, uVies
   { you can add units after this }
 {$IFDEF LGP_LEGACY}
   , uLegacy
@@ -39,7 +39,10 @@ uses
   , lgDCPCrypt
 {$ENDIF}
 {$IFDEF LGP_ENABLE_PKCS11}
-  , lgPKCS11, uPKCS11, uXML, uVies
+  , lgPKCS11, uPKCS11
+{$ENDIF}
+{$IFDEF LGP_ENABLE_PKCS11}
+  , lgOpenSSL
 {$ENDIF}
   ;
 
