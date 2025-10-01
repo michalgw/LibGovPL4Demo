@@ -95,9 +95,20 @@ const
   LGP_FM_SHARE_DENY_READ   = fmShareDenyRead;  // $0030
   LGP_FM_SHARE_DENY_NONE   = fmShareDenyNone;  // $0040
 
+  // TlgCertificateKeyUsage
+  LGP_CKU_DIGITAL_SIGNATURE = 1;
+  LGP_CKU_NON_REPUDIATION   = 2;
+  LGP_CKU_KEY_ENCIPHERMENT  = 4;
+  LGP_CKU_DATA_ENCIPHERMENT = 8;
+  LGP_CKU_KEY_AGREEMENT     = 16;
+  LGP_CKU_KEY_CERT_SIGN     = 32;
+  LGP_CKU_CRL_SIGN          = 64;
+  LGP_CKU_ENCIPHER_ONLY     = 128;
+  LGP_CKU_DECIPHER_ONLY     = 256;
+
   // XAdES
-  LGP_XADES_SiGNTYPE_SHA1 = 0;
-  LGP_XADES_SiGNTYPE_SHA256 = 1;
+  LGP_XADES_SIGNTYPE_SHA1 = 0;
+  LGP_XADES_SIGNTYPE_SHA256 = 1;
   LGP_XADES_SERIALNOFMT_DEC = 0;
   LGP_XADES_SERIALNOFMT_HEX = 1;
 
@@ -139,16 +150,28 @@ function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpHTTPClient_SetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
-function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetDisplayName(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetSubject(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetSubjectField(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetSubjectFields(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetSubjectUID(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetIssuer(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetIssuerField(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetIssuerFields(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetIssuerUID(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetSerialNoDec(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetSerialNoHex(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetValidFrom(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetValidTo(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetSignature(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetKeyUsage(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetPublicKeyAlgorithm(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpCertificates_Create(AOwnsObjects: LGP_INT32; var ACertificates: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpCNGCertificate_ShowCertificateInfo(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -156,6 +179,8 @@ function lgpCertificateSigner_Create(AClassName: LGP_PCHAR; var ACertSigner: LGP
 function lgpCertificateSigner_List(ACertificateSigner: LGP_OBJECT; var ACertList: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificateSigner_FindBySerialNumber(ACertificateSigner: LGP_OBJECT; ASerialNo: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificateSigner_UISelect(ACertificateSigner: LGP_OBJECT; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificateSigner_LoadFromStream(ACertificateSigner: LGP_OBJECT; ACertificateStream: LGP_OBJECT; ACertificateFormat: LGP_INT32;
+  APrivateKeyStream: LGP_OBJECT; APrivateKeyFormat: LGP_INT32; APassword: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpCNGCertificateSigner_SetHWnd(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -191,6 +216,7 @@ function lgpListObject_GetCount(AListObject: LGP_OBJECT; var AValue: LGP_INT32):
 function lgpListObject_GetItem(AListObject: LGP_OBJECT; AIndex: LGP_INT32; var AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpListObject_Delete(AListObject: LGP_OBJECT; AIndex: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpListObject_Remove(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpListObject_Add(AListObject: LGP_OBJECT; AItem: LGP_OBJECT; var AIndex: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpListObject_GetOwnsObjects(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpListObject_SetOwnsObjects(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -512,15 +538,25 @@ var
   lgpHTTPClient_GetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpHTTPClient_SetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
-  lgpRSAEncrypt_CreateKey: function(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpRSAEncrypt_CreateKey: function(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+  lgpCertificate_GetVersion: function(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetDisplayName: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetSubject: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSubjectField: function(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSubjectFields: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSubjectUID: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetIssuer: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetIssuerField: function(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetIssuerFields: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetIssuerUID: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetSerialNoDec: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetSerialNoHex: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetValidFrom: function(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetValidTo: function(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetSignature: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetKeyUsage: function(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetPublicKeyAlgorithm: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_SetPIN: function(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
   lgpCNGCertificate_ShowCertificateInfo: function(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
@@ -529,6 +565,10 @@ var
   lgpCertificateSigner_List: function(ACertificateSigner: LGP_OBJECT; var ACertList: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificateSigner_FindBySerialNumber: function(ACertificateSigner: LGP_OBJECT; ASerialNo: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificateSigner_UISelect: function(ACertificateSigner: LGP_OBJECT; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificateSigner_LoadFromStream: function(ACertificateSigner: LGP_OBJECT; ACertificateStream: LGP_OBJECT; ACertificateFormat: LGP_INT32;
+    APrivateKeyStream: LGP_OBJECT; APrivateKeyFormat: LGP_INT32; APassword: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpCertificates_Create: function(AOwnsObjects: LGP_INT32; var ACertificates: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpCNGCertificateSigner_SetHWnd: function(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
 
@@ -565,6 +605,7 @@ var
   lgpListObject_GetItem: function(AListObject: LGP_OBJECT; AIndex: LGP_INT32; var AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpListObject_Delete: function(AListObject: LGP_OBJECT; AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpListObject_Remove: function(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpListObject_Add: function(AListObject: LGP_OBJECT; AItem: LGP_OBJECT; var AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpListObject_GetOwnsObjects: function(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpListObject_SetOwnsObjects: function(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
@@ -925,14 +966,26 @@ begin
 
     @lgpRSAEncrypt_CreateKey := GetProcAddress(LibGovPl4Handle, 'lgpRSAEncrypt_CreateKey');
 
+    @lgpCertificate_GetVersion := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetVersion');
     @lgpCertificate_GetDisplayName := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetDisplayName');
     @lgpCertificate_GetSubject := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSubject');
+    @lgpCertificate_GetSubjectField := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSubjectField');
+    @lgpCertificate_GetSubjectFields := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSubjectFields');
+    @lgpCertificate_GetSubjectUID := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSubjectUID');
     @lgpCertificate_GetIssuer := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetIssuer');
+    @lgpCertificate_GetIssuerField := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetIssuerField');
+    @lgpCertificate_GetIssuerFields := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetIssuerFields');
+    @lgpCertificate_GetIssuerUID := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetIssuerUID');
     @lgpCertificate_GetSerialNoDec := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSerialNoDec');
     @lgpCertificate_GetSerialNoHex := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSerialNoHex');
     @lgpCertificate_GetValidFrom := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetValidFrom');
     @lgpCertificate_GetValidTo := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetValidTo');
+    @lgpCertificate_GetSignature := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSignature');
+    @lgpCertificate_GetKeyUsage := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetKeyUsage');
+    @lgpCertificate_GetPublicKeyAlgorithm := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetPublicKeyAlgorithm');
     @lgpCertificate_SetPIN := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_SetPIN');
+
+    @lgpCertificates_Create := GetProcAddress(LibGovPl4Handle, 'lgpCertificates_Create');
 
     @lgpCNGCertificate_ShowCertificateInfo := GetProcAddress(LibGovPl4Handle, 'lgpCNGCertificate_ShowCertificateInfo');
 
@@ -940,6 +993,7 @@ begin
     @lgpCertificateSigner_List := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_List');
     @lgpCertificateSigner_FindBySerialNumber := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_FindBySerialNumber');
     @lgpCertificateSigner_UISelect := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_UISelect');
+    @lgpCertificateSigner_LoadFromStream := GetProcAddress(LibGovPl4Handle, 'lgpCertificateSigner_LoadFromStream');
 
     @lgpCNGCertificateSigner_SetHWnd := GetProcAddress(LibGovPl4Handle, 'lgpCNGCertificateSigner_SetHWnd');
 
@@ -976,6 +1030,7 @@ begin
     @lgpListObject_GetItem := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetItem');
     @lgpListObject_Delete := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Delete');
     @lgpListObject_Remove := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Remove');
+    @lgpListObject_Add := GetProcAddress(LibGovPl4Handle, 'lgpListObject_Add');
     @lgpListObject_GetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_GetOwnsObjects');
     @lgpListObject_SetOwnsObjects := GetProcAddress(LibGovPl4Handle, 'lgpListObject_SetOwnsObjects');
 

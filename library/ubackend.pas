@@ -19,6 +19,17 @@ uses
   {$ENDIF}
   ;
 
+const
+  LGP_CKU_DIGITAL_SIGNATURE = 1 shr Ord(ckuDigitalSignature);
+  LGP_CKU_NON_REPUDIATION   = 1 shr Ord(ckuNonRepudiation);
+  LGP_CKU_KEY_ENCIPHERMENT  = 1 shr Ord(ckuKeyEncipherment);
+  LGP_CKU_DATA_ENCIPHERMENT = 1 shr Ord(ckuDataEncipherment);
+  LGP_CKU_KEY_AGREEMENT     = 1 shr Ord(ckuKeyAgreement);
+  LGP_CKU_KEY_CERT_SIGN     = 1 shr Ord(ckuKeyCertSign);
+  LGP_CKU_CRL_SIGN          = 1 shr Ord(ckuCRLSign);
+  LGP_CKU_ENCIPHER_ONLY     = 1 shr Ord(ckuEncipherOnly);
+  LGP_CKU_DECIPHER_ONLY     = 1 shr Ord(ckuDecipherOnly);
+
 function lgplVersion: LGP_UINT32; stdcall;
 function lgplListDrivers(AClassType: LGP_INT32): LGP_PCHAR; stdcall;
 function lgplDriverCount(AClassType: LGP_INT32): LGP_INT32; stdcall;
@@ -31,15 +42,25 @@ function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpHTTPClient_SetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
-function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetDisplayName(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetSubject(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetSubjectField(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetSubjectFields(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetSubjectUID(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetIssuer(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetIssuerField(ACertificate: LGP_OBJECT; AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetIssuerFields(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetIssuerUID(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetSerialNoDec(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetSerialNoHex(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetValidFrom(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetValidTo(ACertificate: LGP_OBJECT; var AValue: LGP_PASDATETIME): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetSignature(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetKeyUsage(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetPublicKeyAlgorithm(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
 function lgpCNGCertificate_ShowCertificateInfo(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
@@ -48,6 +69,10 @@ function lgpCertificateSigner_Create(AClassName: LGP_PCHAR; var ACertSigner: LGP
 function lgpCertificateSigner_List(ACertificateSigner: LGP_OBJECT; var ACertList: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificateSigner_FindBySerialNumber(ACertificateSigner: LGP_OBJECT; ASerialNo: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificateSigner_UISelect(ACertificateSigner: LGP_OBJECT; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificateSigner_LoadFromStream(ACertificateSigner: LGP_OBJECT; ACertificateStream: LGP_OBJECT; ACertificateFormat: LGP_INT32;
+  APrivateKeyStream: LGP_OBJECT; APrivateKeyFormat: LGP_INT32; APassword: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpCertificates_Create(AOwnsObjects: LGP_INT32; var ACertificates: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpCNGCertificateSigner_SetHWnd(ACertificateSigner: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
 
@@ -68,7 +93,7 @@ var
 implementation
 
 uses
-  uException, uKSeFObj, DateUtils, FileInfo
+  uException, uKSeFObj, DateUtils, FileInfo, lgUtils
   {$IFDEF LGP_ENABLE_LIBXML2}
   , xml2dyn, lgLibXML2
   {$ENDIF}
@@ -284,7 +309,7 @@ begin
 end;
 
 function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT;
-  var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 var
   RSAEncClass: TlgRSAEncryptClass;
 begin
@@ -295,11 +320,24 @@ begin
     RSAEncClass := RSAEncryptClasses.FindByClassName(AClassName);
     if RSAEncClass <> nil then
     begin
-      ARSAKey := RSAEncClass.CreateKey(TStream(AKeyStream));
+      ARSAKey := RSAEncClass.CreateKey(TStream(AKeyStream), TlgEncodingType(AFormat));
       {$ifdef LGP_DEBUG_OBJ}
       lgpDbgAddObject(TObject(ARSAKey));
       {$endif}
     end;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT;
+  var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := Ord((TObject(ACertificate) as TlgCertificate).Version);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -332,6 +370,45 @@ begin
   end;
 end;
 
+function lgpCertificate_GetSubjectField(ACertificate: LGP_OBJECT;
+  AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).SubjectField[AField]);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetSubjectFields(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).SubjectFields.Text);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetSubjectUID(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create(BytesToHex((TObject(ACertificate) as TlgCertificate).SubjectUID));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpCertificate_GetIssuer(ACertificate: LGP_OBJECT;
   var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
@@ -339,6 +416,45 @@ begin
   try
     CheckObject(ACertificate, TlgCertificate);
     AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).Issuer);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetIssuerField(ACertificate: LGP_OBJECT;
+  AField: LGP_PCHAR; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).IssuerField[AField]);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetIssuerFields(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).IssuerFields.Text);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetIssuerUID(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create(BytesToHex((TObject(ACertificate) as TlgCertificate).IssuerUID));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -391,6 +507,66 @@ begin
   try
     CheckObject(ACertificate, TlgCertificate);
     AValue := (TObject(ACertificate) as TlgCertificate).ValidTo;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetSignature(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).Signature);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetKeyUsage(ACertificate: LGP_OBJECT;
+  var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := 0;
+    with TObject(ACertificate) as TlgCertificate do
+    begin
+      if ckuDigitalSignature in KeyUsage then
+        AValue := AValue or LGP_CKU_DIGITAL_SIGNATURE;
+      if ckuNonRepudiation in KeyUsage then
+        AValue := AValue or LGP_CKU_NON_REPUDIATION;
+      if ckuKeyEncipherment in KeyUsage then
+        AValue := AValue or LGP_CKU_KEY_ENCIPHERMENT;
+      if ckuDataEncipherment in KeyUsage then
+        AValue := AValue or LGP_CKU_DATA_ENCIPHERMENT;
+      if ckuKeyAgreement in KeyUsage then
+        AValue := AValue or LGP_CKU_KEY_AGREEMENT;
+      if ckuKeyCertSign in KeyUsage then
+        AValue := AValue or LGP_CKU_KEY_CERT_SIGN;
+      if ckuCRLSign in KeyUsage then
+        AValue := AValue or LGP_CKU_CRL_SIGN;
+      if ckuEncipherOnly in KeyUsage then
+        AValue := AValue or LGP_CKU_ENCIPHER_ONLY;
+      if ckuDecipherOnly in KeyUsage then
+        AValue := AValue or LGP_CKU_DECIPHER_ONLY;
+    end;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetPublicKeyAlgorithm(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).PublicKeyAlgorithm);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -486,6 +662,40 @@ begin
   try
     CheckObject(ACertificateSigner, TlgCertificateSigner);
     ACertificate := (TObject(ACertificateSigner) as TlgCertificateSigner).UISelect;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificateSigner_LoadFromStream(ACertificateSigner: LGP_OBJECT;
+  ACertificateStream: LGP_OBJECT; ACertificateFormat: LGP_INT32;
+  APrivateKeyStream: LGP_OBJECT; APrivateKeyFormat: LGP_INT32;
+  APassword: LGP_PCHAR; var ACertificate: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  ACertificate := nil;
+  try
+    CheckObject(ACertificateSigner, TlgCertificateSigner);
+    CheckObject(ACertificateStream, TStream);
+    if APrivateKeyStream <> nil then
+      CheckObject(APrivateKeyStream, TStream);
+    ACertificate := (TObject(ACertificateSigner) as TlgCertificateSigner).LoadFromStream(TStream(ACertificateStream),
+      TlgEncodingType(ACertificateFormat), TStream(APrivateKeyStream), TlgEncodingType(APrivateKeyFormat),
+      APassword);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificates_Create(AOwnsObjects: LGP_INT32;
+  var ACertificates: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  ACertificates := nil;
+  try
+    ACertificates := TlgCertificates.Create(AOwnsObjects <> 0);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

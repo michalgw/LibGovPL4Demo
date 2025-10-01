@@ -70,12 +70,23 @@ type
   TlgoRSAKey = class(TlgoObject)
   end;
 
+  { Kodowanie kluczy i certyfikatow }
+  TlgoEncodingType = (letPEM, letDER, letPFX);
+
   { TlgoRSAEncrypt }
 
   TlgoRSAEncrypt = class
   public
-    class function CreateKey(AClassName: UTF8String; AStream: TStream): TlgoRSAKey;
+    class function CreateKey(AClassName: UTF8String; AStream: TStream; AFormat: TlgoEncodingType = letPEM): TlgoRSAKey;
   end;
+
+  { Wersja certyfikatu X509 }
+  TlgoCertificateVersion = (cvUnknown, cvV1, cvV2, cvV3);
+
+  TlgoCertificateKeyUsageType = (ckuDigitalSignature, ckuNonRepudiation,
+    ckuKeyEncipherment, ckuDataEncipherment, ckuKeyAgreement, ckuKeyCertSign,
+    ckuCRLSign, ckuEncipherOnly, ckuDecipherOnly);
+  TlgoCertificateKeyUsage = set of TlgoCertificateKeyUsageType;
 
   TlgoCertificates = class;
 
@@ -88,24 +99,44 @@ type
     FIndex: Integer;
     function GetDisplayName: UTF8String;
     function GetIssuer: UTF8String;
+    function GetIssuerField(AIndex: UTF8String): UTF8String;
+    function GetIssuerFields: UTF8String;
+    function GetIssuerUID: UTF8String;
+    function GetKeyUsage: TlgoCertificateKeyUsage;
+    function GetPublicKeyAlgorithm: UTF8String;
     function GetSerialNoDec: UTF8String;
     function GetSerialNoHex: UTF8String;
+    function GetSignature: UTF8String;
     function GetSubject: UTF8String;
+    function GetSubjectField(AIndex: UTF8String): UTF8String;
+    function GetSubjectFields: UTF8String;
+    function GetSubjectUID: UTF8String;
     function GetValidFrom: TDateTime;
     function GetValidTo: TDateTime;
+    function GetVersion: TlgoCertificateVersion;
     procedure SetPIN(AValue: UTF8String);
   public
     destructor Destroy; override;
     function ObjClassName: UTF8String;
     property Item: LGP_OBJECT read FItem;
   published
+    property Version: TlgoCertificateVersion read GetVersion;
     property DisplayName: UTF8String read GetDisplayName;
     property Subject: UTF8String read GetSubject;
+    property SubjectField[AIndex: UTF8String]: UTF8String read GetSubjectField;
+    property SubjectFields: UTF8String read GetSubjectFields;
+    property SubjectUID: UTF8String read GetSubjectUID;
     property Issuer: UTF8String read GetIssuer;
+    property IssuerField[AIndex: UTF8String]: UTF8String read GetIssuerField;
+    property IssuerFields: UTF8String read GetIssuerFields;
+    property IssuerUID: UTF8String read GetIssuerUID;
     property SerialNoDec: UTF8String read GetSerialNoDec;
     property SerialNoHex: UTF8String read GetSerialNoHex;
     property ValidFrom: TDateTime read GetValidFrom;
     property ValidTo: TDateTime read GetValidTo;
+    property Signature: UTF8String read GetSignature;
+    property KeyUsage: TlgoCertificateKeyUsage read GetKeyUsage;
+    property PublicKeyAlgorithm: UTF8String read GetPublicKeyAlgorithm;
     property PIN: UTF8String write SetPIN;
   end;
 
@@ -114,12 +145,18 @@ type
   TlgoCertificates = class(TlgoObject)
   private
     FClassItems: TList;
+    function GetOwnObjects: Boolean;
+    procedure SetOwnObjects(AValue: Boolean);
   public
-    constructor Create;
+    constructor Create(AOwnsObjects: Boolean = True); virtual;
+    constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
     function Count: Integer;
+    function Add(ACert: TlgoCertificate): Integer;
+    procedure Delete(AIndex: Integer);
     function GetItem(AIndex: Integer): TlgoCertificate;
     property Items[AIndex: Integer]: TlgoCertificate read GetItem; default;
+    property OwnObjects: Boolean read GetOwnObjects write SetOwnObjects;
   end;
 
   { TlgoCertificateSigner }
@@ -129,6 +166,9 @@ type
     constructor Create(AClassName: UTF8String); override;
     function List: TlgoCertificates;
     function UISelect: TlgoCertificate;
+    function LoadFromStream(const ACertificateStream: TStream; const ACertificateFormat: TlgoEncodingType = letPEM;
+      const APrivateKeyStream: TStream = nil; APrivateKeyFormat: TlgoEncodingType = letPEM;
+      const APassword: UTF8String = ''): TlgoCertificate;
   end;
 
   ElgWSTError = class(ElgoException);
@@ -762,10 +802,7 @@ var
 begin
   lgoCheckResult(lgpCertificateSigner_List(ExtObject, L));
   if L <> nil then
-  begin
-    Result := TlgoCertificates.Create;
-    Result.ExtObject := L;
-  end
+    Result := TlgoCertificates.Create(L)
   else
     Result := nil;
 end;
@@ -782,6 +819,42 @@ begin
   end
   else
     Result := nil;
+end;
+
+function TlgoCertificateSigner.LoadFromStream(const ACertificateStream: TStream;
+  const ACertificateFormat: TlgoEncodingType; const APrivateKeyStream: TStream;
+  APrivateKeyFormat: TlgoEncodingType; const APassword: UTF8String): TlgoCertificate;
+var
+  Cert, OKeyStream: LGP_OBJECT;
+  LCertStream: TlgoStream;
+  LKeyStream: TlgoStream;
+begin
+  Result := nil;
+  LCertStream := nil;
+  LKeyStream := nil;
+  try
+    LCertStream := TlgoStream.Create(ACertificateStream);
+    if APrivateKeyStream <> nil then
+    begin
+      LKeyStream := TlgoStream.Create(APrivateKeyStream);
+      OKeyStream := LKeyStream.StreamObj;
+    end
+    else
+      OKeyStream := nil;
+    lgoCheckResult(lgpCertificateSigner_LoadFromStream(ExtObject, LCertStream.StreamObj,
+      Ord(ACertificateFormat), OKeyStream, Ord(APrivateKeyFormat),
+      LGP_PCHAR(APassword), Cert));
+    if Cert <> nil then
+    begin
+      Result := TlgoCertificate.Create;
+      Result.FItem := Cert;
+    end
+  finally
+    if Assigned(LKeyStream) then
+      LKeyStream.Free;
+    if Assigned(LCertStream) then
+      LCertStream.Free;
+  end;
 end;
 
 { ElgWinHTTPException }
@@ -1256,8 +1329,28 @@ end;
 
 { TlgoCertificates }
 
-constructor TlgoCertificates.Create;
+function TlgoCertificates.GetOwnObjects: Boolean;
+var
+  L: LGP_INT32;
 begin
+  lgoCheckResult(lgpListObject_GetOwnsObjects(ExtObject, L));
+  Result := L <> 0;
+end;
+
+procedure TlgoCertificates.SetOwnObjects(AValue: Boolean);
+begin
+  lgoCheckResult(lgpListObject_SetOwnsObjects(ExtObject, LGP_INT32(AValue)));
+end;
+
+constructor TlgoCertificates.Create(AOwnsObjects: Boolean);
+begin
+  lgoCheckResult(lgpCertificates_Create(LGP_INT32(AOwnsObjects), ExtObject));
+  FClassItems := TList.Create;
+end;
+
+constructor TlgoCertificates.Create(AObject: LGP_OBJECT);
+begin
+  inherited Create(AObject);
   FClassItems := TList.Create;
 end;
 
@@ -1275,6 +1368,24 @@ end;
 function TlgoCertificates.Count: Integer;
 begin
   lgoCheckResult(lgpListObject_GetCount(ExtObject, Result));
+end;
+
+function TlgoCertificates.Add(ACert: TlgoCertificate): Integer;
+begin
+  lgoCheckResult(lgpListObject_Add(ExtObject, ACert.FItem, Result));
+  if Result > -1 then
+  begin
+    if Result >= FClassItems.Count then
+      FClassItems.Count := Result + 1;
+    FClassItems[Result] := ACert;
+    ACert.FList := Self;
+  end;
+end;
+
+procedure TlgoCertificates.Delete(AIndex: Integer);
+begin
+  lgoCheckResult(lgpListObject_Delete(ExtObject, AIndex));
+  FClassItems.Delete(AIndex);
 end;
 
 function TlgoCertificates.GetItem(AIndex: Integer): TlgoCertificate;
@@ -1319,6 +1430,64 @@ begin
   Result := lgoGetString(S);
 end;
 
+function TlgoCertificate.GetIssuerField(AIndex: UTF8String): UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetIssuerField(FItem, LGP_PCHAR(AIndex), S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetIssuerFields: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetIssuerFields(FItem, S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetIssuerUID: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetIssuerUID(FItem, S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetKeyUsage: TlgoCertificateKeyUsage;
+var
+  I: LGP_INT32;
+begin
+  lgoCheckResult(lgpCertificate_GetKeyUsage(FItem, I));
+  Result := [];
+  if I and LGP_CKU_DIGITAL_SIGNATURE <> 0 then
+    Include(Result, ckuDigitalSignature);
+  if I and LGP_CKU_NON_REPUDIATION <> 0 then
+    Include(Result, ckuNonRepudiation);
+  if I and LGP_CKU_KEY_ENCIPHERMENT <> 0 then
+    Include(Result, ckuKeyEncipherment);
+  if I and LGP_CKU_DATA_ENCIPHERMENT <> 0 then
+    Include(Result, ckuDataEncipherment);
+  if I and LGP_CKU_KEY_AGREEMENT <> 0 then
+    Include(Result, ckuKeyAgreement);
+  if I and LGP_CKU_KEY_CERT_SIGN <> 0 then
+    Include(Result, ckuKeyCertSign);
+  if I and LGP_CKU_CRL_SIGN <> 0 then
+    Include(Result, ckuCRLSign);
+  if I and LGP_CKU_ENCIPHER_ONLY <> 0 then
+    Include(Result, ckuEncipherOnly);
+  if I and LGP_CKU_DECIPHER_ONLY <> 0 then
+    Include(Result, ckuDecipherOnly);
+end;
+
+function TlgoCertificate.GetPublicKeyAlgorithm: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetPublicKeyAlgorithm(FItem, S));
+  Result := lgoGetString(S);
+end;
+
 function TlgoCertificate.GetSerialNoDec: UTF8String;
 var
   S: LGP_OBJECT;
@@ -1335,11 +1504,43 @@ begin
   Result := lgoGetString(S);
 end;
 
+function TlgoCertificate.GetSignature: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetSignature(FItem, S));
+  Result := lgoGetString(S);
+end;
+
 function TlgoCertificate.GetSubject: UTF8String;
 var
   S: LGP_OBJECT;
 begin
   lgoCheckResult(lgpCertificate_GetSubject(FItem, S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetSubjectField(AIndex: UTF8String): UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetSubjectField(FItem, LGP_PCHAR(AIndex), S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetSubjectFields: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetSubjectFields(FItem, S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoCertificate.GetSubjectUID: UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpCertificate_GetSubjectUID(FItem, S));
   Result := lgoGetString(S);
 end;
 
@@ -1351,6 +1552,14 @@ end;
 function TlgoCertificate.GetValidTo: TDateTime;
 begin
   lgoCheckResult(lgpCertificate_GetValidTo(FItem, Result));
+end;
+
+function TlgoCertificate.GetVersion: TlgoCertificateVersion;
+var
+  I: LGP_INT32;
+begin
+  lgoCheckResult(lgpCertificate_GetVersion(FItem, I));
+  Result := TlgoCertificateVersion(I);
 end;
 
 procedure TlgoCertificate.SetPIN(AValue: UTF8String);
@@ -1380,8 +1589,8 @@ end;
 
 { TlgoRSAEncrypt }
 
-class function TlgoRSAEncrypt.CreateKey(AClassName: UTF8String; AStream: TStream
-  ): TlgoRSAKey;
+class function TlgoRSAEncrypt.CreateKey(AClassName: UTF8String;
+  AStream: TStream; AFormat: TlgoEncodingType): TlgoRSAKey;
 var
   Key: LGP_OBJECT;
   LGStream: TlgoStream;
@@ -1389,7 +1598,7 @@ begin
   LGStream := nil;
   try
     LGStream := TlgoStream.Create(AStream);
-    lgoCheckResult(lgpRSAEncrypt_CreateKey(LGP_PCHAR(AClassName), LGStream.StreamObj, Key));
+    lgoCheckResult(lgpRSAEncrypt_CreateKey(LGP_PCHAR(AClassName), LGStream.StreamObj, Ord(AFormat), Key));
     Result := TlgoRSAKey.Create;
     Result.ExtObject := Key;
   finally

@@ -52,6 +52,7 @@ function lgpListObject_GetCount(AListObject: LGP_OBJECT; var AValue: LGP_INT32):
 function lgpListObject_GetItem(AListObject: LGP_OBJECT; AIndex: LGP_INT32; var AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpListObject_Delete(AListObject: LGP_OBJECT; AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpListObject_Remove(AListObject: LGP_OBJECT; AItem: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpListObject_Add(AListObject: LGP_OBJECT; AItem: LGP_OBJECT; var AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpListObject_GetOwnsObjects(AListObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpListObject_SetOwnsObjects(AListObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
@@ -673,6 +674,33 @@ begin
       (Obj as TObjectList).Remove(TObject(AItem))
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
+    else
+      raise EInvalidCast.Create('Invalid typecast');
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpListObject_Add(AListObject: LGP_OBJECT; AItem: LGP_OBJECT;
+  var AIndex: LGP_INT32): LGP_EXCEPTION; stdcall;
+var
+  Obj: TObject absolute AListObject;
+begin
+  Result := nil;
+  AIndex := -1;
+  try
+    CheckObject(AListObject, TObject);
+    CheckObject(AItem, TObject);
+    if Obj is TlgCertificates then
+    begin
+      CheckObject(AItem, TlgCertificate);
+      AIndex := (Obj as TlgCertificates).Add(TlgCertificate(AItem))
+    end
+    else if Obj is TObjectList then
+      AIndex := (Obj as TObjectList).Add(TObject(AItem))
+    else if Supports(Obj, IKSeFArray_GUID) then
+      //(Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
     else
       raise EInvalidCast.Create('Invalid typecast');
   except

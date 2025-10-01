@@ -16,6 +16,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    ButtonCertLoadFromFile: TButton;
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
     ButtonObjClear: TButton;
@@ -442,6 +443,7 @@ type
     TabSheetEDekPodpisCert: TTabSheet;
     TabSheetCert: TTabSheet;
     TabSheetSetup: TTabSheet;
+    procedure ButtonCertLoadFromFileClick(Sender: TObject);
     procedure ButtonObjCountClick(Sender: TObject);
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
@@ -538,6 +540,7 @@ type
     //procedure DebugKSeFResponse(AResp: TKSeFResponse);
 
     procedure LoadCertList;
+    procedure UpdateCertList;
   end;
 
 var
@@ -548,7 +551,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Rtti, DateUtils, Unit2, Unit3, TypInfo, LCLIntf;
+  Rtti, DateUtils, Unit2, Unit3, Unit4, TypInfo, LCLIntf;
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -880,6 +883,8 @@ begin
 end;
 
 procedure TForm1.DebugCert(ACertyfikat: TlgoCertificate);
+var
+  K: TlgoCertificateKeyUsage;
 begin
   MemoLog.Append('Certyfikat (' + ACertyfikat.ObjClassName + ')');
   MemoLog.Append('  Nr seryjny: ' + ACertyfikat.SerialNoDec + ' (' + ACertyfikat.SerialNoHex + ')');
@@ -887,7 +892,10 @@ begin
   MemoLog.Append('  Ważny od ' + DateTimeToStr(ACertyfikat.ValidFrom) + ' do ' + DateTimeToStr(ACertyfikat.ValidTo));
   MemoLog.Append('  Podmiot: ' + ACertyfikat.Subject);
   MemoLog.Append('  Wydawca: ' + ACertyfikat.Issuer);
-  //MemoLog.Append('  Rodzaj podpisu: ' + ACertyfikat.Signature);
+  MemoLog.Append('  Rodzaj podpisu: ' + ACertyfikat.Signature);
+  K := ACertyfikat.KeyUsage;
+  MemoLog.Append('  Użycie: ' + SetToString(PTypeInfo(TypeInfo(TlgoCertificateKeyUsage)), @K));
+  MemoLog.Append('  Algorytm klucza publicznego: ' + ACertyfikat.PublicKeyAlgorithm);
 end;
 
 procedure TForm1.DebugAuth(AImie, ANazwisko, ANIP: String; ADataU: TDate;
@@ -972,16 +980,21 @@ begin
 end;}
 
 procedure TForm1.LoadCertList;
+begin
+  Debug('Pobieranie listy certyfikatów', True);
+  if Assigned(Certyfikaty) then
+    Certyfikaty.Free;
+  Certyfikaty := Signer.List;
+  UpdateCertList;
+end;
+
+procedure TForm1.UpdateCertList;
 var
   I: Integer;
   LI: TListItem;
   S: String;
+  K: TlgoCertificateKeyUsage;
 begin
-  Debug('Pobieranie listy certyfikatów', True);
-
-  if Assigned(Certyfikaty) then
-    Certyfikaty.Free;
-
   ListViewCert.Items.Clear;
   ComboBoxEdekCert.Items.Clear;
   ComboBoxJPKCert.Items.Clear;
@@ -989,7 +1002,6 @@ begin
   ComboBoxKSeFBatchCert.Items.Clear;
   ComboBoxPKCS11Cert.Items.Clear;
 
-  Certyfikaty := Signer.List;
   for I := 0 to Certyfikaty.Count - 1 do
   begin
     Debug('Certyfikat nr ' + IntToStr(I));
@@ -1004,6 +1016,8 @@ begin
       LI.SubItems.Add(SerialNoDec);
       LI.SubItems.Add(Issuer);
       LI.SubItems.Add(Subject);
+      K := KeyUsage;
+      LI.SubItems.Add(SetToString(PTypeInfo(TypeInfo(TlgoCertificateKeyUsage)), @K));
 
       S := DisplayName + ' (' + DateToStr(ValidFrom) + ' - ' + DateToStr(ValidTo) + ')';
       ComboBoxEdekCert.Items.Add(S);
@@ -2627,6 +2641,39 @@ end;
 procedure TForm1.ButtonObjCountClick(Sender: TObject);
 begin
   Debug('Ilość obiektów: ' + IntToStr(lgpDbgObjectCount), True);
+end;
+
+procedure TForm1.ButtonCertLoadFromFileClick(Sender: TObject);
+var
+  CertFileName, PrivKeyFileName, Password: String;
+  CertFormat, KeyFormat: TlgoEncodingType;
+  CertStream: TFileStream = nil;
+  PrivKeyStream: TFileStream = nil;
+  Cert: TlgoCertificate;
+begin
+  CertFormat := letPEM;
+  KeyFormat := letPEM;
+  CertFileName := '';
+  PrivKeyFileName := '';
+  Password := '';
+  if TForm4.Execute(CertFileName, PrivKeyFileName, Password, CertFormat, KeyFormat) then
+  begin
+    try
+      CertStream := TFileStream.Create(CertFileName, fmOpenRead);
+      if PrivKeyFileName <> '' then
+        PrivKeyStream := TFileStream.Create(PrivKeyFileName, fmOpenRead);
+      Cert := Signer.LoadFromStream(CertStream, CertFormat, PrivKeyStream, KeyFormat, Password);
+      if not Assigned(Certyfikaty) then
+        Certyfikaty := TlgoCertificates.Create(True);
+      Certyfikaty.Add(Cert);
+      UpdateCertList;
+    finally
+      if CertStream <> nil then
+        CertStream.Free;
+      if PrivKeyStream <> nil then
+        PrivKeyStream.Free;
+    end;
+  end;
 end;
 
 procedure TForm1.ButtonKSeFBatchSendClick(Sender: TObject);

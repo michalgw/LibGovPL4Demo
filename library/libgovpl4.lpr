@@ -68,13 +68,23 @@ exports
 
   lgpRSAEncrypt_CreateKey,
 
+  lgpCertificate_GetVersion,
   lgpCertificate_GetDisplayName,
   lgpCertificate_GetSubject,
+  lgpCertificate_GetSubjectField,
+  lgpCertificate_GetSubjectFields,
+  lgpCertificate_GetSubjectUID,
   lgpCertificate_GetIssuer,
+  lgpCertificate_GetIssuerField,
+  lgpCertificate_GetIssuerFields,
+  lgpCertificate_GetIssuerUID,
   lgpCertificate_GetSerialNoDec,
   lgpCertificate_GetSerialNoHex,
   lgpCertificate_GetValidFrom,
   lgpCertificate_GetValidTo,
+  lgpCertificate_GetSignature,
+  lgpCertificate_GetKeyUsage,
+  lgpCertificate_GetPublicKeyAlgorithm,
   lgpCertificate_SetPIN,
 
   lgpCNGCertificate_ShowCertificateInfo,
@@ -83,6 +93,9 @@ exports
   lgpCertificateSigner_List,
   lgpCertificateSigner_FindBySerialNumber,
   lgpCertificateSigner_UISelect,
+  lgpCertificateSigner_LoadFromStream,
+
+  lgpCertificates_Create,
 
   lgpCNGCertificateSigner_SetHWnd,
 
@@ -116,6 +129,7 @@ exports
   lgpListObject_GetItem,
   lgpListObject_Delete,
   lgpListObject_Remove,
+  lgpListObject_Add,
   lgpListObject_GetOwnsObjects,
   lgpListObject_SetOwnsObjects,
 
