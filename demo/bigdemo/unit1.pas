@@ -589,8 +589,8 @@ uses
   lgCNG, lgMSXML, lgWinHTTP,
   {$ENDIF}
   lgWSTEDekGate, lgWSTProtocol, lgFPC, lgLibXML2, lgDCPCrypt, lgPKCS11, Unit2,
-  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn, Unit4,
-  lgVies, lgOpenSSL;
+  Unit3, Rtti, DateUtils, xml2dyn, TypInfo, LCLIntf, xsltdyn, exsltdyn,
+  uFormCertLoad, lgVies, lgOpenSSL;
 
 const
   RSA_KEY_JPK_PROD = '..' + DirectorySeparator + 'pem' + DirectorySeparator + 'prod.pem';
@@ -2792,7 +2792,7 @@ begin
   CertFileName := '';
   PrivKeyFileName := '';
   Password := '';
-  if TForm4.Execute(CertFileName, PrivKeyFileName, Password, CertFormat, KeyFormat) then
+  if TFormCertLoad.Execute(CertFileName, PrivKeyFileName, Password, CertFormat, KeyFormat) then
   begin
     try
       CertStream := TFileStream.Create(CertFileName, fmOpenRead);

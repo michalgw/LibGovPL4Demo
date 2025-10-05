@@ -1,4 +1,4 @@
-unit Unit4;
+unit uFormCertLoad;
 
 {$mode ObjFPC}{$H+}
 
@@ -10,9 +10,9 @@ uses
 
 type
 
-  { TForm4 }
+  { TFormCertLoad }
 
-  TForm4 = class(TForm)
+  TFormCertLoad = class(TForm)
     ButtonPanel1: TButtonPanel;
     ComboBoxCertFmt: TComboBox;
     ComboBoxKeyFmt: TComboBox;
@@ -34,15 +34,15 @@ type
   end;
 
 var
-  Form4: TForm4;
+  FormCertLoad: TFormCertLoad;
 
 implementation
 
 {$R *.lfm}
 
-{ TForm4 }
+{ TFormCertLoad }
 
-procedure TForm4.FileNameEditCertAcceptFileName(Sender: TObject;
+procedure TFormCertLoad.FileNameEditCertAcceptFileName(Sender: TObject;
   var Value: String);
 begin
   case LowerCase(ExtractFileExt(Value)) of
@@ -52,7 +52,7 @@ begin
   end;
 end;
 
-procedure TForm4.FileNameEditKeyAcceptFileName(Sender: TObject;
+procedure TFormCertLoad.FileNameEditKeyAcceptFileName(Sender: TObject;
   var Value: String);
 begin
   case LowerCase(ExtractFileExt(Value)) of
@@ -61,10 +61,10 @@ begin
   end;
 end;
 
-class function TForm4.Execute(var ACertFile, APrivKeyFile, APassword: String;
+class function TFormCertLoad.Execute(var ACertFile, APrivKeyFile, APassword: String;
   var ACertFmt, AKeyFmt: TlgEncodingType): Boolean;
 begin
-  with TForm4.Create(Application) do
+  with TFormCertLoad.Create(Application) do
   begin
     FileNameEditCert.FileName := ACertFile;
     ComboBoxCertFmt.ItemIndex := Ord(ACertFmt);

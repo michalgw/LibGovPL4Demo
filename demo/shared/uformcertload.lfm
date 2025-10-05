@@ -1,4 +1,4 @@
-object Form4: TForm4
+object FormCertLoad: TFormCertLoad
   Left = 343
   Height = 211
   Top = 100

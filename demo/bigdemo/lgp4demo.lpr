@@ -10,8 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, Unit1, Unit2, unit3, unit4
-  { you can add units after this };
+  Forms, datetimectrls, Unit1, Unit2, unit3, uFormCertLoad;
 
 {$R *.res}
 
@@ -23,6 +22,7 @@ begin
   Application.Scaled := True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFormCertLoad, FormCertLoad);
   Application.Run;
 end.
 
