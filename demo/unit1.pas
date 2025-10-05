@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
   ExtCtrls, EditBtn, Spin, Grids, DateTimePicker, lgBackend, lgXAdES,
-  lgEDeklaracja, lgJPK, lgKSeF, lgKSeFTypes;
+  lgEDeklaracja, lgJPK, lgKSeF, lgKSeFTypes, lgKSeFObjects;
 
 type
 

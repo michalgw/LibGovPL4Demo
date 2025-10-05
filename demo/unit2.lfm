@@ -1,13 +1,13 @@
 object Form2: TForm2
-  Left = 109
+  Left = 136
   Height = 463
-  Top = 191
+  Top = 169
   Width = 655
   Caption = 'Eksplorator obiektów'
   ClientHeight = 463
   ClientWidth = 655
   Position = poOwnerFormCenter
-  LCLVersion = '3.0.0.2'
+  LCLVersion = '3.9.0.0'
   object TreeView1: TTreeView
     Left = 0
     Height = 463

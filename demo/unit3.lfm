@@ -1,13 +1,13 @@
 object Form3: TForm3
-  Left = 257
+  Left = 321
   Height = 116
-  Top = 114
+  Top = 101
   Width = 490
   Caption = 'Dodaj schema/szablon'
   ClientHeight = 116
   ClientWidth = 490
   Position = poOwnerFormCenter
-  LCLVersion = '3.7.0.0'
+  LCLVersion = '3.9.0.0'
   object Label1: TLabel
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = EditNS

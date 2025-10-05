@@ -5,7 +5,8 @@ unit Unit2;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, lgKSeFTypes;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, lgKSeFTypes,
+  lgKSeFObjects;
 
 type
 

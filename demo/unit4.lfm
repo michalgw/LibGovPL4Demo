@@ -1,7 +1,7 @@
 object Form4: TForm4
-  Left = 274
+  Left = 343
   Height = 211
-  Top = 113
+  Top = 100
   Width = 530
   Caption = 'Wczytaj certyfikat z pliku'
   ClientHeight = 211
