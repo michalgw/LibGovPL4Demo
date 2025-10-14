@@ -554,9 +554,9 @@ type
     EDek: TlgEDeklaracja;
     JPK: TlgJPK;
     HTTPClient: TlgHTTPClient;
-    JPKRSAProd, JPKRSATest: TlgRSAKey;
+    JPKRSAProd, JPKRSATest: TlgRSAPublicKey;
     KSeF: TlgKSeF;
-    KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgRSAKey;
+    KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgRSAPublicKey;
 
     {$IFDEF LGP_DEBUG_OBJ}
     ObjList: TList;
@@ -679,8 +679,8 @@ begin
     ComboBoxXMLRead.Items.Add(XMLReaderClasses[I].ClassDescription);
   for I := 0 to ZipperClasses.Count - 1 do
     ComboBoxZip.Items.Add(ZipperClasses[I].ClassDescription);
-  for I := 0 to RSAEncryptClasses.Count - 1 do
-    ComboBoxRSAEnc.Items.Add(RSAEncryptClasses[I].ClassDescription);
+  for I := 0 to RSAPublicKeyClasses.Count - 1 do
+    ComboBoxRSAEnc.Items.Add(RSAPublicKeyClasses[I].ClassDescription);
   if ComboBoxHTTPCli.Items.Count > 0 then
     ComboBoxHTTPCli.ItemIndex := 0;
   if ComboBoxRandGen.Items.Count > 0 then
@@ -1128,7 +1128,7 @@ begin
   end;
 
   if ComboBoxHTTPCli.ItemIndex >= 0 then
-    HTTPClient := HTTPClientClasses[ComboBoxHTTPCli.ItemIndex].Create;
+    HTTPClient := HTTPClientClasses[ComboBoxHTTPCli.ItemIndex].Create(Self);
 
   EDek := TlgEDeklaracja.Create(Self);
   JPK := TlgJPK.Create(Self);
@@ -1181,22 +1181,20 @@ begin
       SHA256HashClass := SHA256HashClasses[ComboBoxSHA256.ItemIndex];
     if ComboBoxZip.ItemIndex >= 0 then
       ZipperClass := ZipperClasses[ComboBoxZip.ItemIndex];
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := RSAEncryptClasses[ComboBoxRSAEnc.ItemIndex];
     if ComboBoxRandGen.ItemIndex >= 0 then
       RandomGeneratorClass := RandomGeneratorClasses[ComboBoxRandGen.ItemIndex];
     if ComboBoxXMLRead.ItemIndex >= 0 then
       XMLReaderClass := XMLReaderClasses[ComboBoxXMLRead.ItemIndex];
     try
       FS := TFileStream.Create(FileNameEditJPKRSAProd.FileName, fmOpenRead);
-      JPKRSAProd := RSAEncryptClass.CreateKey(FS);
+      JPKRSAProd := RSAPublicKeyClasses[ComboBoxRSAEnc.ItemIndex].Create(Self, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditJPKRSATest.FileName, fmOpenRead);
-      JPKRSATest := RSAEncryptClass.CreateKey(FS);
+      JPKRSATest := RSAPublicKeyClasses[ComboBoxRSAEnc.ItemIndex].Create(Self, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
@@ -1220,25 +1218,23 @@ begin
       RandomGeneratorClass := RandomGeneratorClasses[ComboBoxRandGen.ItemIndex];
     //if ComboBoxZip.ItemIndex >= 0 then
     //  ZipperClass := ZipperClasses[ComboBoxZip.ItemIndex];
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := RSAEncryptClasses[ComboBoxRSAEnc.ItemIndex];
     try
       FS := TFileStream.Create(FileNameEditKSeFRSAProd.FileName, fmOpenRead);
-      KSeFRSAProd := RSAEncryptClass.CreateKey(FS);
+      KSeFRSAProd := RSAPublicKeyClasses[ComboBoxRSAEnc.ItemIndex].Create(Self, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditKSeFRSADemo.FileName, fmOpenRead);
-      KSeFRSADemo := RSAEncryptClass.CreateKey(FS);
+      KSeFRSADemo := RSAPublicKeyClasses[ComboBoxRSAEnc.ItemIndex].Create(Self, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditKSeFRSATest.FileName, fmOpenRead);
-      KSeFRSATest := RSAEncryptClass.CreateKey(FS);
+      KSeFRSATest := RSAPublicKeyClasses[ComboBoxRSAEnc.ItemIndex].Create(Self, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);

@@ -1,0 +1,29 @@
+object FormKSeFObj: TFormKSeFObj
+  Left = 272
+  Height = 489
+  Top = 112
+  Width = 550
+  Caption = 'Obiekt KSeF'
+  ClientHeight = 489
+  ClientWidth = 550
+  LCLVersion = '3.9.0.0'
+  object TreeViewObj: TTreeView
+    Left = 0
+    Height = 489
+    Top = 0
+    Width = 550
+    Align = alClient
+    PopupMenu = PopupMenuTree
+    ReadOnly = True
+    TabOrder = 0
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+  object PopupMenuTree: TPopupMenu
+    Left = 138
+    Top = 78
+    object MenuItemCopy: TMenuItem
+      Caption = 'Kopiuj do schowka'
+      OnClick = MenuItemCopyClick
+    end
+  end
+end
