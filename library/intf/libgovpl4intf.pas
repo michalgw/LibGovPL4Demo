@@ -359,8 +359,6 @@ function lgpJPK_GetSHA256HashClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSST
 function lgpJPK_SetSHA256HashClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_GetZipperClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_SetZipperClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpJPK_GetRSAEncryptClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpJPK_SetRSAEncryptClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_GetRandomGeneratorClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_SetRandomGeneratorClass(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpJPK_GetXMLReaderClass(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -386,8 +384,6 @@ function lgpJPK_RequestUPOStream(AJPKObj: LGP_OBJECT; ARefNo: LGP_PCHAR; AGateTy
 
 // KSeF
 function lgpKSeF_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF_SetRSAEncryptClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_SetBase64EncoderClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF_GetAES256EncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -748,8 +744,6 @@ var
   lgpJPK_SetSHA256HashClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpJPK_GetZipperClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
   lgpJPK_SetZipperClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-  lgpJPK_GetRSAEncryptClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
-  lgpJPK_SetRSAEncryptClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpJPK_GetRandomGeneratorClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
   lgpJPK_SetRandomGeneratorClass: function(AJPKObj: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpJPK_GetXMLReaderClass: function(AJPKObj: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
@@ -775,8 +769,6 @@ var
 
   // KSeF
   lgpKSeF_Create: function(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF_GetRSAEncryptClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
-  lgpKSeF_SetRSAEncryptClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF_GetBase64EncoderClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
   lgpKSeF_SetBase64EncoderClass: function(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF_GetAES256EncryptClass: function(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
@@ -1169,8 +1161,6 @@ begin
     @lgpJPK_SetSHA256HashClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetSHA256HashClass');
     @lgpJPK_GetZipperClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetZipperClass');
     @lgpJPK_SetZipperClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetZipperClass');
-    @lgpJPK_GetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRSAEncryptClass');
-    @lgpJPK_SetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRSAEncryptClass');
     @lgpJPK_GetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetRandomGeneratorClass');
     @lgpJPK_SetRandomGeneratorClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_SetRandomGeneratorClass');
     @lgpJPK_GetXMLReaderClass := GetProcAddress(LibGovPl4Handle, 'lgpJPK_GetXMLReaderClass');
@@ -1196,8 +1186,6 @@ begin
 
     // KSeF
     @lgpKSeF_Create := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_Create');
-    @lgpKSeF_GetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetRSAEncryptClass');
-    @lgpKSeF_SetRSAEncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetRSAEncryptClass');
     @lgpKSeF_GetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetBase64EncoderClass');
     @lgpKSeF_SetBase64EncoderClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_SetBase64EncoderClass');
     @lgpKSeF_GetAES256EncryptClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF_GetAES256EncryptClass');

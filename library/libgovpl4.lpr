@@ -270,8 +270,6 @@ exports
   lgpJPK_SetSHA256HashClass,
   lgpJPK_GetZipperClass,
   lgpJPK_SetZipperClass,
-  lgpJPK_GetRSAEncryptClass,
-  lgpJPK_SetRSAEncryptClass,
   lgpJPK_GetRandomGeneratorClass,
   lgpJPK_SetRandomGeneratorClass,
   lgpJPK_GetXMLReaderClass,
@@ -297,8 +295,6 @@ exports
 
   // KSeF
   lgpKSeF_Create,
-  lgpKSeF_GetRSAEncryptClass,
-  lgpKSeF_SetRSAEncryptClass,
   lgpKSeF_GetBase64EncoderClass,
   lgpKSeF_SetBase64EncoderClass,
   lgpKSeF_GetAES256EncryptClass,

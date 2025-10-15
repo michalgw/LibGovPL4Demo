@@ -27,7 +27,7 @@ type
   TlgoKSeF = class(TlgoObject)
   private
     FCertificate: TlgoCertificate;
-    FRSAKeys: array[TlgoKSeFGateType] of TlgoRSAKey;
+    FRSAKeys: array[TlgoKSeFGateType] of TlgoRSAPublicKey;
     FXAdES: TlgoXAdES;
     FHTTPClient: TlgoHTTPClient;
     function GetAES256EncryptClass: UTF8String;
@@ -42,8 +42,7 @@ type
     function GetGateType: TlgoKSeFGateType;
     function GetNIP: UTF8String;
     function GetRandomGeneratorClass: UTF8String;
-    function GetRSAEncryptClass: UTF8String;
-    function GetRSAKey(AIndex: TlgoKSeFGateType): TlgoRSAKey;
+    function GetRSAKey(AIndex: TlgoKSeFGateType): TlgoRSAPublicKey;
     function GetSessionActive: Boolean;
     function GetSessionToken: UTF8String;
     function GetSHA256HashClass: UTF8String;
@@ -62,8 +61,7 @@ type
     procedure SetHTTPClient(AValue: TlgoHTTPClient);
     procedure SetNIP(AValue: UTF8String);
     procedure SetRandomGeneratorClass(AValue: UTF8String);
-    procedure SetRSAEncryptClass(AValue: UTF8String);
-    procedure SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAKey);
+    procedure SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAPublicKey);
     procedure SetSessionToken(AValue: UTF8String);
     procedure SetSHA256HashClass(AValue: UTF8String);
     procedure SetToken(AValue: UTF8String);
@@ -252,12 +250,10 @@ type
     function BatchSend(const APartStream: TStream; const AInitUpload: UTF8String): UTF8String;
 
     { Klucze szyfrowania RSA }
-    property RSAKey[AIndex: TlgoKSeFGateType]: TlgoRSAKey read GetRSAKey write SetRSAKey;
+    property RSAKey[AIndex: TlgoKSeFGateType]: TlgoRSAPublicKey read GetRSAKey write SetRSAKey;
   published
     { Klasy sterowników }
 
-    { Klasa sterownika szyfrowania RSA }
-    property RSAEncryptClass: UTF8String read GetRSAEncryptClass write SetRSAEncryptClass;
     { Klasa enkodera Base64 }
     property Base64EncoderClass: UTF8String read GetBase64EncoderClass write SetBase64EncoderClass;
     { Klasa sterownika szyfrowania AES256 }
@@ -422,18 +418,7 @@ begin
     Result := '';
 end;
 
-function TlgoKSeF.GetRSAEncryptClass: UTF8String;
-var
-  P: LGP_PSSTRING;
-begin
-  lgoCheckResult(lgpKSeF_GetRSAEncryptClass(ExtObject, P));
-  if P <> nil then
-    Result := P^
-  else
-    Result := '';
-end;
-
-function TlgoKSeF.GetRSAKey(AIndex: TlgoKSeFGateType): TlgoRSAKey;
+function TlgoKSeF.GetRSAKey(AIndex: TlgoKSeFGateType): TlgoRSAPublicKey;
 begin
   Result := FRSAKeys[AIndex];
 end;
@@ -559,12 +544,7 @@ begin
   lgoCheckResult(lgpKSeF_SetRandomGeneratorClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
-procedure TlgoKSeF.SetRSAEncryptClass(AValue: UTF8String);
-begin
-  lgoCheckResult(lgpKSeF_SetRSAEncryptClass(ExtObject, LGP_PCHAR(AValue)));
-end;
-
-procedure TlgoKSeF.SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAKey);
+procedure TlgoKSeF.SetRSAKey(AIndex: TlgoKSeFGateType; AValue: TlgoRSAPublicKey);
 var
   O: LGP_OBJECT;
 begin

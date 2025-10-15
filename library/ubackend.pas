@@ -141,7 +141,7 @@ begin
         LGP_CLSTYPE_SHA1_HASH: LGPDrivers[AClassType] := SHA1HashClasses.GetNames;
         LGP_CLSTYPE_SHA256_HASH: LGPDrivers[AClassType] := SHA256HashClasses.GetNames;
         LGP_CLSTYPE_AES256_ENC: LGPDrivers[AClassType] := AES256EncryptClasses.GetNames;
-        LGP_CLSTYPE_RSA_ENC: LGPDrivers[AClassType] := RSAEncryptClasses.GetNames;
+        LGP_CLSTYPE_RSA_ENC: LGPDrivers[AClassType] := RSAPublicKeyClasses.GetNames;
         LGP_CLSTYPE_ZIPPRE: LGPDrivers[AClassType] := ZipperClasses.GetNames;
         LGP_CLSTYPE_XML_READER: LGPDrivers[AClassType] := XMLReaderClasses.GetNames;
         LGP_CLSTYPE_XML_C14N: LGPDrivers[AClassType] := XMLCanonizatorClasses.GetNames;
@@ -166,7 +166,7 @@ begin
     LGP_CLSTYPE_SHA1_HASH: Result := SHA1HashClasses.Count;
     LGP_CLSTYPE_SHA256_HASH: Result := SHA256HashClasses.Count;
     LGP_CLSTYPE_AES256_ENC: Result := AES256EncryptClasses.Count;
-    LGP_CLSTYPE_RSA_ENC: Result := RSAEncryptClasses.Count;
+    LGP_CLSTYPE_RSA_ENC: Result := RSAPublicKeyClasses.Count;
     LGP_CLSTYPE_ZIPPRE: Result := ZipperClasses.Count;
     LGP_CLSTYPE_XML_READER: Result := XMLReaderClasses.Count;
     LGP_CLSTYPE_XML_C14N: Result := XMLCanonizatorClasses.Count;
@@ -192,7 +192,7 @@ begin
       LGP_CLSTYPE_SHA1_HASH: C := SHA1HashClasses[ADriverIndex];
       LGP_CLSTYPE_SHA256_HASH: C := SHA256HashClasses[ADriverIndex];
       LGP_CLSTYPE_AES256_ENC: C := AES256EncryptClasses[ADriverIndex];
-      LGP_CLSTYPE_RSA_ENC: C := RSAEncryptClasses[ADriverIndex];
+      LGP_CLSTYPE_RSA_ENC: C := RSAPublicKeyClasses[ADriverIndex];
       LGP_CLSTYPE_ZIPPRE: C := ZipperClasses[ADriverIndex];
       LGP_CLSTYPE_XML_READER: C := XMLReaderClasses[ADriverIndex];
       LGP_CLSTYPE_XML_C14N: C := XMLCanonizatorClasses[ADriverIndex];
@@ -248,7 +248,7 @@ begin
       LGP_CLSTYPE_SHA1_HASH: SHA1HashClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_SHA256_HASH: SHA256HashClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_AES256_ENC: AES256EncryptClasses.SetDefault(ADriverName);
-      LGP_CLSTYPE_RSA_ENC: RSAEncryptClasses.SetDefault(ADriverName);
+      LGP_CLSTYPE_RSA_ENC: RSAPublicKeyClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_ZIPPRE: ZipperClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_XML_READER: XMLReaderClasses.SetDefault(ADriverName);
       LGP_CLSTYPE_XML_C14N: XMLCanonizatorClasses.SetDefault(ADriverName);
@@ -271,7 +271,7 @@ begin
     HTTPClass := HTTPClientClasses.FindByClassName(AClassName);
     if HTTPClass <> nil then
     begin
-      AHttpClient := HTTPClass.Create;
+      AHttpClient := HTTPClass.Create(nil);
       {$ifdef LGP_DEBUG_OBJ}
       lgpDbgAddObject(TObject(AHttpClient));
       {$endif}
@@ -311,16 +311,16 @@ end;
 function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT;
   AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 var
-  RSAEncClass: TlgRSAEncryptClass;
+  RSAEncClass: TlgRSAPublicKeyClass;
 begin
   Result := nil;
   ARSAKey := nil;
   try
     CheckObject(AKeyStream, TStream);
-    RSAEncClass := RSAEncryptClasses.FindByClassName(AClassName);
+    RSAEncClass := RSAPublicKeyClasses.FindByClassName(AClassName);
     if RSAEncClass <> nil then
     begin
-      ARSAKey := RSAEncClass.CreateKey(TStream(AKeyStream), TlgEncodingType(AFormat));
+      ARSAKey := RSAEncClass.Create(nil, TStream(AKeyStream), TlgEncodingType(AFormat));
       {$ifdef LGP_DEBUG_OBJ}
       lgpDbgAddObject(TObject(ARSAKey));
       {$endif}

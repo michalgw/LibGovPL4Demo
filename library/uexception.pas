@@ -134,7 +134,7 @@ function lgpCreateInvalidObjectException: TlgpExceptionObject;
 implementation
 
 uses
-  lgKSeFTypes;
+  lgKSeFTypes, lgKSeFObjects;
 
 function lgpCreateExceptioObject(AException: Exception): TlgpExceptionObject;
 var

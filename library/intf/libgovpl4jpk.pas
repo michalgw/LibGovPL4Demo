@@ -25,15 +25,14 @@ type
   TlgoJPK = class(TlgoObject)
   private
     FHTTPClient: TlgoHTTPClient;
-    FRSAKeyProd: TlgoRSAKey;
-    FRSAKeyTest: TlgoRSAKey;
+    FRSAKeyProd: TlgoRSAPublicKey;
+    FRSAKeyTest: TlgoRSAPublicKey;
     FXAdES: TlgoXAdES;
     function GetAES256EncryptClass: UTF8String;
     function GetBase64EncoderClass: UTF8String;
     function GetMD5HashClass: UTF8String;
     function GetRandomGeneratorClass: UTF8String;
-    function GetRSAEncryptClass: UTF8String;
-    function GetRSAKey(AIndex: TlgoEDekGateType): TlgoRSAKey;
+    function GetRSAKey(AIndex: TlgoEDekGateType): TlgoRSAPublicKey;
     function GetSHA256HashClass: UTF8String;
     function GetXMLReaderClass: UTF8String;
     function GetZipperClass: UTF8String;
@@ -42,10 +41,9 @@ type
     procedure SetHTTPClient(AValue: TlgoHTTPClient);
     procedure SetMD5HashClass(AValue: UTF8String);
     procedure SetRandomGeneratorClass(AValue: UTF8String);
-    procedure SetRSAEncryptClass(AValue: UTF8String);
-    procedure SetRSAKey(AIndex: TlgoEDekGateType; AValue: TlgoRSAKey);
-    procedure SetRSAKeyProd(AValue: TlgoRSAKey);
-    procedure SetRSAKeyTest(AValue: TlgoRSAKey);
+    procedure SetRSAKey(AIndex: TlgoEDekGateType; AValue: TlgoRSAPublicKey);
+    procedure SetRSAKeyProd(AValue: TlgoRSAPublicKey);
+    procedure SetRSAKeyTest(AValue: TlgoRSAPublicKey);
     procedure SetSHA256HashClass(AValue: UTF8String);
     procedure SetXAdES(AValue: TlgoXAdES);
     procedure SetXMLReaderClass(AValue: UTF8String);
@@ -62,13 +60,12 @@ type
     property MD5HashClass: UTF8String read GetMD5HashClass write SetMD5HashClass;
     property SHA256HashClass: UTF8String read GetSHA256HashClass write SetSHA256HashClass;
     property ZipperClass: UTF8String read GetZipperClass write SetZipperClass;
-    property RSAEncryptClass: UTF8String read GetRSAEncryptClass write SetRSAEncryptClass;
     property RandomGeneratorClass: UTF8String read GetRandomGeneratorClass write SetRandomGeneratorClass;
     property XMLReaderClass: UTF8String read GetXMLReaderClass write SetXMLReaderClass;
 
-    property RSAKeyProd: TlgoRSAKey read FRSAKeyProd write SetRSAKeyProd;
-    property RSAKeyTest: TlgoRSAKey read FRSAKeyTest write SetRSAKeyTest;
-    property RSAKey[AIndex: TlgoEDekGateType]: TlgoRSAKey read GetRSAKey write SetRSAKey;
+    property RSAKeyProd: TlgoRSAPublicKey read FRSAKeyProd write SetRSAKeyProd;
+    property RSAKeyTest: TlgoRSAPublicKey read FRSAKeyTest write SetRSAKeyTest;
+    property RSAKey[AIndex: TlgoEDekGateType]: TlgoRSAPublicKey read GetRSAKey write SetRSAKey;
     property XAdES: TlgoXAdES read FXAdES write SetXAdES;
     property HTTPClient: TlgoHTTPClient read FHTTPClient write SetHTTPClient;
   end;
@@ -122,18 +119,7 @@ begin
     Result := '';
 end;
 
-function TlgoJPK.GetRSAEncryptClass: UTF8String;
-var
-  P: LGP_PSSTRING;
-begin
-  lgoCheckResult(lgpJPK_GetRSAEncryptClass(ExtObject, P));
-  if P <> nil then
-    Result := P^
-  else
-    Result := '';
-end;
-
-function TlgoJPK.GetRSAKey(AIndex: TlgoEDekGateType): TlgoRSAKey;
+function TlgoJPK.GetRSAKey(AIndex: TlgoEDekGateType): TlgoRSAPublicKey;
 begin
   case AIndex of
     egtProduction: Result := FRSAKeyProd;
@@ -208,12 +194,7 @@ begin
   lgoCheckResult(lgpJPK_SetRandomGeneratorClass(ExtObject, LGP_PCHAR(AValue)));
 end;
 
-procedure TlgoJPK.SetRSAEncryptClass(AValue: UTF8String);
-begin
-  lgoCheckResult(lgpJPK_SetRSAEncryptClass(ExtObject, LGP_PCHAR(AValue)));
-end;
-
-procedure TlgoJPK.SetRSAKey(AIndex: TlgoEDekGateType; AValue: TlgoRSAKey);
+procedure TlgoJPK.SetRSAKey(AIndex: TlgoEDekGateType; AValue: TlgoRSAPublicKey);
 begin
   case AIndex of
     egtProduction: SetRSAKeyProd(AValue);
@@ -221,7 +202,7 @@ begin
   end;
 end;
 
-procedure TlgoJPK.SetRSAKeyProd(AValue: TlgoRSAKey);
+procedure TlgoJPK.SetRSAKeyProd(AValue: TlgoRSAPublicKey);
 var
   O: LGP_OBJECT;
 begin
@@ -234,7 +215,7 @@ begin
   FRSAKeyProd := AValue;
 end;
 
-procedure TlgoJPK.SetRSAKeyTest(AValue: TlgoRSAKey);
+procedure TlgoJPK.SetRSAKeyTest(AValue: TlgoRSAPublicKey);
 var
   O: LGP_OBJECT;
 begin

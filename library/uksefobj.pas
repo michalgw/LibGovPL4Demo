@@ -13,7 +13,8 @@ unit uKSeFObj;
 interface
 
 uses
-  Classes, SysUtils, lgBackend, lgKSeFTypes, uObject, uTypes, uException;
+  Classes, SysUtils, lgBackend, lgKSeFTypes, uObject, uTypes, uException,
+  lgKSeFObjects;
 
 procedure lgpInitKSeFClasses;
 procedure lgpFreeKSeFClasses;

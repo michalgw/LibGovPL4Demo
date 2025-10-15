@@ -59,8 +59,8 @@ var
   XAdES: TlgXAdES = nil;
   EDek: TlgEDeklaracja = nil;
   JPK: TlgJPK = nil;
-  JPKKeyProd: TlgRSAKey = nil;
-  JPKKeyTest: TlgRSAKey = nil;
+  JPKKeyProd: TlgRSAPublicKey = nil;
+  JPKKeyTest: TlgRSAPublicKey = nil;
 
 const
   TAB_BRAMKA: array[Boolean] of TlgEDekGateType = (egtProduction, egtTest);
@@ -79,10 +79,10 @@ begin
     Randomize;
     if ATransport = 2 then
       // Transport przez OpenSSL
-      HTClient := TlgFPCHTTPClient.Create
+      HTClient := TlgFPCHTTPClient.Create(nil)
     else
       // Transport przez WinHTTP
-      HTClient := TlgWinHTTPClient.Create;
+      HTClient := TlgWinHTTPClient.Create(nil);
     HTClient.IgnoreSSLErrors := True;
     // Wczytanie konfiguracji - debug
     //WczytajKonfig;
@@ -119,10 +119,10 @@ begin
     SetLGHTTPClient(HTClient);
 
     RS := TResourceStream.Create(HINSTANCE(), 'RSAJPKPROD', RT_RCDATA);
-    JPKKeyProd := TlgCNGRSAEncrypt.CreateKey(RS);
+    JPKKeyProd := TlgCNGRSAPublicKey.Create(nil, RS);
     RS.Free;
     RS := TResourceStream.Create(HINSTANCE(), 'RSAJPKTEST', RT_RCDATA);
-    JPKKeyTest := TlgCNGRSAEncrypt.CreateKey(RS);
+    JPKKeyTest := TlgCNGRSAPublicKey.Create(nil, RS);
     RS.Free;
 
     JPK := TlgJPK.Create(nil);
@@ -133,7 +133,7 @@ begin
       MD5HashClass := TlgCNGMD5Hash;
       SHA256HashClass := TlgCNGSHA256Hash;
       ZipperClass := TlgFPCZipper;
-      RSAEncryptClass := TlgCNGRSAEncrypt;
+      //RSAEncryptClass := TlgCNGRSAEncrypt;
       RandomGeneratorClass := TlgCNGRandomGenerator;
       XMLReaderClass := TlgMSXMLReader;
       HTTPClient := HTClient;

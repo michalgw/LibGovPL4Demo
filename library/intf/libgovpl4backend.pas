@@ -67,17 +67,14 @@ type
     property IgnoreSSLErrors: Boolean read GetIgnoreSSLErrors write SetIgnoreSSLErrors;
   end;
 
-  TlgoRSAKey = class(TlgoObject)
-  end;
-
   { Kodowanie kluczy i certyfikatow }
   TlgoEncodingType = (letPEM, letDER, letPFX);
 
-  { TlgoRSAEncrypt }
+  { TlgoRSAPublicKey }
 
-  TlgoRSAEncrypt = class
+  TlgoRSAPublicKey = class(TlgoObject)
   public
-    class function CreateKey(AClassName: UTF8String; AStream: TStream; AFormat: TlgoEncodingType = letPEM): TlgoRSAKey;
+    class function CreateKey(AClassName: UTF8String; AStream: TStream; AFormat: TlgoEncodingType = letPEM): TlgoRSAPublicKey;
   end;
 
   { Wersja certyfikatu X509 }
@@ -1587,26 +1584,6 @@ begin
   Result := lgoClassName(FItem);
 end;
 
-{ TlgoRSAEncrypt }
-
-class function TlgoRSAEncrypt.CreateKey(AClassName: UTF8String;
-  AStream: TStream; AFormat: TlgoEncodingType): TlgoRSAKey;
-var
-  Key: LGP_OBJECT;
-  LGStream: TlgoStream;
-begin
-  LGStream := nil;
-  try
-    LGStream := TlgoStream.Create(AStream);
-    lgoCheckResult(lgpRSAEncrypt_CreateKey(LGP_PCHAR(AClassName), LGStream.StreamObj, Ord(AFormat), Key));
-    Result := TlgoRSAKey.Create;
-    Result.ExtObject := Key;
-  finally
-    if Assigned(LGStream) then
-      LGStream.Free;
-  end;
-end;
-
 { TlgoBackend }
 
 class function TlgoBackend.ListDrivers(AClassType: Integer
@@ -1712,6 +1689,26 @@ end;
 constructor TlgoHTTPClient.Create(AClassName: UTF8String);
 begin
   lgoCheckResult(lgpHTTPClient_Create(LGP_PCHAR(AClassName), ExtObject));
+end;
+
+{ TlgoRSAPublicKey }
+
+class function TlgoRSAPublicKey.CreateKey(AClassName: UTF8String;
+  AStream: TStream; AFormat: TlgoEncodingType): TlgoRSAPublicKey;
+var
+  Key: LGP_OBJECT;
+  LGStream: TlgoStream;
+begin
+  LGStream := nil;
+  try
+    LGStream := TlgoStream.Create(AStream);
+    lgoCheckResult(lgpRSAEncrypt_CreateKey(LGP_PCHAR(AClassName), LGStream.StreamObj, Ord(AFormat), Key));
+    Result := TlgoRSAPublicKey.Create;
+    Result.ExtObject := Key;
+  finally
+    if Assigned(LGStream) then
+      LGStream.Free;
+  end;
 end;
 
 procedure RegisterExceptions;

@@ -524,9 +524,9 @@ type
     EDek: TlgoEDeklaracja;
     JPK: TlgoJPK;
     HTTPClient: TlgoHTTPClient;
-    JPKRSAProd, JPKRSATest: TlgoRSAKey;
+    JPKRSAProd, JPKRSATest: TlgoRSAPublicKey;
     KSeF: TlgoKSeF;
-    KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgoRSAKey;
+    KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgoRSAPublicKey;
 
     XValidator: TlgoXMLValidator;
     XTrans: TlgoXMLXSLTransformation;
@@ -1111,22 +1111,22 @@ begin
       SHA256HashClass := ComboBoxSHA256.Text;
     if ComboBoxZip.ItemIndex >= 0 then
       ZipperClass := ComboBoxZip.Text;
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := ComboBoxRSAEnc.Text;
+    //if ComboBoxRSAEnc.ItemIndex >= 0 then
+    //  RSAEncryptClass := ComboBoxRSAEnc.Text;
     if ComboBoxRandGen.ItemIndex >= 0 then
       RandomGeneratorClass := ComboBoxRandGen.Text;
     if ComboBoxXMLRead.ItemIndex >= 0 then
       XMLReaderClass := ComboBoxXMLRead.Text;
     try
       FS := TFileStream.Create(FileNameEditJPKRSAProd.FileName, fmOpenRead);
-      JPKRSAProd := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
+      JPKRSAProd := TlgoRSAPublicKey.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditJPKRSATest.FileName, fmOpenRead);
-      JPKRSATest := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
+      JPKRSATest := TlgoRSAPublicKey.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
@@ -1150,25 +1150,25 @@ begin
       RandomGeneratorClass := ComboBoxRandGen.Text;
     //if ComboBoxZip.ItemIndex >= 0 then
     //  ZipperClass := ComboBoxZip.Text;
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := ComboBoxRSAEnc.Text;
+    //if ComboBoxRSAEnc.ItemIndex >= 0 then
+    //  RSAEncryptClass := ComboBoxRSAEnc.Text;
     try
       FS := TFileStream.Create(FileNameEditKSeFRSAProd.FileName, fmOpenRead);
-      KSeFRSAProd := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
+      KSeFRSAProd := TlgoRSAPublicKey.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditKSeFRSADemo.FileName, fmOpenRead);
-      KSeFRSADemo := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
+      KSeFRSADemo := TlgoRSAPublicKey.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
     end;
     try
       FS := TFileStream.Create(FileNameEditKSeFRSATest.FileName, fmOpenRead);
-      KSeFRSATest := TlgoRSAEncrypt.CreateKey(ComboBoxRSAEnc.Text, FS);
+      KSeFRSATest := TlgoRSAPublicKey.CreateKey(ComboBoxRSAEnc.Text, FS);
     finally
       if Assigned(FS) then
         FreeAndNil(FS);
@@ -1225,11 +1225,11 @@ begin
   Debug('MD5HashClass: ' + JPK.MD5HashClass);
   Debug('SHA256HashClass: ' + JPK.SHA256HashClass);
   Debug('ZipperClass: ' + JPK.ZipperClass);
-  Debug('RSAEncryptClass: ' + JPK.RSAEncryptClass);
+  //Debug('RSAEncryptClass: ' + JPK.RSAEncryptClass);
   Debug('RandomGeneratorClass: ' + JPK.RandomGeneratorClass);
   Debug('XMLReaderClass: ' + JPK.XMLReaderClass);
   Debug('KSeF', True);
-  Debug('RSAEncryptClass: ' + KSeF.RSAEncryptClass);
+  //Debug('RSAEncryptClass: ' + KSeF.RSAEncryptClass);
   Debug('Base64EncoderClass: ' + KSeF.Base64EncoderClass);
   Debug('AES256EncryptClass: ' + KSeF.AES256EncryptClass);
   Debug('SHA256HashClass: ' + KSeF.SHA256HashClass);

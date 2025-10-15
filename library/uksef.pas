@@ -14,7 +14,7 @@ interface
 
 uses
   Classes, SysUtils, lgKSeF, uTypes, uObject, uException, uBackend, lgBackend,
-  lgXAdES, lgKSeFTypes, uStream;
+  lgXAdES, lgKSeFTypes, uStream, lgKSeFObjects;
 
 const
   LGP_KSEF_GATETYPE_PROD = 0;
@@ -34,8 +34,6 @@ const
   LGP_KSEF_SUBJECTTYPE_SUBJECTAUTHORIZED = 3;
 
 function lgpKSeF_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
-function lgpKSeF_SetRSAEncryptClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
 function lgpKSeF_SetBase64EncoderClass(AKSeFObject: LGP_OBJECT; AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF_GetAES256EncryptClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
@@ -136,43 +134,6 @@ begin
     {$ifdef LGP_DEBUG_OBJ}
     lgpDbgAddObject(TObject(AKSeFObj));
     {$endif}
-  except
-    on E: Exception do
-      Result := lgpCreateExceptioObject(E);
-  end;
-end;
-
-function lgpKSeF_GetRSAEncryptClass(AKSeFObject: LGP_OBJECT;
-  var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
-begin
-  Result := nil;
-  AClassName := nil;
-  try
-    CheckObject(AKSeFObject, TlgKSeF);
-    with TObject(AKSeFObject) as TlgKSeF do
-    begin
-      if RSAEncryptClass <> nil then
-        AClassName := PVmt(RSAEncryptClass.ClassType)^.vClassName;
-    end;
-  except
-    on E: Exception do
-      Result := lgpCreateExceptioObject(E);
-  end;
-end;
-
-function lgpKSeF_SetRSAEncryptClass(AKSeFObject: LGP_OBJECT;
-  AClassName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-begin
-  Result := nil;
-  try
-    CheckObject(AKSeFObject, TlgKSeF);
-    with TObject(AKSeFObject) as TlgKSeF do
-    begin
-      if AClassName = '' then
-        RSAEncryptClass := nil
-      else
-        RSAEncryptClass := RSAEncryptClasses.FindByClassName(AClassName);
-    end;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -347,8 +308,8 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF);
     if AKey <> nil then
-      CheckObject(AKey, TlgRSAKey);
-    (TObject(AKSeFObject) as TlgKSeF).RSAKey[TlgKSeFGateType(AKeyType)] := TlgRSAKey(AKey);
+      CheckObject(AKey, TlgRSAPublicKey);
+    (TObject(AKSeFObject) as TlgKSeF).RSAKey[TlgKSeFGateType(AKeyType)] := TlgRSAPublicKey(AKey);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

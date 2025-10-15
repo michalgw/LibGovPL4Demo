@@ -68,7 +68,7 @@ function lgpDbgObjectCount: LGP_INT32; stdcall;
 implementation
 
 uses
-  uException, lgBackend, Rtti, lgKSeFTypes, Contnrs;
+  uException, lgBackend, Rtti, lgKSeFTypes, Contnrs, lgKSeFObjects;
 
 {$IFDEF LGP_DEBUG_OBJ}
 var
