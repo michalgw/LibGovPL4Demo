@@ -42,7 +42,7 @@ uses
   , lgPKCS11, uPKCS11
 {$ENDIF}
 {$IFDEF LGP_ENABLE_PKCS11}
-  , lgOpenSSL
+  , lgOpenSSL, uKSeF2, uKSeF2Obj
 {$ENDIF}
   ;
 
@@ -391,7 +391,161 @@ exports
   // VIES
   lgpViesService_CheckVatNumber,
   lgpViesService_CheckVatTestService,
-  lgpViesService_CheckStatus
+  lgpViesService_CheckStatus,
+
+  // KSeF 2.0
+  lgpKSeF2_Create,
+  lgpKSeF2_GetBase64EncoderClass,
+  lgpKSeF2_SetBase64EncoderClass,
+  lgpKSeF2_GetAES256EncryptClass,
+  lgpKSeF2_SetAES256EncryptClass,
+  lgpKSeF2_GetSHA256HashClass,
+  lgpKSeF2_SetSHA256HashClass,
+  lgpKSeF2_GetRandomGeneratorClass,
+  lgpKSeF2_SetRandomGeneratorClass,
+  lgpKSeF2_GetRSAPubliicKeyClass,
+  lgpKSeF2_SetRSAPubliicKeyClass,
+  lgpKSeF2_GetRSATokenEncKey,
+  lgpKSeF2_SetRSATokenEncKey,
+  lgpKSeF2_GetRSASymmetricKeyEncKey,
+  lgpKSeF2_SetRSASymmetricKeyEncKey,
+  lgpKSeF2_GetXAdES,
+  lgpKSeF2_SetXAdES,
+  lgpKSeF2_GetHTTPClient,
+  lgpKSeF2_SetHTTPClient,
+  lgpKSeF2_GetGateType,
+  lgpKSeF2_SetGateType,
+  lgpKSeF2_GetIdentifier,
+  lgpKSeF2_SetIdentifier,
+  lgpKSeF2_GetIdentifierType,
+  lgpKSeF2_SetIdentifierType,
+  lgpKSeF2_GetFormCode,
+  lgpKSeF2_SetFormCode,
+  lgpKSeF2_GetFormCodeSystemCode,
+  lgpKSeF2_SetFormCodeSystemCode,
+  lgpKSeF2_GetFormCodeSchemaVersion,
+  lgpKSeF2_SetFormCodeSchemaVersion,
+  lgpKSeF2_GetFormCodeValue,
+  lgpKSeF2_SetFormCodeValue,
+  lgpKSeF2_GetAuthCertificate,
+  lgpKSeF2_SetAuthCertificate,
+  lgpKSeF2_GetAuthCertificateSubject,
+  lgpKSeF2_SetAuthCertificateSubject,
+  lgpKSeF2_GetKsefToken,
+  lgpKSeF2_SetKsefToken,
+  lgpKSeF2_GetAuthenticationToken,
+  lgpKSeF2_SetAuthenticationToken,
+  lgpKSeF2_GetAuthenticationTokenValidUntil,
+  lgpKSeF2_SetAuthenticationTokenValidUntil,
+  lgpKSeF2_GetAuthenticationRefNo,
+  lgpKSeF2_SetAuthenticationRefNo,
+  lgpKSeF2_GetAccessToken,
+  lgpKSeF2_SetAccessToken,
+  lgpKSeF2_GetAccessTokenValidUntil,
+  lgpKSeF2_SetAccessTokenValidUntil,
+  lgpKSeF2_GetRefreshToken,
+  lgpKSeF2_SetRefreshToken,
+  lgpKSeF2_GetRefreshTokenValidUntil,
+  lgpKSeF2_SetRefreshTokenValidUntil,
+  lgpKSeF2_GetInteractiveEncryptionKey,
+  lgpKSeF2_SetInteractiveEncryptionKey,
+  lgpKSeF2_GetInteractiveVector,
+  lgpKSeF2_SetInteractiveVector,
+  lgpKSeF2_GetInteractiveReferenceNumber,
+  lgpKSeF2_SetInteractiveReferenceNumber,
+  lgpKSeF2_GetInteractiveValidUntil,
+  lgpKSeF2_SetInteractiveValidUntil,
+  lgpKSeF2_GetBatchReferenceNumber,
+  lgpKSeF2_SetBatchReferenceNumber,
+  lgpKSeF2_GetBatchPartSize,
+  lgpKSeF2_SetBatchPartSize,
+  lgpKSeF2_GetInvoiceExportEncryptionKey,
+  lgpKSeF2_SetInvoiceExportEncryptionKey,
+  lgpKSeF2_GetInvoiceExportVector,
+  lgpKSeF2_SetInvoiceExportVector,
+  lgpKSeF2_GetInvoiceExportReferenceNumber,
+  lgpKSeF2_SetInvoiceExportReferenceNumber,
+  lgpKSeF2_GetRequestPartStreamCargo,
+  lgpKSeF2_SetRequestPartStreamCargo,
+  lgpKSeF2_GetOnRequestPartStream,
+  lgpKSeF2_SetOnRequestPartStream,
+
+  lgpKSeF2_AuthChallenge,
+
+  lgpKSeF2_AuthXadesSignatureGenerate,
+  lgpKSeF2_AuthXadesSignatureGenerate2,
+
+  lgpKSeF2_AuthXadesSignature,
+  lgpKSeF2_AuthXadesSignature2,
+  lgpKSeF2_AuthXadesSignature3,
+
+  lgpKSeF2_AuthKsefToken,
+  lgpKSeF2_AuthKsefToken2,
+
+  lgpKSeF2_AuthStatus,
+
+  lgpKSeF2_AuthTokenRedem,
+
+  lgpKSeF2_AuthTokenRefresh,
+
+  lgpKSeF2_AuthSessions,
+  lgpKSeF2_AuthSessionTerminateCurrent,
+  lgpKSeF2_AuthSessionTerminate,
+
+  lgpKSeF2_SecurityPublicKeyCertificates,
+  lgpKSeF2_SecurityLoadKeys,
+
+  lgpKSeF2_InteractiveOpen,
+  lgpKSeF2_InteractiveOpen2,
+  lgpKSeF2_InteractiveOpen3,
+  lgpKSeF2_InteractiveOpenSimple,
+
+  lgpKSeF2_InteractiveSend,
+  lgpKSeF2_InteractiveSend2,
+  lgpKSeF2_InteractiveSend3,
+
+  lgpKSeF2_InteractiveClose,
+
+  lgpKSeF2_BatchPrepare,
+  lgpKSeF2_BatchPrepare2,
+  lgpKSeF2_BatchOpen,
+  lgpKSeF2_BatchSendPart,
+  lgpKSeF2_BatchClose,
+
+  lgpKSeF2_StatusSessions,
+  lgpKSeF2_StatusSession,
+  lgpKSeF2_StatusInvoices,
+  lgpKSeF2_StatusSessionInvoice,
+  lgpKSeF2_StatusInvoicesFailed,
+  lgpKSeF2_StatusUpoKsef,
+  lgpKSeF2_StatusUpoKsefSimple,
+  lgpKSeF2_StatusUpoSessionInvoice,
+  lgpKSeF2_StatusUpoSessionInvoiceSimple,
+  lgpKSeF2_StatusUpoSession,
+  lgpKSeF2_StatusUpoSessionSimple,
+
+  lgpKSeF2_InvoicesKsef,
+  lgpKSeF2_InvoicesQueryMetadata,
+  lgpKSeF2_InvoicesExport,
+  lgpKSeF2_InvoicesExport2,
+  lgpKSeF2_InvoicesExportSimple,
+  lgpKSeF2_InvoicesExportSimple2,
+  lgpKSeF2_InvoicesExportStatus,
+  lgpKSeF2_InvoicesExportDownload,
+
+  lgpKSeF2_TokensGenerate,
+  lgpKSeF2_TokensGenerate2,
+  lgpKSeF2_TokensList,
+  lgpKSeF2_TokensStatus,
+  lgpKSeF2_TokensRevoke,
+
+  lgpKSeF2_TestdataSubject,
+  lgpKSeF2_TestdataSubjectRemove,
+  lgpKSeF2_TestdataPerson,
+  lgpKSeF2_TestdataPersonRemove,
+
+  // KSeF 2.0 obiekty
+  lgpKSeF2_CreateKSeFClass
 
   // Zgodność z poprzednią wersją biblioteki
 {$IFDEF LGP_LEGACY}

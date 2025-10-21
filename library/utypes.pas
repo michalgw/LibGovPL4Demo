@@ -27,6 +27,7 @@ type
   LGP_POINTER = Pointer;
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
+  LGP_PBYTE = PByte;
 
   LGP_CK_ULONG = {$IFDEF WINDOWS}LongWord{$ELSE}PtrUInt{$ENDIF};
 

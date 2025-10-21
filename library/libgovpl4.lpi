@@ -403,6 +403,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="uVies"/>
       </Unit>
+      <Unit>
+        <Filename Value="uksef2.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uKSeF2"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uksef2obj.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uKSeF2Obj"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

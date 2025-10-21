@@ -81,6 +81,9 @@ procedure lgpDecodeDateTime(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay,
 
 function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
 
+function SetToInt32(ASet: Pointer; AMaxElem, ASetTypeSize: Integer): Integer;
+procedure Int32ToSet(AValue: Integer; AMaxElem, ASetTypeSize: Integer; ASet: Pointer);
+
 var
   LGPDrivers: array[0..LGP_CLSTYPE_MAX] of String;
 
@@ -752,6 +755,27 @@ begin
   {$ELSE}
   Result := 0;
   {$ENDIF}
+end;
+
+function SetToInt32(ASet: Pointer; AMaxElem, ASetTypeSize: Integer): Integer;
+begin
+  case ASetTypeSize of
+    1: Result := PByte(ASet)^;
+    2: Result := PWord(ASet)^;
+    4: Result := PInteger(ASet)^;
+    else raise EConvertError.Create('Nie można skonwertować zbioru');
+  end;
+end;
+
+procedure Int32ToSet(AValue: Integer; AMaxElem, ASetTypeSize: Integer;
+  ASet: Pointer);
+begin
+  case ASetTypeSize of
+    1: PByte(ASet)^ := AValue;
+    2: PWord(ASet)^ := AValue;
+    4: PInteger(ASet)^ := AValue;
+    else raise EConvertError.Create('Nie można skonwertować zbioru');
+  end;
 end;
 
 end.
