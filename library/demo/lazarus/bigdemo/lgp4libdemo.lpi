@@ -21,11 +21,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw64\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4libdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf"/>
+            <OtherUnitFiles Value="..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -56,11 +56,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw32\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw32\lgp4libdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf"/>
+            <OtherUnitFiles Value="..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -93,11 +93,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw64\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4libdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf"/>
+            <OtherUnitFiles Value="..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -185,11 +185,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\binw32\lgp4libdemo"/>
+      <Filename Value="..\..\..\..\binw32\lgp4libdemo"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\intf"/>
+      <OtherUnitFiles Value="..\..\..\intf"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
