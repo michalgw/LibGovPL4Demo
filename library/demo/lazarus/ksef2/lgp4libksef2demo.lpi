@@ -22,7 +22,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4libksef2demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -87,7 +87,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4libksef2demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
