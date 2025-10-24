@@ -55,6 +55,8 @@ type
   TlgpStreamGetPositionFunc = function(AStreamObject: LGP_POINTER): LGP_INT32; stdcall;
   TlgpStreamGetSizeFunc = function(AStreamObject: LGP_POINTER): LGP_INT32; stdcall;
 
+  TlgpRequestPartStreamEvent = procedure(ASender: LGP_OBJECT; ACargo: LGP_POINTER; APartNumber: LGP_INT32; var AStream: LGP_OBJECT); stdcall;
+
 
 const
   LGP_LIBNAME = 'libgovpl4.dll';
@@ -564,8 +566,8 @@ function lgpKSeF2_GetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; var A
 function lgpKSeF2_SetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthChallenge(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -640,6 +642,10 @@ function lgpKSeF2_TestdataSubject(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT)
 function lgpKSeF2_TestdataSubjectRemove(AKSeFObject: LGP_OBJECT; ASubjectNip: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TestdataPerson(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+// KSeF 2.0 obiekty
+function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 
 // Zgodnosc z poprzednia wersja biblioteki
 function edekInicjuj(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall; external LGP_LIBNAME;
@@ -1176,6 +1182,8 @@ var
   lgpKSeF2_TestdataPerson: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TestdataPersonRemove: function(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
+  lgpKSeF2_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
+  lgpKSeF2_KSeFClassSetExt: function(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall;
 
   // Zgodnosc z poprzednia wersja biblioteki
   edekInicjuj: function(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall;
@@ -1736,6 +1744,9 @@ begin
     @lgpKSeF2_TestdataSubjectRemove := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TestdataSubjectRemove');
     @lgpKSeF2_TestdataPerson := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TestdataPerson');
     @lgpKSeF2_TestdataPersonRemove := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TestdataPersonRemove');
+
+    @lgpKSeF2_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CreateKSeFClass');
+    @lgpKSeF2_KSeFClassSetExt := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_KSeFClassSetExt');
 
     // Zgodnosc z poprzednia wersja biblioteki
     @edekInicjuj := GetProcAddress(LibGovPl4Handle, 'edekInicjuj');

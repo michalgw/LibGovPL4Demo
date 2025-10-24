@@ -11,6 +11,7 @@ uses
 procedure lgpInitKSeF2Classes;
 procedure lgpFreeKSeF2Classes;
 function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
+function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall;
 
 implementation
 
@@ -117,6 +118,24 @@ begin
     C := KSeFClsList.FindByClassName(AClassName);
     if C <> nil then
       Result := C.Create;
+  end;
+end;
+
+function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER
+  ): LGP_OBJECT; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AObject, TKSeF2Object);
+    with TKSeF2Object(AObject) do
+    begin
+      ExternalObject := AExtObj;
+      if Assigned(Owner) then
+        Owner.RemoveObject(TKSeF2Object(AObject));
+    end;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
   end;
 end;
 

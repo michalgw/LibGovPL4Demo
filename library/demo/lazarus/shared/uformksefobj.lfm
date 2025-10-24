@@ -1,4 +1,4 @@
-object Form2: TForm2
+object FormKSeFObj: TFormKSeFObj
   Left = 207
   Height = 463
   Top = 130
@@ -7,7 +7,7 @@ object Form2: TForm2
   ClientHeight = 463
   ClientWidth = 655
   Position = poOwnerFormCenter
-  LCLVersion = '3.0.0.2'
+  LCLVersion = '3.9.0.0'
   object TreeView1: TTreeView
     Left = 0
     Height = 463
@@ -17,5 +17,13 @@ object Form2: TForm2
     ReadOnly = True
     TabOrder = 0
     Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 210
+    Top = 162
+    object MenuItem1: TMenuItem
+      Caption = 'Kopiuj'
+      OnClick = MenuItem1Click
+    end
   end
 end

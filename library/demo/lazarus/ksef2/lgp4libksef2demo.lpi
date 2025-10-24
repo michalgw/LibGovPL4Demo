@@ -5,7 +5,8 @@
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="lgp4libdemo"/>
+      <AutoCreateForms Value="False"/>
+      <Title Value="lgp4libksef2demo"/>
       <Scaled Value="True"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -21,20 +22,19 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\..\..\binw64\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\intf;..\shared"/>
+            <OtherUnitFiles Value="..\shared;..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
               <UseHeaptrc Value="True"/>
             </Debugging>
             <Options>
@@ -56,23 +56,17 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\..\..\binw32\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\intf;..\shared"/>
+            <OtherUnitFiles Value="..\shared;..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
-          <CodeGeneration>
-            <TargetCPU Value="i386"/>
-            <TargetOS Value="win32"/>
-          </CodeGeneration>
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
-              <RunWithoutDebug Value="True"/>
               <DebugInfoType Value="dsDwarf2Set"/>
-              <UseHeaptrc Value="True"/>
             </Debugging>
             <Options>
               <Win32>
@@ -93,23 +87,23 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\..\..\binw64\lgp4libdemo"/>
+            <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\intf;..\shared"/>
+            <OtherUnitFiles Value="..\shared;..\..\..\intf"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
-              <RunWithoutDebug Value="True"/>
-              <DebugInfoType Value="dsDwarf2"/>
-              <UseHeaptrc Value="True"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
             </Debugging>
             <Options>
               <Win32>
@@ -135,9 +129,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="DateTimeCtrlsDsgn"/>
-      </Item>
-      <Item>
         <PackageName Value="DateTimeCtrls"/>
       </Item>
       <Item>
@@ -146,16 +137,31 @@
     </RequiredPackages>
     <Units>
       <Unit>
-        <Filename Value="lgp4libdemo.lpr"/>
+        <Filename Value="lgp4libksef2demo.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="unit1.pas"/>
+        <Filename Value="..\shared\uformmainbase.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="FormMainBase"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Unit1"/>
+        <UnitName Value="uFormMainBase"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\shared\uformcertload.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormCertLoad"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uFormCertLoad"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uformmain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uFormMain"/>
       </Unit>
       <Unit>
         <Filename Value="..\shared\uformksefobj.pas"/>
@@ -165,37 +171,19 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uFormKSeFObj"/>
       </Unit>
-      <Unit>
-        <Filename Value="unit3.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form3"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Unit3"/>
-      </Unit>
-      <Unit>
-        <Filename Value="unit4.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form4"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Unit4"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\..\..\binw32\lgp4libdemo"/>
+      <Filename Value="..\..\..\..\binw32\lgp4libksef2demo"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\intf;..\shared"/>
+      <OtherUnitFiles Value="..\shared;..\..\..\intf"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetCPU Value="i386"/>
-      <TargetOS Value="win32"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2Set"/>

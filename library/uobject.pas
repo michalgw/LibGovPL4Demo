@@ -68,7 +68,7 @@ function lgpDbgObjectCount: LGP_INT32; stdcall;
 implementation
 
 uses
-  uException, lgBackend, Rtti, lgKSeFTypes, Contnrs, lgKSeFObjects;
+  uException, lgBackend, Rtti, lgKSeFTypes, Contnrs, lgKSeFObjects, lgKSeF2Objects;
 
 {$IFDEF LGP_DEBUG_OBJ}
 var
@@ -604,6 +604,8 @@ begin
       AValue := (Obj as TObjectList).Count
     else if Supports(Obj, IKSeFArray_GUID) then
       AValue := (Obj as IKSeFArray).IntfCount
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      AValue := (Obj as IKSeF2Array).Count
     else if Obj is TlgpKSeFExceptionDetailList then
       AValue := (Obj as TlgpKSeFExceptionDetailList).Count
     else
@@ -628,6 +630,8 @@ begin
       AItem := (Obj as TObjectList).Items[AIndex]
     else if Supports(Obj, IKSeFArray_GUID) then
       AItem := (Obj as IKSeFArray).IntfGetItem(AIndex)
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      AItem := (Obj as IKSeF2Array).GetItem(AIndex)
     else if Obj is TlgpKSeFExceptionDetailList then
       AItem := (Obj as TlgpKSeFExceptionDetailList).Items[AIndex]
     else
@@ -652,6 +656,8 @@ begin
       (Obj as TObjectList).Delete(AIndex)
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).Delete(AIndex)
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      (Obj as IKSeF2Array).Delete(AIndex)
     else
       raise EInvalidCast.Create('Invalid typecast');
   except
@@ -674,6 +680,8 @@ begin
       (Obj as TObjectList).Remove(TObject(AItem))
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      (Obj as IKSeF2Array).Remove(TKSeF2Object(Obj))
     else
       raise EInvalidCast.Create('Invalid typecast');
   except
@@ -700,7 +708,9 @@ begin
     else if Obj is TObjectList then
       AIndex := (Obj as TObjectList).Add(TObject(AItem))
     else if Supports(Obj, IKSeFArray_GUID) then
-      //(Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
+    //  (Obj as IKSeFArray).IntfRemove(TKSeFObject(Obj))
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      AIndex := (Obj as IKSeF2Array).Add(TKSeF2Object(Obj))
     else
       raise EInvalidCast.Create('Invalid typecast');
   except
@@ -723,6 +733,8 @@ begin
       AValue := Integer((Obj as TObjectList).OwnsObjects)
     else if Supports(Obj, IKSeFArray_GUID) then
       AValue := Integer((Obj as IKSeFArray).IntfGetOwnObj)
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      AValue := Integer((Obj as IKSeF2Array).GetOwnsObjects)
     else
       raise EInvalidCast.Create('Invalid typecast');
   except
@@ -745,6 +757,8 @@ begin
       (Obj as TObjectList).OwnsObjects := AValue <> 0
     else if Supports(Obj, IKSeFArray_GUID) then
       (Obj as IKSeFArray).IntfSetOwnObj(AValue <> 0)
+    else if Supports(Obj, IKSeF2Array_GUID) then
+      (Obj as IKSeF2Array).SetOwnsObjects(AValue <> 0)
     else
       raise EInvalidCast.Create('Invalid typecast');
   except

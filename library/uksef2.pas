@@ -185,6 +185,9 @@ function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR)
 
 implementation
 
+uses
+  lgUtils;
+
 type
 
   { TlgKSeF2Lib }

@@ -1,4 +1,4 @@
-program lgp4libdemo;
+program lgp4libksef2demo;
 
 {$mode objfpc}{$H+}
 
@@ -10,7 +10,8 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, datetimectrls, Unit1, uFormKSeFObj, Unit3, Unit4;
+  Forms, datetimectrls, uFormMainBase, uFormCertLoad, uFormKSeFObj, uFormMain
+  { you can add units after this };
 
 {$R *.res}
 
@@ -21,7 +22,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Scaled := True;
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFormMain, FormMain);
   Application.Run;
 end.
 

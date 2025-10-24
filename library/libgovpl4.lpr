@@ -545,7 +545,8 @@ exports
   lgpKSeF2_TestdataPersonRemove,
 
   // KSeF 2.0 obiekty
-  lgpKSeF2_CreateKSeFClass
+  lgpKSeF2_CreateKSeFClass,
+  lgpKSeF2_KSeFClassSetExt
 
   // Zgodność z poprzednią wersją biblioteki
 {$IFDEF LGP_LEGACY}

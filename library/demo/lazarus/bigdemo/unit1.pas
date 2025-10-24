@@ -551,7 +551,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Rtti, DateUtils, Unit2, Unit3, Unit4, TypInfo, LCLIntf;
+  Rtti, DateUtils, uFormKSeFObj, Unit3, Unit4, TypInfo, LCLIntf;
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var

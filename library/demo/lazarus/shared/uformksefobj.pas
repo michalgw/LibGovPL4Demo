@@ -1,50 +1,60 @@
-unit Unit2;
+unit uFormKSeFObj;
 
 {$mode ObjFPC}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, LibGovPl4KSeFObj;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
+  LibGovPl4KSeFObj, LibGovPl4KSeFObj2;
 
 type
 
-  { TForm2 }
+  { TFormKSeFObj }
 
-  TForm2 = class(TForm)
+  TFormKSeFObj = class(TForm)
+    MenuItem1: TMenuItem;
+    PopupMenu1: TPopupMenu;
     TreeView1: TTreeView;
+    procedure MenuItem1Click(Sender: TObject);
   private
 
   public
-    procedure AddObject(AObj: TKSeFObject; AParentNode: TTreeNode);
+    procedure AddObject(AObj: TObject; AParentNode: TTreeNode);
   end;
 
 var
-  Form2: TForm2;
+  FormKSeFObj: TFormKSeFObj;
 
-procedure ShowObject(AObj: TKSeFObject);
+procedure ShowObject(AObj: TObject);
 
 implementation
 
 uses
-  TypInfo, Variants;
+  TypInfo, Variants, Clipbrd;
 
-procedure ShowObject(AObj: TKSeFObject);
+{$R *.lfm}
+
+procedure ShowObject(AObj: TObject);
 var
-  F: TForm2;
+  F: TFormKSeFObj;
 begin
-  F := TForm2.Create(Application);
+  F := TFormKSeFObj.Create(Application);
   F.AddObject(AObj, nil);
   F.TreeView1.FullExpand;
   F.ShowModal;
   F.Free;
 end;
 
-{$R *.lfm}
+{ TFormKSeFObj }
 
-{ TForm2 }
+procedure TFormKSeFObj.MenuItem1Click(Sender: TObject);
+begin
+  if TreeView1.Selected <> nil then
+    Clipboard.AsText := TreeView1.Selected.Text;
+end;
 
-procedure TForm2.AddObject(AObj: TKSeFObject; AParentNode: TTreeNode);
+procedure TFormKSeFObj.AddObject(AObj: TObject; AParentNode: TTreeNode);
 var
   PropList: PPropList;
   PropCnt: Integer;
@@ -81,6 +91,8 @@ begin
         if O = nil then
           S := S + ' (NIL)'
         else if O is TKSeFArray then
+          S := S + ' (Count: ' + IntToStr(TKSeFArray(O).Count) + ')'
+        else if O is TKSeF2Array then
           S := S + ' (Count: ' + IntToStr(TKSeFArray(O).Count) + ')';
       end;
       tkDynArray: begin
@@ -105,8 +117,15 @@ begin
         for J := 0 to TKSeFArray(O).Count - 1 do
           AddObject(TKSeFArray(O).Items[J], NodeProp);
       end
+      else if (O is TKSeF2Array) then
+      begin
+        for J := 0 to TKSeF2Array(O).Count - 1 do
+          AddObject(TKSeF2Array(O).Items[J], NodeProp);
+      end
       else if (O is TKSeFObject) then
         AddObject(TKSeFObject(O), NodeProp)
+      else if (O is TKSeF2Object) then
+        AddObject(TKSeF2Object(O), NodeProp)
     end;
   end;
   Freemem(PropList);

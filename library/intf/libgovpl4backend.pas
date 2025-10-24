@@ -413,7 +413,7 @@ type
     function Count: Integer;
     function GetItem(AIndex: Integer): TlgoPKCS11SlotInfo;
   //published
-    property Items[AIndex: Integer]: TlgoPKCS11SlotInfo read GetItem;
+    property Items[AIndex: Integer]: TlgoPKCS11SlotInfo read GetItem; default;
   end;
 
   TlgPKCS11SessionState = (pssROPublicSession, pssROUserFunctions,
@@ -522,6 +522,14 @@ type
 
 function lgoCreateSigner(AClassName: String): TlgoCertificateSigner;
 function lgoCreateCertificate(AClassObject: LGP_OBJECT): TlgoCertificate;
+
+const
+  AES256_BLOCK_SIZE = 16;
+  AES256_KEY_SIZE = 32;
+  AES256_IV_SIZE = 16;
+
+function SetToInt32(ASet: Pointer; AMaxElem, ASetTypeSize: Integer): Integer;
+procedure Int32ToSet(AValue: Integer; AMaxElem, ASetTypeSize: Integer; ASet: Pointer);
 
 implementation
 
@@ -642,6 +650,27 @@ begin
   else
   {$ENDIF}
     Result := TlgoCertificate.Create;
+end;
+
+function SetToInt32(ASet: Pointer; AMaxElem, ASetTypeSize: Integer): Integer;
+begin
+  case ASetTypeSize of
+    1: Result := PByte(ASet)^;
+    2: Result := PWord(ASet)^;
+    4: Result := PInteger(ASet)^;
+    else raise EConvertError.Create('Nie można skonwertować zbioru');
+  end;
+end;
+
+procedure Int32ToSet(AValue: Integer; AMaxElem, ASetTypeSize: Integer;
+  ASet: Pointer);
+begin
+  case ASetTypeSize of
+    1: PByte(ASet)^ := AValue;
+    2: PWord(ASet)^ := AValue;
+    4: PInteger(ASet)^ := AValue;
+    else raise EConvertError.Create('Nie można skonwertować zbioru');
+  end;
 end;
 
 {$IFDEF LGP_ENABLE_PKCS11}
@@ -1357,7 +1386,10 @@ var
 begin
   for I := 0 to FClassItems.Count - 1 do
     if FClassItems[I] <> nil then
-      TlgoCertificate(FClassItems[I]).Free;
+      if OwnObjects then
+        TlgoCertificate(FClassItems[I]).Free
+      else
+        TlgoCertificate(FClassItems[I]).FList := nil;
   FClassItems.Free;
   inherited Destroy;
 end;

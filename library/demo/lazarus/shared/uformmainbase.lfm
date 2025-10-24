@@ -1,0 +1,497 @@
+object FormMainBase: TFormMainBase
+  Left = 274
+  Height = 610
+  Top = 113
+  Width = 709
+  Caption = 'FormMainBase'
+  ClientHeight = 610
+  ClientWidth = 709
+  OnClose = FormClose
+  OnShow = FormShow
+  LCLVersion = '3.9.0.0'
+  object PageControlMain: TPageControl
+    Left = 0
+    Height = 478
+    Top = 0
+    Width = 709
+    ActivePage = TabSheetSetup
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object TabSheetSetup: TTabSheet
+      Caption = 'Setup'
+      ClientHeight = 450
+      ClientWidth = 701
+      object PanelSetup: TPanel
+        Left = 0
+        Height = 41
+        Top = 409
+        Width = 701
+        Align = alBottom
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 41
+        ClientWidth = 701
+        TabOrder = 0
+        object ButtonSetup: TButton
+          AnchorSideLeft.Control = PanelSetup
+          AnchorSideTop.Control = PanelSetup
+          Left = 8
+          Height = 25
+          Top = 8
+          Width = 56
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Setup'
+          TabOrder = 0
+          OnClick = ButtonSetupClick
+        end
+      end
+      object ScrollBox1: TScrollBox
+        Left = 0
+        Height = 409
+        Top = 0
+        Width = 701
+        HorzScrollBar.Page = 225
+        VertScrollBar.Page = 147
+        Align = alClient
+        ClientHeight = 405
+        ClientWidth = 697
+        TabOrder = 1
+        object GroupBoxSetupCertSign: TGroupBox
+          Left = 0
+          Height = 147
+          Top = 0
+          Width = 697
+          Align = alTop
+          AutoSize = True
+          Caption = 'Sterowniki podpisu'
+          ClientHeight = 127
+          ClientWidth = 693
+          TabOrder = 0
+          object CheckListBoxSigners: TCheckListBox
+            AnchorSideLeft.Control = GroupBoxSetupCertSign
+            AnchorSideTop.Control = GroupBoxSetupCertSign
+            AnchorSideRight.Control = GroupBoxSetupCertSign
+            AnchorSideRight.Side = asrBottom
+            Left = 8
+            Height = 80
+            Top = 8
+            Width = 677
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            ItemHeight = 0
+            TabOrder = 0
+          end
+          object FileNameEditLibPKCS11: TFileNameEdit
+            AnchorSideLeft.Control = Label1
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = CheckListBoxSigners
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBoxSetupCertSign
+            AnchorSideRight.Side = asrBottom
+            Left = 110
+            Height = 23
+            Top = 96
+            Width = 575
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            MaxLength = 0
+            TabOrder = 1
+          end
+          object Label1: TLabel
+            AnchorSideLeft.Control = GroupBoxSetupCertSign
+            AnchorSideTop.Control = FileNameEditLibPKCS11
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 100
+            Width = 94
+            BorderSpacing.Around = 8
+            Caption = 'Biblioteka PKCS11'
+          end
+        end
+      end
+    end
+    object TabSheetCert: TTabSheet
+      Caption = 'Certyfikaty'
+      ClientHeight = 450
+      ClientWidth = 701
+      TabVisible = False
+      object ListViewCert: TListView
+        Left = 0
+        Height = 407
+        Top = 0
+        Width = 701
+        Align = alClient
+        Columns = <        
+          item
+            Caption = 'Index'
+            Width = 60
+          end        
+          item
+            Caption = 'Class'
+            Width = 100
+          end        
+          item
+            Caption = 'Subject name'
+            Width = 200
+          end        
+          item
+            Caption = 'Valid from'
+            Width = 90
+          end        
+          item
+            Caption = 'Valid to'
+            Width = 90
+          end        
+          item
+            Caption = 'Serial number'
+            Width = 200
+          end        
+          item
+            Caption = 'Issuer'
+            Width = 300
+          end        
+          item
+            Caption = 'Subject'
+            Width = 300
+          end        
+          item
+            Caption = 'Key usage'
+            Width = 100
+          end>
+        HideSelection = False
+        ReadOnly = True
+        RowSelect = True
+        TabOrder = 0
+        ViewStyle = vsReport
+      end
+      object Panel3: TPanel
+        Left = 0
+        Height = 43
+        Top = 407
+        Width = 701
+        Align = alBottom
+        AutoSize = True
+        ClientHeight = 43
+        ClientWidth = 701
+        TabOrder = 1
+        object ButtonShowCert: TButton
+          AnchorSideLeft.Control = Panel3
+          AnchorSideTop.Control = Panel3
+          Left = 9
+          Height = 25
+          Top = 9
+          Width = 110
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Pokaż szczegóły'
+          TabOrder = 0
+          OnClick = ButtonShowCertClick
+        end
+        object ButtonCertWybierz: TButton
+          AnchorSideLeft.Control = ButtonShowCert
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel3
+          Left = 127
+          Height = 25
+          Top = 9
+          Width = 220
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Wybierz certyfikat i pokaż informacje'
+          TabOrder = 1
+          OnClick = ButtonCertWybierzClick
+        end
+        object ButtonCertReload: TButton
+          AnchorSideLeft.Control = ButtonCertWybierz
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel3
+          Left = 355
+          Height = 25
+          Top = 9
+          Width = 166
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Odświerz listę certyfikatów'
+          TabOrder = 2
+          OnClick = ButtonCertReloadClick
+        end
+        object ButtonCertLoadFromFile: TButton
+          AnchorSideLeft.Control = ButtonCertReload
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = Panel3
+          Left = 529
+          Height = 25
+          Top = 9
+          Width = 156
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Wczytaj certyfikat z pliku'
+          TabOrder = 3
+          OnClick = ButtonCertLoadFromFileClick
+        end
+      end
+    end
+    object TabSheetPKCS11: TTabSheet
+      Caption = 'PKCS11'
+      ClientHeight = 450
+      ClientWidth = 701
+      TabVisible = False
+      object GroupBox23: TGroupBox
+        Left = 0
+        Height = 97
+        Top = 0
+        Width = 701
+        Align = alTop
+        AutoSize = True
+        Caption = 'Informacje'
+        ClientHeight = 77
+        ClientWidth = 697
+        TabOrder = 0
+        object ButtonPKCS11Info: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = GroupBox23
+          Left = 9
+          Height = 25
+          Top = 9
+          Width = 225
+          AutoSize = True
+          BorderSpacing.Around = 9
+          Caption = 'Pokaż informacje o bibliotece PKCS11'
+          TabOrder = 0
+          OnClick = ButtonPKCS11InfoClick
+        end
+        object ButtonPKCS11Slots: TButton
+          AnchorSideLeft.Control = GroupBox23
+          AnchorSideTop.Control = ButtonPKCS11Info
+          AnchorSideTop.Side = asrBottom
+          Left = 9
+          Height = 25
+          Top = 43
+          Width = 119
+          AutoSize = True
+          BorderSpacing.Around = 9
+          Caption = 'Pokaż listę slotów'
+          TabOrder = 1
+          OnClick = ButtonPKCS11SlotsClick
+        end
+      end
+      object GroupBox24: TGroupBox
+        Left = 0
+        Height = 123
+        Top = 97
+        Width = 701
+        Align = alTop
+        AutoSize = True
+        Caption = 'Sesja'
+        ClientHeight = 103
+        ClientWidth = 697
+        TabOrder = 1
+        object Label124: TLabel
+          AnchorSideLeft.Control = GroupBox24
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrCenter
+          Left = 8
+          Height = 15
+          Top = 12
+          Width = 51
+          BorderSpacing.Around = 8
+          Caption = 'Certyfikat'
+        end
+        object ComboBoxPKCS11Cert: TComboBox
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = GroupBox24
+          AnchorSideRight.Control = GroupBox24
+          AnchorSideRight.Side = asrBottom
+          Left = 67
+          Height = 23
+          Top = 8
+          Width = 622
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object Label125: TLabel
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrCenter
+          AnchorSideRight.Control = Label124
+          AnchorSideRight.Side = asrBottom
+          Left = 40
+          Height = 15
+          Top = 43
+          Width = 19
+          Anchors = [akTop, akRight]
+          Caption = 'PIN'
+        end
+        object EditPKCS11PIN: TEdit
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 67
+          Height = 23
+          Top = 39
+          Width = 232
+          BorderSpacing.Around = 8
+          EchoMode = emPassword
+          PasswordChar = '*'
+          TabOrder = 1
+        end
+        object ButtonPKCS11SesStart: TButton
+          AnchorSideLeft.Control = Label124
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 67
+          Height = 25
+          Top = 70
+          Width = 111
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Rozpocznij sesję'
+          TabOrder = 2
+          OnClick = ButtonPKCS11SesStartClick
+        end
+        object ButtonPKCS11SesLogin: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesStart
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 186
+          Height = 25
+          Top = 70
+          Width = 66
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Zaloguj'
+          TabOrder = 3
+          OnClick = ButtonPKCS11SesLoginClick
+        end
+        object ButtonPKCS11SesLogout: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesLogin
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 260
+          Height = 25
+          Top = 70
+          Width = 70
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Wyloguj'
+          TabOrder = 4
+          OnClick = ButtonPKCS11SesLogoutClick
+        end
+        object ButtonPKCS11SesClose: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesLogout
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 338
+          Height = 25
+          Top = 70
+          Width = 98
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Zakończ sesję'
+          TabOrder = 5
+          OnClick = ButtonPKCS11SesCloseClick
+        end
+        object ButtonPKCS11SesInfo: TButton
+          AnchorSideLeft.Control = ButtonPKCS11SesClose
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = EditPKCS11PIN
+          AnchorSideTop.Side = asrBottom
+          Left = 444
+          Height = 25
+          Top = 70
+          Width = 116
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Pokaż info o sesji'
+          TabOrder = 6
+          OnClick = ButtonPKCS11SesInfoClick
+        end
+        object Label126: TLabel
+          AnchorSideLeft.Control = EditPKCS11PIN
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11UserType
+          AnchorSideTop.Side = asrCenter
+          Left = 339
+          Height = 15
+          Top = 43
+          Width = 104
+          BorderSpacing.Left = 32
+          BorderSpacing.Around = 8
+          Caption = 'Rodzaj użytkownika'
+        end
+        object ComboBoxPKCS11UserType: TComboBox
+          AnchorSideLeft.Control = Label126
+          AnchorSideLeft.Side = asrBottom
+          AnchorSideTop.Control = ComboBoxPKCS11Cert
+          AnchorSideTop.Side = asrBottom
+          Left = 451
+          Height = 23
+          Top = 39
+          Width = 140
+          BorderSpacing.Around = 8
+          ItemHeight = 15
+          ItemIndex = 1
+          Items.Strings = (
+            'SO'
+            'User'
+            'Context Specific'
+          )
+          Style = csDropDownList
+          TabOrder = 7
+          Text = 'User'
+        end
+      end
+    end
+  end
+  object SplitterBottom: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 478
+    Width = 709
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+  object PanelBottom: TPanel
+    Left = 0
+    Height = 127
+    Top = 483
+    Width = 709
+    Align = alBottom
+    ClientHeight = 127
+    ClientWidth = 709
+    TabOrder = 2
+    object MemoLog: TMemo
+      Left = 1
+      Height = 125
+      Top = 1
+      Width = 707
+      Align = alClient
+      Lines.Strings = (
+        'MemoLog'
+      )
+      ScrollBars = ssAutoBoth
+      TabOrder = 0
+      WordWrap = False
+    end
+  end
+  object PopupMenuSigners: TPopupMenu
+    Left = 261
+    Top = 285
+  end
+end
