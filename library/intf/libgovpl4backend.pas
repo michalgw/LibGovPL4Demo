@@ -116,15 +116,15 @@ type
     destructor Destroy; override;
     function ObjClassName: UTF8String;
     property Item: LGP_OBJECT read FItem;
+    property SubjectField[AIndex: UTF8String]: UTF8String read GetSubjectField;
+    property IssuerField[AIndex: UTF8String]: UTF8String read GetIssuerField;
   published
     property Version: TlgoCertificateVersion read GetVersion;
     property DisplayName: UTF8String read GetDisplayName;
     property Subject: UTF8String read GetSubject;
-    property SubjectField[AIndex: UTF8String]: UTF8String read GetSubjectField;
     property SubjectFields: UTF8String read GetSubjectFields;
     property SubjectUID: UTF8String read GetSubjectUID;
     property Issuer: UTF8String read GetIssuer;
-    property IssuerField[AIndex: UTF8String]: UTF8String read GetIssuerField;
     property IssuerFields: UTF8String read GetIssuerFields;
     property IssuerUID: UTF8String read GetIssuerUID;
     property SerialNoDec: UTF8String read GetSerialNoDec;
@@ -145,7 +145,7 @@ type
     function GetOwnObjects: Boolean;
     procedure SetOwnObjects(AValue: Boolean);
   public
-    constructor Create(AOwnsObjects: Boolean = True); virtual;
+    constructor Create(AOwnsObjects: Boolean = True); overload;
     constructor Create(AObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
     function Count: Integer;

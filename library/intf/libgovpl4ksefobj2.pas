@@ -107,13 +107,13 @@ type
   TKSeF2Object = class(TlgoObject)
   private
     FOwner: TKSeF2Object;
-    FObjects: TFPList;
+    FObjects: {$IFDEF FPC}TFPList{$ELSE}TList{$ENDIF};
   protected
     procedure CreateExtObject(AClassName: UTF8String);
     procedure LoadObject; virtual;
   public
-    constructor Create(AOwner: TKSeF2Object; AClassName: UTF8String = ''); virtual; overload;
-    constructor Create(AOwner: TKSeF2Object; AExtObject: LGP_OBJECT); virtual; overload;
+    constructor Create(AOwner: TKSeF2Object; AClassName: UTF8String = ''); overload; virtual;
+    constructor Create(AOwner: TKSeF2Object; AExtObject: LGP_OBJECT); overload; virtual;
     destructor Destroy; override;
     procedure AfterConstruction; override;
     procedure InsertObject(AObject: TKSeF2Object); virtual;
@@ -136,8 +136,8 @@ type
     function GetItem(AIndex: Integer): TKSeF2Object;
     class function GetItemClass(AObject: LGP_OBJECT): TKSeF2ObjectClass; virtual;
   public
-    constructor Create(AOwner: TKSeF2Object; AClassName: UTF8String = ''); override; overload;
-    constructor Create(AOwner: TKSeF2Object; AExtObject: LGP_OBJECT); override; overload;
+    constructor Create(AOwner: TKSeF2Object; AClassName: UTF8String = ''); overload; override;
+    constructor Create(AOwner: TKSeF2Object; AExtObject: LGP_OBJECT); overload; override;
     destructor Destroy; override;
     function Count: Integer;
     function Add(AObject: TKSeF2Object): Integer;
@@ -145,7 +145,6 @@ type
     property Items[AIndex: Integer]: TKSeF2Object read GetItem;
     property OwnObjects: Boolean read GetOwnObjects write SetOwnObjects;
   end;
-
 
   { TKSeF2Request }
 
@@ -1083,6 +1082,10 @@ type
     property Items[AIndex: Integer]: TKSeF2InvoicePackagePart read GetItem;
   end;
 
+  {$IFNDEF FPC}
+  TDate = TDateTime;
+  {$ENDIF}
+
   TKSeF2InvoicePackage = class(TKSeF2Object)
   private
     FParts: TKSeF2InvoicePackagePartArray;
@@ -1497,7 +1500,7 @@ end;
 
 constructor TKSeF2Object.Create(AOwner: TKSeF2Object; AClassName: UTF8String);
 begin
-  FObjects := TFPList.Create;
+  FObjects := {$IFDEF FPC}TFPList{$ELSE}TList{$ENDIF}.Create;
   if Assigned(AOwner) then
     AOwner.InsertObject(Self);
   if AClassName = '' then
@@ -1507,7 +1510,7 @@ end;
 
 constructor TKSeF2Object.Create(AOwner: TKSeF2Object; AExtObject: LGP_OBJECT);
 begin
-  FObjects := TFPList.Create;
+  FObjects := {$IFDEF FPC}TFPList{$ELSE}TList{$ENDIF}.Create;
   if Assigned(AOwner) then
     AOwner.InsertObject(Self);
   ExtObject := AExtObject;

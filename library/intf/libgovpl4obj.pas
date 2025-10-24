@@ -76,6 +76,8 @@ type
   Public
     Constructor Create(ASource : TStream);
     Destructor Destroy; override;
+    function Read(var Buffer; Count: Longint): Longint; override;
+    function Write(const Buffer; Count: Longint): Longint; override;
     Property Source : TStream Read FSource;
     Property SourceOwner : Boolean Read Fowner Write FOwner;
   end;
@@ -350,6 +352,7 @@ begin
 end;
 
 {$IFNDEF FPC}
+
 constructor TOwnerStream.Create(ASource: TStream);
 begin
   FSource:=ASource;
@@ -361,6 +364,17 @@ begin
     FreeAndNil(FSource);
   inherited Destroy;
 end;
+
+function TOwnerStream.Read(var Buffer; Count: Longint): Longint;
+begin
+  Result := 0;
+end;
+
+function TOwnerStream.Write(const Buffer; Count: Longint): Longint;
+begin
+  Result := 0;
+end;
+
 {$ENDIF}
 
 constructor TlgoStream.Create(ASource: TStream);

@@ -23,6 +23,10 @@ const
   KSEF2_MAX_PART_SIZE = 100 * 1024 * 1024 - AES256_BLOCK_SIZE;
 
 type
+  {$IFNDEF FPC}
+  TBytes = array of Byte;
+  {$ENDIF}
+
   TKSeF2RequestPartStreamEvent = procedure(Sender: TObject; APartNumber: Integer;
     var APartStream: TStream) of Object;
 
@@ -316,7 +320,7 @@ end;
 function TlgoKSeF2.GetAccessTokenValidUntil: TDateTime;
 begin
   Result := 0;
-  lgoCheckResult(lgpKSeF2_GetAccessTokenValidUntil(ExtObject, Result));
+  lgoCheckResult(lgpKSeF2_GetAccessTokenValidUntil(ExtObject, Double(Result)));
 end;
 
 function TlgoKSeF2.GetAES256EncryptClass: UTF8String;
@@ -361,7 +365,7 @@ end;
 function TlgoKSeF2.GetAuthenticationTokenValidUntil: TDateTime;
 begin
   Result := 0;
-  lgoCheckResult(lgpKSeF2_GetAccessTokenValidUntil(ExtObject, Result));
+  lgoCheckResult(lgpKSeF2_GetAccessTokenValidUntil(ExtObject, Double(Result)));
 end;
 
 function TlgoKSeF2.GetBase64EncoderClass: UTF8String;
@@ -480,7 +484,7 @@ end;
 function TlgoKSeF2.GetInteractiveValidUntil: TDateTime;
 begin
   Result := 0;
-  lgoCheckResult(lgpKSeF2_GetInteractiveValidUntil(ExtObject, Result));
+  lgoCheckResult(lgpKSeF2_GetInteractiveValidUntil(ExtObject, Double(Result)));
 end;
 
 function TlgoKSeF2.GetInteractiveVector: TBytes;
@@ -567,7 +571,7 @@ end;
 function TlgoKSeF2.GetRefreshTokenValidUntil: TDateTime;
 begin
   Result := 0;
-  lgoCheckResult(lgpKSeF2_GetRefreshTokenValidUntil(ExtObject, Result));
+  lgoCheckResult(lgpKSeF2_GetRefreshTokenValidUntil(ExtObject, Double(Result)));
 end;
 
 function TlgoKSeF2.GetRSAPublicKeyClass: UTF8String;
@@ -866,7 +870,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthChallenge(ExtObject, O));
   if O <> nil then
-    Result := TKSeF2AuthenticationChallengeResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationChallengeResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthXadesSignatureGenerate: UTF8String;
@@ -899,7 +905,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthXadesSignature(ExtObject, O));
   if O <> nil then
-    Result := TKSeF2AuthenticationInitResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthXadesSignature(ACertificate: TlgoCertificate;
@@ -912,7 +920,9 @@ begin
   lgoCheckResult(lgpKSeF2_AuthXadesSignature2(ExtObject, ACertificate.Item,
     Ord(ASubjectIdType), LGP_PCHAR(AIdentifier), Ord(AIdentifierType), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationInitResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthXadesSignature(ASignedAuthData: UTF8String
@@ -923,7 +933,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthXadesSignature3(ExtObject, LGP_PCHAR(ASignedAuthData), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationInitResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthKsefToken: TKSeF2AuthenticationInitResponse;
@@ -933,7 +945,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthKsefToken(ExtObject, O));
   if O <> nil then
-    Result := TKSeF2AuthenticationInitResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthKsefToken(AToken: UTF8String; AIdentifier: UTF8String;
@@ -945,7 +959,9 @@ begin
   lgoCheckResult(lgpKSeF2_AuthKsefToken2(ExtObject, LGP_PCHAR(AToken), LGP_PCHAR(AIdentifier),
     Ord(AIdentifierType), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationInitResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthStatus(AReferenceNumber: UTF8String;
@@ -958,7 +974,9 @@ begin
   lgoCheckResult(lgpKSeF2_AuthStatus(ExtObject, LGP_PCHAR(AReferenceNumber),
     LGP_PCHAR(AAuthenticationToken), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationOperationStatusResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationOperationStatusResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthTokenRedem(AAuthenticationToken: UTF8String
@@ -969,7 +987,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthTokenRedem(ExtObject, LGP_PCHAR(AAuthenticationToken), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationTokensResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationTokensResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthTokenRefresh(ARefreshToken: UTF8String
@@ -980,7 +1000,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthTokenRefresh(ExtObject, LGP_PCHAR(ARefreshToken), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationTokenRefreshResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationTokenRefreshResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 function TlgoKSeF2.AuthSessions(AContinuationToken: UTF8String;
@@ -993,7 +1015,9 @@ begin
   lgoCheckResult(lgpKSeF2_AuthSessions(ExtObject, LGP_PCHAR(AContinuationToken), APageSize,
     LGP_PCHAR(AAccessToken), O));
   if O <> nil then
-    Result := TKSeF2AuthenticationListResponse.Create(nil, O);
+    Result := TKSeF2AuthenticationListResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 procedure TlgoKSeF2.AuthSessionTerminateCurrent(AToken: UTF8String);
@@ -1016,7 +1040,9 @@ begin
   O := nil;
   lgoCheckResult(lgpKSeF2_SecurityPublicKeyCertificates(ExtObject, Ord(AGate), O));
   if O <> nil then
-    Result := TKSeF2PublicKeyCertificateResponse.Create(nil, O);
+    Result := TKSeF2PublicKeyCertificateResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 procedure TlgoKSeF2.SecurityLoadKeys;
