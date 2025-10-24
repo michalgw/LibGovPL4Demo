@@ -93,7 +93,7 @@ var
 implementation
 
 uses
-  uException, uKSeFObj, DateUtils, FileInfo, lgUtils
+  uException, uKSeFObj, DateUtils, FileInfo, lgUtils, uKSeF2Obj
   {$IFDEF LGP_ENABLE_LIBXML2}
   , xml2dyn, lgLibXML2
   {$ENDIF}
@@ -213,6 +213,7 @@ end;
 function lgplInit: LGP_INT32; stdcall;
 begin
   lgpInitKSeFClasses;
+  lgpInitKSeF2Classes;
   {$IFDEF LGP_DEBUG_OBJ}
   lgpDbgObjectListInit;
   {$ENDIF}

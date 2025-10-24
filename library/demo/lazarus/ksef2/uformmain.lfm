@@ -1,9 +1,9 @@
 inherited FormMain: TFormMain
   Caption = 'LibGovPL 4 - KSeF 2.0'
   inherited PageControlMain: TPageControl
-    ActivePage = TabSheetKSeF2Auth
+    ActivePage = TabSheetKSeFBatch
     MultiLine = True
-    TabIndex = 3
+    TabIndex = 5
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 410
@@ -1294,6 +1294,7 @@ inherited FormMain: TFormMain
             Height = 23
             Top = 8
             Width = 451
+            OnAcceptFileName = FileNameEditKSeFBZIPInAcceptFileName
             FilterIndex = 0
             HideDirectories = False
             ButtonWidth = 23
@@ -1348,6 +1349,7 @@ inherited FormMain: TFormMain
               Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll, goCellEllipsis]
               RowCount = 1
               TabOrder = 0
+              OnButtonClick = StringGridKSeFBEncOutFilesButtonClick
               ColWidths = (
                 652
               )
@@ -4014,8 +4016,8 @@ inherited FormMain: TFormMain
               RowCount = 2
               TabOrder = 0
               ColWidths = (
-                132
-                132
+                124
+                123
               )
               Cells = (
                 2

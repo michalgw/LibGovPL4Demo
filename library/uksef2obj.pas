@@ -16,7 +16,7 @@ function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LG
 implementation
 
 type
-  TKSeFClasses = class(specialize TlgClassList<TClass>);
+  TKSeFClasses = class(specialize TlgClassList<TKSeF2ObjectClass>);
 
 var
   KSeFClsList: TKSeFClasses = nil;
@@ -97,7 +97,6 @@ begin
       TKSeF2SubunitArray,
       TKSeF2SubjectCreateRequest,
       TKSeF2PersonCreateRequest
-
       ]);
   end;
 end;
@@ -110,14 +109,14 @@ end;
 
 function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
 var
-  C: TClass;
+  C: TKSeF2ObjectClass;
 begin
   Result := nil;
   if Assigned(KSeFClsList) then
   begin
-    C := KSeFClsList.FindByClassName(AClassName);
+    C := TKSeF2ObjectClass(KSeFClsList.FindByClassName(AClassName));
     if C <> nil then
-      Result := C.Create;
+      Result := C.Create(nil);
   end;
 end;
 

@@ -658,7 +658,7 @@ var
 begin
   Debug('Pobranie statusu faktury z sesji', True);
   try
-    Response := KSeF.StatusSessionInvoice(EditKSeFSReferenceNumber.Text,
+    Response := KSeF.StatusSessionInvoice(EditKSeFSReferenceNumber3.Text,
       EditKSeFSInvoiceReferenceNumber.Text, EditKSeFSContinuationToken1.Text);
     Debug('Pobrano, ilość faktur: ' + IntToStr(Response.Invoices.Count));
     Debug('Odpowiedź: ' + Response.RawResponse);

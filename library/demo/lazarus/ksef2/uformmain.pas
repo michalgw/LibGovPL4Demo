@@ -392,9 +392,13 @@ type
     procedure ButtonObjClearClick(Sender: TObject);
     procedure ButtonObjCountClick(Sender: TObject);
     procedure ButtonObjShowClick(Sender: TObject);
+    procedure FileNameEditKSeFBZIPInAcceptFileName(Sender: TObject;
+      var Value: String);
     procedure FormShow(Sender: TObject); override;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction); override;
     procedure ButtonSetupClick(Sender: TObject); override;
+    procedure StringGridKSeFBEncOutFilesButtonClick(Sender: TObject; aCol,
+      aRow: Integer);
   private
     procedure SetKSeFPagesVisible(AValue: Boolean);
     procedure PopupMenuKeysClick(Sender: TObject);
@@ -423,7 +427,7 @@ var
 implementation
 
 uses
-  uFormKSeFObj, IniFiles, basenenc;
+  uFormKSeFObj, IniFiles, basenenc, FileUtil;
 
 {$R *.lfm}
 
@@ -468,6 +472,23 @@ procedure TFormMain.ButtonObjShowClick(Sender: TObject);
 begin
   if (ListViewObj.ItemFocused <> nil) and (ListViewObj.ItemFocused.Data <> nil) then
     ShowObject(TObject(ListViewObj.ItemFocused.Data));
+end;
+
+procedure TFormMain.FileNameEditKSeFBZIPInAcceptFileName(Sender: TObject;
+  var Value: String);
+var
+  PackageCount: Integer;
+  PartSize: Integer;
+  I: Integer;
+begin
+  if SpinEditKSeFBPartSize.Value = 0 then
+    PartSize := KSEF2_MAX_PART_SIZE
+  else
+    PartSize := SpinEditKSeFBPartSize.Value;
+  PackageCount := (FileSize(Value) + PartSize - 1) div PartSize;
+  StringGridKSeFBEncOutFiles.RowCount := PackageCount + 1;
+  for I := 1 to PackageCount do
+    StringGridKSeFBEncOutFiles.Cells[0, I] := Value + '.part' + IntToStr(I) + '.aes';
 end;
 
 procedure TFormMain.ButtonObjClearClick(Sender: TObject);
@@ -1236,7 +1257,7 @@ var
 begin
   Debug('Pobranie statusu faktury z sesji', True);
   try
-    Response := KSeF.StatusSessionInvoice(EditKSeFSReferenceNumber.Text,
+    Response := KSeF.StatusSessionInvoice(EditKSeFSReferenceNumber3.Text,
       EditKSeFSInvoiceReferenceNumber.Text, EditKSeFSContinuationToken1.Text);
     Debug('Pobrano, ilość faktur: ' + IntToStr(Response.Invoices.Count));
     Debug('Odpowiedź: ' + Response.RawResponse);
@@ -1597,6 +1618,14 @@ begin
   SL.Free;
 end;
 
+procedure TFormMain.StringGridKSeFBEncOutFilesButtonClick(Sender: TObject;
+  aCol, aRow: Integer);
+begin
+  SaveDialogKSeFBPart.FileName := StringGridKSeFBEncOutFiles.Cells[aCol, aRow];
+  if SaveDialogKSeFBPart.Execute then
+    StringGridKSeFBEncOutFiles.Cells[aCol, aRow] := SaveDialogKSeFBPart.FileName;
+end;
+
 procedure TFormMain.SetKSeFPagesVisible(AValue: Boolean);
 begin
   TabSheetKSeFInteractive.TabVisible := AValue;
@@ -1647,7 +1676,7 @@ var
   I: TKSeF2InvoiceType;
   IT: TKSeF2InvoiceTypes = [];
 begin
-  Result := TKSeF2InvoiceQueryFilters.Create(nil);
+  Result := TKSeF2InvoiceQueryFilters.Create(nil, '');
   with Result do
   begin
     SubjectType := TKSeF2InvoiceQuerySubjectType(ComboBoxKSeFDFSubjectType.ItemIndex);

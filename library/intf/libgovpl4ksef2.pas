@@ -19,6 +19,9 @@ uses
   Classes, SysUtils, LibGovPl4Intf, LibGovPl4Obj, LibGovPl4Backend,
   LibGovPl4XAdES, LibGovPl4KSeFObj2;
 
+const
+  KSEF2_MAX_PART_SIZE = 100 * 1024 * 1024 - AES256_BLOCK_SIZE;
+
 type
   TKSeF2RequestPartStreamEvent = procedure(Sender: TObject; APartNumber: Integer;
     var APartStream: TStream) of Object;
@@ -853,6 +856,7 @@ constructor TlgoKSeF2.Create;
 begin
   lgoCheckResult(lgpKSeF2_Create(ExtObject));
   lgoCheckResult(lgpKSeF2_SetOnRequestPartStream(ExtObject, @lgoRequestPartStreamHandler));
+  lgoCheckResult(lgpKSeF2_SetRequestPartStreamCargo(ExtObject, Self));
 end;
 
 function TlgoKSeF2.AuthChallenge: TKSeF2AuthenticationChallengeResponse;

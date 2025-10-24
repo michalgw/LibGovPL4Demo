@@ -1358,7 +1358,7 @@ begin
     TKSeF2AuthenticationList,
     TKSeF2AuthenticationListResponse,
     TKSeF2PublicKeyCertificate,
-    TKSeF2PublicKeyCertificateArray{,
+    TKSeF2PublicKeyCertificateArray,
     TKSeF2PublicKeyCertificateResponse,
     TKSeF2FormCode,
     TKSeF2EncryptionInfo,
@@ -1416,7 +1416,7 @@ begin
     TKSeF2Subunit,
     TKSeF2SubunitArray,
     TKSeF2SubjectCreateRequest,
-    TKSeF2PersonCreateRequest}
+    TKSeF2PersonCreateRequest
     ]);
   lgoRegisterExceptionClass(EKSeF2ExceptionResponseBase);
   lgoRegisterExceptionClass(EKSeF2ExceptionResponse);
@@ -2331,7 +2331,7 @@ var
   O: LGP_OBJECT;
 begin
   inherited LoadObject;
-  O := GetObjectProp('');
+  O := GetObjectProp('Headers');
   if O <> nil then
     FHeaders := TKSeF2Headers.Create(Self, O);
 end;
@@ -2825,7 +2825,7 @@ end;
 
 procedure TKSeF2InvoiceQueryFilters.SetInvoiceTypes(AValue: TKSeF2InvoiceTypes);
 begin
-  SetIntegerProp('InvoiceTypes', SetToInt32(@AValue, Ord(High(TKSeF2InvoiceType)), SizeOf(AValue)));
+  SetIntegerProp('InvoiceTypesInt', SetToInt32(@AValue, Ord(High(TKSeF2InvoiceType)), SizeOf(AValue)));
 end;
 
 procedure TKSeF2InvoiceQueryFilters.SetInvoicingMode(AValue: TKSeF2InvoicingMode);
