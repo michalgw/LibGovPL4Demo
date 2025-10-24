@@ -8,9 +8,7 @@
 
 unit LibGovPl4JPK;
 
-{$ifdef FPC}
-{$mode Delphi}
-{$endif}
+{$I libgovpl4def.inc}
 
 interface
 

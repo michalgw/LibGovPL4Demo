@@ -9,9 +9,7 @@
 { Obsługa KSeF API }
 unit LibGovPl4KSeF2;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
+{$I libgovpl4def.inc}
 
 interface
 

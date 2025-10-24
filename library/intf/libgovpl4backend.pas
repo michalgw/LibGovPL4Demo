@@ -8,17 +8,7 @@
 
 unit LibGovPl4Backend;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
-
-{$IFNDEF FPC}
-  {$IF CompilerVersion >= 18.0}
-    {$DEFINE LGP_HAVE_EXTRECORDS}
-  {$IFEND}
-{$ELSE}
-  {$DEFINE LGP_HAVE_EXTRECORDS}
-{$ENDIF}
+{$I libgovpl4def.inc}
 
 interface
 

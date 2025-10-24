@@ -8,9 +8,7 @@
 
 unit LibGovPl4XML;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
+{$I libgovpl4def.inc}
 
 interface
 

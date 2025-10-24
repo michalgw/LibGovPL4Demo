@@ -8,14 +8,7 @@
 
 unit LibGovPl4KSeFObj;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
-
-// W Delphi 7 nie mozna uzywac slowa kluczowego jako identyfikator
-{$ifdef VER150}
-{$define LGP_ESCPASKEYWORDS}
-{$endif}
+{$I libgovpl4def.inc}
 
 interface
 

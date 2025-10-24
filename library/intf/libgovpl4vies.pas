@@ -8,9 +8,7 @@
 
 unit LibGovPl4Vies;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
+{$I libgovpl4def.inc}
 
 interface
 

@@ -8,11 +8,7 @@
 
 unit LibGovPl4Intf;
 
-{$ifdef fpc}
-{$mode Delphi}
-{$endif}
-
-{.$DEFINE LIBGOVPL_DYNAMIC}
+{$I libgovpl4def.inc}
 
 interface
 
