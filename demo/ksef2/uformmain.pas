@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   uFormMainBase, lgKSeF2, lgKSeFTypes, lgKSeF2Objects, lgBackend, lgXAdES,
-  ComCtrls, Grids, EditBtn, Spin, Menus, DateTimePicker, DBDateTimePicker;
+  ComCtrls, Grids, EditBtn, Spin, Menus, DateTimePicker;
 
 type
 
@@ -510,7 +510,7 @@ begin
       Request := TKSeF2SubjectCreateRequest.Create(nil);
       Request.SubjectNip := EditKSeFDTUPSubjectNip.Text;
       if ComboBoxKSeFDTUPSubjectType.ItemIndex >= 0 then
-        Request.SubjectType := TKSeF2SubjectCreateRequest.TSubjectType(ComboBoxKSeFDTUPSubjectType.ItemIndex);
+        Request.SubjectType := TKSeF2SubjectType(ComboBoxKSeFDTUPSubjectType.ItemIndex);
       for I := 1 to StringGridDTUPSubunits.RowCount - 1 do
         if (StringGridDTUPSubunits.Cells[0, I] <> '') or (StringGridDTUPSubunits.Cells[1, I] <> '') then
         begin
@@ -1168,7 +1168,7 @@ end;
 
 procedure TFormMain.Button2Click(Sender: TObject);
 begin
-  Debug('PZamknięcie sesji wsadowej', True);
+  Debug('Zamknięcie sesji wsadowej', True);
   try
     KSeF.BatchClose;
     Debug('Sesja została zamknięta.');
