@@ -1073,7 +1073,7 @@ var
 begin
   Debug('Utworzenie osoby fizycznej', True);
   try
-    Request := TKSeF2PersonCreateRequest.Create(nil);
+    Request := TKSeF2PersonCreateRequest.Create(nil, '');
     Request.Nip := EditKSeFDTUONip.Text;
     Request.Pesel := EditKSeFDTUOPesel.Text;
     Request.Description := EditKSeFDTUODescription.Text;
@@ -1098,14 +1098,14 @@ begin
   Debug('Utworzenie podmiotu', True);
   try
     try
-      Request := TKSeF2SubjectCreateRequest.Create(nil);
+      Request := TKSeF2SubjectCreateRequest.Create(nil, '');
       Request.SubjectNip := EditKSeFDTUPSubjectNip.Text;
       if ComboBoxKSeFDTUPSubjectType.ItemIndex >= 0 then
         Request.SubjectType := TKSeF2SubjectType(ComboBoxKSeFDTUPSubjectType.ItemIndex);
       for I := 1 to StringGridDTUPSubunits.RowCount - 1 do
         if (StringGridDTUPSubunits.Cells[0, I] <> '') or (StringGridDTUPSubunits.Cells[1, I] <> '') then
         begin
-          Subunit := TKSeF2Subunit.Create(nil);
+          Subunit := TKSeF2Subunit.Create(nil, '');
           Subunit.SubjectNip := StringGridDTUPSubunits.Cells[0, I];
           Subunit.Description := StringGridDTUPSubunits.Cells[1, I];
           Request.Subunits.Add(Subunit);
@@ -1688,7 +1688,7 @@ begin
     InvoiceNumber := EditKSeFDFInvoiceNumber.Text;
     if (FloatSpinEditKSeFDFFrom.Value <> 0) or (FloatSpinEditKSeFDFTo.Value <> 0) then
     begin
-      Amount := TKSeF2InvoiceQueryAmount.Create(Result);
+      Amount := TKSeF2InvoiceQueryAmount.Create(Result, '');
       Amount.Type_ := TKSeF2AmountType(ComboBoxKSeFDFAmountType.ItemIndex);
       if FloatSpinEditKSeFDFFrom.Value <> 0 then
         Amount.From := FloatSpinEditKSeFDFFrom.Value;
@@ -1698,7 +1698,7 @@ begin
     SellerNip := EditKSeFDFSellerNip.Text;
     if ComboBoxKSeFDFBuyerIdentifierType.ItemIndex > 0 then
     begin
-      BuyerIdentifier := TKSeF2InvoiceQueryBuyerIdentifier.Create(Result);
+      BuyerIdentifier := TKSeF2InvoiceQueryBuyerIdentifier.Create(Result, '');
       BuyerIdentifier.Type_ := TKSeF2BuyerIdentifierType(ComboBoxKSeFDFBuyerIdentifierType.ItemIndex - 1);
       BuyerIdentifier.Value := EditKSeFDFBuyerIdentifierValue.Text;
     end;

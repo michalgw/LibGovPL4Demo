@@ -1,7 +1,7 @@
 object FormKSeFObj: TFormKSeFObj
-  Left = 272
+  Left = 274
   Height = 489
-  Top = 112
+  Top = 113
   Width = 550
   Caption = 'Obiekt KSeF'
   ClientHeight = 489

@@ -2242,7 +2242,7 @@ end;
 
 procedure TForm1.ButtonEdekPodpiszCertClick(Sender: TObject);
 var
-  Wej, Wyj: String;
+  Wej, Wyj: UTF8String;
 begin
   Debug('Podpis eDeklaracji certyfikatem', True);
   if (Certyfikaty.Count = 0) or (ComboBoxEdekCert.ItemIndex < 0) then
@@ -2280,7 +2280,7 @@ end;
 
 procedure TForm1.ButtonEdekPodpiszAutClick(Sender: TObject);
 var
-  Wej, Wyj: String;
+  Wej, Wyj: UTF8String;
 begin
   Debug('Podpis eDeklaracji certyfikatem', True);
   try
@@ -2623,7 +2623,7 @@ end;
 procedure TForm1.ButtonKSeFBatchPodpClick(Sender: TObject);
 var
   InZIPFile: TFileStream = nil;
-  InitUpload: String = '';
+  InitUpload: UTF8String = '';
   OutEncZIPFile: TFileStream = nil;
 begin
   Debug('KSeF - pobieranie / przygotowanie do wysyłki wsadowej', True);

@@ -27,7 +27,7 @@ type
     ButtonKSeFDDownload: TButton;
     ButtonKSeFASessionSet: TButton;
     ButtonKSeFBSend: TButton;
-    Button2: TButton;
+    ButtonKSeFBClose: TButton;
     ButtonKSeFBOpen: TButton;
     ButtonKSeFIClose: TButton;
     ButtonKSeFASessionTerm: TButton;
@@ -66,6 +66,7 @@ type
     CheckGroupKSeFTKPermisions: TCheckGroup;
     CheckGroupKSeFDFInvoiceType: TCheckGroup;
     CheckGroupKSeFSSesionStatuses: TCheckGroup;
+    ComboBoxKSeFDSortOrder: TComboBox;
     ComboBoxKSeFTKAuthorIdentifierType: TComboBox;
     ComboBoxKSeFDFHasAttachment: TComboBox;
     ComboBoxKSeFDFFormType: TComboBox;
@@ -210,6 +211,7 @@ type
     Label101: TLabel;
     Label102: TLabel;
     Label103: TLabel;
+    Label104: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label122: TLabel;
@@ -345,7 +347,7 @@ type
     TabSheetKSeF2Auth: TTabSheet;
     TabSheetKSeF2TestData: TTabSheet;
     TabSheetKSeFInteractive: TTabSheet;
-    procedure Button2Click(Sender: TObject);
+    procedure ButtonKSeFBCloseClick(Sender: TObject);
     procedure ButtonKSeFASessionsClick(Sender: TObject);
     procedure ButtonKSeFASessionSetClick(Sender: TObject);
     procedure ButtonKSeFASessionTermClick(Sender: TObject);
@@ -698,7 +700,7 @@ begin
     if DateTimePickerKSeFSModifiedFrom.DateIsNull then
       D5 := 0
     else
-      DateTimePickerKSeFSModifiedFrom.DateTime;
+      D5 := DateTimePickerKSeFSModifiedFrom.DateTime;
     if DateTimePickerKSeFSModifiedTo.DateIsNull then
       D6 := 0
     else
@@ -1166,7 +1168,7 @@ begin
   end;
 end;
 
-procedure TFormMain.Button2Click(Sender: TObject);
+procedure TFormMain.ButtonKSeFBCloseClick(Sender: TObject);
 begin
   Debug('Zamknięcie sesji wsadowej', True);
   try
@@ -1473,7 +1475,7 @@ begin
     Filter := GenerateFilter;
     AddObject(Filter);
     Response := KSeF.InvoicesQueryMetadata(Filter, SpinEditKSeFDPageOffset.Value,
-      SpinEditKSeFDPageSize.Value);
+      SpinEditKSeFDPageSize.Value, TKSeF2SortOrder(ComboBoxKSeFDSortOrder.ItemIndex));
     Debug('Odpowiedź: ' + Response.RawResponse);
     Debug('Ilość faktur: ' + IntToStr(Response.Invoices.Count));
     AddObject(Response);
@@ -1697,7 +1699,7 @@ end;
 
 procedure TFormMain.DebugException(AException: Exception);
 var
-  ED: EKSeF2ExceptionResponse.TExceptionDetail;
+  ED: TKSeF2ExceptionDetail;
 begin
   Debug('Wyjątek: ' + AException.ClassName);
   Debug(AException.Message);
@@ -1721,7 +1723,7 @@ begin
         Debug('  [');
         Debug('    ExceptionCode: %d', [ED.ExceptionCode]);
         Debug('    ExceptionDescription: ' + ED.ExceptionDescription);
-        Debug('    Details: ' + ED.Details.ToString(', '));
+        Debug('    Details: ' + StringArrayToString(ED.Details, ', '));
         Debug('  ]');
       end;
     end;

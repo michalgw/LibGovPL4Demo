@@ -167,7 +167,10 @@
       <Unit>
         <Filename Value="..\shared\uformcertload.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormCertLoad"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uFormCertLoad"/>
       </Unit>
       <Unit>
         <Filename Value="uformmain.pas"/>
