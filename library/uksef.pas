@@ -1280,7 +1280,7 @@ function lgpKSeF_BatchSign(AKSeFObject: LGP_OBJECT; AZIPDataStream: LGP_OBJECT;
   APZ: LGP_INT32; AEncryptedStream: LGP_OBJECT; var AInitUpload: LGP_OBJECT;
   AZIPFileName, APartFileName: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 var
-  InitUpload: String;
+  InitUpload: UTF8String;
 begin
   Result := nil;
   AInitUpload := nil;

@@ -197,7 +197,7 @@ function lgpEDek_PodpiszCertyfikatem(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR;
   ACertyfikat: LGP_OBJECT; var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION;
   stdcall;
 var
-  PodpDane: String;
+  PodpDane: UTF8String;
 begin
   Result := nil;
   ADanePodpisane := nil;
@@ -216,7 +216,7 @@ function lgpEDek_PodpiszCertyfikatemStream(AEDekObj: LGP_OBJECT;
   ADane: LGP_OBJECT; ACertyfikat: LGP_OBJECT; ADanePodpisane: LGP_OBJECT
   ): LGP_EXCEPTION; stdcall;
 var
-  DaneWej, DaneWyj: String;
+  DaneWej, DaneWyj: UTF8String;
 begin
   Result := nil;
   try
@@ -238,7 +238,7 @@ function lgpEDek_PodpiszDanymiAut(AEDekObj: LGP_OBJECT; ADane: LGP_PCHAR;
   AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE; AKwota: LGP_CURRENCY;
   var ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 var
-  PodpDane: String;
+  PodpDane: UTF8String;
 begin
   Result := nil;
   ADanePodpisane := nil;
@@ -257,7 +257,7 @@ function lgpEDek_PodpiszDanymiAutStream(AEDekObj: LGP_OBJECT;
   ADane: LGP_OBJECT; AImie, ANazwisko, ANIP: LGP_PCHAR; ADataUr: LGP_DOUBLE;
   AKwota: LGP_CURRENCY; ADanePodpisane: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 var
-  DaneWej, DaneWyj: String;
+  DaneWej, DaneWyj: UTF8String;
 begin
   Result := nil;
   ADanePodpisane := nil;

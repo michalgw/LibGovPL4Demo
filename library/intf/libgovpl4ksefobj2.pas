@@ -634,10 +634,14 @@ type
   TKSeF2UpoPageResponse = class(TKSeF2Object)
   private
     function GetDownloadUrl: UTF8String;
+    function GetDownloadUrlExpirationDate: TDateTime;
+    function GetDownloadUrlExpirationDateRaw: UTF8String;
     function GetReferenceNumber: UTF8String;
   published
     property ReferenceNumber: UTF8String read GetReferenceNumber;
     property DownloadUrl: UTF8String read GetDownloadUrl;
+    property DownloadUrlExpirationDate: TDateTime read GetDownloadUrlExpirationDate;
+    property DownloadUrlExpirationDateRaw: UTF8String read GetDownloadUrlExpirationDateRaw;
   end;
 
   { TKSeF2UpoPageResponseArray }
@@ -683,6 +687,9 @@ type
     property FailedInvoiceCount: Integer read GetFailedInvoiceCount;
   end;
 
+  TKSeF2InvoicingMode = (imNotDefined, imOnline, imOffline);
+  TKSeF2SortOrder = (soDefault, soAsc, soDesc);
+
   { TKSeF2SessionInvoiceStatusResponse }
 
   TKSeF2SessionInvoiceStatusResponse = class(TKSeF2Response)
@@ -695,12 +702,15 @@ type
     function GetInvoiceNumber: UTF8String;
     function GetInvoicingDate: TDateTime;
     function GetInvoicingDateRaw: UTF8String;
+    function GetInvoicingMode: TKSeF2InvoicingMode;
     function GetKsefNumber: UTF8String;
     function GetOrdinalNumber: Integer;
     function GetPermanentStorageDate: TDateTime;
     function GetPermanentStorageDateRaw: UTF8String;
     function GetReferenceNumber: UTF8String;
     function GetUpoDownloadUrl: UTF8String;
+    function GetUpoDownloadUrlExpirationDate: TDateTime;
+    function GetUpoDownloadUrlExpirationDateRaw: UTF8String;
   protected
     procedure LoadObject; override;
   published
@@ -717,6 +727,9 @@ type
     property PermanentStorageDate: TDateTime read GetPermanentStorageDate;
     property PermanentStorageDateRaw: UTF8String read GetPermanentStorageDateRaw;
     property UpoDownloadUrl: UTF8String read GetUpoDownloadUrl;
+    property UpoDownloadUrlExpirationDate: TDateTime read GetUpoDownloadUrlExpirationDate;
+    property UpoDownloadUrlExpirationDateRaw: UTF8String read GetUpoDownloadUrlExpirationDateRaw;
+    property InvoicingMode: TKSeF2InvoicingMode read GetInvoicingMode;
     property Status: TKSeF2StatusInfo read FStatus;
   end;
 
@@ -794,8 +807,6 @@ type
     property Type_: TKSeF2BuyerIdentifierType read GetType write SetType;
     property Value: UTF8String read GetValue write SetValue;
   end;
-
-  TKSeF2InvoicingMode = (imNotDefined, imOnline, imOffline);
 
   TKSeF2NullableBoolean = (nbNotDefined, nbFalse, nbTrue);
 
@@ -1034,9 +1045,9 @@ type
 
   TKSeF2ExportInvoicesResponse = class(TKSeF2Response)
   private
-    function GetOperationReferenceNumber: UTF8String;
+    function GetReferenceNumber: UTF8String;
   published
-    property OperationReferenceNumber: UTF8String read GetOperationReferenceNumber;
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
   end;
 
   { TKSeF2InvoicePackagePart }
@@ -1114,12 +1125,16 @@ type
     FStatus: TKSeF2StatusInfo;
     function GetCompletedDate: TDateTime;
     function GetCompletedDateRaw: UTF8String;
+    function GetPackageExpirationDate: TDateTime;
+    function GetPackageExpirationDateRaw: UTF8String;
   protected
     procedure LoadObject; override;
   published
     property Status: TKSeF2StatusInfo read FStatus;
     property CompletedDate: TDateTime read GetCompletedDate;
     property CompletedDateRaw: UTF8String read GetCompletedDateRaw;
+    property PackageExpirationDate: TDateTime read GetPackageExpirationDate;
+    property PackageExpirationDateRaw: UTF8String read GetPackageExpirationDateRaw;
     property Package: TKSeF2InvoicePackage read FPackage;
   end;
 
@@ -2454,6 +2469,16 @@ begin
   Result := GetStringProp('DownloadUrl');
 end;
 
+function TKSeF2UpoPageResponse.GetDownloadUrlExpirationDate: TDateTime;
+begin
+  Result := GetDoubleProp('DownloadUrlExpirationDate');
+end;
+
+function TKSeF2UpoPageResponse.GetDownloadUrlExpirationDateRaw: UTF8String;
+begin
+  Result := GetStringProp('DownloadUrlExpirationDateRaw');
+end;
+
 function TKSeF2UpoPageResponse.GetReferenceNumber: UTF8String;
 begin
   Result := GetStringProp('ReferenceNumber');
@@ -2556,6 +2581,11 @@ begin
   Result := GetStringProp('InvoicingDateRaw');
 end;
 
+function TKSeF2SessionInvoiceStatusResponse.GetInvoicingMode: TKSeF2InvoicingMode;
+begin
+  Result := TKSeF2InvoicingMode(GetIntegerProp('InvoicingMode'));
+end;
+
 function TKSeF2SessionInvoiceStatusResponse.GetKsefNumber: UTF8String;
 begin
   Result := GetStringProp('KsefNumber');
@@ -2584,6 +2614,16 @@ end;
 function TKSeF2SessionInvoiceStatusResponse.GetUpoDownloadUrl: UTF8String;
 begin
   Result := GetStringProp('UpoDownloadUrl');
+end;
+
+function TKSeF2SessionInvoiceStatusResponse.GetUpoDownloadUrlExpirationDate: TDateTime;
+begin
+  Result := GetDoubleProp('UpoDownloadUrlExpirationDate');
+end;
+
+function TKSeF2SessionInvoiceStatusResponse.GetUpoDownloadUrlExpirationDateRaw: UTF8String;
+begin
+  Result := GetStringProp('UpoDownloadUrlExpirationDateRaw');
 end;
 
 procedure TKSeF2SessionInvoiceStatusResponse.LoadObject;
@@ -3156,9 +3196,9 @@ end;
 
 { TKSeF2ExportInvoicesResponse }
 
-function TKSeF2ExportInvoicesResponse.GetOperationReferenceNumber: UTF8String;
+function TKSeF2ExportInvoicesResponse.GetReferenceNumber: UTF8String;
 begin
-  Result := GetStringProp('OperationReferenceNumber');
+  Result := GetStringProp('ReferenceNumber');
 end;
 
 { TKSeF2InvoicePackagePart }
@@ -3286,6 +3326,16 @@ end;
 function TKSeF2InvoiceExportStatusResponse.GetCompletedDateRaw: UTF8String;
 begin
   Result := GetStringProp('CompletedDateRaw');
+end;
+
+function TKSeF2InvoiceExportStatusResponse.GetPackageExpirationDate: TDateTime;
+begin
+  Result := GetDoubleProp('PackageExpirationDate');
+end;
+
+function TKSeF2InvoiceExportStatusResponse.GetPackageExpirationDateRaw: UTF8String;
+begin
+  Result := GetStringProp('PackageExpirationDateRaw');
 end;
 
 procedure TKSeF2InvoiceExportStatusResponse.LoadObject;

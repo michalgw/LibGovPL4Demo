@@ -192,7 +192,7 @@ type
     procedure InvoicesKsef(AKsefNumber: UTF8String; AOutputStram: TStream;
       AAccessToken: UTF8String = '');
     function InvoicesQueryMetadata(ARequest: TKSeF2InvoiceQueryFilters;
-      APageOffset: Integer = 0; APageSize: Integer = 0;
+      APageOffset: Integer = 0; APageSize: Integer = 0; ASortOrder: TKSeF2SortOrder = soDefault;
       AAccessToken: UTF8String = ''): TKSeF2QueryInvoicesMetadataResponse;
     function InvoicesExport(ARequest: TKSeF2InvoiceExportRequest; AAccessToken: UTF8String = ''): TKSeF2ExportInvoicesResponse; overload;
     function InvoicesExport(ARequest: TKSeF2InvoiceQueryFilters; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil; AAccessToken: UTF8String = ''): TKSeF2ExportInvoicesResponse; overload;
@@ -1481,14 +1481,14 @@ begin
 end;
 
 function TlgoKSeF2.InvoicesQueryMetadata(ARequest: TKSeF2InvoiceQueryFilters;
-  APageOffset: Integer; APageSize: Integer; AAccessToken: UTF8String
-  ): TKSeF2QueryInvoicesMetadataResponse;
+  APageOffset: Integer; APageSize: Integer; ASortOrder: TKSeF2SortOrder;
+  AAccessToken: UTF8String): TKSeF2QueryInvoicesMetadataResponse;
 var
   O: LGP_OBJECT;
 begin
   O := nil;
   lgoCheckResult(lgpKSeF2_InvoicesQueryMetadata(ExtObject, ARequest.ExtObject,
-    APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+    APageOffset, APageSize, Ord(ASortOrder), LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2QueryInvoicesMetadataResponse.Create(nil, O)
   else

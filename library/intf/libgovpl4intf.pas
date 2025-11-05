@@ -620,7 +620,7 @@ function lgpKSeF2_StatusUpoSession(AKSeFObject: LGP_OBJECT; ASessionReferenceNum
 function lgpKSeF2_StatusUpoSessionSimple(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AUpoReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AUpo: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_InvoicesKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExport(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExportSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -1159,7 +1159,7 @@ var
   lgpKSeF2_StatusUpoSessionSimple: function(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AUpoReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AUpo: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_InvoicesKsef: function(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_InvoicesQueryMetadata: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_InvoicesQueryMetadata: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExport: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExport2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExportSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;

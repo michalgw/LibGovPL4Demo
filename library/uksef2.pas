@@ -164,7 +164,7 @@ function lgpKSeF2_StatusUpoSession(AKSeFObject: LGP_OBJECT; ASessionReferenceNum
 function lgpKSeF2_StatusUpoSessionSimple(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AUpoReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AUpo: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_InvoicesKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExport(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExportSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -2048,8 +2048,8 @@ end;
 
 function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT;
   ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
-  AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT
-  ): LGP_EXCEPTION; stdcall;
+  ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR;
+  var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AQueryInvoicesMetadataResponse := nil;
@@ -2058,7 +2058,7 @@ begin
     CheckObject(ARequest, TKSeF2InvoiceQueryFilters);
     AQueryInvoicesMetadataResponse := (TObject(AKSeFObject) as TlgKSeF2).
       InvoicesQueryMetadata(TKSeF2InvoiceQueryFilters(ARequest), APageOffset,
-      APageSize, AAccessToken);
+      APageSize, TKSeF2SortOrder(ASortOrder), AAccessToken);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

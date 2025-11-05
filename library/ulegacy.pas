@@ -227,7 +227,7 @@ end;
 
 function edekPodpisz(APlikWej, APlikWyj: PWideChar; ACertIdx: Integer; ACertSerialNo: PWideChar): Integer; stdcall;
 var
-  DaneWej, DaneWyj: String;
+  DaneWej, DaneWyj: UTF8String;
   Cert: TlgCertificate;
 begin
   if not FileExists(APlikWej) then
@@ -268,7 +268,7 @@ end;
 
 function edekPodpiszAut(APlikWej, APlikWyj, ANIP, AImie, ANazwisko, ADataUr, AKwota: PWideChar): Integer; stdcall;
 var
-  DaneWej, DaneWyj: String;
+  DaneWej, DaneWyj: UTF8String;
   Kwota: Currency;
   DataUr: TDate;
   Imie, Nazwisko, Nip: UnicodeString;

@@ -227,7 +227,7 @@ begin
       D2 := TlgpKSeF2ExceptionDetail.Create;
       D2.ExceptionCode := EKSeF2ExceptionResponse(AException).ExceptionDetailList[I].ExceptionCode;
       D2.ExceptionDescription := EKSeF2ExceptionResponse(AException).ExceptionDetailList[I].ExceptionDescription;
-      D2.ExceptionDetails := EKSeF2ExceptionResponse(AException).ExceptionDetailList[I].Details.ToString(';');
+      D2.ExceptionDetails := StringArrayToString(EKSeF2ExceptionResponse(AException).ExceptionDetailList[I].Details, ';');
       TlgpKSeF2ExceptionResponse(Result).ExceptionDetailList.Add(D2);
     end;
   end
