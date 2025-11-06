@@ -48,6 +48,7 @@ type
     function GetAuthenticationRefNo: UTF8String;
     function GetAuthenticationToken: UTF8String;
     function GetAuthenticationTokenValidUntil: TDateTime;
+    function GetAutoRefreshToken: Boolean;
     function GetBase64EncoderClass: UTF8String;
     function GetBatchPartSize: Integer;
     function GetBatchReferenceNumber: UTF8String;
@@ -82,6 +83,7 @@ type
     procedure SetAuthenticationRefNo(AValue: UTF8String);
     procedure SetAuthenticationToken(AValue: UTF8String);
     procedure SetAuthenticationTokenValidUntil(AValue: TDateTime);
+    procedure SetAutoRefreshToken(AValue: Boolean);
     procedure SetBase64EncoderClass(AValue: UTF8String);
     procedure SetBatchPartSize(AValue: Integer);
     procedure SetBatchReferenceNumber(AValue: UTF8String);
@@ -272,6 +274,8 @@ type
     property InvoiceExportVector: TBytes read GetInvoiceExportVector write SetInvoiceExportVector;
     property InvoiceExportReferenceNumber: UTF8String read GetInvoiceExportReferenceNumber write SetInvoiceExportReferenceNumber;
 
+    property AutoRefreshToken: Boolean read GetAutoRefreshToken write SetAutoRefreshToken;
+
     property OnRequestPartStream: TKSeF2RequestPartStreamEvent read FOnRequestPartStream write SetOnRequestPartStream;
   end;
 
@@ -364,6 +368,15 @@ function TlgoKSeF2.GetAuthenticationTokenValidUntil: TDateTime;
 begin
   Result := 0;
   lgoCheckResult(lgpKSeF2_GetAccessTokenValidUntil(ExtObject, Double(Result)));
+end;
+
+function TlgoKSeF2.GetAutoRefreshToken: Boolean;
+var
+  I: LGP_INT32;
+begin
+  I := 0;
+  lgoCheckResult(lgpKSeF2_GetAutoRefreshToken(ExtObject, I));
+  Result := I <> 0;
 end;
 
 function TlgoKSeF2.GetBase64EncoderClass: UTF8String;
@@ -654,6 +667,11 @@ end;
 procedure TlgoKSeF2.SetAuthenticationTokenValidUntil(AValue: TDateTime);
 begin
   lgoCheckResult(lgpKSeF2_SetAuthenticationTokenValidUntil(ExtObject, AValue));
+end;
+
+procedure TlgoKSeF2.SetAutoRefreshToken(AValue: Boolean);
+begin
+  lgoCheckResult(lgpKSeF2_SetAutoRefreshToken(ExtObject, Ord(AValue)));
 end;
 
 procedure TlgoKSeF2.SetBase64EncoderClass(AValue: UTF8String);

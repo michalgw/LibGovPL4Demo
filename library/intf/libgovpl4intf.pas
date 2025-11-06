@@ -562,6 +562,8 @@ function lgpKSeF2_GetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; var A
 function lgpKSeF2_SetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -1101,6 +1103,8 @@ var
   lgpKSeF2_SetInvoiceExportReferenceNumber: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetRequestPartStreamCargo: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetRequestPartStreamCargo: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetAutoRefreshToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetAutoRefreshToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
@@ -1664,6 +1668,8 @@ begin
     @lgpKSeF2_SetInvoiceExportReferenceNumber := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetInvoiceExportReferenceNumber');
     @lgpKSeF2_GetRequestPartStreamCargo := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetRequestPartStreamCargo');
     @lgpKSeF2_SetRequestPartStreamCargo := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetRequestPartStreamCargo');
+    @lgpKSeF2_GetAutoRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAutoRefreshToken');
+    @lgpKSeF2_SetAutoRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAutoRefreshToken');
     @lgpKSeF2_GetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetOnRequestPartStream');
     @lgpKSeF2_SetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetOnRequestPartStream');
 

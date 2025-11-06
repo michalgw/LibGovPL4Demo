@@ -467,6 +467,8 @@ exports
   lgpKSeF2_SetInvoiceExportReferenceNumber,
   lgpKSeF2_GetRequestPartStreamCargo,
   lgpKSeF2_SetRequestPartStreamCargo,
+  lgpKSeF2_GetAutoRefreshToken,
+  lgpKSeF2_SetAutoRefreshToken,
   lgpKSeF2_GetOnRequestPartStream,
   lgpKSeF2_SetOnRequestPartStream,
 

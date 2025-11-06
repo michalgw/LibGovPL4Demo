@@ -61,6 +61,7 @@ type
     ButtonObjClear: TButton;
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
+    CheckBoxKSeFAutoRefresh: TCheckBox;
     CheckBoxKSeFIOffline: TCheckBox;
     CheckBoxKSeFTDUOIsBailiff: TCheckBox;
     CheckGroupKSeFDFInvoiceType: TCheckGroup;
@@ -1581,6 +1582,7 @@ begin
     KSeF.AES256EncryptClass := ComboBoxAES256.Text;
   if ComboBoxRandGen.ItemIndex >= 0 then
     KSeF.RandomGeneratorClass := ComboBoxRandGen.Text;
+  KSeF.AutoRefreshToken := CheckBoxKSeFAutoRefresh.Checked;
 
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;

@@ -106,6 +106,8 @@ function lgpKSeF2_GetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; var A
 function lgpKSeF2_SetInvoiceExportReferenceNumber(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
@@ -1291,6 +1293,32 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF2Lib);
     (TObject(AKSeFObject) as TlgKSeF2Lib).Cargo := AValue;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT;
+  var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    AValue := Ord((TObject(AKSeFObject) as TlgKSeF2Lib).AutoRefreshToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    (TObject(AKSeFObject) as TlgKSeF2Lib).AutoRefreshToken := AValue <> 0;
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
