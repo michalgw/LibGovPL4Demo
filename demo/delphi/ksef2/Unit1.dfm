@@ -110,7 +110,7 @@ object Form1: TForm1
     Top = 0
     Width = 792
     Height = 485
-    ActivePage = TabSheetKSeFInteractive
+    ActivePage = TabSheetSetup
     Align = alClient
     MultiLine = True
     TabOrder = 1
@@ -182,13 +182,13 @@ object Form1: TForm1
         Left = 0
         Top = 153
         Width = 784
-        Height = 168
+        Height = 192
         Align = alTop
         Caption = 'W'#322'a'#347'ciwo'#347'ci KSeF'
         TabOrder = 2
         DesignSize = (
           784
-          168)
+          192)
         object Label2: TLabel
           Left = 16
           Top = 21
@@ -290,6 +290,14 @@ object Form1: TForm1
           Anchors = [akLeft, akTop, akRight]
           ItemHeight = 13
           TabOrder = 5
+        end
+        object CheckBoxKSeFAutoRefresh: TCheckBox
+          Left = 16
+          Top = 160
+          Width = 225
+          Height = 17
+          Caption = 'Automatycznie od'#347'wie'#380' token dost'#281'powy'
+          TabOrder = 6
         end
       end
     end

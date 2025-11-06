@@ -388,6 +388,7 @@ type
     Label107: TLabel;
     ButtonKSeFLoadKeyToken: TButton;
     ButtonKSeFLoadKeyKeyEx: TButton;
+    CheckBoxKSeFAutoRefresh: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -640,6 +641,7 @@ begin
     KSeF.AES256EncryptClass := AES256EncryptClasses[ComboBoxAES256.ItemIndex];
   if ComboBoxRandGen.ItemIndex >= 0 then
     KSeF.RandomGeneratorClass := RandomGeneratorClasses[ComboBoxRandGen.ItemIndex];
+  KSeF.AutoRefreshToken := CheckBoxKSeFAutoRefresh.Checked;
 
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;

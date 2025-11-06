@@ -9,9 +9,9 @@ inherited FormMain: TFormMain
   inherited PageControlMain: TPageControl
     Height = 582
     Width = 751
-    ActivePage = TabSheetKSeFDownload
+    ActivePage = TabSheetSetup
     MultiLine = True
-    TabIndex = 8
+    TabIndex = 0
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 534
@@ -24,8 +24,8 @@ inherited FormMain: TFormMain
       inherited ScrollBox1: TScrollBox
         Height = 493
         Width = 743
-        HorzScrollBar.Page = 248
-        VertScrollBar.Page = 319
+        HorzScrollBar.Page = 347
+        VertScrollBar.Page = 340
         ClientHeight = 489
         ClientWidth = 739
         inherited GroupBoxSetupCertSign: TGroupBox
@@ -40,7 +40,7 @@ inherited FormMain: TFormMain
         end
         object GroupBoxKSeFSetup: TGroupBox[1]
           Left = 0
-          Height = 172
+          Height = 193
           Top = 147
           Width = 739
           Align = alTop
@@ -56,23 +56,23 @@ inherited FormMain: TFormMain
           ChildSizing.ShrinkVertical = crsHomogenousChildResize
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
-          ClientHeight = 152
+          ClientHeight = 173
           ClientWidth = 735
           TabOrder = 1
           object Label2: TLabel
             Left = 2
             Height = 23
             Top = 2
-            Width = 384
+            Width = 433
             Caption = 'HTTP Client'
             Layout = tlCenter
           end
           object ComboBoxHTTPCli: TComboBox
             AnchorSideRight.Side = asrBottom
-            Left = 388
+            Left = 437
             Height = 23
             Top = 2
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 0
@@ -81,15 +81,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 27
-            Width = 384
+            Width = 433
             Caption = 'Random nmber generator'
             Layout = tlCenter
           end
           object ComboBoxRandGen: TComboBox
-            Left = 388
+            Left = 437
             Height = 23
             Top = 27
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 1
@@ -98,15 +98,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 52
-            Width = 384
+            Width = 433
             Caption = 'Base64 Encoder'
             Layout = tlCenter
           end
           object ComboBoxBase64: TComboBox
-            Left = 388
+            Left = 437
             Height = 23
             Top = 52
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 2
@@ -115,15 +115,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 77
-            Width = 384
+            Width = 433
             Caption = 'SHA-256 Hash'
             Layout = tlCenter
           end
           object ComboBoxSHA256: TComboBox
-            Left = 388
+            Left = 437
             Height = 23
             Top = 77
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 3
@@ -132,15 +132,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 102
-            Width = 384
+            Width = 433
             Caption = 'AES256 Encryption'
             Layout = tlCenter
           end
           object ComboBoxAES256: TComboBox
-            Left = 388
+            Left = 437
             Height = 23
             Top = 102
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 4
@@ -149,18 +149,28 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 127
-            Width = 384
+            Width = 433
             Caption = 'RSA public key encryption'
             Layout = tlCenter
           end
           object ComboBoxRSAEnc: TComboBox
-            Left = 388
+            Left = 437
             Height = 23
             Top = 127
-            Width = 345
+            Width = 296
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 5
+          end
+          object CheckBoxKSeFAutoRefresh: TCheckBox
+            Left = 2
+            Height = 19
+            Top = 152
+            Width = 433
+            Caption = 'Automatycznie odśwież token dostępowy'
+            Checked = True
+            State = cbChecked
+            TabOrder = 6
           end
         end
       end
@@ -1382,7 +1392,7 @@ inherited FormMain: TFormMain
                 item
                   ButtonStyle = cbsEllipsis
                   Title.Caption = 'Nazwa pliku części'
-                  Width = 694
+                  Width = 677
                 end>
               FixedCols = 0
               Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll, goCellEllipsis]
@@ -1390,7 +1400,7 @@ inherited FormMain: TFormMain
               TabOrder = 0
               OnButtonClick = StringGridKSeFBEncOutFilesButtonClick
               ColWidths = (
-                694
+                677
               )
             end
           end
