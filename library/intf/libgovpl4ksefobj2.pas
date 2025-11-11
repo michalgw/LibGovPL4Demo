@@ -298,7 +298,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2AuthenticationListItem;
   public
-    property Items[AIndex: Integer]: TKSeF2AuthenticationListItem read GetItem;
+    property Items[AIndex: Integer]: TKSeF2AuthenticationListItem read GetItem; default;
   end;
 
   { TKSeF2AuthenticationListResponse }
@@ -342,7 +342,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2PublicKeyCertificate;
   public
-    property Items[AIndex: Integer]: TKSeF2PublicKeyCertificate read GetItem;
+    property Items[AIndex: Integer]: TKSeF2PublicKeyCertificate read GetItem; default;
   end;
 
   { TKSeF2PublicKeyCertificateResponse }
@@ -476,7 +476,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2BatchFilePartInfo;
   public
-    property Items[AIndex: Integer]: TKSeF2BatchFilePartInfo read GetItem;
+    property Items[AIndex: Integer]: TKSeF2BatchFilePartInfo read GetItem; default;
   end;
 
   { TKSeF2BatchFileInfo }
@@ -535,7 +535,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2Header;
   public
-    property Items[AIndex: Integer]: TKSeF2Header read GetItem;
+    property Items[AIndex: Integer]: TKSeF2Header read GetItem; default;
   end;
 
   { TKSeF2PartUploadRequest }
@@ -561,7 +561,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2PartUploadRequest;
   public
-    property Items[AIndex: Integer]: TKSeF2PartUploadRequest read GetItem;
+    property Items[AIndex: Integer]: TKSeF2PartUploadRequest read GetItem; default;
   end;
 
   { TKSeF2OpenBatchSessionResponse }
@@ -615,7 +615,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2SessionsQueryResponseItem;
   public
-    property Items[AIndex: Integer]: TKSeF2SessionsQueryResponseItem read GetItem;
+    property Items[AIndex: Integer]: TKSeF2SessionsQueryResponseItem read GetItem; default;
   end;
 
   TKSeF2SessionsQueryResponse = class(TKSeF2Response)
@@ -650,7 +650,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2UpoPageResponse;
   public
-    property Items[AIndex: Integer]: TKSeF2UpoPageResponse read GetItem;
+    property Items[AIndex: Integer]: TKSeF2UpoPageResponse read GetItem; default;
   end;
 
   { TKSeF2UpoResponse }
@@ -739,7 +739,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2SessionInvoiceStatusResponse;
   public
-    property Items[AIndex: Integer]: TKSeF2SessionInvoiceStatusResponse read GetItem;
+    property Items[AIndex: Integer]: TKSeF2SessionInvoiceStatusResponse read GetItem; default;
   end;
 
   { TKSeF2SessionInvoicesResponse }
@@ -929,7 +929,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2InvoiceMetadataThirdSubject;
   public
-    property Items[AIndex: Integer]: TKSeF2InvoiceMetadataThirdSubject read GetItem;
+    property Items[AIndex: Integer]: TKSeF2InvoiceMetadataThirdSubject read GetItem; default;
   end;
 
   { TKSeF2InvoiceMetadataAuthorizedSubject }
@@ -1008,7 +1008,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2InvoiceMetadata;
   public
-    property Items[AIndex: Integer]: TKSeF2InvoiceMetadata read GetItem;
+    property Items[AIndex: Integer]: TKSeF2InvoiceMetadata read GetItem; default;
   end;
 
   { TKSeF2QueryInvoicesMetadataResponse }
@@ -1083,7 +1083,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2InvoicePackagePart;
   public
-    property Items[AIndex: Integer]: TKSeF2InvoicePackagePart read GetItem;
+    property Items[AIndex: Integer]: TKSeF2InvoicePackagePart read GetItem; default;
   end;
 
   {$IFNDEF FPC}
@@ -1232,7 +1232,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2QueryTokensResponseItem;
   public
-    property Items[AIndex: Integer]: TKSeF2QueryTokensResponseItem read GetItem;
+    property Items[AIndex: Integer]: TKSeF2QueryTokensResponseItem read GetItem; default;
   end;
 
   TKSeF2QueryTokensResponse = class(TKSeF2Response)
@@ -1296,7 +1296,7 @@ type
   protected
     function GetItem(AIndex: Integer): TKSeF2Subunit;
   public
-    property Items[AIndex: Integer]: TKSeF2Subunit read GetItem;
+    property Items[AIndex: Integer]: TKSeF2Subunit read GetItem; default;
   end;
 
   TKSeF2SubjectType = (stEnforcementAuthority, stVatGroup, stJST);
