@@ -48,7 +48,7 @@ begin
   KSeF.FormCode := kfcFA3;
 
   try
-    // Pobierz certyfikaty kluczy publicznych
+    // Pobierz certyfikaty kluczy publicznych z serwera KSeF.
     // Mozna rowniez wczytac z pliku za pomoca klay TlgoRSAPublicKey
     KSeF.SecurityLoadKeys;
 

@@ -1,4 +1,4 @@
-program ksef_20_2;
+program ksef_20_1;
 
 {$IFDEF FPC}
 {$MODE DELPHIUNICODE}
@@ -11,17 +11,20 @@ uses
   LibGovPl4KSeF2, LibGovPl4KSeFObj2;
 
 var
+  CertSigner: TlgoCertificateSigner = nil;
+  Certyfikat: TlgoCertificate = nil;
   HTTPClient: TlgoHTTPClient = nil;
+  XAdES: TlgoXAdES = nil;
   KSeF: TlgoKSeF2 = nil;
+
+  CertStream: TFileStream = nil;
+  KeyStream: TFileStream = nil;
 
   AuthInitResponse: TKSeF2AuthenticationInitResponse;
   AuthStatusResponse: TKSeF2AuthenticationOperationStatusResponse = nil;
+  AuthList: TKSeF2AuthenticationListResponse = nil;
 
-  NrRefSesjiIteraktywnej: String;
-  NrRefWyslanejFa: String;
-  FAStream: TFileStream = nil;
-
-  StatusResponse: TKSeF2SessionInvoicesResponse = nil;
+  I: Integer;
 
 begin
   // Inicjuj biblioteke LibGovPL
@@ -29,27 +32,44 @@ begin
   // Wyswietl wersje
   WriteLn('Wersja biblioteki: ', IntToHex(lgplVersion));
 
+  // Utworz obiekt podpisu certyfikatem z domyslna klasa sterownika
+  CertSigner := TlgoCertificateSigner.Create('');
+  WriteLn('Klasa podpisu certyfikatem: ', CertSigner.ObjClassName);
+
+  // Wczytanie certyfikatu i klucza prywatnego do uwierzytelnienia w KSeF.
+  // Certyfikat i klucz wczytywany jest z osobnych plikow.
+  // Klucz prywatny zabezpieczony jest haslem.
+  CertStream := TFileStream.Create('CertyfikatKSeF.crt', fmOpenRead);
+  KeyStream := TFileStream.Create('KluczPrywatnyKSeF.key', fmOpenRead);
+  Certyfikat := CertSigner.LoadFromStream(CertStream, letPEM, KeyStream, letPEM, 'HasloDoCertyfikatuKSeF!123');
+  CertStream.Free;
+  KeyStream.Free;
+  WriteLn('Wczytano certyfikat: ' + Certyfikat.DisplayName);
+
+  // Tworzymu biekt XAdES
+  XAdES := TlgoXAdES.Create;
+  XAdES.SignType := shtSHA256;
+
   // Tworzymy klienta HTTPS
   HTTPClient := TlgoHTTPClient.Create('');
 
   // Tworzymy obiekt klienta KSeF 2.0
   KSeF := TlgoKSeF2.Create;
   KSeF.HTTPClient := HTTPClient;
+  KSeF.XAdES := XAdES;
 
   // Wskazujemy rodzaj serwera KSeF (produkcyjny/test/demo)
   KSeF.GateType := kgtTest;
-  // Wskazujemy token KSeF do uwierzytelnienia
-  KSeF.KsefToken := '20251111-FF-123F456780-1234567896-B6|nip-1111111111|1111111111111222222222222233333333333334444444444445555555555556';
+  // Wskazujemy certyfikat do uwierzytelnienia
+  KSeF.AuthCertificate := Certyfikat;
   // Wskazujemy rodzaj identyfikatora na nr NIP
   KSeF.IdentifierType := itNip;
   // Wskazujemy identyfikator czyli nr NIP podmiotu
   KSeF.Identifier := '1111111111';
-  // Bedziemy wysylac faktury w formacie FA(3)
-  KSeF.FormCode := kfcFA3;
 
   try
-    // Uwirzytelnij za pomoca wskazanego tokena
-    AuthInitResponse := KSeF.AuthKsefToken;
+    // Uwirzytelnij za pomoca wskazanego certyfikatu i klucza
+    AuthInitResponse := KSeF.AuthXadesSignature;
 
     // Rozpoczeto nawiazywanie sesji. Wypisz nr referencyjny sesji
     WriteLn('Nr referencyjny sesji: ', AuthInitResponse.ReferenceNumber);
@@ -81,29 +101,18 @@ begin
       WriteLn('Token autoryzacyjny wazny do: ', DateTimeToStr(KSeF.AccessTokenValidUntil));
       WriteLn('Token odswiezania wazny do: ', DateTimeToStr(KSeF.RefreshTokenValidUntil));
 
-      // Otworz sesje interaktywna
-      NrRefSesjiIteraktywnej := KSeF.InteractiveOpenSimple;
-
-      // Otfieramy plik z faktura do wyslania
-      // Otrzymujemy nr referencyjny sesji
-      FAStream := TFileStream.Create('dokument_fa3.xml', fmOpenRead);
-      // Wysylamy fakture ze wskazanego strumienia
-      // Otrzymujemy nr referencyjny
-      NrRefWyslanejFa := KSeF.InteractiveSend(FAStream);
-
-      // Zamykamy sesje interaktywna
-      KSeF.InteractiveClose;
-
-      // Sprawdzamy status wyslanej faktury
-      StatusResponse := KSeF.StatusSessionInvoice(NrRefSesjiIteraktywnej, NrRefWyslanejFa);
-      WriteLn('Ilosc faktur: ', StatusResponse.Invoices.Count);
-      if StatusResponse.Invoices.Count > 0 then
+      // Wypisz liste aktywnych sesji
+      AuthList := KSeF.AuthSessions;
+      WriteLn('Ilosc elementow: ', AuthList.Items.Count);
+      for I := 0 to AuthList.Items.Count - 1 do
       begin
-        WriteLn('Status przetwarzania: ', StatusResponse.Invoices[0].Status.Code);
-        WriteLn('Opis Statusu: ', StatusResponse.Invoices[0].Status.Description);
-        WriteLn('Nr KSeF faktury: ', StatusResponse.Invoices[0].KsefNumber);
-        WriteLn('Nr faktury: ', StatusResponse.Invoices[0].InvoiceNumber);
-        WriteLn('UPO URL: ', StatusResponse.Invoices[0].UpoDownloadUrl);
+        WriteLn('Indeks: ', I);
+        WriteLn('Nr ref: ', AuthList.Items[I].ReferenceNumber);
+        WriteLn('Rozpoczeto: ', DateTimeToStr(AuthList.Items[I].StartDate));
+        WriteLn('Czy to obecna sesja: ', AuthList.Items[I].IsCurrent);
+        WriteLn('Status: ', AuthList.Items[I].Status.Code);
+        WriteLn('Opis statusu: ', AuthList.Items[I].Status.Description);
+        WriteLn('---------------------');
       end;
 
       // Zakoncz aktualna sesje
@@ -124,18 +133,17 @@ begin
   end;
 
   // Sprzatamy
-  if Assigned(FAStream) then
-    FAStream.Free;
   if Assigned(AuthInitResponse) then
     AuthInitResponse.Free;
   if Assigned(AuthStatusResponse) then
     AuthStatusResponse.Free;
-  if Assigned(StatusResponse) then
-    StatusResponse.Free;
+  if Assigned(AuthList) then
+    AuthList.Free;
   if Assigned(KSeF) then
     KSeF.Free;
+  if Assigned(XAdES) then
+    XAdES.Free;
   if Assigned(HTTPClient) then
     HTTPClient.Free;
 end.
-
 

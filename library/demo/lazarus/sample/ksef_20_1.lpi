@@ -35,7 +35,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="ksef_20_1"/>
+      <Filename Value="..\..\..\..\binw32\ksef_20_1"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
