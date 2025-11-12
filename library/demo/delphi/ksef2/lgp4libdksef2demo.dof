@@ -1,0 +1,7 @@
+[Directories]
+OutputDir=..\..\..\..\binw32
+UnitOutputDir=
+PackageDLLOutputDir=
+PackageDCPOutputDir=
+SearchPath=..\..\..\intf
+Packages=vcl;rtl;vclx;VclSmp;vclshlctrls
