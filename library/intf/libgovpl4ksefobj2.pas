@@ -456,16 +456,16 @@ type
   TKSeF2BatchFilePartInfo = class(TKSeF2Object)
   private
     function GetFileHash: UTF8String;
-    function GetFileName: UTF8String;
+    //function GetFileName: UTF8String;
     function GetFileSize: Int64;
     function GetOrdinalNumber: Integer;
     procedure SetFileHash(AValue: UTF8String);
-    procedure SetFileName(AValue: UTF8String);
+    //procedure SetFileName(AValue: UTF8String);
     procedure SetFileSize(AValue: Int64);
     procedure SetOrdinalNumber(AValue: Integer);
   published
     property OrdinalNumber: Integer read GetOrdinalNumber write SetOrdinalNumber;
-    property FileName: UTF8String read GetFileName write SetFileName;
+    //property FileName: UTF8String read GetFileName write SetFileName; deprecated;
     property FileSize: Int64 read GetFileSize write SetFileSize;
     property FileHash: UTF8String read GetFileHash write SetFileHash;
   end;
@@ -2156,10 +2156,10 @@ begin
   Result := GetStringProp('FileHash');
 end;
 
-function TKSeF2BatchFilePartInfo.GetFileName: UTF8String;
+{function TKSeF2BatchFilePartInfo.GetFileName: UTF8String;
 begin
   Result := GetStringProp('FileName');
-end;
+end;}
 
 function TKSeF2BatchFilePartInfo.GetFileSize: Int64;
 begin
@@ -2176,10 +2176,10 @@ begin
   SetStringProp('FileHash', AValue);
 end;
 
-procedure TKSeF2BatchFilePartInfo.SetFileName(AValue: UTF8String);
+{procedure TKSeF2BatchFilePartInfo.SetFileName(AValue: UTF8String);
 begin
   SetStringProp('FileName', AValue);
-end;
+end;}
 
 procedure TKSeF2BatchFilePartInfo.SetFileSize(AValue: Int64);
 begin

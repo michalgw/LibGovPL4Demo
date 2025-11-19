@@ -181,7 +181,7 @@ type
     function StatusSession(ASessionReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2SessionStatusResponse;
     function StatusInvoices(ASessionReferenceNumber: UTF8String; AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2SessionInvoicesResponse;
     function StatusSessionInvoice(ASessionReferenceNumber: UTF8String;
-      AInvoiceReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2SessionInvoicesResponse;
+      AInvoiceReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2SessionInvoiceStatusResponse;
     function StatusInvoicesFailed(ASessionReferenceNumber: UTF8String; AContinuationToken: UTF8String = '';
       APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2SessionInvoicesResponse;
     procedure StatusUpoKsef(ASessionReferenceNumber: UTF8String; AKsefNumber: UTF8String; AOutStream: TStream; AAccessToken: UTF8String = '');
@@ -1371,7 +1371,7 @@ end;
 
 function TlgoKSeF2.StatusSessionInvoice(ASessionReferenceNumber: UTF8String;
   AInvoiceReferenceNumber: UTF8String; AAccessToken: UTF8String
-  ): TKSeF2SessionInvoicesResponse;
+  ): TKSeF2SessionInvoiceStatusResponse;
 var
   O: LGP_OBJECT;
 begin
@@ -1379,7 +1379,7 @@ begin
   lgoCheckResult(lgpKSeF2_StatusSessionInvoice(ExtObject, LGP_PCHAR(ASessionReferenceNumber),
     LGP_PCHAR(AInvoiceReferenceNumber), LGP_PCHAR(AAccessToken), O));
   if O <> nil then
-    Result := TKSeF2SessionInvoicesResponse.Create(nil, O)
+    Result := TKSeF2SessionInvoiceStatusResponse.Create(nil, O)
   else
     Result := nil;
 end;

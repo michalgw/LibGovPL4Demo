@@ -1632,6 +1632,7 @@ begin
       EditKSeFSContinuationToken1.Text, SpinEditKSeFS1PageSize1.Value);
     Debug('Pobrano, liczba faktur: ' + IntToStr(Response.Invoices.Count));
     Debug('Odpowiedü: ' + Response.RawResponse);
+    EditKSeFSContinuationToken1.Text := Response.ContinuationToken;
     AddObject(Response);
   except
     on E: Exception do
@@ -1641,15 +1642,14 @@ end;
 
 procedure TForm1.ButtonKSeFSessionInvoiceClick(Sender: TObject);
 var
-  Response: TKSeF2SessionInvoicesResponse;
+  Response: TKSeF2SessionInvoiceStatusResponse;
 begin
   Debug('Pobranie statusu faktury z sesji', True);
   try
     Response := KSeF.StatusSessionInvoice(EditKSeFSReferenceNumber3.Text,
-      EditKSeFSInvoiceReferenceNumber.Text, EditKSeFSContinuationToken1.Text);
-    Debug('Pobrano, iloúÊ faktur: ' + IntToStr(Response.Invoices.Count));
-    Debug('Odpowiedü: ' + Response.RawResponse);
-    EditKSeFSContinuationToken1.Text := Response.ContinuationToken;
+      EditKSeFSInvoiceReferenceNumber.Text);
+    Debug('Pobrano, status: ' + IntToStr(Response.Status.Code));
+    Debug('Opis statusu: ' + Response.Status.Description);
     AddObject(Response);
   except
     on E: Exception do
