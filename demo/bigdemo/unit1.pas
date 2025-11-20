@@ -1362,7 +1362,7 @@ begin
   with TForm3.Create(Self) do
   begin
     if ShowModal = mrOK then
-      XValidator.AddSchema(EditNS.Text, FileNameEditRes.FileName);
+      XTrans.AddStyle(EditNS.Text, FileNameEditRes.FileName);
     Debug('Dodano szablon:');
     Debug('NS: ' + EditNS.Text);
     Debug('Zasób: ' + FileNameEditRes.FileName);
