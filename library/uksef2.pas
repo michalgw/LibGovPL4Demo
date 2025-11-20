@@ -185,6 +185,9 @@ function lgpKSeF2_TestdataSubjectRemove(AKSeFObject: LGP_OBJECT; ASubjectNip: LG
 function lgpKSeF2_TestdataPerson(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
+function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
 implementation
 
 uses
@@ -2378,6 +2381,48 @@ begin
     CheckObject(AKSeFObject, TlgKSeF2);
     (TObject(AKSeFObject) as TlgKSeF2).
       TestdataPersonRemove(ANip);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR;
+  AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32;
+  var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AGeneratedLink := nil;
+  try
+    AGeneratedLink := TStringObject.Create(
+      TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(ANip,
+      AIssueDate, AInvoiceHash, TlgKSeFGateType(AGateType)));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(
+  ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32;
+  AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR;
+  ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32;
+  Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION;
+  stdcall;
+var
+  Base64EncCls: TlgBase64EncoderClass = nil;
+begin
+  Result := nil;
+  AGeneratedLink := nil;
+  try
+    CheckObject(ASigningCertificate, TlgCertificate);
+    if Base64EncClass <> '' then
+      Base64EncCls := Base64EncoderClasses.FindByClassName(Base64EncClass);
+    AGeneratedLink := TStringObject.Create(
+      TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(ASellerNip,
+      TlgKSeFIdentifierType(AContextIdentifierType), AContextIdentifierValue,
+      AInvoiceHash, TlgCertificate(ASigningCertificate), TlgKSeFGateType(AGateType),
+      Base64EncCls));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

@@ -275,6 +275,11 @@ procedure lgpLibXML2Backend_SetCacheDir(AValue: LGP_PCHAR); stdcall; external LG
 function lgpLibXML2Backend_GetHTTPClient: LGP_OBJECT; stdcall; external LGP_LIBNAME;
 function lgpLibXML2Backend_SetHTTPClient(AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpHash_Create(AClassName: LGP_PCHAR; var AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpHash_Start(AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpHash_HashData(AHashObject: LGP_OBJECT; AData: LGP_POINTER; ALen: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpHash_Finish(AHashObject: LGP_OBJECT; ABase64Class: LGP_PCHAR; var AResStr: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 {$IFDEF LGP_ENABLE_PKCS11}
 // PKCS#11
 function lgpPKCS11Certificate_GetSession(ACertificate: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -645,6 +650,10 @@ function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR)
 function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 
+// KSeF 2.0 linki weryfikacyjne do kodow QR
+function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 // Zgodnosc z poprzednia wersja biblioteki
 function edekInicjuj(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall; external LGP_LIBNAME;
 function edekOstatniBladTekst: PWideChar; stdcall; external LGP_LIBNAME;
@@ -816,6 +825,11 @@ var
   lgpLibXML2Backend_SetCacheDir: procedure(AValue: LGP_PCHAR); stdcall;
   lgpLibXML2Backend_GetHTTPClient: function: LGP_OBJECT; stdcall;
   lgpLibXML2Backend_SetHTTPClient: function(AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpHash_Create: function(AClassName: LGP_PCHAR; var AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpHash_Start: function(AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpHash_HashData: function(AHashObject: LGP_OBJECT; AData: LGP_POINTER; ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpHash_Finish: function(AHashObject: LGP_OBJECT; ABase64Class: LGP_PCHAR; var AResStr: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   {$IFDEF LGP_ENABLE_PKCS11}
   // PKCS#11
@@ -1185,6 +1199,9 @@ var
   lgpKSeF2_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
   lgpKSeF2_KSeFClassSetExt: function(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall;
 
+  lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl: function(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl: function(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
   // Zgodnosc z poprzednia wersja biblioteki
   edekInicjuj: function(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall;
   edekOstatniBladTekst: function: PWideChar; stdcall;
@@ -1388,6 +1405,11 @@ begin
     @lgpLibXML2Backend_SetCacheDir := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_SetCacheDir');
     @lgpLibXML2Backend_GetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_GetHTTPClient');
     @lgpLibXML2Backend_SetHTTPClient := GetProcAddress(LibGovPl4Handle, 'lgpLibXML2Backend_SetHTTPClient');
+
+    @lgpHash_Create := GetProcAddress(LibGovPl4Handle, 'lgpHash_Create');
+    @lgpHash_Start := GetProcAddress(LibGovPl4Handle, 'lgpHash_Start');
+    @lgpHash_HashData := GetProcAddress(LibGovPl4Handle, 'lgpHash_HashData');
+    @lgpHash_Finish := GetProcAddress(LibGovPl4Handle, 'lgpHash_Finish');
 
     {$IFDEF LGP_ENABLE_PKCS11}
     // PKCS#11
@@ -1749,6 +1771,9 @@ begin
 
     @lgpKSeF2_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CreateKSeFClass');
     @lgpKSeF2_KSeFClassSetExt := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_KSeFClassSetExt');
+
+    @lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl');
+    @lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl');
 
     // Zgodnosc z poprzednia wersja biblioteki
     @edekInicjuj := GetProcAddress(LibGovPl4Handle, 'edekInicjuj');

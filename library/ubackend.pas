@@ -81,6 +81,11 @@ procedure lgpDecodeDateTime(ADateTime: LGP_PASDATETIME; var AYear, AMonth, ADay,
 
 function lgpLoadLibXML2(AFileName: LGP_PCHAR): LGP_INT32; stdcall;
 
+function lgpHash_Create(AClassName: LGP_PCHAR; var AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpHash_Start(AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpHash_HashData(AHashObject: LGP_OBJECT; AData: LGP_POINTER; ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpHash_Finish(AHashObject: LGP_OBJECT; ABase64Class: LGP_PCHAR; var AResStr: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
 var
   LGPDrivers: array[0..LGP_CLSTYPE_MAX] of String;
 
@@ -753,6 +758,78 @@ begin
   {$ELSE}
   Result := 0;
   {$ENDIF}
+end;
+
+function lgpHash_Create(AClassName: LGP_PCHAR; var AHashObject: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+var
+  HashClass: TlgHashClass;
+begin
+  Result := nil;
+  AHashObject := nil;
+  try
+    HashClass := SHA256HashClasses.FindByClassName(AClassName);
+    if HashClass = nil then
+      HashClass := SHA1HashClasses.FindByClassName(AClassName);
+    if HashClass = nil then
+      HashClass := MD5HashClasses.FindByClassName(AClassName);
+    if HashClass <> nil then
+    begin
+      AHashObject := HashClass.Create;
+      {$ifdef LGP_DEBUG_OBJ}
+      lgpDbgAddObject(TObject(AHashObject));
+      {$endif}
+    end;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpHash_Start(AHashObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AHashObject, TlgHash);
+    (TObject(AHashObject) as TlgHash).Start;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpHash_HashData(AHashObject: LGP_OBJECT; AData: LGP_POINTER;
+  ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AHashObject, TlgHash);
+    (TObject(AHashObject) as TlgHash).HashData(AData^, ALen);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpHash_Finish(AHashObject: LGP_OBJECT; ABase64Class: LGP_PCHAR;
+  var AResStr: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  Base64EncClass: TlgBase64EncoderClass = nil;
+begin
+  Result := nil;
+  AResStr := nil;
+  try
+    CheckObject(AHashObject, TlgHash);
+    if ABase64Class <> '' then
+      Base64EncClass := Base64EncoderClasses.FindByClassName(ABase64Class);
+    if (Base64EncClass = nil) and (Base64EncoderClasses.Count > 0) then
+      Base64EncClass := Base64EncoderClasses[0];
+    if Base64EncClass <> nil then
+      AResStr := TStringObject.Create(Base64EncClass.EncodeBytes((TObject(AHashObject) as TlgHash).Finish));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
 end;
 
 end.

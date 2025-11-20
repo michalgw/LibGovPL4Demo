@@ -25,6 +25,19 @@ type
   TBytes = array of Byte;
   {$ENDIF}
 
+  { TlgKSeF2VerificationLinkService }
+
+  TlgKSeF2VerificationLinkService = class
+  public
+    class function BuildInvoiceVerificationUrl(ANip: UTF8String; AIssueDate: TDate;
+      AInvoiceHash: UTF8String; AGateType: TlgoKSeFGateType): UTF8String;
+    class function BuildCertificateVerificationUrl(ASellerNip: UTF8String;
+      AContextIdentifierType: TlgoKSeFIdentifierType; AContextIdentifierValue: UTF8String;
+      AInvoiceHash: UTF8String; ASigningCertificate: TlgoCertificate;
+      AGateType: TlgoKSeFGateType; Base64EncClass: UTF8String = ''): String;
+  end;
+
+
   TKSeF2RequestPartStreamEvent = procedure(Sender: TObject; APartNumber: Integer;
     var APartStream: TStream) of Object;
 
@@ -306,6 +319,35 @@ begin
 
     end;
   end;
+end;
+
+{ TlgKSeF2VerificationLinkService }
+
+class function TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+  ANip: UTF8String; AIssueDate: TDate; AInvoiceHash: UTF8String;
+  AGateType: TlgoKSeFGateType): UTF8String;
+var
+  Res: LGP_OBJECT;
+begin
+  Res := nil;
+  lgoCheckResult(lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(LGP_PCHAR(ANip),
+    AIssueDate, LGP_PCHAR(AInvoiceHash), Ord(AGateType), Res));
+  Result := lgoGetString(Res);
+end;
+
+class function TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+  ASellerNip: UTF8String; AContextIdentifierType: TlgoKSeFIdentifierType;
+  AContextIdentifierValue: UTF8String; AInvoiceHash: UTF8String;
+  ASigningCertificate: TlgoCertificate; AGateType: TlgoKSeFGateType;
+  Base64EncClass: UTF8String): String;
+var
+  Res: LGP_OBJECT;
+begin
+  Res := nil;
+  lgoCheckResult(lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(LGP_PCHAR(ASellerNip),
+    Ord(AContextIdentifierType), LGP_PCHAR(AContextIdentifierValue), LGP_PCHAR(AInvoiceHash),
+    ASigningCertificate.Item, Ord(AGateType), LGP_PCHAR(Base64EncClass), Res));
+  Result := lgoGetString(Res);
 end;
 
 { TlgoKSeF2 }

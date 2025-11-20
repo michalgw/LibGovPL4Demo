@@ -192,6 +192,12 @@ exports
   lgpLibXML2Backend_GetHTTPClient,
   lgpLibXML2Backend_SetHTTPClient,
 
+  // Hash
+  lgpHash_Create,
+  lgpHash_Start,
+  lgpHash_HashData,
+  lgpHash_Finish,
+
   // PKCS#11
   {$IFDEF LGP_ENABLE_PKCS11}
   lgpPKCS11Certificate_GetSession,
@@ -548,7 +554,11 @@ exports
 
   // KSeF 2.0 obiekty
   lgpKSeF2_CreateKSeFClass,
-  lgpKSeF2_KSeFClassSetExt
+  lgpKSeF2_KSeFClassSetExt,
+
+  // KSeF 2.0 linki weryfikacyjne dla kodów QR
+  lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl,
+  lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl
 
   // Zgodność z poprzednią wersją biblioteki
 {$IFDEF LGP_LEGACY}

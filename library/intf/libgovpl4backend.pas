@@ -16,6 +16,10 @@ uses
   Classes, SysUtils, LibGovPl4Intf, LibGovPl4Obj;
 
 type
+  {$IFNDEF FPC}
+  TBytes = array of Byte;
+  {$ENDIF}
+  
   ElgBackendError = class(ElgoException);
 
   TlgoUTF8StringArray = array of UTF8String;
@@ -55,6 +59,21 @@ type
     constructor Create(AClassName: UTF8String); override;
   published
     property IgnoreSSLErrors: Boolean read GetIgnoreSSLErrors write SetIgnoreSSLErrors;
+  end;
+
+  { TlgoHash }
+
+  TlgoHash = class(TlgoCreatableObject)
+  public
+    constructor Create(AClassName: UTF8String); overload; override;
+    procedure Start;
+    procedure HashData(const AData; ASize: Integer);
+    function Finish(ABase64EncoderClass: UTF8String = ''): UTF8String;
+    function HashString(const AData: UTF8String; ABase64EncoderClass: UTF8String = ''): UTF8String;
+    function HashBytes(const AData: TBytes; ABase64EncoderClass: UTF8String = ''): UTF8String;
+    function SimpleHashData(const AData; ASize: Integer; ABase64EncoderClass: UTF8String = ''): UTF8String;
+    function HashStream(AStream: TStream; ABufferSize: Integer; ABase64EncoderClass: UTF8String = ''): UTF8String;
+    function HashFile(AFileName: String; ABufferSize: Integer; ABase64EncoderClass: UTF8String = ''): UTF8String;
   end;
 
   { Kodowanie kluczy i certyfikatow }
@@ -1711,6 +1730,85 @@ end;
 constructor TlgoHTTPClient.Create(AClassName: UTF8String);
 begin
   lgoCheckResult(lgpHTTPClient_Create(LGP_PCHAR(AClassName), ExtObject));
+end;
+
+{ TlgoHash }
+
+constructor TlgoHash.Create(AClassName: UTF8String);
+begin
+  lgoCheckResult(lgpHash_Create(LGP_PCHAR(AClassName), ExtObject));
+end;
+
+procedure TlgoHash.Start;
+begin
+  lgoCheckResult(lgpHash_Start(ExtObject));
+end;
+
+procedure TlgoHash.HashData(const AData; ASize: Integer);
+begin
+  lgoCheckResult(lgpHash_HashData(ExtObject, @AData, ASize));
+end;
+
+function TlgoHash.Finish(ABase64EncoderClass: UTF8String): UTF8String;
+var
+  S: LGP_OBJECT;
+begin
+  lgoCheckResult(lgpHash_Finish(ExtObject, LGP_PCHAR(ABase64EncoderClass), S));
+  Result := lgoGetString(S);
+end;
+
+function TlgoHash.HashString(const AData: UTF8String;
+  ABase64EncoderClass: UTF8String): UTF8String;
+begin
+  Start;
+  HashData(AData[1], Length(AData));
+  Result := Finish(ABase64EncoderClass);
+end;
+
+function TlgoHash.HashBytes(const AData: TBytes; ABase64EncoderClass: UTF8String
+  ): UTF8String;
+begin
+  Start;
+  HashData(AData[0], Length(AData));
+  Result := Finish(ABase64EncoderClass);
+end;
+
+function TlgoHash.SimpleHashData(const AData; ASize: Integer;
+  ABase64EncoderClass: UTF8String): UTF8String;
+begin
+  Start;
+  HashData(AData, ASize);
+  Result := Finish(ABase64EncoderClass);
+end;
+
+function TlgoHash.HashStream(AStream: TStream; ABufferSize: Integer;
+  ABase64EncoderClass: UTF8String): UTF8String;
+var
+  Buf: TBytes;
+  Readed: Integer;
+begin
+  SetLength(Buf, ABufferSize);
+  Start;
+  Readed := AStream.Read(Buf[0], ABufferSize);
+  while Readed > 0 do
+  begin
+    HashData(Buf[0], Readed);
+    Readed := AStream.Read(Buf[0], ABufferSize);
+  end;
+  Result := Finish;
+end;
+
+function TlgoHash.HashFile(AFileName: String; ABufferSize: Integer;
+  ABase64EncoderClass: UTF8String): UTF8String;
+var
+  FileStream: TFileStream;
+begin
+  FileStream := TFileStream.Create(AFileName, fmOpenRead);
+  try
+    Result := HashStream(FileStream, $10000, ABase64EncoderClass);
+  finally
+    FileStream.Free;
+  end;
 end;
 
 { TlgoRSAPublicKey }
