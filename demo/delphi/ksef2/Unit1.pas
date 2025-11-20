@@ -389,6 +389,39 @@ type
     ButtonKSeFLoadKeyToken: TButton;
     ButtonKSeFLoadKeyKeyEx: TButton;
     CheckBoxKSeFAutoRefresh: TCheckBox;
+    TabSheetKSeF2VerLinks: TTabSheet;
+    ScrollBox10: TScrollBox;
+    GroupBox35: TGroupBox;
+    Label108: TLabel;
+    ComboBoxKSeFLBramka1: TComboBox;
+    Label109: TLabel;
+    EditKSeFLNIP1: TEdit;
+    Label110: TLabel;
+    DateTimePickerKSeFLDataWyst1: TDateTimePicker;
+    Label111: TLabel;
+    EditKSeFLHash1: TEdit;
+    ButtonKSeFLHashGet1: TButton;
+    ButtonKSeFLGen1: TButton;
+    Label112: TLabel;
+    EditKSeFLLink: TEdit;
+    GroupBox36: TGroupBox;
+    Label113: TLabel;
+    ComboBoxKSeFLBramka2: TComboBox;
+    Label114: TLabel;
+    EditKSeFLNIP2: TEdit;
+    Label115: TLabel;
+    EditKSeFLHash2: TEdit;
+    ButtonKSeFLHashGet2: TButton;
+    ButtonKSeFLGen2: TButton;
+    Label116: TLabel;
+    EditKSeFLLink1: TEdit;
+    Label117: TLabel;
+    EditKSeFLIdentifier2: TEdit;
+    Label118: TLabel;
+    ComboBoxKSeFLIdentifierType2: TComboBox;
+    Label119: TLabel;
+    ComboBoxLCertificate2: TComboBox;
+    OpenDialogXML: TOpenDialog;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -451,6 +484,10 @@ type
     procedure ButtonKSeFLoadKeyTokenClick(Sender: TObject);
     procedure ButtonKSeFLoadKeyKeyExClick(Sender: TObject);
     procedure ButtonFileNameEditKSeFIDocClick(Sender: TObject);
+    procedure ButtonKSeFLGen1Click(Sender: TObject);
+    procedure ButtonKSeFLHashGet1Click(Sender: TObject);
+    procedure ButtonKSeFLHashGet2Click(Sender: TObject);
+    procedure ButtonKSeFLGen2Click(Sender: TObject);
   private
     { Private declarations }
     PopupSignerMode: (mUISelect, mLoad);
@@ -459,6 +496,7 @@ type
     procedure CertLoadFromFile(ASigner: TlgCertificateSigner);
     procedure SetKSeFPagesVisible(AValue: Boolean);
     procedure PopupMenuKeysClick(Sender: TObject);
+    procedure ObliczHashPliku(AHashEdit: TEdit);
   public
     { Public declarations }
     CertCombos: TList;
@@ -646,6 +684,7 @@ begin
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;
   TabSheetKSeF2PublicKeys.TabVisible := True;
+  TabSheetKSeF2VerLinks.TabVisible := True;
 
   TabSheetSetup.Enabled := False;
 
@@ -765,6 +804,21 @@ begin
     finally
       if Assigned(FileStream) then
         FileStream.Free;
+    end;
+  end;
+end;
+
+procedure TForm1.ObliczHashPliku(AHashEdit: TEdit);
+var
+  FS: TFileStream;
+begin
+  if OpenDialogXML.Execute then
+  begin
+    FS := TFileStream.Create(OpenDialogXML.FileName, fmOpenRead);
+    try
+      AHashEdit.Text := KSeF.Base64EncoderClass.EncodeBytes(KSeF.SHA256HashClass.HashStream(FS, $10000));
+    finally
+      FS.Free;
     end;
   end;
 end;
@@ -2086,6 +2140,34 @@ begin
   OpenDialog1.FileName := FileNameEditKSeFIDoc.Text;
   if OpenDialog1.Execute then
     FileNameEditKSeFIDoc.Text := OpenDialog1.FileName;
+end;
+
+procedure TForm1.ButtonKSeFLGen1Click(Sender: TObject);
+begin
+  EditKSeFLLink.Text := TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+    EditKSeFLNIP1.Text, DateTimePickerKSeFLDataWyst1.Date, EditKSeFLHash1.Text,
+    TlgKSeFGateType(ComboBoxKSeFLBramka1.ItemIndex));
+end;
+
+procedure TForm1.ButtonKSeFLHashGet1Click(Sender: TObject);
+begin
+  ObliczHashPliku(EditKSeFLHash1);
+end;
+
+procedure TForm1.ButtonKSeFLHashGet2Click(Sender: TObject);
+begin
+  ObliczHashPliku(EditKSeFLHash2);
+end;
+
+procedure TForm1.ButtonKSeFLGen2Click(Sender: TObject);
+begin
+  if ComboBoxLCertificate2.ItemIndex >= 0 then
+    EditKSeFLLink1.Text := TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+      EditKSeFLNIP2.Text, TlgKSeFIdentifierType(ComboBoxKSeFLIdentifierType2.ItemIndex),
+      EditKSeFLIdentifier2.Text, EditKSeFLHash2.Text, Certificates[ComboBoxLCertificate2.ItemIndex],
+      TlgKSeFGateType(ComboBoxKSeFLBramka2.ItemIndex), KSeF.Base64EncoderClass)
+  else
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
 end;
 
 end.

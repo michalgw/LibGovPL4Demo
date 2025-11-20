@@ -110,7 +110,7 @@ object Form1: TForm1
     Top = 0
     Width = 792
     Height = 485
-    ActivePage = TabSheetSetup
+    ActivePage = TabSheetKSeF2VerLinks
     Align = alClient
     MultiLine = True
     TabOrder = 1
@@ -470,7 +470,7 @@ object Form1: TForm1
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
@@ -738,7 +738,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 0
           end
           object ComboBoxKSeFASubjectType: TComboBox
@@ -3402,6 +3402,285 @@ object Form1: TForm1
         end
       end
     end
+    object TabSheetKSeF2VerLinks: TTabSheet
+      Caption = 'KSeF2 - Linki weryfikacyjne'
+      ImageIndex = 12
+      TabVisible = False
+      object ScrollBox10: TScrollBox
+        Left = 0
+        Top = 0
+        Width = 784
+        Height = 457
+        Align = alClient
+        TabOrder = 0
+        object GroupBox35: TGroupBox
+          Left = 0
+          Top = 0
+          Width = 763
+          Height = 216
+          Align = alTop
+          Caption = 'KOD I '#8211' Weryfikacja i pobieranie faktury'
+          TabOrder = 0
+          DesignSize = (
+            763
+            216)
+          object Label108: TLabel
+            Left = 8
+            Top = 28
+            Width = 36
+            Height = 13
+            Caption = 'Bramka'
+          end
+          object Label109: TLabel
+            Left = 8
+            Top = 90
+            Width = 77
+            Height = 13
+            Caption = 'NIP sprzedawcy'
+          end
+          object Label110: TLabel
+            Left = 8
+            Top = 59
+            Width = 169
+            Height = 13
+            Caption = 'Data wystawienia faktury (pole P_1)'
+          end
+          object Label111: TLabel
+            Left = 8
+            Top = 121
+            Width = 171
+            Height = 13
+            Caption = 'skr'#243'tu SHA-256  w formacie Base64'
+          end
+          object Label112: TLabel
+            Left = 8
+            Top = 185
+            Width = 99
+            Height = 13
+            Caption = 'Weygenerowany link'
+          end
+          object ComboBoxKSeFLBramka1: TComboBox
+            Left = 56
+            Top = 24
+            Width = 219
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 2
+            TabOrder = 0
+            Text = 'Testowa'
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa')
+          end
+          object EditKSeFLNIP1: TEdit
+            Left = 99
+            Top = 86
+            Width = 192
+            Height = 21
+            TabOrder = 1
+          end
+          object DateTimePickerKSeFLDataWyst1: TDateTimePicker
+            Left = 202
+            Top = 55
+            Width = 83
+            Height = 23
+            Date = 45981.768886030090000000
+            Time = 45981.768886030090000000
+            TabOrder = 2
+          end
+          object EditKSeFLHash1: TEdit
+            Left = 202
+            Top = 117
+            Width = 455
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 3
+          end
+          object ButtonKSeFLHashGet1: TButton
+            Left = 660
+            Top = 117
+            Width = 96
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = 'Oblicz z pliku'
+            TabOrder = 4
+            OnClick = ButtonKSeFLHashGet1Click
+          end
+          object ButtonKSeFLGen1: TButton
+            Left = 8
+            Top = 148
+            Width = 67
+            Height = 25
+            Caption = 'Generuj'
+            TabOrder = 5
+            OnClick = ButtonKSeFLGen1Click
+          end
+          object EditKSeFLLink: TEdit
+            Left = 126
+            Top = 181
+            Width = 627
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 6
+          end
+        end
+        object GroupBox36: TGroupBox
+          Left = 0
+          Top = 216
+          Width = 763
+          Height = 278
+          Align = alTop
+          Caption = 'KOD II '#8211' Weryfikacja certyfikatu'
+          TabOrder = 1
+          DesignSize = (
+            763
+            278)
+          object Label113: TLabel
+            Left = 8
+            Top = 28
+            Width = 36
+            Height = 13
+            Caption = 'Bramka'
+          end
+          object Label114: TLabel
+            Left = 8
+            Top = 121
+            Width = 77
+            Height = 13
+            Caption = 'NIP sprzedawcy'
+          end
+          object Label115: TLabel
+            Left = 8
+            Top = 152
+            Width = 171
+            Height = 13
+            Caption = 'skr'#243'tu SHA-256  w formacie Base64'
+          end
+          object Label116: TLabel
+            Left = 8
+            Top = 247
+            Width = 99
+            Height = 13
+            Caption = 'Weygenerowany link'
+          end
+          object Label117: TLabel
+            Left = 8
+            Top = 59
+            Width = 58
+            Height = 13
+            Caption = 'Identyfikator'
+          end
+          object Label118: TLabel
+            Left = 8
+            Top = 90
+            Width = 99
+            Height = 13
+            Caption = 'Rodzaj identyfikatora'
+          end
+          object Label119: TLabel
+            Left = 8
+            Top = 183
+            Width = 44
+            Height = 13
+            Caption = 'Certyfikat'
+          end
+          object ComboBoxKSeFLBramka2: TComboBox
+            Left = 56
+            Top = 24
+            Width = 219
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 2
+            TabOrder = 0
+            Text = 'Testowa'
+            Items.Strings = (
+              'Produkcyjna'
+              'Demo'
+              'Testowa')
+          end
+          object EditKSeFLNIP2: TEdit
+            Left = 99
+            Top = 117
+            Width = 192
+            Height = 21
+            TabOrder = 1
+          end
+          object EditKSeFLHash2: TEdit
+            Left = 202
+            Top = 148
+            Width = 463
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 2
+          end
+          object ButtonKSeFLHashGet2: TButton
+            Left = 660
+            Top = 148
+            Width = 96
+            Height = 25
+            Anchors = [akTop, akRight]
+            Caption = 'Oblicz z pliku'
+            TabOrder = 3
+            OnClick = ButtonKSeFLHashGet2Click
+          end
+          object ButtonKSeFLGen2: TButton
+            Left = 8
+            Top = 210
+            Width = 67
+            Height = 25
+            Caption = 'Generuj'
+            TabOrder = 4
+            OnClick = ButtonKSeFLGen2Click
+          end
+          object EditKSeFLLink1: TEdit
+            Left = 126
+            Top = 243
+            Width = 627
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 5
+          end
+          object EditKSeFLIdentifier2: TEdit
+            Left = 83
+            Top = 55
+            Width = 192
+            Height = 21
+            TabOrder = 6
+          end
+          object ComboBoxKSeFLIdentifierType2: TComboBox
+            Left = 127
+            Top = 86
+            Width = 148
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 2
+            TabOrder = 7
+            Text = 'Nip'
+            Items.Strings = (
+              'None'
+              'AllPartners'
+              'Nip'
+              'InternalId'
+              'NipVatUe'
+              'PeppolId')
+          end
+          object ComboBoxLCertificate2: TComboBox
+            Left = 67
+            Top = 179
+            Width = 601
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 8
+          end
+        end
+      end
+    end
   end
   object OpenDialog1: TOpenDialog
     Left = 300
@@ -3422,6 +3701,11 @@ object Form1: TForm1
   object OpenDialogKey: TOpenDialog
     Title = 'Wybierz plik certyfikatu klucza publicznego'
     Left = 296
+    Top = 109
+  end
+  object OpenDialogXML: TOpenDialog
+    Filter = 'Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*'
+    Left = 336
     Top = 109
   end
 end

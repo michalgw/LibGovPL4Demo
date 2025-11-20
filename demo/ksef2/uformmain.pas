@@ -14,6 +14,10 @@ type
   { TFormMain }
 
   TFormMain = class(TFormMainBase)
+    ButtonKSeFLGen1: TButton;
+    ButtonKSeFLGen2: TButton;
+    ButtonKSeFLHashGet1: TButton;
+    ButtonKSeFLHashGet2: TButton;
     ButtonKSeFTKStatus: TButton;
     ButtonKSeFTKList: TButton;
     ButtonKSeFTKGenerate: TButton;
@@ -67,7 +71,11 @@ type
     CheckGroupKSeFTKPermisions: TCheckGroup;
     CheckGroupKSeFDFInvoiceType: TCheckGroup;
     CheckGroupKSeFSSesionStatuses: TCheckGroup;
+    ComboBoxLCertificate2: TComboBox;
+    ComboBoxKSeFLIdentifierType2: TComboBox;
     ComboBoxKSeFDSortOrder: TComboBox;
+    ComboBoxKSeFLBramka1: TComboBox;
+    ComboBoxKSeFLBramka2: TComboBox;
     ComboBoxKSeFTKAuthorIdentifierType: TComboBox;
     ComboBoxKSeFDFHasAttachment: TComboBox;
     ComboBoxKSeFDFFormType: TComboBox;
@@ -99,12 +107,20 @@ type
     DateTimePickerKSeFARefreshTokenValidUntil: TDateTimePicker;
     DateTimePickerKSeFDTUPCreationDate: TDateTimePicker;
     DateTimePickerKSeFDTUOCreationDate: TDateTimePicker;
+    DateTimePickerKSeFLDataWyst1: TDateTimePicker;
     DateTimePickerKSeFSClosedFrom: TDateTimePicker;
     DateTimePickerKSeFSClosedTo: TDateTimePicker;
     DateTimePickerKSeFSCreatedFrom: TDateTimePicker;
     DateTimePickerKSeFSCreatedTo: TDateTimePicker;
     DateTimePickerKSeFSModifiedFrom: TDateTimePicker;
     DateTimePickerKSeFSModifiedTo: TDateTimePicker;
+    EditKSeFLIdentifier2: TEdit;
+    EditKSeFLHash1: TEdit;
+    EditKSeFLHash2: TEdit;
+    EditKSeFLLink: TEdit;
+    EditKSeFLLink1: TEdit;
+    EditKSeFLNIP1: TEdit;
+    EditKSeFLNIP2: TEdit;
     EditKSeFTKSReferenceNumber: TEdit;
     EditKSeFTKContinuationToken: TEdit;
     EditKSeFTKDescrFlt: TEdit;
@@ -185,6 +201,8 @@ type
     GroupBox32: TGroupBox;
     GroupBox33: TGroupBox;
     GroupBox34: TGroupBox;
+    GroupBox35: TGroupBox;
+    GroupBox36: TGroupBox;
     GroupBoxKSeFD1: TGroupBox;
     GroupBoxKSeFB1: TGroupBox;
     GroupBoxKSeFB2: TGroupBox;
@@ -213,7 +231,19 @@ type
     Label102: TLabel;
     Label103: TLabel;
     Label104: TLabel;
+    Label105: TLabel;
+    Label106: TLabel;
+    Label107: TLabel;
+    Label108: TLabel;
+    Label109: TLabel;
     Label11: TLabel;
+    Label110: TLabel;
+    Label111: TLabel;
+    Label113: TLabel;
+    Label114: TLabel;
+    Label115: TLabel;
+    Label116: TLabel;
+    Label117: TLabel;
     Label12: TLabel;
     Label122: TLabel;
     Label13: TLabel;
@@ -312,6 +342,7 @@ type
     Label98: TLabel;
     Label99: TLabel;
     ListViewObj: TListView;
+    OpenDialogXML: TOpenDialog;
     OpenDialogKey: TOpenDialog;
     Panel1: TPanel;
     Panel2: TPanel;
@@ -320,6 +351,7 @@ type
     Panel7: TPanel;
     PopupMenuKeys: TPopupMenu;
     SaveDialogKSeFBPart: TSaveDialog;
+    ScrollBox10: TScrollBox;
     ScrollBox2: TScrollBox;
     ScrollBox3: TScrollBox;
     ScrollBox4: TScrollBox;
@@ -339,6 +371,7 @@ type
     Splitter2: TSplitter;
     StringGridKSeFBEncOutFiles: TStringGrid;
     StringGridDTUPSubunits: TStringGrid;
+    TabSheetKSeF2VerLinks: TTabSheet;
     TabSheetKSeFToken: TTabSheet;
     TabSheetKSeFDownload: TTabSheet;
     TabSheetKSeFUpo: TTabSheet;
@@ -377,6 +410,10 @@ type
     procedure ButtonKSeFICloseClick(Sender: TObject);
     procedure ButtonKSeFIOpenClick(Sender: TObject);
     procedure ButtonKSeFISendClick(Sender: TObject);
+    procedure ButtonKSeFLGen1Click(Sender: TObject);
+    procedure ButtonKSeFLGen2Click(Sender: TObject);
+    procedure ButtonKSeFLHashGet1Click(Sender: TObject);
+    procedure ButtonKSeFLHashGet2Click(Sender: TObject);
     procedure ButtonKSeFLoadKeyKeyExClick(Sender: TObject);
     procedure ButtonKSeFLoadKeyTokenClick(Sender: TObject);
     procedure ButtonKSeFSessionClick(Sender: TObject);
@@ -404,6 +441,7 @@ type
   private
     procedure SetKSeFPagesVisible(AValue: Boolean);
     procedure PopupMenuKeysClick(Sender: TObject);
+    procedure ObliczHashPliku(AHashEdit: TEdit);
   public
     HTTPClient: TlgHTTPClient;
     XAdES: TlgXAdES;
@@ -465,6 +503,7 @@ begin
   if ComboBoxRSAEnc.Items.Count > 0 then
     ComboBoxRSAEnc.ItemIndex := 0;
   CertCombos.Add(ComboBoxACertificate);
+  CertCombos.Add(ComboBoxLCertificate2);
 end;
 
 procedure TFormMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -625,6 +664,34 @@ begin
     if Assigned(InvoiceFileStream) then
       InvoiceFileStream.Free;
   end;
+end;
+
+procedure TFormMain.ButtonKSeFLGen1Click(Sender: TObject);
+begin
+  EditKSeFLLink.Text := TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+    EditKSeFLNIP1.Text, DateTimePickerKSeFLDataWyst1.Date, EditKSeFLHash1.Text,
+    TlgKSeFGateType(ComboBoxKSeFLBramka1.ItemIndex));
+end;
+
+procedure TFormMain.ButtonKSeFLGen2Click(Sender: TObject);
+begin
+  if ComboBoxLCertificate2.ItemIndex >= 0 then
+    EditKSeFLLink1.Text := TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+      EditKSeFLNIP2.Text, TlgKSeFIdentifierType(ComboBoxKSeFLIdentifierType2.ItemIndex),
+      EditKSeFLIdentifier2.Text, EditKSeFLHash2.Text, Certificates[ComboBoxLCertificate2.ItemIndex],
+      TlgKSeFGateType(ComboBoxKSeFLBramka2.ItemIndex), KSeF.Base64EncoderClass)
+  else
+    MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+end;
+
+procedure TFormMain.ButtonKSeFLHashGet1Click(Sender: TObject);
+begin
+  ObliczHashPliku(EditKSeFLHash1);
+end;
+
+procedure TFormMain.ButtonKSeFLHashGet2Click(Sender: TObject);
+begin
+  ObliczHashPliku(EditKSeFLHash2);
 end;
 
 procedure TFormMain.ButtonKSeFLoadKeyKeyExClick(Sender: TObject);
@@ -1562,6 +1629,7 @@ begin
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;
   TabSheetKSeF2PublicKeys.TabVisible := True;
+  TabSheetKSeF2VerLinks.TabVisible := True;
 
   TabSheetSetup.Enabled := False;
 
@@ -1625,6 +1693,21 @@ begin
     finally
       if Assigned(FileStream) then
         FileStream.Free;
+    end;
+  end;
+end;
+
+procedure TFormMain.ObliczHashPliku(AHashEdit: TEdit);
+var
+  FS: TFileStream = nil;
+begin
+  if OpenDialogXML.Execute then
+  begin
+    FS := TFileStream.Create(OpenDialogXML.FileName, fmOpenRead);
+    try
+      AHashEdit.Text := KSeF.Base64EncoderClass.EncodeBytes(KSeF.SHA256HashClass.HashStream(FS, $10000));
+    finally
+      FS.Free;
     end;
   end;
 end;
