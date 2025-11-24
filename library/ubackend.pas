@@ -37,6 +37,8 @@ function lgplDriverName(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR; stdcall
 function lgplInit: LGP_INT32; stdcall;
 function lgplExit: LGP_INT32; stdcall;
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
+function lgplGetDebugLevel: LGP_INT32; stdcall;
+function lgplSetDebugLevel(ADebugLevel: LGP_INT32): LGP_INT32; stdcall;
 
 function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -94,6 +96,8 @@ var
   LGPXAdES: TlgXAdES = nil;
   LGPEDek: TlgEDeklaracja = nil;
   LGPJPK: TlgJPK = nil;
+
+  LGPDebugLevel: Integer = 0;
 
 implementation
 
@@ -264,6 +268,18 @@ begin
     end
   else
     Result := 1;
+end;
+
+function lgplGetDebugLevel: LGP_INT32; stdcall;
+begin
+  Result := LGPDebugLevel;
+end;
+
+function lgplSetDebugLevel(ADebugLevel: LGP_INT32): LGP_INT32; stdcall;
+begin
+  LGPDebugLevel := ADebugLevel;
+  RaiseMaxFrameCount := 255;
+  Result := 0;
 end;
 
 function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT

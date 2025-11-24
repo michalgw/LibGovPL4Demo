@@ -275,6 +275,7 @@ var
   MI: TMenuItem;
 begin
   lgplInit;
+  lgplSetDebugLevel(1);
   Debug('Wersja biblioteki: ' + IntToStr(lgplVersion));
   if not Assigned(Signers) then
     Signers := specialize TObjectList<TlgoCertificateSigner>.Create(True);

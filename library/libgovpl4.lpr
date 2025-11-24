@@ -64,6 +64,8 @@ exports
   lgplInit,
   lgplExit,
   lgplSetDefaultDriver,
+  lgplGetDebugLevel,
+  lgplSetDebugLevel,
 
   lgpHTTPClient_Create,
   lgpHTTPClient_GetIgnoreSSLErrors,

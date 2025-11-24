@@ -466,7 +466,7 @@ var
 implementation
 
 uses
-  uFormKSeFObj, IniFiles, basenenc, FileUtil;
+  uFormKSeFObj, IniFiles, basenenc, FileUtil, LibGovPl4Obj;
 
 {$R *.lfm}
 
@@ -1846,6 +1846,11 @@ begin
         Debug('  ]');
       end;
     end;
+  if (AException is ElgoException) and (ElgoException(AException).CallStack <> '') then
+  begin
+    Debug('  Stos wywołania:');
+    Debug(ElgoException(AException).CallStack);
+  end;
 end;
 
 end.

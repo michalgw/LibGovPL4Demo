@@ -19,10 +19,13 @@ type
 
   { ElgoException }
   ElgoException = class(Exception)
+  private
+    FCallStack: String;
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); virtual;
   public
     constructor Create(AException: LGP_EXCEPTION);
+    property CallStack: String read FCallStack write FCallStack;
   end;
 
   TlgoExceptionClass = class of ElgoException;
@@ -398,6 +401,9 @@ begin
   StrObj := nil;
   if lgoCheckResult(lgpObject_GetStringProp(AException, 'Message', StrObj), False) and (StrObj <> nil) then
     Message := {$IFNDEF FPC}Utf8ToAnsi({$ENDIF}lgoGetString(StrObj){$IFNDEF FPC}){$ENDIF};
+  StrObj := nil;
+  if lgoCheckResult(lgpObject_GetStringProp(AException, 'CallStack', StrObj), False) and (StrObj <> nil) then
+    FCallStack := {$IFNDEF FPC}Utf8ToAnsi({$ENDIF}lgoGetString(StrObj){$IFNDEF FPC}){$ENDIF};
 end;
 
 constructor ElgoException.Create(AException: LGP_EXCEPTION);

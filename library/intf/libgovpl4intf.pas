@@ -144,6 +144,8 @@ function lgplDriverName(AClassType, ADriverIndex: LGP_INT32): LGP_PCHAR; stdcall
 function lgplInit: LGP_INT32; stdcall; external LGP_LIBNAME;
 function lgplExit: LGP_INT32; stdcall; external LGP_LIBNAME;
 function lgplSetDefaultDriver(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgplGetDebugLevel: LGP_INT32; stdcall; external LGP_LIBNAME;
+function lgplSetDebugLevel(ADebugLevel: LGP_INT32): LGP_INT32; stdcall; external LGP_LIBNAME;
 
 function lgpHTTPClient_Create(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -694,6 +696,8 @@ var
   lgplInit: function: LGP_INT32; stdcall;
   lgplExit: function: LGP_INT32; stdcall;
   lgplSetDefaultDriver: function(ADriverClass: LGP_INT32; ADriverName: LGP_PCHAR): LGP_INT32; stdcall;
+  lgplGetDebugLevel: function: LGP_INT32; stdcall;
+  lgplSetDebugLevel: function(ADebugLevel: LGP_INT32): LGP_INT32; stdcall;
 
   lgpHTTPClient_Create: function(AClassName: LGP_PCHAR; var AHttpClient: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpHTTPClient_GetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -1278,6 +1282,8 @@ begin
     @lgplInit := GetProcAddress(LibGovPl4Handle, 'lgplInit');
     @lgplExit := GetProcAddress(LibGovPl4Handle, 'lgplExit');
     @lgplSetDefaultDriver := GetProcAddress(LibGovPl4Handle, 'lgplSetDefaultDriver');
+    @lgplGetDebugLevel := GetProcAddress(LibGovPl4Handle, 'lgplGetDebugLevel');
+    @lgplSetDebugLevel := GetProcAddress(LibGovPl4Handle, 'lgplSetDebugLevel');
 
     @lgpHTTPClient_Create := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_Create');
     @lgpHTTPClient_GetIgnoreSSLErrors := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_GetIgnoreSSLErrors');

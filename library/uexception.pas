@@ -33,11 +33,13 @@ type
   private
     FExceptionClass: String;
     FMessage: String;
+    FCallStack: String;
   public
     constructor Create(AClass, AMessage: String); virtual;
   published
     property ExceptionClass: String read FExceptionClass write FExceptionClass;
     property Message: String read FMessage write FMessage;
+    property CallStack: String read FCallStack write FCallStack;
   end;
   {$M-}
 
@@ -186,13 +188,14 @@ function lgpCreateInvalidObjectException: TlgpExceptionObject;
 implementation
 
 uses
-  lgKSeFTypes, lgKSeFObjects, lgUtils, lgKSeF2Objects;
+  lgKSeFTypes, lgKSeFObjects, lgUtils, lgKSeF2Objects, uBackend;
 
 function lgpCreateExceptioObject(AException: Exception): TlgpExceptionObject;
 var
   I: Integer;
   D: TlgpKSeFExceptionDetail;
   D2: TlgpKSeF2ExceptionDetail;
+  F: PCodePointer;
 begin
   if AException is EKSeFExceptionResponse then
   begin
@@ -264,6 +267,14 @@ begin
 {$ENDIF}
   else
     Result := TlgpExceptionObject.Create(AException.ClassName, AException.Message);
+  // Dodaj stos wywolania jesli potrzeba
+  if (LGPDebugLevel > 0) and Assigned(Result) then
+  begin
+    F := ExceptFrames;
+    Result.CallStack := BacktraceStrFunc(ExceptAddr);
+    for I := 0 to ExceptFrameCount - 1 do;
+      Result.CallStack := Result.CallStack + LineEnding + BacktraceStrFunc(F[I]);
+  end;
 end;
 
 function lgpCreateExceptioObject(AMessage: String): TlgpExceptionObject;
