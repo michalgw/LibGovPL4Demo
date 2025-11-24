@@ -112,6 +112,8 @@ var
   C: TKSeF2ObjectClass;
 begin
   Result := nil;
+  if not Assigned(KSeFClsList) then
+    lgpInitKSeF2Classes;
   if Assigned(KSeFClsList) then
   begin
     C := TKSeF2ObjectClass(KSeFClsList.FindByClassName(AClassName));
