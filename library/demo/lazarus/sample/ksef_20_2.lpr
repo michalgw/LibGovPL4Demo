@@ -21,13 +21,25 @@ var
   NrRefWyslanejFa: String;
   FAStream: TFileStream = nil;
 
-  StatusResponse: TKSeF2SessionInvoicesResponse = nil;
+  StatusResponse: TKSeF2SessionInvoiceStatusResponse = nil;
+
+  Nip: String = '1111111111';
+  TokenKSeF: String = '20251111-FF-123F456780-1234567896-B6|nip-1111111111|1111111111111222222222222233333333333334444444444445555555555556';
+  NazwaPlikuFA: String = 'dokument_fa3.xml';
 
 begin
   // Inicjuj biblioteke LibGovPL
   lgplInit;
   // Wyswietl wersje
   WriteLn('Wersja biblioteki: ', IntToHex(lgplVersion));
+
+  // Jesli podano parametry to wczytaj
+  if ParamCount = 3 then
+  begin
+    Nip := ParamStr(1);
+    TokenKSeF := ParamStr(2);
+    NazwaPlikuFA := ParamStr(3);
+  end;
 
   // Tworzymy klienta HTTPS
   HTTPClient := TlgoHTTPClient.Create('');
@@ -39,11 +51,11 @@ begin
   // Wskazujemy rodzaj serwera KSeF (produkcyjny/test/demo)
   KSeF.GateType := kgtTest;
   // Wskazujemy token KSeF do uwierzytelnienia
-  KSeF.KsefToken := '20251111-FF-123F456780-1234567896-B6|nip-1111111111|1111111111111222222222222233333333333334444444444445555555555556';
+  KSeF.KsefToken := TokenKSeF;
   // Wskazujemy rodzaj identyfikatora na nr NIP
   KSeF.IdentifierType := itNip;
   // Wskazujemy identyfikator czyli nr NIP podmiotu
-  KSeF.Identifier := '1111111111';
+  KSeF.Identifier := Nip;
   // Bedziemy wysylac faktury w formacie FA(3)
   KSeF.FormCode := kfcFA3;
 
@@ -90,7 +102,7 @@ begin
 
       // Otfieramy plik z faktura do wyslania
       // Otrzymujemy nr referencyjny sesji
-      FAStream := TFileStream.Create('dokument_fa3.xml', fmOpenRead);
+      FAStream := TFileStream.Create(NazwaPlikuFA, fmOpenRead);
       // Wysylamy fakture ze wskazanego strumienia
       // Otrzymujemy nr referencyjny
       NrRefWyslanejFa := KSeF.InteractiveSend(FAStream);
@@ -100,15 +112,11 @@ begin
 
       // Sprawdzamy status wyslanej faktury
       StatusResponse := KSeF.StatusSessionInvoice(NrRefSesjiIteraktywnej, NrRefWyslanejFa);
-      WriteLn('Ilosc faktur: ', StatusResponse.Invoices.Count);
-      if StatusResponse.Invoices.Count > 0 then
-      begin
-        WriteLn('Status przetwarzania: ', StatusResponse.Invoices[0].Status.Code);
-        WriteLn('Opis Statusu: ', StatusResponse.Invoices[0].Status.Description);
-        WriteLn('Nr KSeF faktury: ', StatusResponse.Invoices[0].KsefNumber);
-        WriteLn('Nr faktury: ', StatusResponse.Invoices[0].InvoiceNumber);
-        WriteLn('UPO URL: ', StatusResponse.Invoices[0].UpoDownloadUrl);
-      end;
+      WriteLn('Status przetwarzania: ', StatusResponse.Status.Code);
+      WriteLn('Opis Statusu: ', StatusResponse.Status.Description);
+      WriteLn('Nr KSeF faktury: ', StatusResponse.KsefNumber);
+      WriteLn('Nr faktury: ', StatusResponse.InvoiceNumber);
+      WriteLn('UPO URL: ', StatusResponse.UpoDownloadUrl);
 
       // Zakoncz aktualna sesje
       KSeF.AuthSessionTerminateCurrent;

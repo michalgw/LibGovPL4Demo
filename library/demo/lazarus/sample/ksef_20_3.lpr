@@ -23,11 +23,24 @@ var
   InvoiceQueryResponse: TKSeF2QueryInvoicesMetadataResponse = nil;
   I: Integer;
 
+  Nip: String = '1111111111';
+  TokenKSeF: String = '20251111-FF-123F456780-1234567896-B6|nip-1111111111|1111111111111222222222222233333333333334444444444445555555555556';
+  PlikDocelowyFA: String = 'pobrany_fa.xml';
+
 begin
   // Inicjuj biblioteke LibGovPL
   lgplInit;
   // Wyswietl wersje
   WriteLn('Wersja biblioteki: ', IntToHex(lgplVersion));
+
+  // Jesli podano parametry to wczytaj
+  if ParamCount >= 2 then
+  begin
+    Nip := ParamStr(1);
+    TokenKSeF := ParamStr(2);
+    if ParamCount >= 3 then
+      PlikDocelowyFA := ParamStr(3);
+  end;
 
   // Tworzymy klienta HTTPS
   HTTPClient := TlgoHTTPClient.Create('');
@@ -39,11 +52,11 @@ begin
   // Wskazujemy rodzaj serwera KSeF (produkcyjny/test/demo)
   KSeF.GateType := kgtTest;
   // Wskazujemy token KSeF do uwierzytelnienia
-  KSeF.KsefToken := '20251111-FF-123F456780-1234567896-B6|nip-1111111111|1111111111111222222222222233333333333334444444444445555555555556';
+  KSeF.KsefToken := TokenKSeF;
   // Wskazujemy rodzaj identyfikatora na nr NIP
   KSeF.IdentifierType := itNip;
   // Wskazujemy identyfikator czyli nr NIP podmiotu
-  KSeF.Identifier := '1111111111';
+  KSeF.Identifier := Nip;
   // Bedziemy wysylac faktury w formacie FA(3)
   KSeF.FormCode := kfcFA3;
 
@@ -108,7 +121,7 @@ begin
       if InvoiceQueryResponse.Invoices.Count > 0 then
       begin
         // Utworz strumien pliku wynikowego
-        FAStream := TFileStream.Create('pobrany_fa.xml', fmCreate);
+        FAStream := TFileStream.Create(PlikDocelowyFA, fmCreate);
         // Pobierz fakture po numerze KSeF
         KSeF.InvoicesKsef(InvoiceQueryResponse.Invoices[0].KsefNumber, FAStream);
       end;

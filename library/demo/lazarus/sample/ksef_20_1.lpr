@@ -26,11 +26,25 @@ var
 
   I: Integer;
 
+  Nip: String = '1111111111';
+  CertNazwaPliku: String = 'CertyfikatKSeF.crt';
+  KeyNazwaPliku: String = 'KluczPrywatnyKSeF.key';
+  KeyHaslo: String = 'HasloDoCertyfikatuKSeF!123';
+
 begin
   // Inicjuj biblioteke LibGovPL
   lgplInit;
   // Wyswietl wersje
   WriteLn('Wersja biblioteki: ', IntToHex(lgplVersion));
+
+  // Jesli podano parametry to wczytaj
+  if ParamCount = 4 then
+  begin
+    Nip := ParamStr(1);
+    CertNazwaPliku := ParamStr(2);
+    KeyNazwaPliku := ParamStr(3);
+    KeyHaslo := ParamStr(4);
+  end;
 
   // Utworz obiekt podpisu certyfikatem z domyslna klasa sterownika
   CertSigner := TlgoCertificateSigner.Create('');
@@ -39,9 +53,9 @@ begin
   // Wczytanie certyfikatu i klucza prywatnego do uwierzytelnienia w KSeF.
   // Certyfikat i klucz wczytywany jest z osobnych plikow.
   // Klucz prywatny zabezpieczony jest haslem.
-  CertStream := TFileStream.Create('CertyfikatKSeF.crt', fmOpenRead);
-  KeyStream := TFileStream.Create('KluczPrywatnyKSeF.key', fmOpenRead);
-  Certyfikat := CertSigner.LoadFromStream(CertStream, letPEM, KeyStream, letPEM, 'HasloDoCertyfikatuKSeF!123');
+  CertStream := TFileStream.Create(CertNazwaPliku, fmOpenRead);
+  KeyStream := TFileStream.Create(CertNazwaPliku, fmOpenRead);
+  Certyfikat := CertSigner.LoadFromStream(CertStream, letPEM, KeyStream, letPEM, KeyHaslo);
   CertStream.Free;
   KeyStream.Free;
   WriteLn('Wczytano certyfikat: ' + Certyfikat.DisplayName);
@@ -65,7 +79,7 @@ begin
   // Wskazujemy rodzaj identyfikatora na nr NIP
   KSeF.IdentifierType := itNip;
   // Wskazujemy identyfikator czyli nr NIP podmiotu
-  KSeF.Identifier := '1111111111';
+  KSeF.Identifier := Nip;
 
   try
     // Uwirzytelnij za pomoca wskazanego certyfikatu i klucza
