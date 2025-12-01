@@ -1056,7 +1056,7 @@ var
   IT: TKSeF2InvoiceTypes;
 begin
   IT := [];
-  Result := TKSeF2InvoiceQueryFilters.Create(nil);
+  Result := TKSeF2InvoiceQueryFilters.Create(nil, '');
   with Result do
   begin
     SubjectType := TKSeF2InvoiceQuerySubjectType(ComboBoxKSeFDFSubjectType.ItemIndex);
@@ -1068,7 +1068,7 @@ begin
     InvoiceNumber := EditKSeFDFInvoiceNumber.Text;
     if (FloatSpinEditKSeFDFFrom.Value <> 0) or (FloatSpinEditKSeFDFTo.Value <> 0) then
     begin
-      Amount := TKSeF2InvoiceQueryAmount.Create(Result);
+      Amount := TKSeF2InvoiceQueryAmount.Create(Result, '');
       Amount.Type_ := TKSeF2AmountType(ComboBoxKSeFDFAmountType.ItemIndex);
       if FloatSpinEditKSeFDFFrom.Value <> 0 then
         Amount.From := FloatSpinEditKSeFDFFrom.Value;
@@ -1078,7 +1078,7 @@ begin
     SellerNip := EditKSeFDFSellerNip.Text;
     if ComboBoxKSeFDFBuyerIdentifierType.ItemIndex > 0 then
     begin
-      BuyerIdentifier := TKSeF2InvoiceQueryBuyerIdentifier.Create(Result);
+      BuyerIdentifier := TKSeF2InvoiceQueryBuyerIdentifier.Create(Result, '');
       BuyerIdentifier.Type_ := TKSeF2BuyerIdentifierType(ComboBoxKSeFDFBuyerIdentifierType.ItemIndex - 1);
       BuyerIdentifier.Value := EditKSeFDFBuyerIdentifierValue.Text;
     end;
