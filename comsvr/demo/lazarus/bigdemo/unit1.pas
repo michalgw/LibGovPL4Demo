@@ -1070,13 +1070,11 @@ begin
       SHA256HashClass := ComboBoxSHA256.Text;
     if ComboBoxZip.ItemIndex >= 0 then
       ZipperClass := ComboBoxZip.Text;
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := ComboBoxRSAEnc.Text;
     if ComboBoxRandGen.ItemIndex >= 0 then
       RandomGeneratorClass := ComboBoxRandGen.Text;
     if ComboBoxXMLRead.ItemIndex >= 0 then
       XMLReaderClass := ComboBoxXMLRead.Text;
-    JPKRSAProd := Backend.CreateRSAKey(ComboBoxRSAEnc.Text, FileNameEditJPKRSAProd.FileName);
+    JPKRSAProd := Backend.CreateRSAPublicKey(ComboBoxRSAEnc.Text, FileNameEditJPKRSAProd.FileName, lgcETPEM);
     try
       FS := TFileStream.Create(FileNameEditJPKRSATest.FileName, fmOpenRead);
       SetLength(S, FS.Size);
@@ -1084,7 +1082,7 @@ begin
     finally
       FS.Free;
     end;
-    JPKRSATest := Backend.CreateRSAKey(ComboBoxRSAEnc.Text, S);
+    JPKRSATest := Backend.CreateRSAPublicKey(ComboBoxRSAEnc.Text, S, lgcETPEM);
     RSAKeyProd := JPKRSAProd;
     RSAKeyTest := JPKRSATest;
   end;
@@ -1102,11 +1100,9 @@ begin
       SHA256HashClass := ComboBoxSHA256.Text;
     if ComboBoxRandGen.ItemIndex >= 0 then
       RandomGeneratorClass := ComboBoxRandGen.Text;
-    if ComboBoxRSAEnc.ItemIndex >= 0 then
-      RSAEncryptClass := ComboBoxRSAEnc.Text;
-    KSeFRSAProd := Backend.CreateRSAKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSAProd.FileName);
-    KSeFRSADemo := Backend.CreateRSAKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSADemo.FileName);
-    KSeFRSATest := Backend.CreateRSAKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSATest.FileName);
+    KSeFRSAProd := Backend.CreateRSAPublicKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSAProd.FileName, lgcETPEM);
+    KSeFRSADemo := Backend.CreateRSAPublicKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSADemo.FileName, lgcETPEM);
+    KSeFRSATest := Backend.CreateRSAPublicKey(ComboBoxRSAEnc.Text, FileNameEditKSeFRSATest.FileName, lgcETPEM);
     RSAKeyProd := KSeFRSAProd;
     RSAKeyDemo := KSeFRSADemo;
     RSAKeyTest := KSeFRSATest;
@@ -1167,11 +1163,9 @@ begin
   Debug('MD5HashClass: ' + JPK.MD5HashClass);
   Debug('SHA256HashClass: ' + JPK.SHA256HashClass);
   Debug('ZipperClass: ' + JPK.ZipperClass);
-  Debug('RSAEncryptClass: ' + JPK.RSAEncryptClass);
   Debug('RandomGeneratorClass: ' + JPK.RandomGeneratorClass);
   Debug('XMLReaderClass: ' + JPK.XMLReaderClass);
   Debug('KSeF', True);
-  Debug('RSAEncryptClass: ' + KSeF.RSAEncryptClass);
   Debug('Base64EncoderClass: ' + KSeF.Base64EncoderClass);
   Debug('AES256EncryptClass: ' + KSeF.AES256EncryptClass);
   Debug('SHA256HashClass: ' + KSeF.SHA256HashClass);

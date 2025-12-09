@@ -20,11 +20,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw64\lgp4comdemo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4comdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf;.."/>
+            <OtherUnitFiles Value="..\..\.."/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -55,11 +55,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw32\lgp4comdemo"/>
+            <Filename Value="..\..\..\..\binw32\lgp4comdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf;.."/>
+            <OtherUnitFiles Value="..\..\.."/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -92,11 +92,11 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="..\..\binw64\lgp4comdemo"/>
+            <Filename Value="..\..\..\..\binw64\lgp4comdemo"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\intf;.."/>
+            <OtherUnitFiles Value="..\..\.."/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -174,11 +174,6 @@
         <UnitName Value="Unit2"/>
       </Unit>
       <Unit>
-        <Filename Value="..\libgovpl_1_0_tlb.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LibGovPL_1_0_TLB"/>
-      </Unit>
-      <Unit>
         <Filename Value="unit3.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form3"/>
@@ -194,17 +189,22 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit4"/>
       </Unit>
+      <Unit>
+        <Filename Value="..\..\..\libgovpl_1_0_tlb.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="LibGovPL_1_0_TLB"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\..\binw32\lgp4comdemo"/>
+      <Filename Value="..\..\..\..\binw32\lgp4comdemo"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\intf;.."/>
+      <OtherUnitFiles Value="..\..\.."/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
