@@ -85,21 +85,22 @@ type
   { TlgoLibXML2Backend }
 
   TlgoLibXML2Backend = class
-  private
-    class function GetCacheDir: UTF8String; static;
-    class function GetCacheExternals: Boolean; static;
-    class function GetHTTPClient: TlgoHTTPClient; static;
-    class procedure SetCacheDir(AValue: UTF8String); static;
-    class procedure SetCacheExternals(AValue: Boolean); static;
-    class procedure SetHTTPClient(AValue: TlgoHTTPClient); static;
   public
+    class function GetCacheDir: UTF8String; {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
+    class function GetCacheExternals: Boolean; {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
+    class function GetHTTPClient: TlgoHTTPClient; {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
+    class procedure SetCacheDir(AValue: UTF8String); {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
+    class procedure SetCacheExternals(AValue: Boolean); {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
+    class procedure SetHTTPClient(AValue: TlgoHTTPClient); {$IFDEF LGP_HAVE_CLASS_FIELDS}static;{$ENDIF}
     class function LibXMLLoaded: Boolean;
     class function LibXSLTLoaded: Boolean;
     class function LoadLibXML(ALibXML: UTF8String = ''): Boolean;
     class function LoadLibXSLT(ALibXSLT: UTF8String = ''; ALibEXSLT: UTF8String = ''): Boolean;
+    {$IFDEF LGP_HAVE_CLASS_FIELDS}
     class property CacheExternals: Boolean read GetCacheExternals write SetCacheExternals;
     class property CacheDir: UTF8String read GetCacheDir write SetCacheDir;
     class property HTTPClient: TlgoHTTPClient read GetHTTPClient write SetHTTPClient;
+    {$ENDIF}
   end;
 
 implementation

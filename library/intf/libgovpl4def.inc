@@ -12,8 +12,12 @@
   {$IF CompilerVersion >= 18.0}
     {$DEFINE LGP_HAVE_EXTRECORDS}
   {$IFEND}
+  {$IF CompilerVersion >= 17.0}
+    {$DEFINE LGP_HAVE_CLASS_FIELDS}
+  {$IFEND}
 {$ELSE}
   {$DEFINE LGP_HAVE_EXTRECORDS}
+  {$DEFINE LGP_HAVE_CLASS_FIELDS}
 {$ENDIF}
 
 // Wersja dynamicznie ladowana.
