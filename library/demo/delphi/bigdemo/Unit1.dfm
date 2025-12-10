@@ -42,461 +42,521 @@ object Form1: TForm1
         Height = 601
         Align = alClient
         TabOrder = 0
-        DesignSize = (
-          903
-          597)
-        object Label1: TLabel
+        object Panel7: TPanel
           Left = 0
           Top = 0
-          Width = 55
-          Height = 13
-          Caption = 'HTTP Client'
-        end
-        object Label2: TLabel
-          Left = 0
-          Top = 23
-          Width = 123
-          Height = 13
-          Caption = 'Random nmber generator'
-        end
-        object Label11: TLabel
-          Left = 0
-          Top = 46
-          Width = 77
-          Height = 13
-          Caption = 'Base64 Encoder'
-        end
-        object Label3: TLabel
-          Left = 0
-          Top = 69
-          Width = 48
-          Height = 13
-          Caption = 'MD5 Hash'
-        end
-        object Label4: TLabel
-          Left = 0
-          Top = 92
-          Width = 53
-          Height = 13
-          Caption = 'SHA1 Hash'
-        end
-        object Label5: TLabel
-          Left = 0
-          Top = 115
-          Width = 69
-          Height = 13
-          Caption = 'SHA-256 Hash'
-        end
-        object Label6: TLabel
-          Left = 0
-          Top = 138
-          Width = 30
-          Height = 13
-          Caption = 'Signer'
-        end
-        object Label7: TLabel
-          Left = 0
-          Top = 161
-          Width = 86
-          Height = 13
-          Caption = 'eDeklaracja SOAP'
-        end
-        object Label8: TLabel
-          Left = 0
-          Top = 184
-          Width = 48
-          Height = 13
-          Caption = 'XML C14N'
-        end
-        object Label9: TLabel
-          Left = 0
-          Top = 207
-          Width = 57
-          Height = 13
-          Caption = 'XML Reader'
-        end
-        object Label10: TLabel
-          Left = 0
-          Top = 230
-          Width = 31
-          Height = 13
-          Caption = 'Zip file'
-        end
-        object Label12: TLabel
-          Left = 0
-          Top = 253
-          Width = 91
-          Height = 13
-          Caption = 'AES256 Encryption'
-        end
-        object Label13: TLabel
-          Left = 0
-          Top = 276
-          Width = 74
-          Height = 13
-          Caption = 'RSA encryption'
-        end
-        object Label24: TLabel
-          Left = 0
-          Top = 299
-          Width = 97
-          Height = 13
-          Caption = 'XAdES - Rodzaj SHA'
-        end
-        object Label25: TLabel
-          Left = 0
-          Top = 322
-          Width = 126
-          Height = 13
-          Caption = 'XAdES - Dolacz date i czas'
-        end
-        object Label26: TLabel
-          Left = 0
-          Top = 339
-          Width = 133
-          Height = 13
-          Caption = 'eDeklaracja - kanonizuj XML'
-        end
-        object Label33: TLabel
-          Left = 0
-          Top = 356
-          Width = 136
-          Height = 13
-          Caption = 'JPK - Klucz RSA produkcyjny'
-        end
-        object Label34: TLabel
-          Left = 0
-          Top = 379
-          Width = 116
-          Height = 13
-          Caption = 'JPK - Klucz RSA testowy'
-        end
-        object Label55: TLabel
-          Left = 0
-          Top = 402
-          Width = 142
-          Height = 13
-          Caption = 'KSeF - klucz RSA produkcyjny'
-        end
-        object Label56: TLabel
-          Left = 0
-          Top = 425
-          Width = 109
-          Height = 13
-          Caption = 'KSeF - klucz RSA demo'
-        end
-        object Label57: TLabel
-          Left = 0
-          Top = 448
-          Width = 117
-          Height = 13
-          Caption = 'KSeF - klucz RSA tetowy'
-        end
-        object Label115: TLabel
-          Left = -1
-          Top = 472
-          Width = 108
-          Height = 13
-          Caption = 'Plik biblioteki libxml2.dll'
-        end
-        object SBFileNameEditJPKRSAProd: TSpeedButton
-          Tag = 1
-          Left = 645
-          Top = 356
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object SBFileNameEditJPKRSATest: TSpeedButton
-          Tag = 2
-          Left = 645
-          Top = 379
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object SBFileNameEditKSeFRSAProd: TSpeedButton
-          Tag = 3
-          Left = 646
-          Top = 402
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object SBFileNameEditKSeFRSADemo: TSpeedButton
-          Tag = 4
-          Left = 646
-          Top = 425
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object SBFileNameEditKSeFRSATest: TSpeedButton
-          Tag = 5
-          Left = 646
-          Top = 448
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object SBFilenameEditLibXML2: TSpeedButton
-          Tag = 6
-          Left = 646
-          Top = 472
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object Label120: TLabel
-          Left = -2
-          Top = 498
-          Width = 107
-          Height = 13
-          Caption = 'Plik biblioteki PKCS#11'
-        end
-        object SpeedButton28: TSpeedButton
-          Tag = 34
-          Left = 646
-          Top = 495
-          Width = 23
-          Height = 22
-          Anchors = [akTop, akRight]
-          Caption = '...'
-          OnClick = SBFileNameEditJPKRSAProdClick
-        end
-        object ComboBoxHTTPCli: TComboBox
-          Left = 361
-          Top = 0
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
+          Width = 903
+          Height = 577
+          Align = alTop
+          BevelOuter = bvNone
+          Caption = 'Panel7'
           TabOrder = 0
-        end
-        object ComboBoxRandGen: TComboBox
-          Left = 361
-          Top = 23
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 1
-        end
-        object ComboBoxBase64: TComboBox
-          Left = 361
-          Top = 46
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 2
-        end
-        object ComboBoxMD5: TComboBox
-          Left = 361
-          Top = 69
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 3
-        end
-        object ComboBoxSHA1: TComboBox
-          Left = 361
-          Top = 92
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 4
-        end
-        object ComboBoxSHA256: TComboBox
-          Left = 361
-          Top = 115
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 5
-        end
-        object ComboBoxSign: TComboBox
-          Left = 361
-          Top = 138
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 6
-        end
-        object ComboBoxEDek: TComboBox
-          Left = 361
-          Top = 161
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 7
-        end
-        object ComboBoxXMLC14N: TComboBox
-          Left = 361
-          Top = 184
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 8
-        end
-        object ComboBoxXMLRead: TComboBox
-          Left = 361
-          Top = 207
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 9
-        end
-        object ComboBoxZip: TComboBox
-          Left = 360
-          Top = 230
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 10
-        end
-        object ComboBoxAES256: TComboBox
-          Left = 361
-          Top = 253
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 11
-        end
-        object ComboBoxRSAEnc: TComboBox
-          Left = 361
-          Top = 276
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          TabOrder = 12
-        end
-        object ComboBoxXAdESSHA: TComboBox
-          Left = 361
-          Top = 299
-          Width = 308
-          Height = 21
-          Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
-          ItemIndex = 1
-          TabOrder = 13
-          Text = 'SHA256'
-          Items.Strings = (
-            'SHA1'
-            'SHA256')
-        end
-        object CheckBoxXAdESCzas: TCheckBox
-          Left = 361
-          Top = 322
-          Width = 308
-          Height = 17
-          TabOrder = 14
-        end
-        object CheckBoxEDekC14N: TCheckBox
-          Left = 361
-          Top = 339
-          Width = 308
-          Height = 17
-          Checked = True
-          State = cbChecked
-          TabOrder = 15
-        end
-        object FileNameEditJPKRSAProd: TEdit
-          Left = 361
-          Top = 356
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 16
-          Text = '..\pem\prod.pem'
-        end
-        object FileNameEditJPKRSATest: TEdit
-          Left = 361
-          Top = 379
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 17
-          Text = '..\pem\test.pem'
-        end
-        object FileNameEditKSeFRSAProd: TEdit
-          Left = 361
-          Top = 402
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 18
-          Text = '..\pem\ksefprod.pem'
-        end
-        object FileNameEditKSeFRSADemo: TEdit
-          Left = 361
-          Top = 425
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 19
-          Text = '..\pem\ksefdemo.pem'
-        end
-        object FileNameEditKSeFRSATest: TEdit
-          Left = 361
-          Top = 448
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 20
-          Text = '..\pem\kseftest.pem'
-        end
-        object FilenameEditLibXML2: TEdit
-          Left = 360
-          Top = 472
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 21
-        end
-        object FileNameEditLibPKCS11: TEdit
-          Left = 360
-          Top = 495
-          Width = 284
-          Height = 25
-          Anchors = [akLeft, akTop, akRight]
-          TabOrder = 22
+          DesignSize = (
+            903
+            577)
+          object Label6: TLabel
+            Left = 3
+            Top = 138
+            Width = 30
+            Height = 13
+            Caption = 'Signer'
+          end
+          object Label10: TLabel
+            Left = 3
+            Top = 230
+            Width = 31
+            Height = 13
+            Caption = 'Zip file'
+          end
+          object Label1: TLabel
+            Left = 3
+            Top = 0
+            Width = 55
+            Height = 13
+            Caption = 'HTTP Client'
+          end
+          object Label2: TLabel
+            Left = 3
+            Top = 23
+            Width = 123
+            Height = 13
+            Caption = 'Random nmber generator'
+          end
+          object Label11: TLabel
+            Left = 3
+            Top = 46
+            Width = 77
+            Height = 13
+            Caption = 'Base64 Encoder'
+          end
+          object Label3: TLabel
+            Left = 3
+            Top = 69
+            Width = 48
+            Height = 13
+            Caption = 'MD5 Hash'
+          end
+          object Label4: TLabel
+            Left = 3
+            Top = 92
+            Width = 53
+            Height = 13
+            Caption = 'SHA1 Hash'
+          end
+          object Label5: TLabel
+            Left = 3
+            Top = 115
+            Width = 69
+            Height = 13
+            Caption = 'SHA-256 Hash'
+          end
+          object Label7: TLabel
+            Left = 3
+            Top = 161
+            Width = 86
+            Height = 13
+            Caption = 'eDeklaracja SOAP'
+          end
+          object Label8: TLabel
+            Left = 3
+            Top = 184
+            Width = 48
+            Height = 13
+            Caption = 'XML C14N'
+          end
+          object Label9: TLabel
+            Left = 3
+            Top = 207
+            Width = 57
+            Height = 13
+            Caption = 'XML Reader'
+          end
+          object Label12: TLabel
+            Left = 3
+            Top = 253
+            Width = 91
+            Height = 13
+            Caption = 'AES256 Encryption'
+          end
+          object Label13: TLabel
+            Left = 3
+            Top = 276
+            Width = 74
+            Height = 13
+            Caption = 'RSA encryption'
+          end
+          object Label24: TLabel
+            Left = 3
+            Top = 299
+            Width = 97
+            Height = 13
+            Caption = 'XAdES - Rodzaj SHA'
+          end
+          object Label25: TLabel
+            Left = 3
+            Top = 322
+            Width = 126
+            Height = 13
+            Caption = 'XAdES - Dolacz date i czas'
+          end
+          object Label26: TLabel
+            Left = 3
+            Top = 339
+            Width = 133
+            Height = 13
+            Caption = 'eDeklaracja - kanonizuj XML'
+          end
+          object Label33: TLabel
+            Left = 3
+            Top = 356
+            Width = 136
+            Height = 13
+            Caption = 'JPK - Klucz RSA produkcyjny'
+          end
+          object Label34: TLabel
+            Left = 3
+            Top = 379
+            Width = 116
+            Height = 13
+            Caption = 'JPK - Klucz RSA testowy'
+          end
+          object Label55: TLabel
+            Left = 3
+            Top = 402
+            Width = 142
+            Height = 13
+            Caption = 'KSeF - klucz RSA produkcyjny'
+          end
+          object Label56: TLabel
+            Left = 3
+            Top = 425
+            Width = 109
+            Height = 13
+            Caption = 'KSeF - klucz RSA demo'
+          end
+          object Label57: TLabel
+            Left = 3
+            Top = 448
+            Width = 117
+            Height = 13
+            Caption = 'KSeF - klucz RSA tetowy'
+          end
+          object Label115: TLabel
+            Left = 2
+            Top = 472
+            Width = 108
+            Height = 13
+            Caption = 'Plik biblioteki libxml2.dll'
+          end
+          object SBFileNameEditJPKRSAProd: TSpeedButton
+            Tag = 1
+            Left = 835
+            Top = 356
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SBFileNameEditJPKRSATest: TSpeedButton
+            Tag = 2
+            Left = 835
+            Top = 379
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SBFileNameEditKSeFRSAProd: TSpeedButton
+            Tag = 3
+            Left = 836
+            Top = 402
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SBFileNameEditKSeFRSADemo: TSpeedButton
+            Tag = 4
+            Left = 836
+            Top = 425
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SBFileNameEditKSeFRSATest: TSpeedButton
+            Tag = 5
+            Left = 836
+            Top = 448
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object SBFilenameEditLibXML2: TSpeedButton
+            Tag = 6
+            Left = 836
+            Top = 472
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object Label120: TLabel
+            Left = 1
+            Top = 498
+            Width = 107
+            Height = 13
+            Caption = 'Plik biblioteki PKCS#11'
+          end
+          object SpeedButton28: TSpeedButton
+            Tag = 34
+            Left = 836
+            Top = 495
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object Label121: TLabel
+            Left = 2
+            Top = 520
+            Width = 89
+            Height = 13
+            Caption = 'Plik biblioteki libxslt'
+          end
+          object SpeedButton33: TSpeedButton
+            Tag = 39
+            Left = 836
+            Top = 520
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object Label122: TLabel
+            Left = 2
+            Top = 544
+            Width = 95
+            Height = 13
+            Caption = 'Plik biblioteki libexslt'
+          end
+          object SpeedButton34: TSpeedButton
+            Tag = 40
+            Left = 836
+            Top = 544
+            Width = 23
+            Height = 22
+            Anchors = [akTop, akRight]
+            Caption = '...'
+            OnClick = SBFileNameEditJPKRSAProdClick
+          end
+          object ComboBoxHTTPCli: TComboBox
+            Left = 361
+            Top = 0
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 0
+          end
+          object ComboBoxRandGen: TComboBox
+            Left = 361
+            Top = 23
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 1
+          end
+          object ComboBoxBase64: TComboBox
+            Left = 361
+            Top = 46
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 2
+          end
+          object ComboBoxMD5: TComboBox
+            Left = 361
+            Top = 69
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 3
+          end
+          object ComboBoxSHA1: TComboBox
+            Left = 361
+            Top = 92
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 4
+          end
+          object ComboBoxSHA256: TComboBox
+            Left = 361
+            Top = 115
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 5
+          end
+          object ComboBoxSign: TComboBox
+            Left = 361
+            Top = 138
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 6
+          end
+          object ComboBoxEDek: TComboBox
+            Left = 361
+            Top = 161
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 7
+          end
+          object ComboBoxXMLC14N: TComboBox
+            Left = 361
+            Top = 184
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 8
+          end
+          object ComboBoxXMLRead: TComboBox
+            Left = 361
+            Top = 207
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 9
+          end
+          object ComboBoxZip: TComboBox
+            Left = 360
+            Top = 230
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 10
+          end
+          object ComboBoxAES256: TComboBox
+            Left = 361
+            Top = 253
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 11
+          end
+          object ComboBoxRSAEnc: TComboBox
+            Left = 361
+            Top = 276
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            TabOrder = 12
+          end
+          object ComboBoxXAdESSHA: TComboBox
+            Left = 361
+            Top = 299
+            Width = 498
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akLeft, akTop, akRight]
+            ItemHeight = 13
+            ItemIndex = 1
+            TabOrder = 13
+            Text = 'SHA256'
+            Items.Strings = (
+              'SHA1'
+              'SHA256')
+          end
+          object CheckBoxXAdESCzas: TCheckBox
+            Left = 361
+            Top = 322
+            Width = 308
+            Height = 17
+            TabOrder = 14
+          end
+          object CheckBoxEDekC14N: TCheckBox
+            Left = 361
+            Top = 339
+            Width = 308
+            Height = 17
+            Checked = True
+            State = cbChecked
+            TabOrder = 15
+          end
+          object FileNameEditJPKRSAProd: TEdit
+            Left = 361
+            Top = 356
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 16
+            Text = '..\pem\prod.pem'
+          end
+          object FileNameEditJPKRSATest: TEdit
+            Left = 361
+            Top = 379
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 17
+            Text = '..\pem\test.pem'
+          end
+          object FileNameEditKSeFRSAProd: TEdit
+            Left = 361
+            Top = 402
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 18
+            Text = '..\pem\ksefprod.pem'
+          end
+          object FileNameEditKSeFRSADemo: TEdit
+            Left = 361
+            Top = 425
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 19
+            Text = '..\pem\ksefdemo.pem'
+          end
+          object FileNameEditKSeFRSATest: TEdit
+            Left = 361
+            Top = 448
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 20
+            Text = '..\pem\kseftest.pem'
+          end
+          object FilenameEditLibXML2: TEdit
+            Left = 360
+            Top = 472
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 21
+          end
+          object FileNameEditLibPKCS11: TEdit
+            Left = 360
+            Top = 495
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 22
+          end
+          object FileNameEditLibXlst: TEdit
+            Left = 360
+            Top = 520
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 23
+          end
+          object FileNameEditLibExslt: TEdit
+            Left = 360
+            Top = 544
+            Width = 474
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 24
+          end
         end
       end
       object Panel2: TPanel
@@ -523,8 +583,8 @@ object Form1: TForm1
       object ListViewCert: TListView
         Left = 0
         Top = 0
-        Width = 692
-        Height = 409
+        Width = 907
+        Height = 595
         Align = alClient
         Columns = <
           item
@@ -671,10 +731,10 @@ object Form1: TForm1
           Left = 57
           Top = 18
           Width = 468
-          Height = 25
+          Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
@@ -798,10 +858,10 @@ object Form1: TForm1
         Left = 94
         Top = 16
         Width = 584
-        Height = 25
+        Height = 21
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
       end
       object FileNameEditEDPCWej: TEdit
@@ -1222,10 +1282,10 @@ object Form1: TForm1
         Left = 94
         Top = 16
         Width = 584
-        Height = 25
+        Height = 21
         Style = csDropDownList
         Anchors = [akLeft, akTop, akRight]
-        ItemHeight = 0
+        ItemHeight = 13
         TabOrder = 0
       end
       object FileNameEditJPKPCWej: TEdit
@@ -2107,10 +2167,10 @@ object Form1: TForm1
             Left = 126
             Top = 18
             Width = 531
-            Height = 25
+            Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 0
           end
           object ButtonKSeFInitSigned: TButton
@@ -3531,10 +3591,10 @@ object Form1: TForm1
             Left = 119
             Top = 160
             Width = 533
-            Height = 25
+            Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 6
           end
           object FileNameEditKSeFBatchOutInitUp: TEdit
@@ -3667,6 +3727,222 @@ object Form1: TForm1
             Height = 21
             TabOrder = 4
           end
+        end
+      end
+    end
+    object TabSheetXMLVer: TTabSheet
+      Caption = 'Weryfikacja / Transformacja XML'
+      ImageIndex = 14
+      TabVisible = False
+      object RadioGroupXMLVal: TRadioGroup
+        Left = 0
+        Top = 0
+        Width = 907
+        Height = 47
+        Align = alTop
+        Caption = 'Rodzaj sterownika'
+        Columns = 2
+        ItemIndex = 0
+        Items.Strings = (
+          'MSXML'
+          'LibXML2')
+        TabOrder = 0
+      end
+      object GroupBoxLibXML2Par: TGroupBox
+        Left = 0
+        Top = 47
+        Width = 907
+        Height = 86
+        Align = alTop
+        Caption = 'Parametry LibXML2'
+        TabOrder = 1
+        DesignSize = (
+          907
+          86)
+        object Label132: TLabel
+          Left = 8
+          Top = 55
+          Width = 275
+          Height = 13
+          Caption = 'Katalog przechowywania pobranych plik'#243'w zewnetrznych'
+        end
+        object SpeedButton29: TSpeedButton
+          Tag = 35
+          Left = 877
+          Top = 48
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object CheckBoxLibXML2Cache: TCheckBox
+          Left = 8
+          Top = 24
+          Width = 255
+          Height = 19
+          Caption = 'Przechowuj lokalnie zewn'#281'trzne pliki (cache) '
+          Checked = True
+          State = cbChecked
+          TabOrder = 0
+        end
+        object DirectoryEditLibXML2Cache: TEdit
+          Left = 320
+          Top = 51
+          Width = 553
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 1
+          Text = 'cache\'
+        end
+      end
+      object GroupBox25: TGroupBox
+        Left = 0
+        Top = 133
+        Width = 907
+        Height = 92
+        Align = alTop
+        Caption = 'Walidacja XML (deklaracja/JPK/FA)'
+        TabOrder = 2
+        DesignSize = (
+          907
+          92)
+        object Label127: TLabel
+          Left = 8
+          Top = 28
+          Width = 37
+          Height = 13
+          Caption = 'Plik XML'
+        end
+        object SpeedButton30: TSpeedButton
+          Tag = 36
+          Left = 877
+          Top = 22
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object FileNameEditXMLVer: TEdit
+          Left = 62
+          Top = 24
+          Width = 811
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 0
+        end
+        object ButtonXMLVer: TButton
+          Left = 821
+          Top = 55
+          Width = 73
+          Height = 25
+          Anchors = [akTop, akRight]
+          Caption = 'Weryfkuj'
+          TabOrder = 1
+          OnClick = ButtonXMLVerClick
+        end
+        object ButtonXMLVerAdd: TButton
+          Left = 712
+          Top = 55
+          Width = 101
+          Height = 25
+          Anchors = [akTop, akRight]
+          Caption = 'Dodaj scheme'
+          TabOrder = 2
+          OnClick = ButtonXMLVerAddClick
+        end
+      end
+      object GroupBox26: TGroupBox
+        Left = 0
+        Top = 225
+        Width = 907
+        Height = 123
+        Align = alTop
+        Caption = 'Transformacja'
+        TabOrder = 3
+        DesignSize = (
+          907
+          123)
+        object Label128: TLabel
+          Left = 8
+          Top = 28
+          Width = 37
+          Height = 13
+          Caption = 'Plik XML'
+        end
+        object Label129: TLabel
+          Left = 8
+          Top = 59
+          Width = 94
+          Height = 13
+          Caption = 'Plik wynikowy HTML'
+        end
+        object SpeedButton31: TSpeedButton
+          Tag = 37
+          Left = 877
+          Top = 21
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object SpeedButton32: TSpeedButton
+          Tag = 38
+          Left = 877
+          Top = 53
+          Width = 23
+          Height = 22
+          Anchors = [akTop, akRight]
+          Caption = '...'
+          OnClick = SBFileNameEditJPKRSAProdClick
+        end
+        object FileNameEditXMLTransSrc: TEdit
+          Left = 62
+          Top = 24
+          Width = 811
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 0
+        end
+        object FileNameEditXMLTransDst: TEdit
+          Left = 126
+          Top = 55
+          Width = 747
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          TabOrder = 1
+        end
+        object ButtonXMLTrans: TButton
+          Left = 822
+          Top = 86
+          Width = 72
+          Height = 25
+          Anchors = [akTop, akRight]
+          Caption = 'Wykonaj'
+          TabOrder = 2
+          OnClick = ButtonXMLTransClick
+        end
+        object CheckBoxXMLTransOpen: TCheckBox
+          Left = 8
+          Top = 89
+          Width = 126
+          Height = 19
+          Caption = 'Otw'#243'rz po konwersji'
+          Checked = True
+          State = cbChecked
+          TabOrder = 3
+        end
+        object ButtonXMLTransAdd: TButton
+          Left = 714
+          Top = 86
+          Width = 100
+          Height = 25
+          Anchors = [akTop, akRight]
+          Caption = 'Dodaj szablon'
+          TabOrder = 4
+          OnClick = ButtonXMLTransAddClick
         end
       end
     end

@@ -6,7 +6,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
   ExtCtrls, Spin, LibGovPl4Intf, LibGovPl4Obj, LibGovPl4Backend, LibGovPl4XAdES,
   LibGovPl4KSeF, LibGovPl4KSeFObj, LibGovPl4EDek, LibGovPl4JPK, Types, Mask,
-  TypInfo, Buttons;
+  TypInfo, Buttons, LibGovPl4XML, Windows, ShellApi;
 
 type
 
@@ -47,9 +47,7 @@ type
     CheckBoxKSeFEncrypt: TCheckBox;
     CheckBoxJPKBCert: TCheckBox;
     CheckBoxJPKPCAdHoc: TCheckBox;
-    CheckBoxEDekC14N: TCheckBox;
     CheckBoxJPKPAAdHoc: TCheckBox;
-    CheckBoxXAdESCzas: TCheckBox;
     CheckGroupKSeFQInvCrIInvoiceTypes: TGroupBox;
     ComboBoxKSeFBatchBramka: TComboBox;
     ComboBoxKSeFBatchCert: TComboBox;
@@ -69,21 +67,7 @@ type
     ComboBoxKSeFBramka: TComboBox;
     ComboBoxKSeFCert: TComboBox;
     ComboBoxKSeFQInvCrSubTyp: TComboBox;
-    ComboBoxXAdESSHA: TComboBox;
     ComboBoxEdekCert: TComboBox;
-    ComboBoxAES256: TComboBox;
-    ComboBoxBase64: TComboBox;
-    ComboBoxEDek: TComboBox;
-    ComboBoxHTTPCli: TComboBox;
-    ComboBoxMD5: TComboBox;
-    ComboBoxRandGen: TComboBox;
-    ComboBoxRSAEnc: TComboBox;
-    ComboBoxSHA1: TComboBox;
-    ComboBoxSHA256: TComboBox;
-    ComboBoxSign: TComboBox;
-    ComboBoxXMLC14N: TComboBox;
-    ComboBoxXMLRead: TComboBox;
-    ComboBoxZip: TComboBox;
     DateTimePickerEDPDataU: TDateTimePicker;
     DateTimePickerJPKPDataU: TDateTimePicker;
     DateTimePickerKSeFQInvCrDetInvFromD: TDateTimePicker;
@@ -130,9 +114,6 @@ type
     FileNameEditKSeFQInvAsyncFN: TEdit;
     FileNameEditKSeFInitPZIn: TEdit;
     FileNameEditKSeFInitPZOut: TEdit;
-    FileNameEditKSeFRSAProd: TEdit;
-    FileNameEditKSeFRSADemo: TEdit;
-    FileNameEditKSeFRSATest: TEdit;
     FileNameEditJPKBPlikWyj: TEdit;
     FileNameEditJPKBIU: TEdit;
     FileNameEditJPKBEnc: TEdit;
@@ -142,8 +123,6 @@ type
     FileNameEditJPKPCWej: TEdit;
     FileNameEditJPKPCEnc: TEdit;
     FileNameEditJPKPAWej: TEdit;
-    FileNameEditJPKRSAProd: TEdit;
-    FileNameEditJPKRSATest: TEdit;
     FileNameEditEDBPlikWej: TEdit;
     FileNameEditEDBPlikWyj: TEdit;
     FileNameEditEDPCWej: TEdit;
@@ -179,8 +158,6 @@ type
     GroupBoxKSeFSesInitTok: TGroupBox;
     GroupBoxKSeFSesInitPZ: TGroupBox;
     GroupBoxKSeFSesStat: TGroupBox;
-    Label1: TLabel;
-    Label10: TLabel;
     Label100: TLabel;
     Label101: TLabel;
     Label102: TLabel;
@@ -191,43 +168,32 @@ type
     Label107: TLabel;
     Label108: TLabel;
     Label109: TLabel;
-    Label11: TLabel;
     Label110: TLabel;
     Label111: TLabel;
     Label112: TLabel;
     Label113: TLabel;
     Label114: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
     Label16: TLabel;
     Label14: TLabel;
     Label15: TLabel;
     Label17: TLabel;
     Label18: TLabel;
     Label19: TLabel;
-    Label2: TLabel;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
     Label23: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
-    Label3: TLabel;
     Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
-    Label33: TLabel;
-    Label34: TLabel;
     Label35: TLabel;
     Label36: TLabel;
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
-    Label4: TLabel;
     Label40: TLabel;
     Label41: TLabel;
     Label42: TLabel;
@@ -238,18 +204,13 @@ type
     Label47: TLabel;
     Label48: TLabel;
     Label49: TLabel;
-    Label5: TLabel;
     Label50: TLabel;
     Label51: TLabel;
     Label52: TLabel;
     Label53: TLabel;
     Label54: TLabel;
-    Label55: TLabel;
-    Label56: TLabel;
-    Label57: TLabel;
     Label58: TLabel;
     Label59: TLabel;
-    Label6: TLabel;
     Label60: TLabel;
     Label61: TLabel;
     Label62: TLabel;
@@ -259,7 +220,6 @@ type
     Label66: TLabel;
     Label67: TLabel;
     Label68: TLabel;
-    Label7: TLabel;
     Label73: TLabel;
     Label74: TLabel;
     Label75: TLabel;
@@ -267,7 +227,6 @@ type
     Label77: TLabel;
     Label78: TLabel;
     Label79: TLabel;
-    Label8: TLabel;
     Label80: TLabel;
     Label81: TLabel;
     Label82: TLabel;
@@ -278,7 +237,6 @@ type
     Label87: TLabel;
     Label88: TLabel;
     Label89: TLabel;
-    Label9: TLabel;
     Label90: TLabel;
     Label91: TLabel;
     Label92: TLabel;
@@ -337,16 +295,8 @@ type
     CheckBoxKSeFQInvCrIInvTypUPR: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ZAL: TCheckBox;
     CheckBoxKSeFQInvCrIInvTypKOR_ROZ: TCheckBox;
-    FilenameEditLibXML2: TEdit;
-    Label115: TLabel;
-    SBFileNameEditJPKRSAProd: TSpeedButton;
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
-    SBFileNameEditJPKRSATest: TSpeedButton;
-    SBFileNameEditKSeFRSAProd: TSpeedButton;
-    SBFileNameEditKSeFRSADemo: TSpeedButton;
-    SBFileNameEditKSeFRSATest: TSpeedButton;
-    SBFilenameEditLibXML2: TSpeedButton;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -423,9 +373,6 @@ type
     ButtonObjShow: TButton;
     ButtonObjClea: TButton;
     ButtonObjCount: TButton;
-    Label120: TLabel;
-    FileNameEditLibPKCS11: TEdit;
-    SpeedButton28: TSpeedButton;
     TabSheetPKCS11: TTabSheet;
     GroupBox23: TGroupBox;
     ButtonPKCS11Info: TButton;
@@ -442,6 +389,89 @@ type
     ButtonPKCS11SesInfo: TButton;
     Label126: TLabel;
     ComboBoxPKCS11UserType: TComboBox;
+    TabSheetXMLVer: TTabSheet;
+    RadioGroupXMLVal: TRadioGroup;
+    GroupBoxLibXML2Par: TGroupBox;
+    CheckBoxLibXML2Cache: TCheckBox;
+    Label132: TLabel;
+    DirectoryEditLibXML2Cache: TEdit;
+    GroupBox25: TGroupBox;
+    FileNameEditXMLVer: TEdit;
+    Label127: TLabel;
+    ButtonXMLVer: TButton;
+    ButtonXMLVerAdd: TButton;
+    GroupBox26: TGroupBox;
+    Label128: TLabel;
+    FileNameEditXMLTransSrc: TEdit;
+    Label129: TLabel;
+    FileNameEditXMLTransDst: TEdit;
+    ButtonXMLTrans: TButton;
+    CheckBoxXMLTransOpen: TCheckBox;
+    ButtonXMLTransAdd: TButton;
+    SpeedButton29: TSpeedButton;
+    SpeedButton30: TSpeedButton;
+    SpeedButton31: TSpeedButton;
+    SpeedButton32: TSpeedButton;
+    Panel7: TPanel;
+    Label6: TLabel;
+    Label10: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label11: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label55: TLabel;
+    Label56: TLabel;
+    Label57: TLabel;
+    Label115: TLabel;
+    SBFileNameEditJPKRSAProd: TSpeedButton;
+    SBFileNameEditJPKRSATest: TSpeedButton;
+    SBFileNameEditKSeFRSAProd: TSpeedButton;
+    SBFileNameEditKSeFRSADemo: TSpeedButton;
+    SBFileNameEditKSeFRSATest: TSpeedButton;
+    SBFilenameEditLibXML2: TSpeedButton;
+    Label120: TLabel;
+    SpeedButton28: TSpeedButton;
+    ComboBoxHTTPCli: TComboBox;
+    ComboBoxRandGen: TComboBox;
+    ComboBoxBase64: TComboBox;
+    ComboBoxMD5: TComboBox;
+    ComboBoxSHA1: TComboBox;
+    ComboBoxSHA256: TComboBox;
+    ComboBoxSign: TComboBox;
+    ComboBoxEDek: TComboBox;
+    ComboBoxXMLC14N: TComboBox;
+    ComboBoxXMLRead: TComboBox;
+    ComboBoxZip: TComboBox;
+    ComboBoxAES256: TComboBox;
+    ComboBoxRSAEnc: TComboBox;
+    ComboBoxXAdESSHA: TComboBox;
+    CheckBoxXAdESCzas: TCheckBox;
+    CheckBoxEDekC14N: TCheckBox;
+    FileNameEditJPKRSAProd: TEdit;
+    FileNameEditJPKRSATest: TEdit;
+    FileNameEditKSeFRSAProd: TEdit;
+    FileNameEditKSeFRSADemo: TEdit;
+    FileNameEditKSeFRSATest: TEdit;
+    FilenameEditLibXML2: TEdit;
+    FileNameEditLibPKCS11: TEdit;
+    Label121: TLabel;
+    FileNameEditLibXlst: TEdit;
+    SpeedButton33: TSpeedButton;
+    Label122: TLabel;
+    FileNameEditLibExslt: TEdit;
+    SpeedButton34: TSpeedButton;
     procedure ButtonKSeFBatchPodpClick(Sender: TObject);
     procedure ButtonKSeFBatchSendClick(Sender: TObject);
     procedure ButtonKSeFCInvClearClick(Sender: TObject);
@@ -491,10 +521,17 @@ type
     procedure ButtonPKCS11SesLogoutClick(Sender: TObject);
     procedure ButtonPKCS11SesCloseClick(Sender: TObject);
     procedure ButtonPKCS11SesInfoClick(Sender: TObject);
+    procedure ButtonXMLVerAddClick(Sender: TObject);
+    procedure ButtonXMLVerClick(Sender: TObject);
+    procedure ButtonXMLTransAddClick(Sender: TObject);
+    procedure ButtonXMLTransClick(Sender: TObject);
   private
     procedure UstawKSeFSesion(AWartosc: Boolean);
     function GetQueriInvoiceCr: TKSeFQueryInvoiceRequest;
     procedure ObjAdd(AObj: TKSeFObject);
+    procedure SetupValidator;
+    procedure SetupTrans;
+    procedure SetupLXML;
   public
     Signer: TlgoCertificateSigner;
     Certyfikaty: TlgoCertificates;
@@ -505,6 +542,9 @@ type
     JPKRSAProd, JPKRSATest: TlgoRSAPublicKey;
     KSeF: TlgoKSeF;
     KSeFRSAProd, KSeFRSADemo, KSeFRSATest: TlgoRSAPublicKey;
+
+    XValidator: TlgoXMLValidator;
+    XTrans: TlgoXMLXSLTransformation;
 
     procedure Debug(ATekst: String; ALinia: Boolean = False); overload;
     procedure Debug(ATekst: String; ADane: array of const); overload;
@@ -525,7 +565,10 @@ implementation
 {$R *.dfm}
 
 uses
-  DateUtils, Unit2;
+  DateUtils, Unit2, Unit3;
+
+const
+  RDRCLS: array[0..1] of UTF8String = ('TlgMSXMLReader', 'TlgLibXML2Reader');
 
 procedure QuickSave(const APlik, ADane: String); overload;
 var
@@ -687,6 +730,7 @@ const
   FLT_SIG = 'Pliki SIG (*.sig)|*.sig|Wszystkie pliki (*.*)|*.*';
   FLT_ENC = 'Pliki ENC (*.enc)|*.enc|Wszystkie pliki (*.*)|*.*';
   FLT_ZIP = 'Pliki ZIP (*.zip)|*.zip|Wszystkie pliki (*.*)|*.*';
+  FLT_HTM = 'Pliki HTML (*.html)|*.html|Wszystkie pliki (*.*)|*.*';
 var
   E: TEdit;
   D: TOpenDialog;
@@ -864,6 +908,32 @@ begin
       D := OpenDialog1;
       D.Filter := FLT_DLL;
     end;
+    35: ; // Wybor katalogu.
+    36: begin
+      E := FileNameEditXMLVer;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    37: begin
+      E := FileNameEditXMLTransSrc;
+      D := OpenDialog1;
+      D.Filter := FLT_XML;
+    end;
+    38: begin
+      E := FileNameEditXMLTransDst;
+      D := SaveDialog1;
+      D.Filter := FLT_HTM;
+    end;
+    39: begin
+      E := FileNameEditLibXlst;
+      OpenDialog1.Filter := FLT_DLL;
+      D := OpenDialog1;
+    end;
+    40: begin
+      E := FileNameEditLibExslt;
+      OpenDialog1.Filter := FLT_DLL;
+      D := OpenDialog1;
+    end;
   end;
   if D = nil then
     Exit;
@@ -889,6 +959,9 @@ begin
       28: begin
         FileNameEditKSeFBatchOutEncZIP.Text := ChangeFileExt(D.FileName, '.part1');
         FileNameEditKSeFBatchOutInitUp.Text := ChangeFileExt(D.FileName, '.iu.xml');
+      end;
+      37: begin
+        FileNameEditXMLTransDst.Text := D.FileName + '.html';
       end;
     end;
   end;
@@ -1028,6 +1101,41 @@ begin
   I := ListViewObj.Items.Add;
   I.Caption := AObj.ClassName;
   I.Data := AObj;
+end;
+
+procedure TForm1.SetupValidator;
+const
+  VALCLS: array[0..1] of UTF8String = ('TlgMSXMLValidator', 'TlgLibXML2Validator');
+begin
+  if Assigned(XValidator) and ((SameText(XValidator.ObjClassName, VALCLS[0]) and (RadioGroupXMLVal.ItemIndex = 1))
+    or (SameText(XValidator.ObjClassName, VALCLS[1]) and (RadioGroupXMLVal.ItemIndex = 0))) then
+    FreeAndNil(XValidator);
+  if not Assigned(XValidator) then
+      XValidator := TlgoXMLValidator.Create(VALCLS[RadioGroupXMLVal.ItemIndex]);
+  if RadioGroupXMLVal.ItemIndex = 1 then
+    SetupLXML;
+end;
+
+procedure TForm1.SetupTrans;
+const
+  TRNCLS: array[0..1] of UTF8String = ('TlgMSXMLXSLTransformation', 'TlgLibXML2XSLTransformation');
+begin
+  if Assigned(XTrans) and ((SameText(XTrans.ObjClassName, TRNCLS[0]) and (RadioGroupXMLVal.ItemIndex = 1))
+    or (SameText(XTrans.ObjClassName, TRNCLS[1]) and (RadioGroupXMLVal.ItemIndex = 0))) then
+    FreeAndNil(XTrans);
+  if not Assigned(XTrans) then
+      XTrans := TlgoXMLXSLTransformation.Create(TRNCLS[RadioGroupXMLVal.ItemIndex]);
+  if RadioGroupXMLVal.ItemIndex = 1 then
+    SetupLXML;
+end;
+
+procedure TForm1.SetupLXML;
+begin
+  TlgoLibXML2Backend.SetCacheExternals(CheckBoxLibXML2Cache.Checked);
+  TlgoLibXML2Backend.SetCacheDir(DirectoryEditLibXML2Cache.Text);
+  if not DirectoryExists(DirectoryEditLibXML2Cache.Text) then
+    CreateDir(DirectoryEditLibXML2Cache.Text);
+  TlgoLibXML2Backend.SetHTTPClient(HTTPClient);
 end;
 
 procedure TForm1.Debug(ATekst: String; ALinia: Boolean);
@@ -1322,10 +1430,13 @@ begin
     RSAKey[kgtTest] := KSeFRSATest;
   end;
 
-  if FilenameEditLibXML2.Text <> '' then
-    if lgpLoadLibXML2(PAnsiChar(AnsiToUtf8(FilenameEditLibXML2.Text))) = 0 then
-      MessageDlg('Nie mo¿na za³adowaæ biblioteki: ' + FilenameEditLibXML2.Text,
+  if FileNameEditLibXML2.Text <> '' then
+    if not TlgoLibXML2Backend.LoadLibXML(FileNameEditLibXML2.Text) then
+      MessageDlg('Nie mo¿na z³adowaæ biblioteki: ' + FileNameEditLibXML2.Text,
         mtError, [mbOK], 0);
+  if (FileNameEditLibXlst.Text <> '') or (FileNameEditLibExslt.Text <> '')  then
+    if not TlgoLibXML2Backend.LoadLibXSLT(FileNameEditLibXlst.Text, FileNameEditLibExslt.Text) then
+      MessageDlg('Nie mo¿na za³adowaæ biblioteki libxslt lub libexslt.', mtError, [mbOK], 0);
 
   LoadCertList;
 
@@ -1342,6 +1453,7 @@ begin
   TabSheetKSeFBatch.TabVisible := True;
   if Signer is TlgoPKCS11CertificateSigner then
     TabSheetPKCS11.TabVisible := True;
+  TabSheetXMLVer.TabVisible := True;
 
   DateTimePickerKSeFQInvCrRanInvFromD.DateTime := DateOf(IncDay(Now, -30));
   DateTimePickerKSeFQInvCrRanInvFromT.DateTime := TimeOf(Now);
@@ -2757,6 +2869,124 @@ begin
       Debug('B³¹d podczas próby pobrania informacji o sesji: ' + E.Message);
       MessageDlg('B³¹d podczas próby pobrania informacji o sesji: ' + E.Message, mtError, [mbOK], 0);
     end;
+  end;
+end;
+
+procedure TForm1.ButtonXMLVerAddClick(Sender: TObject);
+begin
+  Debug('Dodawanie schematu', True);
+  SetupValidator;
+  with TForm3.Create(Self) do
+  begin
+    if ShowModal = mrOK then
+      XValidator.AddSchema(EditNS.Text, FileNameEditRes.Text);
+    Debug('Dodano schemat:');
+    Debug('NS: ' + EditNS.Text);
+    Debug('Zasób: ' + FileNameEditRes.Text);
+    Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLVerClick(Sender: TObject);
+var
+  Errors: TlgoXMLValidationErrors;
+  XDoc: TlgoXMLReader;
+  I: Integer;
+begin
+  Errors := nil;
+  XDoc := nil;
+  if FileNameEditXMLVer.Text = '' then
+  begin
+    MessageDlg('WprowadŸ nazwê pliku do weryfikacji.', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('Weryfikacja pliku', True);
+  Debug('Plik: ' + FileNameEditXMLVer.Text);
+  SetupValidator;
+  try
+    try
+      XDoc := TlgoXMLReader.CreateFromFile(RDRCLS[RadioGroupXMLVal.ItemIndex], FileNameEditXMLVer.Text);
+      if XValidator.Validate(XDoc, Errors) then
+        Debug('Jest poprawny')
+      else
+      begin
+        Debug('NIE jest poprawny');
+        Debug('B³êdy:');
+        for I := 0 to Errors.Count - 1 do
+        begin
+          Debug('Nr b³êdu: ' + IntToStr(Errors.Items[I].ErrorCode));
+          Debug('Linia: ' + IntToStr(Errors.Items[I].Line));
+          Debug('Komunikat: ' + Errors.Items[I].Message);
+          Debug('Element: ' + Errors.Items[I].Path);
+          Debug('Sciezka: ' + Errors.Items[I].SimplePath);
+          Debug('-------');
+        end;
+      end;
+    except
+      on E: Exception do
+      begin
+        Debug('B³¹d podzas walidacji XML (%s): %s', [E.ClassName, E.Message]);
+        MessageDlg(Format('B³¹d podzas walidacji XML (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    if Assigned(Errors) then
+      Errors.Free;
+    if Assigned(XDoc) then
+      XDoc.Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLTransAddClick(Sender: TObject);
+begin
+  Debug('Dodawanie szablonu', True);
+  SetupTrans;
+  with TForm3.Create(Self) do
+  begin
+    if ShowModal = mrOK then
+      XTrans.AddStyle(EditNS.Text, FileNameEditRes.Text);
+    Debug('Dodano szablon:');
+    Debug('NS: ' + EditNS.Text);
+    Debug('Zasób: ' + FileNameEditRes.Text);
+    Free;
+  end;
+end;
+
+procedure TForm1.ButtonXMLTransClick(Sender: TObject);
+var
+  XDoc: TlgoXMLReader;
+  FS: TFileStream;
+begin
+  XDoc := nil;
+  FS := nil;
+  SetupTrans;
+  if (FileNameEditXMLTransSrc.Text = '') or (FileNameEditXMLTransDst.Text = '') then
+  begin
+    MessageDlg('WprowadŸ nazwê pliku.', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  Debug('Transformacja XML na podstawie XSLT', True);
+  Debug('Plik wejœciowy: ' + FileNameEditXMLTransSrc.Text);
+  try
+    try
+      XDoc := TlgoXMLReader.CreateFromFile(RDRCLS[RadioGroupXMLVal.ItemIndex], FileNameEditXMLTransSrc.Text);
+      FS := TFileStream.Create(FileNameEditXMLTransDst.Text, fmCreate);
+      XTrans.Transform(XDoc, FS);
+      Debug('Zapisano do pliku: ' + FileNameEditXMLTransDst.Text);
+      if CheckBoxXMLTransOpen.Checked then
+        ShellExecute(0, nil, PChar(FileNameEditXMLTransDst.Text), nil, nil, SW_SHOWNORMAL);
+    except
+      on E: Exception do
+      begin
+        Debug('B³¹d podzas transformacji XSLT (%s): %s', [E.ClassName, E.Message]);
+        MessageDlg(Format('B³¹d podzas transformacji XSLT (%s): %s', [E.ClassName, E.Message]), mtError, [mbOK], 0);
+      end;
+    end;
+  finally
+    if Assigned(FS) then
+      FS.Free;
+    if Assigned(XDoc) then
+      XDoc.Free;
   end;
 end;
 
