@@ -22,6 +22,7 @@ library LibGovPL
   interface IlgcLibXMLBackend;
   interface IlgcOpenSSLBackend;
   interface IlgcObject;
+  interface IlgcObject2;
   interface IlgcList;
   interface IlgcStringStream;
   interface IlgcFileStream;
@@ -52,6 +53,9 @@ library LibGovPL
   interface IlgcViesCountryStatus;
   interface IlgcViesStatusInformationResponse;
   interface IlgcViesService;
+  interface IlgcKSeF2Request;
+  interface IlgcKSeF2Response;
+  interface IlgcKSeF2;
   coclass lgcErrorInfo;
   coclass lgcBaseObject;
   coclass lgcBackend;
@@ -59,6 +63,7 @@ library LibGovPL
   coclass lgcLibXMLBackend;
   coclass lgcOpenSSLBackend;
   coclass lgcObject;
+  coclass lgcObject2;
   coclass lgcList;
   coclass lgcStringStream;
   coclass lgcFilmStream;
@@ -89,6 +94,9 @@ library LibGovPL
   coclass lgcViesCountryStatus;
   coclass lgcViesStatusInformationResponse;
   coclass lgcViesService;
+  coclass lgcKSeF2Request;
+  coclass lgcKSeF2Response;
+  coclass lgcKSeF2;
 
 /// \endcond
 
@@ -314,6 +322,57 @@ library LibGovPL
   };
 
   ///
+  /// Format kodowania certyfikatu lub klucza (PEM, DER, PFX)
+  ///
+  [
+    uuid(c94f0e69-310e-4ebf-a81f-89e6f9ba224e),
+    helpstring("Format kodowania certyfikatu lub klucza")
+  ]
+  enum lgcEncodingType
+  {
+    lgcETPEM = 0,
+    lgcETDER = 1,
+    lgcETPFX = 2
+  };
+
+  ///
+  /// Użycie/przeznaczenie klucza certyfikatu
+  ///
+  [
+    uuid(415c5403-a17a-4360-ba6c-60c3ae072c61),
+    helpstring("Użycie/przeznaczenie klucza")
+  ]
+  enum lgcCertificateKeyUsage
+  {
+    lgcCKUDigitalSignature = 1,
+    lgcCKUNonRepudiation   = 1 << 1,
+    lgcCKUKeyEncipherment  = 1 << 2,
+    lgcCKUDataEncipherment = 1 << 3,
+    lgcCKUKeyAgreement     = 1 << 4,
+    lgcCKUKeyCertSign      = 1 << 5,
+    lgcCKUCRLSign          = 1 << 6,
+    lgcCKUEncipherOnly     = 1 << 7,
+    lgcCKUDecipherOnly     = 1 << 8
+  };
+
+  ///
+  /// Typ identyfikatora (KSeF 2.0)
+  ///
+  [
+    uuid(110a0428-7770-4b5b-b030-5cff4523e82c),
+    helpstring("Typ identyfikatora (KSeF 2.0)")
+  ]
+  enum lgcKSeFIdentifierType
+  {
+    itNone        = 0,
+    itAllPartners = 1,
+    itNip         = 2,
+    itInternalId  = 3,
+    itNipVatUe    = 4,
+    itPeppolId    = 5
+  };
+
+  ///
   /// Podstawowy obiekt.
   ///
   [
@@ -407,6 +466,15 @@ library LibGovPL
     HRESULT _stdcall GetClassNames([in] enum lgcClassType ClsType, [out, retval] VARIANT* ClsNames);
 
     ///
+    /// Pobranie listy nazw dostępnych sterowników danego typu.
+    /// @param ClsType typ sterownika (lgcClassType).
+    /// @return Nazwy klas odseparowane średnikami.
+    ///
+    [id(2018),
+    helpstring("Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string)")]
+    HRESULT _stdcall GetClassNamesStr([in] enum lgcClassType ClsType, [out, retval] BSTR* ClsNames);
+
+    ///
     /// Utworzenie instancji obiektu strumienia plikowego.
     /// Zwraca nowy obiekt strumienia pliku (IlgcFileStream) o podanej nazwie.
     /// @param FileName nazwa pliku do otwarcia/utworzenia.
@@ -437,7 +505,7 @@ library LibGovPL
     ///
     [id(2009),
     helpstring("Utworzenie instancji klucza publicznego RSA o zadanej nazwie klasy i wskazanym zrodle (nazwa pliku, lancuch z zawartoscia klucza lub obiekt implementujacy IStream)")]
-    HRESULT _stdcall CreateRSAKey([in] BSTR ClsName, [in] VARIANT Source, [out, retval] IDispatch** NewObject);
+    HRESULT _stdcall CreateRSAPublicKey([in] BSTR ClsName, [in] VARIANT Source, [in] enum lgcEncodingType Encoding, [out, retval] IDispatch** NewObject);
 
     ///
     /// Utworzenie obiektu obsługi podpisu certyfikatem.
@@ -489,6 +557,20 @@ library LibGovPL
 
     [id(2017)]
     HRESULT _stdcall CreateXMLXSLTranformation([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+
+    ///
+    /// Tworzenie instacji obiektu klienta KSeF.
+    /// @return instancja obiektu implementującego interfejs IlgcKSeF2.
+    ///
+    [id(2019),
+    helpstring("Tworzenie instancji obiektu obslugi KSeF 2.0")]
+    HRESULT _stdcall CreateKSeF2([out, retval] IDispatch** NewObject);
+
+    [id(2020)]
+    HRESULT _stdcall CreateHash([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+
+    [id(2021)]
+    HRESULT _stdcall CreateKSeF2VerLinkSvc([out, retval] IDispatch** NewObject);
   };
 
   ///
@@ -751,6 +833,39 @@ library LibGovPL
   };
 
   ///
+  /// Obiekt otaczający z dostępem do właściwości.
+  /// Obiekt reprezentujący żądania i odpowiedzi KSeF 2.
+  /// Dostęp do właściwości obiektu pierwotnego możliwy również przy pomocy późnego wiązania (late binding).
+  ///
+  [
+    uuid(0843f691-f9a5-4762-9261-790e111cac33),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Obiekt reprezentujacy dane zadania i odpowiedzi KSeF, dostep do wlasciwosci realizowany rowniez przez pozne wiazanie (late binding)")
+  ]
+  interface IlgcObject2: IlgcObject
+  {
+    ///
+    ///
+    ///
+    [propget, id(39001)]
+    HRESULT _stdcall Owner([out, retval] IDispatch** Value);
+
+    ///
+    ///
+    ///
+    [id(39002)]
+    HRESULT _stdcall InsertObject([in] IDispatch* Obj);
+
+    ///
+    ///
+    ///
+    [id(39003)]
+    HRESULT _stdcall RemoveObject([in] IDispatch* Obj);
+  }
+
+  ///
   /// Podstawowa lista/kolekcja obiektów.
   ///
   [
@@ -945,57 +1060,93 @@ library LibGovPL
   interface IlgcCertificate: IlgcBaseObject
   {
     ///
-    /// Pobranie nazwy przyjaznej podmiotu certyfikatu.
+    ///
     ///
     [propget, id(13001)]
+    HRESULT _stdcall Version([out, retval] long* Value);
+
+    ///
+    /// Pobranie nazwy przyjaznej podmiotu certyfikatu.
+    ///
+    [propget, id(13002)]
     HRESULT _stdcall DisplayName([out, retval] BSTR* Value);
 
     ///
     /// Pobranie informacji o podmiocie.
     ///
-    [propget, id(13002)]
+    [propget, id(13003)]
     HRESULT _stdcall Subject([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie wybranego elementu informacji o podmiocie.
+    ///
+    [propget, id(13004)]
+    HRESULT _stdcall SubjectFields([in] BSTR Field, [out, retval] BSTR* Value);
 
     ///
     /// Pobranie informacji o wystawcy.
     ///
-    [propget, id(13003)]
+    [propget, id(13005)]
     HRESULT _stdcall Issuer([out, retval] BSTR* Value);
+
+    ///
+    /// Pobranie wybranego elementu informacji o wystawcy.
+    ///
+    [propget, id(13006)]
+    HRESULT _stdcall IssuerFields([in] BSTR Field, [out, retval] BSTR* Value);
 
     ///
     /// Pobranie numeru seryjnego w formie dziesiętnej.
     ///
-    [propget, id(13004)]
+    [propget, id(13007)]
     HRESULT _stdcall SerialNoDec([out, retval] BSTR* Value);
 
     ///
     /// Pobranie numeru seryjnego w formie szesnastkowej.
     ///
-    [propget, id(13005)]
+    [propget, id(13008)]
     HRESULT _stdcall SerialNoHex([out, retval] BSTR* Value);
 
     ///
     /// Pobranie daty rozpoczęcia okresu ważności certyfikatu.
     ///
-    [propget, id(13006)]
+    [propget, id(13009)]
     HRESULT _stdcall ValidFrom([out, retval] VARIANT* Value);
 
     ///
     /// Pobranie daty zakończenia okresu ważności certyfikatu.
     ///
-    [propget, id(13007)]
+    [propget, id(13010)]
     HRESULT _stdcall ValidTo([out, retval] VARIANT* Value);
+
+    ///
+    /// Pobranie rodzaju sygnatury.
+    ///
+    [propget, id(13011)]
+    HRESULT _stdcall Signature([out, retval] BSTR* Value);
+
+    ///
+    /// Użycie klucza.
+    ///
+    [propget, id(13012)]
+    HRESULT _stdcall KeyUsage([out, retval] long* Value);
+
+    ///
+    /// Algorytm klucza publicznego.
+    ///
+    [propget, id(13013)]
+    HRESULT _stdcall PublicKeyAlgorithm([out, retval] BSTR* Value);
 
     ///
     /// Wprowadzenie numeru PIN zabezpieczającego dostęp do klucza prywatnego.
     ///
-    [propput, id(13008)]
+    [propput, id(13014)]
     HRESULT _stdcall PIN([in] BSTR Value);
 
     ///
     /// Pokaż okno systemowe z informacją o certyfikacie.
     ///
-    [id(13009)]
+    [id(13015)]
     HRESULT _stdcall ShowCertificateInfo([in] VARIANT WinHandle);
   };
 
@@ -1026,6 +1177,15 @@ library LibGovPL
     [id(14002),
     helpstring("Wybor certyfikatu za pomoca systemowego okna dialogowego")]
     HRESULT _stdcall UISelect([out, retval] IDispatch** Certificate);
+
+    ///
+    /// Załadowanie certyfikatu/klucza prywatnego ze wskazanego źródła.
+    ///
+    [id(14003),
+    helpstring("Załadowanie certyfikatu/klucza prywatnego ze wskazanego źródła")]
+    HRESULT _stdcall LoadFromStream([in] VARIANT CertificateStream, [in] enum lgcEncodingType CertificateFormat,
+      [in] VARIANT PrivateKeyStream, [in] enum lgcEncodingType PrivateKeyFormat, [in] BSTR Password,
+      [out, retval] IDispatch** Certificate);
   };
 
   ///
@@ -1768,16 +1928,6 @@ library LibGovPL
     HRESULT _stdcall ZipperClass([in] BSTR Value);
 
     ///
-    /// Nazwa klasy sterownika funkcji szyfrowania RSA.
-    ///
-    [propget, id(26010),
-    helpstring("Klasa sterownika szyfrowania RSA")]
-    HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
-    [propput, id(26010),
-    helpstring("Klasa sterownika szyfrowania RSA")]
-    HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
-
-    ///
     /// Nazwa klasy sterownika generatora liczb pseudolosowych.
     ///
     [propget, id(26011),
@@ -1891,16 +2041,6 @@ library LibGovPL
   ]
   interface IlgcKSeFBase: IlgcBaseObject
   {
-    ///
-    /// Nazwa klasy sterownika funkcji szyfrowania RSA.
-    ///
-    [propget, id(29001),
-    helpstring("Klasa sterownika szyfrowania RSA")]
-    HRESULT _stdcall RSAEncryptClass([out, retval] BSTR* Value);
-    [propput, id(29001),
-    helpstring("Klasa sterownika szyfrowania RSA")]
-    HRESULT _stdcall RSAEncryptClass([in] BSTR Value);
-
     ///
     /// Nazwa klasy sterownika enkodera base64.
     ///
@@ -2639,6 +2779,966 @@ library LibGovPL
     HRESULT _stdcall HTTPClient([in] IDispatch* Value);
   }
 
+  ///
+  /// Obiekt reprezentujący zapytanie KSeF 2.0.
+  ///
+  [
+    uuid(92a8d7f5-32ed-4b1e-8714-27f6751e5d62),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Obiekt reprezentujacy zadanie KSeF")
+  ]
+  interface IlgcKSeF2Request: IlgcObject2
+  {
+    ///
+    /// Pobranie zapytania w formie JSON.
+    ///
+    [id(40001),
+    helpstring("Pobranie zadania w formie JSON")]
+    HRESULT _stdcall GetAsJSON([out, retval] BSTR* Value);
+  }
+
+  ///
+  /// Obiekt reprezentujący odpowiedź KSeF 2.0.
+  ///
+  [
+    uuid(56b4dd5d-21e4-43b6-b202-ae0234076006),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Obiekt reprezentujacy odpowiedz KSeF")
+  ]
+  interface IlgcKSeF2Response: IlgcObject2
+  {
+    ///
+    /// Pobierz odpowiedź w postaci JSON.
+    ///
+    [id(41001),
+    helpstring("Pobranie odpowiedzi w formie JSON")]
+    HRESULT _stdcall GetRawResponse([out, retval] BSTR* Value);
+  }
+
+  ///
+  /// Obiekt komunikacji KSeF 2.0.
+  ///
+  [
+    uuid(a640b36b-e2c8-4253-bd95-aa2fd75e92eb),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Podstawa obslugi KSeF 2.0")
+  ]
+  interface IlgcKSeF2: IlgcBaseObject
+  {
+    ///
+    /// Nazwa klasy sterownika funkcji szyfrowania RSA.
+    ///
+    [propget, id(38001),
+    helpstring("Klasa sterownika szyfrowania RSA")]
+    HRESULT _stdcall RSAPublicKeyClass([out, retval] BSTR* Value);
+    [propput, id(38001),
+    helpstring("Klasa sterownika szyfrowania RSA")]
+    HRESULT _stdcall RSAPublicKeyClass([in] BSTR Value);
+
+    ///
+    /// Nazwa klasy sterownika enkodera base64.
+    ///
+    [propget, id(38002),
+    helpstring("Klasa enkodera Base64")]
+    HRESULT _stdcall Base64EncoderClass([out, retval] BSTR* Value);
+    [propput, id(38002),
+    helpstring("Klasa enkodera Base64")]
+    HRESULT _stdcall Base64EncoderClass([in] BSTR Value);
+
+    ///
+    /// Nazwa klasy sterownika funkcji szyfrowania AES256.
+    ///
+    [propget, id(38003),
+    helpstring("Klasa sterownika szyfrowania AES256")]
+    HRESULT _stdcall AES256EncryptClass([out, retval] BSTR* Value);
+    [propput, id(38003),
+    helpstring("Klasa sterownika szyfrowania AES256")]
+    HRESULT _stdcall AES256EncryptClass([in] BSTR Value);
+
+    ///
+    /// Nazwa klasy sterownika funkcji skrótu SHA256.
+    ///
+    [propget, id(38004),
+    helpstring("Klasa funkcji skrótu SHA256")]
+    HRESULT _stdcall SHA256HashClass([out, retval] BSTR* Value);
+    [propput, id(38004),
+    helpstring("Klasa funkcji skrótu SHA256")]
+    HRESULT _stdcall SHA256HashClass([in] BSTR Value);
+
+    ///
+    /// Nazwa klasy sterownika generatora liczb pseudolosowych.
+    ///
+    [propget, id(38005),
+    helpstring("Klasa generatora liczb pseudolosowych")]
+    HRESULT _stdcall RandomGeneratorClass([out, retval] BSTR* Value);
+    [propput, id(38005),
+    helpstring("Klasa generatora liczb pseudolosowych")]
+    HRESULT _stdcall RandomGeneratorClass([in] BSTR Value);
+
+    ///
+    /// Właściwość wskazująca na obiekt IlgcXAdES wykorzystywany do podpisu certyfikatem.
+    /// Nie jest wykorzystywany w przypadku nawiązywania sesji tokenem lub PZ.
+    ///
+    [propget, id(38006),
+    helpstring("Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload")]
+    HRESULT _stdcall XAdES([out, retval] IDispatch** Value);
+    [propput, id(38006),
+    helpstring("Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload")]
+    HRESULT _stdcall XAdES([in] IDispatch* Value);
+
+    ///
+    /// Obiekt połączenia HTTPS.
+    ///
+    [propget, id(38007),
+    helpstring("Obiekt połączenia HTTPS")]
+    HRESULT _stdcall HTTPClient([out, retval] IDispatch** Value);
+    [propput, id(38007),
+    helpstring("Obiekt połączenia HTTPS")]
+    HRESULT _stdcall HTTPClient([in] IDispatch* Value);
+
+    ///
+    /// Rodzaj bramki/serwera KSeF (produkcyjna/demo/testowa - lgcKSeFGateType).
+    ///
+    [propget, id(38008),
+    helpstring("Rodzaj bramki (produkcyjna/demo/testowa)")]
+    HRESULT _stdcall GateType([out, retval] enum lgcKSeFGateType* Value);
+    [propput, id(38008),
+    helpstring("Rodzaj bramki (produkcyjna/demo/testowa)")]
+    HRESULT _stdcall GateType([in] enum lgcKSeFGateType Value);
+
+    ///
+    /// Wartość identyfikatora.
+    ///
+    [propget, id(38009),
+    helpstring("Wartość identyfikatora")]
+    HRESULT _stdcall Identifier([out, retval] BSTR* Value);
+    [propput, id(38009),
+    helpstring("Nr NIP podmiotu")]
+    HRESULT _stdcall Identifier([in] BSTR Value);
+
+    ///
+    /// Typ identyfikatora.
+    ///
+    [propget, id(38010),
+    helpstring("Typ identyfikatora")]
+    HRESULT _stdcall IdentifierType([out, retval] enum lgcKSeFIdentifierType* Value);
+    [propput, id(38010),
+    helpstring("Typ identyfikatora")]
+    HRESULT _stdcall IdentifierType([in] enum lgcKSeFIdentifierType Value);
+
+    ///
+    /// Obiekt certyfikatu z kluczem prywatnym do autoryzacji w KSeF.
+    ///
+    [propget, id(38011),
+    helpstring("Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyłki wsadowej")]
+    HRESULT _stdcall AuthCertificate([out, retval] IDispatch** Value);
+    [propput, id(38011),
+    helpstring("Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyłki wsadowej")]
+    HRESULT _stdcall AuthCertificate([in] IDispatch* Value);
+
+    ///
+    /// Sposób identyfikacji podmiotu uwierzytelniającego się. Możliwe wartości: 
+    /// certificateSubject (np. NIP/PESEL z certyfikatu) 
+    /// lub certificateFingerprint (odcisk palca certyfikatu) - lgcKSeFCertificateAuthType).
+    ///
+    [propget, id(38012),
+    helpstring("Sposób identyfikacji podmiotu uwierzytelniającego się.")]
+    HRESULT _stdcall AuthCertificateSubject([out, retval] enum lgcKSeFCertificateAuthType* Value);
+    [propput, id(38012),
+    helpstring("Sposób identyfikacji podmiotu uwierzytelniającego się.")]
+    HRESULT _stdcall AuthCertificateSubject([in] enum lgcKSeFCertificateAuthType Value);
+
+    ///
+    /// Token KSeF do autoryzacji.
+    ///
+    [propget, id(38013),
+    helpstring("Token KSeF do autoryzacji")]
+    HRESULT _stdcall KsefToken([out, retval] BSTR* Value);
+    [propput, id(38013),
+    helpstring("Token KSeF do autoryzacji")]
+    HRESULT _stdcall KsefToken([in] BSTR Value);
+
+    ///
+    /// Rodzaj przesyłanego dokumentu (0 - własny, 1 - FA(1), 2 - FA(2), 3 - FA(3), 4 - FA_PEF(3), 5 - FA_KOR_PEF(3)).
+    /// Ustawienie tej właściwości spowoduje przypisanie domyślnych wartości właściwości 
+    /// "FormCodeSystemCode", "FormCodeSchemaVersion" i "FormCodeValue"
+    /// zgodnie z odpowiadającymi danej wersji dokumentu FA.
+    ///
+    [propget, id(38014),
+    helpstring("Predefiniowany rodzaj FA")]
+    HRESULT _stdcall FormCode([out, retval] long* Value);
+    [propput, id(38014),
+    helpstring("Predefiniowany rodzaj FA")]
+    HRESULT _stdcall FormCode([in] long Value);
+
+    ///
+    /// Kod systemowy przesyłanych dokumentów.
+    ///
+    [propget, id(38015)]
+    HRESULT _stdcall FormCodeSystemCode([out, retval] BSTR* Value);
+    [propput, id(38015)]
+    HRESULT _stdcall FormCodeSystemCode([in] BSTR Value);
+
+    ///
+    /// Wersja schemy przesyłanych dokumentów.
+    ///
+    [propget, id(38016)]
+    HRESULT _stdcall FormCodeSchemaVersion([out, retval] BSTR* Value);
+    [propput, id(38016)]
+    HRESULT _stdcall FormCodeSchemaVersion([in] BSTR Value);
+
+    ///
+    /// Nazwa rodzaju i wersji przesyłanedo dokumentu.
+    ///
+    [propget, id(38017)]
+    HRESULT _stdcall FormCodeValue([out, retval] BSTR* Value);
+    [propput, id(38017)]
+    HRESULT _stdcall FormCodeValue([in] BSTR Value);
+
+    ///
+    /// Uzyskany token sesji interaktywnej.
+    ///
+    [propget, id(38018),
+    helpstring("Token sesji")]
+    HRESULT _stdcall SessionToken([out, retval] BSTR* Value);
+    [propput, id(38018),
+    helpstring("Token sesji")]
+    HRESULT _stdcall SessionToken([in] BSTR Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej.
+    ///
+    [propget, id(38019),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej")]
+    HRESULT _stdcall RSATokenEncKey([in] enum lgcKSeFGateType AGateType, [out, retval] IDispatch** Value);
+    [propput, id(38019),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej")]
+    HRESULT _stdcall RSATokenEncKey([in] enum lgcKSeFGateType AGateType, [in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej.
+    ///
+    [propget, id(38020),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej")]
+    HRESULT _stdcall RSATokenEncKeyProd([out, retval] IDispatch** Value);
+    [propput, id(38020),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej")]
+    HRESULT _stdcall RSATokenEncKeyProd([in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki demo.
+    ///
+    [propget, id(38021),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki demo")]
+    HRESULT _stdcall RSATokenEncKeyDemo([out, retval] IDispatch** Value);
+    [propput, id(38021),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki demo")]
+    HRESULT _stdcall RSATokenEncKeyDemo([in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki testowej.
+    ///
+    [propget, id(38022),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki testowej")]
+    HRESULT _stdcall RSATokenEncKeyTest([out, retval] IDispatch** Value);
+    [propput, id(38022),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki testowej")]
+    HRESULT _stdcall RSATokenEncKeyTest([in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej.
+    ///
+    [propget, id(38023),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej")]
+    HRESULT _stdcall RSASymmetricEncKey([in] enum lgcKSeFGateType AGateType, [out, retval] IDispatch** Value);
+    [propput, id(38023),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej")]
+    HRESULT _stdcall RSASymmetricEncKey([in] enum lgcKSeFGateType AGateType, [in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej.
+    ///
+    [propget, id(38024),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej")]
+    HRESULT _stdcall RSASymmetricEncKeyProd([out, retval] IDispatch** Value);
+    [propput, id(38024),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej")]
+    HRESULT _stdcall RSASymmetricEncKeyProd([in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki demo.
+    ///
+    [propget, id(38025),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki demo")]
+    HRESULT _stdcall RSASymmetricEncKeyDemo([out, retval] IDispatch** Value);
+    [propput, id(38025),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki demo")]
+    HRESULT _stdcall RSASymmetricEncKeyDemo([in] IDispatch* Value);
+
+    ///
+    /// Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki testowej.
+    ///
+    [propget, id(38026),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki testowej")]
+    HRESULT _stdcall RSASymmetricEncKeyTest([out, retval] IDispatch** Value);
+    [propput, id(38026),
+    helpstring("Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki testowej")]
+    HRESULT _stdcall RSASymmetricEncKeyTest([in] IDispatch* Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38027),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationToken([out, retval] BSTR* Value);
+    [propput, id(38027),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationToken([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38028),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationTokenValidUntil([out, retval] DATE* Value);
+    [propput, id(38028),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationTokenValidUntil([in] DATE Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38029),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationRefNo([out, retval] BSTR* Value);
+    [propput, id(38029),
+    helpstring("")]
+    HRESULT _stdcall AuthenticationRefNo([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38030),
+    helpstring("")]
+    HRESULT _stdcall AccessToken([out, retval] BSTR* Value);
+    [propput, id(38030),
+    helpstring("")]
+    HRESULT _stdcall AccessToken([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38031),
+    helpstring("")]
+    HRESULT _stdcall AccessTokenValidUntil([out, retval] DATE* Value);
+    [propput, id(38031),
+    helpstring("")]
+    HRESULT _stdcall AccessTokenValidUntil([in] DATE Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38032),
+    helpstring("")]
+    HRESULT _stdcall RefreshToken([out, retval] BSTR* Value);
+    [propput, id(38032),
+    helpstring("")]
+    HRESULT _stdcall RefreshToken([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38033),
+    helpstring("")]
+    HRESULT _stdcall RefreshTokenValidUntil([out, retval] DATE* Value);
+    [propput, id(38033),
+    helpstring("")]
+    HRESULT _stdcall RefreshTokenValidUntil([in] DATE Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38034),
+    helpstring("")]
+    HRESULT _stdcall InteractiveEncryptionKey([out, retval] VARIANT* Value);
+    [propput, id(38034),
+    helpstring("")]
+    HRESULT _stdcall InteractiveEncryptionKey([in] VARIANT Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38035),
+    helpstring("")]
+    HRESULT _stdcall InteractiveVector([out, retval] VARIANT* Value);
+    [propput, id(38035),
+    helpstring("")]
+    HRESULT _stdcall InteractiveVector([in] VARIANT Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38036),
+    helpstring("")]
+    HRESULT _stdcall InteractiveReferenceNumber([out, retval] BSTR* Value);
+    [propput, id(38036),
+    helpstring("")]
+    HRESULT _stdcall InteractiveReferenceNumber([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38037),
+    helpstring("")]
+    HRESULT _stdcall InteractiveValidUntil([out, retval] DATE* Value);
+    [propput, id(38037),
+    helpstring("")]
+    HRESULT _stdcall InteractiveValidUntil([in] DATE Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38038),
+    helpstring("")]
+    HRESULT _stdcall BatchReferenceNumber([out, retval] BSTR* Value);
+    [propput, id(38038),
+    helpstring("")]
+    HRESULT _stdcall BatchReferenceNumber([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38039),
+    helpstring("")]
+    HRESULT _stdcall BatchPartSize([out, retval] long* Value);
+    [propput, id(38039),
+    helpstring("")]
+    HRESULT _stdcall BatchPartSize([in] long Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38040),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportEncryptionKey([out, retval] VARIANT* Value);
+    [propput, id(38040),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportEncryptionKey([in] VARIANT Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38041),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportVector([out, retval] VARIANT* Value);
+    [propput, id(38041),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportVector([in] VARIANT Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38042),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportReferenceNumber([out, retval] BSTR* Value);
+    [propput, id(38042),
+    helpstring("")]
+    HRESULT _stdcall InvoiceExportReferenceNumber([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38043),
+    helpstring("")]
+    HRESULT _stdcall AutoRefreshToken([out, retval] VARIANT_BOOL* Value);
+    [propput, id(38043),
+    helpstring("")]
+    HRESULT _stdcall AutoRefreshToken([in] VARIANT_BOOL Value);
+
+    ///
+    /// Tworzenie obiektów żądania KSeF.
+    /// @param ClsName nazwa klasy, która zostanie utworzona.
+    /// @return zwracana jest instancja obiektu KSeF implementująca interfejs IlgcObject.
+    ///
+    [id(38044),
+    helpstring("Tworzenie obiektu KSeF o podanej nazwie klasy")]
+    HRESULT _stdcall CreateKSeFObject([in] BSTR ClsName, [out, retval] IDispatch** NewObject);
+
+    ///
+    ///
+    ///
+    [id(38045)]
+    HRESULT _stdcall AuthChallenge([out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38046)]
+    HRESULT _stdcall AuthXadesSignatureGenerate([out, retval] BSTR* Signature);
+
+    ///
+    ///
+    ///
+    [id(38047)]
+    HRESULT _stdcall AuthXadesSignatureGenerate2([in] enum lgcKSeFCertificateAuthType SubjectIdType, [in] BSTR Identifier,
+      [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] BSTR* Signature);
+
+    ///
+    ///
+    ///
+    [id(38048)]
+    HRESULT _stdcall AuthXadesSignature([out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38049)]
+    HRESULT _stdcall AuthXadesSignature2([in] IDispatch* Certificate, [in] enum lgcKSeFCertificateAuthType SubjectIdType, [in] BSTR Identifier,
+      [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38050)]
+    HRESULT _stdcall AuthXadesSignature3([in] BSTR SignedAuthData, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38051)]
+    HRESULT _stdcall AuthKsefToken([out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38052)]
+    HRESULT _stdcall AuthKsefToken2([in] BSTR Token, [in] BSTR Identifier, [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38053)]
+    HRESULT _stdcall AuthStatus([in] BSTR ReferenceNumber, [in] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38054)]
+    HRESULT _stdcall AuthTokenRedem([in] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38055)]
+    HRESULT _stdcall AuthTokenRefresh([in] BSTR RefreshToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38056)]
+    HRESULT _stdcall AuthSessions([in] BSTR ContinuationToken, [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38057)]
+    HRESULT _stdcall AuthSessionTerminateCurrent([in] BSTR Token);
+
+    ///
+    ///
+    ///
+    [id(38058)]
+    HRESULT _stdcall AuthSessionTerminate([in] BSTR ReferenceNumber, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38059)]
+    HRESULT _stdcall SecurityPublicKeyCertificates([in] enum lgcKSeFGateType GateType, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38060)]
+    HRESULT _stdcall SecurityLoadKeys();
+
+    ///
+    ///
+    ///
+    [id(38061)]
+    HRESULT _stdcall InteractiveOpen([out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38062)]
+    HRESULT _stdcall InteractiveOpenSimple([out, retval] BSTR* Response);
+
+    ///
+    ///
+    ///
+    [id(38063)]
+    HRESULT _stdcall InteractiveOpen2([in] long FormCode, [in] VARIANT EncryptionSymetricKey,
+      [in] VARIANT InitializationVector, [in] BSTR FormCodeSystemCode, [in] BSTR FormCodeSchemaVersion,
+      [in] BSTR FormCodeValue, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38064)]
+    HRESULT _stdcall InteractiveOpen3([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38065)]
+    HRESULT _stdcall InteractiveCreateSendRequest([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
+      [in] BSTR HashOfCorrectedInvoice, [in] BSTR SessionReferenceNumber, [in] VARIANT EncryptionSymetricKey,
+      [in] VARIANT InitializationVector, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38066)]
+    HRESULT _stdcall InteractiveSend([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
+      [in] BSTR HashOfCorrectedInvoice, [out, retval] BSTR* Response);
+
+    ///
+    ///
+    ///
+    [id(38067)]
+    HRESULT _stdcall InteractiveSend2([in] IDispatch* Request, [in] VARIANT_BOOL OfflineMode,
+      [in] BSTR SessionReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38068)]
+    HRESULT _stdcall InteractiveSend3([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
+      [in] BSTR HashOfCorrectedInvoice, [in] BSTR SessionReferenceNumber, [in] VARIANT EncryptionSymetricKey,
+      [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+
+    ///
+    ///
+    ///
+    [id(38069)]
+    HRESULT _stdcall InteractiveClose([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38070)]
+    HRESULT _stdcall BatchPrepare([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in] long PartSize, 
+      [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38071)]
+    HRESULT _stdcall BatchPrepare2([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in] long FormCode, 
+      [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR FormCodeSystemCode, 
+      [in] BSTR FormCodeSchemaVersion, [in] BSTR FormCodeValue, [in] long PartSize, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38072)]
+    HRESULT _stdcall BatchOpen([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38073)]
+    HRESULT _stdcall BatchSendPart([in] IDispatch* PartUploadRequest, [in] VARIANT DataStream);
+
+    ///
+    ///
+    ///
+    [id(38074)]
+    HRESULT _stdcall BatchClose([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38075)]
+    HRESULT _stdcall StatusSessions([in] long SessionType, [in] BSTR ContinuationToken,
+      [in] long PageSize, [in] BSTR ReferenceNumber, [in] VARIANT DateCreatedFrom,
+      [in] VARIANT DateCreatedTo, [in] VARIANT DateClosedFrom, [in] VARIANT DateClosedTo,
+      [in] VARIANT DateModifiedFrom, [in] VARIANT DateModifiedTo, [in] VARIANT Statuses,
+      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38076)]
+    HRESULT _stdcall StatusSession([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken, 
+      [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38077)]
+    HRESULT _stdcall StatusInvoices([in] BSTR SessionReferenceNumber, [in] BSTR ContinuationToken,
+      [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38078)]
+    HRESULT _stdcall StatusSessionInvoice([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
+      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38079)]
+    HRESULT _stdcall StatusInvoicesFailed([in] BSTR SessionReferenceNumber, [in] BSTR ContinuationToken,
+      [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38080)]
+    HRESULT _stdcall StatusUpoKsef([in] BSTR SessionReferenceNumber, [in] BSTR KsefNumber,
+      [in] VARIANT OutStream, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38081)]
+    HRESULT _stdcall StatusUpoKsefSimpe([in] BSTR SessionReferenceNumber, [in] BSTR KsefNumber,
+      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+
+    ///
+    ///
+    ///
+    [id(38082)]
+    HRESULT _stdcall StatusUpoSessionInvoice([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
+      [in] VARIANT OutStream, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38083)]
+    HRESULT _stdcall StatusUpoSessionInvoiceSimpe([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
+      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+
+    ///
+    ///
+    ///
+    [id(38084)]
+    HRESULT _stdcall StatusUpoSession([in] BSTR SessionReferenceNumber, [in] BSTR UpoReferenceNumber,
+      [in] VARIANT OutStream, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38085)]
+    HRESULT _stdcall StatusUpoSessionSimpe([in] BSTR SessionReferenceNumber, [in] BSTR UpoReferenceNumber,
+      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+
+    ///
+    ///
+    ///
+    [id(38086)]
+    HRESULT _stdcall InvoicesKsef([in] BSTR KsefNumber, [in] VARIANT OutStream, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38087)]
+    HRESULT _stdcall InvoicesKsefSimple([in] BSTR KsefNumber, [in] VARIANT OutStream, [in] BSTR AccessToken, [out, retval] BSTR* Fa);
+
+    ///
+    ///
+    ///
+    [id(38088)]
+    HRESULT _stdcall InvoicesQueryMetadata([in] IDispatch* Request, [in] long PageOffset, [in] long PageSize, [in] long SortOrder, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38089)]
+    HRESULT _stdcall InvoicesExport([in] IDispatch* Request, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38090)]
+    HRESULT _stdcall InvoicesExport2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38091)]
+    HRESULT _stdcall InvoicesExportSimple([in] IDispatch* Request, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+
+    ///
+    ///
+    ///
+    [id(38092)]
+    HRESULT _stdcall InvoicesExportSimple2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+
+    ///
+    ///
+    ///
+    [id(38093)]
+    HRESULT _stdcall InvoicesExportStatus([in] BSTR OperationReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38094)]
+    HRESULT _stdcall InvoicesExportDownload([in] IDispatch* StatusResponse, [in] VARIANT OutputStream, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector);
+
+    ///
+    ///
+    ///
+    [id(38095)]
+    HRESULT _stdcall TokensGenerate([in] VARIANT Permissions, [in] BSTR Description, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38096)]
+    HRESULT _stdcall TokensGenerate2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38097)]
+    HRESULT _stdcall TokensList([in] VARIANT Status, [in] BSTR Description, [in] BSTR AuthorIdentifier,
+      [in] VARIANT AuthorIdentifierType, [in] long PageSize, [in] BSTR ContinuationToken, 
+      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38098)]
+    HRESULT _stdcall TokensStatus([in] BSTR ReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38099)]
+    HRESULT _stdcall TokensRevoke([in] BSTR ReferenceNumber, [in] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38100)]
+    HRESULT _stdcall TestdataSubject([in] IDispatch* Request);
+
+    ///
+    ///
+    ///
+    [id(38101)]
+    HRESULT _stdcall TestdataSubjectRemove([in] BSTR SubjectNip);
+
+    ///
+    ///
+    ///
+    [id(38102)]
+    HRESULT _stdcall TestdataPerson([in] IDispatch* Request);
+
+    ///
+    ///
+    ///
+    [id(38103)]
+    HRESULT _stdcall TestdataPersonRemove([in] BSTR Nip);
+
+  };
+
+  ///
+  /// Obiekt tworzenia linków weryfikacyjnych dla kodów QR KSeF 2.0.
+  ///
+  [
+    uuid(25702b7c-71ea-4536-83e1-ff79b12c5932),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Generownie linków weryfikacyjnych dla kodów QR KSeF 2.0")
+  ]
+  interface IlgcKSeF2VerificationLinkService: IlgcBaseObject
+  {
+    ///
+    ///
+    ///
+    [id(42001)]
+    HRESULT _stdcall BuildInvoiceVerificationUrl([in] BSTR Nip, [in] DATE IssueDate,
+      [in] BSTR InvoiceHash, [in] enum lgcKSeFGateType GateType, [out, retval] BSTR* Url);
+
+    ///
+    ///
+    ///
+    [id(42002)]
+    HRESULT _stdcall BuildCertificateVerificationUrl([in] BSTR SellerNip,
+      [in] enum lgcKSeFIdentifierType ContextIdentifierType, [in] BSTR ContextIdentifierValue,
+      [in] BSTR InvoiceHash, [in] IDispatch* SigningCertificate, [in] enum lgcKSeFGateType GateType,
+      [in] BSTR Base64EncClass, [out, retval] BSTR* Url);
+  };
+
+  ///
+  /// Obiekt wyliczania skrótu (hash).
+  ///
+  [
+    uuid(d207dd82-d710-4935-b6ab-b562250514d9),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Obiekt wyliczania skrótu (hash)")
+  ]
+  interface IlgcHash: IlgcBaseObject
+  {
+    ///
+    ///
+    ///
+    [id(42001)]
+    HRESULT _stdcall Start();
+
+    ///
+    ///
+    ///
+    [id(42002)]
+    HRESULT _stdcall HashData([in] VARIANT Data);
+
+    ///
+    ///
+    ///
+    [id(42003)]
+    HRESULT _stdcall Finish([in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
+
+    ///
+    ///
+    ///
+    [id(42004)]
+    HRESULT _stdcall HashString([in] BSTR Data, [in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
+
+    ///
+    ///
+    ///
+    [id(42005)]
+    HRESULT _stdcall HashBytes([in] VARIANT Data, [in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
+
+    ///
+    ///
+    ///
+    [id(42006)]
+    HRESULT _stdcall HashStream([in] IDispatch* DataStream, [in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
+
+    ///
+    ///
+    ///
+    [id(42007)]
+    HRESULT _stdcall HashFile([in] BSTR FileName, [in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
+  }
+
 /// \cond
 
   [
@@ -2675,6 +3775,16 @@ library LibGovPL
   coclass lgcObject
   {
     [default] interface IlgcObject;
+  };
+
+  [
+    uuid(cc7cfc1e-2421-4aa4-aaf2-c3765819cd72),
+    version(1.0)
+  ]
+  coclass lgcObject2
+  {
+    [default] interface IlgcObject2;
+    interface IlgcObject;
   };
 
   [
@@ -2981,6 +4091,55 @@ library LibGovPL
   coclass lgcViesService
   {
     [default] interface IlgcViesService;
+  }
+
+  [
+    uuid(088fbe72-0106-4fa8-9cdb-0d984067b824),
+    version(1.0)
+  ]
+  coclass lgcKSeF2Request
+  {
+    [default] interface IlgcKSeF2Request;
+    interface IlgcObject2;
+    interface IlgcObject;
+  }
+
+  [
+    uuid(cf102b8b-3d1a-4096-a9ff-0b22efaa8f78),
+    version(1.0)
+  ]
+  coclass lgcKSeF2Response
+  {
+    [default] interface IlgcKSeF2Response;
+    interface IlgcObject2;
+    interface IlgcObject;
+  }
+
+  [
+    uuid(3bd8f73e-330d-4f4e-b5d8-a3f58db9fa0d),
+    version(1.0)
+  ]
+  coclass lgcKSeF2
+  {
+    [default] interface IlgcKSeF2;
+  }
+
+  [
+    uuid(a198f1d7-e40e-4da4-a327-7042ed519a7d),
+    version(1.0)
+  ]
+  coclass lgcKSeF2VerificationLinkService
+  {
+    [default] interface IlgcKSeF2VerificationLinkService;
+  }
+
+  [
+    uuid(9fec8d19-5c4f-49d3-a4a6-1197cd57d318),
+    version(1.0)
+  ]
+  coclass lgcHash
+  {
+    [default] interface IlgcHash;
   }
 
 /// \endcond
