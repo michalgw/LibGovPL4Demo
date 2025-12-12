@@ -35,7 +35,7 @@ try {
         $ksef.Nip = '1111111111'
         $ksef.GateType = [lgcKSeFGateType]::lgcKTGDemo # Rodzaj serwera KSeF: 0 - produkcja, 1 - demo, 2 - test
         $ksef.Encryption = $true # Wlacz dodatkowe szyfrowanie dokumentow algorytmem AES
-        $ksef.FormCode = 1 # Wersja struktury wysylanych plikow FA: 0 - FA(1), 1 - FA(2)
+        $ksef.FormCode = 2 # Wersja struktury wysylanych plikow FA: 1 - FA(1), 2 - FA(2). 0 - wlasny, wymaga wypelnienia FormCodeSystemCode, FormCodeSchemaVersion, FormCodeTargetNamespace, FormCodeValue
 
         # Czyscimy informacje o ostatnim bledzie
         $backend.ClearLastError()
