@@ -71,7 +71,7 @@
 #define LGC_CAT_FINGERPRINT    1
 
 
-// Wariant numeru ident. KSeF
+// Wariant numeru ident. KSeF (przestarzałe)
 
 #define LGC_KNV_Default   0
 #define LGC_KNV_35        1
@@ -102,4 +102,48 @@
 #define LGC_FM_SHAREDENYWRITE   0x0020
 #define LGC_FM_SHAREDENYREAD    0x0030
 #define LGC_FM_SHAREDENYNONE    0x0040
+
+
+// VIES MatchType
+
+#define LGC_VMT_VALID           0
+#define LGC_VMT_INVALID         1 
+#define LGC_VMT_NOT_PROCESSED   2
+
+
+// VIES AvailabilityStatus
+
+#define LGC_VAS_AVAILABLE           0
+#define LGC_VAS_UNAVAILABLE         1
+#define LGC_VAS_MONITORINGDISABLED  2
+
+
+// Format kodowania certyfikatu lub klucza (PEM, DER, PFX)
+
+#define LGC_ET_PEM   0
+#define LGC_ET_DER   1
+#define LGC_ET_PFX   2
+
+
+// Uzycie/przeznaczenie klucza certyfikatu
+
+#define LGC_CKU_DIGITALSIGNATURE   1
+#define LGC_CKU_NONREPUDIATION     (1 << 1)
+#define LGC_CKU_KEYENCIPHERMENT    (1 << 2)
+#define LGC_CKU_DATAENCIPHERMENT   (1 << 3)
+#define LGC_CKU_KEYAGREEMENT       (1 << 4)
+#define LGC_CKU_KEYCERTSIGN        (1 << 5)
+#define LGC_CKU_CRLSIGN            (1 << 6)
+#define LGC_CKU_ENCIPHERONLY       (1 << 7)
+#define LGC_CKU_DECIPHERONLY       (1 << 8)
+
+
+// Typ identyfikatora (KSeF 2.0)
+
+#define LGC_IT_NONE          0
+#define LGC_IT_ALLPARTNERS   1
+#define LGC_IT_NIP           2
+#define LGC_IT_INTERNALID    3
+#define LGC_IT_NIPVATUE      4
+#define LGC_IT_PEPPOLID      5
 
