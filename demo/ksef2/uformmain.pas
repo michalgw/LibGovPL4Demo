@@ -64,6 +64,7 @@ type
     ButtonObjClear: TButton;
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
+    CheckBoxKSeFDFRestrictToHwm: TCheckBox;
     CheckBoxKSeFAutoRefresh: TCheckBox;
     CheckBoxKSeFIOffline: TCheckBox;
     CheckBoxKSeFTDUOIsBailiff: TCheckBox;
@@ -1741,6 +1742,7 @@ begin
     DateRange.From := DateTimePickerKSeFDFFrom.DateTime;
     if not DateTimePickerKSeFDFTo.DateIsNull then
       DateRange.&To := DateTimePickerKSeFDFTo.DateTime;
+    DateRange.RestrictToPermanentStorageHwmDate := CheckBoxKSeFDFRestrictToHwm.Checked;
     KsefNumber := EditKSeFDFKsefNumber.Text;
     InvoiceNumber := EditKSeFDFInvoiceNumber.Text;
     if (FloatSpinEditKSeFDFFrom.Value <> 0) or (FloatSpinEditKSeFDFTo.Value <> 0) then

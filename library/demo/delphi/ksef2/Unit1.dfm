@@ -297,6 +297,8 @@ object Form1: TForm1
           Width = 225
           Height = 17
           Caption = 'Automatycznie od'#347'wie'#380' token dost'#281'powy'
+          Checked = True
+          State = cbChecked
           TabOrder = 6
         end
       end
@@ -470,7 +472,7 @@ object Form1: TForm1
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
@@ -738,7 +740,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 0
           end
           object ComboBoxKSeFASubjectType: TComboBox
@@ -2218,7 +2220,7 @@ object Form1: TForm1
           end
           object Label80: TLabel
             Left = 8
-            Top = 126
+            Top = 134
             Width = 95
             Height = 13
             Caption = 'Numer KSeF faktury'
@@ -2232,7 +2234,7 @@ object Form1: TForm1
           end
           object Label95: TLabel
             Left = 8
-            Top = 157
+            Top = 165
             Width = 182
             Height = 13
             Caption = 'Numer faktury nadany przez wystawc'#281
@@ -2264,34 +2266,34 @@ object Form1: TForm1
             Left = 8
             Top = 55
             Width = 745
-            Height = 59
+            Height = 66
             Anchors = [akLeft, akTop, akRight]
             Caption = 'Typ i zakres dat, wed'#322'ug kt'#243'rego maj'#261' by'#263' filtrowane faktury'
             TabOrder = 1
             object Label77: TLabel
               Left = 8
-              Top = 28
+              Top = 20
               Width = 41
               Height = 13
               Caption = 'Typ daty'
             end
             object Label78: TLabel
               Left = 224
-              Top = 28
+              Top = 20
               Width = 12
               Height = 13
               Caption = 'od'
             end
             object Label79: TLabel
               Left = 391
-              Top = 28
+              Top = 20
               Width = 12
               Height = 13
               Caption = 'do'
             end
             object ComboBoxKSeFDFDateType: TComboBox
               Left = 60
-              Top = 24
+              Top = 16
               Width = 156
               Height = 21
               Style = csDropDownList
@@ -2306,7 +2308,7 @@ object Form1: TForm1
             end
             object DateTimePickerKSeFDFFrom: TDateTimePicker
               Left = 246
-              Top = 24
+              Top = 16
               Width = 137
               Height = 23
               Date = 45964.671635543980000000
@@ -2315,7 +2317,7 @@ object Form1: TForm1
             end
             object DateTimePickerKSeFDFTo: TDateTimePicker
               Left = 413
-              Top = 24
+              Top = 16
               Width = 137
               Height = 23
               Date = 45964.671635694450000000
@@ -2324,10 +2326,20 @@ object Form1: TForm1
               Checked = False
               TabOrder = 2
             end
+            object CheckBoxKSeFDFRestrictToHwm: TCheckBox
+              Left = 8
+              Top = 39
+              Width = 654
+              Height = 19
+              Caption = 
+                'Ograniczy'#263' filtrowanie (zakres dateRange.to) do warto'#347'ci Permane' +
+                'ntStorageHwmDate (tylko dla typu PermanentStorage)'
+              TabOrder = 3
+            end
           end
           object EditKSeFDFKsefNumber: TEdit
             Left = 121
-            Top = 122
+            Top = 130
             Width = 632
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -2335,7 +2347,7 @@ object Form1: TForm1
           end
           object GroupBox27: TGroupBox
             Left = 8
-            Top = 184
+            Top = 192
             Width = 745
             Height = 59
             Anchors = [akLeft, akTop, akRight]
@@ -2400,7 +2412,7 @@ object Form1: TForm1
           end
           object Panel1: TPanel
             Left = 0
-            Top = 245
+            Top = 256
             Width = 718
             Height = 101
             Anchors = [akLeft, akTop, akRight]
@@ -2605,7 +2617,7 @@ object Form1: TForm1
           end
           object EditKSeFDFInvoiceNumber: TEdit
             Left = 219
-            Top = 153
+            Top = 161
             Width = 534
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -2616,7 +2628,7 @@ object Form1: TForm1
           Left = 0
           Top = 634
           Width = 763
-          Height = 92
+          Height = 117
           Align = alTop
           Caption = 'Pobranie listy metadanych faktur'
           TabOrder = 2
@@ -2633,6 +2645,13 @@ object Form1: TForm1
             Width = 186
             Height = 13
             Caption = 'Rozmiar strony wynik'#243'w (0 = domy'#347'lnie)'
+          end
+          object Label120: TLabel
+            Left = 8
+            Top = 59
+            Width = 53
+            Height = 13
+            Caption = 'Sortowanie'
           end
           object SpinEditKSeFDPageOffset: TSpinEdit
             Left = 248
@@ -2656,17 +2675,32 @@ object Form1: TForm1
           end
           object ButtonKSeFDMetadata: TButton
             Left = 8
-            Top = 55
+            Top = 82
             Width = 216
             Height = 25
             Caption = 'Pobierz stron'#281' metadanych wg filtra'
             TabOrder = 2
             OnClick = ButtonKSeFDMetadataClick
           end
+          object ComboBoxKSeFDSortOrder: TComboBox
+            Left = 75
+            Top = 55
+            Width = 197
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 3
+            Text = '(nie okre'#347'lono)'
+            Items.Strings = (
+              '(nie okre'#347'lono)'
+              'Sortowanie rosn'#261'co'
+              'Sortowanie malej'#261'co')
+          end
         end
         object GroupBox29: TGroupBox
           Left = 0
-          Top = 726
+          Top = 751
           Width = 763
           Height = 61
           Align = alTop
@@ -2684,7 +2718,7 @@ object Form1: TForm1
         end
         object GroupBox30: TGroupBox
           Left = 0
-          Top = 787
+          Top = 812
           Width = 763
           Height = 92
           Align = alTop
@@ -2720,7 +2754,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFD1: TGroupBox
           Left = 0
-          Top = 879
+          Top = 904
           Width = 763
           Height = 92
           Align = alTop
@@ -3675,7 +3709,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 8
           end
         end

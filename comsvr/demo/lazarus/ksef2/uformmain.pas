@@ -65,6 +65,7 @@ type
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
     CheckBoxKSeFAutoRefresh: TCheckBox;
+    CheckBoxKSeFDFRestrictToHwm: TCheckBox;
     CheckBoxKSeFIOffline: TCheckBox;
     CheckBoxKSeFTDUOIsBailiff: TCheckBox;
     CheckGroupKSeFDFInvoiceType: TCheckGroup;
@@ -89,6 +90,7 @@ type
     ComboBoxKSeFDFInvoicingMode: TComboBox;
     ComboBoxKSeFDFIsSelfInvoicing: TComboBox;
     ComboBoxKSeFDFSubjectType: TComboBox;
+    ComboBoxKSeFDSortOrder: TComboBox;
     ComboBoxKSeFDTUPSubjectType: TComboBox;
     ComboBoxKSeFLBramka1: TComboBox;
     ComboBoxKSeFLBramka2: TComboBox;
@@ -229,6 +231,7 @@ type
     Label101: TLabel;
     Label102: TLabel;
     Label103: TLabel;
+    Label104: TLabel;
     Label105: TLabel;
     Label106: TLabel;
     Label107: TLabel;
@@ -1098,7 +1101,7 @@ begin
     Filter := GenerateFilter;
     AddObject(Filter);
     Response := KSeF.InvoicesQueryMetadata(Filter, SpinEditKSeFDPageOffset.Value,
-      SpinEditKSeFDPageSize.Value, 0, '');
+      SpinEditKSeFDPageSize.Value, ComboBoxKSeFDSortOrder.ItemIndex, '');
     Debug('Odpowiedź: ' + Response.RawResponse);
     Debug('Ilość faktur: ' + IntToStr(Response.Invoices.Count));
     AddObject(Response);
@@ -1710,6 +1713,7 @@ begin
   KSeF := nil;
   XAdES := nil;
   HTTPClient := nil;
+  KSeFVerLinkSvc := nil;
   ButtonObjClearClick(nil);
   inherited FormClose(Sender, CloseAction);
 end;
@@ -1862,6 +1866,7 @@ begin
   ResOV.DateRange.From := DateTimePickerKSeFDFFrom.DateTime;
   if not DateTimePickerKSeFDFTo.DateIsNull then
     ResOV.DateRange.&To := DateTimePickerKSeFDFTo.DateTime;
+  ResOV.DateRange.RestrictToPermanentStorageHwmDate := CheckBoxKSeFDFRestrictToHwm.Checked;
   ResOV.KsefNumber := EditKSeFDFKsefNumber.Text;
   ResOV.InvoiceNumber := EditKSeFDFInvoiceNumber.Text;
   if (FloatSpinEditKSeFDFFrom.Value <> 0) or (FloatSpinEditKSeFDFTo.Value <> 0) then

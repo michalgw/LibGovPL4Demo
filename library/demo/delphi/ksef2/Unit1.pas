@@ -430,6 +430,9 @@ type
     ComboBoxKSeFLIdentifierType2: TComboBox;
     ComboBoxLCertificate2: TComboBox;
     OpenDialogXML: TOpenDialog;
+    CheckBoxKSeFDFRestrictToHwm: TCheckBox;
+    Label120: TLabel;
+    ComboBoxKSeFDSortOrder: TComboBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -1064,6 +1067,7 @@ begin
     DateRange.From := DateTimePickerKSeFDFFrom.DateTime;
     if DateTimePickerKSeFDFTo.Checked then
       DateRange.To_ := DateTimePickerKSeFDFTo.DateTime;
+    DateRange.RestrictToPermanentStorageHwmDate := CheckBoxKSeFDFRestrictToHwm.Checked;
     KsefNumber := EditKSeFDFKsefNumber.Text;
     InvoiceNumber := EditKSeFDFInvoiceNumber.Text;
     if (FloatSpinEditKSeFDFFrom.Value <> 0) or (FloatSpinEditKSeFDFTo.Value <> 0) then
@@ -1893,7 +1897,7 @@ begin
     Filter := GenerateFilter;
     AddObject(Filter);
     Response := KSeF.InvoicesQueryMetadata(Filter, SpinEditKSeFDPageOffset.Value,
-      SpinEditKSeFDPageSize.Value);
+      SpinEditKSeFDPageSize.Value, TKSeF2SortOrder(ComboBoxKSeFDSortOrder.ItemIndex));
     Debug('OdpowiedŸ: ' + Response.RawResponse);
     Debug('Iloœæ faktur: ' + IntToStr(Response.Invoices.Count));
     AddObject(Response);
