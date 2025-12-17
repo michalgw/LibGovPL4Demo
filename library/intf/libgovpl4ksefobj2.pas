@@ -166,11 +166,13 @@ type
   private
     function GetChallenge: UTF8String;
     function GetTimestamp: TDateTime;
+    function GetTimestampMs: Int64;
     function GetTimestampRaw: UTF8String;
   published
     property Challenge: UTF8String read GetChallenge;
     property Timestamp: TDateTime read GetTimestamp;
     property TimestampRaw: UTF8String read GetTimestampRaw;
+    property TimestampMs: Int64 read GetTimestampMs;
   end;
 
   { TKSeF2TokenInfo }
@@ -456,16 +458,13 @@ type
   TKSeF2BatchFilePartInfo = class(TKSeF2Object)
   private
     function GetFileHash: UTF8String;
-    //function GetFileName: UTF8String;
     function GetFileSize: Int64;
     function GetOrdinalNumber: Integer;
     procedure SetFileHash(AValue: UTF8String);
-    //procedure SetFileName(AValue: UTF8String);
     procedure SetFileSize(AValue: Int64);
     procedure SetOrdinalNumber(AValue: Integer);
   published
     property OrdinalNumber: Integer read GetOrdinalNumber write SetOrdinalNumber;
-    //property FileName: UTF8String read GetFileName write SetFileName; deprecated;
     property FileSize: Int64 read GetFileSize write SetFileSize;
     property FileHash: UTF8String read GetFileHash write SetFileHash;
   end;
@@ -518,9 +517,9 @@ type
     property OfflineMode: Boolean read GetOfflineMode write SetOfflineMode;
   end;
 
-  { TKSeF2Header }
+  { TKSeF2KeyValuePair }
 
-  TKSeF2Header = class(TKSeF2Object)
+  TKSeF2KeyValuePair = class(TKSeF2Object)
   private
     function GetKey: UTF8String;
     function GetValue: UTF8String;
@@ -529,20 +528,20 @@ type
     property Value: UTF8String read GetValue;
   end;
 
-  { TKSeF2Headers }
+  { TKSeF2KeyValuePairs }
 
-  TKSeF2Headers = class(TKSeF2Array)
+  TKSeF2KeyValuePairs = class(TKSeF2Array)
   protected
-    function GetItem(AIndex: Integer): TKSeF2Header;
+    function GetItem(AIndex: Integer): TKSeF2KeyValuePair;
   public
-    property Items[AIndex: Integer]: TKSeF2Header read GetItem; default;
+    property Items[AIndex: Integer]: TKSeF2KeyValuePair read GetItem; default;
   end;
 
   { TKSeF2PartUploadRequest }
 
   TKSeF2PartUploadRequest = class(TKSeF2Object)
   private
-    FHeaders: TKSeF2Headers;
+    FHeaders: TKSeF2KeyValuePairs;
     function GetMethod: UTF8String;
     function GetOrdinalNumber: Integer;
     function GetUrl: UTF8String;
@@ -552,7 +551,7 @@ type
     property OrdinalNumber: Integer read GetOrdinalNumber;
     property Method: UTF8String read GetMethod;
     property Url: UTF8String read GetUrl;
-    property Headers: TKSeF2Headers read FHeaders;
+    property Headers: TKSeF2KeyValuePairs read FHeaders;
   end;
 
   { TKSeF2PartUploadRequestArray }
@@ -690,11 +689,22 @@ type
   TKSeF2InvoicingMode = (imNotDefined, imOnline, imOffline);
   TKSeF2SortOrder = (soDefault, soAsc, soDesc);
 
+  { TKSeF2InvoiceStatusInfo }
+
+  TKSeF2InvoiceStatusInfo = class(TKSeF2StatusInfo)
+  private
+    FExtensions: TKSeF2KeyValuePairs;
+  public
+    procedure LoadObject; override;
+  published
+    property Extensions: TKSeF2KeyValuePairs read FExtensions;
+  end;
+
   { TKSeF2SessionInvoiceStatusResponse }
 
   TKSeF2SessionInvoiceStatusResponse = class(TKSeF2Response)
   private
-    FStatus: TKSeF2StatusInfo;
+    FStatus: TKSeF2InvoiceStatusInfo;
     function GetAcquisitionDate: TDateTime;
     function GetAcquisitionDateRaw: UTF8String;
     function GetInvoiceFileName: UTF8String;
@@ -730,7 +740,7 @@ type
     property UpoDownloadUrlExpirationDate: TDateTime read GetUpoDownloadUrlExpirationDate;
     property UpoDownloadUrlExpirationDateRaw: UTF8String read GetUpoDownloadUrlExpirationDateRaw;
     property InvoicingMode: TKSeF2InvoicingMode read GetInvoicingMode;
-    property Status: TKSeF2StatusInfo read FStatus;
+    property Status: TKSeF2InvoiceStatusInfo read FStatus;
   end;
 
   { TKSeF2SessionInvoiceStatusResponseArray }
@@ -765,14 +775,17 @@ type
   private
     function GetDateType: TKSeF2InvoiceQueryDateType;
     function GetFrom: TDateTime;
+    function GetRestrictToPermanentStorageHwmDate: Boolean;
     function GetTo: TDateTime;
     procedure SetDateType(AValue: TKSeF2InvoiceQueryDateType);
     procedure SetFrom(AValue: TDateTime);
+    procedure SetRestrictToPermanentStorageHwmDate(AValue: Boolean);
     procedure SetTo(AValue: TDateTime);
   published
     property DateType: TKSeF2InvoiceQueryDateType read GetDateType write SetDateType;
     property From: TDateTime read GetFrom write SetFrom;
     property To_: TDateTime read GetTo write SetTo;
+    property RestrictToPermanentStorageHwmDate: Boolean read GetRestrictToPermanentStorageHwmDate write SetRestrictToPermanentStorageHwmDate;
   end;
 
   TKSeF2AmountType = (atBrutto, atNetto, atVat);
@@ -1018,11 +1031,15 @@ type
     FInvoices: TKSeF2InvoiceMetadataArray;
     function GetHasMore: Boolean;
     function GetIsTruncated: Boolean;
+    function GetPermanentStorageHwmDate: TDateTime;
+    function GetPermanentStorageHwmDateRaw: UTF8String;
   protected
     procedure LoadObject; override;
   published
     property HasMore: Boolean read GetHasMore;
     property IsTruncated: Boolean read GetIsTruncated;
+    property PermanentStorageHwmDate: TDateTime read GetPermanentStorageHwmDate;
+    property PermanentStorageHwmDateRaw: UTF8String read GetPermanentStorageHwmDateRaw;
     property Invoices: TKSeF2InvoiceMetadataArray read FInvoices;
   end;
 
@@ -1063,6 +1080,8 @@ type
     function GetPartHash: UTF8String;
     function GetPartName: UTF8String;
     function GetPartSize: Int64;
+    function GetPermanentStorageHwmDate: TDateTime;
+    function GetPermanentStorageHwmDateRaw: UTF8String;
     function GetUrl: UTF8String;
   published
     property OrdinalNumber: Integer read GetOrdinalNumber;
@@ -1075,6 +1094,8 @@ type
     property EncryptedPartHash: UTF8String read GetEncryptedPartHash;
     property ExpirationDate: TDateTime read GetExpirationDate;
     property ExpirationDateRaw: UTF8String read GetExpirationDateRaw;
+    property PermanentStorageHwmDate: TDateTime read GetPermanentStorageHwmDate;
+    property PermanentStorageHwmDateRaw: UTF8String read GetPermanentStorageHwmDateRaw;
   end;
 
   { TKSeF2InvoicePackagePartArray }
@@ -1381,8 +1402,8 @@ begin
     TKSeF2BatchFilePartInfoArray,
     TKSeF2BatchFileInfo,
     TKSeF2OpenBatchSessionRequest,
-    TKSeF2Header,
-    TKSeF2Headers,
+    TKSeF2KeyValuePair,
+    TKSeF2KeyValuePairs,
     TKSeF2PartUploadRequest,
     TKSeF2PartUploadRequestArray,
     TKSeF2OpenBatchSessionResponse,
@@ -1393,6 +1414,7 @@ begin
     TKSeF2UpoPageResponseArray,
     TKSeF2UpoResponse,
     TKSeF2SessionStatusResponse,
+    TKSeF2InvoiceStatusInfo,
     TKSeF2SessionInvoiceStatusResponse,
     TKSeF2SessionInvoiceStatusResponseArray,
     TKSeF2SessionInvoicesResponse,
@@ -1681,6 +1703,11 @@ end;
 function TKSeF2AuthenticationChallengeResponse.GetTimestamp: TDateTime;
 begin
   Result := GetDoubleProp('Timestamp');
+end;
+
+function TKSeF2AuthenticationChallengeResponse.GetTimestampMs: Int64;
+begin
+  Result := GetInt64Prop('TimestampMs');
 end;
 
 function TKSeF2AuthenticationChallengeResponse.GetTimestampRaw: UTF8String;
@@ -2156,11 +2183,6 @@ begin
   Result := GetStringProp('FileHash');
 end;
 
-{function TKSeF2BatchFilePartInfo.GetFileName: UTF8String;
-begin
-  Result := GetStringProp('FileName');
-end;}
-
 function TKSeF2BatchFilePartInfo.GetFileSize: Int64;
 begin
   Result := GetInt64Prop('FileSize');
@@ -2175,11 +2197,6 @@ procedure TKSeF2BatchFilePartInfo.SetFileHash(AValue: UTF8String);
 begin
   SetStringProp('FileHash', AValue);
 end;
-
-{procedure TKSeF2BatchFilePartInfo.SetFileName(AValue: UTF8String);
-begin
-  SetStringProp('FileName', AValue);
-end;}
 
 procedure TKSeF2BatchFilePartInfo.SetFileSize(AValue: Int64);
 begin
@@ -2303,21 +2320,21 @@ end;
 
 { TKSeF2Header }
 
-function TKSeF2Header.GetKey: UTF8String;
+function TKSeF2KeyValuePair.GetKey: UTF8String;
 begin
   Result := GetStringProp('Key');
 end;
 
-function TKSeF2Header.GetValue: UTF8String;
+function TKSeF2KeyValuePair.GetValue: UTF8String;
 begin
   Result := GetStringProp('Value');
 end;
 
 { TKSeF2Headers }
 
-function TKSeF2Headers.GetItem(AIndex: Integer): TKSeF2Header;
+function TKSeF2KeyValuePairs.GetItem(AIndex: Integer): TKSeF2KeyValuePair;
 begin
-  Result := TKSeF2Header(inherited GetItem(AIndex));
+  Result := TKSeF2KeyValuePair(inherited GetItem(AIndex));
 end;
 
 { TKSeF2PartUploadRequest }
@@ -2344,7 +2361,7 @@ begin
   inherited LoadObject;
   O := GetObjectProp('Headers');
   if O <> nil then
-    FHeaders := TKSeF2Headers.Create(Self, O);
+    FHeaders := TKSeF2KeyValuePairs.Create(Self, O);
 end;
 
 { TKSeF2PartUploadRequestArray }
@@ -2544,6 +2561,18 @@ begin
     FUpo := TKSeF2UpoResponse.Create(Self, O);
 end;
 
+{ TKSeF2InvoiceStatusInfo }
+
+procedure TKSeF2InvoiceStatusInfo.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Extensions');
+  if O <> nil then
+    FExtensions := TKSeF2KeyValuePairs.Create(Self, O);
+end;
+
 { TKSeF2SessionInvoiceStatusResponse }
 
 function TKSeF2SessionInvoiceStatusResponse.GetAcquisitionDate: TDateTime;
@@ -2633,7 +2662,7 @@ begin
   inherited LoadObject;
   O := GetObjectProp('Status');
   if O <> nil then
-    FStatus := TKSeF2StatusInfo.Create(Self, O);
+    FStatus := TKSeF2InvoiceStatusInfo.Create(Self, O);
 end;
 
 { TKSeF2SessionInvoiceStatusResponseArray }
@@ -2673,6 +2702,11 @@ begin
   Result := GetDoubleProp('From');
 end;
 
+function TKSeF2InvoiceQueryDateRange.GetRestrictToPermanentStorageHwmDate: Boolean;
+begin
+  Result := GetBooleanProp('RestrictToPermanentStorageHwmDate');
+end;
+
 function TKSeF2InvoiceQueryDateRange.GetTo: TDateTime;
 begin
   Result := GetDoubleProp('To');
@@ -2687,6 +2721,12 @@ end;
 procedure TKSeF2InvoiceQueryDateRange.SetFrom(AValue: TDateTime);
 begin
   SetDoubleProp('From', AValue);
+end;
+
+procedure TKSeF2InvoiceQueryDateRange.SetRestrictToPermanentStorageHwmDate(
+  AValue: Boolean);
+begin
+  SetBooleanProp('RestrictToPermanentStorageHwmDate', AValue);
 end;
 
 procedure TKSeF2InvoiceQueryDateRange.SetTo(AValue: TDateTime);
@@ -2774,7 +2814,7 @@ end;
 function TKSeF2InvoiceQueryFilters.GetInvoiceTypes: TKSeF2InvoiceTypes;
 begin
   Result := [];
-  Int32ToSet(GetIntegerProp('InvoiceTypes'), Ord(High(TKSeF2InvoiceType)), SizeOf(Result), @Result);
+  Int32ToSet(GetIntegerProp('InvoiceTypesInt'), Ord(High(TKSeF2InvoiceType)), SizeOf(Result), @Result);
 end;
 
 function TKSeF2InvoiceQueryFilters.GetInvoicingMode: TKSeF2InvoicingMode;
@@ -3145,6 +3185,16 @@ begin
   Result := GetBooleanProp('IsTruncated');
 end;
 
+function TKSeF2QueryInvoicesMetadataResponse.GetPermanentStorageHwmDate: TDateTime;
+begin
+  Result := GetDoubleProp('PermanentStorageHwmDate');
+end;
+
+function TKSeF2QueryInvoicesMetadataResponse.GetPermanentStorageHwmDateRaw: UTF8String;
+begin
+  Result := GetStringProp('PermanentStorageHwmDateRaw');
+end;
+
 procedure TKSeF2QueryInvoicesMetadataResponse.LoadObject;
 var
   O: LGP_OBJECT;
@@ -3246,6 +3296,16 @@ end;
 function TKSeF2InvoicePackagePart.GetPartSize: Int64;
 begin
   Result := GetInt64Prop('PartSize');
+end;
+
+function TKSeF2InvoicePackagePart.GetPermanentStorageHwmDate: TDateTime;
+begin
+  Result := GetDoubleProp('PermanentStorageHwmDate');
+end;
+
+function TKSeF2InvoicePackagePart.GetPermanentStorageHwmDateRaw: UTF8String;
+begin
+  Result := GetStringProp('PermanentStorageHwmDateRaw');
 end;
 
 function TKSeF2InvoicePackagePart.GetUrl: UTF8String;
@@ -3527,7 +3587,7 @@ end;
 
 function TKSeF2TokenStatusResponse.GetRequestedPermissions: TKSeF2TokenPermissions;
 begin
-  Int32ToSet(GetIntegerProp('RequestedPermissions'), Ord(High(TKSeF2TokenPermissionType)), SizeOf(Result), @Result);
+  Int32ToSet(GetIntegerProp('RequestedPermissionsInt'), Ord(High(TKSeF2TokenPermissionType)), SizeOf(Result), @Result);
 end;
 
 function TKSeF2TokenStatusResponse.GetStatus: TKSeF2AuthenticationTokenStatus;
