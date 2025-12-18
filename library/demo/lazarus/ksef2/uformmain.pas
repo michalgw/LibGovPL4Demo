@@ -1,6 +1,7 @@
 unit uFormMain;
 
 {$mode ObjFPC}{$H+}
+{$codepage utf8}
 
 interface
 
@@ -35,6 +36,7 @@ type
     ButtonKSeFDExport: TButton;
     ButtonKSeFDFClear: TButton;
     ButtonKSeFDMetadata: TButton;
+    ButtonKSeFDMetaLoad: TButton;
     ButtonKSeFDStatus: TButton;
     ButtonKSeFDTUsunOsobe: TButton;
     ButtonKSeFDTUsunPodmiot: TButton;
@@ -174,6 +176,7 @@ type
     FileNameEditKSeFAOutXades: TFileNameEdit;
     FileNameEditKSeFBZIPIn: TFileNameEdit;
     FileNameEditKSeFDEFileName: TFileNameEdit;
+    FileNameEditKSeFDMetaFile: TFileNameEdit;
     FileNameEditKSeFDOutFile: TFileNameEdit;
     FileNameEditKSeFIDoc: TFileNameEdit;
     FileNameEditKSeFUFile: TFileNameEdit;
@@ -209,6 +212,7 @@ type
     GroupBox34: TGroupBox;
     GroupBox35: TGroupBox;
     GroupBox36: TGroupBox;
+    GroupBox37: TGroupBox;
     GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
@@ -241,6 +245,7 @@ type
     Label11: TLabel;
     Label110: TLabel;
     Label111: TLabel;
+    Label112: TLabel;
     Label113: TLabel;
     Label114: TLabel;
     Label115: TLabel;
@@ -403,6 +408,7 @@ type
     procedure ButtonKSeFDExportClick(Sender: TObject);
     procedure ButtonKSeFDFClearClick(Sender: TObject);
     procedure ButtonKSeFDMetadataClick(Sender: TObject);
+    procedure ButtonKSeFDMetaLoadClick(Sender: TObject);
     procedure ButtonKSeFDStatusClick(Sender: TObject);
     procedure ButtonKSeFDTUsunOsobeClick(Sender: TObject);
     procedure ButtonKSeFDTUsunPodmiotClick(Sender: TObject);
@@ -962,8 +968,14 @@ end;
 procedure TFormMain.ButtonKSeFDDownloadClick(Sender: TObject);
 var
   FileStream: TFileStream = nil;
+  KomunikatWeryfikacji: UTF8String;
 begin
   Debug('Pobieranie faktury po numerze Ksef', True);
+  if not TlgoKSeF2Utils.IsKsefNumberValid(EditKSeFDKsefNumber.Text, KomunikatWeryfikacji) then
+  begin
+    Debug('Nr Ksef faktury jest nieprawidłowy: ' + KomunikatWeryfikacji);
+    Exit;
+  end;
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFDOutFile.FileName, fmCreate);
@@ -1056,6 +1068,23 @@ begin
   except
     on E: Exception do
       DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFDMetaLoadClick(Sender: TObject);
+var
+  FileStream: TFileStream = nil;
+  Metadata: TKSeF2QueryInvoicesMetadataResponse;
+begin
+  Debug('Ładowanie metadanych z pliku.', True);
+  try
+    FileStream := TFileStream.Create(FileNameEditKSeFDMetaFile.FileName, fmOpenRead);
+    Metadata := TlgoKSeF2Utils.LoadInvoiceMetadataFromStream(FileStream);
+    AddObject(Metadata);
+    Debug('Wczytano z pliku ' + FileNameEditKSeFDMetaFile.FileName);
+  finally
+    if Assigned(FileStream) then
+      FileStream.Free;
   end;
 end;
 
@@ -1268,7 +1297,7 @@ end;
 
 procedure TFormMain.ButtonKSeFLGen1Click(Sender: TObject);
 begin
-  EditKSeFLLink.Text := TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+  EditKSeFLLink.Text := TlgoKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
     EditKSeFLNIP1.Text, DateTimePickerKSeFLDataWyst1.Date, EditKSeFLHash1.Text,
     TlgoKSeFGateType(ComboBoxKSeFLBramka1.ItemIndex));
 end;
@@ -1276,7 +1305,7 @@ end;
 procedure TFormMain.ButtonKSeFLGen2Click(Sender: TObject);
 begin
   if ComboBoxLCertificate2.ItemIndex >= 0 then
-    EditKSeFLLink1.Text := TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+    EditKSeFLLink1.Text := TlgoKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
       EditKSeFLNIP2.Text, TlgoKSeFIdentifierType(ComboBoxKSeFLIdentifierType2.ItemIndex),
       EditKSeFLIdentifier2.Text, EditKSeFLHash2.Text, Certificates[ComboBoxLCertificate2.ItemIndex],
       TlgoKSeFGateType(ComboBoxKSeFLBramka2.ItemIndex), KSeF.Base64EncoderClass)
@@ -1546,8 +1575,14 @@ end;
 procedure TFormMain.ButtonKSeFUPobierzClick(Sender: TObject);
 var
   FileStream: TFileStream = nil;
+  KomunikatWeryfikacji: UTF8String;
 begin
   Debug('Pobranie UPO faktury z sesji na podstawie numeru KSeF', True);
+  if not TlgoKSeF2Utils.IsKsefNumberValid(EditKSeFDKsefNumber.Text, KomunikatWeryfikacji) then
+  begin
+    Debug('Nr Ksef faktury jest nieprawidłowy: ' + KomunikatWeryfikacji);
+    Exit;
+  end;
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFUFile.FileName, fmCreate);

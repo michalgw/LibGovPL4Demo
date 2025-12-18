@@ -433,6 +433,11 @@ type
     CheckBoxKSeFDFRestrictToHwm: TCheckBox;
     Label120: TLabel;
     ComboBoxKSeFDSortOrder: TComboBox;
+    GroupBox37: TGroupBox;
+    Label121: TLabel;
+    FileNameEditKSeFDMetaFile: TEdit;
+    ButtonKSeFDMetaLoad: TButton;
+    Button4: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -499,6 +504,8 @@ type
     procedure ButtonKSeFLHashGet2Click(Sender: TObject);
     procedure ButtonKSeFLGen1Click(Sender: TObject);
     procedure ButtonKSeFLGen2Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure ButtonKSeFDMetaLoadClick(Sender: TObject);
   private
     { Private declarations }
     PopupSignerMode: (mUISelect, mLoad);
@@ -1765,9 +1772,15 @@ end;
 procedure TForm1.ButtonKSeFUPobierzClick(Sender: TObject);
 var
   FileStream: TFileStream;
+  KomunikatWeryfikacji: UTF8String;
 begin
   FileStream := nil;
   Debug('Pobranie UPO faktury z sesji na podstawie numeru KSeF', True);
+  if not TlgoKSeF2Utils.IsKsefNumberValid(EditKSeFUKSefNumber.Text, KomunikatWeryfikacji) then
+  begin
+    Debug('Nr Ksef faktury jest nieprawid³owy: ' + KomunikatWeryfikacji);
+    Exit;
+  end;
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFUFile.Text, fmCreate);
@@ -1845,9 +1858,15 @@ end;
 procedure TForm1.ButtonKSeFDDownloadClick(Sender: TObject);
 var
   FileStream: TFileStream;
+  KomunikatWeryfikacji: UTF8String;
 begin
   FileStream := nil;
   Debug('Pobieranie faktury po numerze Ksef', True);
+  if not TlgoKSeF2Utils.IsKsefNumberValid(EditKSeFDKsefNumber.Text, KomunikatWeryfikacji) then
+  begin
+    Debug('Nr Ksef faktury jest nieprawid³owy: ' + KomunikatWeryfikacji);
+    Exit;
+  end;
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFDOutFile.Text, fmCreate);
@@ -2214,7 +2233,7 @@ end;
 
 procedure TForm1.ButtonKSeFLGen1Click(Sender: TObject);
 begin
-  EditKSeFLLink.Text := TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+  EditKSeFLLink.Text := TlgoKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
     EditKSeFLNIP1.Text, DateTimePickerKSeFLDataWyst1.Date, EditKSeFLHash1.Text,
     TlgoKSeFGateType(ComboBoxKSeFLBramka1.ItemIndex));
 end;
@@ -2222,12 +2241,37 @@ end;
 procedure TForm1.ButtonKSeFLGen2Click(Sender: TObject);
 begin
   if ComboBoxLCertificate2.ItemIndex >= 0 then
-    EditKSeFLLink1.Text := TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+    EditKSeFLLink1.Text := TlgoKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
       EditKSeFLNIP2.Text, TlgoKSeFIdentifierType(ComboBoxKSeFLIdentifierType2.ItemIndex),
       EditKSeFLIdentifier2.Text, EditKSeFLHash2.Text, TlgoCertificate(Certificates[ComboBoxLCertificate2.ItemIndex]),
       TlgoKSeFGateType(ComboBoxKSeFLBramka2.ItemIndex), KSeF.Base64EncoderClass)
   else
     MessageDlg('Wybierz certyfikat', mtInformation, [mbOK], 0);
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  OpenDialog1.FileName := FileNameEditKSeFDMetaFile.Text;
+  if OpenDialog1.Execute then
+    FileNameEditKSeFDMetaFile.Text := OpenDialog1.FileName;
+end;
+
+procedure TForm1.ButtonKSeFDMetaLoadClick(Sender: TObject);
+var
+  FileStream: TFileStream;
+  Metadata: TKSeF2QueryInvoicesMetadataResponse;
+begin
+  FileStream := nil;
+  Debug('£adowanie metadanych z pliku.', True);
+  try
+    FileStream := TFileStream.Create(FileNameEditKSeFDMetaFile.Text, fmOpenRead);
+    Metadata := TlgoKSeF2Utils.LoadInvoiceMetadataFromStream(FileStream);
+    AddObject(Metadata);
+    Debug('Wczytano z pliku ' + FileNameEditKSeFDMetaFile.Text);
+  finally
+    if Assigned(FileStream) then
+      FileStream.Free;
+  end;
 end;
 
 end.

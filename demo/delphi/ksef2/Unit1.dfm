@@ -110,7 +110,7 @@ object Form1: TForm1
     Top = 0
     Width = 792
     Height = 485
-    ActivePage = TabSheetKSeF2VerLinks
+    ActivePage = TabSheetSetup
     Align = alClient
     MultiLine = True
     TabOrder = 1
@@ -297,6 +297,8 @@ object Form1: TForm1
           Width = 225
           Height = 17
           Caption = 'Automatycznie od'#347'wie'#380' token dost'#281'powy'
+          Checked = True
+          State = cbChecked
           TabOrder = 6
         end
       end
@@ -2211,7 +2213,7 @@ object Form1: TForm1
             511)
           object Label76: TLabel
             Left = 8
-            Top = 28
+            Top = 20
             Width = 64
             Height = 13
             Caption = 'Typ podmiotu'
@@ -2246,7 +2248,7 @@ object Form1: TForm1
           end
           object ComboBoxKSeFDFSubjectType: TComboBox
             Left = 90
-            Top = 24
+            Top = 16
             Width = 180
             Height = 21
             Style = csDropDownList
@@ -2262,36 +2264,36 @@ object Form1: TForm1
           end
           object GroupBox26: TGroupBox
             Left = 8
-            Top = 55
+            Top = 47
             Width = 745
-            Height = 59
+            Height = 67
             Anchors = [akLeft, akTop, akRight]
             Caption = 'Typ i zakres dat, wed'#322'ug kt'#243'rego maj'#261' by'#263' filtrowane faktury'
             TabOrder = 1
             object Label77: TLabel
               Left = 8
-              Top = 28
+              Top = 20
               Width = 41
               Height = 13
               Caption = 'Typ daty'
             end
             object Label78: TLabel
               Left = 224
-              Top = 28
+              Top = 20
               Width = 12
               Height = 13
               Caption = 'od'
             end
             object Label79: TLabel
               Left = 391
-              Top = 28
+              Top = 20
               Width = 12
               Height = 13
               Caption = 'do'
             end
             object ComboBoxKSeFDFDateType: TComboBox
               Left = 60
-              Top = 24
+              Top = 16
               Width = 156
               Height = 21
               Style = csDropDownList
@@ -2306,7 +2308,7 @@ object Form1: TForm1
             end
             object DateTimePickerKSeFDFFrom: TDateTimePicker
               Left = 246
-              Top = 24
+              Top = 16
               Width = 137
               Height = 23
               Date = 45964.671635543980000000
@@ -2315,7 +2317,7 @@ object Form1: TForm1
             end
             object DateTimePickerKSeFDFTo: TDateTimePicker
               Left = 413
-              Top = 24
+              Top = 16
               Width = 137
               Height = 23
               Date = 45964.671635694450000000
@@ -2323,6 +2325,16 @@ object Form1: TForm1
               ShowCheckbox = True
               Checked = False
               TabOrder = 2
+            end
+            object CheckBoxKSeFDFRestrictToHwm: TCheckBox
+              Left = 8
+              Top = 40
+              Width = 654
+              Height = 19
+              Caption = 
+                'Ograniczy'#263' filtrowanie (zakres dateRange.to) do warto'#347'ci Permane' +
+                'ntStorageHwmDate (tylko dla typu PermanentStorage)'
+              TabOrder = 3
             end
           end
           object EditKSeFDFKsefNumber: TEdit
@@ -2595,7 +2607,7 @@ object Form1: TForm1
           end
           object ButtonKSeFDFClear: TButton
             Left = 673
-            Top = 24
+            Top = 16
             Width = 77
             Height = 25
             Anchors = [akTop, akRight]
@@ -2616,7 +2628,7 @@ object Form1: TForm1
           Left = 0
           Top = 634
           Width = 763
-          Height = 92
+          Height = 116
           Align = alTop
           Caption = 'Pobranie listy metadanych faktur'
           TabOrder = 2
@@ -2633,6 +2645,13 @@ object Form1: TForm1
             Width = 186
             Height = 13
             Caption = 'Rozmiar strony wynik'#243'w (0 = domy'#347'lnie)'
+          end
+          object Label120: TLabel
+            Left = 8
+            Top = 59
+            Width = 53
+            Height = 13
+            Caption = 'Sortowanie'
           end
           object SpinEditKSeFDPageOffset: TSpinEdit
             Left = 248
@@ -2656,17 +2675,32 @@ object Form1: TForm1
           end
           object ButtonKSeFDMetadata: TButton
             Left = 8
-            Top = 55
+            Top = 79
             Width = 216
             Height = 25
             Caption = 'Pobierz stron'#281' metadanych wg filtra'
             TabOrder = 2
             OnClick = ButtonKSeFDMetadataClick
           end
+          object ComboBoxKSeFDSortOrder: TComboBox
+            Left = 75
+            Top = 55
+            Width = 197
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 3
+            Text = '(nie okre'#347'lono)'
+            Items.Strings = (
+              '(nie okre'#347'lono)'
+              'Sortowanie rosn'#261'co'
+              'Sortowanie malej'#261'co')
+          end
         end
         object GroupBox29: TGroupBox
           Left = 0
-          Top = 726
+          Top = 750
           Width = 763
           Height = 61
           Align = alTop
@@ -2684,7 +2718,7 @@ object Form1: TForm1
         end
         object GroupBox30: TGroupBox
           Left = 0
-          Top = 787
+          Top = 811
           Width = 763
           Height = 92
           Align = alTop
@@ -2720,7 +2754,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFD1: TGroupBox
           Left = 0
-          Top = 879
+          Top = 903
           Width = 763
           Height = 92
           Align = alTop
@@ -2762,6 +2796,51 @@ object Form1: TForm1
             Caption = '...'
             TabOrder = 2
             OnClick = ButtonFileNameEditKSeFDEFileNameClick
+          end
+        end
+        object GroupBox37: TGroupBox
+          Left = 0
+          Top = 995
+          Width = 763
+          Height = 87
+          Align = alTop
+          Caption = #321'adowanie metadanych z pliku _metadata.json'
+          TabOrder = 6
+          DesignSize = (
+            763
+            87)
+          object Label121: TLabel
+            Left = 8
+            Top = 27
+            Width = 78
+            Height = 13
+            Caption = 'Plik metadanych'
+          end
+          object FileNameEditKSeFDMetaFile: TEdit
+            Left = 96
+            Top = 23
+            Width = 625
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFDMetaLoad: TButton
+            Left = 8
+            Top = 54
+            Width = 65
+            Height = 25
+            Caption = 'Wczytaj'
+            TabOrder = 1
+            OnClick = ButtonKSeFDMetaLoadClick
+          end
+          object Button4: TButton
+            Left = 728
+            Top = 22
+            Width = 24
+            Height = 20
+            Caption = '...'
+            TabOrder = 2
+            OnClick = Button4Click
           end
         end
       end

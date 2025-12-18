@@ -2798,6 +2798,51 @@ object Form1: TForm1
             OnClick = ButtonFileNameEditKSeFDEFileNameClick
           end
         end
+        object GroupBox37: TGroupBox
+          Left = 0
+          Top = 996
+          Width = 763
+          Height = 87
+          Align = alTop
+          Caption = #321'adowanie metadanych z pliku _metadata.json'
+          TabOrder = 6
+          DesignSize = (
+            763
+            87)
+          object Label121: TLabel
+            Left = 8
+            Top = 27
+            Width = 78
+            Height = 13
+            Caption = 'Plik metadanych'
+          end
+          object FileNameEditKSeFDMetaFile: TEdit
+            Left = 96
+            Top = 23
+            Width = 625
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFDMetaLoad: TButton
+            Left = 8
+            Top = 54
+            Width = 65
+            Height = 25
+            Caption = 'Wczytaj'
+            TabOrder = 1
+            OnClick = ButtonKSeFDMetaLoadClick
+          end
+          object Button4: TButton
+            Left = 728
+            Top = 22
+            Width = 24
+            Height = 20
+            Caption = '...'
+            TabOrder = 2
+            OnClick = Button4Click
+          end
+        end
       end
     end
     object TabSheetKSeFToken: TTabSheet

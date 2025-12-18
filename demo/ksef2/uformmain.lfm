@@ -9,9 +9,9 @@ inherited FormMain: TFormMain
   inherited PageControlMain: TPageControl
     Height = 554
     Width = 751
-    ActivePage = TabSheetKSeFDownload
+    ActivePage = TabSheetKSeF2VerLinks
     MultiLine = True
-    TabIndex = 8
+    TabIndex = 12
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 486
@@ -3608,6 +3608,63 @@ inherited FormMain: TFormMain
             Caption = 'Pobierz gotową paczkę'
             TabOrder = 1
             OnClick = ButtonKSeFDEDownloadClick
+          end
+        end
+        object GroupBox37: TGroupBox
+          Left = 0
+          Height = 92
+          Top = 1029
+          Width = 722
+          Align = alTop
+          AutoSize = True
+          Caption = 'Ładowanie metadanych z pliku _metadata.json'
+          ClientHeight = 72
+          ClientWidth = 718
+          TabOrder = 6
+          object Label112: TLabel
+            AnchorSideLeft.Control = GroupBox37
+            AnchorSideTop.Control = FileNameEditKSeFDMetaFile
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 88
+            BorderSpacing.Around = 8
+            Caption = 'Plik metadanych'
+          end
+          object FileNameEditKSeFDMetaFile: TFileNameEdit
+            AnchorSideLeft.Control = Label112
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox37
+            AnchorSideRight.Control = GroupBox37
+            AnchorSideRight.Side = asrBottom
+            Left = 104
+            Height = 23
+            Top = 8
+            Width = 606
+            Filter = 'Plik _metadata.json|_metadata.json|Pliki JSON|*.json|Wszystkie pliki|*.*'
+            FilterIndex = 0
+            HideDirectories = False
+            ButtonWidth = 23
+            NumGlyphs = 1
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            MaxLength = 0
+            TabOrder = 0
+          end
+          object ButtonKSeFDMetaLoad: TButton
+            AnchorSideLeft.Control = GroupBox37
+            AnchorSideTop.Control = FileNameEditKSeFDMetaFile
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 39
+            Width = 67
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Wczytaj'
+            TabOrder = 1
+            OnClick = ButtonKSeFDMetaLoadClick
           end
         end
       end

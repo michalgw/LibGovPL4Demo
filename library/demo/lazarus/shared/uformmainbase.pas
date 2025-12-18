@@ -1,6 +1,7 @@
 unit uFormMainBase;
 
 {$mode objfpc}{$H+}
+{$codepage utf8}
 
 interface
 
