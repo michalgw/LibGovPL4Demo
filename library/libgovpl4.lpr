@@ -560,7 +560,12 @@ exports
 
   // KSeF 2.0 linki weryfikacyjne dla kodów QR
   lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl,
-  lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl
+  lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl,
+
+  // KSeF 2.0 narzędzia
+  lgpKSeF2Utils_IsKsefNumberValid,
+  lgpKSeF2Utils_LoadInvoiceMetadataFromStream,
+  lgpKSeF2Utils_LoadInvoiceMetadataFromString
 
   // Zgodność z poprzednią wersją biblioteki
 {$IFDEF LGP_LEGACY}

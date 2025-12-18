@@ -656,6 +656,11 @@ function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LG
 function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+// KSeF 2.0 narzędzia
+function lgpKSeF2Utils_IsKsefNumberValid(AKsefNumber: LGP_PCHAR; var AWynik: LGP_INT32; var AKomunikat: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2Utils_LoadInvoiceMetadataFromStream(AStream: LGP_OBJECT; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2Utils_LoadInvoiceMetadataFromString(AData: LGP_PCHAR; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 // Zgodnosc z poprzednia wersja biblioteki
 function edekInicjuj(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall; external LGP_LIBNAME;
 function edekOstatniBladTekst: PWideChar; stdcall; external LGP_LIBNAME;
@@ -1205,6 +1210,10 @@ var
 
   lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl: function(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl: function(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2Utils_IsKsefNumberValid: function(AKsefNumber: LGP_PCHAR; var AWynik: LGP_INT32; var AKomunikat: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2Utils_LoadInvoiceMetadataFromStream: function(AStream: LGP_OBJECT; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2Utils_LoadInvoiceMetadataFromString: function(AData: LGP_PCHAR; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   // Zgodnosc z poprzednia wersja biblioteki
   edekInicjuj: function(AWinHandle: THandle; ATransport: LongWord; ARodzajSHA: LongWord): LongWord; stdcall;
@@ -1780,6 +1789,10 @@ begin
 
     @lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl');
     @lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl');
+
+    @lgpKSeF2Utils_IsKsefNumberValid := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2Utils_IsKsefNumberValid');
+    @lgpKSeF2Utils_LoadInvoiceMetadataFromStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2Utils_LoadInvoiceMetadataFromStream');
+    @lgpKSeF2Utils_LoadInvoiceMetadataFromString := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2Utils_LoadInvoiceMetadataFromString');
 
     // Zgodnosc z poprzednia wersja biblioteki
     @edekInicjuj := GetProcAddress(LibGovPl4Handle, 'edekInicjuj');

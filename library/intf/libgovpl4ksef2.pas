@@ -27,7 +27,7 @@ type
 
   { TlgKSeF2VerificationLinkService }
 
-  TlgKSeF2VerificationLinkService = class
+  TlgoKSeF2VerificationLinkService = class
   public
     class function BuildInvoiceVerificationUrl(ANip: UTF8String; AIssueDate: TDate;
       AInvoiceHash: UTF8String; AGateType: TlgoKSeFGateType): UTF8String;
@@ -292,6 +292,15 @@ type
     property OnRequestPartStream: TKSeF2RequestPartStreamEvent read FOnRequestPartStream write SetOnRequestPartStream;
   end;
 
+  { TlgKSeF2Utils }
+
+  TlgoKSeF2Utils = class
+  public
+    class function IsKsefNumberValid(AKsefNumber: UTF8String; out AKomunikat: UTF8String): Boolean;
+
+    class function LoadInvoiceMetadataFromStream(AStream: TStream): TKSeF2QueryInvoicesMetadataResponse;
+    class function LoadInvoiceMetadataFromString(AData: UTF8String): TKSeF2QueryInvoicesMetadataResponse;
+  end;
 
 implementation
 
@@ -323,7 +332,7 @@ end;
 
 { TlgKSeF2VerificationLinkService }
 
-class function TlgKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
+class function TlgoKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
   ANip: UTF8String; AIssueDate: TDate; AInvoiceHash: UTF8String;
   AGateType: TlgoKSeFGateType): UTF8String;
 var
@@ -335,7 +344,7 @@ begin
   Result := lgoGetString(Res);
 end;
 
-class function TlgKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
+class function TlgoKSeF2VerificationLinkService.BuildCertificateVerificationUrl(
   ASellerNip: UTF8String; AContextIdentifierType: TlgoKSeFIdentifierType;
   AContextIdentifierValue: UTF8String; AInvoiceHash: UTF8String;
   ASigningCertificate: TlgoCertificate; AGateType: TlgoKSeFGateType;
@@ -1754,6 +1763,53 @@ end;
 procedure TlgoKSeF2.TestdataPersonRemove(const ANip: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_TestdataPersonRemove(ExtObject, LGP_PCHAR(ANip)));
+end;
+
+{ TlgKSeF2Utils }
+
+class function TlgoKSeF2Utils.IsKsefNumberValid(AKsefNumber: UTF8String; out
+  AKomunikat: UTF8String): Boolean;
+var
+  O: LGP_OBJECT;
+  R: LGP_INT32;
+begin
+  O := nil;
+  R := 0;
+  lgoCheckResult(lgpKSeF2Utils_IsKsefNumberValid(LGP_PCHAR(AKsefNumber), R, O));
+  Result := R <> 0;
+  AKomunikat := lgoGetString(O);
+end;
+
+class function TlgoKSeF2Utils.LoadInvoiceMetadataFromStream(AStream: TStream
+  ): TKSeF2QueryInvoicesMetadataResponse;
+var
+  O: LGP_OBJECT;
+  LGStream: TlgoStream;
+begin
+  O := nil;
+  LGStream := TlgoStream.Create(AStream);
+  try
+    lgoCheckResult(lgpKSeF2Utils_LoadInvoiceMetadataFromStream(LGStream.StreamObj, O));
+    if O <> nil then
+      Result := TKSeF2QueryInvoicesMetadataResponse.Create(nil, O)
+    else
+      Result := nil;
+  finally
+    LGStream.Free;
+  end;
+end;
+
+class function TlgoKSeF2Utils.LoadInvoiceMetadataFromString(AData: UTF8String
+  ): TKSeF2QueryInvoicesMetadataResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2Utils_LoadInvoiceMetadataFromString(LGP_PCHAR(AData), O));
+  if O <> nil then
+    Result := TKSeF2QueryInvoicesMetadataResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 end.

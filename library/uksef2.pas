@@ -188,6 +188,10 @@ function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR)
 function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
+function lgpKSeF2Utils_IsKsefNumberValid(AKsefNumber: LGP_PCHAR; var AWynik: LGP_INT32; var AKomunikat: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2Utils_LoadInvoiceMetadataFromStream(AStream: LGP_OBJECT; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2Utils_LoadInvoiceMetadataFromString(AData: LGP_PCHAR; var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
 implementation
 
 uses
@@ -2423,6 +2427,51 @@ begin
       TlgKSeFIdentifierType(AContextIdentifierType), AContextIdentifierValue,
       AInvoiceHash, TlgCertificate(ASigningCertificate), TlgKSeFGateType(AGateType),
       Base64EncCls));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2Utils_IsKsefNumberValid(AKsefNumber: LGP_PCHAR;
+  var AWynik: LGP_INT32; var AKomunikat: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  S: String;
+begin
+  Result := nil;
+  AWynik := 0;
+  AKomunikat := nil;
+  try
+    AWynik := Ord(TlgKSeF2Utils.IsKsefNumberValid(AKsefNumber, S));
+    if S <> '' then
+      AKomunikat := TStringObject.Create(S);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2Utils_LoadInvoiceMetadataFromStream(AStream: LGP_OBJECT;
+  var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AMetadata := nil;
+  try
+    CheckObject(AStream, TStream);
+    AMetadata := TlgKSeF2Utils.LoadInvoiceMetadataFromStream(TStream(AStream));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2Utils_LoadInvoiceMetadataFromString(AData: LGP_PCHAR;
+  var AMetadata: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AMetadata := nil;
+  try
+    AMetadata := TlgKSeF2Utils.LoadInvoiceMetadataFromString(AData);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
