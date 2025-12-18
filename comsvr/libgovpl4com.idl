@@ -56,6 +56,9 @@ library LibGovPL
   interface IlgcKSeF2Request;
   interface IlgcKSeF2Response;
   interface IlgcKSeF2;
+  interface IlgcKSeF2VerificationLinkService;
+  interface IlgcHash;
+  interface IlgcKSeF2Utils;
   coclass lgcErrorInfo;
   coclass lgcBaseObject;
   coclass lgcBackend;
@@ -97,6 +100,9 @@ library LibGovPL
   coclass lgcKSeF2Request;
   coclass lgcKSeF2Response;
   coclass lgcKSeF2;
+  coclass lgcKSeF2VerificationLinkService;
+  coclass lgcHash;
+  coclass lgcKSeF2Utils;
 
 /// \endcond
 
@@ -571,6 +577,9 @@ library LibGovPL
 
     [id(2021)]
     HRESULT _stdcall CreateKSeF2VerLinkSvc([out, retval] IDispatch** NewObject);
+
+    [id(2022)]
+    HRESULT _stdcall CreateKSeF2Utils([out, retval] IDispatch** NewObject);
   };
 
   ///
@@ -3739,6 +3748,28 @@ library LibGovPL
     HRESULT _stdcall HashFile([in] BSTR FileName, [in] BSTR Base64EncoderClass, [out, retval] BSTR* Value);
   }
 
+  ///
+  /// Funkcje pomocnicze dla KSeF 2.0.
+  ///
+  [
+    uuid(76d4d70c-6fa0-44e7-9762-d54c180cd298),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Funkcje pomocnicze dla KSeF 2.0")
+  ]
+  interface IlgcKSeF2Utils: IlgcBaseObject
+  {
+    ///
+    ///
+    ///
+    [id(43001)]
+    HRESULT _stdcall IsKsefNumberValid([in] BSTR AKsefNumber, [out, retval] VARIANT_BOOL* Value);
+
+    [id(43002)]
+    HRESULT _stdcall LoadInvoiceMetadataFromStream([in] VARIANT AStream, [out, retval] IDispatch** Metadata);
+  }
+
 /// \cond
 
   [
@@ -4140,6 +4171,15 @@ library LibGovPL
   coclass lgcHash
   {
     [default] interface IlgcHash;
+  }
+
+  [
+    uuid(6d4435a3-fb82-466f-b283-ad32103573e4),
+    version(1.0)
+  ]
+  coclass lgcKSeF2Utils
+  {
+    [default] interface IlgcKSeF2Utils;
   }
 
 /// \endcond

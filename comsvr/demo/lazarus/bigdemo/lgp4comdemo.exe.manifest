@@ -3,7 +3,7 @@
   <assemblyIdentity name="lgp4comdemo.exe" type="win32" version="1.0.0.0"/>
   <dependency>
     <dependentAssembly>
-      <assemblyIdentity name="libgovpl4com" type="win32" version="4.1.99.0"/>
+      <assemblyIdentity name="libgovpl4com" type="win32" version="4.1.100.0"/>
     </dependentAssembly>
   </dependency>
   <dependency>

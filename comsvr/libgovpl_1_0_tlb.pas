@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2025-12-09 18:25:02 from D:\lazarus-projekty\libgovpl4demo\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2025-12-18 21:57:17 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -341,14 +341,6 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF2disp.Invoke
-//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.QueryInterface
-//  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.QueryInterface
-//  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.GetTypeInfo
-//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.GetIDsOfNames
-//  Warning: 'PShortInt' not automatable in IlgcMemoryStreamdisp.GetIDsOfNames
-//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.Invoke
-//  Warning: 'DISPPARAMS' not automatable in IlgcMemoryStreamdisp.Invoke
-//  Warning: 'EXCEPINFO' not automatable in IlgcMemoryStreamdisp.Invoke
 //  Warning: 'GUID' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2VerificationLinkServicedisp.GetTypeInfo
@@ -365,6 +357,22 @@ interface
 //  Warning: 'GUID' not automatable in IlgcHashdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcHashdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcHashdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcKSeF2Utilsdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcKSeF2Utilsdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcKSeF2Utilsdisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcKSeF2Utilsdisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcKSeF2Utilsdisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcKSeF2Utilsdisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcKSeF2Utilsdisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcKSeF2Utilsdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcMemoryStreamdisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcMemoryStreamdisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcMemoryStreamdisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcMemoryStreamdisp.Invoke
 Uses
   Windows,ActiveX,Classes,Variants,stdole2;
 Const
@@ -414,9 +422,10 @@ Const
   IID_IlgcKSeF2Request : TGUID = '{92A8D7F5-32ED-4B1E-8714-27F6751E5D62}';
   IID_IlgcKSeF2Response : TGUID = '{56B4DD5D-21E4-43B6-B202-AE0234076006}';
   IID_IlgcKSeF2 : TGUID = '{A640B36B-E2C8-4253-BD95-AA2FD75E92EB}';
-  IID_IlgcMemoryStream : TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   IID_IlgcKSeF2VerificationLinkService : TGUID = '{25702B7C-71EA-4536-83E1-FF79B12C5932}';
   IID_IlgcHash : TGUID = '{D207DD82-D710-4935-B6AB-B562250514D9}';
+  IID_IlgcKSeF2Utils : TGUID = '{76D4D70C-6FA0-44E7-9762-D54C180CD298}';
+  IID_IlgcMemoryStream : TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   CLASS_lgcErrorInfo : TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject : TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
   CLASS_lgcBackend : TGUID = '{2FAD736C-1297-4705-B19F-AD1EE260A9A2}';
@@ -461,6 +470,7 @@ Const
   CLASS_lgcKSeF2 : TGUID = '{3BD8F73E-330D-4F4E-B5D8-A3F58DB9FA0D}';
   CLASS_lgcKSeF2VerificationLinkService : TGUID = '{A198F1D7-E40E-4DA4-A327-7042ED519A7D}';
   CLASS_lgcHash : TGUID = '{9FEC8D19-5C4F-49D3-A4A6-1197CD57D318}';
+  CLASS_lgcKSeF2Utils : TGUID = '{6D4435A3-FB82-466F-B283-AD32103573E4}';
 
 //Enums
 
@@ -682,12 +692,14 @@ Type
  IlgcKSeF2ResponseDisp = dispinterface;
  IlgcKSeF2 = interface;
  IlgcKSeF2Disp = dispinterface;
- IlgcMemoryStream = interface;
- IlgcMemoryStreamDisp = dispinterface;
  IlgcKSeF2VerificationLinkService = interface;
  IlgcKSeF2VerificationLinkServiceDisp = dispinterface;
  IlgcHash = interface;
  IlgcHashDisp = dispinterface;
+ IlgcKSeF2Utils = interface;
+ IlgcKSeF2UtilsDisp = dispinterface;
+ IlgcMemoryStream = interface;
+ IlgcMemoryStreamDisp = dispinterface;
 
 //Map CoClass to its default interface
 
@@ -735,6 +747,7 @@ Type
  lgcKSeF2 = IlgcKSeF2;
  lgcKSeF2VerificationLinkService = IlgcKSeF2VerificationLinkService;
  lgcHash = IlgcHash;
+ lgcKSeF2Utils = IlgcKSeF2Utils;
 
 //records, unions, aliases
 
@@ -876,6 +889,8 @@ Type
    function CreateHash(ClsName:WideString):IDispatch;safecall;
     // CreateKSeF2VerLinkSvc :  
    function CreateKSeF2VerLinkSvc:IDispatch;safecall;
+    // CreateKSeF2Utils :  
+   function CreateKSeF2Utils:IDispatch;safecall;
   end;
 
 
@@ -943,6 +958,8 @@ Type
    function CreateHash(ClsName:WideString):IDispatch;dispid 2020;
     // CreateKSeF2VerLinkSvc :  
    function CreateKSeF2VerLinkSvc:IDispatch;dispid 2021;
+    // CreateKSeF2Utils :  
+   function CreateKSeF2Utils:IDispatch;dispid 2022;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
   end;
@@ -4253,58 +4270,6 @@ Type
   end;
 
 
-// IlgcMemoryStream : Obiekt implementujacy IStream na podstawie bufora w pamieci
-
- IlgcMemoryStream = interface(IlgcBaseObject)
-   ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
-   function Get_Data : OleVariant; safecall;
-   procedure Set_Data(Value:OleVariant); safecall;
-    // Clear : Czyszczenie bufora 
-   procedure Clear;safecall;
-    // LoadFromFile : Ladowanie zawartosci bufora ze wskazanego pliku 
-   procedure LoadFromFile(AFileName:WideString);safecall;
-    // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
-   procedure SaveToFile(AFileName:WideString);safecall;
-    // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
-   property Data:OleVariant read Get_Data write Set_Data;
-  end;
-
-
-// IlgcMemoryStream : Obiekt implementujacy IStream na podstawie bufora w pamieci
-
- IlgcMemoryStreamDisp = dispinterface
-   ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
-    // QueryInterface :  
-   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
-    // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
-    // Release :  
-   function Release:LongWord;dispid 1610612738;
-    // GetTypeInfoCount :  
-   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
-    // GetTypeInfo :  
-   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
-    // GetIDsOfNames :  
-   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
-    // Invoke :  
-   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
-    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
-    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
-   procedure ClearLastError;dispid 1002;
-    // Clear : Czyszczenie bufora 
-   procedure Clear;dispid 11002;
-    // LoadFromFile : Ladowanie zawartosci bufora ze wskazanego pliku 
-   procedure LoadFromFile(AFileName:WideString);dispid 11003;
-    // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
-   procedure SaveToFile(AFileName:WideString);dispid 11004;
-    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
-    // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
-   property Data:OleVariant dispid 11001;
-  end;
-
-
 // IlgcKSeF2VerificationLinkService : Generownie linkĂłw weryfikacyjnych dla kodĂłw QR KSeF 2.0
 
  IlgcKSeF2VerificationLinkService = interface(IlgcBaseObject)
@@ -4406,6 +4371,100 @@ Type
    function HashFile(FileName:WideString;Base64EncoderClass:WideString):WideString;dispid 42007;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
+// IlgcKSeF2Utils : Funkcje pomocnicze dla KSeF 2.0
+
+ IlgcKSeF2Utils = interface(IlgcBaseObject)
+   ['{76D4D70C-6FA0-44E7-9762-D54C180CD298}']
+    // IsKsefNumberValid :  
+   function IsKsefNumberValid(AKsefNumber:WideString):WordBool;safecall;
+    // LoadInvoiceMetadataFromStream :  
+   function LoadInvoiceMetadataFromStream(AStream:OleVariant):IDispatch;safecall;
+  end;
+
+
+// IlgcKSeF2Utils : Funkcje pomocnicze dla KSeF 2.0
+
+ IlgcKSeF2UtilsDisp = dispinterface
+   ['{76D4D70C-6FA0-44E7-9762-D54C180CD298}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // IsKsefNumberValid :  
+   function IsKsefNumberValid(AKsefNumber:WideString):WordBool;dispid 43001;
+    // LoadInvoiceMetadataFromStream :  
+   function LoadInvoiceMetadataFromStream(AStream:OleVariant):IDispatch;dispid 43002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+  end;
+
+
+// IlgcMemoryStream : Obiekt implementujacy IStream na podstawie bufora w pamieci
+
+ IlgcMemoryStream = interface(IlgcBaseObject)
+   ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
+   function Get_Data : OleVariant; safecall;
+   procedure Set_Data(Value:OleVariant); safecall;
+    // Clear : Czyszczenie bufora 
+   procedure Clear;safecall;
+    // LoadFromFile : Ladowanie zawartosci bufora ze wskazanego pliku 
+   procedure LoadFromFile(AFileName:WideString);safecall;
+    // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
+   procedure SaveToFile(AFileName:WideString);safecall;
+    // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
+   property Data:OleVariant read Get_Data write Set_Data;
+  end;
+
+
+// IlgcMemoryStream : Obiekt implementujacy IStream na podstawie bufora w pamieci
+
+ IlgcMemoryStreamDisp = dispinterface
+   ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // Clear : Czyszczenie bufora 
+   procedure Clear;dispid 11002;
+    // LoadFromFile : Ladowanie zawartosci bufora ze wskazanego pliku 
+   procedure LoadFromFile(AFileName:WideString);dispid 11003;
+    // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
+   procedure SaveToFile(AFileName:WideString);dispid 11004;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
+   property Data:OleVariant dispid 11001;
   end;
 
 //CoClasses
@@ -4671,6 +4730,12 @@ Type
   Public
     Class Function Create: IlgcHash;
     Class Function CreateRemote(MachineName: string): IlgcHash;
+  end;
+
+  ColgcKSeF2Utils = Class
+  Public
+    Class Function Create: IlgcKSeF2Utils;
+    Class Function CreateRemote(MachineName: string): IlgcKSeF2Utils;
   end;
 
 implementation
@@ -5115,6 +5180,16 @@ end;
 Class Function ColgcHash.CreateRemote(MachineName: string): IlgcHash;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcHash) as IlgcHash;
+end;
+
+Class Function ColgcKSeF2Utils.Create: IlgcKSeF2Utils;
+begin
+  Result := CreateComObject(CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
+end;
+
+Class Function ColgcKSeF2Utils.CreateRemote(MachineName: string): IlgcKSeF2Utils;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
 end;
 
 end.
