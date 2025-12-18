@@ -12,7 +12,7 @@ unit LibGovPL_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 2025-12-10 23:57:20 from Type Library described below.
+// File generated on 2025-12-18 23:06:21 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: d:\lazarus-projekty\libgovpl4demo\binw32\libgovpl4com.dll (1)
@@ -87,9 +87,10 @@ const
   IID_IlgcKSeF2Request: TGUID = '{92A8D7F5-32ED-4B1E-8714-27F6751E5D62}';
   IID_IlgcKSeF2Response: TGUID = '{56B4DD5D-21E4-43B6-B202-AE0234076006}';
   IID_IlgcKSeF2: TGUID = '{A640B36B-E2C8-4253-BD95-AA2FD75E92EB}';
-  IID_IlgcMemoryStream: TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   IID_IlgcKSeF2VerificationLinkService: TGUID = '{25702B7C-71EA-4536-83E1-FF79B12C5932}';
   IID_IlgcHash: TGUID = '{D207DD82-D710-4935-B6AB-B562250514D9}';
+  IID_IlgcKSeF2Utils: TGUID = '{76D4D70C-6FA0-44E7-9762-D54C180CD298}';
+  IID_IlgcMemoryStream: TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
   CLASS_lgcErrorInfo: TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject: TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
   CLASS_lgcBackend: TGUID = '{2FAD736C-1297-4705-B19F-AD1EE260A9A2}';
@@ -134,6 +135,7 @@ const
   CLASS_lgcKSeF2: TGUID = '{3BD8F73E-330D-4F4E-B5D8-A3F58DB9FA0D}';
   CLASS_lgcKSeF2VerificationLinkService: TGUID = '{A198F1D7-E40E-4DA4-A327-7042ED519A7D}';
   CLASS_lgcHash: TGUID = '{9FEC8D19-5C4F-49D3-A4A6-1197CD57D318}';
+  CLASS_lgcKSeF2Utils: TGUID = '{6D4435A3-FB82-466F-B283-AD32103573E4}';
 
 // *********************************************************************//
 // Declaration of Enumerations defined in Type Library                    
@@ -392,12 +394,14 @@ type
   IlgcKSeF2ResponseDisp = dispinterface;
   IlgcKSeF2 = interface;
   IlgcKSeF2Disp = dispinterface;
-  IlgcMemoryStream = interface;
-  IlgcMemoryStreamDisp = dispinterface;
   IlgcKSeF2VerificationLinkService = interface;
   IlgcKSeF2VerificationLinkServiceDisp = dispinterface;
   IlgcHash = interface;
   IlgcHashDisp = dispinterface;
+  IlgcKSeF2Utils = interface;
+  IlgcKSeF2UtilsDisp = dispinterface;
+  IlgcMemoryStream = interface;
+  IlgcMemoryStreamDisp = dispinterface;
 
 // *********************************************************************//
 // Declaration of CoClasses defined in Type Library                       
@@ -447,6 +451,7 @@ type
   lgcKSeF2 = IlgcKSeF2;
   lgcKSeF2VerificationLinkService = IlgcKSeF2VerificationLinkService;
   lgcHash = IlgcHash;
+  lgcKSeF2Utils = IlgcKSeF2Utils;
 
 
 // *********************************************************************//
@@ -534,6 +539,7 @@ type
     function CreateKSeF2: IDispatch; safecall;
     function CreateHash(const ClsName: WideString): IDispatch; safecall;
     function CreateKSeF2VerLinkSvc: IDispatch; safecall;
+    function CreateKSeF2Utils: IDispatch; safecall;
   end;
 
 // *********************************************************************//
@@ -566,6 +572,7 @@ type
     function CreateKSeF2: IDispatch; dispid 2019;
     function CreateHash(const ClsName: WideString): IDispatch; dispid 2020;
     function CreateKSeF2VerLinkSvc: IDispatch; dispid 2021;
+    function CreateKSeF2Utils: IDispatch; dispid 2022;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -2731,37 +2738,6 @@ type
   end;
 
 // *********************************************************************//
-// Interface: IlgcMemoryStream
-// Flags:     (4416) Dual OleAutomation Dispatchable
-// GUID:      {BCF17136-365B-4AF4-9720-44EB9E4CABB0}
-// *********************************************************************//
-  IlgcMemoryStream = interface(IlgcBaseObject)
-    ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
-    function Get_Data: OleVariant; safecall;
-    procedure Set_Data(Value: OleVariant); safecall;
-    procedure Clear; safecall;
-    procedure LoadFromFile(const AFileName: WideString); safecall;
-    procedure SaveToFile(const AFileName: WideString); safecall;
-    property Data: OleVariant read Get_Data write Set_Data;
-  end;
-
-// *********************************************************************//
-// DispIntf:  IlgcMemoryStreamDisp
-// Flags:     (4416) Dual OleAutomation Dispatchable
-// GUID:      {BCF17136-365B-4AF4-9720-44EB9E4CABB0}
-// *********************************************************************//
-  IlgcMemoryStreamDisp = dispinterface
-    ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
-    property Data: OleVariant dispid 11001;
-    procedure Clear; dispid 11002;
-    procedure LoadFromFile(const AFileName: WideString); dispid 11003;
-    procedure SaveToFile(const AFileName: WideString); dispid 11004;
-    function GetObjClassName: WideString; dispid 1001;
-    procedure ClearLastError; dispid 1002;
-    property LastError: IDispatch readonly dispid 1003;
-  end;
-
-// *********************************************************************//
 // Interface: IlgcKSeF2VerificationLinkService
 // Flags:     (4416) Dual OleAutomation Dispatchable
 // GUID:      {25702B7C-71EA-4536-83E1-FF79B12C5932}
@@ -2830,6 +2806,62 @@ type
     function HashBytes(Data: OleVariant; const Base64EncoderClass: WideString): WideString; dispid 42005;
     function HashStream(const DataStream: IDispatch; const Base64EncoderClass: WideString): WideString; dispid 42006;
     function HashFile(const FileName: WideString; const Base64EncoderClass: WideString): WideString; dispid 42007;
+    function GetObjClassName: WideString; dispid 1001;
+    procedure ClearLastError; dispid 1002;
+    property LastError: IDispatch readonly dispid 1003;
+  end;
+
+// *********************************************************************//
+// Interface: IlgcKSeF2Utils
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {76D4D70C-6FA0-44E7-9762-D54C180CD298}
+// *********************************************************************//
+  IlgcKSeF2Utils = interface(IlgcBaseObject)
+    ['{76D4D70C-6FA0-44E7-9762-D54C180CD298}']
+    function IsKsefNumberValid(const AKsefNumber: WideString): WordBool; safecall;
+    function LoadInvoiceMetadataFromStream(AStream: OleVariant): IDispatch; safecall;
+  end;
+
+// *********************************************************************//
+// DispIntf:  IlgcKSeF2UtilsDisp
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {76D4D70C-6FA0-44E7-9762-D54C180CD298}
+// *********************************************************************//
+  IlgcKSeF2UtilsDisp = dispinterface
+    ['{76D4D70C-6FA0-44E7-9762-D54C180CD298}']
+    function IsKsefNumberValid(const AKsefNumber: WideString): WordBool; dispid 43001;
+    function LoadInvoiceMetadataFromStream(AStream: OleVariant): IDispatch; dispid 43002;
+    function GetObjClassName: WideString; dispid 1001;
+    procedure ClearLastError; dispid 1002;
+    property LastError: IDispatch readonly dispid 1003;
+  end;
+
+// *********************************************************************//
+// Interface: IlgcMemoryStream
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {BCF17136-365B-4AF4-9720-44EB9E4CABB0}
+// *********************************************************************//
+  IlgcMemoryStream = interface(IlgcBaseObject)
+    ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
+    function Get_Data: OleVariant; safecall;
+    procedure Set_Data(Value: OleVariant); safecall;
+    procedure Clear; safecall;
+    procedure LoadFromFile(const AFileName: WideString); safecall;
+    procedure SaveToFile(const AFileName: WideString); safecall;
+    property Data: OleVariant read Get_Data write Set_Data;
+  end;
+
+// *********************************************************************//
+// DispIntf:  IlgcMemoryStreamDisp
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {BCF17136-365B-4AF4-9720-44EB9E4CABB0}
+// *********************************************************************//
+  IlgcMemoryStreamDisp = dispinterface
+    ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
+    property Data: OleVariant dispid 11001;
+    procedure Clear; dispid 11002;
+    procedure LoadFromFile(const AFileName: WideString); dispid 11003;
+    procedure SaveToFile(const AFileName: WideString); dispid 11004;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -3363,6 +3395,18 @@ type
     class function CreateRemote(const MachineName: string): IlgcHash;
   end;
 
+// *********************************************************************//
+// The Class ColgcKSeF2Utils provides a Create and CreateRemote method to          
+// create instances of the default interface IlgcKSeF2Utils exposed by              
+// the CoClass lgcKSeF2Utils. The functions are intended to be used by             
+// clients wishing to automate the CoClass objects exposed by the         
+// server of this typelibrary.                                            
+// *********************************************************************//
+  ColgcKSeF2Utils = class
+    class function Create: IlgcKSeF2Utils;
+    class function CreateRemote(const MachineName: string): IlgcKSeF2Utils;
+  end;
+
 implementation
 
 uses ComObj;
@@ -3805,6 +3849,16 @@ end;
 class function ColgcHash.CreateRemote(const MachineName: string): IlgcHash;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_lgcHash) as IlgcHash;
+end;
+
+class function ColgcKSeF2Utils.Create: IlgcKSeF2Utils;
+begin
+  Result := CreateComObject(CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
+end;
+
+class function ColgcKSeF2Utils.CreateRemote(const MachineName: string): IlgcKSeF2Utils;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
 end;
 
 end.
