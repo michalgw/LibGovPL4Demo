@@ -584,6 +584,7 @@ begin
   if ComboBoxRSAEnc.Items.Count > 0 then
     ComboBoxRSAEnc.ItemIndex := 0;
   CertCombos.Add(ComboBoxACertificate);
+  CertCombos.Add(ComboBoxLCertificate2);
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
