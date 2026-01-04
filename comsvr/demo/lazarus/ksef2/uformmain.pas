@@ -999,7 +999,7 @@ begin
     for I := FromIdx to ToIdx do
     begin
       FileStream := Backend.CreateFileStream(StringGridKSeFBEncOutFiles.Cells[0, I + 1], fmOpenRead);
-      KSeF.BatchSendPart(OVResponse.PartUploadRequests.Items.Item[I], FileStream);
+      KSeF.BatchSendPart(OVResponse.PartUploadRequests.Item[I], FileStream);
       Debug('Wysłano część ' + (I + 1).ToString);
       FileStream := nil;
     end;
@@ -1695,7 +1695,6 @@ begin
   else
     if FileExists(Application.ExeName + '.ini') then
       DeleteFile(Application.ExeName + '.ini');
-  ButtonObjClearClick(nil);
   BatchRequest := nil;
   BatchResponse := nil;
   ExportResponse := nil;
