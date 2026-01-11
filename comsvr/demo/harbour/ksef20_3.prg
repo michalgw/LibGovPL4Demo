@@ -8,15 +8,15 @@
 /*
 
    KSeF 2.0
-   Autoryzacja tokenem KSeF,
-   wyslanie faktury, sprawdzenie statusu przetwarzania, poranie UPO
+   Autoryzacja certyfikatem i kluczem prywatnym wygenerowanym w KSeF (XAdES),
+   szyfrowanie packi i wysylka wsadowa
 
 */
 
 FUNCTION Main()
 
-   LOCAL oBackend, oKSeF, oResponse, cSessionRefNo, cFaRefNo
-   LOCAL lPrzerwij := .F., oFiltr, oRequest, oEl, nKey
+   LOCAL oBackend, oKSeF, oResponse, oCertSigner, oCert, oXAdES
+   LOCAL lPrzerwij := .F., oBatchReq, oBatchRes, oEl
 
    // Tworzenie obiektu zaplecza
    oBackend := win_oleCreateObject( "LibGovPl.lgcBackend" )
@@ -26,14 +26,36 @@ FUNCTION Main()
 
    TRY
 
+      // Tworzenie obiektu podpisu certyfikatem kwalifikowanym lub pieczecia
+      oCertSigner := oBackend:CreateCertificateSigner( "" )
+
+      // Wczytaj certyfikat i klucz prywatny ze wskazanych plikow
+      oCert := oCertSigner:LoadFromStream( ;
+         "PlikCertyfikatuKSeF.crt", ;       // Plik certyfikatu klucza publicznego
+         LGC_ET_PEM, ;                      // Plik certyfikatu w formacie PEM
+         "PlikKluczaPrywatnegoKSeF.key", ;  // Plik klucza prywatnego
+         LGC_ET_PEM, ;                      // Plik klucza w formacie PEM
+         "HasloDoKluczaPrywatnego" )        // Haslo, ktorym zabezpieczono klucz prywatny
+
+      // Napisz info o certyfikacie
+      ? "Nazwa certyfikatu: ", oCert:DisplayName
+      ? "Wazny od: ", oCert:ValidFrom
+      ? "Wazny do: ", oCert:ValidTo
+
+      // Tworzymy obiekt obslugi podpisu XAdES
+      oXAdES := oBackend:CreateXAdES()
+
       // Tworzenie obiektu komunikacji KSeF 2.0
       oKSeF := oBackend:CreateKSeF2()
 
       // Tworzenie obiektu klienta HTTP
       oKSeF:HTTPClient := oBackend:CreateHTTPClient( "" )
 
-      // Token KSeF do autoryzacji
-      oKSeF:KsefToken := "20251106-EC-298F018000-1111111111-A6|nip-1111111111|1111111111122222222222211111111111111222222222222211111111111222"
+      // Ustawiamy obiekt sygnatury XAdES
+      oKSeF:XAdES := oXAdES
+
+      // Uzywamy wybranego certyfikatu do autoryzacji
+      oKSeF:AuthCertificate := oCert
 
       // Ustawiamy parametry podmiotu
       // Rodzaj identyfikatora - NIP
@@ -44,7 +66,7 @@ FUNCTION Main()
       oKSeF:GateType := LGC_KTG_TEST
 
       // Autoryzacja wybranym certyfikatem
-      oResponse := oKSeF:AuthKsefToken()
+      oResponse := oKSeF:AuthXadesSignature()
 
       // Napisz nr referencyjny sesji
       ? "Nr referencyjny sesji: " + oResponse:ReferenceNumber
@@ -88,34 +110,34 @@ FUNCTION Main()
          ? "RefreshToken:Token: ", oResponse:RefreshToken:Token
          ? "RefreshToken:ValidUntil: ", oResponse:RefreshToken:ValidUntil
 
-         // Otworz sesje interaktywna i zwroc jej numer referencyjny
-         cSessionRefNo := oKSeF:InteractiveOpenSimple()
-         ? "Otwarto sesje interaktywna nr: ", cSessionRefNo
-
-         // Wyslij plik faktury w otwartej sesji i pobierz nr referencyjny
-         cFaRefNo := oKSeF:InteractiveSend( ;
-            "PlikFA.xml", ;   // Plik xml z faktura do wyslania
-            .F., ;            // Czy wysylamy w trybie offline
-            "" )              // Skrot dokumentu pierwotnego w trybie offline w przypadku korekty technicznej
-         ? "Wyslano fakture, nr ref: ", cFaRefNo
-
-         // Zamykamy aktualna sesje interaktywna
-         oKSeF:InteractiveClose( "", "" )
-         ? "Zamknieto sesje interaktywna"
+         ? "Przygotowanie paczki"
+         // Szyfrowanie paczki i przygotowanie zadania dla wyslania paczki (paczka max. 100MB)
+         oBatchReq := oKSeF:BatchPrepare( "PlikPaczki.zip", "ZaszyfrowanaPaczka.enc", 0 )
+         ? "Otwieranie sesji wsadowaej"
+         // Otwieramy sesje wsadowa dla przygotowanej paczki, otrzymujemy informacje dla wysylki paczki
+         oBatchRes := oKSeF:BatchOpen( oBatchReq, "" )
+         ? "Otwarto sesje, nr ref.: ", oBatchRes:ReferenceNumber
+         ? "Wysylam paczke na adres: ", oBatchRes:PartUploadRequests:Item(0):Url
+         // Wysylamy paczke na podstawie danych odpowiedzi.
+         // Paczka jednoczesciowa (tylko jeden element do wyslania)
+         oKSeF:BatchSendPart(oBatchRes:PartUploadRequests:Item(0), "ZaszyfrowanaPaczka.enc" )
+         ? "Paczka wyslana, zamykamy sesje wsadowa"
+         oKSeF:BatchClose( "", "" )
+         ? "Sesja zamknieta"
 
          lPrzerwij := .F.
          DO WHILE ! lPrzerwij
 
-            // Sprawdz status przetwarzania faktury
-            oResponse := oKSeF:StatusSessionInvoice( cSessionRefNo, cFaRefNo, "" )
+            // Sprawdz status przetwarzania paczki
+            oResponse := oKSeF:StatusSession( oBatchRes:ReferenceNumber, "" )
 
             // Wyswietl otrzymany status
             ? "Status: ", oResponse:Status:Code
             ? "Opis statusu: ", oResponse:Status:Description
             ? "Surowa odpowiedz JSON: ", oResponse:RawResponse
 
-            // Jesli autoryzowano (status = 200) lub
-            // jesli autoryzacja sie nie powiodla (status >= 300)
+            // Jesli zakonczono poprawnie (status = 200) lub
+            // jesli przetwarzanie sie nie powiodlo (status >= 300)
             // to zakoncz
             lPrzerwij := oResponse:Status:Code == 200 .OR. oResponse:Status:Code >= 300
 
@@ -128,13 +150,14 @@ FUNCTION Main()
          ENDDO
 
          // Jesli zatwierdzono to pobierz UPO dla wyslanej faktury
-         IF oResponse:Status:Code == 200
+         IF oResponse:Status:Code == 200 .AND. ! Empty( oResponse:Upo )
 
-            ? "Faktura zatwierdzona, nr KSeF: ", oResponse:KsefNumber
-            ? "Surowa odpowiedz JSON: ", oResponse:RawResponse
-
-            ? "Pobieram UPO dla faktury z sesji"
-            oKSeF:StatusUpoSessionInvoice( cSessionRefNo, cFaRefNo, "PobranyPlikUPO.xml", "" )
+            FOR EACH oEl IN oResponse:Upo:Pages
+               ? "Nr ref. UPO: ", oEl:ReferenceNumber
+               ? "UPO pobrania z adresu: ", oEl:DownloadUrl
+               // Pobierz UPO po nr ref. sesji i UPO.
+               oKSeF:StatusUpoSession( oBatchRes:ReferenceNumber, oEl:ReferenceNumber, oEl:ReferenceNumber + ".xml", '' )
+            NEXT
 
          ENDIF
 

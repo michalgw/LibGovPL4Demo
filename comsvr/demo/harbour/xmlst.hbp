@@ -1,0 +1,34 @@
+#
+# $Id$
+#
+
+-3rd=hbide_version=1.0
+-3rd=hbide_title=XMLST
+-3rd=hbide_output=XMLST
+
+#    hbmk2 Flags
+#
+-hbexe
+
+-b
+
+#    GT Requested 
+#
+-gtwin
+
+hbwin.hbc
+xhb.hbc
+
+#    Compilable Sources 
+#
+#
+#    .prg
+#
+xmlst.prg
+
+#    Other Files 
+#
+
+xmlst.rc
+
+ 
