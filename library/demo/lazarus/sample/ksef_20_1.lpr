@@ -54,7 +54,7 @@ begin
   // Certyfikat i klucz wczytywany jest z osobnych plikow.
   // Klucz prywatny zabezpieczony jest haslem.
   CertStream := TFileStream.Create(CertNazwaPliku, fmOpenRead);
-  KeyStream := TFileStream.Create(CertNazwaPliku, fmOpenRead);
+  KeyStream := TFileStream.Create(KeyNazwaPliku, fmOpenRead);
   Certyfikat := CertSigner.LoadFromStream(CertStream, letPEM, KeyStream, letPEM, KeyHaslo);
   CertStream.Free;
   KeyStream.Free;
