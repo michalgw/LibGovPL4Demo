@@ -846,7 +846,7 @@ var
 
   lgpPKCS11Session_CheckActive: function(ASession: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpPKCS11Session_Login: function(ASession: LGP_OBJECT; APIN: LGP_PCHAR; AUserType: LGP_INT32): LGP_EXCEPTION; stdcall;
-  lgpPKCS11Session_Logout: function(ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+  lgpPKCS11Session_Logout: function(ASession: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpPKCS11Session_GetSigner: function(ASession: LGP_OBJECT; var AObject: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpPKCS11Session_GetHandle: function(ASession: LGP_OBJECT; var AHandle: LGP_CK_ULONG): LGP_EXCEPTION; stdcall;
   lgpPKCS11Session_GetSlotID: function(ASession: LGP_OBJECT; var ASlotID: LGP_CK_ULONG): LGP_EXCEPTION; stdcall;
@@ -1280,7 +1280,7 @@ begin
     Exit;
   end;
 
-  LibGovPl4Handle := LoadLibrary({$IFNDEF FPC}PAnsiChar{$ENDIF}(AFileName));
+  LibGovPl4Handle := LoadLibrary({$IFNDEF FPC}{$IFDEF UNICODE}PWideChar{$ELSE}PAnsiChar{$ENDIF}{$ENDIF}(AFileName));
   if LibGovPl4Handle <> 0 then
   begin
     // Backend
