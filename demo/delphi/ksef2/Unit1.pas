@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, StdCtrls, ExtCtrls, CheckLst, lgBackend, lgCNG, lgWinHTTP,
-  Menus, Contnrs, lgCompat, lgXAdES, lgKSeF2, lgKSeF2Objects, lgKSeFTypes, lgUtils,
-  Spin, Grids;
+  lgOpenSSL, lgSynapse, Menus, Contnrs, lgCompat, lgXAdES, lgKSeF2,
+  lgKSeF2Objects, lgKSeFTypes, lgUtils, Spin, Grids;
 
 type
   TForm1 = class(TForm)
@@ -1771,11 +1771,11 @@ var
   FileStream: TFileStream;
 begin
   FileStream := nil;
-  Debug('Pobranie UPO faktury z sesji na podstawie numeru KSeF', True);
+  Debug('Pobranie UPO faktury z sesji na podstawie numeru referencyjnego', True);
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFUFile2.Text, fmCreate);
-      KSeF.StatusUpoKsef(EditKSeFUReferenceNumber2.Text, EditKSeFUUpoReferenceNumber2.Text,
+      KSeF.StatusUpoSession(EditKSeFUReferenceNumber2.Text, EditKSeFUUpoReferenceNumber2.Text,
         FileStream);
       Debug('Pobrano UPO do pliku: ' + FileNameEditKSeFUFile2.Text);
     except

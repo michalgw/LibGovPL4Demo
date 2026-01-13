@@ -1555,11 +1555,11 @@ procedure TFormMain.ButtonKSeFUPobierz2Click(Sender: TObject);
 var
   FileStream: TFileStream = nil;
 begin
-  Debug('Pobranie UPO faktury z sesji na podstawie numeru KSeF', True);
+  Debug('Pobranie UPO faktury z sesji na podstawie numeru referencyjnego', True);
   try
     try
       FileStream := TFileStream.Create(FileNameEditKSeFUFile2.FileName, fmCreate);
-      KSeF.StatusUpoKsef(EditKSeFUReferenceNumber2.Text, EditKSeFUUpoReferenceNumber2.Text,
+      KSeF.StatusUpoSession(EditKSeFUReferenceNumber2.Text, EditKSeFUUpoReferenceNumber2.Text,
         FileStream);
       Debug('Pobrano UPO do pliku: ' + FileNameEditKSeFUFile.FileName);
     except

@@ -118,6 +118,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="libgovpl4synapse"/>
+      </Item>
+      <Item>
         <PackageName Value="DateTimeCtrlsDsgn"/>
       </Item>
       <Item>
