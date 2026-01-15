@@ -107,7 +107,7 @@ uses
   , xml2dyn, lgLibXML2
   {$ENDIF}
   {$IFDEF WINDOWS}
-  , winpeimagereader
+  , winpeimagereader, ActiveX
   {$ENDIF}
   {$IFDEF UNIX}
   , elfreader
@@ -221,6 +221,9 @@ end;
 
 function lgplInit: LGP_INT32; stdcall;
 begin
+  {$IFDEF WINDOWS}
+  CoInitialize(nil);
+  {$ENDIF}
   lgpInitKSeFClasses;
   lgpInitKSeF2Classes;
   {$IFDEF LGP_DEBUG_OBJ}
@@ -240,6 +243,9 @@ begin
   {$ENDIF}
   {$IFDEF LGP_DEBUG_OBJ}
   lgpDbgObjectListDone;
+  {$ENDIF}
+  {$IFDEF WINDOWS}
+  CoUninitialize;
   {$ENDIF}
   Result := 0;
 end;
