@@ -608,6 +608,8 @@ begin
       AValue := (Obj as IKSeF2Array).Count
     else if Obj is TlgpKSeFExceptionDetailList then
       AValue := (Obj as TlgpKSeFExceptionDetailList).Count
+    else if Obj is TlgpKSeF2ExceptionDetailList then
+      AValue := (Obj as TlgpKSeF2ExceptionDetailList).Count
     else
       raise EInvalidCast.Create('Invalid typecast');
   except
@@ -634,6 +636,8 @@ begin
       AItem := (Obj as IKSeF2Array).GetItem(AIndex)
     else if Obj is TlgpKSeFExceptionDetailList then
       AItem := (Obj as TlgpKSeFExceptionDetailList).Items[AIndex]
+    else if Obj is TlgpKSeF2ExceptionDetailList then
+      AItem := (Obj as TlgpKSeF2ExceptionDetailList).Items[AIndex]
     else
       raise EInvalidCast.Create('Invalid typecast');
   except

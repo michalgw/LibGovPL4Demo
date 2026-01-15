@@ -95,6 +95,7 @@ type
 
   { TlgpKSeF2ExceptionDetail }
 
+  {$M+}
   TlgpKSeF2ExceptionDetail = class
   private
     FExceptionCode: Integer;
@@ -105,6 +106,7 @@ type
     property ExceptionDescription: String read FExceptionDescription write FExceptionDescription;
     property ExceptionDetails: String read FExceptionDetails write FExceptionDetails;
   end;
+  {$M-}
 
   TlgpKSeF2ExceptionDetailList = class(specialize TObjectList<TlgpKSeF2ExceptionDetail>);
 
@@ -181,7 +183,7 @@ type
 
 {$ENDIF}
 
-function lgpCreateExceptioObject(AException: Exception): TlgpExceptionObject; overload;
+function lgpCreateExceptioObject(const AException: Exception): TlgpExceptionObject; overload;
 function lgpCreateExceptioObject(AMessage: String): TlgpExceptionObject; overload;
 function lgpCreateInvalidObjectException: TlgpExceptionObject;
 
@@ -190,7 +192,7 @@ implementation
 uses
   lgKSeFTypes, lgKSeFObjects, lgUtils, lgKSeF2Objects, uBackend;
 
-function lgpCreateExceptioObject(AException: Exception): TlgpExceptionObject;
+function lgpCreateExceptioObject(const AException: Exception): TlgpExceptionObject;
 var
   I: Integer;
   D: TlgpKSeFExceptionDetail;

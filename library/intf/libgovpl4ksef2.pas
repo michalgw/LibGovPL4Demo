@@ -229,6 +229,54 @@ type
     procedure TestdataPerson(ARequest: TKSeF2PersonCreateRequest);
     procedure TestdataPersonRemove(const ANip: UTF8String);
 
+    function PermissionsPersonsGrant(ARequest: TKSeF2PersonPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsPersonsGrantSimple(ARequest: TKSeF2PersonPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsEntitiesGrants(ARequest: TKSeF2EntityPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsEntitiesGrantsSimple(ARequest: TKSeF2EntityPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsAuthorizationsGrants(ARequest: TKSeF2EntityAuthorizationPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsAuthorizationsGrantsSimple(ARequest: TKSeF2EntityAuthorizationPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsIndirectGrants(ARequest: TKSeF2IndirectPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsIndirectGrantsSimple(ARequest: TKSeF2IndirectPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsSubunitsGrants(ARequest: TKSeF2SubunitPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsSubunitsGrantsSimple(ARequest: TKSeF2SubunitPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsEuEntitiesAdministrationGrants(ARequest: TKSeF2EuEntityAdministrationPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsEuEntitiesAdministrationGrantsSimple(ARequest: TKSeF2EuEntityAdministrationPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsEuEntitiesGrants(ARequest: TKSeF2EuEntityPermissionsGrantRequest; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsEuEntitiesGrantsSimple(ARequest: TKSeF2EuEntityPermissionsGrantRequest; AAccessToken: UTF8String = ''): UTF8String;
+
+    function PermissionsCommonRevoke(APermissionId: UTF8String; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsCommonRevokeSimple(APermissionId: UTF8String; AAccessToken: UTF8String = ''): UTF8String;
+    function PermissionsAuthorizationsRevoke(APermissionId: UTF8String; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationResponse;
+    function PermissionsAuthorizationsRevokeSimple(APermissionId: UTF8String; AAccessToken: UTF8String = ''): UTF8String;
+
+    function PermissionsOperationsStatus(AReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2PermissionsOperationStatusResponse;
+    function PermissionsAttachmentsStatus(AAccessToken: UTF8String = ''): TKSeF2CheckAttachmentPermissionStatusResponse;
+
+    function PermissionsQueryPersonalGrants(ARequest: TKSeF2PersonalPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPersonalPermissionsResponse;
+    function PermissionsQueryPersonsGrants(ARequest: TKSeF2PersonPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPersonPermissionsResponse;
+    function PermissionsQuerySubunitsGrants(ARequest: TKSeF2SubunitPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QuerySubunitPermissionsResponse;
+    function PermissionsQueryEntitiesRoles(APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEntityRolesResponse;
+    function PermissionsQuerySubordinateEntitiesRoles(ARequest: TKSeF2SubordinateEntityRolesQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QuerySubordinateEntityRolesResponse;
+    function PermissionsQueryAuthorizationsGrants(ARequest: TKSeF2EntityAuthorizationPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEntityAuthorizationPermissionsResponse;
+    function PermissionsQueryEuEntitiesGrants(ARequest: TKSeF2EuEntityPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEuEntityPermissionsResponse;
+
+    function CertificatesLimits(AAccessToken: UTF8String = ''): TKSeF2CertificateLimitsResponse;
+    function CertificatesEnrollmentsData(AAccessToken: UTF8String = ''): TKSeF2CertificateEnrollmentDataResponse;
+    function CertificatesEnrollments(ARequest: TKSeF2EnrollCertificateRequest; AAccessToken: UTF8String = ''): TKSeF2EnrollCertificateResponse;
+    function CertificatesEnrollmentsStatus(AReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2CertificateEnrollmentStatusResponse;
+    function CertificatesRetrieve(ARequest: TKSeF2RetrieveCertificatesRequest; AAccessToken: UTF8String = ''): TKSeF2RetrieveCertificatesResponse; overload;
+    function CertificatesRetrieve(ACertificateSerialNumbers: TStringArray; AAccessToken: UTF8String = ''): TKSeF2RetrieveCertificatesResponse; overload;
+    procedure CertificatesRevoke(ACertificateSerialNumber: UTF8String; ARequest: TKSeF2RevokeCertificateRequest; AAccessToken: UTF8String = ''); overload;
+    procedure CertificatesRevoke(ACertificateSerialNumber: UTF8String; ARevocationReason: TKSeF2CertificateRevocationReason = crrUnspecified; AAccessToken: UTF8String = ''); overload;
+    function CertificatesQuery(ARequest: TKSeF2QueryCertificatesRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryCertificatesResponse; overload;
+    function CertificatesQuery(ACertificateSerialNumber: UTF8String = ''; AName: UTF8String = ''; AType: TKSeF2KsefCertificateType = kcUnspecified; AStatus: TKSeF2CertificateListItemStatus = csUnspecified; AExpiresAfter: TDateTime = 0; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryCertificatesResponse; overload;
+
+    function LimitsContext(AAccessToken: UTF8String = ''): TKSeF2EffectiveContextLimits; overload;
+    function LimitsSubject(AAccessToken: UTF8String = ''): TKSeF2EffectiveSubjectLimits; overload;
+    function LimitsRate(AAccessToken: UTF8String = ''): TKSeF2EffectiveApiRateLimits; overload;
+
+    function PeppolQuery(APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPeppolProvidersResponse;
+
     { Klasa sterownika szyfrowania RSA }
     property RSAPublicKeyClass: UTF8String read GetRSAPublicKeyClass write SetRSAPublicKeyClass;
     { Klasa enkodera Base64 }
@@ -1763,6 +1811,580 @@ end;
 procedure TlgoKSeF2.TestdataPersonRemove(const ANip: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_TestdataPersonRemove(ExtObject, LGP_PCHAR(ANip)));
+end;
+
+function TlgoKSeF2.PermissionsPersonsGrant(
+  ARequest: TKSeF2PersonPermissionsGrantRequest; AAccessToken: UTF8String
+  ): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsPersonsGrant(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsPersonsGrantSimple(
+  ARequest: TKSeF2PersonPermissionsGrantRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsPersonsGrantSimple(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsEntitiesGrants(
+  ARequest: TKSeF2EntityPermissionsGrantRequest; AAccessToken: UTF8String
+  ): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEntitiesGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsEntitiesGrantsSimple(
+  ARequest: TKSeF2EntityPermissionsGrantRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEntitiesGrantsSimple(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsAuthorizationsGrants(
+  ARequest: TKSeF2EntityAuthorizationPermissionsGrantRequest;
+  AAccessToken: UTF8String): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsAuthorizationsGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsAuthorizationsGrantsSimple(
+  ARequest: TKSeF2EntityAuthorizationPermissionsGrantRequest;
+  AAccessToken: UTF8String): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsAuthorizationsGrantsSimple(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsIndirectGrants(
+  ARequest: TKSeF2IndirectPermissionsGrantRequest; AAccessToken: UTF8String
+  ): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsIndirectGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsIndirectGrantsSimple(
+  ARequest: TKSeF2IndirectPermissionsGrantRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsIndirectGrantsSimple(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsSubunitsGrants(
+  ARequest: TKSeF2SubunitPermissionsGrantRequest; AAccessToken: UTF8String
+  ): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsSubunitsGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsSubunitsGrantsSimple(
+  ARequest: TKSeF2SubunitPermissionsGrantRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsSubunitsGrantsSimple(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsEuEntitiesAdministrationGrants(
+  ARequest: TKSeF2EuEntityAdministrationPermissionsGrantRequest;
+  AAccessToken: UTF8String): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesAdministrationGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsEuEntitiesAdministrationGrantsSimple(
+  ARequest: TKSeF2EuEntityAdministrationPermissionsGrantRequest;
+  AAccessToken: UTF8String): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple(
+    ExtObject, ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsEuEntitiesGrants(
+  ARequest: TKSeF2EuEntityPermissionsGrantRequest; AAccessToken: UTF8String
+  ): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesGrants(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsEuEntitiesGrantsSimple(
+  ARequest: TKSeF2EuEntityPermissionsGrantRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesGrantsSimple(
+    ExtObject, ARequest.ExtObject, LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsCommonRevoke(APermissionId: UTF8String;
+  AAccessToken: UTF8String): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesGrants(ExtObject,
+    LGP_PCHAR(APermissionId), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsCommonRevokeSimple(APermissionId: UTF8String;
+  AAccessToken: UTF8String): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsCommonRevokeSimple(ExtObject,
+    LGP_PCHAR(APermissionId), LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsAuthorizationsRevoke(APermissionId: UTF8String;
+  AAccessToken: UTF8String): TKSeF2PermissionsOperationResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsEuEntitiesGrants(ExtObject,
+    LGP_PCHAR(APermissionId), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsAuthorizationsRevokeSimple(
+  APermissionId: UTF8String; AAccessToken: UTF8String): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsAuthorizationsRevokeSimple(ExtObject,
+    LGP_PCHAR(APermissionId), LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.PermissionsOperationsStatus(AReferenceNumber: UTF8String;
+  AAccessToken: UTF8String): TKSeF2PermissionsOperationStatusResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsOperationsStatus(ExtObject,
+    LGP_PCHAR(AReferenceNumber), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2PermissionsOperationStatusResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsAttachmentsStatus(AAccessToken: UTF8String
+  ): TKSeF2CheckAttachmentPermissionStatusResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsAttachmentsStatus(ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CheckAttachmentPermissionStatusResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryPersonalGrants(
+  ARequest: TKSeF2PersonalPermissionsQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryPersonalPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryPersonalGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryPersonalPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryPersonsGrants(
+  ARequest: TKSeF2PersonPermissionsQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryPersonPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryPersonsGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryPersonPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQuerySubunitsGrants(
+  ARequest: TKSeF2SubunitPermissionsQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QuerySubunitPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQuerySubunitsGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QuerySubunitPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryEntitiesRoles(APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String): TKSeF2QueryEntityRolesResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryEntitiesRoles(ExtObject, APageOffset,
+    APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryEntityRolesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQuerySubordinateEntitiesRoles(
+  ARequest: TKSeF2SubordinateEntityRolesQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QuerySubordinateEntityRolesResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QuerySubordinateEntityRolesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryAuthorizationsGrants(
+  ARequest: TKSeF2EntityAuthorizationPermissionsQueryRequest;
+  APageOffset: Integer; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryEntityAuthorizationPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryAuthorizationsGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryEntityAuthorizationPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryEuEntitiesGrants(
+  ARequest: TKSeF2EuEntityPermissionsQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryEuEntityPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryEuEntitiesGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryEuEntityPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesLimits(AAccessToken: UTF8String
+  ): TKSeF2CertificateLimitsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesLimits(ExtObject, LGP_PCHAR(AAccessToken),
+    O));
+  if O <> nil then
+    Result := TKSeF2CertificateLimitsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesEnrollmentsData(AAccessToken: UTF8String
+  ): TKSeF2CertificateEnrollmentDataResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesEnrollmentsData(ExtObject, LGP_PCHAR(AAccessToken),
+    O));
+  if O <> nil then
+    Result := TKSeF2CertificateEnrollmentDataResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesEnrollments(
+  ARequest: TKSeF2EnrollCertificateRequest; AAccessToken: UTF8String
+  ): TKSeF2EnrollCertificateResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesEnrollments(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2EnrollCertificateResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesEnrollmentsStatus(AReferenceNumber: UTF8String;
+  AAccessToken: UTF8String): TKSeF2CertificateEnrollmentStatusResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesEnrollmentsStatus(ExtObject,
+    LGP_PCHAR(AReferenceNumber), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CertificateEnrollmentStatusResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesRetrieve(
+  ARequest: TKSeF2RetrieveCertificatesRequest; AAccessToken: UTF8String
+  ): TKSeF2RetrieveCertificatesResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesRetrieve(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2RetrieveCertificatesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesRetrieve(
+  ACertificateSerialNumbers: TStringArray; AAccessToken: UTF8String
+  ): TKSeF2RetrieveCertificatesResponse;
+var
+  O: LGP_OBJECT;
+  S: UTF8String;
+  I: Integer;
+begin
+  O := nil;
+  S := '';
+  for I := 0 to Length(ACertificateSerialNumbers) do
+  begin
+    if S <> '' then
+      S := S + ';';
+    S := S + ACertificateSerialNumbers[I];
+  end;
+  lgoCheckResult(lgpKSeF2_CertificatesRetrieve(ExtObject,
+    LGP_PCHAR(S), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2RetrieveCertificatesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+procedure TlgoKSeF2.CertificatesRevoke(ACertificateSerialNumber: UTF8String;
+  ARequest: TKSeF2RevokeCertificateRequest; AAccessToken: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_CertificatesRevoke(ExtObject, LGP_PCHAR(ACertificateSerialNumber),
+    ARequest.ExtObject, LGP_PCHAR(AAccessToken)));
+end;
+
+procedure TlgoKSeF2.CertificatesRevoke(ACertificateSerialNumber: UTF8String;
+  ARevocationReason: TKSeF2CertificateRevocationReason; AAccessToken: UTF8String
+  );
+begin
+  lgoCheckResult(lgpKSeF2_CertificatesRevoke2(ExtObject, LGP_PCHAR(ACertificateSerialNumber),
+    Ord(ARevocationReason), LGP_PCHAR(AAccessToken)));
+end;
+
+function TlgoKSeF2.CertificatesQuery(ARequest: TKSeF2QueryCertificatesRequest;
+  APageOffset: Integer; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryCertificatesResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesQuery(ExtObject, ARequest.ExtObject,
+    APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryCertificatesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CertificatesQuery(ACertificateSerialNumber: UTF8String;
+  AName: UTF8String; AType: TKSeF2KsefCertificateType;
+  AStatus: TKSeF2CertificateListItemStatus; AExpiresAfter: TDateTime;
+  APageOffset: Integer; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryCertificatesResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CertificatesQuery2(ExtObject, LGP_PCHAR(ACertificateSerialNumber),
+    LGP_PCHAR(AName), Ord(AType), Ord(AStatus), AExpiresAfter, APageOffset, APageSize,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryCertificatesResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.LimitsContext(AAccessToken: UTF8String
+  ): TKSeF2EffectiveContextLimits;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_LimitsContext(ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2EffectiveContextLimits.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.LimitsSubject(AAccessToken: UTF8String
+  ): TKSeF2EffectiveSubjectLimits;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_LimitsSubject(ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2EffectiveSubjectLimits.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.LimitsRate(AAccessToken: UTF8String
+  ): TKSeF2EffectiveApiRateLimits;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_LimitsRate(ExtObject, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2EffectiveApiRateLimits.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PeppolQuery(APageOffset: Integer; APageSize: Integer;
+  AAccessToken: UTF8String): TKSeF2QueryPeppolProvidersResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PeppolQuery(ExtObject, APageOffset, APageSize,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryPeppolProvidersResponse.Create(nil, O)
+  else
+    Result := nil;
 end;
 
 { TlgKSeF2Utils }

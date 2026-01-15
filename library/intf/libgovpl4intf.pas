@@ -648,6 +648,54 @@ function lgpKSeF2_TestdataSubjectRemove(AKSeFObject: LGP_OBJECT; ASubjectNip: LG
 function lgpKSeF2_TestdataPerson(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpKSeF2_PermissionsPersonsGrant(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsPersonsGrantSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsAuthorizationsGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsIndirectGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsIndirectGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsSubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsSubunitsGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEuEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsEuEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_PermissionsCommonRevoke(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsCommonRevokeSimple(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsAuthorizationsRevoke(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsAuthorizationsRevokeSimple(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_PermissionsOperationsStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsAttachmentsStatus(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_PermissionsQueryPersonalGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQueryPersonsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQuerySubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQueryEntitiesRoles(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQueryAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQueryEuEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_CertificatesLimits(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesEnrollmentsData(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesEnrollments(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesEnrollmentsStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesRetrieve(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesRetrieve2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumbers: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesRevoke(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesRevoke2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARevocationReason: LGP_INT32; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CertificatesQuery2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; AName: LGP_PCHAR; AType: LGP_INT32; AStatus: LGP_INT32; AExpiresAfter: LGP_DOUBLE; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_LimitsContext(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_LimitsSubject(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_LimitsRate(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
+function lgpKSeF2_PeppolQuery(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 // KSeF 2.0 obiekty
 function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall; external LGP_LIBNAME;
@@ -1204,6 +1252,54 @@ var
   lgpKSeF2_TestdataSubjectRemove: function(AKSeFObject: LGP_OBJECT; ASubjectNip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TestdataPerson: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TestdataPersonRemove: function(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_PermissionsPersonsGrant: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsPersonsGrantSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEntitiesGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEntitiesGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsAuthorizationsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsAuthorizationsGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsIndirectGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsIndirectGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsSubunitsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsSubunitsGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEuEntitiesAdministrationGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEuEntitiesGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsEuEntitiesGrantsSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_PermissionsCommonRevoke: function(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsCommonRevokeSimple: function(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsAuthorizationsRevoke: function(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsAuthorizationsRevokeSimple: function(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_PermissionsOperationsStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsAttachmentsStatus: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_PermissionsQueryPersonalGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQueryPersonsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQuerySubunitsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQueryEntitiesRoles: function(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQueryAuthorizationsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQueryEuEntitiesGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_CertificatesLimits: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesEnrollmentsData: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesEnrollments: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesEnrollmentsStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesRetrieve: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesRetrieve2: function(AKSeFObject: LGP_OBJECT; ACertificateSerialNumbers: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesRevoke: function(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesRevoke2: function(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARevocationReason: LGP_INT32; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesQuery: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CertificatesQuery2: function(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; AName: LGP_PCHAR; AType: LGP_INT32; AStatus: LGP_INT32; AExpiresAfter: LGP_DOUBLE; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_LimitsContext: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_LimitsSubject: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_LimitsRate: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_PeppolQuery: function(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
   lgpKSeF2_KSeFClassSetExt: function(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall;
@@ -1786,6 +1882,54 @@ begin
 
     @lgpKSeF2_CreateKSeFClass := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CreateKSeFClass');
     @lgpKSeF2_KSeFClassSetExt := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_KSeFClassSetExt');
+
+    @lgpKSeF2_PermissionsPersonsGrant := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsPersonsGrant');
+    @lgpKSeF2_PermissionsPersonsGrantSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsPersonsGrantSimple');
+    @lgpKSeF2_PermissionsEntitiesGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEntitiesGrants');
+    @lgpKSeF2_PermissionsEntitiesGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEntitiesGrantsSimple');
+    @lgpKSeF2_PermissionsAuthorizationsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsAuthorizationsGrants');
+    @lgpKSeF2_PermissionsAuthorizationsGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsAuthorizationsGrantsSimple');
+    @lgpKSeF2_PermissionsIndirectGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsIndirectGrants');
+    @lgpKSeF2_PermissionsIndirectGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsIndirectGrantsSimple');
+    @lgpKSeF2_PermissionsSubunitsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsSubunitsGrants');
+    @lgpKSeF2_PermissionsSubunitsGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsSubunitsGrantsSimple');
+    @lgpKSeF2_PermissionsEuEntitiesAdministrationGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEuEntitiesAdministrationGrants');
+    @lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple');
+    @lgpKSeF2_PermissionsEuEntitiesGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEuEntitiesGrants');
+    @lgpKSeF2_PermissionsEuEntitiesGrantsSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsEuEntitiesGrantsSimple');
+
+    @lgpKSeF2_PermissionsCommonRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsCommonRevoke');
+    @lgpKSeF2_PermissionsCommonRevokeSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsCommonRevokeSimple');
+    @lgpKSeF2_PermissionsAuthorizationsRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsAuthorizationsRevoke');
+    @lgpKSeF2_PermissionsAuthorizationsRevokeSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsAuthorizationsRevokeSimple');
+
+    @lgpKSeF2_PermissionsOperationsStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsOperationsStatus');
+    @lgpKSeF2_PermissionsAttachmentsStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsAttachmentsStatus');
+
+    @lgpKSeF2_PermissionsQueryPersonalGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryPersonalGrants');
+    @lgpKSeF2_PermissionsQueryPersonsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryPersonsGrants');
+    @lgpKSeF2_PermissionsQuerySubunitsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQuerySubunitsGrants');
+    @lgpKSeF2_PermissionsQueryEntitiesRoles := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryEntitiesRoles');
+    @lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles');
+    @lgpKSeF2_PermissionsQueryAuthorizationsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryAuthorizationsGrants');
+    @lgpKSeF2_PermissionsQueryEuEntitiesGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryEuEntitiesGrants');
+
+    @lgpKSeF2_CertificatesLimits := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesLimits');
+    @lgpKSeF2_CertificatesEnrollmentsData := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesEnrollmentsData');
+    @lgpKSeF2_CertificatesEnrollments := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesEnrollments');
+    @lgpKSeF2_CertificatesEnrollmentsStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesEnrollmentsStatus');
+    @lgpKSeF2_CertificatesRetrieve := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesRetrieve');
+    @lgpKSeF2_CertificatesRetrieve2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesRetrieve2');
+    @lgpKSeF2_CertificatesRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesRevoke');
+    @lgpKSeF2_CertificatesRevoke2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesRevoke2');
+    @lgpKSeF2_CertificatesQuery := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesQuery');
+    @lgpKSeF2_CertificatesQuery2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CertificatesQuery2');
+
+    @lgpKSeF2_LimitsContext := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_LimitsContext');
+    @lgpKSeF2_LimitsSubject := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_LimitsSubject');
+    @lgpKSeF2_LimitsRate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_LimitsRate');
+
+    @lgpKSeF2_PeppolQuery := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PeppolQuery');
 
     @lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl');
     @lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl');

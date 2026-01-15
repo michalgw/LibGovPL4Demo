@@ -185,6 +185,54 @@ function lgpKSeF2_TestdataSubjectRemove(AKSeFObject: LGP_OBJECT; ASubjectNip: LG
 function lgpKSeF2_TestdataPerson(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_TestdataPersonRemove(AKSeFObject: LGP_OBJECT; ANip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
+function lgpKSeF2_PermissionsPersonsGrant(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsPersonsGrantSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsAuthorizationsGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsIndirectGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsIndirectGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsSubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsSubunitsGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEuEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsEuEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_PermissionsCommonRevoke(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsCommonRevokeSimple(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsAuthorizationsRevoke(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsAuthorizationsRevokeSimple(AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_PermissionsOperationsStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsAttachmentsStatus(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_PermissionsQueryPersonalGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQueryPersonsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQuerySubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQueryEntitiesRoles(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQueryAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQueryEuEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_CertificatesLimits(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesEnrollmentsData(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesEnrollments(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesEnrollmentsStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesRetrieve(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesRetrieve2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumbers: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesRevoke(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesRevoke2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; ARevocationReason: LGP_INT32; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CertificatesQuery2(AKSeFObject: LGP_OBJECT; ACertificateSerialNumber: LGP_PCHAR; AName: LGP_PCHAR; AType: LGP_INT32; AStatus: LGP_INT32; AExpiresAfter: LGP_DOUBLE; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_LimitsContext(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_LimitsSubject(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_LimitsRate(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_PeppolQuery(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
 function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
@@ -2385,6 +2433,703 @@ begin
     CheckObject(AKSeFObject, TlgKSeF2);
     (TObject(AKSeFObject) as TlgKSeF2).
       TestdataPersonRemove(ANip);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsPersonsGrant(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2PersonPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsPersonsGrant(TKSeF2PersonPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsPersonsGrantSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2PersonPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsPersonsGrantSimple(TKSeF2PersonPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEntitiesGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEntitiesGrants(TKSeF2EntityPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEntitiesGrantsSimple(TKSeF2EntityPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsAuthorizationsGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityAuthorizationPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsAuthorizationsGrants(TKSeF2EntityAuthorizationPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsAuthorizationsGrantsSimple(
+  AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityAuthorizationPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsAuthorizationsGrantsSimple(TKSeF2EntityAuthorizationPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsIndirectGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2IndirectPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsIndirectGrants(TKSeF2IndirectPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsIndirectGrantsSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2IndirectPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsIndirectGrantsSimple(TKSeF2IndirectPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsSubunitsGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2SubunitPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsSubunitsGrants(TKSeF2SubunitPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsSubunitsGrantsSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2SubunitPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsSubunitsGrantsSimple(TKSeF2SubunitPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrants(
+  AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EuEntityAdministrationPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEuEntitiesAdministrationGrants(TKSeF2EuEntityAdministrationPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEuEntitiesAdministrationGrantsSimple(
+  AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EuEntityAdministrationPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEuEntitiesAdministrationGrantsSimple(TKSeF2EuEntityAdministrationPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEuEntitiesGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EuEntityPermissionsGrantRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEuEntitiesGrants(TKSeF2EuEntityPermissionsGrantRequest(ARequest),
+      AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsEuEntitiesGrantsSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EuEntityPermissionsGrantRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsEuEntitiesGrantsSimple(TKSeF2EuEntityPermissionsGrantRequest(ARequest),
+      AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsCommonRevoke(AKSeFObject: LGP_OBJECT;
+  APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsCommonRevoke(APermissionId, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsCommonRevokeSimple(AKSeFObject: LGP_OBJECT;
+  APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsCommonRevokeSimple(APermissionId, AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsAuthorizationsRevoke(AKSeFObject: LGP_OBJECT;
+  APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsAuthorizationsRevoke(APermissionId, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsAuthorizationsRevokeSimple(
+  AKSeFObject: LGP_OBJECT; APermissionId: LGP_PCHAR; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsAuthorizationsRevokeSimple(APermissionId, AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsOperationsStatus(AKSeFObject: LGP_OBJECT;
+  AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsOperationsStatus(AReferenceNumber, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsAttachmentsStatus(AKSeFObject: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsAttachmentsStatus(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryPersonalGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2PersonalPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryPersonalGrants(TKSeF2PersonalPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryPersonsGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2PersonPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryPersonsGrants(TKSeF2PersonPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQuerySubunitsGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2SubunitPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQuerySubunitsGrants(TKSeF2SubunitPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryEntitiesRoles(AKSeFObject: LGP_OBJECT;
+  APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryEntitiesRoles(APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(
+  AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32;
+  APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2SubordinateEntityRolesQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQuerySubordinateEntitiesRoles(TKSeF2SubordinateEntityRolesQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryAuthorizationsGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityAuthorizationPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryAuthorizationsGrants(TKSeF2EntityAuthorizationPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryEuEntitiesGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EuEntityPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryEuEntitiesGrants(TKSeF2EuEntityPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesLimits(AKSeFObject: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesLimits(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesEnrollmentsData(AKSeFObject: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesEnrollmentsData(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesEnrollments(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EnrollCertificateRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesEnrollments(TKSeF2EnrollCertificateRequest(ARequest), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesEnrollmentsStatus(AKSeFObject: LGP_OBJECT;
+  AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesEnrollmentsStatus(AReferenceNumber, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesRetrieve(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2RetrieveCertificatesRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesRetrieve(TKSeF2RetrieveCertificatesRequest(ARequest), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesRetrieve2(AKSeFObject: LGP_OBJECT;
+  ACertificateSerialNumbers: LGP_PCHAR; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+var
+  S: String;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    S := ACertificateSerialNumbers;
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesRetrieve(S.Split([';', ',']), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesRevoke(AKSeFObject: LGP_OBJECT;
+  ACertificateSerialNumber: LGP_PCHAR; ARequest: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).CertificatesRevoke(ACertificateSerialNumber,
+      TKSeF2RevokeCertificateRequest(ARequest), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesRevoke2(AKSeFObject: LGP_OBJECT;
+  ACertificateSerialNumber: LGP_PCHAR; ARevocationReason: LGP_INT32;
+  AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).CertificatesRevoke(ACertificateSerialNumber,
+      TKSeF2CertificateRevocationReason(ARevocationReason), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesQuery(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest,  TKSeF2QueryCertificatesRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesQuery(TKSeF2QueryCertificatesRequest(ARequest), APageOffset,
+      APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CertificatesQuery2(AKSeFObject: LGP_OBJECT;
+  ACertificateSerialNumber: LGP_PCHAR; AName: LGP_PCHAR; AType: LGP_INT32;
+  AStatus: LGP_INT32; AExpiresAfter: LGP_DOUBLE; APageOffset: LGP_INT32;
+  APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      CertificatesQuery(ACertificateSerialNumber, AName, TKSeF2KsefCertificateType(AType),
+      TKSeF2CertificateListItemStatus(AStatus), AExpiresAfter, APageOffset,
+      APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_LimitsContext(AKSeFObject: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).LimitsContext(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_LimitsSubject(AKSeFObject: LGP_OBJECT;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).LimitsSubject(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_LimitsRate(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).LimitsRate(AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PeppolQuery(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32;
+  APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).PeppolQuery(APageOffset,
+      APageSize, AAccessToken);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
