@@ -57,7 +57,7 @@ type
     function Count: Integer;
     function GetItem(AIndex: Integer): TlgoXMLValidationError;
   //published
-    property Items[AIndex: Integer]: TlgoXMLValidationError read GetItem;
+    property Items[AIndex: Integer]: TlgoXMLValidationError read GetItem; default;
   end;
 
   { TlgoXMLValidator }
