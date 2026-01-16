@@ -6174,7 +6174,7 @@ end;
 procedure TKSeF2IndirectPermissionsGrantRequest.SetPermissions(
   AValue: TKSeF2IndirectPermissionTypes);
 begin
-  SetIntegerProp('Permissions', SetToInt32(@AValue, Ord(High(TKSeF2IndirectPermissionTypes)), SizeOf(AValue)));
+  SetIntegerProp('Permissions', SetToInt32(@AValue, Ord(High(TKSeF2IndirectPermissionType)), SizeOf(AValue)));
 end;
 
 procedure TKSeF2IndirectPermissionsGrantRequest.SetSubjectDetails(
@@ -7102,7 +7102,7 @@ end;
 procedure TKSeF2PersonPermissionsQueryRequest.SetPermissionTypes(
   AValue: TKSeF2PersonPermissionTypes);
 begin
-  SetIntegerProp('Permissions', SetToInt32(@AValue, Ord(High(TKSeF2IndirectPermissionTypes)), SizeOf(AValue)));
+  SetIntegerProp('Permissions', SetToInt32(@AValue, Ord(High(TKSeF2IndirectPermissionType)), SizeOf(AValue)));
 end;
 
 procedure TKSeF2PersonPermissionsQueryRequest.SetQueryType(
