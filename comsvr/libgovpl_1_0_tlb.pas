@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2025-12-18 21:57:17 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2026-01-15 22:04:23 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -333,6 +333,7 @@ interface
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF2Responsedisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF2Responsedisp.Invoke
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2Response.ExtObject
+//  Warning: renamed parameter 'Type' in IlgcKSeF2.CertificatesQuery2 to 'Type_'
 //  Warning: 'GUID' not automatable in IlgcKSeF2disp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2disp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2disp.GetTypeInfo
@@ -341,6 +342,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF2disp.Invoke
+//  Warning: renamed parameter 'Type' in IlgcKSeF2.CertificatesQuery2 to 'Type_'
 //  Warning: 'GUID' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2VerificationLinkServicedisp.GetTypeInfo
@@ -3948,6 +3950,88 @@ Type
    procedure TestdataPerson(Request:IDispatch);safecall;
     // TestdataPersonRemove :  
    procedure TestdataPersonRemove(Nip:WideString);safecall;
+    // PermissionsPersonsGrant :  
+   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsPersonsGrantSimple :  
+   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsEntitiesGrants :  
+   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsEntitiesGrantsSimple :  
+   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsAuthorizationsGrants :  
+   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsAuthorizationsGrantsSimple :  
+   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsIndirectGrants :  
+   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsIndirectGrantsSimple :  
+   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsSubunitsGrants :  
+   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsSubunitsGrantsSimple :  
+   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsEuEntitiesAdministrationGrants :  
+   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsEuEntitiesAdministrationGrantsSimple :  
+   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsEuEntitiesGrants :  
+   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsEuEntitiesGrantsSimple :  
+   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // PermissionsCommonRevoke :  
+   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsCommonRevokeSimple :  
+   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;safecall;
+    // PermissionsAuthorizationsRevoke :  
+   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsAuthorizationsRevokeSimple :  
+   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;safecall;
+    // PermissionsOperationsStatus :  
+   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsAttachmentsStatus :  
+   function PermissionsAttachmentsStatus(AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryPersonalGrants :  
+   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryPersonsGrants :  
+   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQuerySubunitsGrants :  
+   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryEntitiesRoles :  
+   function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQuerySubordinateEntitiesRoles :  
+   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryAuthorizationsGrants :  
+   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryEuEntitiesGrants :  
+   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesLimits :  
+   function CertificatesLimits(AccessToken:WideString):IDispatch;safecall;
+    // CertificatesEnrollmentsData :  
+   function CertificatesEnrollmentsData(AccessToken:WideString):IDispatch;safecall;
+    // CertificatesEnrollments :  
+   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesEnrollmentsStatus :  
+   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesRetrieve :  
+   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesRetrieve2 :  
+   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesRevoke :  
+   procedure CertificatesRevoke(CertificateSerialNumber:WideString;Request:IDispatch;AccessToken:WideString);safecall;
+    // CertificatesRevoke2 :  
+   procedure CertificatesRevoke2(CertificateSerialNumber:WideString;RevocationReason:Integer;AccessToken:WideString);safecall;
+    // CertificatesQuery :  
+   function CertificatesQuery(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CertificatesQuery2 :  
+   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // LimitsContext :  
+   function LimitsContext(AccessToken:WideString):IDispatch;safecall;
+    // LimitsSubject :  
+   function LimitsSubject(AccessToken:WideString):IDispatch;safecall;
+    // LimitsRate :  
+   function LimitsRate(AccessToken:WideString):IDispatch;safecall;
+    // PeppolQuery :  
+   function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 
    property RSAPublicKeyClass:WideString read Get_RSAPublicKeyClass write Set_RSAPublicKeyClass;
     // Base64EncoderClass : Klasa enkodera Base64 
@@ -4179,6 +4263,88 @@ Type
    procedure TestdataPerson(Request:IDispatch);dispid 38102;
     // TestdataPersonRemove :  
    procedure TestdataPersonRemove(Nip:WideString);dispid 38103;
+    // PermissionsPersonsGrant :  
+   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38104;
+    // PermissionsPersonsGrantSimple :  
+   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38105;
+    // PermissionsEntitiesGrants :  
+   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38106;
+    // PermissionsEntitiesGrantsSimple :  
+   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38107;
+    // PermissionsAuthorizationsGrants :  
+   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38108;
+    // PermissionsAuthorizationsGrantsSimple :  
+   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38109;
+    // PermissionsIndirectGrants :  
+   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38110;
+    // PermissionsIndirectGrantsSimple :  
+   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38111;
+    // PermissionsSubunitsGrants :  
+   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38112;
+    // PermissionsSubunitsGrantsSimple :  
+   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38113;
+    // PermissionsEuEntitiesAdministrationGrants :  
+   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38114;
+    // PermissionsEuEntitiesAdministrationGrantsSimple :  
+   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38115;
+    // PermissionsEuEntitiesGrants :  
+   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38116;
+    // PermissionsEuEntitiesGrantsSimple :  
+   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38117;
+    // PermissionsCommonRevoke :  
+   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;dispid 38118;
+    // PermissionsCommonRevokeSimple :  
+   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;dispid 38119;
+    // PermissionsAuthorizationsRevoke :  
+   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;dispid 38120;
+    // PermissionsAuthorizationsRevokeSimple :  
+   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;dispid 38121;
+    // PermissionsOperationsStatus :  
+   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38122;
+    // PermissionsAttachmentsStatus :  
+   function PermissionsAttachmentsStatus(AccessToken:WideString):IDispatch;dispid 38123;
+    // PermissionsQueryPersonalGrants :  
+   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38124;
+    // PermissionsQueryPersonsGrants :  
+   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38125;
+    // PermissionsQuerySubunitsGrants :  
+   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38126;
+    // PermissionsQueryEntitiesRoles :  
+   function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38127;
+    // PermissionsQuerySubordinateEntitiesRoles :  
+   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38128;
+    // PermissionsQueryAuthorizationsGrants :  
+   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38129;
+    // PermissionsQueryEuEntitiesGrants :  
+   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38130;
+    // CertificatesLimits :  
+   function CertificatesLimits(AccessToken:WideString):IDispatch;dispid 38131;
+    // CertificatesEnrollmentsData :  
+   function CertificatesEnrollmentsData(AccessToken:WideString):IDispatch;dispid 38132;
+    // CertificatesEnrollments :  
+   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38133;
+    // CertificatesEnrollmentsStatus :  
+   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38134;
+    // CertificatesRetrieve :  
+   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38135;
+    // CertificatesRetrieve2 :  
+   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString):IDispatch;dispid 38136;
+    // CertificatesRevoke :  
+   procedure CertificatesRevoke(CertificateSerialNumber:WideString;Request:IDispatch;AccessToken:WideString);dispid 38137;
+    // CertificatesRevoke2 :  
+   procedure CertificatesRevoke2(CertificateSerialNumber:WideString;RevocationReason:Integer;AccessToken:WideString);dispid 38138;
+    // CertificatesQuery :  
+   function CertificatesQuery(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38139;
+    // CertificatesQuery2 :  
+   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38140;
+    // LimitsContext :  
+   function LimitsContext(AccessToken:WideString):IDispatch;dispid 38141;
+    // LimitsSubject :  
+   function LimitsSubject(AccessToken:WideString):IDispatch;dispid 38142;
+    // LimitsRate :  
+   function LimitsRate(AccessToken:WideString):IDispatch;dispid 38143;
+    // PeppolQuery :  
+   function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38144;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 

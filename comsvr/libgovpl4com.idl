@@ -3333,37 +3333,37 @@ library LibGovPL
     ///
     ///
     [id(38053)]
-    HRESULT _stdcall AuthStatus([in] BSTR ReferenceNumber, [in] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall AuthStatus([in, defaultvalue("")] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38054)]
-    HRESULT _stdcall AuthTokenRedem([in] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall AuthTokenRedem([in, defaultvalue("")] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38055)]
-    HRESULT _stdcall AuthTokenRefresh([in] BSTR RefreshToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall AuthTokenRefresh([in, defaultvalue("")] BSTR RefreshToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38056)]
-    HRESULT _stdcall AuthSessions([in] BSTR ContinuationToken, [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall AuthSessions([in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38057)]
-    HRESULT _stdcall AuthSessionTerminateCurrent([in] BSTR Token);
+    HRESULT _stdcall AuthSessionTerminateCurrent([in, defaultvalue("")] BSTR Token);
 
     ///
     ///
     ///
     [id(38058)]
-    HRESULT _stdcall AuthSessionTerminate([in] BSTR ReferenceNumber, [in] BSTR AccessToken);
+    HRESULT _stdcall AuthSessionTerminate([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
@@ -3395,55 +3395,55 @@ library LibGovPL
     [id(38063)]
     HRESULT _stdcall InteractiveOpen2([in] long FormCode, [in] VARIANT EncryptionSymetricKey,
       [in] VARIANT InitializationVector, [in] BSTR FormCodeSystemCode, [in] BSTR FormCodeSchemaVersion,
-      [in] BSTR FormCodeValue, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+      [in] BSTR FormCodeValue, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38064)]
-    HRESULT _stdcall InteractiveOpen3([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InteractiveOpen3([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38065)]
-    HRESULT _stdcall InteractiveCreateSendRequest([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
-      [in] BSTR HashOfCorrectedInvoice, [in] BSTR SessionReferenceNumber, [in] VARIANT EncryptionSymetricKey,
-      [in] VARIANT InitializationVector, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InteractiveCreateSendRequest([in] VARIANT InvoiceStream, [in, defaultvalue(FALSE)] VARIANT_BOOL OfflineMode,
+      [in, defaultvalue("")] BSTR HashOfCorrectedInvoice, [in, defaultvalue("")] BSTR SessionReferenceNumber, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey,
+      [in, defaultvalue(NULL)] VARIANT InitializationVector, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38066)]
-    HRESULT _stdcall InteractiveSend([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
-      [in] BSTR HashOfCorrectedInvoice, [out, retval] BSTR* Response);
+    HRESULT _stdcall InteractiveSend([in] VARIANT InvoiceStream, [in, defaultvalue(FALSE)] VARIANT_BOOL OfflineMode,
+      [in, defaultvalue("")] BSTR HashOfCorrectedInvoice, [out, retval] BSTR* Response);
 
     ///
     ///
     ///
     [id(38067)]
-    HRESULT _stdcall InteractiveSend2([in] IDispatch* Request, [in] VARIANT_BOOL OfflineMode,
-      [in] BSTR SessionReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InteractiveSend2([in] IDispatch* Request, [in, defaultvalue(FALSE)] VARIANT_BOOL OfflineMode,
+      [in, defaultvalue("")] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38068)]
-    HRESULT _stdcall InteractiveSend3([in] VARIANT InvoiceStream, [in] VARIANT_BOOL OfflineMode,
-      [in] BSTR HashOfCorrectedInvoice, [in] BSTR SessionReferenceNumber, [in] VARIANT EncryptionSymetricKey,
-      [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+    HRESULT _stdcall InteractiveSend3([in] VARIANT InvoiceStream, [in, defaultvalue(FALSE)] VARIANT_BOOL OfflineMode,
+      [in, defaultvalue("")] BSTR HashOfCorrectedInvoice, [in, defaultvalue("")] BSTR SessionReferenceNumber, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey,
+      [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Response);
 
     ///
     ///
     ///
     [id(38069)]
-    HRESULT _stdcall InteractiveClose([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken);
+    HRESULT _stdcall InteractiveClose([in, defaultvalue("")] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38070)]
-    HRESULT _stdcall BatchPrepare([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in] long PartSize, 
+    HRESULT _stdcall BatchPrepare([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in, defaultvalue(0)] long PartSize, 
       [out, retval] IDispatch** Response);
 
     ///
@@ -3452,13 +3452,13 @@ library LibGovPL
     [id(38071)]
     HRESULT _stdcall BatchPrepare2([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in] long FormCode, 
       [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR FormCodeSystemCode, 
-      [in] BSTR FormCodeSchemaVersion, [in] BSTR FormCodeValue, [in] long PartSize, [out, retval] IDispatch** Response);
+      [in] BSTR FormCodeSchemaVersion, [in] BSTR FormCodeValue, [in, defaultvalue(0)] long PartSize, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38072)]
-    HRESULT _stdcall BatchOpen([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall BatchOpen([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3470,173 +3470,173 @@ library LibGovPL
     ///
     ///
     [id(38074)]
-    HRESULT _stdcall BatchClose([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken);
+    HRESULT _stdcall BatchClose([in, defaultvalue("")] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38075)]
-    HRESULT _stdcall StatusSessions([in] long SessionType, [in] BSTR ContinuationToken,
-      [in] long PageSize, [in] BSTR ReferenceNumber, [in] VARIANT DateCreatedFrom,
-      [in] VARIANT DateCreatedTo, [in] VARIANT DateClosedFrom, [in] VARIANT DateClosedTo,
-      [in] VARIANT DateModifiedFrom, [in] VARIANT DateModifiedTo, [in] VARIANT Statuses,
-      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall StatusSessions([in] long SessionType, [in, defaultvalue("")] BSTR ContinuationToken,
+      [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR ReferenceNumber, [in, defaultvalue(NULL)] VARIANT DateCreatedFrom,
+      [in, defaultvalue(NULL)] VARIANT DateCreatedTo, [in, defaultvalue(NULL)] VARIANT DateClosedFrom, [in, defaultvalue(NULL)] VARIANT DateClosedTo,
+      [in, defaultvalue(NULL)] VARIANT DateModifiedFrom, [in, defaultvalue(NULL)] VARIANT DateModifiedTo, [in, defaultvalue(NULL)] VARIANT Statuses,
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38076)]
-    HRESULT _stdcall StatusSession([in] BSTR SessionReferenceNumber, [in] BSTR AccessToken, 
+    HRESULT _stdcall StatusSession([in] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, 
       [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38077)]
-    HRESULT _stdcall StatusInvoices([in] BSTR SessionReferenceNumber, [in] BSTR ContinuationToken,
-      [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall StatusInvoices([in] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR ContinuationToken,
+      [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38078)]
     HRESULT _stdcall StatusSessionInvoice([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
-      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38079)]
-    HRESULT _stdcall StatusInvoicesFailed([in] BSTR SessionReferenceNumber, [in] BSTR ContinuationToken,
-      [in] long PageSize, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall StatusInvoicesFailed([in] BSTR SessionReferenceNumber, [in, defaultvalue("")] BSTR ContinuationToken,
+      [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38080)]
     HRESULT _stdcall StatusUpoKsef([in] BSTR SessionReferenceNumber, [in] BSTR KsefNumber,
-      [in] VARIANT OutStream, [in] BSTR AccessToken);
+      [in] VARIANT OutStream, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38081)]
     HRESULT _stdcall StatusUpoKsefSimpe([in] BSTR SessionReferenceNumber, [in] BSTR KsefNumber,
-      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Upo);
 
     ///
     ///
     ///
     [id(38082)]
     HRESULT _stdcall StatusUpoSessionInvoice([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
-      [in] VARIANT OutStream, [in] BSTR AccessToken);
+      [in] VARIANT OutStream, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38083)]
     HRESULT _stdcall StatusUpoSessionInvoiceSimpe([in] BSTR SessionReferenceNumber, [in] BSTR InvoiceReferenceNumber,
-      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Upo);
 
     ///
     ///
     ///
     [id(38084)]
     HRESULT _stdcall StatusUpoSession([in] BSTR SessionReferenceNumber, [in] BSTR UpoReferenceNumber,
-      [in] VARIANT OutStream, [in] BSTR AccessToken);
+      [in] VARIANT OutStream, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38085)]
     HRESULT _stdcall StatusUpoSessionSimpe([in] BSTR SessionReferenceNumber, [in] BSTR UpoReferenceNumber,
-      [in] BSTR AccessToken, [out, retval] BSTR* Upo);
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Upo);
 
     ///
     ///
     ///
     [id(38086)]
-    HRESULT _stdcall InvoicesKsef([in] BSTR KsefNumber, [in] VARIANT OutStream, [in] BSTR AccessToken);
+    HRESULT _stdcall InvoicesKsef([in] BSTR KsefNumber, [in] VARIANT OutStream, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
     ///
     [id(38087)]
-    HRESULT _stdcall InvoicesKsefSimple([in] BSTR KsefNumber, [in] VARIANT OutStream, [in] BSTR AccessToken, [out, retval] BSTR* Fa);
+    HRESULT _stdcall InvoicesKsefSimple([in] BSTR KsefNumber, [in] VARIANT OutStream, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Fa);
 
     ///
     ///
     ///
     [id(38088)]
-    HRESULT _stdcall InvoicesQueryMetadata([in] IDispatch* Request, [in] long PageOffset, [in] long PageSize, [in] long SortOrder, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InvoicesQueryMetadata([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue(0)] long SortOrder, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38089)]
-    HRESULT _stdcall InvoicesExport([in] IDispatch* Request, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InvoicesExport([in] IDispatch* Request, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38090)]
-    HRESULT _stdcall InvoicesExport2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InvoicesExport2([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38091)]
-    HRESULT _stdcall InvoicesExportSimple([in] IDispatch* Request, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+    HRESULT _stdcall InvoicesExportSimple([in] IDispatch* Request, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Response);
 
     ///
     ///
     ///
     [id(38092)]
-    HRESULT _stdcall InvoicesExportSimple2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] BSTR* Response);
+    HRESULT _stdcall InvoicesExportSimple2([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Response);
 
     ///
     ///
     ///
     [id(38093)]
-    HRESULT _stdcall InvoicesExportStatus([in] BSTR OperationReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InvoicesExportStatus([in] BSTR OperationReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38094)]
-    HRESULT _stdcall InvoicesExportDownload([in] IDispatch* StatusResponse, [in] VARIANT OutputStream, [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector);
+    HRESULT _stdcall InvoicesExportDownload([in] IDispatch* StatusResponse, [in] VARIANT OutputStream, [in, optional] VARIANT EncryptionSymetricKey, [in, optional] VARIANT InitializationVector);
 
     ///
     ///
     ///
     [id(38095)]
-    HRESULT _stdcall TokensGenerate([in] VARIANT Permissions, [in] BSTR Description, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall TokensGenerate([in] VARIANT Permissions, [in] BSTR Description, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38096)]
-    HRESULT _stdcall TokensGenerate2([in] IDispatch* Request, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall TokensGenerate2([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38097)]
-    HRESULT _stdcall TokensList([in] VARIANT Status, [in] BSTR Description, [in] BSTR AuthorIdentifier,
-      [in] VARIANT AuthorIdentifierType, [in] long PageSize, [in] BSTR ContinuationToken, 
-      [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall TokensList([in, defaultvalue(NULL)] VARIANT Status, [in, defaultvalue("")] BSTR Description, [in, defaultvalue("")] BSTR AuthorIdentifier,
+      [in, defaultvalue(NULL)] VARIANT AuthorIdentifierType, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR ContinuationToken, 
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38098)]
-    HRESULT _stdcall TokensStatus([in] BSTR ReferenceNumber, [in] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall TokensStatus([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
     [id(38099)]
-    HRESULT _stdcall TokensRevoke([in] BSTR ReferenceNumber, [in] BSTR AccessToken);
+    HRESULT _stdcall TokensRevoke([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
@@ -3661,6 +3661,253 @@ library LibGovPL
     ///
     [id(38103)]
     HRESULT _stdcall TestdataPersonRemove([in] BSTR Nip);
+
+
+    ///
+    ///
+    ///
+    [id(38104)]
+    HRESULT _stdcall PermissionsPersonsGrant([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38105)]
+    HRESULT _stdcall PermissionsPersonsGrantSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38106)]
+    HRESULT _stdcall PermissionsEntitiesGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38107)]
+    HRESULT _stdcall PermissionsEntitiesGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38108)]
+    HRESULT _stdcall PermissionsAuthorizationsGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38109)]
+    HRESULT _stdcall PermissionsAuthorizationsGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38110)]
+    HRESULT _stdcall PermissionsIndirectGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38111)]
+    HRESULT _stdcall PermissionsIndirectGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38112)]
+    HRESULT _stdcall PermissionsSubunitsGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38113)]
+    HRESULT _stdcall PermissionsSubunitsGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38114)]
+    HRESULT _stdcall PermissionsEuEntitiesAdministrationGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38115)]
+    HRESULT _stdcall PermissionsEuEntitiesAdministrationGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38116)]
+    HRESULT _stdcall PermissionsEuEntitiesGrants([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38117)]
+    HRESULT _stdcall PermissionsEuEntitiesGrantsSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38118)]
+    HRESULT _stdcall PermissionsCommonRevoke([in] BSTR PermissionId, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38119)]
+    HRESULT _stdcall PermissionsCommonRevokeSimple([in] BSTR PermissionId, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38120)]
+    HRESULT _stdcall PermissionsAuthorizationsRevoke([in] BSTR PermissionId, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38121)]
+    HRESULT _stdcall PermissionsAuthorizationsRevokeSimple([in] BSTR PermissionId, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38122)]
+    HRESULT _stdcall PermissionsOperationsStatus([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38123)]
+    HRESULT _stdcall PermissionsAttachmentsStatus([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38124)]
+    HRESULT _stdcall PermissionsQueryPersonalGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38125)]
+    HRESULT _stdcall PermissionsQueryPersonsGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38126)]
+    HRESULT _stdcall PermissionsQuerySubunitsGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38127)]
+    HRESULT _stdcall PermissionsQueryEntitiesRoles([in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38128)]
+    HRESULT _stdcall PermissionsQuerySubordinateEntitiesRoles([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38129)]
+    HRESULT _stdcall PermissionsQueryAuthorizationsGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38130)]
+    HRESULT _stdcall PermissionsQueryEuEntitiesGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38131)]
+    HRESULT _stdcall CertificatesLimits([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38132)]
+    HRESULT _stdcall CertificatesEnrollmentsData([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38133)]
+    HRESULT _stdcall CertificatesEnrollments([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38134)]
+    HRESULT _stdcall CertificatesEnrollmentsStatus([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38135)]
+    HRESULT _stdcall CertificatesRetrieve([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38136)]
+    HRESULT _stdcall CertificatesRetrieve2([in] BSTR CertificateSerialNumbers, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38137)]
+    HRESULT _stdcall CertificatesRevoke([in] BSTR CertificateSerialNumber, [in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38138)]
+    HRESULT _stdcall CertificatesRevoke2([in] BSTR CertificateSerialNumber, [in] long RevocationReason,  [in, defaultvalue("")] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38139)]
+    HRESULT _stdcall CertificatesQuery([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38140)]
+    HRESULT _stdcall CertificatesQuery2([in, defaultvalue("")] BSTR CertificateSerialNumber, [in, defaultvalue("")] BSTR Name, [in, defaultvalue(0)] long Type, [in, defaultvalue(0)] long Status, [in, defaultvalue(0)] DATE ExpiresAfter, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38141)]
+    HRESULT _stdcall LimitsContext([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38142)]
+    HRESULT _stdcall LimitsSubject([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38143)]
+    HRESULT _stdcall LimitsRate([in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38144)]
+    HRESULT _stdcall PeppolQuery([in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
   };
 
@@ -3690,7 +3937,7 @@ library LibGovPL
     HRESULT _stdcall BuildCertificateVerificationUrl([in] BSTR SellerNip,
       [in] enum lgcKSeFIdentifierType ContextIdentifierType, [in] BSTR ContextIdentifierValue,
       [in] BSTR InvoiceHash, [in] IDispatch* SigningCertificate, [in] enum lgcKSeFGateType GateType,
-      [in] BSTR Base64EncClass, [out, retval] BSTR* Url);
+      [in, defaultvalue("")] BSTR Base64EncClass, [out, retval] BSTR* Url);
   };
 
   ///
