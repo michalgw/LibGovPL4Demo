@@ -3271,6 +3271,16 @@ library LibGovPL
     HRESULT _stdcall AutoRefreshToken([in] VARIANT_BOOL Value);
 
     ///
+    ///
+    ///
+    [propget, id(38145),
+    helpstring("")]
+    HRESULT _stdcall ResponseHeaders([out, retval] BSTR* Value);
+    [propput, id(38145),
+    helpstring("")]
+    HRESULT _stdcall ResponseHeaders([in] BSTR Value);
+
+    ///
     /// Tworzenie obiektów żądania KSeF.
     /// @param ClsName nazwa klasy, która zostanie utworzona.
     /// @return zwracana jest instancja obiektu KSeF implementująca interfejs IlgcObject.
@@ -3800,6 +3810,12 @@ library LibGovPL
     ///
     [id(38126)]
     HRESULT _stdcall PermissionsQuerySubunitsGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38146)]
+    HRESULT _stdcall PermissionsQueryEntitiesGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///

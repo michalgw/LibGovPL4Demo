@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2026-01-15 22:04:23 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2026-04-13 22:45:37 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -3830,6 +3830,8 @@ Type
    procedure Set_InvoiceExportReferenceNumber(Value:WideString); safecall;
    function Get_AutoRefreshToken : WordBool; safecall;
    procedure Set_AutoRefreshToken(Value:WordBool); safecall;
+   function Get_ResponseHeaders : WideString; safecall;
+   procedure Set_ResponseHeaders(Value:WideString); safecall;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
    function CreateKSeFObject(ClsName:WideString):IDispatch;safecall;
     // AuthChallenge :  
@@ -3996,6 +3998,8 @@ Type
    function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
     // PermissionsQuerySubunitsGrants :  
    function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // PermissionsQueryEntitiesGrants :  
+   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
     // PermissionsQueryEntitiesRoles :  
    function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
     // PermissionsQuerySubordinateEntitiesRoles :  
@@ -4118,6 +4122,8 @@ Type
    property InvoiceExportReferenceNumber:WideString read Get_InvoiceExportReferenceNumber write Set_InvoiceExportReferenceNumber;
     // AutoRefreshToken :  
    property AutoRefreshToken:WordBool read Get_AutoRefreshToken write Set_AutoRefreshToken;
+    // ResponseHeaders :  
+   property ResponseHeaders:WideString read Get_ResponseHeaders write Set_ResponseHeaders;
   end;
 
 
@@ -4309,6 +4315,8 @@ Type
    function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38125;
     // PermissionsQuerySubunitsGrants :  
    function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38126;
+    // PermissionsQueryEntitiesGrants :  
+   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38146;
     // PermissionsQueryEntitiesRoles :  
    function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38127;
     // PermissionsQuerySubordinateEntitiesRoles :  
@@ -4433,6 +4441,8 @@ Type
    property InvoiceExportReferenceNumber:WideString dispid 38042;
     // AutoRefreshToken :  
    property AutoRefreshToken:WordBool dispid 38043;
+    // ResponseHeaders :  
+   property ResponseHeaders:WideString dispid 38145;
   end;
 
 
