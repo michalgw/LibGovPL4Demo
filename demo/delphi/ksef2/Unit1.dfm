@@ -472,7 +472,7 @@ object Form1: TForm1
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 13
+          ItemHeight = 0
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
@@ -740,7 +740,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 13
+            ItemHeight = 0
             TabOrder = 0
           end
           object ComboBoxKSeFASubjectType: TComboBox
@@ -3119,6 +3119,47 @@ object Form1: TForm1
         end
       end
     end
+    object TabSheetKSeFLimit: TTabSheet
+      Caption = 'KSeF2 - Limity i ograniczenia'
+      ImageIndex = 13
+      TabVisible = False
+      object GroupBox38: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 784
+        Height = 127
+        Align = alTop
+        Caption = 'Limity i ograniczenia'
+        TabOrder = 0
+        object ButtonKSeFLContext: TButton
+          Left = 8
+          Top = 24
+          Width = 246
+          Height = 25
+          Caption = 'Pobranie limit'#243'w dla bie'#380#261'cego kontekstu'
+          TabOrder = 0
+          OnClick = ButtonKSeFLContextClick
+        end
+        object ButtonKSeFLSubject: TButton
+          Left = 8
+          Top = 57
+          Width = 247
+          Height = 25
+          Caption = 'Pobranie limit'#243'w dla bie'#380#261'cego podmiotu'
+          TabOrder = 1
+          OnClick = ButtonKSeFLSubjectClick
+        end
+        object ButtonKSeFLRate: TButton
+          Left = 8
+          Top = 90
+          Width = 276
+          Height = 25
+          Caption = 'Pobranie aktualnie obowi'#261'zuj'#261'cych limit'#243'w API'
+          TabOrder = 2
+          OnClick = ButtonKSeFLRateClick
+        end
+      end
+    end
     object TabSheetKSeF2TestData: TTabSheet
       Caption = 'KSeF2 - Dane testowe'
       ImageIndex = 10
@@ -3754,7 +3795,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 13
+            ItemHeight = 0
             TabOrder = 8
           end
         end

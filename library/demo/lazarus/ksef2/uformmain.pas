@@ -46,12 +46,15 @@ type
     ButtonKSeFIClose: TButton;
     ButtonKSeFIOpen: TButton;
     ButtonKSeFISend: TButton;
+    ButtonKSeFLContext: TButton;
     ButtonKSeFLGen1: TButton;
     ButtonKSeFLGen2: TButton;
     ButtonKSeFLHashGet1: TButton;
     ButtonKSeFLHashGet2: TButton;
     ButtonKSeFLoadKeyKeyEx: TButton;
     ButtonKSeFLoadKeyToken: TButton;
+    ButtonKSeFLRate: TButton;
+    ButtonKSeFLSubject: TButton;
     ButtonKSeFSession: TButton;
     ButtonKSeFSessionInvoice: TButton;
     ButtonKSeFSessions: TButton;
@@ -213,6 +216,7 @@ type
     GroupBox35: TGroupBox;
     GroupBox36: TGroupBox;
     GroupBox37: TGroupBox;
+    GroupBox38: TGroupBox;
     GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
@@ -378,6 +382,7 @@ type
     Splitter2: TSplitter;
     StringGridDTUPSubunits: TStringGrid;
     StringGridKSeFBEncOutFiles: TStringGrid;
+    TabSheetKSeFLimit: TTabSheet;
     TabSheetKSeF2VerLinks: TTabSheet;
     TabSheetKSeF2PublicKeys: TTabSheet;
     TabSheetKSeF2TestData: TTabSheet;
@@ -418,12 +423,15 @@ type
     procedure ButtonKSeFICloseClick(Sender: TObject);
     procedure ButtonKSeFIOpenClick(Sender: TObject);
     procedure ButtonKSeFISendClick(Sender: TObject);
+    procedure ButtonKSeFLContextClick(Sender: TObject);
     procedure ButtonKSeFLGen1Click(Sender: TObject);
     procedure ButtonKSeFLGen2Click(Sender: TObject);
     procedure ButtonKSeFLHashGet1Click(Sender: TObject);
     procedure ButtonKSeFLHashGet2Click(Sender: TObject);
     procedure ButtonKSeFLoadKeyKeyExClick(Sender: TObject);
     procedure ButtonKSeFLoadKeyTokenClick(Sender: TObject);
+    procedure ButtonKSeFLRateClick(Sender: TObject);
+    procedure ButtonKSeFLSubjectClick(Sender: TObject);
     procedure ButtonKSeFSessionClick(Sender: TObject);
     procedure ButtonKSeFSessionInvoiceClick(Sender: TObject);
     procedure ButtonKSeFSessionsClick(Sender: TObject);
@@ -464,6 +472,8 @@ type
     procedure KSeFRequestPartStream(Sender: TObject; APartNumber: Integer; var APartStream: TStream);
 
     function GenerateFilter: TKSeF2InvoiceQueryFilters;
+
+    procedure TokenRefreshHandler(Sender: TObject);
 
     procedure AddObject(AObject: TObject);
     procedure DebugException(AException: Exception);
@@ -1295,6 +1305,21 @@ begin
   end;
 end;
 
+procedure TFormMain.ButtonKSeFLContextClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveContextLimits;
+begin
+  Debug('Pobranie limitów dla bieżącego kontekstu', True);
+  try
+    Response := KSeF.LimitsContext;
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
 procedure TFormMain.ButtonKSeFLGen1Click(Sender: TObject);
 begin
   EditKSeFLLink.Text := TlgoKSeF2VerificationLinkService.BuildInvoiceVerificationUrl(
@@ -1333,6 +1358,36 @@ procedure TFormMain.ButtonKSeFLoadKeyTokenClick(Sender: TObject);
 begin
   PopupMenuKeys.PopupComponent := ButtonKSeFLoadKeyToken;
   PopupMenuKeys.PopUp;
+end;
+
+procedure TFormMain.ButtonKSeFLRateClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveApiRateLimits;
+begin
+  Debug('Pobranie aktualnie obowiązujących limitów API', True);
+  try
+    Response := KSeF.LimitsRate;
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFLSubjectClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveSubjectLimits;
+begin
+  Debug('Pobranie limitów dla bieżącego podmiotu', True);
+  try
+    Response := KSeF.LimitsSubject;
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
 end;
 
 procedure TFormMain.ButtonKSeFSessionClick(Sender: TObject);
@@ -1688,6 +1743,7 @@ begin
   if ComboBoxRandGen.ItemIndex >= 0 then
     KSeF.RandomGeneratorClass := ComboBoxRandGen.Text;
   KSeF.AutoRefreshToken := CheckBoxKSeFAutoRefresh.Checked;
+  KSeF.OnRefreshToken := @TokenRefreshHandler;
 
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;
@@ -1742,6 +1798,7 @@ begin
   TabSheetKSeFUpo.TabVisible := AValue;
   TabSheetKSeFDownload.TabVisible := AValue;
   TabSheetKSeFToken.TabVisible := AValue;
+  TabSheetKSeFLimit.TabVisible := AValue;
 end;
 
 procedure TFormMain.PopupMenuKeysClick(Sender: TObject);
@@ -1845,6 +1902,11 @@ begin
   end;
 end;
 
+procedure TFormMain.TokenRefreshHandler(Sender: TObject);
+begin
+  Debug('(Klient KSeF: Odświeżono token dostępu, ważny do: ' + DateTimeToStr(KSeF.AccessTokenValidUntil) + ')');
+end;
+
 procedure TFormMain.AddObject(AObject: TObject);
 begin
   if Assigned(AObject) then
@@ -1866,6 +1928,7 @@ begin
     begin
       Debug('  ResponseCode: %d', [ResponseCode]);
       Debug('  RawData: ' + RawData);
+      Debug('  ResponseHeaders: ' + ResponseHeaders);
     end;
   if AException is EKSeF2ExceptionResponse then
     with EKSeF2ExceptionResponse(AException) do
@@ -1884,6 +1947,14 @@ begin
         Debug('    Details: ' + ED.ExceptionDetails);
         Debug('  ]');
       end;
+    end;
+  if AException is EKSeF2TooManyRequests then
+    with EKSeF2TooManyRequests(AException) do
+    begin
+      Debug('  Code: ' + IntToStr(Code));
+      Debug('  Description: ' + Description);
+      Debug('  Details: ' + Details);
+      Debug('  RetryAfter: ' + IntToStr(RetryAfter));
     end;
   if (AException is ElgoException) and (ElgoException(AException).CallStack <> '') then
   begin

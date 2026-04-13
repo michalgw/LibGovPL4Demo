@@ -5,9 +5,7 @@ inherited FormMain: TFormMain
   ClientHeight = 624
   inherited PageControlMain: TPageControl
     Height = 492
-    ActivePage = TabSheetKSeFDownload
     MultiLine = True
-    TabIndex = 8
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 424
@@ -4037,7 +4035,66 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2TestData: TTabSheet[10]
+    object TabSheetKSeFLimit: TTabSheet[10]
+      Caption = 'KSeF2 - Limity i ograniczenia'
+      ClientHeight = 424
+      ClientWidth = 701
+      TabVisible = False
+      object GroupBox38: TGroupBox
+        Left = 0
+        Height = 127
+        Top = 0
+        Width = 701
+        Align = alTop
+        AutoSize = True
+        Caption = 'Limity i ograniczenia'
+        ClientHeight = 107
+        ClientWidth = 697
+        TabOrder = 0
+        object ButtonKSeFLContext: TButton
+          AnchorSideLeft.Control = GroupBox38
+          AnchorSideTop.Control = GroupBox38
+          Left = 8
+          Height = 25
+          Top = 8
+          Width = 246
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Pobranie limitów dla bieżącego kontekstu'
+          TabOrder = 0
+          OnClick = ButtonKSeFLContextClick
+        end
+        object ButtonKSeFLSubject: TButton
+          AnchorSideLeft.Control = GroupBox38
+          AnchorSideTop.Control = ButtonKSeFLContext
+          AnchorSideTop.Side = asrBottom
+          Left = 8
+          Height = 25
+          Top = 41
+          Width = 247
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Pobranie limitów dla bieżącego podmiotu'
+          TabOrder = 1
+          OnClick = ButtonKSeFLSubjectClick
+        end
+        object ButtonKSeFLRate: TButton
+          AnchorSideLeft.Control = GroupBox38
+          AnchorSideTop.Control = ButtonKSeFLSubject
+          AnchorSideTop.Side = asrBottom
+          Left = 8
+          Height = 25
+          Top = 74
+          Width = 276
+          AutoSize = True
+          BorderSpacing.Around = 8
+          Caption = 'Pobranie aktualnie obowiązujących limitów API'
+          TabOrder = 2
+          OnClick = ButtonKSeFLRateClick
+        end
+      end
+    end
+    object TabSheetKSeF2TestData: TTabSheet[11]
       Caption = 'KSeF2 - Dane testowe'
       ClientHeight = 424
       ClientWidth = 701
@@ -4490,7 +4547,7 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2PublicKeys: TTabSheet[11]
+    object TabSheetKSeF2PublicKeys: TTabSheet[12]
       Caption = 'KSeF2 - Klucze publiczne'
       ClientHeight = 424
       ClientWidth = 701
@@ -4582,7 +4639,7 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2VerLinks: TTabSheet[12]
+    object TabSheetKSeF2VerLinks: TTabSheet[13]
       Caption = 'KSeF2 - Linki weryfikacyjne'
       ClientHeight = 424
       ClientWidth = 701

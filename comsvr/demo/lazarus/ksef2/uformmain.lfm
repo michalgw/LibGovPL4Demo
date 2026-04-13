@@ -1,9 +1,9 @@
 inherited FormMain: TFormMain
   Caption = 'LibGovPL 4 - KSeF 2.0'
   inherited PageControlMain: TPageControl
-    ActivePage = TabSheetKSeFDownload
+    ActivePage = TabSheetKSeFStatus
     MultiLine = True
-    TabIndex = 8
+    TabIndex = 6
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 410
@@ -2056,7 +2056,7 @@ inherited FormMain: TFormMain
             Top = 8
             Width = 87
             BorderSpacing.Around = 8
-            MaxValue = 100
+            MaxValue = 1000
             TabOrder = 3
           end
         end

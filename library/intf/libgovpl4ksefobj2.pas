@@ -325,7 +325,7 @@ type
   published
     property StartDate: TDateTime read GetStartDate;
     property StartDateRaw: UTF8String read GetStartDateRaw;
-    property AuthenticationMethod: UTF8String read GetAuthenticationMethod;
+    property AuthenticationMethod: UTF8String read GetAuthenticationMethod; {deprecated;}
     property AuthenticationMethodInfo: TKSeF2AuthenticationMethodInfo read FAuthenticationMethodInfo;
     property Status: TKSeF2StatusInfo read FStatus;
     property IsTokenRedeemed: Boolean read GetIsTokenRedeemed;

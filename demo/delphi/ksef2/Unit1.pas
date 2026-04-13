@@ -430,6 +430,11 @@ type
     CheckBoxKSeFDFRestrictToHwm: TCheckBox;
     Label120: TLabel;
     ComboBoxKSeFDSortOrder: TComboBox;
+    TabSheetKSeFLimit: TTabSheet;
+    GroupBox38: TGroupBox;
+    ButtonKSeFLContext: TButton;
+    ButtonKSeFLSubject: TButton;
+    ButtonKSeFLRate: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -498,6 +503,9 @@ type
     procedure ButtonKSeFLGen2Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure ButtonKSeFDMetaLoadClick(Sender: TObject);
+    procedure ButtonKSeFLContextClick(Sender: TObject);
+    procedure ButtonKSeFLSubjectClick(Sender: TObject);
+    procedure ButtonKSeFLRateClick(Sender: TObject);
   private
     { Private declarations }
     PopupSignerMode: (mUISelect, mLoad);
@@ -797,6 +805,7 @@ begin
   TabSheetKSeFUpo.TabVisible := AValue;
   TabSheetKSeFDownload.TabVisible := AValue;
   TabSheetKSeFToken.TabVisible := AValue;
+  TabSheetKSeFLimit.TabVisible := AValue;
 end;
 
 procedure TForm1.PopupMenuKeysClick(Sender: TObject);
@@ -2216,6 +2225,51 @@ begin
   finally
     if Assigned(FileStream) then
       FileStream.Free;
+  end;
+end;
+
+procedure TForm1.ButtonKSeFLContextClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveContextLimits;
+begin
+  Debug('Pobranie limitów dla bie¿¹cego kontekstu', True);
+  try
+    Response := KSeF.LimitsContext;
+    Debug('OdpowiedŸ: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFLSubjectClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveSubjectLimits;
+begin
+  Debug('Pobranie limitów dla bie¿¹cego podmiotu', True);
+  try
+    Response := KSeF.LimitsSubject;
+    Debug('OdpowiedŸ: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFLRateClick(Sender: TObject);
+var
+  Response: TKSeF2EffectiveApiRateLimits;
+begin
+  Debug('Pobranie aktualnie obowi¹zuj¹cych limitów API', True);
+  try
+    Response := KSeF.LimitsRate;
+    Debug('OdpowiedŸ: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
   end;
 end;
 

@@ -68,7 +68,7 @@ begin
         else
           S := S + FloatToStr(GetFloatProp(AObj, Prop));
       end;
-      tkLString, tkString: S := S + GetStrProp(AObj, Prop);
+      tkLString, tkString{$IF CompilerVersion >= 20.0}, tkUString{$IFEND}: S := S + GetStrProp(AObj, Prop);
       tkClass: begin
         S := S + '(object)';
         O := GetObjectProp(AObj, Prop);
