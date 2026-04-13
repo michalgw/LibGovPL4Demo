@@ -60,6 +60,11 @@ FUNCTION Main( cPlikWej, cPlikWyj )
          // Utworz obiekt transformacji XSLT
          oXTrans := oBackend:CreateXMLXSLTranformation( "" )
 
+         IF File( "moj_styl_fa3.xsl" )
+            // Dodaj wlasny szablon dla FA(3)
+            oXTrans:AddStyle( "http://crd.gov.pl/wzor/2025/06/25/13775/", "moj_styl_fa3.xsl" )
+         ENDIF
+
          IF Empty( cPlikWyj )
             cPlikWyj := cPlikWej + '.html'
          ENDIF
