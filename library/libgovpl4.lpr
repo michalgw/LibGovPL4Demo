@@ -126,6 +126,8 @@ exports
   lgpObject_SetBooleanProp,
   lgpObject_GetInt64Prop,
   lgpObject_SetInt64Prop,
+  lgpObject_GetPointerProp,
+  lgpObject_SetPointerProp,
 
   lgpStringObject_GetValue,
   lgpStringObject_GetValueAndLen,
@@ -477,8 +479,12 @@ exports
   lgpKSeF2_SetRequestPartStreamCargo,
   lgpKSeF2_GetAutoRefreshToken,
   lgpKSeF2_SetAutoRefreshToken,
+  lgpKSeF2_GetResponseHeaders,
+  lgpKSeF2_SetResponseHeaders,
   lgpKSeF2_GetOnRequestPartStream,
   lgpKSeF2_SetOnRequestPartStream,
+  lgpKSeF2_GetOnRefreshToken,
+  lgpKSeF2_SetOnRefreshToken,
 
   lgpKSeF2_AuthChallenge,
 
@@ -580,6 +586,7 @@ exports
   lgpKSeF2_PermissionsQueryPersonalGrants,
   lgpKSeF2_PermissionsQueryPersonsGrants,
   lgpKSeF2_PermissionsQuerySubunitsGrants,
+  lgpKSeF2_PermissionsQueryEntitiesGrants,
   lgpKSeF2_PermissionsQueryEntitiesRoles,
   lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles,
   lgpKSeF2_PermissionsQueryAuthorizationsGrants,

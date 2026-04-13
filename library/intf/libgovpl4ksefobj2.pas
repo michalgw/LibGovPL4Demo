@@ -50,11 +50,13 @@ type
   private
     FResponseCode: Integer;
     FRawData: UTF8String;
+    FResponseHeaders: UTF8String;
   protected
     procedure LoadObject(AException: LGP_EXCEPTION); override;
   public
     property ResponseCode: Integer read FResponseCode;
     property RawData: UTF8String read FRawData;
+    property ResponseHeaders: UTF8String read FResponseHeaders;
   end;
 
   TKSeF2ExceptionDetail = record
@@ -92,6 +94,23 @@ type
   EKSeF2Forbidden = class(EKSeF2ExceptionResponseBase);
 
   EKSeF2NotFound = class(EKSeF2ExceptionResponseBase);
+
+  { EKSeF2TooManyRequests }
+
+  EKSeF2TooManyRequests = class(EKSeF2ExceptionResponseBase)
+  private
+    FCode: Integer;
+    FDescription: UTF8String;
+    FDetails: UTF8String;
+    FRetryAfter: Integer;
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  public
+    property Code: Integer read FCode;
+    property Description: UTF8String read FDescription;
+    property Details: UTF8String read FDetails;
+    property RetryAfter: Integer read FRetryAfter;
+  end;
 
   {$M+}
 
@@ -156,8 +175,10 @@ type
   TKSeF2Response = class(TKSeF2Object)
   private
     function GetRawResponse: UTF8String;
+    function GetResponseHeaders: UTF8String;
   published
     property RawResponse: UTF8String read GetRawResponse;
+    property ResponseHeaders: UTF8String read GetResponseHeaders;
   end;
 
   { TKSeF2AuthenticationChallengeResponse }
@@ -165,6 +186,7 @@ type
   TKSeF2AuthenticationChallengeResponse = class(TKSeF2Response)
   private
     function GetChallenge: UTF8String;
+    function GetClientIp: UTF8String;
     function GetTimestamp: TDateTime;
     function GetTimestampMs: Int64;
     function GetTimestampRaw: UTF8String;
@@ -173,6 +195,7 @@ type
     property Timestamp: TDateTime read GetTimestamp;
     property TimestampRaw: UTF8String read GetTimestampRaw;
     property TimestampMs: Int64 read GetTimestampMs;
+    property ClientIp: UTF8String read GetClientIp;
   end;
 
   { TKSeF2TokenInfo }
@@ -265,10 +288,27 @@ type
     property AccessToken: TKSeF2TokenInfo read FAccessToken;
   end;
 
+  TKSeF2AuthenticationMethodCategory = (amcXadesSignature, amcNationalNode,
+    amcToken, amcOther);
+
+  { TKSeF2AuthenticationMethodInfo }
+
+  TKSeF2AuthenticationMethodInfo = class(TKSeF2Object)
+  private
+    function GetCategory: TKSeF2AuthenticationMethodCategory;
+    function GetCode: UTF8String;
+    function GetDisplayName: UTF8String;
+  published
+    property Category: TKSeF2AuthenticationMethodCategory read GetCategory;
+    property Code: UTF8String read GetCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
   { TKSeF2AuthenticationListItem }
 
   TKSeF2AuthenticationListItem = class(TKSeF2Object)
   private
+    FAuthenticationMethodInfo: TKSeF2AuthenticationMethodInfo;
     FStatus: TKSeF2StatusInfo;
     function GetAuthenticationMethod: UTF8String;
     function GetIsCurrent: Boolean;
@@ -286,6 +326,7 @@ type
     property StartDate: TDateTime read GetStartDate;
     property StartDateRaw: UTF8String read GetStartDateRaw;
     property AuthenticationMethod: UTF8String read GetAuthenticationMethod;
+    property AuthenticationMethodInfo: TKSeF2AuthenticationMethodInfo read FAuthenticationMethodInfo;
     property Status: TKSeF2StatusInfo read FStatus;
     property IsTokenRedeemed: Boolean read GetIsTokenRedeemed;
     property LastTokenRefreshDate: TDateTime read GetLastTokenRefreshDate;
@@ -831,7 +872,7 @@ type
 
   TKSeF2NullableBoolean = (nbNotDefined, nbFalse, nbTrue);
 
-  TKSeF2InvoiceQueryFormType = (iqfNotDefined, iqfFA, iqfPEF, iqfRR);
+  TKSeF2InvoiceQueryFormType = (iqfNotDefined, iqfFA, iqfPEF, iqfFA_RR);
 
   TKSeF2InvoiceType = (ivVat, ivZal, ivKor, ivRoz, ivUpr, ivKorZal, ivKorRoz,
     ivVatPef, ivVatPefSp, ivKorPef, ivVatRr, ivKorVatRr);
@@ -1057,12 +1098,15 @@ type
   private
     FEncryption: TKSeF2EncryptionInfo;
     FFilters: TKSeF2InvoiceQueryFilters;
+    function GetOnlyMetadata: Boolean;
     procedure SetEncryption(AValue: TKSeF2EncryptionInfo);
     procedure SetFilters(AValue: TKSeF2InvoiceQueryFilters);
+    procedure SetOnlyMetadata(AValue: Boolean);
   protected
     procedure LoadObject; override;
   published
     property Encryption: TKSeF2EncryptionInfo read FEncryption write SetEncryption;
+    property OnlyMetadata: Boolean read GetOnlyMetadata write SetOnlyMetadata;
     property Filters: TKSeF2InvoiceQueryFilters read FFilters write SetFilters;
   end;
 
@@ -1168,7 +1212,8 @@ type
   end;
 
   TKSeF2TokenPermissionType = (tpInvoiceRead, tpInvoiceWrite, tpCredentialsRead,
-    tpCredentialsManage, tpSubunitManage, tpEnforcementOperations);
+    tpCredentialsManage, tpSubunitManage, tpEnforcementOperations,
+    tpIntrospection);
   TKSeF2TokenPermissions = set of TKSeF2TokenPermissionType;
 
   { TKSeF2GenerateTokenRequest }
@@ -2355,6 +2400,81 @@ type
     property HasMore: Boolean read GetHasMore;
   end;
 
+  TKSeF2EntityPermissionsContextIdentifierType = (epciNip, epciInternalId);
+
+  { TKSeF2EntityPermissionsContextIdentifier }
+
+  TKSeF2EntityPermissionsContextIdentifier = class(TKSeF2Object)
+  private
+    function GetType: TKSeF2EntityPermissionsContextIdentifierType;
+    function GetValue: UTF8String;
+    procedure SetType(AValue: TKSeF2EntityPermissionsContextIdentifierType);
+    procedure SetValue(AValue: UTF8String);
+  published
+    property Type_: TKSeF2EntityPermissionsContextIdentifierType read GetType write SetType;
+    property Value: UTF8String read GetValue write SetValue;
+  end;
+
+  { TKSeF2EntityPermissionsQueryRequest }
+
+  TKSeF2EntityPermissionsQueryRequest = class(TKSeF2Request)
+  private
+    FContextIdentifier: TKSeF2EntityPermissionsContextIdentifier;
+    procedure SetContextIdentifier(
+      AValue: TKSeF2EntityPermissionsContextIdentifier);
+  protected
+    procedure LoadObject; override;
+  published
+    property ContextIdentifier: TKSeF2EntityPermissionsContextIdentifier read FContextIdentifier write SetContextIdentifier;
+  end;
+
+  TKSeF2EntityPermissionItemScope = (episInvoiceWrite, episInvoiceRead);
+
+  { TKSeF2EntityPermissionItem }
+
+  TKSeF2EntityPermissionItem = class(TKSeF2Object)
+  private
+    FContextIdentifier: TKSeF2EntityPermissionsContextIdentifier;
+    function GetCanDelegate: Boolean;
+    function GetDescription: UTF8String;
+    function GetId: UTF8String;
+    function GetPermissionScope: TKSeF2EntityPermissionItemScope;
+    function GetStartDate: TDateTime;
+    function GetStartDateRaw: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property Id: UTF8String read GetId;
+    property ContextIdentifier: TKSeF2EntityPermissionsContextIdentifier read FContextIdentifier;
+    property PermissionScope: TKSeF2EntityPermissionItemScope read GetPermissionScope;
+    property Description: UTF8String read GetDescription;
+    property StartDate: TDateTime read GetStartDate;
+    property StartDateRaw: UTF8String read GetStartDateRaw;
+    property CanDelegate: Boolean read GetCanDelegate;
+  end;
+
+  { TKSeF2EntityPermissionItemArray }
+
+  TKSeF2EntityPermissionItemArray = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2EntityPermissionItem;
+  public
+    property Items[AIndex: Integer]: TKSeF2EntityPermissionItem read GetItem; default;
+  end;
+
+  { TKSeF2QueryEntityPermissionsResponse }
+
+  TKSeF2QueryEntityPermissionsResponse = class(TKSeF2Response)
+  private
+    FPermissions: TKSeF2EntityPermissionItemArray;
+    function GetHasMore: Boolean;
+  protected
+    procedure LoadObject; override;
+  published
+    property Permissions: TKSeF2EntityPermissionItemArray read FPermissions;
+    property HasMore: Boolean read GetHasMore;
+  end;
+
   TKSeF2EntityRolesParentEntityIdentifierType = (erpeiNip);
 
   { TKSeF2EntityRolesParentEntityIdentifier }
@@ -3294,6 +3414,8 @@ begin
     lgoCheckResult(lgpObject_GetIntegerProp(AException, 'ResponseCode', FResponseCode), False);
     if lgoCheckResult(lgpObject_GetStringProp(AException, 'RawData', S), False) then
       FRawData := lgoGetString(S);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'ResponseHeaders', S), False) then
+      FResponseHeaders := lgoGetString(S);
   end;
 end;
 
@@ -3334,6 +3456,25 @@ begin
         end;
       end;
     end;
+  end;
+end;
+
+{ EKSeF2TooManyRequests }
+
+procedure EKSeF2TooManyRequests.LoadObject(AException: LGP_EXCEPTION);
+var
+  S: LGP_OBJECT;
+begin
+  inherited LoadObject(AException);
+  S := nil;
+  if AException <> nil then
+  begin
+    lgoCheckResult(lgpObject_GetIntegerProp(AException, 'Code', FCode), False);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'Description', S), False) then
+      FDescription := lgoGetString(S);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'Details', S), False) then
+      FDetails := lgoGetString(S);
+    lgoCheckResult(lgpObject_GetIntegerProp(AException, 'RetryAfter', FRetryAfter), False);
   end;
 end;
 
@@ -3516,11 +3657,21 @@ begin
   Result := GetStringProp('RawResponse');
 end;
 
+function TKSeF2Response.GetResponseHeaders: UTF8String;
+begin
+  Result := GetStringProp('ResponseHeaders');
+end;
+
 { TKSeF2AuthenticationChallengeResponse }
 
 function TKSeF2AuthenticationChallengeResponse.GetChallenge: UTF8String;
 begin
   Result := GetStringProp('Challenge');
+end;
+
+function TKSeF2AuthenticationChallengeResponse.GetClientIp: UTF8String;
+begin
+  Result := GetStringProp('ClientIp');
 end;
 
 function TKSeF2AuthenticationChallengeResponse.GetTimestamp: TDateTime;
@@ -3668,6 +3819,23 @@ begin
     FAccessToken := TKSeF2TokenInfo.Create(Self, O);
 end;
 
+{ TKSeF2AuthenticationMethodInfo }
+
+function TKSeF2AuthenticationMethodInfo.GetCategory: TKSeF2AuthenticationMethodCategory;
+begin
+  Result := TKSeF2AuthenticationMethodCategory(GetIntegerProp('Category'));
+end;
+
+function TKSeF2AuthenticationMethodInfo.GetCode: UTF8String;
+begin
+  Result := GetStringProp('Code');
+end;
+
+function TKSeF2AuthenticationMethodInfo.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
 { TKSeF2AuthenticationListItem }
 
 function TKSeF2AuthenticationListItem.GetAuthenticationMethod: UTF8String;
@@ -3728,6 +3896,9 @@ begin
   O := GetObjectProp('Status');
   if O <> nil then
     FStatus := TKSeF2StatusInfo.Create(Self, O);
+  O := GetObjectProp('AuthenticationMethodInfo');
+  if O <> nil then
+    FAuthenticationMethodInfo := TKSeF2AuthenticationMethodInfo.Create(Self, O);
 end;
 
 function TKSeF2AuthenticationList.GetItem(AIndex: Integer
@@ -5062,6 +5233,11 @@ begin
     InsertObject(AValue);
 end;
 
+function TKSeF2InvoiceExportRequest.GetOnlyMetadata: Boolean;
+begin
+  Result := GetBooleanProp('OnlyMetadata');
+end;
+
 procedure TKSeF2InvoiceExportRequest.SetFilters(
   AValue: TKSeF2InvoiceQueryFilters);
 begin
@@ -5072,6 +5248,11 @@ begin
   FFilters := AValue;
   if Assigned(AValue) and (AValue.Owner = nil) then
     InsertObject(AValue);
+end;
+
+procedure TKSeF2InvoiceExportRequest.SetOnlyMetadata(AValue: Boolean);
+begin
+  SetBooleanProp('OnlyMetadata', AValue);
 end;
 
 procedure TKSeF2InvoiceExportRequest.LoadObject;
@@ -6769,7 +6950,7 @@ end;
 function TKSeF2PersonalPermissionsQueryRequest.GetPermissionTypes: TKSeF2PersonalPermissionTypes;
 begin
   Result := [];
-  Int32ToSet(GetIntegerProp('PermissionTypes'), Ord(High(TKSeF2PersonalPermissionType)), SizeOf(Result), @Result);
+  Int32ToSet(GetIntegerProp('PermissionTypesInt'), Ord(High(TKSeF2PersonalPermissionType)), SizeOf(Result), @Result);
 end;
 
 procedure TKSeF2PersonalPermissionsQueryRequest.SetContextIdentifier(
@@ -6793,7 +6974,7 @@ end;
 procedure TKSeF2PersonalPermissionsQueryRequest.SetPermissionTypes(
   AValue: TKSeF2PersonalPermissionTypes);
 begin
-  SetIntegerProp('PermissionTypes', SetToInt32(@AValue, Ord(High(TKSeF2PersonalPermissionType)), SizeOf(AValue)));
+  SetIntegerProp('PermissionTypesInt', SetToInt32(@AValue, Ord(High(TKSeF2PersonalPermissionType)), SizeOf(AValue)));
 end;
 
 procedure TKSeF2PersonalPermissionsQueryRequest.SetTargetIdentifier(
@@ -7411,6 +7592,120 @@ begin
   O := GetObjectProp('Permissions');
   if O <> nil then
     FPermissions := TKSeF2SubunitPermissionArray.Create(Self, O);
+end;
+
+{ TKSeF2EntityPermissionsContextIdentifier }
+
+function TKSeF2EntityPermissionsContextIdentifier.GetType: TKSeF2EntityPermissionsContextIdentifierType;
+begin
+  Result := TKSeF2EntityPermissionsContextIdentifierType(GetIntegerProp('Type'));
+end;
+
+function TKSeF2EntityPermissionsContextIdentifier.GetValue: UTF8String;
+begin
+  Result := GetStringProp('Value');
+end;
+
+procedure TKSeF2EntityPermissionsContextIdentifier.SetType(
+  AValue: TKSeF2EntityPermissionsContextIdentifierType);
+begin
+  SetIntegerProp('Type', Ord(AValue));
+end;
+
+procedure TKSeF2EntityPermissionsContextIdentifier.SetValue(AValue: UTF8String);
+begin
+  SetStringProp('Value', AValue);
+end;
+
+{ TKSeF2EntityPermissionsQueryRequest }
+
+procedure TKSeF2EntityPermissionsQueryRequest.SetContextIdentifier(
+  AValue: TKSeF2EntityPermissionsContextIdentifier);
+begin
+  if FContextIdentifier = AValue then Exit;
+  if Assigned(FContextIdentifier) and (FContextIdentifier.Owner = Self) then
+    FContextIdentifier.Free;
+  SetObjectProp('ContextIdentifier', AValue.ExtObject);
+  FContextIdentifier := AValue;
+  if Assigned(AValue) and (AValue.Owner = nil) then
+    InsertObject(AValue);
+end;
+
+procedure TKSeF2EntityPermissionsQueryRequest.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('ContextIdentifier');
+  if O <> nil then
+    FContextIdentifier := TKSeF2EntityPermissionsContextIdentifier.Create(Self, O);
+end;
+
+{ TKSeF2EntityPermissionItem }
+
+function TKSeF2EntityPermissionItem.GetCanDelegate: Boolean;
+begin
+  Result := GetBooleanProp('CanDelegate');
+end;
+
+function TKSeF2EntityPermissionItem.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2EntityPermissionItem.GetId: UTF8String;
+begin
+  Result := GetStringProp('Id');
+end;
+
+function TKSeF2EntityPermissionItem.GetPermissionScope: TKSeF2EntityPermissionItemScope;
+begin
+  Result := TKSeF2EntityPermissionItemScope(GetIntegerProp('PermissionScope'));
+end;
+
+function TKSeF2EntityPermissionItem.GetStartDate: TDateTime;
+begin
+  Result := GetDoubleProp('StartDate');
+end;
+
+function TKSeF2EntityPermissionItem.GetStartDateRaw: UTF8String;
+begin
+  Result := GetStringProp('StartDateRaw');
+end;
+
+procedure TKSeF2EntityPermissionItem.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('ContextIdentifier');
+  if O <> nil then
+    FContextIdentifier := TKSeF2EntityPermissionsContextIdentifier.Create(Self, O);
+end;
+
+{ TKSeF2EntityPermissionItemArray }
+
+function TKSeF2EntityPermissionItemArray.GetItem(AIndex: Integer
+  ): TKSeF2EntityPermissionItem;
+begin
+  Result := TKSeF2EntityPermissionItem(inherited GetItem(AIndex));
+end;
+
+{ TKSeF2QueryEntityPermissionsResponse }
+
+function TKSeF2QueryEntityPermissionsResponse.GetHasMore: Boolean;
+begin
+  Result := GetBooleanProp('HasMore');
+end;
+
+procedure TKSeF2QueryEntityPermissionsResponse.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Permissions');
+  if O <> nil then
+    FPermissions := TKSeF2EntityPermissionItemArray.Create(Self, O);
 end;
 
 { TKSeF2EntityRolesParentEntityIdentifier }

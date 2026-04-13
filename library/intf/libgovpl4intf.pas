@@ -210,6 +210,8 @@ function lgpObject_GetBooleanProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var
 function lgpObject_SetBooleanProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_GetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT64): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpObject_SetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT64): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpObject_GetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpObject_SetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpStringObject_GetValue(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -571,8 +573,12 @@ function lgpKSeF2_GetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; var AValue:
 function lgpKSeF2_SetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetResponseHeaders(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetResponseHeaders(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetOnRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetOnRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthChallenge(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -674,6 +680,7 @@ function lgpKSeF2_PermissionsAttachmentsStatus(AKSeFObject: LGP_OBJECT; AAccessT
 function lgpKSeF2_PermissionsQueryPersonalGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_PermissionsQueryPersonsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_PermissionsQuerySubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_PermissionsQueryEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_PermissionsQueryEntitiesRoles(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_PermissionsQueryAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -816,6 +823,8 @@ var
   lgpObject_SetBooleanProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpObject_GetInt64Prop: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
   lgpObject_SetInt64Prop: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
+  lgpObject_GetPointerProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+  lgpObject_SetPointerProp: function(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
   lgpStringObject_GetValue: function(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
@@ -1176,8 +1185,12 @@ var
   lgpKSeF2_SetRequestPartStreamCargo: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetAutoRefreshToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetAutoRefreshToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetResponseHeaders: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetResponseHeaders: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetOnRefreshToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetOnRefreshToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthChallenge: function(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
@@ -1279,6 +1292,7 @@ var
   lgpKSeF2_PermissionsQueryPersonalGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_PermissionsQueryPersonsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_PermissionsQuerySubunitsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_PermissionsQueryEntitiesGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_PermissionsQueryEntitiesRoles: function(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_PermissionsQueryAuthorizationsGrants: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -1453,6 +1467,8 @@ begin
     @lgpObject_SetBooleanProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetBooleanProp');
     @lgpObject_GetInt64Prop := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetInt64Prop');
     @lgpObject_SetInt64Prop := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetInt64Prop');
+    @lgpObject_GetPointerProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_GetPointerProp');
+    @lgpObject_SetPointerProp := GetProcAddress(LibGovPl4Handle, 'lgpObject_SetPointerProp');
 
     @lgpStringObject_GetValue := GetProcAddress(LibGovPl4Handle, 'lgpStringObject_GetValue');
 
@@ -1803,8 +1819,12 @@ begin
     @lgpKSeF2_SetRequestPartStreamCargo := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetRequestPartStreamCargo');
     @lgpKSeF2_GetAutoRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAutoRefreshToken');
     @lgpKSeF2_SetAutoRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAutoRefreshToken');
+    @lgpKSeF2_GetResponseHeaders := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetResponseHeaders');
+    @lgpKSeF2_SetResponseHeaders := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetResponseHeaders');
     @lgpKSeF2_GetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetOnRequestPartStream');
     @lgpKSeF2_SetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetOnRequestPartStream');
+    @lgpKSeF2_GetOnRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetOnRefreshToken');
+    @lgpKSeF2_SetOnRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetOnRefreshToken');
 
     @lgpKSeF2_AuthChallenge := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthChallenge');
 
@@ -1909,6 +1929,7 @@ begin
     @lgpKSeF2_PermissionsQueryPersonalGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryPersonalGrants');
     @lgpKSeF2_PermissionsQueryPersonsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryPersonsGrants');
     @lgpKSeF2_PermissionsQuerySubunitsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQuerySubunitsGrants');
+    @lgpKSeF2_PermissionsQueryEntitiesGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryEntitiesGrants');
     @lgpKSeF2_PermissionsQueryEntitiesRoles := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryEntitiesRoles');
     @lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles');
     @lgpKSeF2_PermissionsQueryAuthorizationsGrants := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PermissionsQueryAuthorizationsGrants');

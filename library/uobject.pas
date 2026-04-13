@@ -44,6 +44,8 @@ function lgpObject_GetBooleanProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var
 function lgpObject_SetBooleanProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpObject_GetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
 function lgpObject_SetInt64Prop(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_INT64): LGP_EXCEPTION; stdcall;
+function lgpObject_GetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+function lgpObject_SetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
 function lgpStringObject_GetValue(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpStringObject_GetValueAndLen(AStringObject: LGP_OBJECT; var AValue: LGP_PCHAR; var ALen: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -548,6 +550,77 @@ begin
       if (P <> nil) and (P.PropertyType.TypeKind in [tkInteger, tkEnumeration, tkInt64, tkQWord]) then
         if P.IsWritable then
           P.SetValue(AObject, AValue)
+        else
+          Result := lgpCreateExceptioObject('Property is read-only')
+      else
+        Result := lgpCreateExceptioObject('Invalid property');
+    except
+      on E: Exception do
+        Result := lgpCreateExceptioObject(E);
+    end;
+  finally
+    Ctx.Free;
+  end;
+end;
+
+function lgpObject_GetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR;
+  var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+const
+  VALID_TYPES: set of TTypeKind =
+  {$IFDEF CPU32}
+  [tkPointer, tkInteger, tkInt64, tkClass, tkQWord];
+  {$ELSE}
+  [tkPointer, tkInt64, tkClass, tkQWord];
+  {$ENDIF}
+var
+  Ctx: TRttiContext;
+  RT: TRttiType;
+  P: TRttiProperty;
+begin
+  Result := nil;
+  try
+    try
+      CheckObject(AObject, TObject);
+      Ctx := TRttiContext.Create;
+      RT := Ctx.GetType(TObject(AObject).ClassType);
+      P := RT.GetProperty(APropName);
+      if (P <> nil) and (P.PropertyType.TypeKind in VALID_TYPES) then
+        AValue := Pointer(P.GetValue(AObject).AsOrdinal)
+      else
+        Result := lgpCreateExceptioObject('Invalid property');
+    except
+      on E: Exception do
+        Result := lgpCreateExceptioObject(E);
+    end;
+  finally
+    Ctx.Free;
+  end;
+end;
+
+function lgpObject_SetPointerProp(AObject: LGP_OBJECT; APropName: LGP_PCHAR;
+  AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+const
+  VALID_TYPES: set of TTypeKind =
+  {$IFDEF CPU32}
+  [tkPointer, tkInteger, tkInt64, tkClass, tkQWord];
+  {$ELSE}
+  [tkPointer, tkInt64, tkClass, tkQWord];
+  {$ENDIF}
+var
+  Ctx: TRttiContext;
+  RT: TRttiType;
+  P: TRttiProperty;
+begin
+  Result := nil;
+  try
+    try
+      CheckObject(AObject, TObject);
+      Ctx := TRttiContext.Create;
+      RT := Ctx.GetType(TObject(AObject).ClassType);
+      P := RT.GetProperty(APropName);
+      if (P <> nil) and (P.PropertyType.TypeKind in VALID_TYPES) then
+        if P.IsWritable then
+          P.SetValue(AObject, PtrInt(AValue))
         else
           Result := lgpCreateExceptioObject('Property is read-only')
       else

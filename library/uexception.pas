@@ -82,15 +82,17 @@ type
     property ExceptionDetailList: TlgpKSeFExceptionDetailList read FExceptionDetailList;
   end;
 
-  { TlgpKSeF2ExceptionResponse }
+  { TlgpKSeF2ExceptionResponseBase }
 
   TlgpKSeF2ExceptionResponseBase = class(TlgpExceptionObject)
   private
     FRawData: String;
     FResponseCode: Integer;
+    FResponseHeaders: String;
   public
     property ResponseCode: Integer read FResponseCode write FResponseCode;
     property RawData: String read FRawData write FRawData;
+    property ResponseHeaders: String read FResponseHeaders write FResponseHeaders;
   end;
 
   { TlgpKSeF2ExceptionDetail }
@@ -118,6 +120,7 @@ type
     FRawData: String;
     FReferenceNumber: String;
     FResponseCode: Integer;
+    FResponseHeaders: String;
     FServiceCode: String;
     FServiceCtx: String;
     FServiceName: String;
@@ -128,12 +131,34 @@ type
   published
     property ResponseCode: Integer read FResponseCode write FResponseCode;
     property RawData: String read FRawData write FRawData;
+    property ResponseHeaders: String read FResponseHeaders write FResponseHeaders;
     property ServiceCtx: String read FServiceCtx write FServiceCtx;
     property ServiceCode: String read FServiceCode write FServiceCode;
     property ServiceName: String read FServiceName write FServiceName;
     property Timestamp: TDateTime read FTimestamp write FTimestamp;
     property ReferenceNumber: String read FReferenceNumber write FReferenceNumber;
     property ExceptionDetailList: TlgpKSeF2ExceptionDetailList read FExceptionDetailList;
+  end;
+
+  { TlgpKSeF2TooManyRequests }
+
+  TlgpKSeF2TooManyRequests = class(TlgpExceptionObject)
+  private
+    FCode: Integer;
+    FDescription: String;
+    FDetails: String;
+    FRawData: String;
+    FResponseCode: Integer;
+    FResponseHeaders: String;
+    FRetryAfter: Integer;
+  published
+    property ResponseCode: Integer read FResponseCode write FResponseCode;
+    property RawData: String read FRawData write FRawData;
+    property ResponseHeaders: String read FResponseHeaders write FResponseHeaders;
+    property Code: Integer read FCode write FCode;
+    property Description: String read FDescription write FDescription;
+    property Details: String read FDetails write FDetails;
+    property RetryAfter: Integer read FRetryAfter write FRetryAfter;
   end;
 
 {$IFDEF LGP_ENABLE_WINHTTP}
@@ -217,11 +242,23 @@ begin
       TlgpKSeFExceptionResponse(Result).ExceptionDetailList.Add(D);
     end;
   end
+  else if AException is EKSeF2TooManyRequests then
+  begin
+    Result := TlgpKSeF2TooManyRequests.Create(AException.ClassName, AException.Message);
+    TlgpKSeF2TooManyRequests(Result).ResponseCode := EKSeF2TooManyRequests(AException).ResponseCode;
+    TlgpKSeF2TooManyRequests(Result).RawData := EKSeF2TooManyRequests(AException).RawData;
+    TlgpKSeF2TooManyRequests(Result).ResponseHeaders := EKSeF2TooManyRequests(AException).ResponseHeaders;
+    TlgpKSeF2TooManyRequests(Result).Code := EKSeF2TooManyRequests(AException).Code;
+    TlgpKSeF2TooManyRequests(Result).Description := EKSeF2TooManyRequests(AException).Description;
+    TlgpKSeF2TooManyRequests(Result).Details := StringArrayToString(EKSeF2TooManyRequests(AException).Details, LineEnding);
+    TlgpKSeF2TooManyRequests(Result).RetryAfter := EKSeF2TooManyRequests(AException).RetryAfter;
+  end
   else if AException is EKSeF2ExceptionResponse then
   begin
     Result := TlgpKSeF2ExceptionResponse.Create(AException.ClassName, AException.Message);
     TlgpKSeF2ExceptionResponse(Result).ResponseCode := EKSeF2ExceptionResponse(AException).ResponseCode;
     TlgpKSeF2ExceptionResponse(Result).RawData := EKSeF2ExceptionResponse(AException).RawData;
+    TlgpKSeF2ExceptionResponse(Result).ResponseHeaders := EKSeF2ExceptionResponse(AException).ResponseHeaders;
     TlgpKSeF2ExceptionResponse(Result).ServiceCtx := EKSeF2ExceptionResponse(AException).ServiceCtx;
     TlgpKSeF2ExceptionResponse(Result).ServiceCode := EKSeF2ExceptionResponse(AException).ServiceCode;
     TlgpKSeF2ExceptionResponse(Result).ServiceName := EKSeF2ExceptionResponse(AException).ServiceName;
@@ -241,6 +278,7 @@ begin
     Result := TlgpKSeF2ExceptionResponseBase.Create(AException.ClassName, AException.Message);
     TlgpKSeF2ExceptionResponseBase(Result).ResponseCode := EKSeF2ExceptionResponseBase(AException).ResponseCode;
     TlgpKSeF2ExceptionResponseBase(Result).RawData := EKSeF2ExceptionResponseBase(AException).RawData;
+    TlgpKSeF2ExceptionResponseBase(Result).ResponseHeaders := EKSeF2ExceptionResponseBase(AException).ResponseHeaders;
   end
 {$IFDEF LGP_ENABLE_WINHTTP}
   else if AException is ElgWinHTTPException then

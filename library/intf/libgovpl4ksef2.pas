@@ -49,6 +49,7 @@ type
   private
     FAuthCertificate: TlgoCertificate;
     FHTTPClient: TlgoHTTPClient;
+    FOnRefreshToken: TNotifyEvent;
     FOnRequestPartStream: TKSeF2RequestPartStreamEvent;
     FXAdES: TlgoXAdES;
     FRSATokenEncKey: array[TlgoKSeFGateType] of TlgoRSAPublicKey;
@@ -83,6 +84,7 @@ type
     function GetRandomGeneratorClass: UTF8String;
     function GetRefreshToken: UTF8String;
     function GetRefreshTokenValidUntil: TDateTime;
+    function GetResponseHeaders: UTF8String;
     function GetRSAPublicKeyClass: UTF8String;
     function GetRSASymmetricKeyEncKey(AGateType: TlgoKSeFGateType
       ): TlgoRSAPublicKey;
@@ -116,10 +118,12 @@ type
     procedure SetInvoiceExportReferenceNumber(AValue: UTF8String);
     procedure SetInvoiceExportVector(AValue: TBytes);
     procedure SetKsefToken(AValue: UTF8String);
+    procedure SetOnRefreshToken(AValue: TNotifyEvent);
     procedure SetOnRequestPartStream(AValue: TKSeF2RequestPartStreamEvent);
     procedure SetRandomGeneratorClass(AValue: UTF8String);
     procedure SetRefreshToken(AValue: UTF8String);
     procedure SetRefreshTokenValidUntil(AValue: TDateTime);
+    procedure SetResponseHeaders(AValue: UTF8String);
     procedure SetRSAPublicKeyClass(AValue: UTF8String);
     procedure SetRSASymmetricKeyEncKey(AGateType: TlgoKSeFGateType;
       AValue: TlgoRSAPublicKey);
@@ -255,6 +259,7 @@ type
     function PermissionsQueryPersonalGrants(ARequest: TKSeF2PersonalPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPersonalPermissionsResponse;
     function PermissionsQueryPersonsGrants(ARequest: TKSeF2PersonPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPersonPermissionsResponse;
     function PermissionsQuerySubunitsGrants(ARequest: TKSeF2SubunitPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QuerySubunitPermissionsResponse;
+    function PermissionsQueryEntitiesGrants(ARequest: TKSeF2EntityPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEntityPermissionsResponse;
     function PermissionsQueryEntitiesRoles(APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEntityRolesResponse;
     function PermissionsQuerySubordinateEntitiesRoles(ARequest: TKSeF2SubordinateEntityRolesQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QuerySubordinateEntityRolesResponse;
     function PermissionsQueryAuthorizationsGrants(ARequest: TKSeF2EntityAuthorizationPermissionsQueryRequest; APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryEntityAuthorizationPermissionsResponse;
@@ -337,7 +342,10 @@ type
 
     property AutoRefreshToken: Boolean read GetAutoRefreshToken write SetAutoRefreshToken;
 
+    property ResponseHeaders: UTF8String read GetResponseHeaders write SetResponseHeaders;
+
     property OnRequestPartStream: TKSeF2RequestPartStreamEvent read FOnRequestPartStream write SetOnRequestPartStream;
+    property OnRefreshToken: TNotifyEvent read FOnRefreshToken write SetOnRefreshToken;
   end;
 
   { TlgKSeF2Utils }
@@ -375,6 +383,16 @@ begin
     except
 
     end;
+  end;
+end;
+
+procedure lgoRefreshTokenHandler(Sender: LGP_OBJECT; AExtObject: LGP_POINTER); stdcall;
+begin
+  try
+    if Assigned(AExtObject) and (TObject(AExtObject) is TlgoKSeF2)
+      and Assigned(TlgoKSeF2(AExtObject).OnRefreshToken) then
+        TlgoKSeF2(AExtObject).OnRefreshToken(TlgoKSeF2(AExtObject));
+  except
   end;
 end;
 
@@ -684,6 +702,15 @@ begin
   lgoCheckResult(lgpKSeF2_GetRefreshTokenValidUntil(ExtObject, Double(Result)));
 end;
 
+function TlgoKSeF2.GetResponseHeaders: UTF8String;
+var
+  P: LGP_OBJECT;
+begin
+  P := nil;
+  lgoCheckResult(lgpKSeF2_GetResponseHeaders(ExtObject, P));
+  Result := lgoGetString(P);
+end;
+
 function TlgoKSeF2.GetRSAPublicKeyClass: UTF8String;
 var
   P: LGP_PSSTRING;
@@ -900,6 +927,11 @@ begin
   lgoCheckResult(lgpKSeF2_SetKsefToken(ExtObject, LGP_PCHAR(AValue)));
 end;
 
+procedure TlgoKSeF2.SetOnRefreshToken(AValue: TNotifyEvent);
+begin
+  FOnRefreshToken := AValue;
+end;
+
 procedure TlgoKSeF2.SetOnRequestPartStream(AValue: TKSeF2RequestPartStreamEvent);
 begin
   FOnRequestPartStream := AValue;
@@ -918,6 +950,11 @@ end;
 procedure TlgoKSeF2.SetRefreshTokenValidUntil(AValue: TDateTime);
 begin
   lgoCheckResult(lgpKSeF2_SetRefreshTokenValidUntil(ExtObject, AValue));
+end;
+
+procedure TlgoKSeF2.SetResponseHeaders(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_SetResponseHeaders(ExtObject, LGP_PCHAR(AValue)));
 end;
 
 procedure TlgoKSeF2.SetRSAPublicKeyClass(AValue: UTF8String);
@@ -976,6 +1013,8 @@ begin
   lgoCheckResult(lgpKSeF2_Create(ExtObject));
   lgoCheckResult(lgpKSeF2_SetOnRequestPartStream(ExtObject, @lgoRequestPartStreamHandler));
   lgoCheckResult(lgpKSeF2_SetRequestPartStreamCargo(ExtObject, Self));
+  lgoCheckResult(lgpObject_SetPointerProp(ExtObject, 'Tag', Self));
+  lgoCheckResult(lgpKSeF2_SetOnRefreshToken(ExtObject, @lgoRefreshTokenHandler));
 end;
 
 function TlgoKSeF2.AuthChallenge: TKSeF2AuthenticationChallengeResponse;
@@ -2124,6 +2163,22 @@ begin
     ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2QuerySubunitPermissionsResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.PermissionsQueryEntitiesGrants(
+  ARequest: TKSeF2EntityPermissionsQueryRequest; APageOffset: Integer;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2QueryEntityPermissionsResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_PermissionsQueryEntitiesGrants(ExtObject,
+    ARequest.ExtObject, APageOffset, APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryEntityPermissionsResponse.Create(nil, O)
   else
     Result := nil;
 end;

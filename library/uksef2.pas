@@ -31,7 +31,8 @@ const
   LGP_KSEF_FORM_CODE_FA_KOR_PEF3 = 5;
 
 type
-  TLgoRequestPartStreamEvent = procedure(ASender: LGP_OBJECT; ACargo: LGP_POINTER; APartNumber: LGP_INT32; var AStream: LGP_OBJECT); stdcall;
+  TlgoRequestPartStreamEvent = procedure(ASender: LGP_OBJECT; ACargo: LGP_POINTER; APartNumber: LGP_INT32; var AStream: LGP_OBJECT); stdcall;
+  TlgoNotifyEvent = procedure(ASender: LGP_OBJECT; AExtObject: LGP_POINTER); stdcall;
 
 function lgpKSeF2_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetBase64EncoderClass(AKSeFObject: LGP_OBJECT; var AClassName: LGP_PSSTRING): LGP_EXCEPTION; stdcall;
@@ -108,8 +109,12 @@ function lgpKSeF2_GetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; var AValue:
 function lgpKSeF2_SetRequestPartStreamCargo(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetResponseHeaders(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetResponseHeaders(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetOnRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetOnRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_AuthChallenge(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
@@ -211,6 +216,7 @@ function lgpKSeF2_PermissionsAttachmentsStatus(AKSeFObject: LGP_OBJECT; AAccessT
 function lgpKSeF2_PermissionsQueryPersonalGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_PermissionsQueryPersonsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_PermissionsQuerySubunitsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_PermissionsQueryEntitiesGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_PermissionsQueryEntitiesRoles(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_PermissionsQuerySubordinateEntitiesRoles(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_PermissionsQueryAuthorizationsGrants(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -251,10 +257,12 @@ type
 
   TlgKSeF2Lib = class(TlgKSeF2)
   public
-    ExtRequestPartStreamHandler: TLgoRequestPartStreamEvent;
+    ExtRequestPartStreamHandler: TlgoRequestPartStreamEvent;
+    ExtRefreshTokenHandler: TlgoNotifyEvent;
     Cargo: Pointer;
     constructor Create(AOwner: TComponent); override;
     procedure RequestPartStreamHandler(Sender: TObject; APartNumber: Integer; var AStream: TStream);
+    procedure RefreshTokenHandler(Sender: TObject);
   end;
 
   { TlgKSeF2Lib }
@@ -263,6 +271,7 @@ constructor TlgKSeF2Lib.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   OnRequestPartStream := @RequestPartStreamHandler;
+  OnRefreshToken := @RefreshTokenHandler;
 end;
 
 procedure TlgKSeF2Lib.RequestPartStreamHandler(Sender: TObject;
@@ -281,6 +290,12 @@ begin
       AStream := TStream(O);
     end;
   end;
+end;
+
+procedure TlgKSeF2Lib.RefreshTokenHandler(Sender: TObject);
+begin
+  if ExtRefreshTokenHandler <> nil then
+    ExtRefreshTokenHandler(Self, LGP_POINTER(Tag));
 end;
 
 function lgpKSeF2_Create(var AKSeFObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -1380,6 +1395,32 @@ begin
   end;
 end;
 
+function lgpKSeF2_GetResponseHeaders(AKSeFObject: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AValue := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).ResponseHeaders);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetResponseHeaders(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).ResponseHeaders := AValue;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT;
   var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 begin
@@ -1399,7 +1440,33 @@ begin
   Result := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF2Lib);
-    (TObject(AKSeFObject) as TlgKSeF2Lib).ExtRequestPartStreamHandler := TLgoRequestPartStreamEvent(AValue);
+    (TObject(AKSeFObject) as TlgKSeF2Lib).ExtRequestPartStreamHandler := TlgoRequestPartStreamEvent(AValue);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_GetOnRefreshToken(AKSeFObject: LGP_OBJECT;
+  var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    AValue := Pointer((TObject(AKSeFObject) as TlgKSeF2Lib).ExtRefreshTokenHandler);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetOnRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    (TObject(AKSeFObject) as TlgKSeF2Lib).ExtRefreshTokenHandler := TlgoNotifyEvent(AValue);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -2833,6 +2900,24 @@ begin
     CheckObject(ARequest, TKSeF2SubunitPermissionsQueryRequest);
     AResponse := (TObject(AKSeFObject) as TlgKSeF2).
       PermissionsQuerySubunitsGrants(TKSeF2SubunitPermissionsQueryRequest(ARequest),
+      APageOffset, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_PermissionsQueryEntitiesGrants(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2EntityPermissionsQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).
+      PermissionsQueryEntitiesGrants(TKSeF2EntityPermissionsQueryRequest(ARequest),
       APageOffset, APageSize, AAccessToken);
   except
     on E: Exception do
