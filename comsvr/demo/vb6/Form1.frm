@@ -9,6 +9,105 @@ Begin VB.Form Form1
    ScaleHeight     =   9765
    ScaleWidth      =   12465
    StartUpPosition =   3  'Windows Default
+   Begin VB.Frame FrameMetadata 
+      Caption         =   "Pobieranie"
+      Enabled         =   0   'False
+      Height          =   3015
+      Left            =   4200
+      TabIndex        =   38
+      Top             =   3720
+      Width           =   8175
+      Begin VB.TextBox TextOutFile 
+         Height          =   375
+         Left            =   3480
+         TabIndex        =   48
+         Top             =   2520
+         Width           =   4575
+      End
+      Begin VB.ListBox ListMetaKsef 
+         Height          =   2205
+         ItemData        =   "Form1.frx":0000
+         Left            =   2520
+         List            =   "Form1.frx":0002
+         TabIndex        =   47
+         Top             =   240
+         Width           =   5535
+      End
+      Begin VB.TextBox TextDo 
+         Height          =   375
+         Left            =   480
+         TabIndex        =   46
+         Top             =   1080
+         Width           =   1935
+      End
+      Begin VB.TextBox TextOd 
+         Height          =   375
+         Left            =   480
+         TabIndex        =   45
+         Top             =   600
+         Width           =   1935
+      End
+      Begin VB.CommandButton CommandDownload 
+         Caption         =   "Pobierz wybran¹ fakturê"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   44
+         Top             =   2520
+         Width           =   2295
+      End
+      Begin VB.CommandButton CommandMetadata 
+         Caption         =   "Pobierz metadane"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   43
+         Top             =   2040
+         Width           =   2295
+      End
+      Begin VB.ComboBox ComboDateType 
+         Height          =   315
+         ItemData        =   "Form1.frx":0004
+         Left            =   120
+         List            =   "Form1.frx":0011
+         Style           =   2  'Dropdown List
+         TabIndex        =   42
+         Top             =   1560
+         Width           =   2295
+      End
+      Begin VB.ComboBox ComboSubjectType 
+         Height          =   315
+         ItemData        =   "Form1.frx":0039
+         Left            =   120
+         List            =   "Form1.frx":0049
+         Style           =   2  'Dropdown List
+         TabIndex        =   39
+         Top             =   240
+         Width           =   2295
+      End
+      Begin VB.Label Label14 
+         Caption         =   "..do pliku..."
+         Height          =   255
+         Left            =   2520
+         TabIndex        =   49
+         Top             =   2640
+         Width           =   975
+      End
+      Begin VB.Label Label13 
+         Caption         =   "Do"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   41
+         Top             =   1080
+         Width           =   375
+      End
+      Begin VB.Label Label12 
+         Caption         =   "Od"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   40
+         Top             =   720
+         Width           =   375
+      End
+   End
    Begin VB.Frame FrameStatus 
       Caption         =   "Status"
       Enabled         =   0   'False
@@ -181,13 +280,13 @@ Begin VB.Form Form1
       End
    End
    Begin VB.TextBox TextLog 
-      Height          =   1695
+      Height          =   2775
       Left            =   120
       MultiLine       =   -1  'True
       ScrollBars      =   3  'Both
       TabIndex        =   12
-      Text            =   "Form1.frx":0000
-      Top             =   7920
+      Text            =   "Form1.frx":0092
+      Top             =   6840
       Width           =   12255
    End
    Begin VB.Frame FrameSetup 
@@ -199,9 +298,9 @@ Begin VB.Form Form1
       Width           =   4095
       Begin VB.ComboBox ComboSGate 
          Height          =   315
-         ItemData        =   "Form1.frx":0018
+         ItemData        =   "Form1.frx":00AA
          Left            =   1440
-         List            =   "Form1.frx":0025
+         List            =   "Form1.frx":00B7
          Style           =   2  'Dropdown List
          TabIndex        =   20
          Top             =   600
@@ -252,9 +351,9 @@ Begin VB.Form Form1
       End
       Begin VB.ComboBox ComboSDrv 
          Height          =   315
-         ItemData        =   "Form1.frx":0045
+         ItemData        =   "Form1.frx":00D7
          Left            =   1440
-         List            =   "Form1.frx":004F
+         List            =   "Form1.frx":00E1
          Style           =   2  'Dropdown List
          TabIndex        =   1
          Top             =   240
@@ -350,7 +449,7 @@ Private Sub LogError()
     Dim i As Integer
 
     Log ("B³¹d: " & Err.Description)
-    If IsEmpty(lgBackend) = False And IsEmpty(lgBackend.LastError) = False Then
+    If Not lgBackend Is Nothing And Not lgBackend.LastError Is Nothing Then
         Set Blad = lgBackend.LastError
         Log ("Klasa wyj¹tku: " & Blad.ExceptionClass)
         Log ("Klasa obiektu wewnêtrznego: " & Blad.HandlerClass)
@@ -397,6 +496,7 @@ Private Sub CommandAClose_Click()
     CommandAStatus.Enabled = True
     FrameIteractive.Enabled = False
     FrameStatus.Enabled = False
+    FrameMetadata.Enabled = False
     
     Exit Sub
 
@@ -435,9 +535,10 @@ Private Sub CommandAStatus_Click()
         
         CommandAStatus.Enabled = False
         CommandAClose.Enabled = True
+        CommandMetadata.Enabled = True
         FrameIteractive.Enabled = True
         FrameStatus.Enabled = True
-        
+        FrameMetadata.Enabled = True
     End If
     Exit Sub
 
@@ -460,6 +561,23 @@ Private Sub CommandAToken_Click()
     CommandAStatus.Enabled = True
     CommandACert.Enabled = False
     CommandAToken.Enabled = False
+    Exit Sub
+    
+HError:
+    LogError
+End Sub
+
+Private Sub CommandDownload_Click()
+    On Error GoTo HError
+
+    Log "Pobieranie faktury nr " & ListMetaKsef.Text, True
+
+    If ListMetaKsef.Text <> "" And TextOutFile.Text <> "" Then
+        ' Pobierz fakture o podanym numerze KSeF do wskazanego pliku
+        Call lgKSeF.InvoicesKsef(ListMetaKsef.Text, TextOutFile.Text)
+        Log "Pobrano do pliku: " & TextOutFile.Text
+    End If
+
     Exit Sub
     
 HError:
@@ -521,6 +639,65 @@ HError:
     LogError
 End Sub
 
+Private Sub CommandMetadata_Click()
+    On Error GoTo HError
+
+    Dim Filter, Response, PgNum, InvoiceMeta
+    
+    Log "Pbieranie matadanych", True
+    ' Czysc liste wynikow
+    ListMetaKsef.Clear
+    ' Utworz obiekt z kryteriami zapytania o faktury
+    Set Filter = lgKSeF.CreateKSeFObject("TKSeF2InvoiceQueryFilters")
+    ' Ustaw rodzaj dokumentow
+    ' 0 - Podmiot 1 (sprzedaz)
+    ' 1 - Podmiot 2 (zakupy)
+    ' 2 - Podmiot 3
+    ' 3 - Podmiot upowazniony
+    Filter.SubjectType = ComboSubjectType.ListIndex
+    ' Data od
+    Filter.DateRange.From = CDate(TextOd.Text)
+    ' Jesli podano to data do, jesli nie to do teraz
+    If Not TextDo.Text = "" Then
+        Filter.DateRange.To = CDate(TextDo.Text)
+    End If
+    ' Rodzaj daty
+    ' 0 - Issue
+    ' 1 - Invoicing
+    ' 2 - PermanentStorage
+    Filter.DateRange.DateType = ComboDateType.ListIndex
+    ' Rozpoczynamy od pierwszej strony (nr 0)
+    PgNum = 0
+    Do
+        ' Pobierz strone wynikow
+        Set Response = lgKSeF.InvoicesQueryMetadata(Filter, PgNum, 20)
+        ' Przeiteruj po wynikach
+        For Each InvoiceMeta In Response.Invoices
+            ' Nr KSeF do ListBox
+            ListMetaKsef.AddItem (InvoiceMeta.KsefNumber)
+            ' Napisz informacje o fakturze
+            Log "Nr KSeF: " & InvoiceMeta.KsefNumber
+            Log "Nr faktury: " & InvoiceMeta.InvoiceNumber
+            Log "Data wystawienia: " & CStr(InvoiceMeta.IssueDate)
+            Log "Wartosc netto: " & CStr(InvoiceMeta.NetAmount)
+            Log "Wartosc brutto: " & CStr(InvoiceMeta.GrossAmount)
+            Log "Wartosc VAT: " & CStr(InvoiceMeta.VatAmount)
+            Log "Sprzedawca: " & InvoiceMeta.Seller.Name
+            Log "NIP sprzedawcy: " & InvoiceMeta.Seller.Nip
+            Log "Nabywca: " & InvoiceMeta.Buyer.Name
+            Log "NIP nabywcy: " & InvoiceMeta.Buyer.Identifier.Value
+            Log "----"
+        Next
+        PgNum = PgNum + 1
+    ' Powtarzaj dopoki sa dostepne kolejne strony z wynikami
+    Loop Until Not Response.HasMore
+    Exit Sub
+
+HError:
+    LogError
+
+End Sub
+
 Private Sub CommandSetup_Click()
     On Error GoTo HError
 
@@ -577,7 +754,7 @@ Private Sub CommandSetup_Click()
     lgKSeF.AutoRefreshToken = True
     
     ' Jesli podano plik certyfikatu do autoryzacji KSeF to wczytaj
-    If IsEmpty(TextSPlikCert.Text) = False Then
+    If Not TextSPlikCert.Text = "" Then
         ' Wczytaj certyfikat autoryzacji i klucz prywatny z podanych plikow
         ' w formacie PEM. Klucz zabezpieczony podanym haslem
         Set lgCert = lgSigner.LoadFromStream(TextSPlikCert.Text, LibGovPL.lgcETPEM, TextSPlikKlucz.Text, LibGovPL.lgcETPEM, TextSHaslo.Text)
@@ -664,5 +841,14 @@ Private Sub Form_Load()
     ' Napisz wersje biblioteki
     Log ("Wrsja biblioteki:" & lgBackend.GetLibVersion())
     ComboSGate.ListIndex = 2
+    ComboSubjectType.ListIndex = 0
+    ComboDateType.ListIndex = 0
+    TextOd.Text = Now - 30
+
 End Sub
 
+Private Sub ListMetaKsef_Click()
+
+    TextOutFile.Text = ListMetaKsef.Text & ".xml"
+
+End Sub
