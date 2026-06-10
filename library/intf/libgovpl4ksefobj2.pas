@@ -3399,6 +3399,7 @@ begin
   lgoRegisterExceptionClass(EKSeF2Forbidden);
   lgoRegisterExceptionClass(EKSeF2Unauthorized);
   lgoRegisterExceptionClass(EKSeF2NotFound);
+  lgoRegisterExceptionClass(EKSeF2TooManyRequests);
 end;
 
 { EKSeF2ExceptionResponseBase }
