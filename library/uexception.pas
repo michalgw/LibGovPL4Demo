@@ -89,7 +89,7 @@ type
     FRawData: String;
     FResponseCode: Integer;
     FResponseHeaders: String;
-  public
+  published
     property ResponseCode: Integer read FResponseCode write FResponseCode;
     property RawData: String read FRawData write FRawData;
     property ResponseHeaders: String read FResponseHeaders write FResponseHeaders;
@@ -215,7 +215,7 @@ function lgpCreateInvalidObjectException: TlgpExceptionObject;
 implementation
 
 uses
-  lgKSeFTypes, lgKSeFObjects, lgUtils, lgKSeF2Objects, uBackend;
+  lgKSeFObjects, lgUtils, lgKSeF2Objects, uBackend;
 
 function lgpCreateExceptioObject(const AException: Exception): TlgpExceptionObject;
 var
