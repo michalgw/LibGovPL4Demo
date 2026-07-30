@@ -211,6 +211,10 @@ type
     GroupBox36: TGroupBox;
     GroupBox37: TGroupBox;
     GroupBox38: TGroupBox;
+    GroupBox39: TGroupBox;
+    GroupBox40: TGroupBox;
+    GroupBox41: TGroupBox;
+    GroupBox42: TGroupBox;
     GroupBoxKSeFD1: TGroupBox;
     GroupBoxKSeFB1: TGroupBox;
     GroupBoxKSeFB2: TGroupBox;
@@ -351,6 +355,9 @@ type
     Label98: TLabel;
     Label99: TLabel;
     ListViewObj: TListView;
+    MemoIp4Address: TMemo;
+    MemoIp4Range: TMemo;
+    MemoIp4Mask: TMemo;
     OpenDialogXML: TOpenDialog;
     OpenDialogKey: TOpenDialog;
     Panel1: TPanel;
@@ -1122,6 +1129,12 @@ begin
   KSeF.IdentifierType := TlgKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.AuthCertificate := TlgCertificate(ComboBoxACertificate.Items.Objects[ComboBoxACertificate.ItemIndex]);
   KSeF.AuthCertificateSubject := TlgKSeFCertificateAuthType(ComboBoxKSeFASubjectType.ItemIndex);
+  if MemoIp4Address.Text <> '' then
+    KSeF.Ip4Address := String(MemoIp4Address.Text).Split([LineEnding]);
+  if MemoIp4Range.Text <> '' then
+    KSeF.Ip4Range := String(MemoIp4Range.Text).Split([LineEnding]);
+  if MemoIp4Mask.Text <> '' then
+    KSeF.Ip4Mask := String(MemoIp4Mask.Text).Split([LineEnding]);
   try
     Response := KSeF.AuthXadesSignature;
     Debug('Odpowiedź: ' + Response.RawResponse);
@@ -1150,6 +1163,12 @@ begin
   KSeF.Identifier := EditKSeFAIdentifier.Text;
   KSeF.IdentifierType := TlgKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.KsefToken := EditKSeFATokenKsef.Text;
+  if MemoIp4Address.Text <> '' then
+    KSeF.Ip4Address := String(MemoIp4Address.Text).Split([LineEnding]);
+  if MemoIp4Range.Text <> '' then
+    KSeF.Ip4Range := String(MemoIp4Range.Text).Split([LineEnding]);
+  if MemoIp4Mask.Text <> '' then
+    KSeF.Ip4Mask := String(MemoIp4Mask.Text).Split([LineEnding]);
   try
     Response := KSeF.AuthKsefToken;
     Debug('Odpowiedź: ' + Response.RawResponse);
@@ -1410,6 +1429,12 @@ begin
   KSeF.Identifier := EditKSeFAIdentifier.Text;
   KSeF.IdentifierType := TlgKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.AuthCertificateSubject := TlgKSeFCertificateAuthType(ComboBoxKSeFASubjectTypeExt.ItemIndex);
+  if MemoIp4Address.Text <> '' then
+    KSeF.Ip4Address := String(MemoIp4Address.Text).Split([LineEnding]);
+  if MemoIp4Range.Text <> '' then
+    KSeF.Ip4Range := String(MemoIp4Range.Text).Split([LineEnding]);
+  if MemoIp4Mask.Text <> '' then
+    KSeF.Ip4Mask := String(MemoIp4Mask.Text).Split([LineEnding]);
   try
     try
       AuthStructure := '<?xml version="1.0" encoding="UTF-8"?>' + LineEnding +

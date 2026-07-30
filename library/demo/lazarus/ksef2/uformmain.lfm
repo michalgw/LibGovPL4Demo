@@ -5,7 +5,9 @@ inherited FormMain: TFormMain
   ClientHeight = 624
   inherited PageControlMain: TPageControl
     Height = 492
+    ActivePage = TabSheetKSeF2Auth
     MultiLine = True
+    TabIndex = 3
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 424
@@ -184,13 +186,13 @@ inherited FormMain: TFormMain
         TabOrder = 0
         object GroupBoxKSeFA1: TGroupBox
           Left = 0
-          Height = 188
+          Height = 226
           Top = 0
           Width = 680
           Align = alTop
           AutoSize = True
           Caption = 'Dane autoryzacyjne'
-          ClientHeight = 168
+          ClientHeight = 206
           ClientWidth = 676
           TabOrder = 0
           object Label60: TLabel
@@ -441,11 +443,86 @@ inherited FormMain: TFormMain
               MonthNames = 'Long'
             end
           end
+          object GroupBox39: TGroupBox
+            AnchorSideLeft.Control = GroupBoxKSeFA1
+            AnchorSideTop.Control = ComboBoxKSeFAIdentifierType
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox21
+            Left = 0
+            Height = 105
+            Top = 101
+            Width = 275
+            Anchors = [akTop, akLeft, akRight]
+            Caption = 'Reguły dotyczące walidacji adresu IP'
+            ChildSizing.EnlargeHorizontal = crsScaleChilds
+            ChildSizing.EnlargeVertical = crsScaleChilds
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 3
+            ClientHeight = 85
+            ClientWidth = 271
+            TabOrder = 4
+            object GroupBox40: TGroupBox
+              Left = 0
+              Height = 85
+              Top = 0
+              Width = 90
+              Caption = 'Ip4Address'
+              ClientHeight = 65
+              ClientWidth = 86
+              TabOrder = 0
+              object MemoIp4Address: TMemo
+                Left = 0
+                Height = 65
+                Top = 0
+                Width = 86
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+            object GroupBox41: TGroupBox
+              Left = 90
+              Height = 85
+              Top = 0
+              Width = 90
+              Caption = 'Ip4Range'
+              ClientHeight = 65
+              ClientWidth = 86
+              TabOrder = 1
+              object MemoIp4Range: TMemo
+                Left = 0
+                Height = 65
+                Top = 0
+                Width = 86
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+            object GroupBox42: TGroupBox
+              Left = 180
+              Height = 85
+              Top = 0
+              Width = 91
+              Caption = 'Ip4Mask'
+              ClientHeight = 65
+              ClientWidth = 87
+              TabOrder = 2
+              object MemoIp4Mask: TMemo
+                Left = 0
+                Height = 65
+                Top = 0
+                Width = 87
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+          end
         end
         object GroupBoxKSeFA2: TGroupBox
           Left = 0
           Height = 123
-          Top = 188
+          Top = 226
           Width = 680
           Align = alTop
           AutoSize = True
@@ -529,7 +606,7 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFA4: TGroupBox
           Left = 0
           Height = 92
-          Top = 546
+          Top = 584
           Width = 680
           Align = alTop
           AutoSize = True
@@ -580,7 +657,7 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFA5: TGroupBox
           Left = 0
           Height = 57
-          Top = 638
+          Top = 676
           Width = 680
           Align = alTop
           Caption = 'Pobranie statusu uwierzytelniania / Pobranie tokenów dostępowych / Odświeżenie tokena dostępowego'
@@ -633,7 +710,7 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFA3: TGroupBox
           Left = 0
           Height = 235
-          Top = 311
+          Top = 349
           Width = 680
           Align = alTop
           AutoSize = True
@@ -787,7 +864,7 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFA6: TGroupBox
           Left = 0
           Height = 94
-          Top = 695
+          Top = 733
           Width = 680
           Align = alTop
           AutoSize = True

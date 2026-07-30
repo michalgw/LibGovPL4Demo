@@ -217,7 +217,11 @@ type
     GroupBox36: TGroupBox;
     GroupBox37: TGroupBox;
     GroupBox38: TGroupBox;
+    GroupBox39: TGroupBox;
     GroupBox4: TGroupBox;
+    GroupBox40: TGroupBox;
+    GroupBox41: TGroupBox;
+    GroupBox42: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -353,6 +357,9 @@ type
     Label98: TLabel;
     Label99: TLabel;
     ListViewObj: TListView;
+    MemoIp4Address: TMemo;
+    MemoIp4Mask: TMemo;
+    MemoIp4Range: TMemo;
     OpenDialogKey: TOpenDialog;
     OpenDialogXML: TOpenDialog;
     Panel1: TPanel;
@@ -688,6 +695,9 @@ begin
   KSeF.Identifier := EditKSeFAIdentifier.Text;
   KSeF.IdentifierType := TlgoKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.KsefToken := EditKSeFATokenKsef.Text;
+  KSeF.Ip4Address := MemoIp4Address.Text;
+  KSeF.Ip4Range := MemoIp4Range.Text;
+  KSeF.Ip4Mask := MemoIp4Mask.Text;
   try
     Response := KSeF.AuthKsefToken;
     Debug('Odpowiedź: ' + Response.RawResponse);
@@ -799,6 +809,9 @@ begin
   KSeF.IdentifierType := TlgoKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.AuthCertificate := TlgoCertificate(ComboBoxACertificate.Items.Objects[ComboBoxACertificate.ItemIndex]);
   KSeF.AuthCertificateSubject := TlgoKSeFCertificateAuthType(ComboBoxKSeFASubjectType.ItemIndex);
+  KSeF.Ip4Address := MemoIp4Address.Text;
+  KSeF.Ip4Range := MemoIp4Range.Text;
+  KSeF.Ip4Mask := MemoIp4Mask.Text;
   try
     Response := KSeF.AuthXadesSignature;
     Debug('Odpowiedź: ' + Response.RawResponse);
@@ -864,6 +877,9 @@ begin
   KSeF.Identifier := EditKSeFAIdentifier.Text;
   KSeF.IdentifierType := TlgoKSeFIdentifierType(ComboBoxKSeFAIdentifierType.ItemIndex);
   KSeF.AuthCertificateSubject := TlgoKSeFCertificateAuthType(ComboBoxKSeFASubjectTypeExt.ItemIndex);
+  KSeF.Ip4Address := MemoIp4Address.Text;
+  KSeF.Ip4Range := MemoIp4Range.Text;
+  KSeF.Ip4Mask := MemoIp4Mask.Text;
   try
     try
       AuthStructure := '<?xml version="1.0" encoding="UTF-8"?>' + LineEnding +
