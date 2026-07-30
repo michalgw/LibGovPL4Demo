@@ -15,10 +15,10 @@ object Form1: TForm1
     Height = 594
     Top = 0
     Width = 698
-    ActivePage = TabSheetPKCS11
+    ActivePage = TabSheetXMLVer
     Align = alClient
     MultiLine = True
-    TabIndex = 2
+    TabIndex = 16
     TabOrder = 0
     Options = [nboMultiLine]
     object TabSheetSetup: TTabSheet
@@ -5579,13 +5579,13 @@ object Form1: TForm1
       end
       object GroupBox26: TGroupBox
         Left = 0
-        Height = 123
+        Height = 236
         Top = 225
         Width = 690
         Align = alTop
         AutoSize = True
         Caption = 'Transformacja'
-        ClientHeight = 103
+        ClientHeight = 216
         ClientWidth = 686
         TabOrder = 2
         object Label128: TLabel
@@ -5651,13 +5651,13 @@ object Form1: TForm1
           TabOrder = 1
         end
         object ButtonXMLTrans: TButton
-          AnchorSideTop.Control = FileNameEditXMLTransDst
+          AnchorSideTop.Control = GroupBox31
           AnchorSideTop.Side = asrBottom
           AnchorSideRight.Control = GroupBox26
           AnchorSideRight.Side = asrBottom
           Left = 606
           Height = 25
-          Top = 70
+          Top = 183
           Width = 72
           Anchors = [akTop, akRight]
           AutoSize = True
@@ -5672,7 +5672,7 @@ object Form1: TForm1
           AnchorSideTop.Side = asrCenter
           Left = 8
           Height = 19
-          Top = 73
+          Top = 186
           Width = 126
           BorderSpacing.Around = 8
           Caption = 'Otwórz po konwersji'
@@ -5681,12 +5681,12 @@ object Form1: TForm1
           TabOrder = 3
         end
         object ButtonXMLTransAdd: TButton
-          AnchorSideTop.Control = FileNameEditXMLTransDst
+          AnchorSideTop.Control = GroupBox31
           AnchorSideTop.Side = asrBottom
           AnchorSideRight.Control = ButtonXMLTrans
           Left = 498
           Height = 25
-          Top = 70
+          Top = 183
           Width = 100
           Anchors = [akTop, akRight]
           AutoSize = True
@@ -5694,6 +5694,48 @@ object Form1: TForm1
           Caption = 'Dodaj szablon'
           TabOrder = 4
           OnClick = ButtonXMLTransAddClick
+        end
+        object GroupBox31: TGroupBox
+          AnchorSideLeft.Control = GroupBox26
+          AnchorSideTop.Control = FileNameEditXMLTransDst
+          AnchorSideTop.Side = asrBottom
+          AnchorSideRight.Control = GroupBox26
+          AnchorSideRight.Side = asrBottom
+          Left = 8
+          Height = 105
+          Top = 70
+          Width = 670
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Around = 8
+          Caption = 'Parametry szablonu'
+          ClientHeight = 85
+          ClientWidth = 666
+          TabOrder = 5
+          object StringGrid1: TStringGrid
+            Left = 0
+            Height = 85
+            Top = 0
+            Width = 666
+            Align = alClient
+            AutoFillColumns = True
+            ColCount = 2
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAutoAddRows, goSmoothScroll]
+            TabOrder = 0
+            ColWidths = (
+              323
+              322
+            )
+            Cells = (
+              2
+              0
+              0
+              'Nazwa parametru'
+              1
+              0
+              'Wartość parametru'
+            )
+          end
         end
       end
       object GroupBoxLibXML2Par: TGroupBox

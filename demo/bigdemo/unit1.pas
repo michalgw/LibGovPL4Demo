@@ -245,6 +245,7 @@ type
     GroupBox28: TGroupBox;
     GroupBox29: TGroupBox;
     GroupBox30: TGroupBox;
+    GroupBox31: TGroupBox;
     GroupBoxKSeFCreQId: TGroupBox;
     GroupBoxKSeFCreQId1: TGroupBox;
     GroupBoxLibXML2Par: TGroupBox;
@@ -429,6 +430,7 @@ type
     ScrollBox6: TScrollBox;
     ScrollBox7: TScrollBox;
     Splitter2: TSplitter;
+    StringGrid1: TStringGrid;
     StringGridKSeFCreGTok: TStringGrid;
     surname: TLabel;
     ListViewCert: TListView;
@@ -1374,6 +1376,8 @@ procedure TForm1.ButtonXMLTransClick(Sender: TObject);
 var
   XDoc: TlgXMLReader = nil;
   FS: TFileStream = nil;
+  Params: TStringArray;
+  I: Integer;
 begin
   SetupTrans;
   if (FileNameEditXMLTransSrc.FileName = '') or (FileNameEditXMLTransDst.FileName = '') then
@@ -1385,12 +1389,15 @@ begin
   Debug('Plik wejściowy: ' + FileNameEditXMLTransSrc.FileName);
   try
     try
+      for I := 1 to StringGrid1.RowCount - 1 do
+        if (StringGrid1.Cells[0, I] <> '') and (StringGrid1.Cells[1, I] <> '') then
+          Params := Concat(Params, [StringGrid1.Cells[0, I], StringGrid1.Cells[1, I]]);
       if RadioGroupXMLVal.ItemIndex = 0 then
         XDoc := TlgMSXMLReader.CreateFromFile(FileNameEditXMLTransSrc.FileName)
       else
         XDoc := TlgLibXML2Reader.CreateFromFile(FileNameEditXMLTransSrc.FileName);
       FS := TFileStream.Create(FileNameEditXMLTransDst.FileName, fmCreate);
-      XTrans.Transform(XDoc, FS);
+      XTrans.Transform(XDoc, FS, Params);
       Debug('Zapisano do pliku: ' + FileNameEditXMLTransDst.FileName);
       if CheckBoxXMLTransOpen.Checked then
         OpenDocument(FileNameEditXMLTransDst.FileName);
