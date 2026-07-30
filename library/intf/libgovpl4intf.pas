@@ -33,6 +33,7 @@ type
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
   LGP_PBYTE = PByte;
+  LGP_PPCHAR = ^LGP_PCHAR;
 
   {$IFNDEF FPC}
   LGP_CK_ULONG = LongWord;
@@ -266,7 +267,7 @@ function lgpXMLXSLTransformation_Create(AClassName: LGP_PCHAR; var ATransformati
 function lgpXMLXSLTransformation_AddStyleLocation(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpXMLXSLTransformation_AddStyleReader(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpXMLXSLTransformation_ClearStyles(ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AParams: LGP_PPCHAR; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpLibXML2Backend_LibXMLLoaded: LGP_INT32; stdcall; external LGP_LIBNAME;
 function lgpLibXML2Backend_LibXSLTLoaded: LGP_INT32; stdcall; external LGP_LIBNAME;
@@ -537,6 +538,12 @@ function lgpKSeF2_GetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; var AType: 
 function lgpKSeF2_SetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; AType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetKsefToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetKsefToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetIp4Address(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetIp4Address(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetIp4Range(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetIp4Range(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetIp4Mask(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetIp4Mask(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetAuthenticationToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetAuthenticationToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetAuthenticationTokenValidUntil(AKSeFObject: LGP_OBJECT; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -583,14 +590,14 @@ function lgpKSeF2_SetOnRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER
 function lgpKSeF2_AuthChallenge(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthXadesSignatureGenerate(AKSeFObject: LGP_OBJECT; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_AuthXadesSignatureGenerate2(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_AuthXadesSignatureGenerate2(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthXadesSignature(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_AuthXadesSignature2(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_AuthXadesSignature2(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_AuthXadesSignature3(AKSeFObject: LGP_OBJECT; ASignedAuthData: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthKsefToken(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -879,7 +886,7 @@ var
   lgpXMLXSLTransformation_AddStyleLocation: function(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpXMLXSLTransformation_AddStyleReader: function(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpXMLXSLTransformation_ClearStyles: function(ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpXMLXSLTransformation_Transform: function (ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpXMLXSLTransformation_Transform: function (ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AParams: LGP_PPCHAR; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpLibXML2Backend_LibXMLLoaded: function: LGP_INT32; stdcall;
   lgpLibXML2Backend_LibXSLTLoaded: function: LGP_INT32; stdcall;
@@ -1149,6 +1156,12 @@ var
   lgpKSeF2_SetAuthCertificateSubject: function(AKSeFObject: LGP_OBJECT; AType: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetKsefToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetKsefToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetIp4Address: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetIp4Address: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetIp4Range: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetIp4Range: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetIp4Mask: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetIp4Mask: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetAuthenticationToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetAuthenticationToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetAuthenticationTokenValidUntil: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall;
@@ -1195,14 +1208,14 @@ var
   lgpKSeF2_AuthChallenge: function(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthXadesSignatureGenerate: function(AKSeFObject: LGP_OBJECT; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_AuthXadesSignatureGenerate2: function(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_AuthXadesSignatureGenerate2: function(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthXadesSignature: function(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_AuthXadesSignature2: function(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_AuthXadesSignature2: function(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_AuthXadesSignature3: function(AKSeFObject: LGP_OBJECT; ASignedAuthData: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthKsefToken: function(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_AuthKsefToken2: function(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_AuthKsefToken2: function(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
@@ -1783,6 +1796,12 @@ begin
     @lgpKSeF2_SetAuthCertificateSubject := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAuthCertificateSubject');
     @lgpKSeF2_GetKsefToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetKsefToken');
     @lgpKSeF2_SetKsefToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetKsefToken');
+    @lgpKSeF2_GetIp4Address := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetIp4Address');
+    @lgpKSeF2_SetIp4Address := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetIp4Address');
+    @lgpKSeF2_GetIp4Range := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetIp4Range');
+    @lgpKSeF2_SetIp4Range := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetIp4Range');
+    @lgpKSeF2_GetIp4Mask := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetIp4Mask');
+    @lgpKSeF2_SetIp4Mask := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetIp4Mask');
     @lgpKSeF2_GetAuthenticationToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAuthenticationToken');
     @lgpKSeF2_SetAuthenticationToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAuthenticationToken');
     @lgpKSeF2_GetAuthenticationTokenValidUntil := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAuthenticationTokenValidUntil');

@@ -80,6 +80,9 @@ type
     function GetInvoiceExportEncryptionKey: TBytes;
     function GetInvoiceExportReferenceNumber: UTF8String;
     function GetInvoiceExportVector: TBytes;
+    function GetIp4Address: UTF8String;
+    function GetIp4Mask: UTF8String;
+    function GetIp4Range: UTF8String;
     function GetKsefToken: UTF8String;
     function GetRandomGeneratorClass: UTF8String;
     function GetRefreshToken: UTF8String;
@@ -117,6 +120,9 @@ type
     procedure SetInvoiceExportEncryptionKey(AValue: TBytes);
     procedure SetInvoiceExportReferenceNumber(AValue: UTF8String);
     procedure SetInvoiceExportVector(AValue: TBytes);
+    procedure SetIp4Address(AValue: UTF8String);
+    procedure SetIp4Mask(AValue: UTF8String);
+    procedure SetIp4Range(AValue: UTF8String);
     procedure SetKsefToken(AValue: UTF8String);
     procedure SetOnRefreshToken(AValue: TNotifyEvent);
     procedure SetOnRequestPartStream(AValue: TKSeF2RequestPartStreamEvent);
@@ -138,15 +144,18 @@ type
 
     function AuthXadesSignatureGenerate: UTF8String; overload;
     function AuthXadesSignatureGenerate(ASubjectIdType: TlgoKSeFCertificateAuthType; AIdentifier: UTF8String;
-      AIdentifierType: TlgoKSeFIdentifierType): UTF8String; overload;
+      AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String = '';
+      AIp4Range: UTF8String = ''; AIp4Mask: UTF8String = ''): UTF8String; overload;
 
     function AuthXadesSignature: TKSeF2AuthenticationInitResponse; overload;
     function AuthXadesSignature(ACertificate: TlgoCertificate; ASubjectIdType: TlgoKSeFCertificateAuthType; AIdentifier: UTF8String;
-      AIdentifierType: TlgoKSeFIdentifierType): TKSeF2AuthenticationInitResponse; overload;
+      AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String = '';
+      AIp4Range: UTF8String = ''; AIp4Mask: UTF8String = ''): TKSeF2AuthenticationInitResponse; overload;
     function AuthXadesSignature(ASignedAuthData: UTF8String): TKSeF2AuthenticationInitResponse; overload;
 
     function AuthKsefToken: TKSeF2AuthenticationInitResponse; overload;
-    function AuthKsefToken(AToken: UTF8String; AIdentifier: UTF8String; AIdentifierType: TlgoKSeFIdentifierType): TKSeF2AuthenticationInitResponse; overload;
+    function AuthKsefToken(AToken: UTF8String; AIdentifier: UTF8String; AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String = '';
+      AIp4Range: UTF8String = ''; AIp4Mask: UTF8String = ''): TKSeF2AuthenticationInitResponse; overload;
 
     function AuthStatus(AReferenceNumber: UTF8String = ''; AAuthenticationToken: UTF8String = ''): TKSeF2AuthenticationOperationStatusResponse;
 
@@ -308,6 +317,10 @@ type
     property AuthCertificateSubject: TlgoKSeFCertificateAuthType read GetAuthCertificateSubject write SetAuthCertificateSubject;
 
     property KsefToken: UTF8String read GetKsefToken write SetKsefToken;
+
+    property Ip4Address: UTF8String read GetIp4Address write SetIp4Address;
+    property Ip4Range: UTF8String read GetIp4Range write SetIp4Range;
+    property Ip4Mask: UTF8String read GetIp4Mask write SetIp4Mask;
 
     property RSATokenEncKey[AGateType: TlgoKSeFGateType]: TlgoRSAPublicKey read GetRSATokenEncKey write SetRSATokenEncKey;
     property RSASymmetricKeyEncKey[AGateType: TlgoKSeFGateType]: TlgoRSAPublicKey read GetRSASymmetricKeyEncKey write SetRSASymmetricKeyEncKey;
@@ -666,6 +679,33 @@ begin
   end;
 end;
 
+function TlgoKSeF2.GetIp4Address: UTF8String;
+var
+  P: LGP_OBJECT;
+begin
+  P := nil;
+  lgoCheckResult(lgpKSeF2_GetIp4Address(ExtObject, P));
+  Result := lgoGetString(P);
+end;
+
+function TlgoKSeF2.GetIp4Mask: UTF8String;
+var
+  P: LGP_OBJECT;
+begin
+  P := nil;
+  lgoCheckResult(lgpKSeF2_GetIp4Mask(ExtObject, P));
+  Result := lgoGetString(P);
+end;
+
+function TlgoKSeF2.GetIp4Range: UTF8String;
+var
+  P: LGP_OBJECT;
+begin
+  P := nil;
+  lgoCheckResult(lgpKSeF2_GetIp4Range(ExtObject, P));
+  Result := lgoGetString(P);
+end;
+
 function TlgoKSeF2.GetKsefToken: UTF8String;
 var
   P: LGP_OBJECT;
@@ -922,6 +962,21 @@ begin
   lgoCheckResult(lgpKSeF2_SetInvoiceExportVector(ExtObject, P));
 end;
 
+procedure TlgoKSeF2.SetIp4Address(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_SetIp4Address(ExtObject, LGP_PCHAR(AValue)));
+end;
+
+procedure TlgoKSeF2.SetIp4Mask(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_SetIp4Mask(ExtObject, LGP_PCHAR(AValue)));
+end;
+
+procedure TlgoKSeF2.SetIp4Range(AValue: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_SetIp4Range(ExtObject, LGP_PCHAR(AValue)));
+end;
+
 procedure TlgoKSeF2.SetKsefToken(AValue: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_SetKsefToken(ExtObject, LGP_PCHAR(AValue)));
@@ -1041,13 +1096,15 @@ end;
 
 function TlgoKSeF2.AuthXadesSignatureGenerate(
   ASubjectIdType: TlgoKSeFCertificateAuthType; AIdentifier: UTF8String;
-  AIdentifierType: TlgoKSeFIdentifierType): UTF8String;
+  AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String;
+  AIp4Range: UTF8String; AIp4Mask: UTF8String): UTF8String;
 var
   O: LGP_OBJECT;
 begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthXadesSignatureGenerate2(ExtObject, Ord(ASubjectIdType),
-    LGP_PCHAR(AIdentifier), Ord(AIdentifierType), O));
+    LGP_PCHAR(AIdentifier), Ord(AIdentifierType), LGP_PCHAR(AIp4Address),
+    LGP_PCHAR(AIp4Range), LGP_PCHAR(AIp4Mask), O));
   if O <> nil then
     Result := lgoGetString(O);
 end;
@@ -1066,13 +1123,16 @@ end;
 
 function TlgoKSeF2.AuthXadesSignature(ACertificate: TlgoCertificate;
   ASubjectIdType: TlgoKSeFCertificateAuthType; AIdentifier: UTF8String;
-  AIdentifierType: TlgoKSeFIdentifierType): TKSeF2AuthenticationInitResponse;
+  AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String;
+  AIp4Range: UTF8String; AIp4Mask: UTF8String
+  ): TKSeF2AuthenticationInitResponse;
 var
   O: LGP_OBJECT;
 begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthXadesSignature2(ExtObject, ACertificate.Item,
-    Ord(ASubjectIdType), LGP_PCHAR(AIdentifier), Ord(AIdentifierType), O));
+    Ord(ASubjectIdType), LGP_PCHAR(AIdentifier), Ord(AIdentifierType),
+    LGP_PCHAR(AIp4Address), LGP_PCHAR(AIp4Range), LGP_PCHAR(AIp4Mask), O));
   if O <> nil then
     Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
   else
@@ -1105,13 +1165,15 @@ begin
 end;
 
 function TlgoKSeF2.AuthKsefToken(AToken: UTF8String; AIdentifier: UTF8String;
-  AIdentifierType: TlgoKSeFIdentifierType): TKSeF2AuthenticationInitResponse;
+  AIdentifierType: TlgoKSeFIdentifierType; AIp4Address: UTF8String;
+  AIp4Range: UTF8String; AIp4Mask: UTF8String
+  ): TKSeF2AuthenticationInitResponse;
 var
   O: LGP_OBJECT;
 begin
   O := nil;
   lgoCheckResult(lgpKSeF2_AuthKsefToken2(ExtObject, LGP_PCHAR(AToken), LGP_PCHAR(AIdentifier),
-    Ord(AIdentifierType), O));
+    Ord(AIdentifierType), LGP_PCHAR(AIp4Address), LGP_PCHAR(AIp4Range), LGP_PCHAR(AIp4Mask), O));
   if O <> nil then
     Result := TKSeF2AuthenticationInitResponse.Create(nil, O)
   else

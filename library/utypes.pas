@@ -28,6 +28,7 @@ type
   LGP_OBJECT = type Pointer;
   LGP_EXCEPTION = LGP_OBJECT;
   LGP_PBYTE = PByte;
+  LGP_PPCHAR = ^LGP_PCHAR;
 
   LGP_CK_ULONG = {$IFDEF WINDOWS}LongWord{$ELSE}PtrUInt{$ENDIF};
 
@@ -54,7 +55,45 @@ const
   LGP_XADES_SHA256 = 2;
 
 
+function PCharArrayToStringArray(APCharArray: LGP_PPCHAR): TStringArray;
+
+function StringToArray(AValue: String): TStringArray; inline;
+function ArrayToString(AValue: TStringArray): String; inline;
+
 implementation
+
+function PCharArrayToStringArray(APCharArray: LGP_PPCHAR): TStringArray;
+var
+  I: Integer;
+  S: UTF8String;
+begin
+  Result := [];
+  if (APCharArray = nil) or (APCharArray[0] = nil) then
+    Exit;
+  I := 0;
+  while APCharArray[I] <> nil do
+  begin
+    S := APCharArray[I];
+    Result := Concat(Result, [S]);
+    Inc(I);
+  end;
+end;
+
+function StringToArray(AValue: String): TStringArray;
+begin
+  if Length(AValue) > 0 then
+    Result := AValue.Split([LineEnding, ',', ';', '|'])
+  else
+    Result := nil;
+end;
+
+function ArrayToString(AValue: TStringArray): String;
+begin
+  if Length(AValue) > 0 then
+    Result := String.Join(';', AValue)
+  else
+    Result := '';
+end;
 
 end.
 

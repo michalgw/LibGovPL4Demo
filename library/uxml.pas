@@ -48,7 +48,7 @@ function lgpXMLXSLTransformation_Create(AClassName: LGP_PCHAR; var ATransformati
 function lgpXMLXSLTransformation_AddStyleLocation(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; ALocation: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpXMLXSLTransformation_AddStyleReader(ATransformation: LGP_OBJECT; ANS: LGP_PCHAR; AXMLDoc: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpXMLXSLTransformation_ClearStyles(ATransformation: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT; AXMLDoc: LGP_OBJECT; AParams: LGP_PPCHAR; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpLibXML2Backend_LibXMLLoaded: LGP_INT32; stdcall;
 function lgpLibXML2Backend_LibXSLTLoaded: LGP_INT32; stdcall;
@@ -298,14 +298,16 @@ begin
 end;
 
 function lgpXMLXSLTransformation_Transform(ATransformation: LGP_OBJECT;
-  AXMLDoc: LGP_OBJECT; AOutStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  AXMLDoc: LGP_OBJECT; AParams: LGP_PPCHAR; AOutStream: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   try
     CheckObject(ATransformation, TlgXMLXSLTransformation);
     CheckObject(AXMLDoc, TlgXMLReader);
     CheckObject(AOutStream, TStream);
-    TlgXMLXSLTransformation(ATransformation).Transform(TlgXMLReader(AXMLDoc), TStream(AOutStream));
+    TlgXMLXSLTransformation(ATransformation).Transform(TlgXMLReader(AXMLDoc),
+      TStream(AOutStream), PCharArrayToStringArray(AParams));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

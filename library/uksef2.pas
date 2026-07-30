@@ -73,6 +73,12 @@ function lgpKSeF2_GetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; var AType: 
 function lgpKSeF2_SetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; AType: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetKsefToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetKsefToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetIp4Address(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetIp4Address(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetIp4Range(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetIp4Range(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetIp4Mask(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetIp4Mask(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetAuthenticationToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetAuthenticationToken(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetAuthenticationTokenValidUntil(AKSeFObject: LGP_OBJECT; var AValue: LGP_DOUBLE): LGP_EXCEPTION; stdcall;
@@ -119,14 +125,14 @@ function lgpKSeF2_SetOnRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER
 function lgpKSeF2_AuthChallenge(AKSeFObject: LGP_OBJECT; var AAuthenticationChallengeResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_AuthXadesSignatureGenerate(AKSeFObject: LGP_OBJECT; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_AuthXadesSignatureGenerate2(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_AuthXadesSignatureGenerate2(AKSeFObject: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_AuthXadesSignature(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_AuthXadesSignature2(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_AuthXadesSignature2(AKSeFObject: LGP_OBJECT; ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_AuthXadesSignature3(AKSeFObject: LGP_OBJECT; ASignedAuthData: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_AuthKsefToken(AKSeFObject: LGP_OBJECT; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_AuthStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
@@ -871,6 +877,84 @@ begin
   end;
 end;
 
+function lgpKSeF2_GetIp4Address(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AValue := TStringObject.Create(ArrayToString((TObject(AKSeFObject) as TlgKSeF2).Ip4Address));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetIp4Address(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).Ip4Address := StringToArray(AValue);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_GetIp4Range(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AValue := TStringObject.Create(ArrayToString((TObject(AKSeFObject) as TlgKSeF2).Ip4Range));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetIp4Range(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).Ip4Range := StringToArray(AValue);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_GetIp4Mask(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AValue := TStringObject.Create(ArrayToString((TObject(AKSeFObject) as TlgKSeF2).Ip4Mask));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetIp4Mask(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).Ip4Mask := StringToArray(AValue);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpKSeF2_GetAuthenticationToken(AKSeFObject: LGP_OBJECT;
   var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
@@ -1503,8 +1587,8 @@ end;
 
 function lgpKSeF2_AuthXadesSignatureGenerate2(AKSeFObject: LGP_OBJECT;
   ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR;
-  AIdentifierType: LGP_INT32; var AAuthenticationStructure: LGP_OBJECT
-  ): LGP_EXCEPTION; stdcall;
+  AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR;
+  var AAuthenticationStructure: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AAuthenticationStructure := nil;
@@ -1512,7 +1596,8 @@ begin
     CheckObject(AKSeFObject, TlgKSeF2);
     AAuthenticationStructure := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2)
       .AuthXadesSignatureGenerate(TlgKSeFCertificateAuthType(ASubjectIdType),
-      AIdentifier, TlgKSeFIdentifierType(AIdentifierType)));
+      AIdentifier, TlgKSeFIdentifierType(AIdentifierType), StringToArray(AIp4Address),
+      StringToArray(AIp4Range), StringToArray(AIp4Mask)));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -1536,8 +1621,8 @@ end;
 
 function lgpKSeF2_AuthXadesSignature2(AKSeFObject: LGP_OBJECT;
   ACertificate: LGP_OBJECT; ASubjectIdType: LGP_INT32; AIdentifier: LGP_PCHAR;
-  AIdentifierType: LGP_INT32; var AAuthenticationInitResponse: LGP_OBJECT
-  ): LGP_EXCEPTION; stdcall;
+  AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR;
+  var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AAuthenticationInitResponse := nil;
@@ -1546,7 +1631,8 @@ begin
     CheckObject(ACertificate, TlgCertificate);
     AAuthenticationInitResponse := (TObject(AKSeFObject) as TlgKSeF2)
       .AuthXadesSignature(TlgCertificate(ACertificate), TlgKSeFCertificateAuthType(ASubjectIdType),
-      AIdentifier, TlgKSeFIdentifierType(AIdentifierType));
+      AIdentifier, TlgKSeFIdentifierType(AIdentifierType), StringToArray(AIp4Address),
+      StringToArray(AIp4Range), StringToArray(AIp4Mask));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -1585,15 +1671,17 @@ begin
 end;
 
 function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR;
-  AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32;
-  var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range,
+  AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AAuthenticationInitResponse := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF2);
     AAuthenticationInitResponse := (TObject(AKSeFObject) as TlgKSeF2)
-      .AuthKsefToken(AToken, AIdentifier, TlgKSeFIdentifierType(AIdentifierType));
+      .AuthKsefToken(AToken, AIdentifier, TlgKSeFIdentifierType(AIdentifierType),
+      StringToArray(AIp4Address), StringToArray(AIp4Range), StringToArray(AIp4Mask));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

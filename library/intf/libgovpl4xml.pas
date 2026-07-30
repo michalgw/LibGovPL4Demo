@@ -79,7 +79,7 @@ type
     procedure AddStyle(const ANS: UTF8String; const ALocation: UTF8String); overload;
     procedure AddStyle(const ANS: UTF8String; const AXMLDoc: TlgoXMLReader); overload;
     procedure ClearStyles;
-    procedure Transform(AXMLDoc: TlgoXMLReader; AOutStream: TStream);
+    procedure Transform(AXMLDoc: TlgoXMLReader; AOutStream: TStream; AParams: TlgoUTF8StringArray = nil);
   end;
 
   { TlgoLibXML2Backend }
@@ -281,13 +281,27 @@ begin
   lgoCheckResult(lgpXMLXSLTransformation_ClearStyles(ExtObject));
 end;
 
-procedure TlgoXMLXSLTransformation.Transform(AXMLDoc: TlgoXMLReader; AOutStream: TStream);
+procedure TlgoXMLXSLTransformation.Transform(AXMLDoc: TlgoXMLReader;
+  AOutStream: TStream; AParams: TlgoUTF8StringArray);
 var
   LGStream: TlgoStream;
+  BufArray: array of LGP_PCHAR;
+  ParamsPtr: LGP_PPCHAR;
+  I: Integer;
 begin
+  if Length(AParams) > 0 then
+  begin
+    SetLength(BufArray, Length(AParams) + 1);
+    for I := 0 to Length(AParams) - 1 do
+      BufArray[I] := @AParams[I][1];
+    ParamsPtr := @BufArray[0];
+  end
+  else
+    ParamsPtr := nil;
   LGStream := TlgoStream.Create(AOutStream);
   try
-    lgoCheckResult(lgpXMLXSLTransformation_Transform(ExtObject, AXMLDoc.ExtObject, LGStream.StreamObj));
+    lgoCheckResult(lgpXMLXSLTransformation_Transform(ExtObject, AXMLDoc.ExtObject,
+      ParamsPtr, LGStream.StreamObj));
   finally
     LGStream.Free;
   end;
