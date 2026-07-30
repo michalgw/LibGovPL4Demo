@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, EditBtn, Spin, DateTimePicker, LibGovPl4Intf, LibGovPl4Obj,
+  ExtCtrls, EditBtn, Spin, DateTimePicker, Grids, LibGovPl4Intf, LibGovPl4Obj,
   LibGovPl4Backend, LibGovPl4XAdES, LibGovPl4KSeF, LibGovPl4KSeFObj,
   LibGovPl4EDek, LibGovPl4JPK, LibGovPl4XML, LibGovPl4Vies;
 
@@ -234,6 +234,7 @@ type
     GroupBox25: TGroupBox;
     GroupBox26: TGroupBox;
     GroupBox27: TGroupBox;
+    GroupBox31: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -404,6 +405,7 @@ type
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     Splitter2: TSplitter;
+    StringGrid1: TStringGrid;
     surname: TLabel;
     ListViewCert: TListView;
     MemoKSeFQInvCrCurrencyCodes: TMemo;
@@ -1333,6 +1335,8 @@ procedure TForm1.ButtonXMLTransClick(Sender: TObject);
 var
   XDoc: TlgoXMLReader = nil;
   FS: TFileStream = nil;
+  Params: TlgoUTF8StringArray = nil;
+  I: Integer;
 begin
   SetupTrans;
   if (FileNameEditXMLTransSrc.FileName = '') or (FileNameEditXMLTransDst.FileName = '') then
@@ -1344,9 +1348,12 @@ begin
   Debug('Plik wejściowy: ' + FileNameEditXMLTransSrc.FileName);
   try
     try
+      for I := 1 to StringGrid1.RowCount - 1 do
+        if (StringGrid1.Cells[0, I] <> '') and (StringGrid1.Cells[1, I] <> '') then
+          Params := Concat(Params, [StringGrid1.Cells[0, I], StringGrid1.Cells[1, I]]);
       XDoc := TlgoXMLReader.CreateFromFile(RDRCLS[RadioGroupXMLVal.ItemIndex], FileNameEditXMLTransSrc.FileName);
       FS := TFileStream.Create(FileNameEditXMLTransDst.FileName, fmCreate);
-      XTrans.Transform(XDoc, FS);
+      XTrans.Transform(XDoc, FS, Params);
       Debug('Zapisano do pliku: ' + FileNameEditXMLTransDst.FileName);
       if CheckBoxXMLTransOpen.Checked then
         OpenDocument(FileNameEditXMLTransDst.FileName);
