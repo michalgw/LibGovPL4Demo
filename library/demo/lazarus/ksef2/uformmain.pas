@@ -31,6 +31,11 @@ type
     ButtonKSeFBOpen: TButton;
     ButtonKSeFBPrepare: TButton;
     ButtonKSeFBSend: TButton;
+    ButtonKSeFColIdAdd: TButton;
+    ButtonKSeFColIdCzysc: TButton;
+    ButtonKSeFColIdInvoices: TButton;
+    ButtonKSeFColIdKsef: TButton;
+    ButtonKSeFColIdQuery: TButton;
     ButtonKSeFDDownload: TButton;
     ButtonKSeFDEDownload: TButton;
     ButtonKSeFDExport: TButton;
@@ -70,7 +75,10 @@ type
     ButtonObjClear: TButton;
     ButtonObjCount: TButton;
     ButtonObjShow: TButton;
+    CheckBoxKSeFProblem: TCheckBox;
+    CheckBoxColIdCtx: TCheckBox;
     CheckBoxKSeFAutoRefresh: TCheckBox;
+    CheckBoxKSeFDExportMetaOnly: TCheckBox;
     CheckBoxKSeFDFRestrictToHwm: TCheckBox;
     CheckBoxKSeFIOffline: TCheckBox;
     CheckBoxKSeFTDUOIsBailiff: TCheckBox;
@@ -88,6 +96,8 @@ type
     ComboBoxKSeFAIdentifierType: TComboBox;
     ComboBoxKSeFASubjectType: TComboBox;
     ComboBoxKSeFASubjectTypeExt: TComboBox;
+    ComboBoxKSeFDExportFormat: TComboBox;
+    ComboBoxKSeFDExportFormat1: TComboBox;
     ComboBoxKSeFDFAmountType: TComboBox;
     ComboBoxKSeFDFBuyerIdentifierType: TComboBox;
     ComboBoxKSeFDFDateType: TComboBox;
@@ -108,6 +118,8 @@ type
     ComboBoxRandGen: TComboBox;
     ComboBoxRSAEnc: TComboBox;
     ComboBoxSHA256: TComboBox;
+    DateTimePickerColIdDo: TDateTimePicker;
+    DateTimePickerColIdOd: TDateTimePicker;
     DateTimePickerKSeFAAccessTokenValidUntil: TDateTimePicker;
     DateTimePickerKSeFARefreshTokenValidUntil: TDateTimePicker;
     DateTimePickerKSeFDFFrom: TDateTimePicker;
@@ -121,6 +133,12 @@ type
     DateTimePickerKSeFSCreatedTo: TDateTimePicker;
     DateTimePickerKSeFSModifiedFrom: TDateTimePicker;
     DateTimePickerKSeFSModifiedTo: TDateTimePicker;
+    EditColIdIId: TEdit;
+    EditColIdITok: TEdit;
+    EditColIdKIdNr: TEdit;
+    EditColIdKTok: TEdit;
+    EditColIdQNr: TEdit;
+    EditColIdQTok: TEdit;
     EditKSeFAAccessToken: TEdit;
     EditKSeFAIdentifier: TEdit;
     EditKSeFARefreshToken: TEdit;
@@ -222,6 +240,10 @@ type
     GroupBox40: TGroupBox;
     GroupBox41: TGroupBox;
     GroupBox42: TGroupBox;
+    GroupBox43: TGroupBox;
+    GroupBox44: TGroupBox;
+    GroupBox45: TGroupBox;
+    GroupBox46: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -259,9 +281,24 @@ type
     Label115: TLabel;
     Label116: TLabel;
     Label117: TLabel;
+    Label118: TLabel;
+    Label119: TLabel;
     Label12: TLabel;
+    Label120: TLabel;
+    Label121: TLabel;
     Label122: TLabel;
+    Label123: TLabel;
+    Label127: TLabel;
+    Label128: TLabel;
+    Label129: TLabel;
     Label13: TLabel;
+    Label130: TLabel;
+    Label131: TLabel;
+    Label132: TLabel;
+    Label133: TLabel;
+    Label134: TLabel;
+    Label135: TLabel;
+    Label136: TLabel;
     Label14: TLabel;
     Label15: TLabel;
     Label16: TLabel;
@@ -370,6 +407,7 @@ type
     PopupMenuKeys: TPopupMenu;
     SaveDialogKSeFBPart: TSaveDialog;
     ScrollBox10: TScrollBox;
+    ScrollBox11: TScrollBox;
     ScrollBox2: TScrollBox;
     ScrollBox3: TScrollBox;
     ScrollBox4: TScrollBox;
@@ -378,6 +416,11 @@ type
     ScrollBox7: TScrollBox;
     ScrollBox8: TScrollBox;
     ScrollBox9: TScrollBox;
+    SpinEditColIdDo: TSpinEdit;
+    SpinEditColIdIPage: TSpinEdit;
+    SpinEditColIdKPage: TSpinEdit;
+    SpinEditColIdOd: TSpinEdit;
+    SpinEditColIdQPage: TSpinEdit;
     SpinEditKSeFBPartNumber: TSpinEdit;
     SpinEditKSeFBPartSize: TSpinEdit;
     SpinEditKSeFDPageOffset: TSpinEdit;
@@ -389,6 +432,8 @@ type
     Splitter2: TSplitter;
     StringGridDTUPSubunits: TStringGrid;
     StringGridKSeFBEncOutFiles: TStringGrid;
+    StringGridKSeFColId: TStringGrid;
+    TabSheetKSeFColId: TTabSheet;
     TabSheetKSeFLimit: TTabSheet;
     TabSheetKSeF2VerLinks: TTabSheet;
     TabSheetKSeF2PublicKeys: TTabSheet;
@@ -415,6 +460,10 @@ type
     procedure ButtonKSeFBOpenClick(Sender: TObject);
     procedure ButtonKSeFBPrepareClick(Sender: TObject);
     procedure ButtonKSeFBSendClick(Sender: TObject);
+    procedure ButtonKSeFColIdAddClick(Sender: TObject);
+    procedure ButtonKSeFColIdInvoicesClick(Sender: TObject);
+    procedure ButtonKSeFColIdKsefClick(Sender: TObject);
+    procedure ButtonKSeFColIdQueryClick(Sender: TObject);
     procedure ButtonKSeFDDownloadClick(Sender: TObject);
     procedure ButtonKSeFDEDownloadClick(Sender: TObject);
     procedure ButtonKSeFDExportClick(Sender: TObject);
@@ -936,8 +985,8 @@ begin
       KSeF.FormCodeSchemaVersion := EditKSeFIFormCodeSchemaVersion.Text;
       KSeF.FormCodeValue := EditKSeFIFormCodeValue.Text;
       KSeF.BatchPartSize := SpinEditKSeFBPartSize.Value;
+      KSeF.CompressionType := TKSeF2CompressionType(ComboBoxKSeFDExportFormat1.ItemIndex);
       KSeF.OnRequestPartStream := @KSeFRequestPartStream;
-      BatchRequest := KSeF.BatchPrepare(ZipInStream);
       Debug('Przygotowano paczkę do wysłania.');
       Debug('Zawartość: ' + BatchRequest.AsJSONString);
       AddObject(BatchRequest);
@@ -988,6 +1037,109 @@ begin
   finally
     if Assigned(FileStream) then
       FileStream.Free;
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFColIdAddClick(Sender: TObject);
+var
+  Request: TKSeF2GenerateCollectiveIdentifierRequest;
+  Invoice: TKSeF2CollectiveIdentifierInvoice;
+  NrRef: String;
+  I: Integer;
+begin
+  Debug('Generowanie identyfikatora zbiorczego', True);
+  Request := TKSeF2GenerateCollectiveIdentifierRequest.Create(nil, '');
+  with StringGridKSeFColId do
+  begin
+    for I := 1 to RowCount - 1 do
+      if Cells[0, I] <> '' then
+      begin
+        Invoice := TKSeF2CollectiveIdentifierInvoice.Create(nil, '');
+        Invoice.KsefNumber := Cells[0, I];
+        if (Cells[1, I] <> '') and (Cells[2, I] <> '') then
+        begin
+          Invoice.Payment := TKSeF2CollectiveIdentifierInvoicePayment.Create(Invoice);
+          Invoice.Payment.Amount := StrToFloatDef(Cells[1, I], 0);
+          Invoice.Payment.Currency := Cells[2, I];
+        end;
+        Invoice.Description := Cells[3, I];
+        Request.Invoices.Add(Invoice);
+      end;
+  end;
+  AddObject(Request);
+  try
+    NrRef := KSeF.CollectiveIdentifiersSimple(Request);
+    Debug('Utworzono identyfikator: ' + NrRef);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFColIdInvoicesClick(Sender: TObject);
+var
+  Response: TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+begin
+  Debug('Pobranie listy faktur wchodzących w skład identyfikatora zbiorczego', True);
+  if EditColIdIId.Text = '' then
+  begin
+    MessageDlg('Wprowadź identyfikator', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  try
+    Response := KSeF.CollectiveIdentifiersInvoices(EditColIdIId.Text, EditColIdITok.Text, SpinEditColIdIPage.Value);
+    AddObject(Response);
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    EditColIdITok.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFColIdKsefClick(Sender: TObject);
+var
+  Response: TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse;
+begin
+  Debug('Pobranie listy identyfikatorów zbiorczych po numerze KSeF', True);
+  if EditColIdKIdNr.Text = '' then
+  begin
+    MessageDlg('WprowadĹş identyfikator', mtInformation, [mbOK], 0);
+    Exit;
+  end;
+  try
+    Response := KSeF.CollectiveIdentifiersKsef(EditColIdKIdNr.Text, EditColIdKTok.Text, SpinEditColIdKPage.Value);
+    AddObject(Response);
+    Debug('OdpowiedĹş: ' + Response.RawResponse);
+    EditColIdITok.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFColIdQueryClick(Sender: TObject);
+var
+  Request: TKSeF2CollectiveIdentifiersQueryRequest;
+  Response: TKSeF2CollectiveIdentifiersQueryResponse;
+begin
+  Debug('Generowanie identyfikatora zbiorczego', True);
+  Request := TKSeF2CollectiveIdentifiersQueryRequest.Create(nil, '');
+  Request.DateCreatedFrom := DateTimePickerColIdOd.DateTime;
+  Request.DateCreatedTo := DateTimePickerColIdDo.DateTime;
+  Request.CollectiveIdentifierNumber := EditColIdQNr.Text;
+  Request.InvoiceCountFrom := SpinEditColIdOd.Value;
+  Request.InvoiceCountTo := SpinEditColIdOd.Value;
+  Request.CreatedInCurrentContext := CheckBoxColIdCtx.Checked;
+  AddObject(Request);
+  try
+    Response := KSeF.CollectiveidentifiersQuery(Request, EditColIdQTok.Text, SpinEditColIdQPage.Value);
+    AddObject(Response);
+    Debug('OdpowiedĹş: ' + Response.RawResponse);
+    EditColIdQTok.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
   end;
 end;
 
@@ -1045,7 +1197,7 @@ begin
   try
     Filter := GenerateFilter;
     AddObject(Filter);
-    EditKSeFDEOperationReferenceNumber.Text := KSeF.InvoicesExportSimple(Filter);
+    EditKSeFDEOperationReferenceNumber.Text := KSeF.InvoicesExportSimple(Filter, CheckBoxKSeFDExportMetaOnly.Checked, TKSeF2CompressionType(ComboBoxKSeFDExportFormat.ItemIndex));
     Debug('Numer referencyjny operacji: ' + EditKSeFDEOperationReferenceNumber.Text);
   except
     on E: Exception do
@@ -1759,6 +1911,7 @@ begin
   if ComboBoxRandGen.ItemIndex >= 0 then
     KSeF.RandomGeneratorClass := ComboBoxRandGen.Text;
   KSeF.AutoRefreshToken := CheckBoxKSeFAutoRefresh.Checked;
+  KSeF.UseProblemDetails := CheckBoxKSeFProblem.Checked;
   KSeF.OnRefreshToken := @TokenRefreshHandler;
 
   TabSheetKSeF2Auth.TabVisible := True;
@@ -1815,6 +1968,7 @@ begin
   TabSheetKSeFDownload.TabVisible := AValue;
   TabSheetKSeFToken.TabVisible := AValue;
   TabSheetKSeFLimit.TabVisible := AValue;
+  TabSheetKSeFColId.TabVisible := AValue;
 end;
 
 procedure TFormMain.PopupMenuKeysClick(Sender: TObject);
@@ -1936,6 +2090,7 @@ end;
 procedure TFormMain.DebugException(AException: Exception);
 var
   ED: TKSeF2ExceptionDetail;
+  KV: TKSeF2KeyValueRec;
 begin
   Debug('Wyjątek: ' + AException.ClassName);
   Debug(AException.Message);
@@ -1977,6 +2132,40 @@ begin
     Debug('  Stos wywołania:');
     Debug(ElgoException(AException).CallStack);
   end;
+  if AException is EKSeF2ProblemDetails then
+    with EKSeF2ProblemDetails(AException) do
+    begin
+      Debug('  Title: ' + Title);
+      Debug('  Status: ' + IntToStr(Status));
+      Debug('  Detail: ' + Detail);
+      Debug('  Instance: ' + Instance);
+      Debug('  TraceId: ' + TraceId);
+      Debug('  Timestamp: ' + DateTimeToStr(Timestamp));
+    end;
+  if AException is EKSeF2BadRequest then
+    with EKSeF2BadRequest(AException) do
+    begin
+      Debug('  Errors: ');
+      for ED in Errors do
+      begin
+        Debug('  [');
+        Debug('    Code: %d', [ED.ExceptionCode]);
+        Debug('    Description: ' + ED.ExceptionDescription);
+        Debug('    Details: ' + ED.ExceptionDetails);
+        Debug('  ]');
+      end;
+    end;
+  if AException is EKSeF2Forbidden then
+    with EKSeF2Forbidden(AException) do
+    begin
+      Debug('  ReasonCode: ' + ReasonCode);
+      Debug('  Security: ');
+      for KV in Security do
+        Debug('    ' + KV.Key + ': ' + KV.Value);
+    end;
+  if AException is EKSeF2TooManyRequestsProblem then
+    with EKSeF2TooManyRequestsProblem(AException) do
+      Debug('  RetryAfter: %d', [RetryAfter]);
 end;
 
 end.

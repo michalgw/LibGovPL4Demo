@@ -182,13 +182,13 @@ object Form1: TForm1
         Left = 0
         Top = 153
         Width = 784
-        Height = 192
+        Height = 216
         Align = alTop
         Caption = 'W'#322'a'#347'ciwo'#347'ci KSeF'
         TabOrder = 2
         DesignSize = (
           784
-          192)
+          216)
         object Label2: TLabel
           Left = 16
           Top = 21
@@ -300,6 +300,16 @@ object Form1: TForm1
           Checked = True
           State = cbChecked
           TabOrder = 6
+        end
+        object CheckBoxKSeFProblem: TCheckBox
+          Left = 16
+          Top = 184
+          Width = 137
+          Height = 17
+          Caption = 'U'#380'yj "Problem details"'
+          Checked = True
+          State = cbChecked
+          TabOrder = 7
         end
       end
     end
@@ -555,13 +565,13 @@ object Form1: TForm1
           Left = 0
           Top = 0
           Width = 763
-          Height = 169
+          Height = 208
           Align = alTop
           Caption = 'Dane autoryzacyjne'
           TabOrder = 0
           DesignSize = (
             763
-            169)
+            208)
           object Label60: TLabel
             Left = 8
             Top = 28
@@ -707,10 +717,67 @@ object Form1: TForm1
               TabOrder = 4
             end
           end
+          object GroupBox39: TGroupBox
+            Left = 3
+            Top = 113
+            Width = 275
+            Height = 90
+            Anchors = [akLeft, akTop, akRight]
+            Caption = 'Regu'#322'y dotycz'#261'ce walidacji adresu IP'
+            TabOrder = 4
+            object GroupBox40: TGroupBox
+              Left = 0
+              Top = 16
+              Width = 90
+              Height = 69
+              Caption = 'Ip4Address'
+              TabOrder = 0
+              object MemoIp4Address: TMemo
+                Left = 2
+                Top = 15
+                Width = 86
+                Height = 52
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+            object GroupBox41: TGroupBox
+              Left = 90
+              Top = 16
+              Width = 90
+              Height = 69
+              Caption = 'Ip4Range'
+              TabOrder = 1
+              object MemoIp4Range: TMemo
+                Left = 2
+                Top = 15
+                Width = 86
+                Height = 52
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+            object GroupBox42: TGroupBox
+              Left = 180
+              Top = 16
+              Width = 91
+              Height = 69
+              Caption = 'Ip4Mask'
+              TabOrder = 2
+              object MemoIp4Mask: TMemo
+                Left = 2
+                Top = 15
+                Width = 87
+                Height = 52
+                Align = alClient
+                TabOrder = 0
+              end
+            end
+          end
         end
         object GroupBoxKSeFA2: TGroupBox
           Left = 0
-          Top = 169
+          Top = 208
           Width = 763
           Height = 123
           Align = alTop
@@ -769,7 +836,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFA3: TGroupBox
           Left = 0
-          Top = 292
+          Top = 331
           Width = 763
           Height = 235
           Align = alTop
@@ -870,7 +937,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFA5: TGroupBox
           Left = 0
-          Top = 619
+          Top = 658
           Width = 763
           Height = 57
           Align = alTop
@@ -909,7 +976,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFA6: TGroupBox
           Left = 0
-          Top = 676
+          Top = 715
           Width = 763
           Height = 94
           Align = alTop
@@ -965,7 +1032,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFA4: TGroupBox
           Left = 0
-          Top = 527
+          Top = 566
           Width = 763
           Height = 92
           Align = alTop
@@ -1206,37 +1273,37 @@ object Form1: TForm1
           Left = 0
           Top = 0
           Width = 763
-          Height = 360
+          Height = 401
           Align = alTop
           Caption = 'Przygotwanie paczki faktur'
           TabOrder = 0
           DesignSize = (
             763
-            360)
+            401)
           object Label63: TLabel
             Left = 8
-            Top = 59
+            Top = 95
             Width = 72
             Height = 13
             Caption = 'Schemat faktur'
           end
           object Label64: TLabel
             Left = 8
-            Top = 90
+            Top = 126
             Width = 59
             Height = 13
             Caption = 'SystemCode'
           end
           object Label65: TLabel
             Left = 8
-            Top = 121
+            Top = 157
             Width = 74
             Height = 13
             Caption = 'SchemaVersion'
           end
           object Label66: TLabel
             Left = 8
-            Top = 152
+            Top = 187
             Width = 27
             Height = 13
             Caption = 'Value'
@@ -1250,14 +1317,21 @@ object Form1: TForm1
           end
           object Label68: TLabel
             Left = 8
-            Top = 183
+            Top = 219
             Width = 227
             Height = 13
             Caption = 'Rozmiar cz'#281#347'ci w bajtach (0 - domy'#347'lnie 100MB)'
           end
+          object Label122: TLabel
+            Left = 8
+            Top = 62
+            Width = 79
+            Height = 13
+            Caption = 'Format kompresji'
+          end
           object ComboBoxBFormCode: TComboBox
             Left = 96
-            Top = 55
+            Top = 91
             Width = 190
             Height = 21
             Style = csDropDownList
@@ -1275,7 +1349,7 @@ object Form1: TForm1
           end
           object EditKSeFBFormCodeSystemCode: TEdit
             Left = 82
-            Top = 86
+            Top = 122
             Width = 673
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -1283,7 +1357,7 @@ object Form1: TForm1
           end
           object EditKSeFBFormCodeSchemaVersion: TEdit
             Left = 96
-            Top = 117
+            Top = 153
             Width = 659
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -1291,7 +1365,7 @@ object Form1: TForm1
           end
           object EditKSeFBFormCodeValue: TEdit
             Left = 44
-            Top = 148
+            Top = 184
             Width = 711
             Height = 21
             Anchors = [akLeft, akTop, akRight]
@@ -1299,7 +1373,7 @@ object Form1: TForm1
           end
           object ButtonKSeFBPrepare: TButton
             Left = 8
-            Top = 323
+            Top = 359
             Width = 149
             Height = 25
             Caption = 'Przygotuj paczk'#281' faktur'
@@ -1316,7 +1390,7 @@ object Form1: TForm1
           end
           object GroupBox20: TGroupBox
             Left = 8
-            Top = 210
+            Top = 246
             Width = 747
             Height = 105
             Anchors = [akLeft, akTop, akRight]
@@ -1337,7 +1411,7 @@ object Form1: TForm1
           end
           object SpinEditKSeFBPartSize: TSpinEdit
             Left = 269
-            Top = 179
+            Top = 215
             Width = 138
             Height = 22
             MaxValue = 104857584
@@ -1354,10 +1428,25 @@ object Form1: TForm1
             TabOrder = 8
             OnClick = ButtonFileNameEditKSeFBZIPInClick
           end
+          object ComboBoxKSeFBFormat: TComboBox
+            Left = 109
+            Top = 58
+            Width = 116
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 9
+            Text = '(nie okre'#347'lono)'
+            Items.Strings = (
+              '(nie okre'#347'lono)'
+              'Zip'
+              'TarGz')
+          end
         end
         object GroupBoxKSeFB2: TGroupBox
           Left = 0
-          Top = 360
+          Top = 401
           Width = 763
           Height = 61
           Align = alTop
@@ -1376,7 +1465,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFB3: TGroupBox
           Left = 0
-          Top = 421
+          Top = 462
           Width = 763
           Height = 92
           Align = alTop
@@ -1412,7 +1501,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFB4: TGroupBox
           Left = 0
-          Top = 513
+          Top = 554
           Width = 763
           Height = 61
           Align = alTop
@@ -2702,23 +2791,53 @@ object Form1: TForm1
           Left = 0
           Top = 750
           Width = 763
-          Height = 61
+          Height = 120
           Align = alTop
           Caption = 'Eksport paczki faktur'
           TabOrder = 3
+          object Label123: TLabel
+            Left = 16
+            Top = 55
+            Width = 79
+            Height = 13
+            Caption = 'Format kompresji'
+          end
           object ButtonKSeFDExport: TButton
             Left = 8
-            Top = 24
+            Top = 80
             Width = 160
             Height = 25
             Caption = 'Eksportuj paczk'#281' wg filtra'
             TabOrder = 0
             OnClick = ButtonKSeFDExportClick
           end
+          object CheckBoxKSeFDExportMetaOnly: TCheckBox
+            Left = 16
+            Top = 24
+            Width = 102
+            Height = 19
+            Caption = 'Tylko metadane'
+            TabOrder = 1
+          end
+          object ComboBoxKSeFDExportFormat: TComboBox
+            Left = 117
+            Top = 51
+            Width = 116
+            Height = 21
+            Style = csDropDownList
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 2
+            Text = '(nie okre'#347'lono)'
+            Items.Strings = (
+              '(nie okre'#347'lono)'
+              'Zip'
+              'TarGz')
+          end
         end
         object GroupBox30: TGroupBox
           Left = 0
-          Top = 811
+          Top = 870
           Width = 763
           Height = 92
           Align = alTop
@@ -2754,7 +2873,7 @@ object Form1: TForm1
         end
         object GroupBoxKSeFD1: TGroupBox
           Left = 0
-          Top = 903
+          Top = 962
           Width = 763
           Height = 92
           Align = alTop
@@ -2800,7 +2919,7 @@ object Form1: TForm1
         end
         object GroupBox37: TGroupBox
           Left = 0
-          Top = 995
+          Top = 1054
           Width = 763
           Height = 87
           Align = alTop
@@ -3796,6 +3915,359 @@ object Form1: TForm1
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
             ItemHeight = 0
+            TabOrder = 8
+          end
+        end
+      end
+    end
+    object TabSheetKSeFColId: TTabSheet
+      Caption = 'KSeF2 - Identyfikatory zbiorcze'
+      ImageIndex = 14
+      TabVisible = False
+      object ScrollBox11: TScrollBox
+        Left = 0
+        Top = 0
+        Width = 784
+        Height = 457
+        Align = alClient
+        TabOrder = 0
+        object GroupBox43: TGroupBox
+          Left = 0
+          Top = 0
+          Width = 763
+          Height = 200
+          Align = alTop
+          Caption = 'Generowanie identyfikatora zbiorczego'
+          TabOrder = 0
+          DesignSize = (
+            763
+            200)
+          object StringGridKSeFColId: TStringGrid
+            Left = 8
+            Top = 24
+            Width = 708
+            Height = 131
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            ColCount = 4
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+            TabOrder = 0
+            ColWidths = (
+              313
+              64
+              64
+              235)
+          end
+          object ButtonKSeFColIdAdd: TButton
+            Left = 8
+            Top = 163
+            Width = 183
+            Height = 25
+            Anchors = [akLeft, akBottom]
+            Caption = 'Generuj identyfikator zbiorczy'
+            TabOrder = 1
+            OnClick = ButtonKSeFColIdAddClick
+          end
+          object ButtonKSeFColIdCzysc: TButton
+            Left = 199
+            Top = 163
+            Width = 56
+            Height = 25
+            Anchors = [akLeft, akBottom]
+            Caption = 'Czy'#347#263
+            TabOrder = 2
+            OnClick = ButtonKSeFColIdCzyscClick
+          end
+          object ButtonColIdDodajW: TButton
+            Left = 263
+            Top = 163
+            Width = 90
+            Height = 25
+            Anchors = [akLeft, akBottom]
+            Caption = 'Dodaj wiersz'
+            TabOrder = 3
+            OnClick = ButtonColIdDodajWClick
+          end
+        end
+        object GroupBox45: TGroupBox
+          Left = 0
+          Top = 448
+          Width = 763
+          Height = 154
+          Align = alTop
+          Caption = 
+            'Pobranie listy faktur wchodz'#261'cych w sk'#322'ad identyfikatora zbiorcz' +
+            'ego'
+          TabOrder = 1
+          DesignSize = (
+            763
+            154)
+          object Label131: TLabel
+            Left = 8
+            Top = 26
+            Width = 99
+            Height = 13
+            Caption = 'Identyfikator zbiorczy'
+          end
+          object Label132: TLabel
+            Left = 8
+            Top = 88
+            Width = 183
+            Height = 13
+            Caption = 'Rozmiar strony wynik'#243'w (o = domy'#347'lny)'
+          end
+          object Label133: TLabel
+            Left = 8
+            Top = 57
+            Width = 102
+            Height = 13
+            Caption = 'Token kontynuacyjny'
+          end
+          object EditColIdIId: TEdit
+            Left = 129
+            Top = 22
+            Width = 587
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object SpinEditColIdIPage: TSpinEdit
+            Left = 229
+            Top = 84
+            Width = 50
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 1
+            Value = 0
+          end
+          object ButtonKSeFColIdInvoices: TButton
+            Left = 8
+            Top = 115
+            Width = 65
+            Height = 25
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFColIdInvoicesClick
+          end
+          object EditColIdITok: TEdit
+            Left = 128
+            Top = 53
+            Width = 588
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 3
+          end
+        end
+        object GroupBox46: TGroupBox
+          Left = 0
+          Top = 602
+          Width = 763
+          Height = 154
+          Align = alTop
+          Caption = 'Pobranie listy identyfikator'#243'w zbiorczych po numerze KSeF'
+          TabOrder = 2
+          DesignSize = (
+            763
+            154)
+          object Label134: TLabel
+            Left = 8
+            Top = 26
+            Width = 60
+            Height = 13
+            Caption = 'Numer KSeF'
+          end
+          object Label135: TLabel
+            Left = 8
+            Top = 88
+            Width = 183
+            Height = 13
+            Caption = 'Rozmiar strony wynik'#243'w (o = domy'#347'lny)'
+          end
+          object Label136: TLabel
+            Left = 8
+            Top = 57
+            Width = 102
+            Height = 13
+            Caption = 'Token kontynuacyjny'
+          end
+          object EditColIdKIdNr: TEdit
+            Left = 81
+            Top = 22
+            Width = 635
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object SpinEditColIdKPage: TSpinEdit
+            Left = 229
+            Top = 84
+            Width = 50
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 1
+            Value = 0
+          end
+          object ButtonKSeFColIdKsef: TButton
+            Left = 8
+            Top = 115
+            Width = 65
+            Height = 25
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFColIdKsefClick
+          end
+          object EditColIdKTok: TEdit
+            Left = 128
+            Top = 53
+            Width = 588
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 3
+          end
+        end
+        object GroupBox44: TGroupBox
+          Left = 0
+          Top = 200
+          Width = 763
+          Height = 248
+          Align = alTop
+          Caption = 
+            'Pobranie listy identyfikator'#243'w zbiorczych powi'#261'zanych z kontekst' +
+            'em'
+          TabOrder = 3
+          DesignSize = (
+            763
+            248)
+          object Label127: TLabel
+            Left = 8
+            Top = 27
+            Width = 66
+            Height = 13
+            Caption = 'Utworzono od'
+          end
+          object Label128: TLabel
+            Left = 236
+            Top = 27
+            Width = 12
+            Height = 13
+            Caption = 'do'
+          end
+          object Label129: TLabel
+            Left = 8
+            Top = 63
+            Width = 151
+            Height = 13
+            Caption = 'Numer identyfikatora zbiorczego'
+          end
+          object Label130: TLabel
+            Left = 8
+            Top = 94
+            Width = 207
+            Height = 13
+            Caption = 'Liczba faktur w identyfikatorze zbiorczym od'
+          end
+          object Label137: TLabel
+            Left = 308
+            Top = 94
+            Width = 12
+            Height = 13
+            Caption = 'do'
+          end
+          object Label138: TLabel
+            Left = 8
+            Top = 183
+            Width = 183
+            Height = 13
+            Caption = 'Rozmiar strony wynik'#243'w (o = domy'#347'lny)'
+          end
+          object Label139: TLabel
+            Left = 8
+            Top = 152
+            Width = 102
+            Height = 13
+            Caption = 'Token kontynuacyjny'
+          end
+          object DateTimePickerColIdOd: TDateTimePicker
+            Left = 91
+            Top = 23
+            Width = 137
+            Height = 23
+            Date = 46238.986929479160000000
+            Time = 46238.986929479160000000
+            TabOrder = 0
+          end
+          object DateTimePickerColIdDo: TDateTimePicker
+            Left = 258
+            Top = 23
+            Width = 137
+            Height = 23
+            Date = 46238.986929687500000000
+            Time = 46238.986929687500000000
+            TabOrder = 1
+          end
+          object EditColIdQNr: TEdit
+            Left = 189
+            Top = 59
+            Width = 527
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 2
+          end
+          object SpinEditColIdOd: TSpinEdit
+            Left = 250
+            Top = 90
+            Width = 50
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 3
+            Value = 0
+          end
+          object SpinEditColIdDo: TSpinEdit
+            Left = 330
+            Top = 90
+            Width = 50
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 4
+            Value = 0
+          end
+          object CheckBoxColIdCtx: TCheckBox
+            Left = 8
+            Top = 121
+            Width = 292
+            Height = 19
+            Caption = 'Identyfikator wygenerowany w bie'#380#261'cym kontek'#347'cie'
+            TabOrder = 5
+          end
+          object ButtonKSeFColIdQuery: TButton
+            Left = 8
+            Top = 210
+            Width = 65
+            Height = 25
+            Caption = 'Pobierz'
+            TabOrder = 7
+            OnClick = ButtonKSeFColIdQueryClick
+          end
+          object SpinEditColIdQPage: TSpinEdit
+            Left = 229
+            Top = 179
+            Width = 50
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 6
+            Value = 0
+          end
+          object EditColIdQTok: TEdit
+            Left = 128
+            Top = 148
+            Width = 588
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
             TabOrder = 8
           end
         end

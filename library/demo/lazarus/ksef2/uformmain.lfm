@@ -1,29 +1,45 @@
 inherited FormMain: TFormMain
   Height = 624
   Top = 99
+  Width = 760
   Caption = 'LibGovPL 4 - KSeF 2.0'
   ClientHeight = 624
+  ClientWidth = 760
   inherited PageControlMain: TPageControl
     Height = 492
-    ActivePage = TabSheetKSeF2Auth
+    Width = 760
     MultiLine = True
-    TabIndex = 3
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 424
+      ClientWidth = 752
       inherited PanelSetup: TPanel
         Top = 383
+        Width = 752
+        ClientWidth = 752
       end
       inherited ScrollBox1: TScrollBox
         Height = 383
-        HorzScrollBar.Page = 347
+        Width = 752
+        HorzScrollBar.Page = 382
         VertScrollBar.Page = 340
         ClientHeight = 379
+        ClientWidth = 748
+        inherited GroupBoxSetupCertSign: TGroupBox
+          Width = 748
+          ClientWidth = 744
+          inherited CheckListBoxSigners: TCheckListBox
+            Width = 728
+          end
+          inherited FileNameEditLibPKCS11: TFileNameEdit
+            Width = 626
+          end
+        end
         object GroupBoxKSeFSetup: TGroupBox[1]
           Left = 0
           Height = 193
           Top = 147
-          Width = 697
+          Width = 748
           Align = alTop
           AutoSize = True
           Caption = 'Właściwości KSeF'
@@ -38,22 +54,22 @@ inherited FormMain: TFormMain
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 2
           ClientHeight = 173
-          ClientWidth = 693
+          ClientWidth = 744
           TabOrder = 1
           object Label2: TLabel
             Left = 2
             Height = 23
             Top = 2
-            Width = 412
+            Width = 420
             Caption = 'HTTP Client'
             Layout = tlCenter
           end
           object ComboBoxHTTPCli: TComboBox
             AnchorSideRight.Side = asrBottom
-            Left = 416
+            Left = 424
             Height = 23
             Top = 2
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 0
@@ -62,15 +78,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 27
-            Width = 412
+            Width = 420
             Caption = 'Random nmber generator'
             Layout = tlCenter
           end
           object ComboBoxRandGen: TComboBox
-            Left = 416
+            Left = 424
             Height = 23
             Top = 27
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 1
@@ -79,15 +95,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 52
-            Width = 412
+            Width = 420
             Caption = 'Base64 Encoder'
             Layout = tlCenter
           end
           object ComboBoxBase64: TComboBox
-            Left = 416
+            Left = 424
             Height = 23
             Top = 52
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 2
@@ -96,15 +112,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 77
-            Width = 412
+            Width = 420
             Caption = 'SHA-256 Hash'
             Layout = tlCenter
           end
           object ComboBoxSHA256: TComboBox
-            Left = 416
+            Left = 424
             Height = 23
             Top = 77
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 3
@@ -113,15 +129,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 102
-            Width = 412
+            Width = 420
             Caption = 'AES256 Encryption'
             Layout = tlCenter
           end
           object ComboBoxAES256: TComboBox
-            Left = 416
+            Left = 424
             Height = 23
             Top = 102
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 4
@@ -130,15 +146,15 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 23
             Top = 127
-            Width = 412
+            Width = 420
             Caption = 'RSA public key encryption'
             Layout = tlCenter
           end
           object ComboBoxRSAEnc: TComboBox
-            Left = 416
+            Left = 424
             Height = 23
             Top = 127
-            Width = 275
+            Width = 318
             ItemHeight = 15
             Style = csDropDownList
             TabOrder = 5
@@ -147,53 +163,79 @@ inherited FormMain: TFormMain
             Left = 2
             Height = 19
             Top = 152
-            Width = 412
+            Width = 420
             Caption = 'Automatycznie odśwież token dostępowy'
             Checked = True
             State = cbChecked
             TabOrder = 6
+          end
+          object CheckBoxKSeFProblem: TCheckBox
+            Left = 424
+            Height = 19
+            Top = 152
+            Width = 318
+            Caption = 'Użyj "Problem details"'
+            Checked = True
+            State = cbChecked
+            TabOrder = 7
           end
         end
       end
     end
     inherited TabSheetCert: TTabSheet
       ClientHeight = 424
+      ClientWidth = 752
       inherited ListViewCert: TListView
         Height = 381
+        Width = 752
       end
       inherited Panel3: TPanel
         Top = 381
+        Width = 752
+        ClientWidth = 752
       end
     end
     inherited TabSheetPKCS11: TTabSheet
       ClientHeight = 424
+      ClientWidth = 752
+      inherited GroupBox23: TGroupBox
+        Width = 752
+        ClientWidth = 748
+      end
+      inherited GroupBox24: TGroupBox
+        Width = 752
+        ClientWidth = 748
+        inherited ComboBoxPKCS11Cert: TComboBox
+          Width = 673
+        end
+      end
     end
     object TabSheetKSeF2Auth: TTabSheet[3]
       Caption = 'KSeF2 - Uwierzytelnianie'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox3: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 659
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBoxKSeFA1: TGroupBox
           Left = 0
           Height = 226
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Dane autoryzacyjne'
           ClientHeight = 206
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object Label60: TLabel
             AnchorSideLeft.Control = GroupBoxKSeFA1
@@ -293,12 +335,12 @@ inherited FormMain: TFormMain
             Left = 283
             Height = 152
             Top = 8
-            Width = 385
+            Width = 436
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             Caption = ' Sesja'
             ClientHeight = 132
-            ClientWidth = 381
+            ClientWidth = 432
             TabOrder = 3
             object Label69: TLabel
               AnchorSideLeft.Control = GroupBox21
@@ -319,7 +361,7 @@ inherited FormMain: TFormMain
               Left = 85
               Height = 23
               Top = 8
-              Width = 222
+              Width = 273
               Anchors = [akTop, akLeft, akRight]
               BorderSpacing.Around = 8
               TabOrder = 0
@@ -361,7 +403,7 @@ inherited FormMain: TFormMain
               AnchorSideTop.Control = GroupBox21
               AnchorSideRight.Control = GroupBox21
               AnchorSideRight.Side = asrBottom
-              Left = 315
+              Left = 366
               Height = 25
               Top = 8
               Width = 58
@@ -383,7 +425,7 @@ inherited FormMain: TFormMain
               Left = 88
               Height = 23
               Top = 70
-              Width = 219
+              Width = 270
               Anchors = [akTop, akLeft, akRight]
               BorderSpacing.Around = 8
               TabOrder = 2
@@ -523,12 +565,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 123
           Top = 226
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Uwierzytelnienie z wykorzystaniem podpisu XAdES'
           ClientHeight = 103
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object Label20: TLabel
             AnchorSideLeft.Control = GroupBoxKSeFA2
@@ -561,7 +603,7 @@ inherited FormMain: TFormMain
             Left = 67
             Height = 23
             Top = 8
-            Width = 601
+            Width = 652
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             ItemHeight = 15
@@ -607,12 +649,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 92
           Top = 584
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Uwierzytelnienie z wykorzystaniem tokena KSeF'
           ClientHeight = 72
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 2
           object Label22: TLabel
             AnchorSideLeft.Control = GroupBoxKSeFA4
@@ -634,7 +676,7 @@ inherited FormMain: TFormMain
             Left = 75
             Height = 23
             Top = 8
-            Width = 593
+            Width = 644
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -658,11 +700,11 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 57
           Top = 676
-          Width = 680
+          Width = 731
           Align = alTop
           Caption = 'Pobranie statusu uwierzytelniania / Pobranie tokenów dostępowych / Odświeżenie tokena dostępowego'
           ClientHeight = 37
-          ClientWidth = 676
+          ClientWidth = 727
           Enabled = False
           TabOrder = 3
           object ButtonKSeFAStatus: TButton
@@ -711,23 +753,23 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 235
           Top = 349
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Uwierzytelnienie z wykorzystaniem zewnętrznego podpisu XAdES (np. Profil Zaufany)'
           ClientHeight = 215
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 4
           object GroupBox12: TGroupBox
             Left = 0
             Height = 123
             Top = 0
-            Width = 676
+            Width = 727
             Align = alTop
             AutoSize = True
             Caption = 'Generowanie struktury XML Auth'
             ClientHeight = 103
-            ClientWidth = 672
+            ClientWidth = 723
             TabOrder = 0
             object Label23: TLabel
               AnchorSideTop.Control = ComboBoxKSeFASubjectTypeExt
@@ -808,12 +850,12 @@ inherited FormMain: TFormMain
             Left = 0
             Height = 92
             Top = 123
-            Width = 676
+            Width = 727
             Align = alTop
             AutoSize = True
             Caption = 'Uwierzytelnianie zewnętrznie podpisaną strukturą XML Auth'
             ClientHeight = 72
-            ClientWidth = 672
+            ClientWidth = 723
             TabOrder = 1
             object Label25: TLabel
               AnchorSideLeft.Control = GroupBox13
@@ -835,7 +877,7 @@ inherited FormMain: TFormMain
               Left = 180
               Height = 23
               Top = 8
-              Width = 484
+              Width = 535
               FilterIndex = 0
               HideDirectories = False
               ButtonWidth = 23
@@ -865,12 +907,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 94
           Top = 733
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Aktywne sesje'
           ClientHeight = 74
-          ClientWidth = 676
+          ClientWidth = 727
           Enabled = False
           TabOrder = 5
           object ButtonKSeFASessions: TButton
@@ -920,7 +962,7 @@ inherited FormMain: TFormMain
             Left = 210
             Height = 23
             Top = 41
-            Width = 339
+            Width = 390
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -930,7 +972,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrBottom
             AnchorSideRight.Control = GroupBoxKSeFA6
             AnchorSideRight.Side = asrBottom
-            Left = 557
+            Left = 608
             Height = 25
             Top = 41
             Width = 111
@@ -947,29 +989,29 @@ inherited FormMain: TFormMain
     object TabSheetKSeFInteractive: TTabSheet[4]
       Caption = 'KSeF2 - Wysyłka interaktywna'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox4: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 416
         VertScrollBar.Page = 396
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 697
+        ClientWidth = 748
         TabOrder = 0
         object GroupBox9: TGroupBox
           Left = 0
           Height = 61
           Top = 335
-          Width = 697
+          Width = 748
           Align = alTop
           AutoSize = True
           Caption = 'Zamknięcie sesji interaktywnej'
           ClientHeight = 41
-          ClientWidth = 693
+          ClientWidth = 744
           TabOrder = 0
           object ButtonKSeFIClose: TButton
             AnchorSideLeft.Control = GroupBox9
@@ -989,12 +1031,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 150
           Top = 185
-          Width = 697
+          Width = 748
           Align = alTop
           AutoSize = True
           Caption = 'Wysłanie faktury'
           ClientHeight = 130
-          ClientWidth = 693
+          ClientWidth = 744
           TabOrder = 1
           object Label31: TLabel
             AnchorSideLeft.Control = GroupBox8
@@ -1016,7 +1058,7 @@ inherited FormMain: TFormMain
             Left = 110
             Height = 23
             Top = 8
-            Width = 575
+            Width = 626
             FilterIndex = 0
             HideDirectories = False
             ButtonWidth = 23
@@ -1059,7 +1101,7 @@ inherited FormMain: TFormMain
             Left = 324
             Height = 23
             Top = 66
-            Width = 361
+            Width = 412
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -1083,12 +1125,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 185
           Top = 0
-          Width = 697
+          Width = 748
           Align = alTop
           AutoSize = True
           Caption = 'Otwarcie sesji interaktywnej'
           ClientHeight = 165
-          ClientWidth = 693
+          ClientWidth = 744
           TabOrder = 2
           object Label27: TLabel
             AnchorSideLeft.Control = GroupBox7
@@ -1167,7 +1209,7 @@ inherited FormMain: TFormMain
             Left = 82
             Height = 23
             Top = 39
-            Width = 603
+            Width = 654
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -1182,7 +1224,7 @@ inherited FormMain: TFormMain
             Left = 96
             Height = 23
             Top = 70
-            Width = 589
+            Width = 640
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -1197,7 +1239,7 @@ inherited FormMain: TFormMain
             Left = 44
             Height = 23
             Top = 101
-            Width = 641
+            Width = 692
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 3
@@ -1222,29 +1264,29 @@ inherited FormMain: TFormMain
     object TabSheetKSeFBatch: TTabSheet[5]
       Caption = 'KSeF2 - Wysyłka wsadowa'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox7: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 419
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBoxKSeFB1: TGroupBox
           Left = 0
-          Height = 360
+          Height = 391
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Przygotwanie paczki faktur'
-          ClientHeight = 340
-          ClientWidth = 676
+          ClientHeight = 371
+          ClientWidth = 727
           TabOrder = 0
           object Label63: TLabel
             AnchorSideLeft.Control = GroupBoxKSeFB1
@@ -1252,7 +1294,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrCenter
             Left = 8
             Height = 15
-            Top = 43
+            Top = 74
             Width = 80
             BorderSpacing.Around = 8
             Caption = 'Schemat faktur'
@@ -1263,7 +1305,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrCenter
             Left = 8
             Height = 15
-            Top = 74
+            Top = 105
             Width = 66
             BorderSpacing.Around = 8
             Caption = 'SystemCode'
@@ -1274,7 +1316,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrCenter
             Left = 8
             Height = 15
-            Top = 105
+            Top = 136
             Width = 80
             BorderSpacing.Around = 8
             Caption = 'SchemaVersion'
@@ -1285,7 +1327,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrCenter
             Left = 8
             Height = 15
-            Top = 136
+            Top = 167
             Width = 28
             BorderSpacing.Around = 8
             Caption = 'Value'
@@ -1293,11 +1335,11 @@ inherited FormMain: TFormMain
           object ComboBoxBFormCode: TComboBox
             AnchorSideLeft.Control = Label63
             AnchorSideLeft.Side = asrBottom
-            AnchorSideTop.Control = FileNameEditKSeFBZIPIn
+            AnchorSideTop.Control = ComboBoxKSeFDExportFormat1
             AnchorSideTop.Side = asrBottom
             Left = 96
             Height = 23
-            Top = 39
+            Top = 70
             Width = 190
             BorderSpacing.Around = 8
             ItemHeight = 15
@@ -1323,8 +1365,8 @@ inherited FormMain: TFormMain
             AnchorSideRight.Side = asrBottom
             Left = 82
             Height = 23
-            Top = 70
-            Width = 586
+            Top = 101
+            Width = 637
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -1338,8 +1380,8 @@ inherited FormMain: TFormMain
             AnchorSideRight.Side = asrBottom
             Left = 96
             Height = 23
-            Top = 101
-            Width = 572
+            Top = 132
+            Width = 623
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -1353,8 +1395,8 @@ inherited FormMain: TFormMain
             AnchorSideRight.Side = asrBottom
             Left = 44
             Height = 23
-            Top = 132
-            Width = 624
+            Top = 163
+            Width = 675
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 3
@@ -1365,7 +1407,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrBottom
             Left = 8
             Height = 25
-            Top = 307
+            Top = 338
             Width = 149
             AutoSize = True
             BorderSpacing.Around = 8
@@ -1382,7 +1424,7 @@ inherited FormMain: TFormMain
             Left = 217
             Height = 23
             Top = 8
-            Width = 451
+            Width = 502
             OnAcceptFileName = FileNameEditKSeFBZIPInAcceptFileName
             FilterIndex = 0
             HideDirectories = False
@@ -1412,19 +1454,19 @@ inherited FormMain: TFormMain
             AnchorSideRight.Side = asrBottom
             Left = 8
             Height = 105
-            Top = 194
-            Width = 660
+            Top = 225
+            Width = 711
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             Caption = 'Wynikowe pliki z zaszyfrowanymi czeęściami packi'
             ClientHeight = 85
-            ClientWidth = 656
+            ClientWidth = 707
             TabOrder = 6
             object StringGridKSeFBEncOutFiles: TStringGrid
               Left = 0
               Height = 85
               Top = 0
-              Width = 656
+              Width = 707
               Align = alClient
               AutoFillColumns = True
               ColCount = 1
@@ -1432,7 +1474,7 @@ inherited FormMain: TFormMain
                 item
                   ButtonStyle = cbsEllipsis
                   Title.Caption = 'Nazwa pliku części'
-                  Width = 635
+                  Width = 686
                 end>
               FixedCols = 0
               Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll, goCellEllipsis]
@@ -1440,7 +1482,7 @@ inherited FormMain: TFormMain
               TabOrder = 0
               OnButtonClick = StringGridKSeFBEncOutFilesButtonClick
               ColWidths = (
-                635
+                686
               )
             end
           end
@@ -1450,7 +1492,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrCenter
             Left = 8
             Height = 15
-            Top = 167
+            Top = 198
             Width = 253
             BorderSpacing.Around = 8
             Caption = 'Rozmiar części w bajtach (0 - domyślnie 100MB)'
@@ -1462,23 +1504,55 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrBottom
             Left = 269
             Height = 23
-            Top = 163
+            Top = 194
             Width = 138
             BorderSpacing.Around = 8
             MaxValue = 104857584
             TabOrder = 7
           end
+          object Label119: TLabel
+            AnchorSideLeft.Control = GroupBoxKSeFB1
+            AnchorSideTop.Control = ComboBoxKSeFDExportFormat1
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 43
+            Width = 93
+            BorderSpacing.Around = 8
+            Caption = 'Format kompresji'
+          end
+          object ComboBoxKSeFDExportFormat1: TComboBox
+            AnchorSideLeft.Control = Label119
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = FileNameEditKSeFBZIPIn
+            AnchorSideTop.Side = asrBottom
+            Left = 109
+            Height = 23
+            Top = 39
+            Width = 116
+            BorderSpacing.Around = 8
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              '(nie określono)'
+              'Zip'
+              'TarGz'
+            )
+            Style = csDropDownList
+            TabOrder = 8
+            Text = '(nie określono)'
+          end
         end
         object GroupBoxKSeFB2: TGroupBox
           Left = 0
           Height = 61
-          Top = 360
-          Width = 680
+          Top = 391
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Otwarcie sesji wsadowej'
           ClientHeight = 41
-          ClientWidth = 676
+          ClientWidth = 727
           Enabled = False
           TabOrder = 1
           object ButtonKSeFBOpen: TButton
@@ -1498,13 +1572,13 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFB3: TGroupBox
           Left = 0
           Height = 92
-          Top = 421
-          Width = 680
+          Top = 452
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Wyślij paczkę'
           ClientHeight = 72
-          ClientWidth = 676
+          ClientWidth = 727
           Enabled = False
           TabOrder = 2
           object ButtonKSeFBSend: TButton
@@ -1548,13 +1622,13 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFB4: TGroupBox
           Left = 0
           Height = 61
-          Top = 513
-          Width = 680
+          Top = 544
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Zamknięcie sesji wsadowej'
           ClientHeight = 41
-          ClientWidth = 676
+          ClientWidth = 727
           Enabled = False
           TabOrder = 3
           object Button2: TButton
@@ -1576,29 +1650,29 @@ inherited FormMain: TFormMain
     object TabSheetKSeFStatus: TTabSheet[6]
       Caption = 'KSeF2 - Status wysyłki'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox5: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 466
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox10: TGroupBox
           Left = 0
           Height = 337
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie listy sesji'
           ClientHeight = 317
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object Label33: TLabel
             AnchorSideLeft.Control = GroupBox10
@@ -1675,7 +1749,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 70
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -1920,7 +1994,7 @@ inherited FormMain: TFormMain
             Left = 8
             Height = 51
             Top = 194
-            Width = 660
+            Width = 711
             Anchors = [akTop, akLeft, akRight]
             AutoFill = True
             AutoSize = True
@@ -1935,7 +2009,7 @@ inherited FormMain: TFormMain
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 4
             ClientHeight = 31
-            ClientWidth = 656
+            ClientWidth = 707
             Columns = 4
             Items.Strings = (
               'InProgress'
@@ -1969,7 +2043,7 @@ inherited FormMain: TFormMain
             Left = 285
             Height = 23
             Top = 253
-            Width = 383
+            Width = 434
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 10
@@ -1993,12 +2067,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 92
           Top = 337
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie statusu sesji'
           ClientHeight = 72
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object Label43: TLabel
             AnchorSideLeft.Control = GroupBox11
@@ -2020,7 +2094,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 8
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2044,12 +2118,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 154
           Top = 429
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie faktur sesji'
           ClientHeight = 134
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 2
           object ButtonKSeFSessionsInvoice: TButton
             AnchorSideLeft.Control = GroupBox14
@@ -2085,7 +2159,7 @@ inherited FormMain: TFormMain
             Left = 285
             Height = 23
             Top = 70
-            Width = 391
+            Width = 442
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -2110,7 +2184,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 39
-            Width = 530
+            Width = 581
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -2143,12 +2217,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 120
           Top = 583
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie statusu faktury z sesji'
           ClientHeight = 100
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 3
           object Label47: TLabel
             AnchorSideTop.Control = EditKSeFSReferenceNumber3
@@ -2167,7 +2241,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 8
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2193,7 +2267,7 @@ inherited FormMain: TFormMain
             Left = 161
             Height = 23
             Top = 36
-            Width = 507
+            Width = 558
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -2214,12 +2288,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 154
           Top = 703
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie niepoprawnie przetworzonych faktur sesji'
           ClientHeight = 134
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 4
           object ButtonKSeFSessionsInvoiceFailed: TButton
             AnchorSideLeft.Control = GroupBox16
@@ -2255,7 +2329,7 @@ inherited FormMain: TFormMain
             Left = 285
             Height = 23
             Top = 70
-            Width = 391
+            Width = 442
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -2280,7 +2354,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 39
-            Width = 530
+            Width = 581
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -2314,29 +2388,29 @@ inherited FormMain: TFormMain
     object TabSheetKSeFUpo: TTabSheet[7]
       Caption = 'KSeF2 - UPO'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox6: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 406
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox18: TGroupBox
           Left = 0
           Height = 154
           Top = 154
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie UPO faktury z sesji na podstawie numeru referencyjnego faktury'
           ClientHeight = 134
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object Label55: TLabel
             AnchorSideLeft.Control = GroupBox18
@@ -2358,7 +2432,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 8
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2384,7 +2458,7 @@ inherited FormMain: TFormMain
             Left = 161
             Height = 23
             Top = 39
-            Width = 507
+            Width = 558
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -2412,7 +2486,7 @@ inherited FormMain: TFormMain
             Left = 89
             Height = 23
             Top = 70
-            Width = 579
+            Width = 630
             FileName = 'upo.xml'
             FilterIndex = 0
             HideDirectories = False
@@ -2440,12 +2514,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 154
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie UPO faktury z sesji na podstawie numeru KSeF'
           ClientHeight = 134
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object Label52: TLabel
             AnchorSideLeft.Control = GroupBox17
@@ -2467,7 +2541,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 8
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2493,7 +2567,7 @@ inherited FormMain: TFormMain
             Left = 121
             Height = 23
             Top = 39
-            Width = 547
+            Width = 598
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -2521,7 +2595,7 @@ inherited FormMain: TFormMain
             Left = 89
             Height = 23
             Top = 70
-            Width = 579
+            Width = 630
             FileName = 'upo.xml'
             FilterIndex = 0
             HideDirectories = False
@@ -2549,12 +2623,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 154
           Top = 308
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie UPO dla sesji'
           ClientHeight = 134
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 2
           object Label58: TLabel
             AnchorSideLeft.Control = GroupBox19
@@ -2576,7 +2650,7 @@ inherited FormMain: TFormMain
             Left = 146
             Height = 23
             Top = 8
-            Width = 522
+            Width = 573
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2602,7 +2676,7 @@ inherited FormMain: TFormMain
             Left = 148
             Height = 23
             Top = 39
-            Width = 520
+            Width = 571
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -2630,7 +2704,7 @@ inherited FormMain: TFormMain
             Left = 89
             Height = 23
             Top = 70
-            Width = 579
+            Width = 630
             FileName = 'upo.xml'
             FilterIndex = 0
             HideDirectories = False
@@ -2659,29 +2733,29 @@ inherited FormMain: TFormMain
     object TabSheetKSeFDownload: TTabSheet[8]
       Caption = 'KSeF2 - Pobieranie faktur'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox8: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
-        HorzScrollBar.Page = 680
-        VertScrollBar.Page = 403
+        Width = 752
+        HorzScrollBar.Page = 722
+        VertScrollBar.Page = 420
         Align = alClient
-        ClientHeight = 403
-        ClientWidth = 680
+        ClientHeight = 420
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox22: TGroupBox
           Left = 0
           Height = 123
           Top = 0
-          Width = 722
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie faktury po numerze KSeF'
           ClientHeight = 103
-          ClientWidth = 718
+          ClientWidth = 727
           TabOrder = 0
           object Label74: TLabel
             AnchorSideLeft.Control = GroupBox22
@@ -2703,7 +2777,7 @@ inherited FormMain: TFormMain
             Left = 121
             Height = 23
             Top = 8
-            Width = 589
+            Width = 598
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -2729,7 +2803,7 @@ inherited FormMain: TFormMain
             Left = 89
             Height = 23
             Top = 39
-            Width = 621
+            Width = 630
             FilterIndex = 0
             HideDirectories = False
             ButtonWidth = 23
@@ -2758,12 +2832,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 538
           Top = 123
-          Width = 722
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Filtr'
           ClientHeight = 518
-          ClientWidth = 718
+          ClientWidth = 727
           TabOrder = 1
           object Label76: TLabel
             AnchorSideLeft.Control = GroupBox25
@@ -2806,13 +2880,13 @@ inherited FormMain: TFormMain
             Left = 8
             Height = 86
             Top = 39
-            Width = 702
+            Width = 711
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BorderSpacing.Around = 8
             Caption = 'Typ i zakres dat, według którego mają być filtrowane faktury'
             ClientHeight = 66
-            ClientWidth = 698
+            ClientWidth = 707
             TabOrder = 1
             object Label77: TLabel
               AnchorSideLeft.Control = GroupBox26
@@ -2955,7 +3029,7 @@ inherited FormMain: TFormMain
             Left = 121
             Height = 23
             Top = 133
-            Width = 589
+            Width = 598
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -2969,13 +3043,13 @@ inherited FormMain: TFormMain
             Left = 8
             Height = 59
             Top = 195
-            Width = 702
+            Width = 711
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BorderSpacing.Around = 8
             Caption = 'Filtr kwotowy – brutto, netto lub VAT (z wartością)'
             ClientHeight = 39
-            ClientWidth = 698
+            ClientWidth = 707
             TabOrder = 3
             object Label81: TLabel
               AnchorSideLeft.Control = GroupBox27
@@ -3064,7 +3138,7 @@ inherited FormMain: TFormMain
             Left = 0
             Height = 101
             Top = 262
-            Width = 718
+            Width = 727
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BevelOuter = bvNone
@@ -3075,17 +3149,17 @@ inherited FormMain: TFormMain
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 2
             ClientHeight = 101
-            ClientWidth = 718
+            ClientWidth = 727
             TabOrder = 4
             object Panel2: TPanel
               Left = 0
               Height = 101
               Top = 0
-              Width = 402
+              Width = 406
               AutoSize = True
               BevelOuter = bvNone
               ClientHeight = 101
-              ClientWidth = 402
+              ClientWidth = 406
               TabOrder = 0
               object Label84: TLabel
                 AnchorSideLeft.Control = Panel2
@@ -3107,7 +3181,7 @@ inherited FormMain: TFormMain
                 Left = 99
                 Height = 23
                 Top = 8
-                Width = 295
+                Width = 299
                 Anchors = [akTop, akLeft, akRight]
                 BorderSpacing.Around = 8
                 TabOrder = 0
@@ -3133,7 +3207,7 @@ inherited FormMain: TFormMain
                 Left = 247
                 Height = 23
                 Top = 39
-                Width = 147
+                Width = 151
                 Anchors = [akTop, akLeft, akRight]
                 BorderSpacing.Around = 8
                 TabOrder = 1
@@ -3159,7 +3233,7 @@ inherited FormMain: TFormMain
                 Left = 258
                 Height = 23
                 Top = 70
-                Width = 136
+                Width = 140
                 Anchors = [akTop, akLeft, akRight]
                 BorderSpacing.Around = 8
                 TabOrder = 2
@@ -3188,14 +3262,14 @@ inherited FormMain: TFormMain
               end
             end
             object Panel4: TPanel
-              Left = 402
+              Left = 406
               Height = 101
               Top = 0
-              Width = 316
+              Width = 321
               AutoSize = True
               BevelOuter = bvNone
               ClientHeight = 101
-              ClientWidth = 316
+              ClientWidth = 321
               TabOrder = 1
               object Label88: TLabel
                 AnchorSideLeft.Control = Panel4
@@ -3304,7 +3378,7 @@ inherited FormMain: TFormMain
             Left = 8
             Height = 108
             Top = 371
-            Width = 702
+            Width = 711
             Anchors = [akTop, akLeft, akRight]
             AutoFill = True
             BorderSpacing.Around = 8
@@ -3318,7 +3392,7 @@ inherited FormMain: TFormMain
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 3
             ClientHeight = 88
-            ClientWidth = 698
+            ClientWidth = 707
             Columns = 3
             Items.Strings = (
               'Vat - (FA) Podstawowa'
@@ -3375,7 +3449,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = GroupBox25
             AnchorSideRight.Control = GroupBox25
             AnchorSideRight.Side = asrBottom
-            Left = 633
+            Left = 642
             Height = 25
             Top = 8
             Width = 77
@@ -3407,7 +3481,7 @@ inherited FormMain: TFormMain
             Left = 219
             Height = 23
             Top = 164
-            Width = 491
+            Width = 500
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 8
@@ -3417,12 +3491,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 123
           Top = 661
-          Width = 722
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie listy metadanych faktur'
           ClientHeight = 103
-          ClientWidth = 718
+          ClientWidth = 727
           TabOrder = 2
           object Label91: TLabel
             AnchorSideLeft.Control = GroupBox28
@@ -3519,21 +3593,22 @@ inherited FormMain: TFormMain
         end
         object GroupBox29: TGroupBox
           Left = 0
-          Height = 61
+          Height = 119
           Top = 784
-          Width = 722
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Eksport paczki faktur'
-          ClientHeight = 41
-          ClientWidth = 718
+          ClientHeight = 99
+          ClientWidth = 727
           TabOrder = 3
           object ButtonKSeFDExport: TButton
             AnchorSideLeft.Control = GroupBox29
-            AnchorSideTop.Control = GroupBox29
+            AnchorSideTop.Control = ComboBoxKSeFDExportFormat
+            AnchorSideTop.Side = asrBottom
             Left = 8
             Height = 25
-            Top = 8
+            Top = 66
             Width = 160
             AutoSize = True
             BorderSpacing.Around = 8
@@ -3541,17 +3616,60 @@ inherited FormMain: TFormMain
             TabOrder = 0
             OnClick = ButtonKSeFDExportClick
           end
+          object CheckBoxKSeFDExportMetaOnly: TCheckBox
+            AnchorSideLeft.Control = GroupBox29
+            AnchorSideTop.Control = GroupBox29
+            Left = 8
+            Height = 19
+            Top = 8
+            Width = 102
+            BorderSpacing.Around = 8
+            Caption = 'Tylko metadane'
+            TabOrder = 1
+          end
+          object ComboBoxKSeFDExportFormat: TComboBox
+            AnchorSideLeft.Control = Label118
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = CheckBoxKSeFDExportMetaOnly
+            AnchorSideTop.Side = asrBottom
+            Left = 109
+            Height = 23
+            Top = 35
+            Width = 116
+            BorderSpacing.Around = 8
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              '(nie określono)'
+              'Zip'
+              'TarGz'
+            )
+            Style = csDropDownList
+            TabOrder = 2
+            Text = '(nie określono)'
+          end
+          object Label118: TLabel
+            AnchorSideLeft.Control = GroupBox29
+            AnchorSideTop.Control = ComboBoxKSeFDExportFormat
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 39
+            Width = 93
+            BorderSpacing.Around = 8
+            Caption = 'Format kompresji'
+          end
         end
         object GroupBox30: TGroupBox
           Left = 0
           Height = 92
-          Top = 845
-          Width = 722
+          Top = 903
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie statusu eksportu paczki faktur'
           ClientHeight = 72
-          ClientWidth = 718
+          ClientWidth = 727
           TabOrder = 4
           object ButtonKSeFDStatus: TButton
             AnchorSideLeft.Control = GroupBox30
@@ -3587,7 +3705,7 @@ inherited FormMain: TFormMain
             Left = 166
             Height = 23
             Top = 8
-            Width = 544
+            Width = 553
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -3596,13 +3714,13 @@ inherited FormMain: TFormMain
         object GroupBoxKSeFD1: TGroupBox
           Left = 0
           Height = 92
-          Top = 937
-          Width = 722
+          Top = 995
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie gotowej paczki faktur'
           ClientHeight = 72
-          ClientWidth = 718
+          ClientWidth = 727
           Enabled = False
           TabOrder = 5
           object Label94: TLabel
@@ -3625,7 +3743,7 @@ inherited FormMain: TFormMain
             Left = 89
             Height = 23
             Top = 8
-            Width = 621
+            Width = 630
             FilterIndex = 0
             HideDirectories = False
             ButtonWidth = 23
@@ -3653,13 +3771,13 @@ inherited FormMain: TFormMain
         object GroupBox37: TGroupBox
           Left = 0
           Height = 92
-          Top = 1029
-          Width = 722
+          Top = 1087
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Ładowanie metadanych z pliku _metadata.json'
           ClientHeight = 72
-          ClientWidth = 718
+          ClientWidth = 727
           TabOrder = 6
           object Label112: TLabel
             AnchorSideLeft.Control = GroupBox37
@@ -3681,7 +3799,7 @@ inherited FormMain: TFormMain
             Left = 104
             Height = 23
             Top = 8
-            Width = 606
+            Width = 615
             Filter = 'Plik _metadata.json|_metadata.json|Pliki JSON|*.json|Wszystkie pliki|*.*'
             FilterIndex = 0
             HideDirectories = False
@@ -3712,35 +3830,35 @@ inherited FormMain: TFormMain
     object TabSheetKSeFToken: TTabSheet[9]
       Caption = 'KSeF2 - Tokent KSeF'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox9: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 550
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox31: TGroupBox
           Left = 0
           Height = 170
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Wygenerowanie nowego tokena'
           ClientHeight = 150
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object CheckGroupKSeFTKPermisions: TCheckGroup
             Left = 8
             Height = 70
             Top = 8
-            Width = 660
+            Width = 711
             Align = alTop
             AutoFill = True
             AutoSize = True
@@ -3755,7 +3873,7 @@ inherited FormMain: TFormMain
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 3
             ClientHeight = 50
-            ClientWidth = 656
+            ClientWidth = 707
             Columns = 3
             Items.Strings = (
               'InvoiceRead'
@@ -3791,7 +3909,7 @@ inherited FormMain: TFormMain
             Left = 79
             Height = 23
             Top = 86
-            Width = 589
+            Width = 640
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -3815,18 +3933,18 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 213
           Top = 170
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie listy wygenerowanych tokenów'
           ClientHeight = 193
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object CheckGroupKSeFTKStatus: TCheckGroup
             Left = 8
             Height = 51
             Top = 8
-            Width = 660
+            Width = 711
             Align = alTop
             AutoFill = True
             AutoSize = True
@@ -3841,7 +3959,7 @@ inherited FormMain: TFormMain
             ChildSizing.Layout = cclLeftToRightThenTopToBottom
             ChildSizing.ControlsPerLine = 5
             ClientHeight = 31
-            ClientWidth = 656
+            ClientWidth = 707
             Columns = 5
             Items.Strings = (
               'Pending'
@@ -3876,7 +3994,7 @@ inherited FormMain: TFormMain
             Left = 79
             Height = 23
             Top = 67
-            Width = 589
+            Width = 640
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -3901,7 +4019,7 @@ inherited FormMain: TFormMain
             Left = 93
             Height = 23
             Top = 98
-            Width = 345
+            Width = 396
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -3910,7 +4028,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = ComboBoxKSeFTKAuthorIdentifierType
             AnchorSideTop.Side = asrCenter
             AnchorSideRight.Control = ComboBoxKSeFTKAuthorIdentifierType
-            Left = 446
+            Left = 497
             Height = 15
             Top = 102
             Width = 111
@@ -3925,7 +4043,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Side = asrBottom
             AnchorSideRight.Control = GroupBox32
             AnchorSideRight.Side = asrBottom
-            Left = 565
+            Left = 616
             Height = 23
             Top = 98
             Width = 103
@@ -3988,7 +4106,7 @@ inherited FormMain: TFormMain
             Left = 458
             Height = 23
             Top = 129
-            Width = 210
+            Width = 261
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 5
@@ -4012,12 +4130,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 92
           Top = 383
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Pobranie statusu tokena'
           ClientHeight = 72
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 2
           object Label102: TLabel
             AnchorSideLeft.Control = GroupBox33
@@ -4039,7 +4157,7 @@ inherited FormMain: TFormMain
             Left = 160
             Height = 23
             Top = 8
-            Width = 508
+            Width = 559
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -4063,12 +4181,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 92
           Top = 475
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Unieważnienie tokena'
           ClientHeight = 72
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 3
           object Label103: TLabel
             AnchorSideLeft.Control = GroupBox34
@@ -4090,7 +4208,7 @@ inherited FormMain: TFormMain
             Left = 160
             Height = 23
             Top = 8
-            Width = 508
+            Width = 559
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -4115,18 +4233,18 @@ inherited FormMain: TFormMain
     object TabSheetKSeFLimit: TTabSheet[10]
       Caption = 'KSeF2 - Limity i ograniczenia'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object GroupBox38: TGroupBox
         Left = 0
         Height = 127
         Top = 0
-        Width = 701
+        Width = 752
         Align = alTop
         AutoSize = True
         Caption = 'Limity i ograniczenia'
         ClientHeight = 107
-        ClientWidth = 697
+        ClientWidth = 748
         TabOrder = 0
         object ButtonKSeFLContext: TButton
           AnchorSideLeft.Control = GroupBox38
@@ -4171,32 +4289,562 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2TestData: TTabSheet[11]
+    object TabSheetKSeFColId: TTabSheet[11]
+      Caption = 'KSeF2 - Identyfikatory zbiorcze'
+      ClientHeight = 424
+      ClientWidth = 752
+      TabVisible = False
+      object ScrollBox11: TScrollBox
+        Left = 0
+        Height = 424
+        Top = 0
+        Width = 752
+        HorzScrollBar.Page = 407
+        VertScrollBar.Page = 420
+        Align = alClient
+        ClientHeight = 420
+        ClientWidth = 731
+        TabOrder = 0
+        object GroupBox43: TGroupBox
+          Left = 0
+          Height = 200
+          Top = 0
+          Width = 731
+          Align = alTop
+          Caption = 'Generowanie identyfikatora zbiorczego'
+          ClientHeight = 180
+          ClientWidth = 727
+          TabOrder = 0
+          object StringGridKSeFColId: TStringGrid
+            AnchorSideLeft.Control = GroupBox43
+            AnchorSideTop.Control = GroupBox43
+            AnchorSideRight.Control = GroupBox43
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = ButtonKSeFColIdAdd
+            Left = 8
+            Height = 131
+            Top = 8
+            Width = 711
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Around = 8
+            ColCount = 4
+            FixedCols = 0
+            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goAutoAddRows, goSmoothScroll]
+            TabOrder = 0
+            ColWidths = (
+              313
+              64
+              64
+              235
+            )
+            Cells = (
+              4
+              0
+              0
+              'Numer KSeF'
+              1
+              0
+              'Kwota'
+              2
+              0
+              'Waluta'
+              3
+              0
+              'Opis'
+            )
+          end
+          object ButtonKSeFColIdAdd: TButton
+            AnchorSideLeft.Control = GroupBox43
+            AnchorSideBottom.Control = GroupBox43
+            AnchorSideBottom.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 147
+            Width = 183
+            Anchors = [akLeft, akBottom]
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Generuj identyfikator zbiorczy'
+            TabOrder = 1
+            OnClick = ButtonKSeFColIdAddClick
+          end
+          object ButtonKSeFColIdCzysc: TButton
+            AnchorSideLeft.Control = ButtonKSeFColIdAdd
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideBottom.Control = GroupBox43
+            AnchorSideBottom.Side = asrBottom
+            Left = 199
+            Height = 25
+            Top = 147
+            Width = 56
+            Anchors = [akLeft, akBottom]
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Czyść'
+            TabOrder = 2
+          end
+        end
+        object GroupBox45: TGroupBox
+          Left = 0
+          Height = 154
+          Top = 443
+          Width = 731
+          Align = alTop
+          AutoSize = True
+          Caption = 'Pobranie listy faktur wchodzących w skład identyfikatora zbiorczego'
+          ClientHeight = 134
+          ClientWidth = 727
+          TabOrder = 1
+          object Label131: TLabel
+            AnchorSideTop.Control = EditColIdIId
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 113
+            BorderSpacing.Around = 8
+            Caption = 'Identyfikator zbiorczy'
+          end
+          object EditColIdIId: TEdit
+            AnchorSideLeft.Control = Label131
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox45
+            AnchorSideRight.Control = GroupBox45
+            AnchorSideRight.Side = asrBottom
+            Left = 129
+            Height = 23
+            Top = 8
+            Width = 590
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 0
+          end
+          object Label132: TLabel
+            AnchorSideLeft.Control = GroupBox45
+            AnchorSideTop.Control = SpinEditColIdIPage
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 74
+            Width = 213
+            BorderSpacing.Around = 8
+            Caption = 'Rozmiar strony wyników (o = domyślny)'
+          end
+          object SpinEditColIdIPage: TSpinEdit
+            AnchorSideLeft.Control = Label132
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdITok
+            AnchorSideTop.Side = asrBottom
+            Left = 229
+            Height = 23
+            Top = 70
+            Width = 50
+            BorderSpacing.Around = 8
+            TabOrder = 1
+          end
+          object ButtonKSeFColIdInvoices: TButton
+            AnchorSideLeft.Control = GroupBox45
+            AnchorSideTop.Control = SpinEditColIdIPage
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 101
+            Width = 65
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFColIdInvoicesClick
+          end
+          object Label133: TLabel
+            AnchorSideLeft.Control = GroupBox45
+            AnchorSideTop.Control = EditColIdITok
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 43
+            Width = 112
+            BorderSpacing.Around = 8
+            Caption = 'Token kontynuacyjny'
+          end
+          object EditColIdITok: TEdit
+            AnchorSideLeft.Control = Label133
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdIId
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox45
+            AnchorSideRight.Side = asrBottom
+            Left = 128
+            Height = 23
+            Top = 39
+            Width = 591
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 3
+          end
+        end
+        object GroupBox46: TGroupBox
+          Left = 0
+          Height = 154
+          Top = 597
+          Width = 731
+          Align = alTop
+          AutoSize = True
+          Caption = 'Pobranie listy identyfikatorów zbiorczych po numerze KSeF'
+          ClientHeight = 134
+          ClientWidth = 727
+          TabOrder = 2
+          object Label134: TLabel
+            AnchorSideTop.Control = EditColIdKIdNr
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 65
+            BorderSpacing.Around = 8
+            Caption = 'Numer KSeF'
+          end
+          object EditColIdKIdNr: TEdit
+            AnchorSideLeft.Control = Label134
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox46
+            AnchorSideRight.Control = GroupBox46
+            AnchorSideRight.Side = asrBottom
+            Left = 81
+            Height = 23
+            Top = 8
+            Width = 638
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 0
+          end
+          object Label135: TLabel
+            AnchorSideLeft.Control = GroupBox46
+            AnchorSideTop.Control = SpinEditColIdKPage
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 74
+            Width = 213
+            BorderSpacing.Around = 8
+            Caption = 'Rozmiar strony wyników (o = domyślny)'
+          end
+          object SpinEditColIdKPage: TSpinEdit
+            AnchorSideLeft.Control = Label135
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdKTok
+            AnchorSideTop.Side = asrBottom
+            Left = 229
+            Height = 23
+            Top = 70
+            Width = 50
+            BorderSpacing.Around = 8
+            TabOrder = 1
+          end
+          object ButtonKSeFColIdKsef: TButton
+            AnchorSideLeft.Control = GroupBox46
+            AnchorSideTop.Control = SpinEditColIdKPage
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 101
+            Width = 65
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Pobierz'
+            TabOrder = 2
+            OnClick = ButtonKSeFColIdKsefClick
+          end
+          object Label136: TLabel
+            AnchorSideLeft.Control = GroupBox46
+            AnchorSideTop.Control = EditColIdKTok
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 43
+            Width = 112
+            BorderSpacing.Around = 8
+            Caption = 'Token kontynuacyjny'
+          end
+          object EditColIdKTok: TEdit
+            AnchorSideLeft.Control = Label136
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdKIdNr
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox46
+            AnchorSideRight.Side = asrBottom
+            Left = 128
+            Height = 23
+            Top = 39
+            Width = 591
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 3
+          end
+        end
+        object GroupBox44: TGroupBox
+          Left = 0
+          Height = 243
+          Top = 200
+          Width = 731
+          Align = alTop
+          AutoSize = True
+          Caption = 'Pobranie listy identyfikatorów zbiorczych powiązanych z kontekstem'
+          ClientHeight = 223
+          ClientWidth = 727
+          TabOrder = 3
+          object Label120: TLabel
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = DateTimePickerColIdOd
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 12
+            Width = 75
+            BorderSpacing.Around = 8
+            Caption = 'Utworzono od'
+          end
+          object Label121: TLabel
+            AnchorSideLeft.Control = DateTimePickerColIdOd
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = DateTimePickerColIdOd
+            AnchorSideTop.Side = asrCenter
+            Left = 236
+            Height = 15
+            Top = 12
+            Width = 14
+            BorderSpacing.Around = 8
+            Caption = 'do'
+          end
+          object DateTimePickerColIdOd: TDateTimePicker
+            AnchorSideLeft.Control = Label120
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox44
+            Left = 91
+            Height = 23
+            Top = 8
+            Width = 137
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 0
+            BorderSpacing.Around = 8
+            TrailingSeparator = False
+            TextForNullDate = 'NULL'
+            LeadingZeros = True
+            Kind = dtkDateTime
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 46237
+            Time = 0.744150960650586
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+          end
+          object DateTimePickerColIdDo: TDateTimePicker
+            AnchorSideLeft.Control = Label121
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = GroupBox44
+            Left = 258
+            Height = 23
+            Top = 8
+            Width = 137
+            CenturyFrom = 1941
+            MaxDate = 2958465
+            MinDate = -53780
+            TabOrder = 1
+            BorderSpacing.Around = 8
+            TrailingSeparator = False
+            TextForNullDate = 'NULL'
+            LeadingZeros = True
+            Kind = dtkDateTime
+            TimeFormat = tf24
+            TimeDisplay = tdHMS
+            DateMode = dmComboBox
+            Date = 46237
+            Time = 0.744481921297847
+            UseDefaultSeparators = True
+            HideDateTimeParts = []
+            MonthNames = 'Long'
+          end
+          object Label123: TLabel
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = EditColIdQNr
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 43
+            Width = 173
+            BorderSpacing.Around = 8
+            Caption = 'Numer identyfikatora zbiorczego'
+          end
+          object EditColIdQNr: TEdit
+            AnchorSideLeft.Control = Label123
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = DateTimePickerColIdOd
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox44
+            AnchorSideRight.Side = asrBottom
+            Left = 189
+            Height = 23
+            Top = 39
+            Width = 530
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 2
+          end
+          object Label127: TLabel
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = SpinEditColIdOd
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 74
+            Width = 234
+            BorderSpacing.Around = 8
+            Caption = 'Liczba faktur w identyfikatorze zbiorczym od'
+          end
+          object Label128: TLabel
+            AnchorSideLeft.Control = SpinEditColIdOd
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = SpinEditColIdOd
+            AnchorSideTop.Side = asrCenter
+            Left = 308
+            Height = 15
+            Top = 74
+            Width = 14
+            BorderSpacing.Around = 8
+            Caption = 'do'
+          end
+          object SpinEditColIdOd: TSpinEdit
+            AnchorSideLeft.Control = Label127
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdQNr
+            AnchorSideTop.Side = asrBottom
+            Left = 250
+            Height = 23
+            Top = 70
+            Width = 50
+            BorderSpacing.Around = 8
+            TabOrder = 3
+          end
+          object SpinEditColIdDo: TSpinEdit
+            AnchorSideLeft.Control = Label128
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdQNr
+            AnchorSideTop.Side = asrBottom
+            Left = 330
+            Height = 23
+            Top = 70
+            Width = 50
+            BorderSpacing.Around = 8
+            TabOrder = 4
+          end
+          object CheckBoxColIdCtx: TCheckBox
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = SpinEditColIdOd
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 19
+            Top = 101
+            Width = 292
+            BorderSpacing.Around = 8
+            Caption = 'Identyfikator wygenerowany w bieżącym kontekście'
+            TabOrder = 5
+          end
+          object ButtonKSeFColIdQuery: TButton
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = SpinEditColIdQPage
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 25
+            Top = 190
+            Width = 65
+            AutoSize = True
+            BorderSpacing.Around = 8
+            Caption = 'Pobierz'
+            TabOrder = 7
+            OnClick = ButtonKSeFColIdQueryClick
+          end
+          object Label129: TLabel
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = SpinEditColIdQPage
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 163
+            Width = 213
+            BorderSpacing.Around = 8
+            Caption = 'Rozmiar strony wyników (o = domyślny)'
+          end
+          object SpinEditColIdQPage: TSpinEdit
+            AnchorSideLeft.Control = Label129
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = EditColIdQTok
+            AnchorSideTop.Side = asrBottom
+            Left = 229
+            Height = 23
+            Top = 159
+            Width = 50
+            BorderSpacing.Around = 8
+            TabOrder = 6
+          end
+          object Label130: TLabel
+            AnchorSideLeft.Control = GroupBox44
+            AnchorSideTop.Control = EditColIdQTok
+            AnchorSideTop.Side = asrCenter
+            Left = 8
+            Height = 15
+            Top = 132
+            Width = 112
+            BorderSpacing.Around = 8
+            Caption = 'Token kontynuacyjny'
+          end
+          object EditColIdQTok: TEdit
+            AnchorSideLeft.Control = Label130
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Control = CheckBoxColIdCtx
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Control = GroupBox44
+            AnchorSideRight.Side = asrBottom
+            Left = 128
+            Height = 23
+            Top = 128
+            Width = 591
+            Anchors = [akTop, akLeft, akRight]
+            BorderSpacing.Around = 8
+            TabOrder = 8
+          end
+        end
+      end
+    end
+    object TabSheetKSeF2TestData: TTabSheet[12]
       Caption = 'KSeF2 - Dane testowe'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox2: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 439
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox1: TGroupBox
           Left = 0
           Height = 185
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Utworzenie podmiotu'
           ClientHeight = 165
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object Label4: TLabel
             AnchorSideLeft.Control = GroupBox1
@@ -4243,7 +4891,7 @@ inherited FormMain: TFormMain
             Caption = 'createdDate'
           end
           object GroupBox2: TGroupBox
-            Left = 404
+            Left = 455
             Height = 165
             Top = 0
             Width = 272
@@ -4287,7 +4935,7 @@ inherited FormMain: TFormMain
             Left = 73
             Height = 23
             Top = 8
-            Width = 323
+            Width = 374
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -4322,7 +4970,7 @@ inherited FormMain: TFormMain
             Left = 75
             Height = 23
             Top = 70
-            Width = 321
+            Width = 372
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 3
@@ -4373,12 +5021,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 212
           Top = 246
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Utworzenie osoby fizycznej'
           ClientHeight = 192
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object Label9: TLabel
             AnchorSideLeft.Control = GroupBox3
@@ -4433,7 +5081,7 @@ inherited FormMain: TFormMain
             Left = 33
             Height = 23
             Top = 8
-            Width = 635
+            Width = 686
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -4448,7 +5096,7 @@ inherited FormMain: TFormMain
             Left = 75
             Height = 23
             Top = 97
-            Width = 593
+            Width = 644
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 1
@@ -4504,7 +5152,7 @@ inherited FormMain: TFormMain
             Left = 43
             Height = 23
             Top = 39
-            Width = 625
+            Width = 676
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 4
@@ -4526,12 +5174,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 61
           Top = 185
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Usunięcie podmiotu'
           ClientHeight = 41
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 2
           object Label16: TLabel
             AnchorSideTop.Control = EditKSeFDTUsPSubjectNip
@@ -4551,7 +5199,7 @@ inherited FormMain: TFormMain
             Left = 73
             Height = 23
             Top = 8
-            Width = 485
+            Width = 536
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -4560,7 +5208,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = GroupBox4
             AnchorSideRight.Control = GroupBox4
             AnchorSideRight.Side = asrBottom
-            Left = 566
+            Left = 617
             Height = 25
             Top = 8
             Width = 102
@@ -4576,12 +5224,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 61
           Top = 458
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'Usunięcie osoby fizycznej'
           ClientHeight = 41
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 3
           object Label17: TLabel
             AnchorSideTop.Control = EditKSeFDTUsONip
@@ -4601,7 +5249,7 @@ inherited FormMain: TFormMain
             Left = 33
             Height = 23
             Top = 8
-            Width = 494
+            Width = 545
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 0
@@ -4610,7 +5258,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = GroupBox5
             AnchorSideRight.Control = GroupBox5
             AnchorSideRight.Side = asrBottom
-            Left = 535
+            Left = 586
             Height = 25
             Top = 8
             Width = 133
@@ -4624,21 +5272,21 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2PublicKeys: TTabSheet[12]
+    object TabSheetKSeF2PublicKeys: TTabSheet[13]
       Caption = 'KSeF2 - Klucze publiczne'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object GroupBox6: TGroupBox
         Left = 0
         Height = 94
         Top = 0
-        Width = 701
+        Width = 752
         Align = alTop
         AutoSize = True
         Caption = 'Klucze publiczne'
         ClientHeight = 74
-        ClientWidth = 697
+        ClientWidth = 748
         TabOrder = 0
         object ButtonKSeFGetPublicKeyCertificates: TButton
           AnchorSideLeft.Control = ComboBoxKSeFPKCertBramka
@@ -4716,32 +5364,32 @@ inherited FormMain: TFormMain
         end
       end
     end
-    object TabSheetKSeF2VerLinks: TTabSheet[13]
+    object TabSheetKSeF2VerLinks: TTabSheet[14]
       Caption = 'KSeF2 - Linki weryfikacyjne'
       ClientHeight = 424
-      ClientWidth = 701
+      ClientWidth = 752
       TabVisible = False
       object ScrollBox10: TScrollBox
         Left = 0
         Height = 424
         Top = 0
-        Width = 701
+        Width = 752
         HorzScrollBar.Page = 392
         VertScrollBar.Page = 420
         Align = alClient
         ClientHeight = 420
-        ClientWidth = 680
+        ClientWidth = 731
         TabOrder = 0
         object GroupBox35: TGroupBox
           Left = 0
           Height = 216
           Top = 0
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'KOD I – Weryfikacja i pobieranie faktury'
           ClientHeight = 196
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 0
           object Label105: TLabel
             AnchorSideLeft.Control = GroupBox35
@@ -4855,7 +5503,7 @@ inherited FormMain: TFormMain
             Left = 196
             Height = 23
             Top = 101
-            Width = 368
+            Width = 419
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 3
@@ -4864,7 +5512,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = EditKSeFLHash1
             AnchorSideRight.Control = GroupBox35
             AnchorSideRight.Side = asrBottom
-            Left = 572
+            Left = 623
             Height = 25
             Top = 101
             Width = 96
@@ -4910,7 +5558,7 @@ inherited FormMain: TFormMain
             Left = 126
             Height = 23
             Top = 165
-            Width = 542
+            Width = 593
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 6
@@ -4920,12 +5568,12 @@ inherited FormMain: TFormMain
           Left = 0
           Height = 278
           Top = 216
-          Width = 680
+          Width = 731
           Align = alTop
           AutoSize = True
           Caption = 'KOD II – Weryfikacja certyfikatu'
           ClientHeight = 258
-          ClientWidth = 676
+          ClientWidth = 727
           TabOrder = 1
           object Label110: TLabel
             AnchorSideLeft.Control = GroupBox36
@@ -5001,7 +5649,7 @@ inherited FormMain: TFormMain
             Left = 196
             Height = 23
             Top = 132
-            Width = 368
+            Width = 419
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 2
@@ -5010,7 +5658,7 @@ inherited FormMain: TFormMain
             AnchorSideTop.Control = EditKSeFLHash2
             AnchorSideRight.Control = GroupBox36
             AnchorSideRight.Side = asrBottom
-            Left = 572
+            Left = 623
             Height = 25
             Top = 132
             Width = 96
@@ -5056,7 +5704,7 @@ inherited FormMain: TFormMain
             Left = 126
             Height = 23
             Top = 227
-            Width = 542
+            Width = 593
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             TabOrder = 5
@@ -5138,7 +5786,7 @@ inherited FormMain: TFormMain
             Left = 67
             Height = 23
             Top = 163
-            Width = 601
+            Width = 652
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Around = 8
             ItemHeight = 15
@@ -5151,12 +5799,15 @@ inherited FormMain: TFormMain
   end
   inherited SplitterBottom: TSplitter
     Top = 492
+    Width = 760
   end
   inherited PanelBottom: TPanel
     Top = 497
+    Width = 760
+    ClientWidth = 760
     inherited MemoLog: TMemo
       Left = 272
-      Width = 436
+      Width = 487
       Lines.Strings = (
         'MemoLog'
       )
