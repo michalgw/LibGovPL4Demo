@@ -67,6 +67,8 @@ function lgpKSeF2_GetFormCodeSchemaVersion(AKSeFObject: LGP_OBJECT; var AValue: 
 function lgpKSeF2_SetFormCodeSchemaVersion(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetFormCodeValue(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetFormCodeValue(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetCompressionType(AKSeFObject: LGP_OBJECT; var ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetCompressionType(AKSeFObject: LGP_OBJECT; ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetAuthCertificate(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetAuthCertificate(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; var AType: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -117,6 +119,8 @@ function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_I
 function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetResponseHeaders(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetResponseHeaders(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_GetUseProblemDetails(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_SetUseProblemDetails(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_GetOnRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
@@ -158,8 +162,8 @@ function lgpKSeF2_InteractiveSend3(AKSeFObject: LGP_OBJECT; AInvoiceStream: LGP_
 
 function lgpKSeF2_InteractiveClose(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
-function lgpKSeF2_BatchPrepare(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_BatchPrepare2(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_BatchPrepare(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_BatchPrepare2(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_BatchOpen(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AOpenBatchSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_BatchSendPart(AKSeFObject: LGP_OBJECT; APartUploadRequest: LGP_OBJECT; ADataStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_BatchClose(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
@@ -179,9 +183,9 @@ function lgpKSeF2_StatusUpoSessionSimple(AKSeFObject: LGP_OBJECT; ASessionRefere
 function lgpKSeF2_InvoicesKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExport(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExportSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_InvoicesExportSimple2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_InvoicesExportSimple2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExportStatus(AKSeFObject: LGP_OBJECT; AOperationReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AInvoiceExportStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_InvoicesExportDownload(AKSeFObject: LGP_OBJECT; AStatusResponse: LGP_OBJECT; AOutputStream: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE): LGP_EXCEPTION; stdcall;
 
@@ -244,6 +248,13 @@ function lgpKSeF2_LimitsSubject(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR
 function lgpKSeF2_LimitsRate(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2_PeppolQuery(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+function lgpKSeF2_CollectiveIdentifiers(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveIdentifiersSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveidentifiersQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveidentifiersQuery2(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveIdentifiersKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl(ASellerNip: LGP_PCHAR; AContextIdentifierType: LGP_INT32; AContextIdentifierValue: LGP_PCHAR; AInvoiceHash: LGP_PCHAR; ASigningCertificate: LGP_OBJECT; AGateType: LGP_INT32; Base64EncClass: LGP_PCHAR; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -791,6 +802,32 @@ begin
   try
     CheckObject(AKSeFObject, TlgKSeF2);
     (TObject(AKSeFObject) as TlgKSeF2).FormCodeValue := AValue;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_GetCompressionType(AKSeFObject: LGP_OBJECT;
+  var ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    ACompressionType := Integer((TObject(AKSeFObject) as TlgKSeF2).CompressionType);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetCompressionType(AKSeFObject: LGP_OBJECT;
+  ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    (TObject(AKSeFObject) as TlgKSeF2).CompressionType := TKSeF2CompressionType(ACompressionType);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -1505,6 +1542,32 @@ begin
   end;
 end;
 
+function lgpKSeF2_GetUseProblemDetails(AKSeFObject: LGP_OBJECT;
+  var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    AValue := Ord((TObject(AKSeFObject) as TlgKSeF2Lib).UseProblemDetails);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_SetUseProblemDetails(AKSeFObject: LGP_OBJECT;
+  AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2Lib);
+    (TObject(AKSeFObject) as TlgKSeF2Lib).UseProblemDetails := AValue <> 0;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT;
   var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
 begin
@@ -1975,7 +2038,7 @@ function lgpKSeF2_BatchPrepare(AKSeFObject: LGP_OBJECT;
   AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32;
   AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE;
   AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR;
-  AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32;
+  AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; ACompressionType: LGP_INT32;
   var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 var
   EncKey: TBytes = nil;
@@ -2001,7 +2064,8 @@ begin
     AOpenBatchSessionRequest := (TObject(AKSeFObject) as TlgKSeF2)
       .BatchPrepare(TStream(AZIPFileStream), TStream(AOutputStream),
       TlgKSeFFormCode(AFormCode), EncKey, IV, AFormCodeSystemCode,
-      AFormCodeSchemaVersion, AFormCodeValue, APartSize);
+      AFormCodeSchemaVersion, AFormCodeValue, APartSize,
+      TKSeF2CompressionType(ACompressionType));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -2010,7 +2074,8 @@ end;
 
 function lgpKSeF2_BatchPrepare2(AKSeFObject: LGP_OBJECT;
   AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32;
-  var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
 begin
   Result := nil;
   AOpenBatchSessionRequest := nil;
@@ -2020,7 +2085,8 @@ begin
     if AOutputStream <> nil then
       CheckObject(AOutputStream, TStream);
     AOpenBatchSessionRequest := (TObject(AKSeFObject) as TlgKSeF2)
-      .BatchPrepare(TStream(AZIPFileStream), TStream(AOutputStream), APartSize);
+      .BatchPrepare(TStream(AZIPFileStream), TStream(AOutputStream), APartSize,
+      TKSeF2CompressionType(ACompressionType));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -2320,7 +2386,8 @@ begin
   end;
 end;
 
-function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT;
+function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32;
   AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE;
   AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT
   ): LGP_EXCEPTION; stdcall;
@@ -2344,7 +2411,8 @@ begin
       Move(AInitializationVector[0], IV[0], AES256_IV_SIZE);
     end;
     AExportInvoicesResponse := (TObject(AKSeFObject) as TlgKSeF2).
-      InvoicesExport(TKSeF2InvoiceQueryFilters(ARequest), EncKey, IV, AAccessToken);
+      InvoicesExport(TKSeF2InvoiceQueryFilters(ARequest), AOnlyMetadata <> 0,
+      TKSeF2CompressionType(ACompressionType), EncKey, IV, AAccessToken);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -2369,9 +2437,10 @@ begin
 end;
 
 function lgpKSeF2_InvoicesExportSimple2(AKSeFObject: LGP_OBJECT;
-  ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE;
-  AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR;
-  var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32;
+  AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE;
+  AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION;
+  stdcall;
 var
   EncKey: TBytes = nil;
   IV: TBytes = nil;
@@ -2392,7 +2461,9 @@ begin
       Move(AInitializationVector[0], IV[0], AES256_IV_SIZE);
     end;
     AReferenceNumber := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).
-      InvoicesExportSimple(TKSeF2InvoiceQueryFilters(ARequest), EncKey, IV, AAccessToken));
+      InvoicesExportSimple(TKSeF2InvoiceQueryFilters(ARequest),
+      AOnlyMetadata <> 0, TKSeF2CompressionType(ACompressionType), EncKey, IV,
+      AAccessToken));
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
@@ -3303,6 +3374,112 @@ begin
     CheckObject(AKSeFObject, TlgKSeF2);
     AResponse := (TObject(AKSeFObject) as TlgKSeF2).PeppolQuery(APageOffset,
       APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveIdentifiers(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2GenerateCollectiveIdentifierRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiers(
+      TKSeF2GenerateCollectiveIdentifierRequest(ARequest), AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveIdentifiersSimple(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2GenerateCollectiveIdentifierRequest);
+    AResponse := TStringObject.Create((TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiersSimple(
+      TKSeF2GenerateCollectiveIdentifierRequest(ARequest), AAccessToken));
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveidentifiersQuery(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2CollectiveIdentifiersQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveidentifiersQuery(
+      TKSeF2CollectiveIdentifiersQueryRequest(ARequest), AContinuationToken,
+      APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveidentifiersQuery2(AKSeFObject: LGP_OBJECT;
+  ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE;
+  ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32;
+  AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32;
+  AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR;
+  var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveidentifiersQuery(
+      ADateCreatedFrom, ADateCreatedTo, ACollectiveIdentifierNumber,
+      AInvoiceCountFrom, AInvoiceCountTo, ACreatedInCurrentContext <> 0,
+      AContinuationToken, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT;
+  ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR;
+  APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiersInvoices(
+      ACollectiveIdentifierNumber, AContinuationToken, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveIdentifiersKsef(AKSeFObject: LGP_OBJECT;
+  AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiersKsef(
+      AKsefNumber, AContinuationToken, APageSize, AAccessToken);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

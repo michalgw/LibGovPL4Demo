@@ -95,6 +95,27 @@ type
     property ResponseHeaders: String read FResponseHeaders write FResponseHeaders;
   end;
 
+  { TlgpEKSeF2ProblemDetails }
+
+  TlgpEKSeF2ProblemDetails = class(TlgpKSeF2ExceptionResponseBase)
+  private
+    FDetail: String;
+    FInstance: String;
+    FStatus: Integer;
+    FTimestamp: TDateTime;
+    FTimestampRaw: String;
+    FTitle: String;
+    FTraceId: String;
+  published
+    property Title: String read FTitle write FTitle;
+    property Status: Integer read FStatus write FStatus;
+    property Instance: String read FInstance write FInstance;
+    property Detail: String read FDetail write FDetail;
+    property Timestamp: TDateTime read FTimestamp write FTimestamp;
+    property TimestampRaw: String read FTimestampRaw write FTimestampRaw;
+    property TraceId: String read FTraceId write FTraceId;
+  end;
+
   { TlgpKSeF2ExceptionDetail }
 
   {$M+}
@@ -140,6 +161,47 @@ type
     property ExceptionDetailList: TlgpKSeF2ExceptionDetailList read FExceptionDetailList;
   end;
 
+  { TlgpEKSeF2BadRequest }
+
+  TlgpEKSeF2BadRequest = class(TlgpEKSeF2ProblemDetails)
+  private
+    FErrors: TlgpKSeF2ExceptionDetailList;
+  public
+    constructor Create(AClass, AMessage: String); override;
+    destructor Destroy; override;
+  published
+    property Errors: TlgpKSeF2ExceptionDetailList read FErrors;
+  end;
+
+  { TlgpKeyValuePair }
+
+  {$M+}
+  TlgpKeyValuePair = class
+  private
+    FKey: String;
+    FValue: String;
+  published
+    property Key: String read FKey write FKey;
+    property Value: String read FValue write FValue;
+  end;
+  {$M-}
+
+  TlgpKeyValuePairs = class(specialize TObjectList<TlgpKeyValuePair>);
+
+  { TlgpEKSeF2Forbidden }
+
+  TlgpEKSeF2Forbidden = class(TlgpEKSeF2ProblemDetails)
+  private
+    FReasonCode: String;
+    FSecurity: TlgpKeyValuePairs;
+  public
+    constructor Create(AClass, AMessage: String); override;
+    destructor Destroy; override;
+  published
+    property ReasonCode: String read FReasonCode write FReasonCode;
+    property Security: TlgpKeyValuePairs read FSecurity;
+  end;
+
   { TlgpKSeF2TooManyRequests }
 
   TlgpKSeF2TooManyRequests = class(TlgpExceptionObject)
@@ -158,6 +220,15 @@ type
     property Code: Integer read FCode write FCode;
     property Description: String read FDescription write FDescription;
     property Details: String read FDetails write FDetails;
+    property RetryAfter: Integer read FRetryAfter write FRetryAfter;
+  end;
+
+  { EKSeF2TooManyRequestsProblem }
+
+  TlgpEKSeF2TooManyRequestsProblem = class(TlgpEKSeF2ProblemDetails)
+  private
+    FRetryAfter: Integer;
+  published
     property RetryAfter: Integer read FRetryAfter write FRetryAfter;
   end;
 
@@ -222,8 +293,10 @@ var
   I: Integer;
   D: TlgpKSeFExceptionDetail;
   D2: TlgpKSeF2ExceptionDetail;
+  D3: TlgpKeyValuePair;
   F: PCodePointer;
 begin
+  Result := nil;
   if AException is EKSeFExceptionResponse then
   begin
     Result := TlgpKSeFExceptionResponse.Create(AException.ClassName, AException.Message);
@@ -272,6 +345,50 @@ begin
       D2.ExceptionDetails := StringArrayToString(EKSeF2ExceptionResponse(AException).ExceptionDetailList[I].Details, ';');
       TlgpKSeF2ExceptionResponse(Result).ExceptionDetailList.Add(D2);
     end;
+  end
+  else if AException is EKSeF2ProblemDetails then
+  begin
+    if AException is EKSeF2BadRequest then
+    begin
+      Result := TlgpEKSeF2BadRequest.Create(AException.ClassName, AException.Message);
+      for I := 0 to Length(EKSeF2BadRequest(AException).Errors) - 1 do
+      begin
+        D2 := TlgpKSeF2ExceptionDetail.Create;
+        D2.ExceptionCode := EKSeF2BadRequest(AException).Errors[I].ExceptionCode;
+        D2.ExceptionDescription := EKSeF2BadRequest(AException).Errors[I].ExceptionDescription;
+        D2.ExceptionDetails := StringArrayToString(EKSeF2BadRequest(AException).Errors[I].Details, ';');
+        TlgpEKSeF2BadRequest(Result).Errors.Add(D2);
+      end;
+    end
+    else if AException is EKSeF2Forbidden then
+    begin
+      Result := TlgpEKSeF2Forbidden.Create(AException.ClassName, AException.Message);
+      TlgpEKSeF2Forbidden(Result).ReasonCode := EKSeF2Forbidden(AException).ReasonCode;
+      for I := 0 to Length(EKSeF2Forbidden(AException).Security) - 1 do
+      begin
+        D3 := TlgpKeyValuePair.Create;
+        D3.Key := EKSeF2Forbidden(AException).Security[I].Key;
+        D3.Value := EKSeF2Forbidden(AException).Security[I].Value;
+        TlgpEKSeF2Forbidden(Result).Security.Add(D3);
+      end;
+    end
+    else if AException is EKSeF2TooManyRequestsProblem then
+    begin
+      Result := TlgpEKSeF2TooManyRequestsProblem.Create(AException.ClassName, AException.Message);
+      TlgpEKSeF2TooManyRequestsProblem(Result).RetryAfter := EKSeF2TooManyRequestsProblem(AException).RetryAfter;
+    end;
+    if Result = nil then
+      Result := TlgpEKSeF2ProblemDetails.Create(AException.ClassName, AException.Message);
+    TlgpEKSeF2ProblemDetails(Result).ResponseCode := EKSeF2ProblemDetails(AException).ResponseCode;
+    TlgpEKSeF2ProblemDetails(Result).RawData := EKSeF2ProblemDetails(AException).RawData;
+    TlgpEKSeF2ProblemDetails(Result).ResponseHeaders := EKSeF2ProblemDetails(AException).ResponseHeaders;
+    TlgpEKSeF2ProblemDetails(Result).Title := EKSeF2ProblemDetails(AException).Title;
+    TlgpEKSeF2ProblemDetails(Result).Status := EKSeF2ProblemDetails(AException).Status;
+    TlgpEKSeF2ProblemDetails(Result).Instance := EKSeF2ProblemDetails(AException).Instance;
+    TlgpEKSeF2ProblemDetails(Result).Detail := EKSeF2ProblemDetails(AException).Detail;
+    TlgpEKSeF2ProblemDetails(Result).Timestamp := EKSeF2ProblemDetails(AException).Timestamp;
+    TlgpEKSeF2ProblemDetails(Result).TimestampRaw := EKSeF2ProblemDetails(AException).TimestampRaw;
+    TlgpEKSeF2ProblemDetails(Result).TraceId := EKSeF2ProblemDetails(AException).TraceId;
   end
   else if AException is EKSeF2ExceptionResponseBase then
   begin
@@ -360,6 +477,34 @@ end;
 destructor TlgpKSeF2ExceptionResponse.Destroy;
 begin
   FExceptionDetailList.Free;
+  inherited Destroy;
+end;
+
+{ TlgpEKSeF2BadRequest }
+
+constructor TlgpEKSeF2BadRequest.Create(AClass, AMessage: String);
+begin
+  inherited Create(AClass, AMessage);
+  FErrors := TlgpKSeF2ExceptionDetailList.Create(True);
+end;
+
+destructor TlgpEKSeF2BadRequest.Destroy;
+begin
+  FErrors.Free;
+  inherited Destroy;
+end;
+
+{ TlgpEKSeF2Forbidden }
+
+constructor TlgpEKSeF2Forbidden.Create(AClass, AMessage: String);
+begin
+  inherited Create(AClass, AMessage);
+  FSecurity := TlgpKeyValuePairs.Create(True);
+end;
+
+destructor TlgpEKSeF2Forbidden.Destroy;
+begin
+  FSecurity.Free;
   inherited Destroy;
 end;
 

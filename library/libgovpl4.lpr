@@ -72,6 +72,7 @@ exports
   lgpHTTPClient_SetIgnoreSSLErrors,
 
   lgpRSAEncrypt_CreateKey,
+  lgpRSAEncrypt_GetCertificate,
 
   lgpCertificate_GetVersion,
   lgpCertificate_GetDisplayName,
@@ -90,6 +91,8 @@ exports
   lgpCertificate_GetSignature,
   lgpCertificate_GetKeyUsage,
   lgpCertificate_GetPublicKeyAlgorithm,
+  lgpCertificate_GetCertificateId,
+  lgpCertificate_GetPublicKeyId,
   lgpCertificate_SetPIN,
 
   lgpCNGCertificate_ShowCertificateInfo,
@@ -437,6 +440,8 @@ exports
   lgpKSeF2_SetFormCodeSchemaVersion,
   lgpKSeF2_GetFormCodeValue,
   lgpKSeF2_SetFormCodeValue,
+  lgpKSeF2_GetCompressionType,
+  lgpKSeF2_SetCompressionType,
   lgpKSeF2_GetAuthCertificate,
   lgpKSeF2_SetAuthCertificate,
   lgpKSeF2_GetAuthCertificateSubject,
@@ -487,6 +492,8 @@ exports
   lgpKSeF2_SetAutoRefreshToken,
   lgpKSeF2_GetResponseHeaders,
   lgpKSeF2_SetResponseHeaders,
+  lgpKSeF2_GetUseProblemDetails,
+  lgpKSeF2_SetUseProblemDetails,
   lgpKSeF2_GetOnRequestPartStream,
   lgpKSeF2_SetOnRequestPartStream,
   lgpKSeF2_GetOnRefreshToken,
@@ -614,6 +621,13 @@ exports
   lgpKSeF2_LimitsRate,
 
   lgpKSeF2_PeppolQuery,
+
+  lgpKSeF2_CollectiveIdentifiers,
+  lgpKSeF2_CollectiveIdentifiersSimple,
+  lgpKSeF2_CollectiveidentifiersQuery,
+  lgpKSeF2_CollectiveidentifiersQuery2,
+  lgpKSeF2_CollectiveIdentifiersInvoices,
+  lgpKSeF2_CollectiveIdentifiersKsef,
 
   // KSeF 2.0 obiekty
   lgpKSeF2_CreateKSeFClass,

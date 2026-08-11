@@ -59,6 +59,29 @@ type
     property ResponseHeaders: UTF8String read FResponseHeaders;
   end;
 
+  { EKSeF2ProblemDetails }
+
+  EKSeF2ProblemDetails = class(EKSeF2ExceptionResponseBase)
+  private
+    FDetail: UTF8String;
+    FInstance: UTF8String;
+    FStatus: Integer;
+    FTimestamp: TDateTime;
+    FTimestampRaw: UTF8String;
+    FTitle: UTF8String;
+    FTraceId: UTF8String;
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  public
+    property Title: UTF8String read FTitle;
+    property Status: Integer read FStatus;
+    property Instance: UTF8String read FInstance;
+    property Detail: UTF8String read FDetail;
+    property Timestamp: TDateTime read FTimestamp;
+    property TimestampRaw: UTF8String read FTimestampRaw;
+    property TraceId: UTF8String read FTraceId;
+  end;
+
   TKSeF2ExceptionDetail = record
     ExceptionCode: Integer;
     ExceptionDescription: UTF8String;
@@ -89,9 +112,38 @@ type
     property ExceptionDetailList: TKSeF2ExceptionDetailList read FExceptionDetailList;
   end;
 
-  EKSeF2Unauthorized = class(EKSeF2ExceptionResponseBase);
+  { EKSeF2BadRequest }
 
-  EKSeF2Forbidden = class(EKSeF2ExceptionResponseBase);
+  EKSeF2BadRequest = class(EKSeF2ProblemDetails)
+  private
+    FErrors: TKSeF2ExceptionDetailList;
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  public
+    property Errors: TKSeF2ExceptionDetailList read FErrors;
+  end;
+
+  EKSeF2Unauthorized = class(EKSeF2ProblemDetails);
+
+  TKSeF2KeyValueRec = record
+    Key: UTF8String;
+    Value: UTF8String;
+  end;
+
+  TKSeF2KeyValueArray = array of TKSeF2KeyValueRec;
+
+  { EKSeF2Forbidden }
+
+  EKSeF2Forbidden = class(EKSeF2ProblemDetails)
+  private
+    FReasonCode: UTF8String;
+    FSecurity: TKSeF2KeyValueArray;
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  public
+    property ReasonCode: UTF8String read FReasonCode;
+    property Security: TKSeF2KeyValueArray read FSecurity;
+  end;
 
   EKSeF2NotFound = class(EKSeF2ExceptionResponseBase);
 
@@ -109,6 +161,19 @@ type
     property Code: Integer read FCode;
     property Description: UTF8String read FDescription;
     property Details: UTF8String read FDetails;
+    property RetryAfter: Integer read FRetryAfter;
+  end;
+
+  EKSeF2Gone = class(EKSeF2ProblemDetails);
+
+  { EKSeF2TooManyRequestsProblem }
+
+  EKSeF2TooManyRequestsProblem = class(EKSeF2ProblemDetails)
+  private
+    FRetryAfter: Integer;
+  protected
+    procedure LoadObject(AException: LGP_EXCEPTION); override;
+  published
     property RetryAfter: Integer read FRetryAfter;
   end;
 
@@ -365,6 +430,8 @@ type
   TKSeF2PublicKeyCertificate = class(TKSeF2Object)
   private
     function GetCertificate: UTF8String;
+    function GetCertificateId: UTF8String;
+    function GetPublicKeyId: UTF8String;
     function GetUsage: TKSeF2KeyUsage;
     function GetValidFrom: TDateTime;
     function GetValidFromRaw: UTF8String;
@@ -372,6 +439,8 @@ type
     function GetValidToRaw: UTF8String;
   published
     property Certificate: UTF8String read GetCertificate;
+    property CertificateId: UTF8String read GetCertificateId;
+    property PublicKeyId: UTF8String read GetPublicKeyId;
     property ValidFrom: TDateTime read GetValidFrom;
     property ValidFromRaw: UTF8String read GetValidFromRaw;
     property ValidTo: TDateTime read GetValidTo;
@@ -421,11 +490,14 @@ type
   private
     function GetEncryptedSymmetricKeyBase64: UTF8String;
     function GetInitializationVectorBase64: UTF8String;
+    function GetPublicKeyId: UTF8String;
     procedure SetEncryptedSymmetricKeyBase64(AValue: UTF8String);
     procedure SetInitializationVectorBase64(AValue: UTF8String);
+    procedure SetPublicKeyId(AValue: UTF8String);
   published
     property EncryptedSymmetricKeyBase64: UTF8String read GetEncryptedSymmetricKeyBase64 write SetEncryptedSymmetricKeyBase64;
     property InitializationVectorBase64: UTF8String read GetInitializationVectorBase64 write SetInitializationVectorBase64;
+    property PublicKeyId: UTF8String read GetPublicKeyId write SetPublicKeyId;
   end;
 
   { TKSeF2OpenOnlineSessionRequest }
@@ -510,6 +582,8 @@ type
     property FileHash: UTF8String read GetFileHash write SetFileHash;
   end;
 
+  TKSeF2CompressionType = (ctDefault, ctZip, ctTarGz);
+
   { TKSeF2BatchFilePartInfoArray }
 
   TKSeF2BatchFilePartInfoArray = class(TKSeF2Array)
@@ -524,8 +598,10 @@ type
   TKSeF2BatchFileInfo = class(TKSeF2Object)
   private
     FFileParts: TKSeF2BatchFilePartInfoArray;
+    function GetCompressionType: TKSeF2CompressionType;
     function GetFileHash: UTF8String;
     function GetFileSize: Int64;
+    procedure SetCompressionType(AValue: TKSeF2CompressionType);
     procedure SetFileHash(AValue: UTF8String);
     procedure SetFileParts(AValue: TKSeF2BatchFilePartInfoArray);
     procedure SetFileSize(AValue: Int64);
@@ -534,6 +610,7 @@ type
   published
     property FileSize: Int64 read GetFileSize write SetFileSize;
     property FileHash: UTF8String read GetFileHash write SetFileHash;
+    property CompressionType: TKSeF2CompressionType read GetCompressionType write SetCompressionType;
     property FileParts: TKSeF2BatchFilePartInfoArray read FFileParts write SetFileParts;
   end;
 
@@ -1098,7 +1175,9 @@ type
   private
     FEncryption: TKSeF2EncryptionInfo;
     FFilters: TKSeF2InvoiceQueryFilters;
+    function GetCompressionType: TKSeF2CompressionType;
     function GetOnlyMetadata: Boolean;
+    procedure SetCompressionType(AValue: TKSeF2CompressionType);
     procedure SetEncryption(AValue: TKSeF2EncryptionInfo);
     procedure SetFilters(AValue: TKSeF2InvoiceQueryFilters);
     procedure SetOnlyMetadata(AValue: Boolean);
@@ -1108,6 +1187,7 @@ type
     property Encryption: TKSeF2EncryptionInfo read FEncryption write SetEncryption;
     property OnlyMetadata: Boolean read GetOnlyMetadata write SetOnlyMetadata;
     property Filters: TKSeF2InvoiceQueryFilters read FFilters write SetFilters;
+    property CompressionType: TKSeF2CompressionType read GetCompressionType write SetCompressionType;
   end;
 
   { TKSeF2ExportInvoicesResponse }
@@ -1213,7 +1293,7 @@ type
 
   TKSeF2TokenPermissionType = (tpInvoiceRead, tpInvoiceWrite, tpCredentialsRead,
     tpCredentialsManage, tpSubunitManage, tpEnforcementOperations,
-    tpIntrospection);
+    tpIntrospection, tpCollectiveIdentifierManage);
   TKSeF2TokenPermissions = set of TKSeF2TokenPermissionType;
 
   { TKSeF2GenerateTokenRequest }
@@ -1536,7 +1616,7 @@ type
 
   TKSeF2PersonPermissionType = (pptCredentialsManage, pptCredentialsRead,
     pptInvoiceWrite, pptInvoiceRead, pptIntrospection, pptSubunitManage,
-    pptEnforcementOperations);
+    pptEnforcementOperations, pptCollectiveIdentifierManage);
 
   TKSeF2PersonPermissionTypes = set of TKSeF2PersonPermissionType;
 
@@ -1804,11 +1884,9 @@ type
 
   TKSeF2EuEntityAdministrationPermissionsSubjectIdentifier = class(TKSeF2Object)
   private
-
-      function GetType: TKSeF2EuEntityAdministrationPermissionsSubjectIdentifierType;
+    function GetType: TKSeF2EuEntityAdministrationPermissionsSubjectIdentifierType;
     function GetValue: UTF8String;
-    procedure SetType(
-      AValue: TKSeF2EuEntityAdministrationPermissionsSubjectIdentifierType);
+    procedure SetType(AValue: TKSeF2EuEntityAdministrationPermissionsSubjectIdentifierType);
     procedure SetValue(AValue: UTF8String);
   published
     property Type_: TKSeF2EuEntityAdministrationPermissionsSubjectIdentifierType read GetType write SetType;
@@ -1821,11 +1899,9 @@ type
 
   TKSeF2EuEntityAdministrationPermissionsContextIdentifier = class(TKSeF2Object)
   private
-
-      function GetType: TKSeF2EuEntityAdministrationPermissionsContextIdentifierType;
+    function GetType: TKSeF2EuEntityAdministrationPermissionsContextIdentifierType;
     function GetValue: UTF8String;
-    procedure SetType(
-      AValue: TKSeF2EuEntityAdministrationPermissionsContextIdentifierType);
+    procedure SetType(AValue: TKSeF2EuEntityAdministrationPermissionsContextIdentifierType);
     procedure SetValue(AValue: UTF8String);
   published
     property Type_: TKSeF2EuEntityAdministrationPermissionsContextIdentifierType read GetType write SetType;
@@ -2011,7 +2087,7 @@ type
 
   TKSeF2PersonalPermissionType = (ppCredentialsManage, ppCredentialsRead,
     ppInvoiceWrite, ppInvoiceRead, ppIntrospection, ppSubunitManage,
-    ppEnforcementOperations, ppVatUeManage);
+    ppEnforcementOperations, ppVatUeManage, ppCollectiveIdentifierManage);
 
   TKSeF2PersonalPermissionTypes = set of TKSeF2PersonalPermissionType;
 
@@ -2129,7 +2205,7 @@ type
 
   TKSeF2PersonPermissionScope = (ppsCredentialsManage, ppsCredentialsRead,
     ppsInvoiceWrite, ppsInvoiceRead, ppsIntrospection, ppsSubunitManage,
-    ppsEnforcementOperations);
+    ppsEnforcementOperations, ppsCollectiveIdentifierManage);
 
   TKSeF2PersonalPermission = class(TKSeF2Object)
   private
@@ -3312,6 +3388,198 @@ type
     property HasMore: Boolean read GetHasMore;
   end;
 
+  { TKSeF2CollectiveIdentifierInvoicePayment }
+
+  TKSeF2CollectiveIdentifierInvoicePayment = class(TKSeF2Object)
+  private
+    function GetAmount: Double;
+    function GetCurrency: UTF8String;
+    procedure SetAmount(AValue: Double);
+    procedure SetCurrency(AValue: UTF8String);
+  published
+    property Amount: Double read GetAmount write SetAmount;
+    property Currency: UTF8String read GetCurrency write SetCurrency;
+  end;
+
+  TKSeF2CollectiveIdentifierInvoice = class(TKSeF2Object)
+  private
+    FPayment: TKSeF2CollectiveIdentifierInvoicePayment;
+    function GetDescription: UTF8String;
+    function GetKsefNumber: UTF8String;
+    procedure SetDescription(AValue: UTF8String);
+    procedure SetKsefNumber(AValue: UTF8String);
+    procedure SetPayment(AValue: TKSeF2CollectiveIdentifierInvoicePayment);
+  published
+    property KsefNumber: UTF8String read GetKsefNumber write SetKsefNumber;
+    property Payment: TKSeF2CollectiveIdentifierInvoicePayment read FPayment write SetPayment;
+    property Description: UTF8String read GetDescription write SetDescription;
+  end;
+
+  { TKSeF2CollectiveIdentifierInvoiceArray }
+
+  TKSeF2CollectiveIdentifierInvoiceArray = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2CollectiveIdentifierInvoice;
+  public
+    property Items[AIndex: Integer]: TKSeF2CollectiveIdentifierInvoice read GetItem; default;
+  end;
+
+  { TKSeF2GenerateCollectiveIdentifierRequest }
+
+  TKSeF2GenerateCollectiveIdentifierRequest = class(TKSeF2Request)
+  private
+    FInvoices: TKSeF2CollectiveIdentifierInvoiceArray;
+    function GetInvoices: TKSeF2CollectiveIdentifierInvoiceArray;
+    procedure SetInvoices(AValue: TKSeF2CollectiveIdentifierInvoiceArray);
+  published
+    property Invoices: TKSeF2CollectiveIdentifierInvoiceArray read GetInvoices write SetInvoices;
+  end;
+
+  { TKSeF2GenerateCollectiveIdentifierResponse }
+
+  TKSeF2GenerateCollectiveIdentifierResponse = class(TKSeF2Response)
+  private
+    function GetCollectiveIdentifierNumber: UTF8String;
+  published
+    property CollectiveIdentifierNumber: UTF8String read GetCollectiveIdentifierNumber;
+  end;
+
+  { TKSeF2CollectiveIdentifiersQueryRequest }
+
+  TKSeF2CollectiveIdentifiersQueryRequest = class(TKSeF2Request)
+  private
+    function GetCollectiveIdentifierNumber: UTF8String;
+    function GetCreatedInCurrentContext: Boolean;
+    function GetDateCreatedFrom: TDateTime;
+    function GetDateCreatedTo: TDateTime;
+    function GetInvoiceCountFrom: Integer;
+    function GetInvoiceCountTo: Integer;
+    procedure SetCollectiveIdentifierNumber(AValue: UTF8String);
+    procedure SetCreatedInCurrentContext(AValue: Boolean);
+    procedure SetDateCreatedFrom(AValue: TDateTime);
+    procedure SetDateCreatedTo(AValue: TDateTime);
+    procedure SetInvoiceCountFrom(AValue: Integer);
+    procedure SetInvoiceCountTo(AValue: Integer);
+  published
+    property CollectiveIdentifierNumber: UTF8String read GetCollectiveIdentifierNumber write SetCollectiveIdentifierNumber;
+    property DateCreatedFrom: TDateTime read GetDateCreatedFrom write SetDateCreatedFrom;
+    property DateCreatedTo: TDateTime read GetDateCreatedTo write SetDateCreatedTo;
+    property InvoiceCountFrom: Integer read GetInvoiceCountFrom write SetInvoiceCountFrom;
+    property InvoiceCountTo: Integer read GetInvoiceCountTo write SetInvoiceCountTo;
+    property CreatedInCurrentContext: Boolean read GetCreatedInCurrentContext write SetCreatedInCurrentContext;
+  end;
+
+  { TKSeF2CollectiveIdentifiersQueryResponseItem }
+
+  TKSeF2CollectiveIdentifiersQueryResponseItem = class(TKSeF2Object)
+  private
+    function GetCollectiveIdentifierNumber: UTF8String;
+    function GetCreatedInCurrentContext: Boolean;
+    function GetDateCreated: TDateTime;
+    function GetDateCreatedRaw: UTF8String;
+    function GetInvoiceCount: Integer;
+  published
+    property CollectiveIdentifierNumber: UTF8String read GetCollectiveIdentifierNumber;
+    property DateCreated: TDateTime read GetDateCreated;
+    property DateCreatedRaw: UTF8String read GetDateCreatedRaw;
+    property InvoiceCount: Integer read GetInvoiceCount;
+    property CreatedInCurrentContext: Boolean read GetCreatedInCurrentContext;
+  end;
+
+  { TKSeF2CollectiveIdentifiersQueryResponseItemArray }
+
+  TKSeF2CollectiveIdentifiersQueryResponseItemArray = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2CollectiveIdentifiersQueryResponseItem;
+  public
+    property Items[AIndex: Integer]: TKSeF2CollectiveIdentifiersQueryResponseItem read GetItem; default;
+  end;
+
+  TKSeF2CollectiveIdentifiersQueryResponse = class(TKSeF2Response)
+  private
+    FCollectiveIdentifiers: TKSeF2CollectiveIdentifiersQueryResponseItemArray;
+    function GetContinuationToken: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ContinuationToken: UTF8String read GetContinuationToken;
+    property CollectiveIdentifiers: TKSeF2CollectiveIdentifiersQueryResponseItemArray read FCollectiveIdentifiers;
+  end;
+
+  TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment = TKSeF2CollectiveIdentifierInvoicePayment;
+
+  { TKSeF2CollectiveIdentifierInvoicesQueryResponseItem }
+
+  TKSeF2CollectiveIdentifierInvoicesQueryResponseItem = class(TKSeF2Object)
+  private
+    FPayment: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment;
+    function GetDescription: UTF8String;
+    function GetDetailsHidden: Boolean;
+    function GetKsefNumber: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property KsefNumber: UTF8String read GetKsefNumber;
+    property Payment: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment read FPayment;
+    property Description: UTF8String read GetDescription;
+    property DetailsHidden: Boolean read GetDetailsHidden;
+  end;
+
+  { TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray }
+
+  TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2CollectiveIdentifierInvoicesQueryResponseItem;
+  public
+    property Items[AIndex: Integer]: TKSeF2CollectiveIdentifierInvoicesQueryResponseItem read GetItem; default;
+  end;
+
+  TKSeF2CollectiveIdentifierInvoicesQueryResponse = class(TKSeF2Response)
+  private
+    FInvoices: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray;
+    function GetContinuationToken: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ContinuationToken: UTF8String read GetContinuationToken;
+    property Invoices: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray read FInvoices;
+  end;
+
+  { TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem }
+
+  TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem = class(TKSeF2Object)
+  private
+    function GetCollectiveIdentifierNumber: UTF8String;
+    function GetCreatedInCurrentContext: Boolean;
+    function GetDateCreated: TDateTime;
+    function GetDateCreatedRaw: UTF8String;
+  published
+    property CollectiveIdentifierNumber: UTF8String read GetCollectiveIdentifierNumber;
+    property CreatedInCurrentContext: Boolean read GetCreatedInCurrentContext;
+    property DateCreated: TDateTime read GetDateCreated;
+    property DateCreatedRaw: UTF8String read GetDateCreatedRaw;
+  end;
+
+  { TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray }
+
+  TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem;
+  public
+    property Items[AIndex: Integer]: TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem read GetItem; default;
+  end;
+
+  TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse = class(TKSeF2Response)
+  private
+    FCollectiveIdentifiers: TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray;
+    function GetContinuationToken: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ContinuationToken: UTF8String read GetContinuationToken;
+    property CollectiveIdentifiers: TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray read FCollectiveIdentifiers;
+  end;
+
 procedure lgoRegister;
 
 implementation
@@ -3392,7 +3660,136 @@ begin
     TKSeF2Subunit,
     TKSeF2SubunitArray,
     TKSeF2SubjectCreateRequest,
-    TKSeF2PersonCreateRequest
+    TKSeF2PersonCreateRequest,
+    TKSeF2PersonPermissionsSubjectIdentifier,
+    TKSeF2PersonDetails,
+    TKSeF2PersonIdentifier,
+    TKSeF2IdDocument,
+    TKSeF2PersonByFingerprintWithIdentifierDetails,
+    TKSeF2PersonByFingerprintWithoutIdentifierDetails,
+    TKSeF2PersonPermissionSubjectDetails,
+    TKSeF2PersonPermissionsGrantRequest,
+    TKSeF2PermissionsOperationResponse,
+    TKSeF2EntityPermissionsSubjectIdentifier,
+    TKSeF2EntityPermission,
+    TKSeF2EntityPermissionArray,
+    TKSeF2EntityDetails,
+    TKSeF2EntityPermissionsGrantRequest,
+    TKSeF2EntityAuthorizationPermissionsSubjectIdentifier,
+    TKSeF2EntityAuthorizationPermissionsGrantRequest,
+    TKSeF2IndirectPermissionsSubjectIdentifier,
+    TKSeF2IndirectPermissionsTargetIdentifier,
+    TKSeF2IndirectPermissionsGrantRequest,
+    TKSeF2SubunitPermissionsSubjectIdentifier,
+    TKSeF2SubunitPermissionsContextIdentifier,
+    TKSeF2SubunitPermissionsGrantRequest,
+    TKSeF2EuEntityAdministrationPermissionsSubjectIdentifier,
+    TKSeF2EuEntityAdministrationPermissionsContextIdentifier,
+    TKSeF2EntityByFingerprintDetails,
+    TKSeF2EuEntityPermissionSubjectDetails,
+    TKSeF2EuEntityDetails,
+    TKSeF2EuEntityAdministrationPermissionsGrantRequest,
+    TKSeF2EuEntityPermissionsSubjectIdentifier,
+    TKSeF2EuEntityPermissionsGrantRequest,
+    TKSeF2PermissionsOperationStatusResponse,
+    TKSeF2CheckAttachmentPermissionStatusResponse,
+    TKSeF2PersonalPermissionsContextIdentifier,
+    TKSeF2PersonalPermissionsTargetIdentifier,
+    TKSeF2PersonalPermissionsQueryRequest,
+    TKSeF2PersonPermissionsAuthorizedIdentifier,
+    TKSeF2PersonPermissionsContextIdentifier,
+    TKSeF2PersonPermissionsTargetIdentifier,
+    TKSeF2PersonPermissionsAuthorIdentifier,
+    TKSeF2PermissionsSubjectPersonDetails,
+    TKSeF2PersonalPermission,
+    TKSeF2PersonalPermissionArray,
+    TKSeF2QueryPersonalPermissionsResponse,
+    TKSeF2PersonPermissionsQueryRequest,
+    TKSeF2PermissionsSubjectEntityDetails,
+    TKSeF2PersonPermission,
+    TKSeF2PersonPermissionArray,
+    TKSeF2QueryPersonPermissionsResponse,
+    TKSeF2SubunitPermissionsSubunitIdentifier,
+    TKSeF2SubunitPermissionsQueryRequest,
+    TKSeF2SubunitPermissionsAuthorizedIdentifier,
+    TKSeF2SubunitPermissionsAuthorIdentifier,
+    TKSeF2SubunitPermission,
+    TKSeF2SubunitPermissionArray,
+    TKSeF2QuerySubunitPermissionsResponse,
+    TKSeF2EntityPermissionsContextIdentifier,
+    TKSeF2EntityPermissionsQueryRequest,
+    TKSeF2EntityPermissionItem,
+    TKSeF2EntityPermissionItemArray,
+    TKSeF2QueryEntityPermissionsResponse,
+    TKSeF2EntityRolesParentEntityIdentifier,
+    TKSeF2EntityRole,
+    TKSeF2EntityRoleArray,
+    TKSeF2QueryEntityRolesResponse,
+    TKSeF2EntityPermissionsSubordinateEntityIdentifier,
+    TKSeF2SubordinateEntityRolesQueryRequest,
+    TKSeF2SubordinateRoleSubordinateEntityIdentifier,
+    TKSeF2SubordinateEntityRole,
+    TKSeF2SubordinateEntityRoleArray,
+    TKSeF2QuerySubordinateEntityRolesResponse,
+    TKSeF2EntityAuthorizationsAuthorizingEntityIdentifier,
+    TKSeF2EntityAuthorizationsAuthorizedEntityIdentifier,
+    TKSeF2EntityAuthorizationPermissionsQueryRequest,
+    TKSeF2EntityAuthorizationsAuthorIdentifier,
+    TKSeF2PermissionsSubjectEntityByIdentifierDetails,
+    TKSeF2EntityAuthorizationGrant,
+    TKSeF2EntityAuthorizationGrantArray,
+    TKSeF2QueryEntityAuthorizationPermissionsResponse,
+    TKSeF2EuEntityPermissionsQueryRequest,
+    TKSeF2EuEntityPermissionsAuthorIdentifier,
+    TKSeF2PermissionsSubjectPersonByFingerprintDetails,
+    TKSeF2PermissionsSubjectEntityByFingerprintDetails,
+    TKSeF2PermissionsEuEntityDetails,
+    TKSeF2EuEntityPermission,
+    TKSeF2EuEntityPermissionArray,
+    TKSeF2QueryEuEntityPermissionsResponse,
+    TKSeF2CertificateLimit,
+    TKSeF2CertificateLimitsResponse,
+    TKSeF2CertificateEnrollmentDataResponse,
+    TKSeF2EnrollCertificateRequest,
+    TKSeF2EnrollCertificateResponse,
+    TKSeF2CertificateEnrollmentStatusResponse,
+    TKSeF2RetrieveCertificatesRequest,
+    TKSeF2RetrieveCertificatesListItem,
+    TKSeF2RetrieveCertificatesListItemArray,
+    TKSeF2RetrieveCertificatesResponse,
+    TKSeF2RevokeCertificateRequest,
+    TKSeF2QueryCertificatesRequest,
+    TKSeF2CertificateSubjectIdentifier,
+    TKSeF2CertificateListItem,
+    TKSeF2CertificateListItemArray,
+    TKSeF2QueryCertificatesResponse,
+    TKSeF2OnlineSessionEffectiveContextLimits,
+    TKSeF2BatchSessionEffectiveContextLimits,
+    TKSeF2EffectiveContextLimits,
+    TKSeF2EnrollmentEffectiveSubjectLimits,
+    TKSeF2CertificateEffectiveSubjectLimits,
+    TKSeF2EffectiveSubjectLimits,
+    TKSeF2EffectiveApiRateLimitValues,
+    TKSeF2EffectiveApiRateLimits,
+    TKSeF2PeppolProvider,
+    TKSeF2PeppolProviderArray,
+    TKSeF2QueryPeppolProvidersResponse,
+    TKSeF2CollectiveIdentifierInvoicePayment,
+    TKSeF2CollectiveIdentifierInvoice,
+    TKSeF2CollectiveIdentifierInvoiceArray,
+    TKSeF2GenerateCollectiveIdentifierRequest,
+    TKSeF2GenerateCollectiveIdentifierResponse,
+    TKSeF2CollectiveIdentifiersQueryRequest,
+    TKSeF2CollectiveIdentifiersQueryResponseItem,
+    TKSeF2CollectiveIdentifiersQueryResponseItemArray,
+    TKSeF2CollectiveIdentifiersQueryResponse,
+    TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment,
+    TKSeF2CollectiveIdentifierInvoicesQueryResponseItem,
+    TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray,
+    TKSeF2CollectiveIdentifierInvoicesQueryResponse,
+    TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem,
+    TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray,
+    TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse
     ]);
   lgoRegisterExceptionClass(EKSeF2ExceptionResponseBase);
   lgoRegisterExceptionClass(EKSeF2ExceptionResponse);
@@ -3400,6 +3797,10 @@ begin
   lgoRegisterExceptionClass(EKSeF2Unauthorized);
   lgoRegisterExceptionClass(EKSeF2NotFound);
   lgoRegisterExceptionClass(EKSeF2TooManyRequests);
+  lgoRegisterExceptionClass(EKSeF2ProblemDetails);
+  lgoRegisterExceptionClass(EKSeF2BadRequest);
+  lgoRegisterExceptionClass(EKSeF2Gone);
+  lgoRegisterExceptionClass(EKSeF2TooManyRequestsProblem);
 end;
 
 { EKSeF2ExceptionResponseBase }
@@ -3417,6 +3818,31 @@ begin
       FRawData := lgoGetString(S);
     if lgoCheckResult(lgpObject_GetStringProp(AException, 'ResponseHeaders', S), False) then
       FResponseHeaders := lgoGetString(S);
+  end;
+end;
+
+{ EKSeF2ProblemDetails }
+
+procedure EKSeF2ProblemDetails.LoadObject(AException: LGP_EXCEPTION);
+var
+  S: LGP_OBJECT;
+begin
+  inherited LoadObject(AException);
+  S := nil;
+  if AException <> nil then
+  begin
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'Title', S), False) then
+      FTitle := lgoGetString(S);
+    lgoCheckResult(lgpObject_GetIntegerProp(AException, 'Status', FStatus), False);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'Instance', S), False) then
+      FInstance := lgoGetString(S);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'Detail', S), False) then
+      FDetail := lgoGetString(S);
+    lgoCheckResult(lgpObject_GetDoubleProp(AException, 'Timestamp', FTimestamp), False);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'TimestampRaw', S), False) then
+      FTimestampRaw := lgoGetString(S);
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'TraceId', S), False) then
+      FTraceId := lgoGetString(S);
   end;
 end;
 
@@ -3460,6 +3886,73 @@ begin
   end;
 end;
 
+{ EKSeF2BadRequest }
+
+procedure EKSeF2BadRequest.LoadObject(AException: LGP_EXCEPTION);
+var
+  S, O: LGP_OBJECT;
+  I, Cnt: Integer;
+begin
+  inherited LoadObject(AException);
+  if AException <> nil then
+  begin
+    S := nil;
+    O := nil;
+    Cnt := 0;
+    if lgoCheckResult(lgpObject_GetObjectProp(AException, 'Errors', S), False)
+      and lgoCheckResult(lgpListObject_GetCount(S, Cnt), False)
+      and (Cnt > 0) then
+    begin
+      SetLength(FErrors, Cnt);
+      for I := 0 to Cnt - 1 do
+      begin
+        if lgoCheckResult(lgpListObject_GetItem(S, I, O), False) then
+        begin
+          lgoCheckResult(lgpObject_GetIntegerProp(O, 'ExceptionCode', FErrors[I].ExceptionCode), False);
+          if lgoCheckResult(lgpObject_GetStringProp(O, 'ExceptionDescription', S), False) then
+            FErrors[I].ExceptionDescription := lgoGetString(S);
+          if lgoCheckResult(lgpObject_GetStringProp(O, 'ExceptionDetails', S), False) then
+            FErrors[I].ExceptionDetails := lgoGetString(S);
+        end;
+      end;
+    end;
+  end;
+end;
+
+{ EKSeF2Forbidden }
+
+procedure EKSeF2Forbidden.LoadObject(AException: LGP_EXCEPTION);
+var
+  S, O: LGP_OBJECT;
+  I, Cnt: Integer;
+begin
+  inherited LoadObject(AException);
+  if AException <> nil then
+  begin
+    S := nil;
+    O := nil;
+    Cnt := 0;
+    if lgoCheckResult(lgpObject_GetStringProp(AException, 'ReasonCode', S), False) then
+      FReasonCode := lgoGetString(S);
+    if lgoCheckResult(lgpObject_GetObjectProp(AException, 'Security', S), False)
+      and lgoCheckResult(lgpListObject_GetCount(S, Cnt), False)
+      and (Cnt > 0) then
+    begin
+      SetLength(FSecurity, Cnt);
+      for I := 0 to Cnt - 1 do
+      begin
+        if lgoCheckResult(lgpListObject_GetItem(S, I, O), False) then
+        begin
+          if lgoCheckResult(lgpObject_GetStringProp(O, 'Key', S), False) then
+            FSecurity[I].Key := lgoGetString(S);
+          if lgoCheckResult(lgpObject_GetStringProp(O, 'Value', S), False) then
+            FSecurity[I].Value := lgoGetString(S);
+        end;
+      end;
+    end;
+  end;
+end;
+
 { EKSeF2TooManyRequests }
 
 procedure EKSeF2TooManyRequests.LoadObject(AException: LGP_EXCEPTION);
@@ -3477,6 +3970,15 @@ begin
       FDetails := lgoGetString(S);
     lgoCheckResult(lgpObject_GetIntegerProp(AException, 'RetryAfter', FRetryAfter), False);
   end;
+end;
+
+{ EKSeF2TooManyRequestsProblem }
+
+procedure EKSeF2TooManyRequestsProblem.LoadObject(AException: LGP_EXCEPTION);
+begin
+  inherited LoadObject(AException);
+  if AException <> nil then
+    lgoCheckResult(lgpObject_GetIntegerProp(AException, 'RetryAfter', FRetryAfter), False);
 end;
 
 { TKSeF2Object }
@@ -3932,6 +4434,16 @@ begin
   Result := GetStringProp('Certificate');
 end;
 
+function TKSeF2PublicKeyCertificate.GetCertificateId: UTF8String;
+begin
+  Result := GetStringProp('CertificateId');
+end;
+
+function TKSeF2PublicKeyCertificate.GetPublicKeyId: UTF8String;
+begin
+  Result := GetStringProp('PublicKeyId');
+end;
+
 function TKSeF2PublicKeyCertificate.GetUsage: TKSeF2KeyUsage;
 begin
   Result := [];
@@ -4021,6 +4533,11 @@ begin
   Result := GetStringProp('InitializationVectorBase64');
 end;
 
+function TKSeF2EncryptionInfo.GetPublicKeyId: UTF8String;
+begin
+  Result := GetStringProp('PublicKeyId');
+end;
+
 procedure TKSeF2EncryptionInfo.SetEncryptedSymmetricKeyBase64(AValue: UTF8String);
 begin
   SetStringProp('EncryptedSymmetricKeyBase64', AValue);
@@ -4029,6 +4546,11 @@ end;
 procedure TKSeF2EncryptionInfo.SetInitializationVectorBase64(AValue: UTF8String);
 begin
   SetStringProp('InitializationVectorBase64', AValue);
+end;
+
+procedure TKSeF2EncryptionInfo.SetPublicKeyId(AValue: UTF8String);
+begin
+  SetStringProp('PublicKeyId', AValue);
 end;
 
 { TKSeF2OpenOnlineSessionRequest }
@@ -4218,9 +4740,19 @@ begin
   Result := GetStringProp('FileHash');
 end;
 
+function TKSeF2BatchFileInfo.GetCompressionType: TKSeF2CompressionType;
+begin
+  Result := TKSeF2CompressionType(GetIntegerProp('CompressionType'));
+end;
+
 function TKSeF2BatchFileInfo.GetFileSize: Int64;
 begin
   Result := GetInt64Prop('FileSize');
+end;
+
+procedure TKSeF2BatchFileInfo.SetCompressionType(AValue: TKSeF2CompressionType);
+begin
+  SetIntegerProp('CompressionType', Ord(AValue));
 end;
 
 procedure TKSeF2BatchFileInfo.SetFileHash(AValue: UTF8String);
@@ -5237,6 +5769,17 @@ end;
 function TKSeF2InvoiceExportRequest.GetOnlyMetadata: Boolean;
 begin
   Result := GetBooleanProp('OnlyMetadata');
+end;
+
+procedure TKSeF2InvoiceExportRequest.SetCompressionType(
+  AValue: TKSeF2CompressionType);
+begin
+  SetIntegerProp('CompressionType', Ord(AValue));
+end;
+
+function TKSeF2InvoiceExportRequest.GetCompressionType: TKSeF2CompressionType;
+begin
+  Result := TKSeF2CompressionType(GetIntegerProp('CompressionType'));
 end;
 
 procedure TKSeF2InvoiceExportRequest.SetFilters(
@@ -8926,6 +9469,316 @@ begin
   O := GetObjectProp('PeppolProviders');
   if O <> nil then
     FPeppolProviders := TKSeF2PeppolProviderArray.Create(Self, O);
+end;
+
+{ TKSeF2CollectiveIdentifierInvoicePayment }
+
+function TKSeF2CollectiveIdentifierInvoicePayment.GetAmount: Double;
+begin
+  Result := GetDoubleProp('Amount');
+end;
+
+function TKSeF2CollectiveIdentifierInvoicePayment.GetCurrency: UTF8String;
+begin
+  Result := GetStringProp('Currency');
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoicePayment.SetAmount(AValue: Double);
+begin
+  SetDoubleProp('Amount', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoicePayment.SetCurrency(
+  AValue: UTF8String);
+begin
+  SetStringProp('Currency', AValue);
+end;
+
+function TKSeF2CollectiveIdentifierInvoice.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2CollectiveIdentifierInvoice.GetKsefNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefNumber');
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoice.SetDescription(AValue: UTF8String);
+begin
+  SetStringProp('Description', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoice.SetKsefNumber(AValue: UTF8String);
+begin
+  SetStringProp('KsefNumber', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoice.SetPayment(
+  AValue: TKSeF2CollectiveIdentifierInvoicePayment);
+begin
+  if FPayment = AValue then Exit;
+  if Assigned(FPayment) and (FPayment.Owner = Self) then
+    FPayment.Free;
+  SetObjectProp('Payment', AValue.ExtObject);
+  FPayment := AValue;
+  if Assigned(AValue) and (AValue.Owner = nil) then
+    InsertObject(AValue);
+end;
+
+{ TKSeF2CollectiveIdentifierInvoiceArray }
+
+function TKSeF2CollectiveIdentifierInvoiceArray.GetItem(AIndex: Integer
+  ): TKSeF2CollectiveIdentifierInvoice;
+begin
+  Result := TKSeF2CollectiveIdentifierInvoice(inherited GetItem(AIndex));
+end;
+
+{ TKSeF2GenerateCollectiveIdentifierRequest }
+
+function TKSeF2GenerateCollectiveIdentifierRequest.GetInvoices: TKSeF2CollectiveIdentifierInvoiceArray;
+var
+  O: LGP_OBJECT;
+begin
+  if FInvoices = nil then
+  begin
+    O := GetObjectProp('Invoices');
+    if O <> nil then
+      FInvoices := TKSeF2CollectiveIdentifierInvoiceArray.Create(Self, O);
+  end;
+  Result := FInvoices;
+end;
+
+procedure TKSeF2GenerateCollectiveIdentifierRequest.SetInvoices(
+  AValue: TKSeF2CollectiveIdentifierInvoiceArray);
+begin
+  if FInvoices = AValue then Exit;
+  if Assigned(FInvoices) and (FInvoices.Owner = Self) then
+    FInvoices.Free;
+  SetObjectProp('Invoices', AValue.ExtObject);
+  FInvoices := AValue;
+  if Assigned(AValue) and (AValue.Owner = nil) then
+    InsertObject(AValue);
+end;
+
+{ TKSeF2GenerateCollectiveIdentifierResponse }
+
+function TKSeF2GenerateCollectiveIdentifierResponse.GetCollectiveIdentifierNumber: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumber');
+end;
+
+{ TKSeF2CollectiveIdentifiersQueryRequest }
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetCollectiveIdentifierNumber: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumber');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetCreatedInCurrentContext: Boolean;
+begin
+  Result := GetBooleanProp('CreatedInCurrentContext');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetDateCreatedFrom: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreatedFrom');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetDateCreatedTo: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreatedTo');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetInvoiceCountFrom: Integer;
+begin
+  Result := GetIntegerProp('InvoiceCountFrom');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryRequest.GetInvoiceCountTo: Integer;
+begin
+  Result := GetIntegerProp('InvoiceCountTo');
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetCollectiveIdentifierNumber(
+  AValue: UTF8String);
+begin
+  SetStringProp('CollectiveIdentifierNumber', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetCreatedInCurrentContext(
+  AValue: Boolean);
+begin
+  SetBooleanProp('CreatedInCurrentContext', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetDateCreatedFrom(
+  AValue: TDateTime);
+begin
+  SetDoubleProp('DateCreatedFrom', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetDateCreatedTo(
+  AValue: TDateTime);
+begin
+  SetDoubleProp('DateCreatedTo', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetInvoiceCountFrom(
+  AValue: Integer);
+begin
+  SetIntegerProp('InvoiceCountFrom', AValue);
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryRequest.SetInvoiceCountTo(
+  AValue: Integer);
+begin
+  SetIntegerProp('InvoiceCountTo', AValue);
+end;
+
+{ TKSeF2CollectiveIdentifiersQueryResponseItem }
+
+function TKSeF2CollectiveIdentifiersQueryResponseItem.GetCollectiveIdentifierNumber: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumber');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryResponseItem.GetCreatedInCurrentContext: Boolean;
+begin
+  Result := GetBooleanProp('CreatedInCurrentContext');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryResponseItem.GetDateCreated: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreated');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryResponseItem.GetDateCreatedRaw: UTF8String;
+begin
+  Result := GetStringProp('DateCreatedRaw');
+end;
+
+function TKSeF2CollectiveIdentifiersQueryResponseItem.GetInvoiceCount: Integer;
+begin
+  Result := GetIntegerProp('InvoiceCount');
+end;
+
+{ TKSeF2CollectiveIdentifiersQueryResponseItemArray }
+
+function TKSeF2CollectiveIdentifiersQueryResponseItemArray.GetItem(
+  AIndex: Integer): TKSeF2CollectiveIdentifiersQueryResponseItem;
+begin
+  Result := TKSeF2CollectiveIdentifiersQueryResponseItem(inherited GetItem(AIndex));
+end;
+
+function TKSeF2CollectiveIdentifiersQueryResponse.GetContinuationToken: UTF8String;
+begin
+  Result := GetStringProp('ContinuationToken');
+end;
+
+procedure TKSeF2CollectiveIdentifiersQueryResponse.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('CollectiveIdentifiers');
+  if O <> nil then
+    FCollectiveIdentifiers := TKSeF2CollectiveIdentifiersQueryResponseItemArray.Create(Self, O);
+end;
+
+{ TKSeF2CollectiveIdentifierInvoicesQueryResponseItem }
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetDetailsHidden: Boolean;
+begin
+  Result := GetBooleanProp('DetailsHidden');
+end;
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetKsefNumber: UTF8String;
+begin
+  Result := GetStringProp('KsefNumber');
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Payment');
+  if O <> nil then
+    FPayment := TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment.Create(Self, O);
+end;
+
+{ TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray }
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray.GetItem(
+  AIndex: Integer): TKSeF2CollectiveIdentifierInvoicesQueryResponseItem;
+begin
+  Result := TKSeF2CollectiveIdentifierInvoicesQueryResponseItem(inherited GetItem(AIndex));
+end;
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponse.GetContinuationToken: UTF8String;
+begin
+  Result := GetStringProp('ContinuationToken');
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoicesQueryResponse.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Invoices');
+  if O <> nil then
+    FInvoices := TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray.Create(Self, O);
+end;
+
+{ TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem }
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem.GetCollectiveIdentifierNumber: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumber');
+end;
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem.GetCreatedInCurrentContext: Boolean;
+begin
+  Result := GetBooleanProp('CreatedInCurrentContext');
+end;
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem.GetDateCreated: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreated');
+end;
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem.GetDateCreatedRaw: UTF8String;
+begin
+  Result := GetStringProp('DateCreatedRaw');
+end;
+
+{ TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray }
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray.GetItem(
+  AIndex: Integer): TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem;
+begin
+  Result := TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem(inherited GetItem(AIndex));
+end;
+
+function TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse.GetContinuationToken: UTF8String;
+begin
+  Result := GetStringProp('ContinuationToken');
+end;
+
+procedure TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('CollectiveIdentifiers');
+  if O <> nil then
+    FCollectiveIdentifiers := TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray.Create(Self, O);
 end;
 
 initialization

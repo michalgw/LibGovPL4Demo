@@ -66,6 +66,7 @@ type
     function GetBase64EncoderClass: UTF8String;
     function GetBatchPartSize: Integer;
     function GetBatchReferenceNumber: UTF8String;
+    function GetCompressionType: TKSeF2CompressionType;
     function GetFormCode: TlgoKSeFFormCode;
     function GetFormCodeSchemaVersion: UTF8String;
     function GetFormCodeSystemCode: UTF8String;
@@ -93,6 +94,7 @@ type
       ): TlgoRSAPublicKey;
     function GetRSATokenEncKey(AGateType: TlgoKSeFGateType): TlgoRSAPublicKey;
     function GetSHA256HashClass: UTF8String;
+    function GetUseProblemDetails: Boolean;
     procedure SetAccessToken(AValue: UTF8String);
     procedure SetAccessTokenValidUntil(AValue: TDateTime);
     procedure SetAES256EncryptClass(AValue: UTF8String);
@@ -105,6 +107,7 @@ type
     procedure SetBase64EncoderClass(AValue: UTF8String);
     procedure SetBatchPartSize(AValue: Integer);
     procedure SetBatchReferenceNumber(AValue: UTF8String);
+    procedure SetCompressionType(AValue: TKSeF2CompressionType);
     procedure SetFormCode(AValue: TlgoKSeFFormCode);
     procedure SetFormCodeSchemaVersion(AValue: UTF8String);
     procedure SetFormCodeSystemCode(AValue: UTF8String);
@@ -136,6 +139,7 @@ type
     procedure SetRSATokenEncKey(AGateType: TlgoKSeFGateType;
       AValue: TlgoRSAPublicKey);
     procedure SetSHA256HashClass(AValue: UTF8String);
+    procedure SetUseProblemDetails(AValue: Boolean);
     procedure SetXAdES(AValue: TlgoXAdES);
   public
     constructor Create;
@@ -191,8 +195,8 @@ type
 
     function BatchPrepare(AZIPFileStream: TStream; AOutputStream: TStream; AFormCode: TlgoKSeFFormCode;
       AEncryptionSymetricKey: TBytes; AInitializationVector: TBytes; AFormCodeSystemCode: UTF8String;
-      AFormCodeSchemaVersion: UTF8String; AFormCodeValue: UTF8String; APartSize: Integer = 0): TKSeF2OpenBatchSessionRequest; overload;
-    function BatchPrepare(AZIPFileStream: TStream; AOutputStream: TStream = nil; APartSize: Integer = 0): TKSeF2OpenBatchSessionRequest; overload;
+      AFormCodeSchemaVersion: UTF8String; AFormCodeValue: UTF8String; APartSize: Integer = 0; ACompressionType: TKSeF2CompressionType = ctDefault): TKSeF2OpenBatchSessionRequest; overload;
+    function BatchPrepare(AZIPFileStream: TStream; AOutputStream: TStream = nil; APartSize: Integer = 0; ACompressionType: TKSeF2CompressionType = ctDefault): TKSeF2OpenBatchSessionRequest; overload;
     function BatchOpen(ARequest: TKSeF2OpenBatchSessionRequest; AAccessToken: UTF8String = ''): TKSeF2OpenBatchSessionResponse;
     procedure BatchSendPart(APartUploadRequest: TKSeF2PartUploadRequest; ADataStream: TStream);
     procedure BatchClose(ASessionReferenceNumber: UTF8String = ''; AAccessToken: UTF8String = '');
@@ -223,9 +227,9 @@ type
       APageOffset: Integer = 0; APageSize: Integer = 0; ASortOrder: TKSeF2SortOrder = soDefault;
       AAccessToken: UTF8String = ''): TKSeF2QueryInvoicesMetadataResponse;
     function InvoicesExport(ARequest: TKSeF2InvoiceExportRequest; AAccessToken: UTF8String = ''): TKSeF2ExportInvoicesResponse; overload;
-    function InvoicesExport(ARequest: TKSeF2InvoiceQueryFilters; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil; AAccessToken: UTF8String = ''): TKSeF2ExportInvoicesResponse; overload;
+    function InvoicesExport(ARequest: TKSeF2InvoiceQueryFilters; AOnlyMetadata: Boolean = False; ACompressionType: TKSeF2CompressionType = ctDefault; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil; AAccessToken: UTF8String = ''): TKSeF2ExportInvoicesResponse; overload;
     function InvoicesExportSimple(ARequest: TKSeF2InvoiceExportRequest; AAccessToken: UTF8String = ''): UTF8String; overload;
-    function InvoicesExportSimple(ARequest: TKSeF2InvoiceQueryFilters; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil; AAccessToken: UTF8String = ''): UTF8String; overload;
+    function InvoicesExportSimple(ARequest: TKSeF2InvoiceQueryFilters; AOnlyMetadata: Boolean = False; ACompressionType: TKSeF2CompressionType = ctDefault; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil; AAccessToken: UTF8String = ''): UTF8String; overload;
     function InvoicesExportStatus(AOperationReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2InvoiceExportStatusResponse;
     procedure InvoicesExportDownload(AStatusResponse: TKSeF2InvoiceExportStatusResponse; AOutputStream: TStream; AEncryptionSymetricKey: TBytes = nil; AInitializationVector: TBytes = nil);
 
@@ -291,6 +295,20 @@ type
 
     function PeppolQuery(APageOffset: Integer = 0; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2QueryPeppolProvidersResponse;
 
+    function CollectiveIdentifiers(ARequest: TKSeF2GenerateCollectiveIdentifierRequest; AAccessToken: UTF8String = ''): TKSeF2GenerateCollectiveIdentifierResponse;
+    function CollectiveIdentifiersSimple(ARequest: TKSeF2GenerateCollectiveIdentifierRequest; AAccessToken: UTF8String = ''): UTF8String;
+    function CollectiveidentifiersQuery(ARequest: TKSeF2CollectiveIdentifiersQueryRequest;
+      AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifiersQueryResponse; overload;
+    function CollectiveidentifiersQuery(ADateCreatedFrom: TDateTime;
+      ADateCreatedTo: TDateTime; ACollectiveIdentifierNumber: UTF8String = '';
+      AInvoiceCountFrom: Integer = 0; AInvoiceCountTo: Integer = 0;
+      ACreatedInCurrentContext: Boolean = False; AContinuationToken: UTF8String = '';
+      APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifiersQueryResponse; overload;
+    function CollectiveIdentifiersInvoices(ACollectiveIdentifierNumber: UTF8String;
+      AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+    function CollectiveIdentifiersKsef(AKsefNumber: UTF8String; AContinuationToken: UTF8String = '';
+      APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse;
+
     { Klasa sterownika szyfrowania RSA }
     property RSAPublicKeyClass: UTF8String read GetRSAPublicKeyClass write SetRSAPublicKeyClass;
     { Klasa enkodera Base64 }
@@ -331,6 +349,8 @@ type
     property FormCodeSchemaVersion: UTF8String read GetFormCodeSchemaVersion write SetFormCodeSchemaVersion;
     property FormCodeValue: UTF8String read GetFormCodeValue write SetFormCodeValue;
 
+    property CompressionType: TKSeF2CompressionType read GetCompressionType write SetCompressionType;
+
     property AuthenticationToken: UTF8String read GetAuthenticationToken write SetAuthenticationToken;
     property AuthenticationTokenValidUntil: TDateTime read GetAuthenticationTokenValidUntil write SetAuthenticationTokenValidUntil;
     property AuthenticationRefNo: UTF8String read GetAuthenticationRefNo write SetAuthenticationRefNo;
@@ -356,6 +376,8 @@ type
     property AutoRefreshToken: Boolean read GetAutoRefreshToken write SetAutoRefreshToken;
 
     property ResponseHeaders: UTF8String read GetResponseHeaders write SetResponseHeaders;
+
+    property UseProblemDetails: Boolean read GetUseProblemDetails write SetUseProblemDetails;
 
     property OnRequestPartStream: TKSeF2RequestPartStreamEvent read FOnRequestPartStream write SetOnRequestPartStream;
     property OnRefreshToken: TNotifyEvent read FOnRefreshToken write SetOnRefreshToken;
@@ -534,6 +556,15 @@ begin
   P := nil;
   lgoCheckResult(lgpKSeF2_GetBatchReferenceNumber(ExtObject, P));
   Result := lgoGetString(P);
+end;
+
+function TlgoKSeF2.GetCompressionType: TKSeF2CompressionType;
+var
+  P: LGP_INT32;
+begin
+  P := 0;
+  lgoCheckResult(lgpKSeF2_GetCompressionType(ExtObject, P));
+  Result := TKSeF2CompressionType(P);
 end;
 
 function TlgoKSeF2.GetFormCode: TlgoKSeFFormCode;
@@ -787,6 +818,14 @@ begin
     Result := '';
 end;
 
+function TlgoKSeF2.GetUseProblemDetails: Boolean;
+var
+  I: LGP_INT32;
+begin
+  lgoCheckResult(lgpKSeF2_GetUseProblemDetails(ExtObject, I));
+  Result := I <> 0;
+end;
+
 procedure TlgoKSeF2.SetAccessToken(AValue: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_SetAccessToken(ExtObject, LGP_PCHAR(AValue)));
@@ -853,6 +892,11 @@ end;
 procedure TlgoKSeF2.SetBatchReferenceNumber(AValue: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_SetBatchReferenceNumber(ExtObject, LGP_PCHAR(AValue)));
+end;
+
+procedure TlgoKSeF2.SetCompressionType(AValue: TKSeF2CompressionType);
+begin
+  lgoCheckResult(lgpKSeF2_SetCompressionType(ExtObject, Ord(AValue)));
 end;
 
 procedure TlgoKSeF2.SetFormCode(AValue: TlgoKSeFFormCode);
@@ -1048,6 +1092,11 @@ end;
 procedure TlgoKSeF2.SetSHA256HashClass(AValue: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_SetSHA256HashClass(ExtObject, LGP_PCHAR(AValue)));
+end;
+
+procedure TlgoKSeF2.SetUseProblemDetails(AValue: Boolean);
+begin
+  lgoCheckResult(lgpKSeF2_SetUseProblemDetails(ExtObject, Ord(AValue)));
 end;
 
 procedure TlgoKSeF2.SetXAdES(AValue: TlgoXAdES);
@@ -1399,7 +1448,8 @@ function TlgoKSeF2.BatchPrepare(AZIPFileStream: TStream;
   AOutputStream: TStream; AFormCode: TlgoKSeFFormCode;
   AEncryptionSymetricKey: TBytes; AInitializationVector: TBytes;
   AFormCodeSystemCode: UTF8String; AFormCodeSchemaVersion: UTF8String;
-  AFormCodeValue: UTF8String; APartSize: Integer): TKSeF2OpenBatchSessionRequest;
+  AFormCodeValue: UTF8String; APartSize: Integer;
+  ACompressionType: TKSeF2CompressionType): TKSeF2OpenBatchSessionRequest;
 var
   LGZipStream, LGOutputStream: TlgoStream;
   EOOutStream: LGP_OBJECT;
@@ -1429,7 +1479,8 @@ begin
     end;
     lgoCheckResult(lgpKSeF2_BatchPrepare(ExtObject, LGZipStream.StreamObj,
       EOOutStream, Ord(AFormCode), Key, IV, LGP_PCHAR(AFormCodeSystemCode),
-      LGP_PCHAR(AFormCodeSchemaVersion), LGP_PCHAR(AFormCodeValue), APartSize, O));
+      LGP_PCHAR(AFormCodeSchemaVersion), LGP_PCHAR(AFormCodeValue), APartSize,
+      Ord(ACompressionType), O));
     if O <> nil then
       Result := TKSeF2OpenBatchSessionRequest.Create(nil, O)
     else
@@ -1445,7 +1496,7 @@ begin
 end;
 
 function TlgoKSeF2.BatchPrepare(AZIPFileStream: TStream;
-  AOutputStream: TStream; APartSize: Integer): TKSeF2OpenBatchSessionRequest;
+  AOutputStream: TStream; APartSize: Integer; ACompressionType: TKSeF2CompressionType): TKSeF2OpenBatchSessionRequest;
 var
   LGZipStream, LGOutputStream: TlgoStream;
   EOOutStream: LGP_OBJECT;
@@ -1465,7 +1516,7 @@ begin
       EOOutStream := LGOutputStream.StreamObj;
     end;
     lgoCheckResult(lgpKSeF2_BatchPrepare2(ExtObject, LGZipStream.StreamObj,
-      EOOutStream, APartSize, O));
+      EOOutStream, APartSize, Ord(ACompressionType), O));
     if O <> nil then
       Result := TKSeF2OpenBatchSessionRequest.Create(nil, O)
     else
@@ -1728,6 +1779,7 @@ begin
 end;
 
 function TlgoKSeF2.InvoicesExport(ARequest: TKSeF2InvoiceQueryFilters;
+  AOnlyMetadata: Boolean; ACompressionType: TKSeF2CompressionType;
   AEncryptionSymetricKey: TBytes; AInitializationVector: TBytes;
   AAccessToken: UTF8String): TKSeF2ExportInvoicesResponse;
 var
@@ -1744,7 +1796,7 @@ begin
   else
     IV := nil;
   lgoCheckResult(lgpKSeF2_InvoicesExport2(ExtObject, ARequest.ExtObject,
-    Key, IV, LGP_PCHAR(AAccessToken), O));
+    Ord(AOnlyMetadata), Ord(ACompressionType), Key, IV, LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2ExportInvoicesResponse.Create(nil, O)
   else
@@ -1763,6 +1815,7 @@ begin
 end;
 
 function TlgoKSeF2.InvoicesExportSimple(ARequest: TKSeF2InvoiceQueryFilters;
+  AOnlyMetadata: Boolean; ACompressionType: TKSeF2CompressionType;
   AEncryptionSymetricKey: TBytes; AInitializationVector: TBytes;
   AAccessToken: UTF8String): UTF8String;
 var
@@ -1779,7 +1832,7 @@ begin
   else
     IV := nil;
   lgoCheckResult(lgpKSeF2_InvoicesExportSimple2(ExtObject, ARequest.ExtObject,
-    Key, IV, LGP_PCHAR(AAccessToken), O));
+    Ord(AOnlyMetadata), Ord(ACompressionType), Key, IV, LGP_PCHAR(AAccessToken), O));
   Result := lgoGetString(O);
 end;
 
@@ -2500,6 +2553,102 @@ begin
     LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2QueryPeppolProvidersResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveIdentifiers(
+  ARequest: TKSeF2GenerateCollectiveIdentifierRequest; AAccessToken: UTF8String
+  ): TKSeF2GenerateCollectiveIdentifierResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveIdentifiers(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2GenerateCollectiveIdentifierResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveIdentifiersSimple(
+  ARequest: TKSeF2GenerateCollectiveIdentifierRequest; AAccessToken: UTF8String
+  ): UTF8String;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveIdentifiersSimple(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  Result := lgoGetString(O);
+end;
+
+function TlgoKSeF2.CollectiveidentifiersQuery(
+  ARequest: TKSeF2CollectiveIdentifiersQueryRequest;
+  AContinuationToken: UTF8String; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2CollectiveIdentifiersQueryResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveidentifiersQuery(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AContinuationToken), APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CollectiveIdentifiersQueryResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveidentifiersQuery(ADateCreatedFrom: TDateTime;
+  ADateCreatedTo: TDateTime; ACollectiveIdentifierNumber: UTF8String;
+  AInvoiceCountFrom: Integer; AInvoiceCountTo: Integer;
+  ACreatedInCurrentContext: Boolean; AContinuationToken: UTF8String;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2CollectiveIdentifiersQueryResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveidentifiersQuery2(ExtObject, ADateCreatedFrom,
+    ADateCreatedTo, LGP_PCHAR(ACollectiveIdentifierNumber), AInvoiceCountFrom,
+    AInvoiceCountTo, Ord(ACreatedInCurrentContext), LGP_PCHAR(AContinuationToken),
+    APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CollectiveIdentifiersQueryResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveIdentifiersInvoices(
+  ACollectiveIdentifierNumber: UTF8String; AContinuationToken: UTF8String;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveIdentifiersInvoices(ExtObject,
+    LGP_PCHAR(ACollectiveIdentifierNumber), LGP_PCHAR(AContinuationToken),
+    APageSize, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CollectiveIdentifierInvoicesQueryResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveIdentifiersKsef(AKsefNumber: UTF8String;
+  AContinuationToken: UTF8String; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveIdentifiersKsef(ExtObject,
+    LGP_PCHAR(AKsefNumber), LGP_PCHAR(AContinuationToken), APageSize,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse.Create(nil, O)
   else
     Result := nil;
 end;

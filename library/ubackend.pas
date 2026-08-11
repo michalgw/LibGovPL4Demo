@@ -45,6 +45,7 @@ function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AVa
 function lgpHTTPClient_SetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
 function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpRSAEncrypt_GetCertificate(AKey: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetDisplayName(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -63,6 +64,8 @@ function lgpCertificate_GetValidTo(ACertificate: LGP_OBJECT; var AValue: LGP_PAS
 function lgpCertificate_GetSignature(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetKeyUsage(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 function lgpCertificate_GetPublicKeyAlgorithm(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetCertificateId(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpCertificate_GetPublicKeyId(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
 function lgpCNGCertificate_ShowCertificateInfo(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
@@ -359,6 +362,19 @@ begin
   end;
 end;
 
+function lgpRSAEncrypt_GetCertificate(AKey: LGP_OBJECT; var AValue: LGP_OBJECT
+  ): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(AKey, TlgRSAPublicKey);
+    AValue := (TObject(AKey) as TlgRSAPublicKey).Certificate;
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
 function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT;
   var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 begin
@@ -595,6 +611,32 @@ begin
   try
     CheckObject(ACertificate, TlgCertificate);
     AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).PublicKeyAlgorithm);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetCertificateId(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).CertificateId);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpCertificate_GetPublicKeyId(ACertificate: LGP_OBJECT;
+  var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  try
+    CheckObject(ACertificate, TlgCertificate);
+    AValue := TStringObject.Create((TObject(ACertificate) as TlgCertificate).PublicKeyId);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);

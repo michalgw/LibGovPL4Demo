@@ -153,6 +153,7 @@ function lgpHTTPClient_GetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; var AVa
 function lgpHTTPClient_SetIgnoreSSLErrors(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpRSAEncrypt_CreateKey(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpRSAEncrypt_GetCertificate(AKey: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpCertificate_GetVersion(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetDisplayName(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -171,6 +172,8 @@ function lgpCertificate_GetValidTo(ACertificate: LGP_OBJECT; var AValue: LGP_PAS
 function lgpCertificate_GetSignature(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetKeyUsage(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_GetPublicKeyAlgorithm(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetCertificateId(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpCertificate_GetPublicKeyId(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpCertificate_SetPIN(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpCertificates_Create(AOwnsObjects: LGP_INT32; var ACertificates: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -532,6 +535,8 @@ function lgpKSeF2_GetFormCodeSchemaVersion(AKSeFObject: LGP_OBJECT; var AValue: 
 function lgpKSeF2_SetFormCodeSchemaVersion(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetFormCodeValue(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetFormCodeValue(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetCompressionType(AKSeFObject: LGP_OBJECT; var ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetCompressionType(AKSeFObject: LGP_OBJECT; ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetAuthCertificate(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetAuthCertificate(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetAuthCertificateSubject(AKSeFObject: LGP_OBJECT; var AType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -582,6 +587,8 @@ function lgpKSeF2_GetAutoRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_I
 function lgpKSeF2_SetAutoRefreshToken(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetResponseHeaders(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetResponseHeaders(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_GetUseProblemDetails(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_SetUseProblemDetails(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetOnRequestPartStream(AKSeFObject: LGP_OBJECT; var AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_SetOnRequestPartStream(AKSeFObject: LGP_OBJECT; AValue: TlgpRequestPartStreamEvent): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_GetOnRefreshToken(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -623,8 +630,8 @@ function lgpKSeF2_InteractiveSend3(AKSeFObject: LGP_OBJECT; AInvoiceStream: LGP_
 
 function lgpKSeF2_InteractiveClose(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
-function lgpKSeF2_BatchPrepare(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_BatchPrepare2(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_BatchPrepare(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_BatchPrepare2(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_BatchOpen(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AOpenBatchSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_BatchSendPart(AKSeFObject: LGP_OBJECT; APartUploadRequest: LGP_OBJECT; ADataStream: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_BatchClose(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -644,9 +651,9 @@ function lgpKSeF2_StatusUpoSessionSimple(AKSeFObject: LGP_OBJECT; ASessionRefere
 function lgpKSeF2_InvoicesKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesQueryMetadata(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExport(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_InvoicesExport2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExportSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_InvoicesExportSimple2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_InvoicesExportSimple2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExportStatus(AKSeFObject: LGP_OBJECT; AOperationReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AInvoiceExportStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_InvoicesExportDownload(AKSeFObject: LGP_OBJECT; AStatusResponse: LGP_OBJECT; AOutputStream: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -710,6 +717,13 @@ function lgpKSeF2_LimitsRate(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; v
 
 function lgpKSeF2_PeppolQuery(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
+function lgpKSeF2_CollectiveIdentifiers(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveIdentifiersSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveidentifiersQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveidentifiersQuery2(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveIdentifiersKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+
 // KSeF 2.0 obiekty
 function lgpKSeF2_CreateKSeFClass(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_KSeFClassSetExt(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall; external LGP_LIBNAME;
@@ -771,6 +785,7 @@ var
   lgpHTTPClient_SetIgnoreSSLErrors: function(AHTTPClientObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
 
   lgpRSAEncrypt_CreateKey: function(AClassName: LGP_PCHAR; AKeyStream: LGP_OBJECT; AFormat: LGP_INT32; var ARSAKey: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpRSAEncrypt_GetCertificate: function(AKey: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpCertificate_GetVersion: function(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetDisplayName: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -789,6 +804,8 @@ var
   lgpCertificate_GetSignature: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetKeyUsage: function(ACertificate: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpCertificate_GetPublicKeyAlgorithm: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetCertificateId: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpCertificate_GetPublicKeyId: function(ACertificate: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpCertificate_SetPIN: function(ACertificate: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
   lgpCNGCertificate_ShowCertificateInfo: function(ACertificate: LGP_OBJECT; AHWnd: THandle): LGP_EXCEPTION; stdcall;
@@ -1150,6 +1167,8 @@ var
   lgpKSeF2_SetFormCodeSchemaVersion: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetFormCodeValue: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetFormCodeValue: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetCompressionType: function(AKSeFObject: LGP_OBJECT; var ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+  lgpKSeF2_SetCompressionType: function(AKSeFObject: LGP_OBJECT; ACompressionType: LGP_INT32): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
   lgpKSeF2_GetAuthCertificate: function(AKSeFObject: LGP_OBJECT; var AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetAuthCertificate: function(AKSeFObject: LGP_OBJECT; AObj: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetAuthCertificateSubject: function(AKSeFObject: LGP_OBJECT; var AType: LGP_INT32): LGP_EXCEPTION; stdcall;
@@ -1200,6 +1219,8 @@ var
   lgpKSeF2_SetAutoRefreshToken: function(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetResponseHeaders: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetResponseHeaders: function(AKSeFObject: LGP_OBJECT; AValue: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_GetUseProblemDetails: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_SetUseProblemDetails: function(AKSeFObject: LGP_OBJECT; AValue: LGP_INT32): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_SetOnRequestPartStream: function(AKSeFObject: LGP_OBJECT; AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
   lgpKSeF2_GetOnRefreshToken: function(AKSeFObject: LGP_OBJECT; var AValue: LGP_POINTER): LGP_EXCEPTION; stdcall;
@@ -1241,8 +1262,8 @@ var
 
   lgpKSeF2_InteractiveClose: function(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
-  lgpKSeF2_BatchPrepare: function(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_BatchPrepare2: function(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_BatchPrepare: function(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; AFormCode: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AFormCodeSystemCode: LGP_PCHAR; AFormCodeSchemaVersion: LGP_PCHAR; AFormCodeValue: LGP_PCHAR; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_BatchPrepare2: function(AKSeFObject: LGP_OBJECT; AZIPFileStream: LGP_OBJECT; AOutputStream: LGP_OBJECT; APartSize: LGP_INT32; ACompressionType: LGP_INT32; var AOpenBatchSessionRequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_BatchOpen: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AOpenBatchSessionResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_BatchSendPart: function(AKSeFObject: LGP_OBJECT; APartUploadRequest: LGP_OBJECT; ADataStream: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_BatchClose: function(AKSeFObject: LGP_OBJECT; ASessionReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
@@ -1262,9 +1283,9 @@ var
   lgpKSeF2_InvoicesKsef: function(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AOutputStram: LGP_OBJECT; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesQueryMetadata: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; ASortOrder: LGP_INT32; AAccessToken: LGP_PCHAR; var AQueryInvoicesMetadataResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExport: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_InvoicesExport2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_InvoicesExport2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AExportInvoicesResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExportSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var ASessionReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_InvoicesExportSimple2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_InvoicesExportSimple2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AOnlyMetadata: LGP_INT32; ACompressionType: LGP_INT32; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE; AAccessToken: LGP_PCHAR; var AReferenceNumber: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExportStatus: function(AKSeFObject: LGP_OBJECT; AOperationReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AInvoiceExportStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_InvoicesExportDownload: function(AKSeFObject: LGP_OBJECT; AStatusResponse: LGP_OBJECT; AOutputStream: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE): LGP_EXCEPTION; stdcall;
 
@@ -1327,6 +1348,13 @@ var
   lgpKSeF2_LimitsRate: function(AKSeFObject: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_PeppolQuery: function(AKSeFObject: LGP_OBJECT; APageOffset: LGP_INT32; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+
+  lgpKSeF2_CollectiveIdentifiers: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveIdentifiersSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveidentifiersQuery: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveidentifiersQuery2: function(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveIdentifiersInvoices: function(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveIdentifiersKsef: function(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
   lgpKSeF2_KSeFClassSetExt: function(AObject: LGP_OBJECT; AExtObj: LGP_POINTER): LGP_OBJECT; stdcall;
@@ -1422,6 +1450,7 @@ begin
     @lgpHTTPClient_SetIgnoreSSLErrors := GetProcAddress(LibGovPl4Handle, 'lgpHTTPClient_SetIgnoreSSLErrors');
 
     @lgpRSAEncrypt_CreateKey := GetProcAddress(LibGovPl4Handle, 'lgpRSAEncrypt_CreateKey');
+    @lgpRSAEncrypt_GetCertificate := GetProcAddress(LibGovPl4Handle, 'lgpRSAEncrypt_GetCertificate');
 
     @lgpCertificate_GetVersion := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetVersion');
     @lgpCertificate_GetDisplayName := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetDisplayName');
@@ -1440,6 +1469,8 @@ begin
     @lgpCertificate_GetSignature := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetSignature');
     @lgpCertificate_GetKeyUsage := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetKeyUsage');
     @lgpCertificate_GetPublicKeyAlgorithm := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetPublicKeyAlgorithm');
+    @lgpCertificate_GetCertificateId := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetCertificateId');
+    @lgpCertificate_GetPublicKeyId := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_GetPublicKeyId');
     @lgpCertificate_SetPIN := GetProcAddress(LibGovPl4Handle, 'lgpCertificate_SetPIN');
 
     @lgpCertificates_Create := GetProcAddress(LibGovPl4Handle, 'lgpCertificates_Create');
@@ -1790,6 +1821,8 @@ begin
     @lgpKSeF2_SetFormCodeSchemaVersion := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetFormCodeSchemaVersion');
     @lgpKSeF2_GetFormCodeValue := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetFormCodeValue');
     @lgpKSeF2_SetFormCodeValue := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetFormCodeValue');
+    @lgpKSeF2_GetCompressionType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetCompressionType');
+    @lgpKSeF2_SetCompressionType := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetCompressionType');
     @lgpKSeF2_GetAuthCertificate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAuthCertificate');
     @lgpKSeF2_SetAuthCertificate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAuthCertificate');
     @lgpKSeF2_GetAuthCertificateSubject := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetAuthCertificateSubject');
@@ -1840,6 +1873,8 @@ begin
     @lgpKSeF2_SetAutoRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetAutoRefreshToken');
     @lgpKSeF2_GetResponseHeaders := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetResponseHeaders');
     @lgpKSeF2_SetResponseHeaders := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetResponseHeaders');
+    @lgpKSeF2_GetUseProblemDetails := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetUseProblemDetails');
+    @lgpKSeF2_SetUseProblemDetails := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetUseProblemDetails');
     @lgpKSeF2_GetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetOnRequestPartStream');
     @lgpKSeF2_SetOnRequestPartStream := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_SetOnRequestPartStream');
     @lgpKSeF2_GetOnRefreshToken := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_GetOnRefreshToken');
@@ -1970,6 +2005,13 @@ begin
     @lgpKSeF2_LimitsRate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_LimitsRate');
 
     @lgpKSeF2_PeppolQuery := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_PeppolQuery');
+
+    @lgpKSeF2_CollectiveIdentifiers := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiers');
+    @lgpKSeF2_CollectiveIdentifiersSimple := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersSimple');
+    @lgpKSeF2_CollectiveidentifiersQuery := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveidentifiersQuery');
+    @lgpKSeF2_CollectiveidentifiersQuery2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveidentifiersQuery2');
+    @lgpKSeF2_CollectiveIdentifiersInvoices := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersInvoices');
+    @lgpKSeF2_CollectiveIdentifiersKsef := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersKsef');
 
     @lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl');
     @lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildCertificateVerificationUrl');
