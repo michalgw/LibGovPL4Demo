@@ -34,7 +34,6 @@ begin
       TKSeF2AuthenticationOperationStatusResponse,
       TKSeF2AuthenticationTokensResponse,
       TKSeF2AuthenticationTokenRefreshResponse,
-      TKSeF2AuthenticationMethodInfo,
       TKSeF2AuthenticationListItem,
       TKSeF2AuthenticationList,
       TKSeF2AuthenticationListResponse,
@@ -211,7 +210,23 @@ begin
       TKSeF2EffectiveApiRateLimits,
       TKSeF2PeppolProvider,
       TKSeF2PeppolProviderArray,
-      TKSeF2QueryPeppolProvidersResponse]);
+      TKSeF2QueryPeppolProvidersResponse,
+      TKSeF2CollectiveIdentifierInvoicePayment,
+      TKSeF2CollectiveIdentifierInvoice,
+      TKSeF2CollectiveIdentifierInvoiceArray,
+      TKSeF2GenerateCollectiveIdentifierRequest,
+      TKSeF2GenerateCollectiveIdentifierResponse,
+      TKSeF2CollectiveIdentifiersQueryRequest,
+      TKSeF2CollectiveIdentifiersQueryResponseItem,
+      TKSeF2CollectiveIdentifiersQueryResponseItemArray,
+      TKSeF2CollectiveIdentifiersQueryResponse,
+      TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment,
+      TKSeF2CollectiveIdentifierInvoicesQueryResponseItem,
+      TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray,
+      TKSeF2CollectiveIdentifierInvoicesQueryResponse,
+      TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItem,
+      TKSeF2CollectiveIdentifiersByKsefNumberQueryResponseItemArray,
+      TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse]);
   end;
 end;
 
