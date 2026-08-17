@@ -490,6 +490,7 @@ type
     ButtonKSeFColIdQuery: TButton;
     SpinEditColIdQPage: TSpinEdit;
     EditColIdQTok: TEdit;
+    CheckBoxKSeFProblem: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -781,6 +782,7 @@ begin
   if ComboBoxRandGen.ItemIndex >= 0 then
     KSeF.RandomGeneratorClass := ComboBoxRandGen.Text;
   KSeF.AutoRefreshToken := CheckBoxKSeFAutoRefresh.Checked;
+  KSeF.UseProblemDetails := CheckBoxKSeFProblem.Checked;
 
   TabSheetKSeF2Auth.TabVisible := True;
   TabSheetKSeF2TestData.TabVisible := True;

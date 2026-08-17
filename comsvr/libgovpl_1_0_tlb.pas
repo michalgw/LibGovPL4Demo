@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2026-04-13 22:45:37 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2026-08-12 18:20:57 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -375,6 +375,14 @@ interface
 //  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcMemoryStreamdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcMemoryStreamdisp.Invoke
+//  Warning: 'GUID' not automatable in IlgcPublicKeydisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcPublicKeydisp.QueryInterface
+//  Warning: 'Ppointer' not automatable in IlgcPublicKeydisp.GetTypeInfo
+//  Warning: 'GUID' not automatable in IlgcPublicKeydisp.GetIDsOfNames
+//  Warning: 'PShortInt' not automatable in IlgcPublicKeydisp.GetIDsOfNames
+//  Warning: 'GUID' not automatable in IlgcPublicKeydisp.Invoke
+//  Warning: 'DISPPARAMS' not automatable in IlgcPublicKeydisp.Invoke
+//  Warning: 'EXCEPINFO' not automatable in IlgcPublicKeydisp.Invoke
 Uses
   Windows,ActiveX,Classes,Variants,stdole2;
 Const
@@ -428,6 +436,7 @@ Const
   IID_IlgcHash : TGUID = '{D207DD82-D710-4935-B6AB-B562250514D9}';
   IID_IlgcKSeF2Utils : TGUID = '{76D4D70C-6FA0-44E7-9762-D54C180CD298}';
   IID_IlgcMemoryStream : TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
+  IID_IlgcPublicKey : TGUID = '{AAF24510-C54A-4408-BE72-F3216D08F325}';
   CLASS_lgcErrorInfo : TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject : TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
   CLASS_lgcBackend : TGUID = '{2FAD736C-1297-4705-B19F-AD1EE260A9A2}';
@@ -473,6 +482,7 @@ Const
   CLASS_lgcKSeF2VerificationLinkService : TGUID = '{A198F1D7-E40E-4DA4-A327-7042ED519A7D}';
   CLASS_lgcHash : TGUID = '{9FEC8D19-5C4F-49D3-A4A6-1197CD57D318}';
   CLASS_lgcKSeF2Utils : TGUID = '{6D4435A3-FB82-466F-B283-AD32103573E4}';
+  CLASS_lgcPublicKey : TGUID = '{06A90930-8551-4016-8EA6-9BF77EB74909}';
 
 //Enums
 
@@ -585,6 +595,12 @@ Const
   itInternalId = $0000000000000003;
   itNipVatUe = $0000000000000004;
   itPeppolId = $0000000000000005;
+Type
+  lgcKSeFCompressionType =LongWord;
+Const
+  ctDefault = $0000000000000000;
+  ctZip = $0000000000000001;
+  ctTarGz = $0000000000000002;
 Type
   lgcFileMode =LongWord;
 Const
@@ -702,6 +718,8 @@ Type
  IlgcKSeF2UtilsDisp = dispinterface;
  IlgcMemoryStream = interface;
  IlgcMemoryStreamDisp = dispinterface;
+ IlgcPublicKey = interface;
+ IlgcPublicKeyDisp = dispinterface;
 
 //Map CoClass to its default interface
 
@@ -750,6 +768,7 @@ Type
  lgcKSeF2VerificationLinkService = IlgcKSeF2VerificationLinkService;
  lgcHash = IlgcHash;
  lgcKSeF2Utils = IlgcKSeF2Utils;
+ lgcPublicKey = IlgcPublicKey;
 
 //records, unions, aliases
 
@@ -1123,19 +1142,19 @@ Type
    ['{A7720948-5883-4F9E-8355-F57381433787}']
    function Get_ExtObject : Ppointer; safecall;
    function Get_StringProp(Name:WideString) : WideString; safecall;
-   procedure Set_StringProp(Name:WideString; const parStringProp:WideString); safecall;
+   procedure Set_StringProp(Name:WideString; parStringProp:WideString); safecall;
    function Get_IntegerProp(Name:WideString) : Integer; safecall;
-   procedure Set_IntegerProp(Name:WideString; const parIntegerProp:Integer); safecall;
+   procedure Set_IntegerProp(Name:WideString; parIntegerProp:Integer); safecall;
    function Get_DoubleProp(Name:WideString) : Double; safecall;
-   procedure Set_DoubleProp(Name:WideString; const parDoubleProp:Double); safecall;
+   procedure Set_DoubleProp(Name:WideString; parDoubleProp:Double); safecall;
    function Get_CurrencyProp(Name:WideString) : Currency; safecall;
-   procedure Set_CurrencyProp(Name:WideString; const parCurrencyProp:Currency); safecall;
+   procedure Set_CurrencyProp(Name:WideString; parCurrencyProp:Currency); safecall;
    function Get_BooleanProp(Name:WideString) : WordBool; safecall;
-   procedure Set_BooleanProp(Name:WideString; const parBooleanProp:WordBool); safecall;
+   procedure Set_BooleanProp(Name:WideString; parBooleanProp:WordBool); safecall;
    function Get_Int64Prop(Name:WideString) : Int64; safecall;
-   procedure Set_Int64Prop(Name:WideString; const parInt64Prop:Int64); safecall;
+   procedure Set_Int64Prop(Name:WideString; parInt64Prop:Int64); safecall;
    function Get_DateProp(Name:WideString) : TDateTime; safecall;
-   procedure Set_DateProp(Name:WideString; const parDateProp:TDateTime); safecall;
+   procedure Set_DateProp(Name:WideString; parDateProp:TDateTime); safecall;
     // ListProps : Pobranie listy wlasciwosci obiektu 
    function ListProps:OleVariant;safecall;
     // PropType : Pobranie typu danej wlasciwosci 
@@ -1501,6 +1520,8 @@ Type
    function Get_KeyUsage : Integer; safecall;
    function Get_PublicKeyAlgorithm : WideString; safecall;
    procedure Set_PIN(Param1:WideString); safecall;
+   function Get_CertificateId : WideString; safecall;
+   function Get_PublicKeyId : WideString; safecall;
     // ShowCertificateInfo :  
    procedure ShowCertificateInfo(WinHandle:OleVariant);safecall;
     // Version :  
@@ -1531,6 +1552,10 @@ Type
    property PublicKeyAlgorithm:WideString read Get_PublicKeyAlgorithm;
     // PIN :  
    property PIN:WideString write Set_PIN;
+    // CertificateId :  
+   property CertificateId:WideString read Get_CertificateId;
+    // PublicKeyId :  
+   property PublicKeyId:WideString read Get_PublicKeyId;
   end;
 
 
@@ -1588,6 +1613,10 @@ Type
    property PublicKeyAlgorithm:WideString  readonly dispid 13013;
     // PIN :  
    property PIN:WideString writeonly dispid 13014;
+    // CertificateId :  
+   property CertificateId:WideString  readonly dispid 13016;
+    // PublicKeyId :  
+   property PublicKeyId:WideString  readonly dispid 13017;
   end;
 
 
@@ -2125,6 +2154,10 @@ Type
    property PublicKeyAlgorithm:WideString  readonly dispid 13013;
     // PIN :  
    property PIN:WideString writeonly dispid 13014;
+    // CertificateId :  
+   property CertificateId:WideString  readonly dispid 13016;
+    // PublicKeyId :  
+   property PublicKeyId:WideString  readonly dispid 13017;
     // Session : Pobranie sesji PKCS#11 nawiazanej dla danego zertyfikatu 
    property Session:IDispatch  readonly dispid 20001;
   end;
@@ -3301,7 +3334,7 @@ Type
     // AddStyle :  
    procedure AddStyle(NameSpace:WideString;Source:OleVariant);safecall;
     // Transform :  
-   procedure Transform(Source:OleVariant;OutStream:OleVariant);safecall;
+   procedure Transform(Source:OleVariant;OutStream:OleVariant;Params:OleVariant);safecall;
   end;
 
 
@@ -3330,7 +3363,7 @@ Type
     // AddStyle :  
    procedure AddStyle(NameSpace:WideString;Source:OleVariant);dispid 33001;
     // Transform :  
-   procedure Transform(Source:OleVariant;OutStream:OleVariant);dispid 33002;
+   procedure Transform(Source:OleVariant;OutStream:OleVariant;Params:OleVariant);dispid 33002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
   end;
@@ -3781,7 +3814,7 @@ Type
    function Get_SessionToken : WideString; safecall;
    procedure Set_SessionToken(Value:WideString); safecall;
    function Get_RSATokenEncKey(AGateType:lgcKSeFGateType) : IDispatch; safecall;
-   procedure Set_RSATokenEncKey(AGateType:lgcKSeFGateType; const parRSATokenEncKey:IDispatch); safecall;
+   procedure Set_RSATokenEncKey(AGateType:lgcKSeFGateType; parRSATokenEncKey:IDispatch); safecall;
    function Get_RSATokenEncKeyProd : IDispatch; safecall;
    procedure Set_RSATokenEncKeyProd(Value:IDispatch); safecall;
    function Get_RSATokenEncKeyDemo : IDispatch; safecall;
@@ -3789,7 +3822,7 @@ Type
    function Get_RSATokenEncKeyTest : IDispatch; safecall;
    procedure Set_RSATokenEncKeyTest(Value:IDispatch); safecall;
    function Get_RSASymmetricEncKey(AGateType:lgcKSeFGateType) : IDispatch; safecall;
-   procedure Set_RSASymmetricEncKey(AGateType:lgcKSeFGateType; const parRSASymmetricEncKey:IDispatch); safecall;
+   procedure Set_RSASymmetricEncKey(AGateType:lgcKSeFGateType; parRSASymmetricEncKey:IDispatch); safecall;
    function Get_RSASymmetricEncKeyProd : IDispatch; safecall;
    procedure Set_RSASymmetricEncKeyProd(Value:IDispatch); safecall;
    function Get_RSASymmetricEncKeyDemo : IDispatch; safecall;
@@ -3832,6 +3865,16 @@ Type
    procedure Set_AutoRefreshToken(Value:WordBool); safecall;
    function Get_ResponseHeaders : WideString; safecall;
    procedure Set_ResponseHeaders(Value:WideString); safecall;
+   function Get_Ip4Address : WideString; safecall;
+   procedure Set_Ip4Address(Value:WideString); safecall;
+   function Get_Ip4Mask : WideString; safecall;
+   procedure Set_Ip4Mask(Value:WideString); safecall;
+   function Get_Ip4Range : WideString; safecall;
+   procedure Set_Ip4Range(Value:WideString); safecall;
+   function Get_CompressionType : lgcKSeFCompressionType; safecall;
+   procedure Set_CompressionType(Value:lgcKSeFCompressionType); safecall;
+   function Get_UseProblemDetails : WordBool; safecall;
+   procedure Set_UseProblemDetails(Value:WordBool); safecall;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
    function CreateKSeFObject(ClsName:WideString):IDispatch;safecall;
     // AuthChallenge :  
@@ -3839,17 +3882,17 @@ Type
     // AuthXadesSignatureGenerate :  
    function AuthXadesSignatureGenerate:WideString;safecall;
     // AuthXadesSignatureGenerate2 :  
-   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):WideString;safecall;
+   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):WideString;safecall;
     // AuthXadesSignature :  
    function AuthXadesSignature:IDispatch;safecall;
     // AuthXadesSignature2 :  
-   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):IDispatch;safecall;
+   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):IDispatch;safecall;
     // AuthXadesSignature3 :  
    function AuthXadesSignature3(SignedAuthData:WideString):IDispatch;safecall;
     // AuthKsefToken :  
    function AuthKsefToken:IDispatch;safecall;
     // AuthKsefToken2 :  
-   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):IDispatch;safecall;
+   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):IDispatch;safecall;
     // AuthStatus :  
    function AuthStatus(ReferenceNumber:WideString;AuthenticationToken:WideString):IDispatch;safecall;
     // AuthTokenRedem :  
@@ -3885,9 +3928,9 @@ Type
     // InteractiveClose :  
    procedure InteractiveClose(SessionReferenceNumber:WideString;AccessToken:WideString);safecall;
     // BatchPrepare :  
-   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer):IDispatch;safecall;
+   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;safecall;
     // BatchPrepare2 :  
-   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer):IDispatch;safecall;
+   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;safecall;
     // BatchOpen :  
    function BatchOpen(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
     // BatchSendPart :  
@@ -3923,11 +3966,11 @@ Type
     // InvoicesQueryMetadata :  
    function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer;PageSize:Integer;SortOrder:Integer;AccessToken:WideString):IDispatch;safecall;
     // InvoicesExport :  
-   function InvoicesExport(Request:IDispatch;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;safecall;
+   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;safecall;
     // InvoicesExport2 :  
    function InvoicesExport2(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
     // InvoicesExportSimple :  
-   function InvoicesExportSimple(Request:IDispatch;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;safecall;
+   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;safecall;
     // InvoicesExportSimple2 :  
    function InvoicesExportSimple2(Request:IDispatch;AccessToken:WideString):WideString;safecall;
     // InvoicesExportStatus :  
@@ -4036,6 +4079,18 @@ Type
    function LimitsRate(AccessToken:WideString):IDispatch;safecall;
     // PeppolQuery :  
    function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CollectiveIdentifiers :  
+   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+    // CollectiveIdentifiersSimple :  
+   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+    // CollectiveidentifiersQuery :  
+   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CollectiveidentifiersQuery2 :  
+   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString;InvoiceCountFrom:Integer;InvoiceCountTo:Integer;CreatedInCurrentContext:WordBool;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CollectiveIdentifiersInvoices :  
+   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+    // CollectiveIdentifiersKsef :  
+   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 
    property RSAPublicKeyClass:WideString read Get_RSAPublicKeyClass write Set_RSAPublicKeyClass;
     // Base64EncoderClass : Klasa enkodera Base64 
@@ -4124,6 +4179,16 @@ Type
    property AutoRefreshToken:WordBool read Get_AutoRefreshToken write Set_AutoRefreshToken;
     // ResponseHeaders :  
    property ResponseHeaders:WideString read Get_ResponseHeaders write Set_ResponseHeaders;
+    // Ip4Address :  
+   property Ip4Address:WideString read Get_Ip4Address write Set_Ip4Address;
+    // Ip4Mask :  
+   property Ip4Mask:WideString read Get_Ip4Mask write Set_Ip4Mask;
+    // Ip4Range :  
+   property Ip4Range:WideString read Get_Ip4Range write Set_Ip4Range;
+    // CompressionType :  
+   property CompressionType:lgcKSeFCompressionType read Get_CompressionType write Set_CompressionType;
+    // UseProblemDetails :  
+   property UseProblemDetails:WordBool read Get_UseProblemDetails write Set_UseProblemDetails;
   end;
 
 
@@ -4156,17 +4221,17 @@ Type
     // AuthXadesSignatureGenerate :  
    function AuthXadesSignatureGenerate:WideString;dispid 38046;
     // AuthXadesSignatureGenerate2 :  
-   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):WideString;dispid 38047;
+   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):WideString;dispid 38047;
     // AuthXadesSignature :  
    function AuthXadesSignature:IDispatch;dispid 38048;
     // AuthXadesSignature2 :  
-   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):IDispatch;dispid 38049;
+   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):IDispatch;dispid 38049;
     // AuthXadesSignature3 :  
    function AuthXadesSignature3(SignedAuthData:WideString):IDispatch;dispid 38050;
     // AuthKsefToken :  
    function AuthKsefToken:IDispatch;dispid 38051;
     // AuthKsefToken2 :  
-   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType):IDispatch;dispid 38052;
+   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):IDispatch;dispid 38052;
     // AuthStatus :  
    function AuthStatus(ReferenceNumber:WideString;AuthenticationToken:WideString):IDispatch;dispid 38053;
     // AuthTokenRedem :  
@@ -4202,9 +4267,9 @@ Type
     // InteractiveClose :  
    procedure InteractiveClose(SessionReferenceNumber:WideString;AccessToken:WideString);dispid 38069;
     // BatchPrepare :  
-   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer):IDispatch;dispid 38070;
+   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;dispid 38070;
     // BatchPrepare2 :  
-   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer):IDispatch;dispid 38071;
+   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;dispid 38071;
     // BatchOpen :  
    function BatchOpen(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38072;
     // BatchSendPart :  
@@ -4240,13 +4305,13 @@ Type
     // InvoicesQueryMetadata :  
    function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer;PageSize:Integer;SortOrder:Integer;AccessToken:WideString):IDispatch;dispid 38088;
     // InvoicesExport :  
-   function InvoicesExport(Request:IDispatch;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;dispid 38089;
+   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;dispid 38089;
     // InvoicesExport2 :  
-   function InvoicesExport2(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38090;
+   function InvoicesExport2(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;AccessToken:WideString):IDispatch;dispid 38090;
     // InvoicesExportSimple :  
-   function InvoicesExportSimple(Request:IDispatch;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;dispid 38091;
+   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;dispid 38091;
     // InvoicesExportSimple2 :  
-   function InvoicesExportSimple2(Request:IDispatch;AccessToken:WideString):WideString;dispid 38092;
+   function InvoicesExportSimple2(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;AccessToken:WideString):WideString;dispid 38092;
     // InvoicesExportStatus :  
    function InvoicesExportStatus(OperationReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38093;
     // InvoicesExportDownload :  
@@ -4316,7 +4381,7 @@ Type
     // PermissionsQuerySubunitsGrants :  
    function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38126;
     // PermissionsQueryEntitiesGrants :  
-   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38146;
+   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38157;
     // PermissionsQueryEntitiesRoles :  
    function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38127;
     // PermissionsQuerySubordinateEntitiesRoles :  
@@ -4353,6 +4418,18 @@ Type
    function LimitsRate(AccessToken:WideString):IDispatch;dispid 38143;
     // PeppolQuery :  
    function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38144;
+    // CollectiveIdentifiers :  
+   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38150;
+    // CollectiveIdentifiersSimple :  
+   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38151;
+    // CollectiveidentifiersQuery :  
+   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38152;
+    // CollectiveidentifiersQuery2 :  
+   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString;InvoiceCountFrom:Integer;InvoiceCountTo:Integer;CreatedInCurrentContext:WordBool;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38153;
+    // CollectiveIdentifiersInvoices :  
+   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38154;
+    // CollectiveIdentifiersKsef :  
+   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38155;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
    property LastError:IDispatch  readonly dispid 1003;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 
@@ -4443,6 +4520,16 @@ Type
    property AutoRefreshToken:WordBool dispid 38043;
     // ResponseHeaders :  
    property ResponseHeaders:WideString dispid 38145;
+    // Ip4Address :  
+   property Ip4Address:WideString dispid 38146;
+    // Ip4Mask :  
+   property Ip4Mask:WideString dispid 38147;
+    // Ip4Range :  
+   property Ip4Range:WideString dispid 38148;
+    // CompressionType :  
+   property CompressionType:lgcKSeFCompressionType dispid 38149;
+    // UseProblemDetails :  
+   property UseProblemDetails:WordBool dispid 38156;
   end;
 
 
@@ -4641,6 +4728,45 @@ Type
    property LastError:IDispatch  readonly dispid 1003;
     // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
    property Data:OleVariant dispid 11001;
+  end;
+
+
+// IlgcPublicKey : Obiekt klucza publicznego
+
+ IlgcPublicKey = interface(IlgcBaseObject)
+   ['{AAF24510-C54A-4408-BE72-F3216D08F325}']
+   function Get_Certificate : IDispatch; safecall;
+    // Certificate :  
+   property Certificate:IDispatch read Get_Certificate;
+  end;
+
+
+// IlgcPublicKey : Obiekt klucza publicznego
+
+ IlgcPublicKeyDisp = dispinterface
+   ['{AAF24510-C54A-4408-BE72-F3216D08F325}']
+    // QueryInterface :  
+   procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
+    // AddRef :  
+   function AddRef:LongWord;dispid 1610612737;
+    // Release :  
+   function Release:LongWord;dispid 1610612738;
+    // GetTypeInfoCount :  
+   procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
+    // GetTypeInfo :  
+   procedure GetTypeInfo(itinfo:UInt;lcid:LongWord;out pptinfo:{!! Ppointer !!} OleVariant);dispid 1610678273;
+    // GetIDsOfNames :  
+   procedure GetIDsOfNames(var riid:{!! GUID !!} OleVariant;var rgszNames:{!! PShortInt !!} OleVariant;cNames:UInt;lcid:LongWord;out rgdispid:Integer);dispid 1610678274;
+    // Invoke :  
+   procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
+    // GetObjClassName : Pobranie nazwy pierwotnej klasy 
+   function GetObjClassName:WideString;dispid 1001;
+    // ClearLastError : Usuwanie informacji o ostatnim bledzie 
+   procedure ClearLastError;dispid 1002;
+    // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
+   property LastError:IDispatch  readonly dispid 1003;
+    // Certificate :  
+   property Certificate:IDispatch  readonly dispid 44001;
   end;
 
 //CoClasses
@@ -4912,6 +5038,12 @@ Type
   Public
     Class Function Create: IlgcKSeF2Utils;
     Class Function CreateRemote(MachineName: string): IlgcKSeF2Utils;
+  end;
+
+  ColgcPublicKey = Class
+  Public
+    Class Function Create: IlgcPublicKey;
+    Class Function CreateRemote(MachineName: string): IlgcPublicKey;
   end;
 
 implementation
@@ -5366,6 +5498,16 @@ end;
 Class Function ColgcKSeF2Utils.CreateRemote(MachineName: string): IlgcKSeF2Utils;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
+end;
+
+Class Function ColgcPublicKey.Create: IlgcPublicKey;
+begin
+  Result := CreateComObject(CLASS_lgcPublicKey) as IlgcPublicKey;
+end;
+
+Class Function ColgcPublicKey.CreateRemote(MachineName: string): IlgcPublicKey;
+begin
+  Result := CreateRemoteComObject(MachineName,CLASS_lgcPublicKey) as IlgcPublicKey;
 end;
 
 end.

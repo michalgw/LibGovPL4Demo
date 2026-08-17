@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, EditBtn, Spin, DateTimePicker, LibGovPL_1_0_TLB;
+  ExtCtrls, EditBtn, Spin, DateTimePicker, LibGovPL_1_0_TLB, Grids;
 
 type
 
@@ -232,6 +232,7 @@ type
     GroupBox25: TGroupBox;
     GroupBox26: TGroupBox;
     GroupBox27: TGroupBox;
+    GroupBox31: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
@@ -402,6 +403,7 @@ type
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
     Splitter2: TSplitter;
+    StringGrid1: TStringGrid;
     surname: TLabel;
     ListViewCert: TListView;
     MemoKSeFQInvCrCurrencyCodes: TMemo;
@@ -1276,6 +1278,9 @@ procedure TForm1.ButtonXMLTransClick(Sender: TObject);
 var
   XDoc: IlgcXMLReader = nil;
   FS: IlgcFileStream = nil;
+  Params: TStringArray = nil;
+  I: Integer;
+  VarParams: OleVariant;
 begin
   SetupTrans;
   if (FileNameEditXMLTransSrc.FileName = '') or (FileNameEditXMLTransDst.FileName = '') then
@@ -1286,9 +1291,20 @@ begin
   Debug('Transformacja XML na podstawie XSLT', True);
   Debug('Plik wejściowy: ' + FileNameEditXMLTransSrc.FileName);
   try
+    for I := 1 to StringGrid1.RowCount - 1 do
+      if (StringGrid1.Cells[0, I] <> '') and (StringGrid1.Cells[1, I] <> '') then
+        Params := Concat(Params, [StringGrid1.Cells[0, I], StringGrid1.Cells[1, I]]);
+    if Length(Params) > 0 then
+    begin
+      VarParams := VarArrayCreate([0, Length(Params) - 1], vtString);
+      for I := 0 to Length(Params) - 1 do
+        VarParams[I] := Params[I];
+    end
+    else
+      VarParams := Null;
     XDoc := Backend.CreateXMLReader(RDRCLS[RadioGroupXMLVal.ItemIndex], FileNameEditXMLTransSrc.FileName) as IlgcXMLReader;
     FS := Backend.CreateFileStream(FileNameEditXMLTransDst.FileName, fmCreate) as IlgcFileStream;
-    XTrans.Transform(XDoc, FS);
+    XTrans.Transform(XDoc, FS, VarParams);
     Debug('Zapisano do pliku: ' + FileNameEditXMLTransDst.FileName);
     FS := nil;
     XDoc := nil;

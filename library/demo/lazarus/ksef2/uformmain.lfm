@@ -8,7 +8,9 @@ inherited FormMain: TFormMain
   inherited PageControlMain: TPageControl
     Height = 492
     Width = 760
+    ActivePage = TabSheetKSeFColId
     MultiLine = True
+    TabIndex = 11
     Options = [nboMultiLine]
     inherited TabSheetSetup: TTabSheet
       ClientHeight = 424
@@ -1474,7 +1476,7 @@ inherited FormMain: TFormMain
                 item
                   ButtonStyle = cbsEllipsis
                   Title.Caption = 'Nazwa pliku części'
-                  Width = 686
+                  Width = 703
                 end>
               FixedCols = 0
               Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goSmoothScroll, goCellEllipsis]
@@ -1482,7 +1484,7 @@ inherited FormMain: TFormMain
               TabOrder = 0
               OnButtonClick = StringGridKSeFBEncOutFilesButtonClick
               ColWidths = (
-                686
+                703
               )
             end
           end
@@ -4382,6 +4384,7 @@ inherited FormMain: TFormMain
             BorderSpacing.Around = 8
             Caption = 'Czyść'
             TabOrder = 2
+            OnClick = ButtonKSeFColIdCzyscClick
           end
         end
         object GroupBox45: TGroupBox

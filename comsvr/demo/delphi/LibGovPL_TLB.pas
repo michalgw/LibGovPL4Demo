@@ -12,7 +12,7 @@ unit LibGovPL_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 2025-12-18 23:06:21 from Type Library described below.
+// File generated on 2026-08-17 20:58:09 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: d:\lazarus-projekty\libgovpl4demo\binw32\libgovpl4com.dll (1)
@@ -22,6 +22,8 @@ unit LibGovPL_TLB;
 // HelpString: LibGovPL COM/OLE Automation library
 // DepndLst: 
 //   (1) v2.0 stdole, (C:\Windows\SysWOW64\stdole2.tlb)
+// Errors:
+//   Hint: Parameter 'Type' of IlgcKSeF2.CertificatesQuery2 changed to 'Type_'
 // ************************************************************************ //
 {$TYPEDADDRESS OFF} // Unit must be compiled without type-checked pointers. 
 {$WARN SYMBOL_PLATFORM OFF}
@@ -91,6 +93,7 @@ const
   IID_IlgcHash: TGUID = '{D207DD82-D710-4935-B6AB-B562250514D9}';
   IID_IlgcKSeF2Utils: TGUID = '{76D4D70C-6FA0-44E7-9762-D54C180CD298}';
   IID_IlgcMemoryStream: TGUID = '{BCF17136-365B-4AF4-9720-44EB9E4CABB0}';
+  IID_IlgcPublicKey: TGUID = '{AAF24510-C54A-4408-BE72-F3216D08F325}';
   CLASS_lgcErrorInfo: TGUID = '{635B56F7-B613-4E78-8AE3-B37C4591668B}';
   CLASS_lgcBaseObject: TGUID = '{2966D8CF-42F7-4AFF-9BB4-F3FA1DA714A6}';
   CLASS_lgcBackend: TGUID = '{2FAD736C-1297-4705-B19F-AD1EE260A9A2}';
@@ -136,6 +139,7 @@ const
   CLASS_lgcKSeF2VerificationLinkService: TGUID = '{A198F1D7-E40E-4DA4-A327-7042ED519A7D}';
   CLASS_lgcHash: TGUID = '{9FEC8D19-5C4F-49D3-A4A6-1197CD57D318}';
   CLASS_lgcKSeF2Utils: TGUID = '{6D4435A3-FB82-466F-B283-AD32103573E4}';
+  CLASS_lgcPublicKey: TGUID = '{06A90930-8551-4016-8EA6-9BF77EB74909}';
 
 // *********************************************************************//
 // Declaration of Enumerations defined in Type Library                    
@@ -279,6 +283,14 @@ const
   itNipVatUe = $00000004;
   itPeppolId = $00000005;
 
+// Constants for enum lgcKSeFCompressionType
+type
+  lgcKSeFCompressionType = TOleEnum;
+const
+  ctDefault = $00000000;
+  ctZip = $00000001;
+  ctTarGz = $00000002;
+
 // Constants for enum lgcFileMode
 type
   lgcFileMode = TOleEnum;
@@ -402,6 +414,8 @@ type
   IlgcKSeF2UtilsDisp = dispinterface;
   IlgcMemoryStream = interface;
   IlgcMemoryStreamDisp = dispinterface;
+  IlgcPublicKey = interface;
+  IlgcPublicKeyDisp = dispinterface;
 
 // *********************************************************************//
 // Declaration of CoClasses defined in Type Library                       
@@ -452,6 +466,7 @@ type
   lgcKSeF2VerificationLinkService = IlgcKSeF2VerificationLinkService;
   lgcHash = IlgcHash;
   lgcKSeF2Utils = IlgcKSeF2Utils;
+  lgcPublicKey = IlgcPublicKey;
 
 
 // *********************************************************************//
@@ -909,6 +924,8 @@ type
     function Get_KeyUsage: Integer; safecall;
     function Get_PublicKeyAlgorithm: WideString; safecall;
     procedure Set_PIN(const Param1: WideString); safecall;
+    function Get_CertificateId: WideString; safecall;
+    function Get_PublicKeyId: WideString; safecall;
     procedure ShowCertificateInfo(WinHandle: OleVariant); safecall;
     property Version: Integer read Get_Version;
     property DisplayName: WideString read Get_DisplayName;
@@ -924,6 +941,8 @@ type
     property KeyUsage: Integer read Get_KeyUsage;
     property PublicKeyAlgorithm: WideString read Get_PublicKeyAlgorithm;
     property PIN: WideString write Set_PIN;
+    property CertificateId: WideString read Get_CertificateId;
+    property PublicKeyId: WideString read Get_PublicKeyId;
   end;
 
 // *********************************************************************//
@@ -947,6 +966,8 @@ type
     property KeyUsage: Integer readonly dispid 13012;
     property PublicKeyAlgorithm: WideString readonly dispid 13013;
     property PIN: WideString writeonly dispid 13014;
+    property CertificateId: WideString readonly dispid 13016;
+    property PublicKeyId: WideString readonly dispid 13017;
     procedure ShowCertificateInfo(WinHandle: OleVariant); dispid 13015;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
@@ -1275,6 +1296,8 @@ type
     property KeyUsage: Integer readonly dispid 13012;
     property PublicKeyAlgorithm: WideString readonly dispid 13013;
     property PIN: WideString writeonly dispid 13014;
+    property CertificateId: WideString readonly dispid 13016;
+    property PublicKeyId: WideString readonly dispid 13017;
     procedure ShowCertificateInfo(WinHandle: OleVariant); dispid 13015;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
@@ -2027,7 +2050,7 @@ type
   IlgcXMLXSLTransformation = interface(IlgcBaseObject)
     ['{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}']
     procedure AddStyle(const NameSpace: WideString; Source: OleVariant); safecall;
-    procedure Transform(Source: OleVariant; OutStream: OleVariant); safecall;
+    procedure Transform(Source: OleVariant; OutStream: OleVariant; Params: OleVariant); safecall;
   end;
 
 // *********************************************************************//
@@ -2038,7 +2061,7 @@ type
   IlgcXMLXSLTransformationDisp = dispinterface
     ['{0A7F7305-FB5C-40FE-A1E9-8408D6C45B1C}']
     procedure AddStyle(const NameSpace: WideString; Source: OleVariant); dispid 33001;
-    procedure Transform(Source: OleVariant; OutStream: OleVariant); dispid 33002;
+    procedure Transform(Source: OleVariant; OutStream: OleVariant; Params: OleVariant); dispid 33002;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -2397,20 +2420,38 @@ type
     procedure Set_InvoiceExportReferenceNumber(const Value: WideString); safecall;
     function Get_AutoRefreshToken: WordBool; safecall;
     procedure Set_AutoRefreshToken(Value: WordBool); safecall;
+    function Get_ResponseHeaders: WideString; safecall;
+    procedure Set_ResponseHeaders(const Value: WideString); safecall;
+    function Get_Ip4Address: WideString; safecall;
+    procedure Set_Ip4Address(const Value: WideString); safecall;
+    function Get_Ip4Mask: WideString; safecall;
+    procedure Set_Ip4Mask(const Value: WideString); safecall;
+    function Get_Ip4Range: WideString; safecall;
+    procedure Set_Ip4Range(const Value: WideString); safecall;
+    function Get_CompressionType: lgcKSeFCompressionType; safecall;
+    procedure Set_CompressionType(Value: lgcKSeFCompressionType); safecall;
+    function Get_UseProblemDetails: WordBool; safecall;
+    procedure Set_UseProblemDetails(Value: WordBool); safecall;
     function CreateKSeFObject(const ClsName: WideString): IDispatch; safecall;
     function AuthChallenge: IDispatch; safecall;
     function AuthXadesSignatureGenerate: WideString; safecall;
     function AuthXadesSignatureGenerate2(SubjectIdType: lgcKSeFCertificateAuthType; 
                                          const Identifier: WideString; 
-                                         IdentifierType: lgcKSeFIdentifierType): WideString; safecall;
+                                         IdentifierType: lgcKSeFIdentifierType; 
+                                         const Ip4Address: WideString; const Ip4Range: WideString; 
+                                         const Ip4Mask: WideString): WideString; safecall;
     function AuthXadesSignature: IDispatch; safecall;
     function AuthXadesSignature2(const Certificate: IDispatch; 
                                  SubjectIdType: lgcKSeFCertificateAuthType; 
-                                 const Identifier: WideString; IdentifierType: lgcKSeFIdentifierType): IDispatch; safecall;
+                                 const Identifier: WideString; 
+                                 IdentifierType: lgcKSeFIdentifierType; 
+                                 const Ip4Address: WideString; const Ip4Range: WideString; 
+                                 const Ip4Mask: WideString): IDispatch; safecall;
     function AuthXadesSignature3(const SignedAuthData: WideString): IDispatch; safecall;
     function AuthKsefToken: IDispatch; safecall;
     function AuthKsefToken2(const Token: WideString; const Identifier: WideString; 
-                            IdentifierType: lgcKSeFIdentifierType): IDispatch; safecall;
+                            IdentifierType: lgcKSeFIdentifierType; const Ip4Address: WideString; 
+                            const Ip4Range: WideString; const Ip4Mask: WideString): IDispatch; safecall;
     function AuthStatus(const ReferenceNumber: WideString; const AuthenticationToken: WideString): IDispatch; safecall;
     function AuthTokenRedem(const AuthenticationToken: WideString): IDispatch; safecall;
     function AuthTokenRefresh(const RefreshToken: WideString): IDispatch; safecall;
@@ -2445,12 +2486,14 @@ type
                               const AccessToken: WideString): WideString; safecall;
     procedure InteractiveClose(const SessionReferenceNumber: WideString; 
                                const AccessToken: WideString); safecall;
-    function BatchPrepare(ZIPFileStream: OleVariant; OutputStream: OleVariant; PartSize: Integer): IDispatch; safecall;
+    function BatchPrepare(ZIPFileStream: OleVariant; OutputStream: OleVariant; PartSize: Integer; 
+                          CompressionType: lgcKSeFCompressionType): IDispatch; safecall;
     function BatchPrepare2(ZIPFileStream: OleVariant; OutputStream: OleVariant; FormCode: Integer; 
                            EncryptionSymetricKey: OleVariant; InitializationVector: OleVariant; 
                            const FormCodeSystemCode: WideString; 
                            const FormCodeSchemaVersion: WideString; 
-                           const FormCodeValue: WideString; PartSize: Integer): IDispatch; safecall;
+                           const FormCodeValue: WideString; PartSize: Integer; 
+                           CompressionType: lgcKSeFCompressionType): IDispatch; safecall;
     function BatchOpen(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
     procedure BatchSendPart(const PartUploadRequest: IDispatch; DataStream: OleVariant); safecall;
     procedure BatchClose(const SessionReferenceNumber: WideString; const AccessToken: WideString); safecall;
@@ -2493,10 +2536,14 @@ type
     function InvoicesQueryMetadata(const Request: IDispatch; PageOffset: Integer; 
                                    PageSize: Integer; SortOrder: Integer; 
                                    const AccessToken: WideString): IDispatch; safecall;
-    function InvoicesExport(const Request: IDispatch; EncryptionSymetricKey: OleVariant; 
-                            InitializationVector: OleVariant; const AccessToken: WideString): IDispatch; safecall;
+    function InvoicesExport(const Request: IDispatch; OnlyMetadata: WordBool; 
+                            CompressionType: lgcKSeFCompressionType; 
+                            EncryptionSymetricKey: OleVariant; InitializationVector: OleVariant; 
+                            const AccessToken: WideString): IDispatch; safecall;
     function InvoicesExport2(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
-    function InvoicesExportSimple(const Request: IDispatch; EncryptionSymetricKey: OleVariant; 
+    function InvoicesExportSimple(const Request: IDispatch; OnlyMetadata: WordBool; 
+                                  CompressionType: lgcKSeFCompressionType; 
+                                  EncryptionSymetricKey: OleVariant; 
                                   InitializationVector: OleVariant; const AccessToken: WideString): WideString; safecall;
     function InvoicesExportSimple2(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
     function InvoicesExportStatus(const OperationReferenceNumber: WideString; 
@@ -2517,6 +2564,90 @@ type
     procedure TestdataSubjectRemove(const SubjectNip: WideString); safecall;
     procedure TestdataPerson(const Request: IDispatch); safecall;
     procedure TestdataPersonRemove(const Nip: WideString); safecall;
+    function PermissionsPersonsGrant(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsPersonsGrantSimple(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
+    function PermissionsEntitiesGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsEntitiesGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
+    function PermissionsAuthorizationsGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsAuthorizationsGrantsSimple(const Request: IDispatch; 
+                                                   const AccessToken: WideString): WideString; safecall;
+    function PermissionsIndirectGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsIndirectGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
+    function PermissionsSubunitsGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsSubunitsGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
+    function PermissionsEuEntitiesAdministrationGrants(const Request: IDispatch; 
+                                                       const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsEuEntitiesAdministrationGrantsSimple(const Request: IDispatch; 
+                                                             const AccessToken: WideString): WideString; safecall;
+    function PermissionsEuEntitiesGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsEuEntitiesGrantsSimple(const Request: IDispatch; 
+                                               const AccessToken: WideString): WideString; safecall;
+    function PermissionsCommonRevoke(const PermissionId: WideString; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsCommonRevokeSimple(const PermissionId: WideString; 
+                                           const AccessToken: WideString): WideString; safecall;
+    function PermissionsAuthorizationsRevoke(const PermissionId: WideString; 
+                                             const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsAuthorizationsRevokeSimple(const PermissionId: WideString; 
+                                                   const AccessToken: WideString): WideString; safecall;
+    function PermissionsOperationsStatus(const ReferenceNumber: WideString; 
+                                         const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsAttachmentsStatus(const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryPersonalGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryPersonsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                           PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQuerySubunitsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryEntitiesGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryEntitiesRoles(PageOffset: Integer; PageSize: Integer; 
+                                           const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQuerySubordinateEntitiesRoles(const Request: IDispatch; 
+                                                      PageOffset: Integer; PageSize: Integer; 
+                                                      const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryAuthorizationsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                                  PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function PermissionsQueryEuEntitiesGrants(const Request: IDispatch; PageOffset: Integer; 
+                                              PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesLimits(const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesEnrollmentsData(const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesEnrollments(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesEnrollmentsStatus(const ReferenceNumber: WideString; 
+                                           const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesRetrieve(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesRetrieve2(const CertificateSerialNumbers: WideString; 
+                                   const AccessToken: WideString): IDispatch; safecall;
+    procedure CertificatesRevoke(const CertificateSerialNumber: WideString; 
+                                 const Request: IDispatch; const AccessToken: WideString); safecall;
+    procedure CertificatesRevoke2(const CertificateSerialNumber: WideString; 
+                                  RevocationReason: Integer; const AccessToken: WideString); safecall;
+    function CertificatesQuery(const Request: IDispatch; PageOffset: Integer; PageSize: Integer; 
+                               const AccessToken: WideString): IDispatch; safecall;
+    function CertificatesQuery2(const CertificateSerialNumber: WideString; const Name: WideString; 
+                                Type_: Integer; Status: Integer; ExpiresAfter: TDateTime; 
+                                PageOffset: Integer; PageSize: Integer; 
+                                const AccessToken: WideString): IDispatch; safecall;
+    function LimitsContext(const AccessToken: WideString): IDispatch; safecall;
+    function LimitsSubject(const AccessToken: WideString): IDispatch; safecall;
+    function LimitsRate(const AccessToken: WideString): IDispatch; safecall;
+    function PeppolQuery(PageOffset: Integer; PageSize: Integer; const AccessToken: WideString): IDispatch; safecall;
+    function CollectiveIdentifiers(const Request: IDispatch; const AccessToken: WideString): IDispatch; safecall;
+    function CollectiveIdentifiersSimple(const Request: IDispatch; const AccessToken: WideString): WideString; safecall;
+    function CollectiveidentifiersQuery(const Request: IDispatch; 
+                                        const ContinuationToken: WideString; PageSize: Integer; 
+                                        const AccessToken: WideString): IDispatch; safecall;
+    function CollectiveidentifiersQuery2(DateCreatedFrom: OleVariant; DateCreatedTo: OleVariant; 
+                                         const CollectiveIdentifierNumber: WideString; 
+                                         InvoiceCountFrom: Integer; InvoiceCountTo: Integer; 
+                                         CreatedInCurrentContext: WordBool; 
+                                         const ContinuationToken: WideString; PageSize: Integer; 
+                                         const AccessToken: WideString): IDispatch; safecall;
+    function CollectiveIdentifiersInvoices(const CollectiveIdentifierNumber: WideString; 
+                                           const ContinuationToken: WideString; PageSize: Integer; 
+                                           const AccessToken: WideString): IDispatch; safecall;
+    function CollectiveIdentifiersKsef(const KsefNumber: WideString; 
+                                       const ContinuationToken: WideString; PageSize: Integer; 
+                                       const AccessToken: WideString): IDispatch; safecall;
     property RSAPublicKeyClass: WideString read Get_RSAPublicKeyClass write Set_RSAPublicKeyClass;
     property Base64EncoderClass: WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
     property AES256EncryptClass: WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
@@ -2560,6 +2691,12 @@ type
     property InvoiceExportVector: OleVariant read Get_InvoiceExportVector write Set_InvoiceExportVector;
     property InvoiceExportReferenceNumber: WideString read Get_InvoiceExportReferenceNumber write Set_InvoiceExportReferenceNumber;
     property AutoRefreshToken: WordBool read Get_AutoRefreshToken write Set_AutoRefreshToken;
+    property ResponseHeaders: WideString read Get_ResponseHeaders write Set_ResponseHeaders;
+    property Ip4Address: WideString read Get_Ip4Address write Set_Ip4Address;
+    property Ip4Mask: WideString read Get_Ip4Mask write Set_Ip4Mask;
+    property Ip4Range: WideString read Get_Ip4Range write Set_Ip4Range;
+    property CompressionType: lgcKSeFCompressionType read Get_CompressionType write Set_CompressionType;
+    property UseProblemDetails: WordBool read Get_UseProblemDetails write Set_UseProblemDetails;
   end;
 
 // *********************************************************************//
@@ -2612,20 +2749,32 @@ type
     property InvoiceExportVector: OleVariant dispid 38041;
     property InvoiceExportReferenceNumber: WideString dispid 38042;
     property AutoRefreshToken: WordBool dispid 38043;
+    property ResponseHeaders: WideString dispid 38145;
+    property Ip4Address: WideString dispid 38146;
+    property Ip4Mask: WideString dispid 38147;
+    property Ip4Range: WideString dispid 38148;
+    property CompressionType: lgcKSeFCompressionType dispid 38149;
+    property UseProblemDetails: WordBool dispid 38156;
     function CreateKSeFObject(const ClsName: WideString): IDispatch; dispid 38044;
     function AuthChallenge: IDispatch; dispid 38045;
     function AuthXadesSignatureGenerate: WideString; dispid 38046;
     function AuthXadesSignatureGenerate2(SubjectIdType: lgcKSeFCertificateAuthType; 
                                          const Identifier: WideString; 
-                                         IdentifierType: lgcKSeFIdentifierType): WideString; dispid 38047;
+                                         IdentifierType: lgcKSeFIdentifierType; 
+                                         const Ip4Address: WideString; const Ip4Range: WideString; 
+                                         const Ip4Mask: WideString): WideString; dispid 38047;
     function AuthXadesSignature: IDispatch; dispid 38048;
     function AuthXadesSignature2(const Certificate: IDispatch; 
                                  SubjectIdType: lgcKSeFCertificateAuthType; 
-                                 const Identifier: WideString; IdentifierType: lgcKSeFIdentifierType): IDispatch; dispid 38049;
+                                 const Identifier: WideString; 
+                                 IdentifierType: lgcKSeFIdentifierType; 
+                                 const Ip4Address: WideString; const Ip4Range: WideString; 
+                                 const Ip4Mask: WideString): IDispatch; dispid 38049;
     function AuthXadesSignature3(const SignedAuthData: WideString): IDispatch; dispid 38050;
     function AuthKsefToken: IDispatch; dispid 38051;
     function AuthKsefToken2(const Token: WideString; const Identifier: WideString; 
-                            IdentifierType: lgcKSeFIdentifierType): IDispatch; dispid 38052;
+                            IdentifierType: lgcKSeFIdentifierType; const Ip4Address: WideString; 
+                            const Ip4Range: WideString; const Ip4Mask: WideString): IDispatch; dispid 38052;
     function AuthStatus(const ReferenceNumber: WideString; const AuthenticationToken: WideString): IDispatch; dispid 38053;
     function AuthTokenRedem(const AuthenticationToken: WideString): IDispatch; dispid 38054;
     function AuthTokenRefresh(const RefreshToken: WideString): IDispatch; dispid 38055;
@@ -2660,12 +2809,14 @@ type
                               const AccessToken: WideString): WideString; dispid 38068;
     procedure InteractiveClose(const SessionReferenceNumber: WideString; 
                                const AccessToken: WideString); dispid 38069;
-    function BatchPrepare(ZIPFileStream: OleVariant; OutputStream: OleVariant; PartSize: Integer): IDispatch; dispid 38070;
+    function BatchPrepare(ZIPFileStream: OleVariant; OutputStream: OleVariant; PartSize: Integer; 
+                          CompressionType: lgcKSeFCompressionType): IDispatch; dispid 38070;
     function BatchPrepare2(ZIPFileStream: OleVariant; OutputStream: OleVariant; FormCode: Integer; 
                            EncryptionSymetricKey: OleVariant; InitializationVector: OleVariant; 
                            const FormCodeSystemCode: WideString; 
                            const FormCodeSchemaVersion: WideString; 
-                           const FormCodeValue: WideString; PartSize: Integer): IDispatch; dispid 38071;
+                           const FormCodeValue: WideString; PartSize: Integer; 
+                           CompressionType: lgcKSeFCompressionType): IDispatch; dispid 38071;
     function BatchOpen(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38072;
     procedure BatchSendPart(const PartUploadRequest: IDispatch; DataStream: OleVariant); dispid 38073;
     procedure BatchClose(const SessionReferenceNumber: WideString; const AccessToken: WideString); dispid 38074;
@@ -2708,10 +2859,14 @@ type
     function InvoicesQueryMetadata(const Request: IDispatch; PageOffset: Integer; 
                                    PageSize: Integer; SortOrder: Integer; 
                                    const AccessToken: WideString): IDispatch; dispid 38088;
-    function InvoicesExport(const Request: IDispatch; EncryptionSymetricKey: OleVariant; 
-                            InitializationVector: OleVariant; const AccessToken: WideString): IDispatch; dispid 38089;
+    function InvoicesExport(const Request: IDispatch; OnlyMetadata: WordBool; 
+                            CompressionType: lgcKSeFCompressionType; 
+                            EncryptionSymetricKey: OleVariant; InitializationVector: OleVariant; 
+                            const AccessToken: WideString): IDispatch; dispid 38089;
     function InvoicesExport2(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38090;
-    function InvoicesExportSimple(const Request: IDispatch; EncryptionSymetricKey: OleVariant; 
+    function InvoicesExportSimple(const Request: IDispatch; OnlyMetadata: WordBool; 
+                                  CompressionType: lgcKSeFCompressionType; 
+                                  EncryptionSymetricKey: OleVariant; 
                                   InitializationVector: OleVariant; const AccessToken: WideString): WideString; dispid 38091;
     function InvoicesExportSimple2(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38092;
     function InvoicesExportStatus(const OperationReferenceNumber: WideString; 
@@ -2732,6 +2887,90 @@ type
     procedure TestdataSubjectRemove(const SubjectNip: WideString); dispid 38101;
     procedure TestdataPerson(const Request: IDispatch); dispid 38102;
     procedure TestdataPersonRemove(const Nip: WideString); dispid 38103;
+    function PermissionsPersonsGrant(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38104;
+    function PermissionsPersonsGrantSimple(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38105;
+    function PermissionsEntitiesGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38106;
+    function PermissionsEntitiesGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38107;
+    function PermissionsAuthorizationsGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38108;
+    function PermissionsAuthorizationsGrantsSimple(const Request: IDispatch; 
+                                                   const AccessToken: WideString): WideString; dispid 38109;
+    function PermissionsIndirectGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38110;
+    function PermissionsIndirectGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38111;
+    function PermissionsSubunitsGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38112;
+    function PermissionsSubunitsGrantsSimple(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38113;
+    function PermissionsEuEntitiesAdministrationGrants(const Request: IDispatch; 
+                                                       const AccessToken: WideString): IDispatch; dispid 38114;
+    function PermissionsEuEntitiesAdministrationGrantsSimple(const Request: IDispatch; 
+                                                             const AccessToken: WideString): WideString; dispid 38115;
+    function PermissionsEuEntitiesGrants(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38116;
+    function PermissionsEuEntitiesGrantsSimple(const Request: IDispatch; 
+                                               const AccessToken: WideString): WideString; dispid 38117;
+    function PermissionsCommonRevoke(const PermissionId: WideString; const AccessToken: WideString): IDispatch; dispid 38118;
+    function PermissionsCommonRevokeSimple(const PermissionId: WideString; 
+                                           const AccessToken: WideString): WideString; dispid 38119;
+    function PermissionsAuthorizationsRevoke(const PermissionId: WideString; 
+                                             const AccessToken: WideString): IDispatch; dispid 38120;
+    function PermissionsAuthorizationsRevokeSimple(const PermissionId: WideString; 
+                                                   const AccessToken: WideString): WideString; dispid 38121;
+    function PermissionsOperationsStatus(const ReferenceNumber: WideString; 
+                                         const AccessToken: WideString): IDispatch; dispid 38122;
+    function PermissionsAttachmentsStatus(const AccessToken: WideString): IDispatch; dispid 38123;
+    function PermissionsQueryPersonalGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38124;
+    function PermissionsQueryPersonsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                           PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38125;
+    function PermissionsQuerySubunitsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38126;
+    function PermissionsQueryEntitiesGrants(const Request: IDispatch; PageOffset: Integer; 
+                                            PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38157;
+    function PermissionsQueryEntitiesRoles(PageOffset: Integer; PageSize: Integer; 
+                                           const AccessToken: WideString): IDispatch; dispid 38127;
+    function PermissionsQuerySubordinateEntitiesRoles(const Request: IDispatch; 
+                                                      PageOffset: Integer; PageSize: Integer; 
+                                                      const AccessToken: WideString): IDispatch; dispid 38128;
+    function PermissionsQueryAuthorizationsGrants(const Request: IDispatch; PageOffset: Integer; 
+                                                  PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38129;
+    function PermissionsQueryEuEntitiesGrants(const Request: IDispatch; PageOffset: Integer; 
+                                              PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38130;
+    function CertificatesLimits(const AccessToken: WideString): IDispatch; dispid 38131;
+    function CertificatesEnrollmentsData(const AccessToken: WideString): IDispatch; dispid 38132;
+    function CertificatesEnrollments(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38133;
+    function CertificatesEnrollmentsStatus(const ReferenceNumber: WideString; 
+                                           const AccessToken: WideString): IDispatch; dispid 38134;
+    function CertificatesRetrieve(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38135;
+    function CertificatesRetrieve2(const CertificateSerialNumbers: WideString; 
+                                   const AccessToken: WideString): IDispatch; dispid 38136;
+    procedure CertificatesRevoke(const CertificateSerialNumber: WideString; 
+                                 const Request: IDispatch; const AccessToken: WideString); dispid 38137;
+    procedure CertificatesRevoke2(const CertificateSerialNumber: WideString; 
+                                  RevocationReason: Integer; const AccessToken: WideString); dispid 38138;
+    function CertificatesQuery(const Request: IDispatch; PageOffset: Integer; PageSize: Integer; 
+                               const AccessToken: WideString): IDispatch; dispid 38139;
+    function CertificatesQuery2(const CertificateSerialNumber: WideString; const Name: WideString; 
+                                Type_: Integer; Status: Integer; ExpiresAfter: TDateTime; 
+                                PageOffset: Integer; PageSize: Integer; 
+                                const AccessToken: WideString): IDispatch; dispid 38140;
+    function LimitsContext(const AccessToken: WideString): IDispatch; dispid 38141;
+    function LimitsSubject(const AccessToken: WideString): IDispatch; dispid 38142;
+    function LimitsRate(const AccessToken: WideString): IDispatch; dispid 38143;
+    function PeppolQuery(PageOffset: Integer; PageSize: Integer; const AccessToken: WideString): IDispatch; dispid 38144;
+    function CollectiveIdentifiers(const Request: IDispatch; const AccessToken: WideString): IDispatch; dispid 38150;
+    function CollectiveIdentifiersSimple(const Request: IDispatch; const AccessToken: WideString): WideString; dispid 38151;
+    function CollectiveidentifiersQuery(const Request: IDispatch; 
+                                        const ContinuationToken: WideString; PageSize: Integer; 
+                                        const AccessToken: WideString): IDispatch; dispid 38152;
+    function CollectiveidentifiersQuery2(DateCreatedFrom: OleVariant; DateCreatedTo: OleVariant; 
+                                         const CollectiveIdentifierNumber: WideString; 
+                                         InvoiceCountFrom: Integer; InvoiceCountTo: Integer; 
+                                         CreatedInCurrentContext: WordBool; 
+                                         const ContinuationToken: WideString; PageSize: Integer; 
+                                         const AccessToken: WideString): IDispatch; dispid 38153;
+    function CollectiveIdentifiersInvoices(const CollectiveIdentifierNumber: WideString; 
+                                           const ContinuationToken: WideString; PageSize: Integer; 
+                                           const AccessToken: WideString): IDispatch; dispid 38154;
+    function CollectiveIdentifiersKsef(const KsefNumber: WideString; 
+                                       const ContinuationToken: WideString; PageSize: Integer; 
+                                       const AccessToken: WideString): IDispatch; dispid 38155;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -2862,6 +3101,30 @@ type
     procedure Clear; dispid 11002;
     procedure LoadFromFile(const AFileName: WideString); dispid 11003;
     procedure SaveToFile(const AFileName: WideString); dispid 11004;
+    function GetObjClassName: WideString; dispid 1001;
+    procedure ClearLastError; dispid 1002;
+    property LastError: IDispatch readonly dispid 1003;
+  end;
+
+// *********************************************************************//
+// Interface: IlgcPublicKey
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {AAF24510-C54A-4408-BE72-F3216D08F325}
+// *********************************************************************//
+  IlgcPublicKey = interface(IlgcBaseObject)
+    ['{AAF24510-C54A-4408-BE72-F3216D08F325}']
+    function Get_Certificate: IDispatch; safecall;
+    property Certificate: IDispatch read Get_Certificate;
+  end;
+
+// *********************************************************************//
+// DispIntf:  IlgcPublicKeyDisp
+// Flags:     (4416) Dual OleAutomation Dispatchable
+// GUID:      {AAF24510-C54A-4408-BE72-F3216D08F325}
+// *********************************************************************//
+  IlgcPublicKeyDisp = dispinterface
+    ['{AAF24510-C54A-4408-BE72-F3216D08F325}']
+    property Certificate: IDispatch readonly dispid 44001;
     function GetObjClassName: WideString; dispid 1001;
     procedure ClearLastError; dispid 1002;
     property LastError: IDispatch readonly dispid 1003;
@@ -3407,6 +3670,18 @@ type
     class function CreateRemote(const MachineName: string): IlgcKSeF2Utils;
   end;
 
+// *********************************************************************//
+// The Class ColgcPublicKey provides a Create and CreateRemote method to          
+// create instances of the default interface IlgcPublicKey exposed by              
+// the CoClass lgcPublicKey. The functions are intended to be used by             
+// clients wishing to automate the CoClass objects exposed by the         
+// server of this typelibrary.                                            
+// *********************************************************************//
+  ColgcPublicKey = class
+    class function Create: IlgcPublicKey;
+    class function CreateRemote(const MachineName: string): IlgcPublicKey;
+  end;
+
 implementation
 
 uses ComObj;
@@ -3859,6 +4134,16 @@ end;
 class function ColgcKSeF2Utils.CreateRemote(const MachineName: string): IlgcKSeF2Utils;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
+end;
+
+class function ColgcPublicKey.Create: IlgcPublicKey;
+begin
+  Result := CreateComObject(CLASS_lgcPublicKey) as IlgcPublicKey;
+end;
+
+class function ColgcPublicKey.CreateRemote(const MachineName: string): IlgcPublicKey;
+begin
+  Result := CreateRemoteComObject(MachineName, CLASS_lgcPublicKey) as IlgcPublicKey;
 end;
 
 end.

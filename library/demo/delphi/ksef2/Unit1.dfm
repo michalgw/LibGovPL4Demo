@@ -182,13 +182,13 @@ object Form1: TForm1
         Left = 0
         Top = 153
         Width = 784
-        Height = 192
+        Height = 212
         Align = alTop
         Caption = 'W'#322'a'#347'ciwo'#347'ci KSeF'
         TabOrder = 2
         DesignSize = (
           784
-          192)
+          212)
         object Label2: TLabel
           Left = 16
           Top = 21
@@ -300,6 +300,16 @@ object Form1: TForm1
           Checked = True
           State = cbChecked
           TabOrder = 6
+        end
+        object CheckBoxKSeFProblem: TCheckBox
+          Left = 16
+          Top = 184
+          Width = 137
+          Height = 17
+          Caption = 'U'#380'yj "Problem details"'
+          Checked = True
+          State = cbChecked
+          TabOrder = 7
         end
       end
     end

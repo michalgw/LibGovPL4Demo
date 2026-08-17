@@ -461,6 +461,7 @@ type
     procedure ButtonKSeFBPrepareClick(Sender: TObject);
     procedure ButtonKSeFBSendClick(Sender: TObject);
     procedure ButtonKSeFColIdAddClick(Sender: TObject);
+    procedure ButtonKSeFColIdCzyscClick(Sender: TObject);
     procedure ButtonKSeFColIdInvoicesClick(Sender: TObject);
     procedure ButtonKSeFColIdKsefClick(Sender: TObject);
     procedure ButtonKSeFColIdQueryClick(Sender: TObject);
@@ -1058,7 +1059,7 @@ begin
         Invoice.KsefNumber := Cells[0, I];
         if (Cells[1, I] <> '') and (Cells[2, I] <> '') then
         begin
-          Invoice.Payment := TKSeF2CollectiveIdentifierInvoicePayment.Create(Invoice);
+          Invoice.Payment := TKSeF2CollectiveIdentifierInvoicePayment.Create(Invoice, '');
           Invoice.Payment.Amount := StrToFloatDef(Cells[1, I], 0);
           Invoice.Payment.Currency := Cells[2, I];
         end;
@@ -1074,6 +1075,16 @@ begin
     on E: Exception do
       DebugException(E);
   end;
+end;
+
+procedure TFormMain.ButtonKSeFColIdCzyscClick(Sender: TObject);
+var
+  I, J: Integer;
+begin
+  StringGridKSeFColId.RowCount := 5;
+  for I := 1 to StringGridKSeFColId.RowCount - 1 do
+    for J := 0 to StringGridKSeFColId.ColCount - 1 do
+      StringGridKSeFColId.Cells[J, I] := '';
 end;
 
 procedure TFormMain.ButtonKSeFColIdInvoicesClick(Sender: TObject);
@@ -1104,7 +1115,7 @@ begin
   Debug('Pobranie listy identyfikatorów zbiorczych po numerze KSeF', True);
   if EditColIdKIdNr.Text = '' then
   begin
-    MessageDlg('WprowadĹş identyfikator', mtInformation, [mbOK], 0);
+    MessageDlg('Wprowadź identyfikator', mtInformation, [mbOK], 0);
     Exit;
   end;
   try

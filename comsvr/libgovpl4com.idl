@@ -379,6 +379,20 @@ library LibGovPL
   };
 
   ///
+  /// Rodzaj formatu kompresji
+  ///
+  [
+    uuid(3ea2a782-a6a9-4006-b981-8cc56312dcbe),
+    helpstring("Rodzaj formatu kompresji (KSeF 2.0)")
+  ]
+  enum lgcKSeFCompressionType
+  {
+    ctDefault = 0,
+    ctZip     = 1,
+    ctTarGz   = 2
+  };
+
+  ///
   /// Podstawowy obiekt.
   ///
   [
@@ -1151,6 +1165,18 @@ library LibGovPL
     ///
     [propput, id(13014)]
     HRESULT _stdcall PIN([in] BSTR Value);
+
+    ///
+    /// ID certyfikatu.
+    ///
+    [propget, id(13016)]
+    HRESULT _stdcall CertificateId([out, retval] BSTR* Value);
+
+    ///
+    /// ID klucza publicznego.
+    ///
+    [propget, id(13017)]
+    HRESULT _stdcall PublicKeyId([out, retval] BSTR* Value);
 
     ///
     /// Pokaż okno systemowe z informacją o certyfikacie.
@@ -2683,7 +2709,7 @@ library LibGovPL
     [id(33001)]
     HRESULT _stdcall AddStyle([in] BSTR NameSpace, [in] VARIANT Source);
     [id(33002)]
-    HRESULT _stdcall Transform([in] VARIANT Source, [in] VARIANT OutStream);
+    HRESULT _stdcall Transform([in] VARIANT Source, [in] VARIANT OutStream, [in, optional] VARIANT Params);
   }
 
   [
@@ -3281,6 +3307,56 @@ library LibGovPL
     HRESULT _stdcall ResponseHeaders([in] BSTR Value);
 
     ///
+    ///
+    ///
+    [propget, id(38146),
+    helpstring("")]
+    HRESULT _stdcall Ip4Address([out, retval] BSTR* Value);
+    [propput, id(38146),
+    helpstring("")]
+    HRESULT _stdcall Ip4Address([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38147),
+    helpstring("")]
+    HRESULT _stdcall Ip4Mask([out, retval] BSTR* Value);
+    [propput, id(38147),
+    helpstring("")]
+    HRESULT _stdcall Ip4Mask([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38148),
+    helpstring("")]
+    HRESULT _stdcall Ip4Range([out, retval] BSTR* Value);
+    [propput, id(38148),
+    helpstring("")]
+    HRESULT _stdcall Ip4Range([in] BSTR Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38149),
+    helpstring("")]
+    HRESULT _stdcall CompressionType([out, retval] enum lgcKSeFCompressionType* Value);
+    [propput, id(38149),
+    helpstring("")]
+    HRESULT _stdcall CompressionType([in] enum lgcKSeFCompressionType Value);
+
+    ///
+    ///
+    ///
+    [propget, id(38156),
+    helpstring("")]
+    HRESULT _stdcall UseProblemDetails([out, retval] VARIANT_BOOL* Value);
+    [propput, id(38156),
+    helpstring("")]
+    HRESULT _stdcall UseProblemDetails([in] VARIANT_BOOL Value);
+
+    ///
     /// Tworzenie obiektów żądania KSeF.
     /// @param ClsName nazwa klasy, która zostanie utworzona.
     /// @return zwracana jest instancja obiektu KSeF implementująca interfejs IlgcObject.
@@ -3306,7 +3382,8 @@ library LibGovPL
     ///
     [id(38047)]
     HRESULT _stdcall AuthXadesSignatureGenerate2([in] enum lgcKSeFCertificateAuthType SubjectIdType, [in] BSTR Identifier,
-      [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] BSTR* Signature);
+      [in] enum lgcKSeFIdentifierType IdentifierType, [in, defaultvalue("")] BSTR Ip4Address,
+      [in, defaultvalue("")] BSTR Ip4Range, [in, defaultvalue("")] BSTR Ip4Mask, [out, retval] BSTR* Signature);
 
     ///
     ///
@@ -3319,7 +3396,8 @@ library LibGovPL
     ///
     [id(38049)]
     HRESULT _stdcall AuthXadesSignature2([in] IDispatch* Certificate, [in] enum lgcKSeFCertificateAuthType SubjectIdType, [in] BSTR Identifier,
-      [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] IDispatch** Response);
+      [in] enum lgcKSeFIdentifierType IdentifierType, [in, defaultvalue("")] BSTR Ip4Address,
+      [in, defaultvalue("")] BSTR Ip4Range, [in, defaultvalue("")] BSTR Ip4Mask, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3337,7 +3415,9 @@ library LibGovPL
     ///
     ///
     [id(38052)]
-    HRESULT _stdcall AuthKsefToken2([in] BSTR Token, [in] BSTR Identifier, [in] enum lgcKSeFIdentifierType IdentifierType, [out, retval] IDispatch** Response);
+    HRESULT _stdcall AuthKsefToken2([in] BSTR Token, [in] BSTR Identifier, [in] enum lgcKSeFIdentifierType IdentifierType, 
+      [in, defaultvalue("")] BSTR Ip4Address, [in, defaultvalue("")] BSTR Ip4Range, [in, defaultvalue("")] BSTR Ip4Mask,
+      [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3453,8 +3533,8 @@ library LibGovPL
     ///
     ///
     [id(38070)]
-    HRESULT _stdcall BatchPrepare([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in, defaultvalue(0)] long PartSize, 
-      [out, retval] IDispatch** Response);
+    HRESULT _stdcall BatchPrepare([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in, defaultvalue(0)] long PartSize,
+      [in, defaultvalue(ctDefault)] enum lgcKSeFCompressionType CompressionType, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3462,7 +3542,8 @@ library LibGovPL
     [id(38071)]
     HRESULT _stdcall BatchPrepare2([in] VARIANT ZIPFileStream, [in] VARIANT OutputStream, [in] long FormCode, 
       [in] VARIANT EncryptionSymetricKey, [in] VARIANT InitializationVector, [in] BSTR FormCodeSystemCode, 
-      [in] BSTR FormCodeSchemaVersion, [in] BSTR FormCodeValue, [in, defaultvalue(0)] long PartSize, [out, retval] IDispatch** Response);
+      [in] BSTR FormCodeSchemaVersion, [in] BSTR FormCodeValue, [in, defaultvalue(0)] long PartSize,
+      [in, defaultvalue(ctDefault)] enum lgcKSeFCompressionType CompressionType, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3584,7 +3665,7 @@ library LibGovPL
     ///
     ///
     [id(38089)]
-    HRESULT _stdcall InvoicesExport([in] IDispatch* Request, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+    HRESULT _stdcall InvoicesExport([in] IDispatch* Request, [in, defaultvalue(FALSE)] VARIANT_BOOL OnlyMetadata, [in, defaultvalue(ctDefault)] enum lgcKSeFCompressionType CompressionType, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3596,7 +3677,7 @@ library LibGovPL
     ///
     ///
     [id(38091)]
-    HRESULT _stdcall InvoicesExportSimple([in] IDispatch* Request, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Response);
+    HRESULT _stdcall InvoicesExportSimple([in] IDispatch* Request, [in, defaultvalue(FALSE)] VARIANT_BOOL OnlyMetadata, [in, defaultvalue(ctDefault)] enum lgcKSeFCompressionType CompressionType, [in, defaultvalue(NULL)] VARIANT EncryptionSymetricKey, [in, defaultvalue(NULL)] VARIANT InitializationVector, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* Response);
 
     ///
     ///
@@ -3814,7 +3895,7 @@ library LibGovPL
     ///
     ///
     ///
-    [id(38146)]
+    [id(38157)]
     HRESULT _stdcall PermissionsQueryEntitiesGrants([in] IDispatch* Request, [in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
@@ -3925,6 +4006,49 @@ library LibGovPL
     [id(38144)]
     HRESULT _stdcall PeppolQuery([in, defaultvalue(0)] long PageOffset, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
+    ///
+    ///
+    ///
+    [id(38150)]
+    HRESULT _stdcall CollectiveIdentifiers([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38151)]
+    HRESULT _stdcall CollectiveIdentifiersSimple([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] BSTR* ReferenceNumber);
+
+    ///
+    ///
+    ///
+    [id(38152)]
+    HRESULT _stdcall CollectiveidentifiersQuery([in] IDispatch* Request, [in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38153)]
+    HRESULT _stdcall CollectiveidentifiersQuery2([in] VARIANT DateCreatedFrom, [in] VARIANT DateCreatedTo,
+      [in, defaultvalue("")] BSTR CollectiveIdentifierNumber, [in, defaultvalue(0)] long InvoiceCountFrom,
+      [in, defaultvalue(0)] long InvoiceCountTo, [in, defaultvalue(FALSE)] VARIANT_BOOL CreatedInCurrentContext,
+      [in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, 
+      [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38154)]
+    HRESULT _stdcall CollectiveIdentifiersInvoices([in] BSTR CollectiveIdentifierNumber,
+      [in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, 
+      [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38155)]
+    HRESULT _stdcall CollectiveIdentifiersKsef([in] BSTR KsefNumber, [in, defaultvalue("")] BSTR ContinuationToken, 
+      [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
   };
 
   ///
@@ -4031,6 +4155,25 @@ library LibGovPL
 
     [id(43002)]
     HRESULT _stdcall LoadInvoiceMetadataFromStream([in] VARIANT AStream, [out, retval] IDispatch** Metadata);
+  }
+
+  ///
+  /// Obiekt klucza publicznego.
+  ///
+  [
+    uuid(aaf24510-c54a-4408-be72-f3216d08f325),
+    version(1.0),
+    dual,
+    oleautomation,
+    helpstring("Obiekt klucza publicznego")
+  ]
+  interface IlgcPublicKey: IlgcBaseObject
+  {
+    ///
+    ///
+    ///
+    [propget, id(44001)]
+    HRESULT _stdcall Certificate([out, retval] IDispatch** Value);
   }
 
 /// \cond
@@ -4443,6 +4586,15 @@ library LibGovPL
   coclass lgcKSeF2Utils
   {
     [default] interface IlgcKSeF2Utils;
+  }
+
+  [
+    uuid(06a90930-8551-4016-8ea6-9bf77eb74909),
+    version(1.0)
+  ]
+  coclass lgcPublicKey
+  {
+    [default] interface IlgcPublicKey;
   }
 
 /// \endcond

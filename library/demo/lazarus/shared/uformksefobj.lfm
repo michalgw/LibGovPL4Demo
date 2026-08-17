@@ -1,7 +1,7 @@
 object FormKSeFObj: TFormKSeFObj
-  Left = 207
+  Left = 209
   Height = 463
-  Top = 130
+  Top = 131
   Width = 655
   Caption = 'Eksplorator obiektów'
   ClientHeight = 463
