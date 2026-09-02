@@ -1658,6 +1658,7 @@ end;
 procedure TFormMain.ButtonKSeFColIdInvoicesClick(Sender: TObject);
 var
   Response: TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+  S: String;
 begin
   Debug('Pobranie listy faktur wchodzących w skład identyfikatora zbiorczego', True);
   if EditColIdIId.Text = '' then
@@ -1666,7 +1667,9 @@ begin
     Exit;
   end;
   try
-    Response := KSeF.CollectiveIdentifiersInvoices(EditColIdIId.Text, EditColIdITok.Text, SpinEditColIdIPage.Value);
+    S := EditColIdIId.Text;
+    Response := KSeF.CollectiveIdentifiersInvoices(S.Split([',',';','|']),
+      EditColIdITok.Text, SpinEditColIdIPage.Value);
     AddObject(Response);
     Debug('Odpowiedź: ' + Response.RawResponse);
     EditColIdITok.Text := Response.ContinuationToken;

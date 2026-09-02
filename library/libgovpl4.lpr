@@ -627,6 +627,7 @@ exports
   lgpKSeF2_CollectiveidentifiersQuery,
   lgpKSeF2_CollectiveidentifiersQuery2,
   lgpKSeF2_CollectiveIdentifiersInvoices,
+  lgpKSeF2_CollectiveIdentifiersInvoices2,
   lgpKSeF2_CollectiveIdentifiersKsef,
 
   // KSeF 2.0 obiekty

@@ -2495,7 +2495,7 @@ begin
     Exit;
   end;
   try
-    Response := KSeF.CollectiveIdentifiersInvoices(EditColIdIId.Text, EditColIdITok.Text, SpinEditColIdIPage.Value);
+    Response := KSeF.CollectiveIdentifiersInvoices(SplitString(EditColIdIId.Text, [',',';','|']), EditColIdITok.Text, SpinEditColIdIPage.Value);
     AddObject(Response);
     Debug('Odpowiedü: ' + Response.RawResponse);
     EditColIdITok.Text := Response.ContinuationToken;

@@ -721,7 +721,8 @@ function lgpKSeF2_CollectiveIdentifiers(AKSeFObject: LGP_OBJECT; ARequest: LGP_O
 function lgpKSeF2_CollectiveIdentifiersSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_CollectiveidentifiersQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_CollectiveidentifiersQuery2(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
-function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumbers: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_CollectiveIdentifiersInvoices2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_CollectiveIdentifiersKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 // KSeF 2.0 obiekty
@@ -1353,7 +1354,8 @@ var
   lgpKSeF2_CollectiveIdentifiersSimple: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_CollectiveidentifiersQuery: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_CollectiveidentifiersQuery2: function(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-  lgpKSeF2_CollectiveIdentifiersInvoices: function(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveIdentifiersInvoices: function(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumbers: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_CollectiveIdentifiersInvoices2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_CollectiveIdentifiersKsef: function(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_CreateKSeFClass: function(AClassName: LGP_PCHAR): LGP_OBJECT; stdcall;
@@ -2011,6 +2013,7 @@ begin
     @lgpKSeF2_CollectiveidentifiersQuery := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveidentifiersQuery');
     @lgpKSeF2_CollectiveidentifiersQuery2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveidentifiersQuery2');
     @lgpKSeF2_CollectiveIdentifiersInvoices := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersInvoices');
+    @lgpKSeF2_CollectiveIdentifiersInvoices2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersInvoices2');
     @lgpKSeF2_CollectiveIdentifiersKsef := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_CollectiveIdentifiersKsef');
 
     @lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl');

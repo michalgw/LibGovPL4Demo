@@ -304,8 +304,10 @@ type
       AInvoiceCountFrom: Integer = 0; AInvoiceCountTo: Integer = 0;
       ACreatedInCurrentContext: Boolean = False; AContinuationToken: UTF8String = '';
       APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifiersQueryResponse; overload;
-    function CollectiveIdentifiersInvoices(ACollectiveIdentifierNumber: UTF8String;
-      AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+    function CollectiveIdentifiersInvoices(ARequest: TKSeF2CollectiveIdentifierInvoicesQueryRequest;
+      AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifierInvoicesQueryResponse; overload;
+    function CollectiveIdentifiersInvoices(ACollectiveIdentifierNumbers: UTF8String;
+      AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifierInvoicesQueryResponse; overload;
     function CollectiveIdentifiersKsef(AKsefNumber: UTF8String; AContinuationToken: UTF8String = '';
       APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2CollectiveIdentifiersByKsefNumberQueryResponse;
 
@@ -2621,7 +2623,24 @@ begin
 end;
 
 function TlgoKSeF2.CollectiveIdentifiersInvoices(
-  ACollectiveIdentifierNumber: UTF8String; AContinuationToken: UTF8String;
+  ARequest: TKSeF2CollectiveIdentifierInvoicesQueryRequest;
+  AContinuationToken: UTF8String; APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2CollectiveIdentifierInvoicesQueryResponse;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_CollectiveIdentifiersInvoices2(ExtObject,
+    ARequest.ExtObject, LGP_PCHAR(AContinuationToken), APageSize,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2CollectiveIdentifierInvoicesQueryResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.CollectiveIdentifiersInvoices(
+  ACollectiveIdentifierNumbers: UTF8String; AContinuationToken: UTF8String;
   APageSize: Integer; AAccessToken: UTF8String
   ): TKSeF2CollectiveIdentifierInvoicesQueryResponse;
 var
@@ -2629,7 +2648,7 @@ var
 begin
   O := nil;
   lgoCheckResult(lgpKSeF2_CollectiveIdentifiersInvoices(ExtObject,
-    LGP_PCHAR(ACollectiveIdentifierNumber), LGP_PCHAR(AContinuationToken),
+    LGP_PCHAR(ACollectiveIdentifierNumbers), LGP_PCHAR(AContinuationToken),
     APageSize, LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2CollectiveIdentifierInvoicesQueryResponse.Create(nil, O)

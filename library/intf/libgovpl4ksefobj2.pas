@@ -1203,6 +1203,7 @@ type
 
   TKSeF2InvoicePackagePart = class(TKSeF2Object)
   private
+    function GetCompressionType: TKSeF2CompressionType;
     function GetEncryptedPartHash: UTF8String;
     function GetEncryptedPartSize: Int64;
     function GetExpirationDate: TDateTime;
@@ -1228,6 +1229,7 @@ type
     property ExpirationDateRaw: UTF8String read GetExpirationDateRaw;
     property PermanentStorageHwmDate: TDateTime read GetPermanentStorageHwmDate;
     property PermanentStorageHwmDateRaw: UTF8String read GetPermanentStorageHwmDateRaw;
+    property CompressionType: TKSeF2CompressionType read GetCompressionType;
   end;
 
   { TKSeF2InvoicePackagePartArray }
@@ -3506,6 +3508,16 @@ type
     property CollectiveIdentifiers: TKSeF2CollectiveIdentifiersQueryResponseItemArray read FCollectiveIdentifiers;
   end;
 
+  { TKSeF2CollectiveIdentifierInvoicesQueryRequest }
+
+  TKSeF2CollectiveIdentifierInvoicesQueryRequest = class(TKSeF2Request)
+  private
+    function GetCollectiveIdentifierNumbers: UTF8String;
+    procedure SetCollectiveIdentifierNumbers(AValue: UTF8String);
+  published
+    property CollectiveIdentifierNumbers: UTF8String read GetCollectiveIdentifierNumbers write SetCollectiveIdentifierNumbers;
+  end;
+
   TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment = TKSeF2CollectiveIdentifierInvoicePayment;
 
   { TKSeF2CollectiveIdentifierInvoicesQueryResponseItem }
@@ -3513,6 +3525,7 @@ type
   TKSeF2CollectiveIdentifierInvoicesQueryResponseItem = class(TKSeF2Object)
   private
     FPayment: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment;
+    function GetCollectiveIdentifierNumber: UTF8String;
     function GetDescription: UTF8String;
     function GetDetailsHidden: Boolean;
     function GetKsefNumber: UTF8String;
@@ -3520,6 +3533,7 @@ type
     procedure LoadObject; override;
   published
     property KsefNumber: UTF8String read GetKsefNumber;
+    property CollectiveIdentifierNumber: UTF8String read GetCollectiveIdentifierNumber;
     property Payment: TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment read FPayment;
     property Description: UTF8String read GetDescription;
     property DetailsHidden: Boolean read GetDetailsHidden;
@@ -3783,6 +3797,7 @@ begin
     TKSeF2CollectiveIdentifiersQueryResponseItem,
     TKSeF2CollectiveIdentifiersQueryResponseItemArray,
     TKSeF2CollectiveIdentifiersQueryResponse,
+    TKSeF2CollectiveIdentifierInvoicesQueryRequest,
     TKSeF2CollectiveIdentifierInvoicesQueryResponseItemPayment,
     TKSeF2CollectiveIdentifierInvoicesQueryResponseItem,
     TKSeF2CollectiveIdentifierInvoicesQueryResponseItemArray,
@@ -5820,6 +5835,11 @@ begin
 end;
 
 { TKSeF2InvoicePackagePart }
+
+function TKSeF2InvoicePackagePart.GetCompressionType: TKSeF2CompressionType;
+begin
+  Result := TKSeF2CompressionType(GetIntegerProp('compressionType'));
+end;
 
 function TKSeF2InvoicePackagePart.GetEncryptedPartHash: UTF8String;
 begin
@@ -9686,11 +9706,29 @@ begin
     FCollectiveIdentifiers := TKSeF2CollectiveIdentifiersQueryResponseItemArray.Create(Self, O);
 end;
 
+{ TKSeF2CollectiveIdentifierInvoicesQueryRequest }
+
+function TKSeF2CollectiveIdentifierInvoicesQueryRequest.GetCollectiveIdentifierNumbers: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumbersStr');
+end;
+
+procedure TKSeF2CollectiveIdentifierInvoicesQueryRequest.SetCollectiveIdentifierNumbers
+  (AValue: UTF8String);
+begin
+  SetStringProp('CollectiveIdentifierNumbersStr', AValue);
+end;
+
 { TKSeF2CollectiveIdentifierInvoicesQueryResponseItem }
 
 function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetDescription: UTF8String;
 begin
   Result := GetStringProp('Description');
+end;
+
+function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetCollectiveIdentifierNumber: UTF8String;
+begin
+  Result := GetStringProp('CollectiveIdentifierNumber');
 end;
 
 function TKSeF2CollectiveIdentifierInvoicesQueryResponseItem.GetDetailsHidden: Boolean;

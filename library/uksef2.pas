@@ -253,7 +253,8 @@ function lgpKSeF2_CollectiveIdentifiers(AKSeFObject: LGP_OBJECT; ARequest: LGP_O
 function lgpKSeF2_CollectiveIdentifiersSimple(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_CollectiveidentifiersQuery(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_CollectiveidentifiersQuery2(AKSeFObject: LGP_OBJECT; ADateCreatedFrom: LGP_DOUBLE; ADateCreatedTo: LGP_DOUBLE; ACollectiveIdentifierNumber: LGP_PCHAR; AInvoiceCountFrom: LGP_INT32; AInvoiceCountTo: LGP_INT32; ACreatedInCurrentContext: LGP_INT32; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
-function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT; ACollectiveIdentifierNumbers: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+function lgpKSeF2_CollectiveIdentifiersInvoices2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 function lgpKSeF2_CollectiveIdentifiersKsef(AKSeFObject: LGP_OBJECT; AKsefNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
 function lgpKSeF2VerifLinkSvc_BuildInvoiceVerificationUrl(ANip: LGP_PCHAR; AIssueDate: LGP_DOUBLE; AInvoiceHash: LGP_PCHAR; AGateType: LGP_INT32; var AGeneratedLink: LGP_OBJECT): LGP_EXCEPTION; stdcall;
@@ -3454,16 +3455,36 @@ begin
 end;
 
 function lgpKSeF2_CollectiveIdentifiersInvoices(AKSeFObject: LGP_OBJECT;
-  ACollectiveIdentifierNumber: LGP_PCHAR; AContinuationToken: LGP_PCHAR;
+  ACollectiveIdentifierNumbers: LGP_PCHAR; AContinuationToken: LGP_PCHAR;
   APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT
   ): LGP_EXCEPTION; stdcall;
+var
+  S: String;
 begin
   Result := nil;
   AResponse := nil;
   try
     CheckObject(AKSeFObject, TlgKSeF2);
+    S := ACollectiveIdentifierNumbers;
     AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiersInvoices(
-      ACollectiveIdentifierNumber, AContinuationToken, APageSize, AAccessToken);
+      S.Split([',', ';', '|']), AContinuationToken, APageSize, AAccessToken);
+  except
+    on E: Exception do
+      Result := lgpCreateExceptioObject(E);
+  end;
+end;
+
+function lgpKSeF2_CollectiveIdentifiersInvoices2(AKSeFObject: LGP_OBJECT;
+  ARequest: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32;
+  AAccessToken: LGP_PCHAR; var AResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+begin
+  Result := nil;
+  AResponse := nil;
+  try
+    CheckObject(AKSeFObject, TlgKSeF2);
+    CheckObject(ARequest, TKSeF2CollectiveIdentifierInvoicesQueryRequest);
+    AResponse := (TObject(AKSeFObject) as TlgKSeF2).CollectiveIdentifiersInvoices(
+      ARequest, AContinuationToken, APageSize, AAccessToken);
   except
     on E: Exception do
       Result := lgpCreateExceptioObject(E);
