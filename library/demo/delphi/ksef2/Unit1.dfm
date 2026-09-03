@@ -182,13 +182,13 @@ object Form1: TForm1
         Left = 0
         Top = 153
         Width = 784
-        Height = 212
+        Height = 232
         Align = alTop
         Caption = 'W'#322'a'#347'ciwo'#347'ci KSeF'
         TabOrder = 2
         DesignSize = (
           784
-          212)
+          232)
         object Label2: TLabel
           Left = 16
           Top = 21
@@ -310,6 +310,16 @@ object Form1: TForm1
           Checked = True
           State = cbChecked
           TabOrder = 7
+        end
+        object CheckBoxWczytajCertyfikaty: TCheckBox
+          Left = 16
+          Top = 208
+          Width = 209
+          Height = 17
+          Caption = 'Pobierz list'#281' certyfikat'#243'w z magazynu'
+          Checked = True
+          State = cbChecked
+          TabOrder = 8
         end
       end
     end

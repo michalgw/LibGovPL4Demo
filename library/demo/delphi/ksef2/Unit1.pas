@@ -491,6 +491,7 @@ type
     SpinEditColIdQPage: TSpinEdit;
     EditColIdQTok: TEdit;
     CheckBoxKSeFProblem: TCheckBox;
+    CheckBoxWczytajCertyfikaty: TCheckBox;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -753,7 +754,8 @@ begin
       end;
     end;
 
-  ReloadCerificates;
+  if CheckBoxWczytajCertyfikaty.Checked then
+    ReloadCerificates;
 
   TabSheetCert.TabVisible := True;
   TabSheetSetup.Enabled := False;
