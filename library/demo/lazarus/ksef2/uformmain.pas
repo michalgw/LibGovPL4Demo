@@ -1187,7 +1187,9 @@ begin
   Debug('Pobieranie paczki faktur', True);
   try
     try
+      // Tworzymy strumień wyjściowy z paczką.
       FileStream := TFileStream.Create(FileNameEditKSeFDEFileName.FileName, fmCreate);
+      // Pobieramy paczkę. Pobrane i odzyfrowane zostaną wszystkie części.
       KSeF.InvoicesExportDownload(ExportResponse, FileStream);
       Debug('Pobrano do pliku: ' + FileNameEditKSeFDEFileName.FileName);
     except
@@ -1206,8 +1208,17 @@ var
 begin
   Debug('Eksport paczki faktur', True);
   try
+    // Zwolnij poprzednią odpowiedź
+    if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+      ExportResponse.Free;
+    ExportResponse := nil;
+    // Wyczyść nazwę pliku docelowego i zablokuj pola pobierania
+    FileNameEditKSeFDEFileName.FileName := '';
+    GroupBoxKSeFD1.Enabled := False;
+    // Generuj filtr na podstawie którego zostanie przygotowana paczka faktur
     Filter := GenerateFilter;
     AddObject(Filter);
+    // Zażądaj przygotowania paczki faktur, zapisz nr referencyjny procesu do pola edycji.
     EditKSeFDEOperationReferenceNumber.Text := KSeF.InvoicesExportSimple(Filter, CheckBoxKSeFDExportMetaOnly.Checked, TKSeF2CompressionType(ComboBoxKSeFDExportFormat.ItemIndex));
     Debug('Numer referencyjny operacji: ' + EditKSeFDEOperationReferenceNumber.Text);
   except
@@ -1278,24 +1289,43 @@ begin
 end;
 
 procedure TFormMain.ButtonKSeFDStatusClick(Sender: TObject);
+const
+  FILEEXT: array[0..2] of String = ('.zip', '.zip', '.tgz');
 var
   Response: TKSeF2InvoiceExportStatusResponse;
 begin
   Debug('Pobranie statusu eksportu paczki faktur', True);
   try
+    // Pobierz status procesu przygotowania paczki faktur
     Response := KSeF.InvoicesExportStatus(EditKSeFDEOperationReferenceNumber.Text);
+    // Napisz informacje o statusie
     Debug('Odpowiedź: ' + Response.RawResponse);
     Debug('Status: ' + IntToStr(Response.Status.Code));
     Debug('Opis: ' + Response.Status.Description);
-    if (Response.Status.Code = 200) and (Response.Package.Parts.Count > 0) then
+    // Status = 200 czyli zakończono proces tworzenia paczki na serwerze
+    if (Response.Status.Code = 200) then
     begin
-      if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+      // Czy odpowiedź zawiera jakiekolwiek części paczki?
+      // Jeśli tak to zezwól na pobranie
+      if (Response.Package.Parts.Count > 0) then
       begin
-        ExportResponse.Free;
-        ExportResponse := nil;
-      end;
-      ExportResponse := Response;
-      GroupBoxKSeFD1.Enabled := True;
+        Debug('Ilość części: ' + IntToStr(Response.Package.Parts.Count));
+        if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+        begin
+          ExportResponse.Free;
+          ExportResponse := nil;
+        end;
+        // Zachowaj odpowiedź zapytania o status - zawiera informacje o częściach paczki.
+        // Będzie potrzebna przy pobieraniu części.
+        ExportResponse := Response;
+        // Odblokuj możliwość pobrania paczki.
+        GroupBoxKSeFD1.Enabled := True;
+        // Ustaw domyślną nazwę pliku paczki.
+        FileNameEditKSeFDEFileName.FileName := EditKSeFDEOperationReferenceNumber.Text +
+          FILEEXT[ComboBoxKSeFDExportFormat.ItemIndex];
+      end
+      else
+        Debug('Brak faktur w zadanym przedziale i filtrze.');
     end;
     AddObject(Response);
   except

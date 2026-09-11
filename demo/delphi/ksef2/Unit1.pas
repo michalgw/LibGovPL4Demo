@@ -2023,8 +2023,17 @@ var
 begin
   Debug('Eksport paczki faktur', True);
   try
+    // Zwolnij poprzedni¹ odpowiedŸ
+    if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+      ExportResponse.Free;
+    ExportResponse := nil;
+    // Wyczyœæ nazwê pliku docelowego i zablokuj pola pobierania
+    FileNameEditKSeFDEFileName.Text := '';
+    GroupBoxKSeFD1.Enabled := False;
+    // Generuj filtr na podstawie którego zostanie przygotowana paczka faktur
     Filter := GenerateFilter;
     AddObject(Filter);
+    // Za¿¹daj przygotowania paczki faktur, zapisz nr referencyjny procesu do pola edycji.
     EditKSeFDEOperationReferenceNumber.Text := KSeF.InvoicesExportSimple(Filter,
       CheckBoxKSeFDExportMetaOnly.Checked, TKSeF2CompressionType(ComboBoxKSeFDExportFormat.ItemIndex));
     Debug('Numer referencyjny operacji: ' + EditKSeFDEOperationReferenceNumber.Text);
@@ -2035,24 +2044,43 @@ begin
 end;
 
 procedure TForm1.ButtonKSeFDStatusClick(Sender: TObject);
+const
+  FILEEXT: array[0..2] of String = ('.zip', '.zip', '.tgz');
 var
   Response: TKSeF2InvoiceExportStatusResponse;
 begin
   Debug('Pobranie statusu eksportu paczki faktur', True);
   try
+    // Pobierz status procesu przygotowania paczki faktur
     Response := KSeF.InvoicesExportStatus(EditKSeFDEOperationReferenceNumber.Text);
+    // Napisz informacje o statusie
     Debug('OdpowiedŸ: ' + Response.RawResponse);
     Debug('Status: ' + IntToStr(Response.Status.Code));
     Debug('Opis: ' + Response.Status.Description);
-    if (Response.Status.Code = 200) and (Response.Package.Parts.Count > 0) then
+    // Status = 200 czyli zakoñczono proces tworzenia paczki na serwerze
+    if (Response.Status.Code = 200) then
     begin
-      if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+      // Czy odpowiedŸ zawiera jakiekolwiek czêœci paczki?
+      // Jeœli tak to zezwól na pobranie
+      if (Response.Package.Parts.Count > 0) then
       begin
-        ExportResponse.Free;
-        ExportResponse := nil;
-      end;
-      ExportResponse := Response;
-      GroupBoxKSeFD1.Enabled := True;
+        Debug('Iloœæ czêœci: ' + IntToStr(Response.Package.Parts.Count));
+        if Assigned(ExportResponse) and (ListViewObj.FindData(0, Pointer(ExportResponse), True, True) = nil) then
+        begin
+          ExportResponse.Free;
+          ExportResponse := nil;
+        end;
+        // Zachowaj odpowiedŸ zapytania o status - zawiera informacje o czêœciach paczki.
+        // Bêdzie potrzebna przy pobieraniu czêœci.
+        ExportResponse := Response;
+        // Odblokuj mo¿liwoœæ pobrania paczki.
+        GroupBoxKSeFD1.Enabled := True;
+        // Ustaw domyœln¹ nazwê pliku paczki.
+        FileNameEditKSeFDEFileName.Text := EditKSeFDEOperationReferenceNumber.Text +
+          FILEEXT[ComboBoxKSeFDExportFormat.ItemIndex];
+      end
+      else
+        Debug('Brak faktur w zadanym przedziale i filtrze.');
     end;
     AddObject(Response);
   except
@@ -2069,7 +2097,9 @@ begin
   Debug('Pobieranie paczki faktur', True);
   try
     try
+      // Tworzymy strumieñ wyjœciowy z paczk¹.
       FileStream := TFileStream.Create(FileNameEditKSeFDEFileName.Text, fmCreate);
+      // Pobieramy paczkê. Pobrane i odzyfrowane zostan¹ wszystkie czêœci.
       KSeF.InvoicesExportDownload(ExportResponse, FileStream);
       Debug('Pobrano do pliku: ' + FileNameEditKSeFDEFileName.Text);
     except
