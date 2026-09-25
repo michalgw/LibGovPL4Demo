@@ -1756,6 +1756,11 @@ var
   FileStream: TFileStream = nil;
 begin
   Debug('Pobieranie paczki faktur', True);
+  if (not Assigned(ExportResponse.Package)) or (ExportResponse.Package.InvoiceCount = 0) then
+  begin
+    MessageDlg('Brak faktur w zadanym przedziale.', mtInformation, [mbOK], 0);
+    Exit;
+  end;
   try
     try
       // Tworzymy strumień wyjściowy z paczką.
