@@ -51,8 +51,10 @@
 -dLGP_LEGACY
 -dLGP_DEBUG_OBJ
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-            <OtherDefines Count="11">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+            <OtherDefines Count="13">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -64,6 +66,8 @@
               <Define8 Value="LGP_DEBUG_OBJ"/>
               <Define9 Value="LGP_ENABLE_PKCS11"/>
               <Define10 Value="LGP_ENABLE_OPENSSL"/>
+              <Define11 Value="LGP_ENABLE_FPCTLS"/>
+              <Define12 Value="LGP_ENABLE_CLP"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -104,8 +108,10 @@
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-            <OtherDefines Count="10">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+            <OtherDefines Count="13">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -116,6 +122,9 @@
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_ENABLE_PKCS11"/>
               <Define9 Value="LGP_DEBUG_OBJ"/>
+              <Define10 Value="LGP_ENABLE_OPENSSL"/>
+              <Define11 Value="LGP_ENABLE_FPCTLS"/>
+              <Define12 Value="LGP_ENABLE_CLP"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -156,8 +165,10 @@
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-            <OtherDefines Count="10">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+            <OtherDefines Count="13">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -168,6 +179,9 @@
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_DEBUG_OBJ"/>
               <Define9 Value="LGP_ENABLE_PKCS11"/>
+              <Define10 Value="LGP_ENABLE_OPENSSL"/>
+              <Define11 Value="LGP_ENABLE_FPCTLS"/>
+              <Define12 Value="LGP_ENABLE_CLP"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -208,8 +222,10 @@
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-            <OtherDefines Count="10">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+            <OtherDefines Count="13">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -220,6 +236,9 @@
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_ENABLE_PKCS11"/>
               <Define9 Value="LGP_DEBUG_OBJ"/>
+              <Define10 Value="LGP_ENABLE_OPENSSL"/>
+              <Define11 Value="LGP_ENABLE_FPCTLS"/>
+              <Define12 Value="LGP_ENABLE_CLP"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -260,8 +279,10 @@
 -dLGP_ENABLE_LIBXML2
 -dLGP_LEGACY
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-            <OtherDefines Count="10">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+            <OtherDefines Count="13">
               <Define0 Value="LGP_ENABLE_WINCNG"/>
               <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
               <Define2 Value="LGP_ENABLE_FPC"/>
@@ -272,6 +293,9 @@
               <Define7 Value="LGP_LEGACY"/>
               <Define8 Value="LGP_DEBUG_OBJ"/>
               <Define9 Value="LGP_ENABLE_PKCS11"/>
+              <Define10 Value="LGP_ENABLE_OPENSSL"/>
+              <Define11 Value="LGP_ENABLE_FPCTLS"/>
+              <Define12 Value="LGP_ENABLE_CLP"/>
             </OtherDefines>
           </Other>
         </CompilerOptions>
@@ -289,6 +313,12 @@
       <FormatVersion Value="2"/>
     </RunParams>
     <RequiredPackages>
+      <Item>
+        <PackageName Value="libgovpl4fpctls"/>
+      </Item>
+      <Item>
+        <PackageName Value="libgovpl4clp"/>
+      </Item>
       <Item>
         <PackageName Value="libgovpl4openssl"/>
       </Item>
@@ -452,8 +482,10 @@
 -dLGP_LEGACY
 -dLGP_DEBUG_OBJ
 -dLGP_ENABLE_PKCS11
--dLGP_ENABLE_OPENSSL"/>
-      <OtherDefines Count="11">
+-dLGP_ENABLE_OPENSSL
+-dLGP_ENABLE_FPCTLS
+-dLGP_ENABLE_CLP"/>
+      <OtherDefines Count="13">
         <Define0 Value="LGP_ENABLE_WINCNG"/>
         <Define1 Value="LGP_ENABLE_DCPCRYPT"/>
         <Define2 Value="LGP_ENABLE_FPC"/>
@@ -465,6 +497,8 @@
         <Define8 Value="LGP_DEBUG_OBJ"/>
         <Define9 Value="LGP_ENABLE_PKCS11"/>
         <Define10 Value="LGP_ENABLE_OPENSSL"/>
+        <Define11 Value="LGP_ENABLE_FPCTLS"/>
+        <Define12 Value="LGP_ENABLE_CLP"/>
       </OtherDefines>
     </Other>
   </CompilerOptions>
