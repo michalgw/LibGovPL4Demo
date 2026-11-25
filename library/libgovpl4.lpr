@@ -518,12 +518,14 @@ exports
   lgpKSeF2_AuthKsefToken2,
 
   lgpKSeF2_AuthStatus,
+  lgpKSeF2_AuthStatusRev2,
 
   lgpKSeF2_AuthTokenRedem,
 
   lgpKSeF2_AuthTokenRefresh,
 
   lgpKSeF2_AuthSessions,
+  lgpKSeF2_AuthSessionsRev2,
   lgpKSeF2_AuthSessionTerminateCurrent,
   lgpKSeF2_AuthSessionTerminate,
 
@@ -569,10 +571,15 @@ exports
   lgpKSeF2_InvoicesExportDownload,
 
   lgpKSeF2_TokensGenerate,
+  lgpKSeF2_TokensGenerateRev2,
   lgpKSeF2_TokensGenerate2,
+  lgpKSeF2_TokensGenerate2Rev2,
   lgpKSeF2_TokensList,
+  lgpKSeF2_TokensListRev2,
   lgpKSeF2_TokensStatus,
+  lgpKSeF2_TokensStatusRev2,
   lgpKSeF2_TokensRevoke,
+  lgpKSeF2_TokensApprove,
 
   lgpKSeF2_TestdataSubject,
   lgpKSeF2_TestdataSubjectRemove,

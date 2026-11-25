@@ -162,12 +162,14 @@ type
       AIp4Range: UTF8String = ''; AIp4Mask: UTF8String = ''): TKSeF2AuthenticationInitResponse; overload;
 
     function AuthStatus(AReferenceNumber: UTF8String = ''; AAuthenticationToken: UTF8String = ''): TKSeF2AuthenticationOperationStatusResponse;
+    function AuthStatusRev2(AReferenceNumber: UTF8String = ''; AAuthenticationToken: UTF8String = ''): TKSeF2AuthenticationOperationStatusResponseRev2;
 
     function AuthTokenRedem(AAuthenticationToken: UTF8String = ''): TKSeF2AuthenticationTokensResponse;
 
     function AuthTokenRefresh(ARefreshToken: UTF8String = ''): TKSeF2AuthenticationTokenRefreshResponse;
 
     function AuthSessions(AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2AuthenticationListResponse;
+    function AuthSessionsRev2(AContinuationToken: UTF8String = ''; APageSize: Integer = 0; AAccessToken: UTF8String = ''): TKSeF2AuthenticationListResponseRev2;
     procedure AuthSessionTerminateCurrent(AToken: UTF8String = '');
     procedure AuthSessionTerminate(AReferenceNumber: UTF8String; AAccessToken: UTF8String = '');
 
@@ -235,11 +237,19 @@ type
 
     function TokensGenerate(ARequest: TKSeF2GenerateTokenRequest; AAccessToken: UTF8String = ''): TKSeF2GenerateTokenResponse; overload;
     function TokensGenerate(APermissions: TKSeF2TokenPermissions; ADescription: UTF8String; AAccessToken: UTF8String = ''): TKSeF2GenerateTokenResponse; overload;
+    function TokensGenerateRev2(ARequest: TKSeF2GenerateTokenRequestRev2; AAccessToken: UTF8String = ''): TKSeF2GenerateTokenResponseRev2; overload;
+    function TokensGenerateRev2(APermissions: TKSeF2TokenPermissions; ADescription: UTF8String; AValidFrom: TDateTime = 0; AValidTo: TDateTime = 0; AAccessToken: UTF8String = ''): TKSeF2GenerateTokenResponseRev2; overload;
     function TokensList(AStatus: TKSeF2AuthenticationTokenStatuses = []; ADescription: UTF8String = '';
       AAuthorIdentifier: UTF8String = ''; AAuthorIdentifierType: TKSeF2TokenAuthorIdentifierType = taiNone;
       APageSize: Integer = 0; AContinuationToken: UTF8String = ''; AAccessToken: UTF8String = ''): TKSeF2QueryTokensResponse;
+    function TokensListRev2(AStatus: TKSeF2TokenStatusFilterRev2 = []; ADescription: UTF8String = '';
+      AAuthorIdentifier: UTF8String = ''; AAuthorIdentifierType: TKSeF2TokenAuthorIdentifierTypeFilterRev2 = taiNone;
+      AValidFrom: TDateTime = 0; AValidTo: TDateTime = 0; APageSize: Integer = 0;
+      AContinuationToken: UTF8String = ''; AAccessToken: UTF8String = ''): TKSeF2QueryTokensResponseRev2;
     function TokensStatus(AReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2TokenStatusResponse;
+    function TokensStatusRev2(AReferenceNumber: UTF8String; AAccessToken: UTF8String = ''): TKSeF2TokenStatusResponseRev2;
     procedure TokensRevoke(AReferenceNumber: UTF8String; AAccessToken: UTF8String = '');
+    procedure TokensApprove(AReferenceNumber: UTF8String; AAccessToken: UTF8String = '');
 
     procedure TestdataSubject(ARequest: TKSeF2SubjectCreateRequest);
     procedure TestdataSubjectRemove(const ASubjectNip: UTF8String);
@@ -1246,6 +1256,21 @@ begin
     Result := nil;
 end;
 
+function TlgoKSeF2.AuthStatusRev2(AReferenceNumber: UTF8String;
+  AAuthenticationToken: UTF8String
+  ): TKSeF2AuthenticationOperationStatusResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_AuthStatusRev2(ExtObject, LGP_PCHAR(AReferenceNumber),
+    LGP_PCHAR(AAuthenticationToken), O));
+  if O <> nil then
+    Result := TKSeF2AuthenticationOperationStatusResponseRev2.Create(nil, O)
+  else
+    Result := nil;
+end;
+
 function TlgoKSeF2.AuthTokenRedem(AAuthenticationToken: UTF8String
   ): TKSeF2AuthenticationTokensResponse;
 var
@@ -1283,6 +1308,21 @@ begin
     LGP_PCHAR(AAccessToken), O));
   if O <> nil then
     Result := TKSeF2AuthenticationListResponse.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.AuthSessionsRev2(AContinuationToken: UTF8String;
+  APageSize: Integer; AAccessToken: UTF8String
+  ): TKSeF2AuthenticationListResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_AuthSessionsRev2(ExtObject, LGP_PCHAR(AContinuationToken), APageSize,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2AuthenticationListResponseRev2.Create(nil, O)
   else
     Result := nil;
 end;
@@ -1908,6 +1948,36 @@ begin
     Result := nil;
 end;
 
+function TlgoKSeF2.TokensGenerateRev2(ARequest: TKSeF2GenerateTokenRequestRev2;
+  AAccessToken: UTF8String): TKSeF2GenerateTokenResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_TokensGenerateRev2(ExtObject, ARequest.ExtObject,
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2GenerateTokenResponseRev2.Create(nil, O)
+  else
+    Result := nil;
+end;
+
+function TlgoKSeF2.TokensGenerateRev2(APermissions: TKSeF2TokenPermissions;
+  ADescription: UTF8String; AValidFrom: TDateTime; AValidTo: TDateTime;
+  AAccessToken: UTF8String): TKSeF2GenerateTokenResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_TokensGenerate2Rev2(ExtObject, SetToInt32(@APermissions,
+    Ord(High(TKSeF2TokenPermissionType)), SizeOf(APermissions)),
+    LGP_PCHAR(ADescription), AValidFrom, AValidTo, LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2GenerateTokenResponseRev2.Create(nil, O)
+  else
+    Result := nil;
+end;
+
 function TlgoKSeF2.TokensList(AStatus: TKSeF2AuthenticationTokenStatuses;
   ADescription: UTF8String; AAuthorIdentifier: UTF8String;
   AAuthorIdentifierType: TKSeF2TokenAuthorIdentifierType; APageSize: Integer;
@@ -1928,6 +1998,27 @@ begin
     Result := nil;
 end;
 
+function TlgoKSeF2.TokensListRev2(AStatus: TKSeF2TokenStatusFilterRev2;
+  ADescription: UTF8String; AAuthorIdentifier: UTF8String;
+  AAuthorIdentifierType: TKSeF2TokenAuthorIdentifierTypeFilterRev2;
+  AValidFrom: TDateTime; AValidTo: TDateTime; APageSize: Integer;
+  AContinuationToken: UTF8String; AAccessToken: UTF8String
+  ): TKSeF2QueryTokensResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_TokensListRev2(ExtObject, SetToInt32(@AStatus,
+    Ord(High(TKSeF2AuthenticationTokenStatus)), SizeOf(AStatus)),
+    LGP_PCHAR(ADescription), LGP_PCHAR(AAuthorIdentifier),
+    Ord(AAuthorIdentifierType), AValidFrom, AValidTo, APageSize,
+    LGP_PCHAR(AContinuationToken), LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2QueryTokensResponseRev2.Create(nil, O)
+  else
+    Result := nil;
+end;
+
 function TlgoKSeF2.TokensStatus(AReferenceNumber: UTF8String;
   AAccessToken: UTF8String): TKSeF2TokenStatusResponse;
 var
@@ -1942,10 +2033,31 @@ begin
     Result := nil;
 end;
 
+function TlgoKSeF2.TokensStatusRev2(AReferenceNumber: UTF8String;
+  AAccessToken: UTF8String): TKSeF2TokenStatusResponseRev2;
+var
+  O: LGP_OBJECT;
+begin
+  O := nil;
+  lgoCheckResult(lgpKSeF2_TokensStatusRev2(ExtObject, LGP_PCHAR(AReferenceNumber),
+    LGP_PCHAR(AAccessToken), O));
+  if O <> nil then
+    Result := TKSeF2TokenStatusResponseRev2.Create(nil, O)
+  else
+    Result := nil;
+end;
+
 procedure TlgoKSeF2.TokensRevoke(AReferenceNumber: UTF8String;
   AAccessToken: UTF8String);
 begin
   lgoCheckResult(lgpKSeF2_TokensRevoke(ExtObject, LGP_PCHAR(AReferenceNumber),
+    LGP_PCHAR(AAccessToken)));
+end;
+
+procedure TlgoKSeF2.TokensApprove(AReferenceNumber: UTF8String;
+  AAccessToken: UTF8String);
+begin
+  lgoCheckResult(lgpKSeF2_TokensApprove(ExtObject, LGP_PCHAR(AReferenceNumber),
     LGP_PCHAR(AAccessToken)));
 end;
 

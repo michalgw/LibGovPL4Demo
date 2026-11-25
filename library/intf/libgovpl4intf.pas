@@ -607,12 +607,14 @@ function lgpKSeF2_AuthKsefToken(AKSeFObject: LGP_OBJECT; var AAuthenticationInit
 function lgpKSeF2_AuthKsefToken2(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_AuthStatusRev2(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthTokenRedem(AKSeFObject: LGP_OBJECT; AAuthenticationToken: LGP_PCHAR; var AAuthenticationTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthTokenRefresh(AKSeFObject: LGP_OBJECT; ARefreshToken: LGP_PCHAR; var AAuthenticationTokenRefreshResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_AuthSessions(AKSeFObject: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AAuthenticationListResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_AuthSessionsRev2(AKSeFObject: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AAuthenticationListResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_AuthSessionTerminateCurrent(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_AuthSessionTerminate(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
@@ -658,10 +660,15 @@ function lgpKSeF2_InvoicesExportStatus(AKSeFObject: LGP_OBJECT; AOperationRefere
 function lgpKSeF2_InvoicesExportDownload(AKSeFObject: LGP_OBJECT; AStatusResponse: LGP_OBJECT; AOutputStream: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_TokensGenerate(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_TokensGenerateRev2(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TokensGenerate2(AKSeFObject: LGP_OBJECT; APermissions: LGP_INT32; ADescription: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_TokensGenerate2Rev2(AKSeFObject: LGP_OBJECT; APermissions: LGP_INT32; ADescription: LGP_PCHAR; AValidFrom: TDateTime; AValidTo: TDateTime; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TokensList(AKSeFObject: LGP_OBJECT; AStatus: LGP_INT32; ADescription: LGP_PCHAR; AAuthorIdentifier: LGP_PCHAR; AAuthorIdentifierType: LGP_INT32; APageSize: LGP_INT32; AContinuationToken: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AQueryTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_TokensListRev2(AKSeFObject: LGP_OBJECT; AStatus: LGP_INT32; ADescription: LGP_PCHAR; AAuthorIdentifier: LGP_PCHAR; AAuthorIdentifierType: LGP_INT32; AValidFrom: TDateTime; AValidTo: TDateTime; APageSize: LGP_INT32; AContinuationToken: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AQueryTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TokensStatus(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var ATokenStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_TokensStatusRev2(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var ATokenStatusResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TokensRevoke(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
+function lgpKSeF2_TokensApprove(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 
 function lgpKSeF2_TestdataSubject(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
 function lgpKSeF2_TestdataSubjectRemove(AKSeFObject: LGP_OBJECT; ASubjectNip: LGP_PCHAR): LGP_EXCEPTION; stdcall; external LGP_LIBNAME;
@@ -1240,12 +1247,14 @@ var
   lgpKSeF2_AuthKsefToken2: function(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR; AIdentifier: LGP_PCHAR; AIdentifierType: LGP_INT32; AIp4Address, AIp4Range, AIp4Mask: LGP_PCHAR; var AAuthenticationInitResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_AuthStatusRev2: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAuthenticationToken: LGP_PCHAR; var AAuthenticationOperationStatusResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthTokenRedem: function(AKSeFObject: LGP_OBJECT; AAuthenticationToken: LGP_PCHAR; var AAuthenticationTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthTokenRefresh: function(AKSeFObject: LGP_OBJECT; ARefreshToken: LGP_PCHAR; var AAuthenticationTokenRefreshResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_AuthSessions: function(AKSeFObject: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AAuthenticationListResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_AuthSessionsRev2: function(AKSeFObject: LGP_OBJECT; AContinuationToken: LGP_PCHAR; APageSize: LGP_INT32; AAccessToken: LGP_PCHAR; var AAuthenticationListResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_AuthSessionTerminateCurrent: function(AKSeFObject: LGP_OBJECT; AToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
   lgpKSeF2_AuthSessionTerminate: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
@@ -1291,10 +1300,15 @@ var
   lgpKSeF2_InvoicesExportDownload: function(AKSeFObject: LGP_OBJECT; AStatusResponse: LGP_OBJECT; AOutputStream: LGP_OBJECT; AEncryptionSymetricKey: LGP_PBYTE; AInitializationVector: LGP_PBYTE): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_TokensGenerate: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_TokensGenerateRev2: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TokensGenerate2: function(AKSeFObject: LGP_OBJECT; APermissions: LGP_INT32; ADescription: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_TokensGenerate2Rev2: function(AKSeFObject: LGP_OBJECT; APermissions: LGP_INT32; ADescription: LGP_PCHAR; AValidFrom: TDateTime; AValidTo: TDateTime; AAccessToken: LGP_PCHAR; var AGenerateTokenResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TokensList: function(AKSeFObject: LGP_OBJECT; AStatus: LGP_INT32; ADescription: LGP_PCHAR; AAuthorIdentifier: LGP_PCHAR; AAuthorIdentifierType: LGP_INT32; APageSize: LGP_INT32; AContinuationToken: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AQueryTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_TokensListRev2: function(AKSeFObject: LGP_OBJECT; AStatus: LGP_INT32; ADescription: LGP_PCHAR; AAuthorIdentifier: LGP_PCHAR; AAuthorIdentifierType: LGP_INT32; AValidFrom: TDateTime; AValidTo: TDateTime; APageSize: LGP_INT32; AContinuationToken: LGP_PCHAR; AAccessToken: LGP_PCHAR; var AQueryTokensResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TokensStatus: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var ATokenStatusResponse: LGP_OBJECT): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_TokensStatusRev2: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR; var ATokenStatusResponseRev2: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TokensRevoke: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
+  lgpKSeF2_TokensApprove: function(AKSeFObject: LGP_OBJECT; AReferenceNumber: LGP_PCHAR; AAccessToken: LGP_PCHAR): LGP_EXCEPTION; stdcall;
 
   lgpKSeF2_TestdataSubject: function(AKSeFObject: LGP_OBJECT; ARequest: LGP_OBJECT): LGP_EXCEPTION; stdcall;
   lgpKSeF2_TestdataSubjectRemove: function(AKSeFObject: LGP_OBJECT; ASubjectNip: LGP_PCHAR): LGP_EXCEPTION; stdcall;
@@ -1895,12 +1909,14 @@ begin
     @lgpKSeF2_AuthKsefToken2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthKsefToken2');
 
     @lgpKSeF2_AuthStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthStatus');
+    @lgpKSeF2_AuthStatusRev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthStatusRev2');
 
     @lgpKSeF2_AuthTokenRedem := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthTokenRedem');
 
     @lgpKSeF2_AuthTokenRefresh := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthTokenRefresh');
 
     @lgpKSeF2_AuthSessions := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthSessions');
+    @lgpKSeF2_AuthSessionsRev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthSessionsRev2');
     @lgpKSeF2_AuthSessionTerminateCurrent := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthSessionTerminateCurrent');
     @lgpKSeF2_AuthSessionTerminate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_AuthSessionTerminate');
 
@@ -1946,10 +1962,15 @@ begin
     @lgpKSeF2_InvoicesExportDownload := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_InvoicesExportDownload');
 
     @lgpKSeF2_TokensGenerate := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensGenerate');
+    @lgpKSeF2_TokensGenerateRev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensGenerateRev2');
     @lgpKSeF2_TokensGenerate2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensGenerate2');
+    @lgpKSeF2_TokensGenerate2Rev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensGenerate2Rev2');
     @lgpKSeF2_TokensList := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensList');
+    @lgpKSeF2_TokensListRev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensListRev2');
     @lgpKSeF2_TokensStatus := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensStatus');
+    @lgpKSeF2_TokensStatusRev2 := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensStatusRev2');
     @lgpKSeF2_TokensRevoke := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensRevoke');
+    @lgpKSeF2_TokensApprove := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TokensApprove');
 
     @lgpKSeF2_TestdataSubject := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TestdataSubject');
     @lgpKSeF2_TestdataSubjectRemove := GetProcAddress(LibGovPl4Handle, 'lgpKSeF2_TestdataSubjectRemove');

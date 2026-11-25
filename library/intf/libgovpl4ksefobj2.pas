@@ -329,6 +329,64 @@ type
     property RefreshTokenValidUntilRaw: UTF8String read GetRefreshTokenValidUntilRaw;
   end;
 
+  TKSeF2AuthenticationMethodCategoryRev2Code = (amc2XadesSignature,
+    amc2NationalNode, amc2Token, amc2FutureValue);
+
+  { TKSeF2AuthenticationMethodCategoryRev2 }
+
+  TKSeF2AuthenticationMethodCategoryRev2 = class(TKSeF2Object)
+  private
+    function GetCode: TKSeF2AuthenticationMethodCategoryRev2Code;
+    function GetDisplayName: UTF8String;
+    function GetRawCode: UTF8String;
+  published
+    property Code: TKSeF2AuthenticationMethodCategoryRev2Code read GetCode;
+    property RawCode: UTF8String read GetRawCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  { TKSeF2AuthenticationMethodInfoRev2 }
+
+  TKSeF2AuthenticationMethodInfoRev2 = class(TKSeF2Object)
+  private
+    FCategory: TKSeF2AuthenticationMethodCategoryRev2;
+    function GetCode: UTF8String;
+    function GetDisplayName: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property Category: TKSeF2AuthenticationMethodCategoryRev2 read FCategory;
+    property Code: UTF8String read GetCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  { TKSeF2AuthenticationOperationStatusResponseRev2 }
+
+  TKSeF2AuthenticationOperationStatusResponseRev2 = class(TKSeF2Response)
+  private
+    FAuthenticationMethodInfo: TKSeF2AuthenticationMethodInfoRev2;
+    FStatus: TKSeF2StatusInfo;
+    function GetIsTokenRedeemed: Boolean;
+    function GetLastTokenRefreshDate: TDateTime;
+    function GetLastTokenRefreshDateRaw: UTF8String;
+    function GetRefreshTokenValidUntil: TDateTime;
+    function GetRefreshTokenValidUntilRaw: UTF8String;
+    function GetStartDate: TDateTime;
+    function GetStartDateRaw: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property StartDate: TDateTime read GetStartDate;
+    property StartDateRaw: UTF8String read GetStartDateRaw;
+    property AuthenticationMethodInfo: TKSeF2AuthenticationMethodInfoRev2 read FAuthenticationMethodInfo;
+    property Status: TKSeF2StatusInfo read FStatus;
+    property IsTokenRedeemed: Boolean read GetIsTokenRedeemed;
+    property LastTokenRefreshDate: TDateTime read GetLastTokenRefreshDate;
+    property LastTokenRefreshDateRaw: UTF8String read GetLastTokenRefreshDateRaw;
+    property RefreshTokenValidUntil: TDateTime read GetRefreshTokenValidUntil;
+    property RefreshTokenValidUntilRaw: UTF8String read GetRefreshTokenValidUntilRaw;
+  end;
+
   { TKSeF2AuthenticationTokensResponse }
 
   TKSeF2AuthenticationTokensResponse = class(TKSeF2Response)
@@ -420,6 +478,59 @@ type
   published
     property ContinuationToken: UTF8String read GetContinuationToken;
     property Items: TKSeF2AuthenticationList read FItems;
+  end;
+
+  { TKSeF2AuthenticationListItemRev2 }
+
+  TKSeF2AuthenticationListItemRev2 = class(TKSeF2Object)
+  private
+    FAuthenticationMethodInfo: TKSeF2AuthenticationMethodInfoRev2;
+    FStatus: TKSeF2StatusInfo;
+    function GetIsCurrent: Boolean;
+    function GetIsTokenRedeemed: Boolean;
+    function GetLastTokenRefreshDate: TDateTime;
+    function GetLastTokenRefreshDateRaw: UTF8String;
+    function GetReferenceNumber: UTF8String;
+    function GetRefreshTokenValidUntil: TDateTime;
+    function GetRefreshTokenValidUntilRaw: UTF8String;
+    function GetStartDate: TDateTime;
+    function GetStartDateRaw: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property StartDate: TDateTime read GetStartDate;
+    property StartDateRaw: UTF8String read GetStartDateRaw;
+    property AuthenticationMethodInfo: TKSeF2AuthenticationMethodInfoRev2 read FAuthenticationMethodInfo;
+    property Status: TKSeF2StatusInfo read FStatus;
+    property IsTokenRedeemed: Boolean read GetIsTokenRedeemed;
+    property LastTokenRefreshDate: TDateTime read GetLastTokenRefreshDate;
+    property LastTokenRefreshDateRaw: UTF8String read GetLastTokenRefreshDateRaw;
+    property RefreshTokenValidUntil: TDateTime read GetRefreshTokenValidUntil;
+    property RefreshTokenValidUntilRaw: UTF8String read GetRefreshTokenValidUntilRaw;
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property IsCurrent: Boolean read GetIsCurrent;
+  end;
+
+  { TKSeF2AuthenticationListRev2 }
+
+  TKSeF2AuthenticationListRev2 = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2AuthenticationListItemRev2;
+  public
+    property Items[AIndex: Integer]: TKSeF2AuthenticationListItemRev2 read GetItem; default;
+  end;
+
+  { TKSeF2AuthenticationListResponseRev2 }
+
+  TKSeF2AuthenticationListResponseRev2 = class(TKSeF2Response)
+  private
+    FItems: TKSeF2AuthenticationListRev2;
+    function GetContinuationToken: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ContinuationToken: UTF8String read GetContinuationToken;
+    property Items: TKSeF2AuthenticationListRev2 read FItems;
   end;
 
   TKSeF2KeyUsageType = (kuKsefTokenEncryption, kuSymmetricKeyEncryption);
@@ -1322,8 +1433,39 @@ type
     property Token: UTF8String read GetToken;
   end;
 
+  { TKSeF2GenerateTokenRequestRev2 }
+
+  TKSeF2GenerateTokenRequestRev2 = class(TKSeF2Request)
+  private
+    function GetDescription: UTF8String;
+    function GetPermissions: TKSeF2TokenPermissions;
+    function GetPermissionsInt: Integer;
+    function GetPermissionsStr: UTF8String;
+    function GetValidFrom: TDateTime;
+    function GetValidTo: TDateTime;
+    procedure SetDescription(AValue: UTF8String);
+    procedure SetPermissions(AValue: TKSeF2TokenPermissions);
+    procedure SetPermissionsInt(AValue: Integer);
+    procedure SetPermissionsStr(AValue: UTF8String);
+    procedure SetValidFrom(AValue: TDateTime);
+    procedure SetValidTo(AValue: TDateTime);
+  published
+    property Permissions: TKSeF2TokenPermissions read GetPermissions write SetPermissions;
+    property PermissionsStr: UTF8String read GetPermissionsStr write SetPermissionsStr;
+    property PermissionsInt: Integer read GetPermissionsInt write SetPermissionsInt;
+    property Description: UTF8String read GetDescription write SetDescription;
+    property ValidFrom: TDateTime read GetValidFrom write SetValidFrom;
+    property ValidTo: TDateTime read GetValidTo write SetValidTo;
+  end;
+
+  TKSeF2GenerateTokenResponseRev2 = class(TKSeF2GenerateTokenResponse);
+
   TKSeF2AuthenticationTokenStatus = (tsPending, tsActive, tsRevoking, tsRevoked, tsFailed);
   TKSeF2AuthenticationTokenStatuses = set of TKSeF2AuthenticationTokenStatus;
+
+  TKSeF2TokenStatusFilterItemRev2 = (ts2Pending, ts2Active, ts2Revoking, ts2Revoked,
+    ts2Failed, ts2NotYetActive, ts2AwaitingApproval, ts2ApprovalExpired, ts2Expired);
+  TKSeF2TokenStatusFilterRev2 = set of TKSeF2TokenStatusFilterItemRev2;
 
   TKSeF2TokenAuthorIdentifierType = (taiNone, taiNip, taiPesel, taiFingerprint);
 
@@ -1402,6 +1544,181 @@ type
     property Tokens: TKSeF2QueryTokensResponseArray read FTokens;
   end;
 
+  TKSeF2TokenAuthorIdentifierTypeCodeRev2 = (taitc2Nip, taitc2Pesel,
+    taitc2Fingerprint, taitc2FutureValue);
+
+  { TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType }
+
+  TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType = class(TKSeF2Object)
+  private
+    function GetCode: TKSeF2TokenAuthorIdentifierTypeCodeRev2;
+    function GetDisplayName: UTF8String;
+    function GetRawCode: UTF8String;
+  published
+    property Code: TKSeF2TokenAuthorIdentifierTypeCodeRev2 read GetCode;
+    property RawCode: UTF8String read GetRawCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier = class(TKSeF2Object)
+  private
+    FType: TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType;
+    function GetValue: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property Type_: TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType read FType;
+    property Value: UTF8String read GetValue;
+  end;
+
+  TKSeF2TokenContextIdentifierTypeCodeRev2 = (tcitc2Nip, tcitc2InternalId,
+    tcitc2NipVatUe, tcitc2PeppolId, tcitc2FutureValue);
+
+  { TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType }
+
+  TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType = class(TKSeF2Object)
+  private
+    function GetCode: TKSeF2TokenContextIdentifierTypeCodeRev2;
+    function GetDisplayName: UTF8String;
+    function GetRawCode: UTF8String;
+  published
+    property Code: TKSeF2TokenContextIdentifierTypeCodeRev2 read GetCode;
+    property RawCode: UTF8String read GetRawCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  TKSeF2TokenContextIdentifierTypeCodeRev2Identifier = class(TKSeF2Object)
+  private
+    FType: TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType;
+    function GetValue: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property Type_: TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType read FType;
+    property Value: UTF8String read GetValue;
+  end;
+
+  TKSeF2TokenPermissionCodeRev2 = (tpc2InvoiceRead, tpc2InvoiceWrite, tpc2CredentialsRead,
+    tpc2CredentialsManage, tpc2SubunitManage, tpc2EnforcementOperations,
+    tpc2Introspection, tpc2CollectiveIdentifierManage, tpc2FutureValue);
+
+  { TKSeF2TokenPermissionRev2 }
+
+  TKSeF2TokenPermissionRev2 = class(TKSeF2Object)
+  private
+    function GetCode: TKSeF2TokenPermissionCodeRev2;
+    function GetDisplayName: UTF8String;
+    function GetRawCode: UTF8String;
+  published
+    property Code: TKSeF2TokenPermissionCodeRev2 read GetCode;
+    property RawCode: UTF8String read GetRawCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  { TKSeF2TokenPermissionRev2Array }
+
+  TKSeF2TokenPermissionRev2Array = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2TokenPermissionRev2;
+  public
+    property Items[AIndex: Integer]: TKSeF2TokenPermissionRev2 read GetItem; default;
+  end;
+
+  TKSeF2TokenStatusRev2Code = (tsc2Pending, tsc2Active, tsc2Revoking, tsc2Revoked,
+    tsc2Failed, tsc2NotYetActive, tsc2AwaitingApproval, tsc2ApprovalExpired,
+    tsc2Expired, tsc2FutureValue);
+
+  { TKSeF2TokenStatusRev2 }
+
+  TKSeF2TokenStatusRev2 = class(TKSeF2Object)
+  private
+    function GetCode: TKSeF2TokenStatusRev2Code;
+    function GetDisplayName: UTF8String;
+    function GetRawCode: UTF8String;
+  published
+    property Code: TKSeF2TokenStatusRev2Code read GetCode;
+    property RawCode: UTF8String read GetRawCode;
+    property DisplayName: UTF8String read GetDisplayName;
+  end;
+
+  { TKSeF2TokenFailureRev2 }
+
+  TKSeF2TokenFailureRev2 = class(TKSeF2Object)
+  private
+    function GetCode: UTF8String;
+    function GetDescription: UTF8String;
+    function GetDetails: TStringArray;
+    function GetDetailsStr: UTF8String;
+  published
+    property Code: UTF8String read GetCode;
+    property Description: UTF8String read GetDescription;
+    property Details: TStringArray read GetDetails;
+    property DetailsStr: UTF8String read GetDetailsStr;
+  end;
+
+  { TKSeF2QueryTokensResponseItemRev2 }
+
+  TKSeF2QueryTokensResponseItemRev2 = class(TKSeF2Object)
+  private
+    FAuthorIdentifier: TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier;
+    FContextIdentifier: TKSeF2TokenContextIdentifierTypeCodeRev2Identifier;
+    FFailure: TKSeF2TokenFailureRev2;
+    FRequestedPermissions: TKSeF2TokenPermissionRev2Array;
+    FStatus: TKSeF2TokenStatusRev2;
+    function GetDateCreated: TDateTime;
+    function GetDateCreatedRaw: UTF8String;
+    function GetDescription: UTF8String;
+    function GetLastUseDate: TDateTime;
+    function GetLastUseDateRaw: UTF8String;
+    function GetReferenceNumber: UTF8String;
+    function GetValidFrom: TDateTime;
+    function GetValidFromRaw: UTF8String;
+    function GetValidTo: TDateTime;
+    function GetValidToRaw: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property AuthorIdentifier: TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier read FAuthorIdentifier;
+    property ContextIdentifier: TKSeF2TokenContextIdentifierTypeCodeRev2Identifier read FContextIdentifier;
+    property Description: UTF8String read GetDescription;
+    property RequestedPermissions: TKSeF2TokenPermissionRev2Array read FRequestedPermissions;
+    property DateCreated: TDateTime read GetDateCreated;
+    property DateCreatedRaw: UTF8String read GetDateCreatedRaw;
+    property LastUseDate: TDateTime read GetLastUseDate;
+    property LastUseDateRaw: UTF8String read GetLastUseDateRaw;
+    property ValidFrom: TDateTime read GetValidFrom;
+    property ValidFromRaw: UTF8String read GetValidFromRaw;
+    property ValidTo: TDateTime read GetValidTo;
+    property ValidToRaw: UTF8String read GetValidToRaw;
+    property Status: TKSeF2TokenStatusRev2 read FStatus;
+    property Failure: TKSeF2TokenFailureRev2 read FFailure;
+  end;
+
+  { TKSeF2QueryTokensResponseArrayRev2 }
+
+  TKSeF2QueryTokensResponseArrayRev2 = class(TKSeF2Array)
+  protected
+    function GetItem(AIndex: Integer): TKSeF2QueryTokensResponseItemRev2;
+  public
+    property Items[AIndex: Integer]: TKSeF2QueryTokensResponseItemRev2 read GetItem; default;
+  end;
+
+  TKSeF2TokenAuthorIdentifierTypeFilterRev2 = TKSeF2TokenAuthorIdentifierType;
+
+  { TKSeF2QueryTokensResponseRev2 }
+
+  TKSeF2QueryTokensResponseRev2 = class(TKSeF2Response)
+  private
+    FTokens: TKSeF2QueryTokensResponseArrayRev2;
+    function GetContinuationToken: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ContinuationToken: UTF8String read GetContinuationToken;
+    property Tokens: TKSeF2QueryTokensResponseArrayRev2 read FTokens;
+  end;
+
   { TKSeF2TokenStatusResponse }
 
   TKSeF2TokenStatusResponse = class(TKSeF2Response)
@@ -1431,6 +1748,45 @@ type
     property LastUseDateRaw: UTF8String read GetLastUseDateRaw;
     property Status: TKSeF2AuthenticationTokenStatus read GetStatus;
     property StatusDetails: UTF8String read GetStatusDetails;
+  end;
+
+  { TKSeF2TokenStatusResponseRev2 }
+
+  TKSeF2TokenStatusResponseRev2 = class(TKSeF2Response)
+  private
+    FAuthorIdentifier: TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier;
+    FContextIdentifier: TKSeF2TokenContextIdentifierTypeCodeRev2Identifier;
+    FFailure: TKSeF2TokenFailureRev2;
+    FRequestedPermissions: TKSeF2TokenPermissionRev2Array;
+    FStatus: TKSeF2TokenStatusRev2;
+    function GetDateCreated: TDateTime;
+    function GetDateCreatedRaw: UTF8String;
+    function GetDescription: UTF8String;
+    function GetLastUseDate: TDateTime;
+    function GetLastUseDateRaw: UTF8String;
+    function GetReferenceNumber: UTF8String;
+    function GetValidFrom: TDateTime;
+    function GetValidFromRaw: UTF8String;
+    function GetValidTo: TDateTime;
+    function GetValidToRaw: UTF8String;
+  protected
+    procedure LoadObject; override;
+  published
+    property ReferenceNumber: UTF8String read GetReferenceNumber;
+    property AuthorIdentifier: TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier read FAuthorIdentifier;
+    property ContextIdentifier: TKSeF2TokenContextIdentifierTypeCodeRev2Identifier read FContextIdentifier;
+    property Description: UTF8String read GetDescription;
+    property RequestedPermissions: TKSeF2TokenPermissionRev2Array read FRequestedPermissions;
+    property DateCreated: TDateTime read GetDateCreated;
+    property DateCreatedRaw: UTF8String read GetDateCreatedRaw;
+    property LastUseDate: TDateTime read GetLastUseDate;
+    property LastUseDateRaw: UTF8String read GetLastUseDateRaw;
+    property ValidFrom: TDateTime read GetValidFrom;
+    property ValidFromRaw: UTF8String read GetValidFromRaw;
+    property ValidTo: TDateTime read GetValidTo;
+    property ValidToRaw: UTF8String read GetValidToRaw;
+    property Status: TKSeF2TokenStatusRev2 read FStatus;
+    property Failure: TKSeF2TokenFailureRev2 read FFailure;
   end;
 
   { TKSeF2Subunit }
@@ -1668,7 +2024,7 @@ type
     property Value: UTF8String read GetValue write SetValue;
   end;
 
-  TKSeF2EntityPermissionType = (eptInvoiceWrite, eptInvoiceRead);
+  TKSeF2EntityPermissionType = (eptInvoiceWrite, eptInvoiceRead, eptCollectiveIdentifierManage);
 
   TKSeF2EntityPermission = class(TKSeF2Object)
   private
@@ -1794,7 +2150,7 @@ type
     property Value: String read GetValue write SetValue;
   end;
 
-  TKSeF2IndirectPermissionType = (iptInvoiceRead, iptInvoiceWrite);
+  TKSeF2IndirectPermissionType = (iptInvoiceRead, iptInvoiceWrite, iptCollectiveIdentifierManage);
 
   TKSeF2IndirectPermissionTypes = set of TKSeF2IndirectPermissionType;
 
@@ -2007,7 +2363,7 @@ type
     property Value: UTF8String read GetValue write SetValue;
   end;
 
-  TKSeF2EuEntityPermissionType = (eeptInvoiceWrite, eeptInvoiceRead);
+  TKSeF2EuEntityPermissionType = (eeptInvoiceWrite, eeptInvoiceRead, eeptCollectiveIdentifierManage);
 
   TKSeF2EuEntityPermissionTypes = set of TKSeF2EuEntityPermissionType;
 
@@ -2251,16 +2607,27 @@ type
     property Items[AIndex: Integer]: TKSeF2PersonalPermission read GetItem; default;
   end;
 
+  TKSeF2OwnerPermissionScope = (opsCredentialsManage, opsCredentialsRead,
+    opsInvoiceWrite, opsInvoiceRead, opsIntrospection, opsSubunitManage,
+    opsEnforcementOperations, opsCollectiveIdentifierManage);
+  TKSeF2OwnerPermissionScopeArray = set of TKSeF2OwnerPermissionScope;
+
   { TKSeF2QueryPersonalPermissionsResponse }
 
   TKSeF2QueryPersonalPermissionsResponse = class(TKSeF2Response)
   private
     FPermissions: TKSeF2PersonalPermissionArray;
     function GetHasMore: Boolean;
+    function GetOwnerPermissions: TKSeF2OwnerPermissionScopeArray;
+    function GetOwnerPermissionsInt: Integer;
+    function GetOwnerPermissionsStr: UTF8String;
   protected
     procedure LoadObject; override;
   published
     property Permissions: TKSeF2PersonalPermissionArray read FPermissions;
+    property OwnerPermissions: TKSeF2OwnerPermissionScopeArray read GetOwnerPermissions;
+    property OwnerPermissionsStr: UTF8String read GetOwnerPermissionsStr;
+    property OwnerPermissionsInt: Integer read GetOwnerPermissionsInt;
     property HasMore: Boolean read GetHasMore;
   end;
 
@@ -2506,7 +2873,7 @@ type
     property ContextIdentifier: TKSeF2EntityPermissionsContextIdentifier read FContextIdentifier write SetContextIdentifier;
   end;
 
-  TKSeF2EntityPermissionItemScope = (episInvoiceWrite, episInvoiceRead);
+  TKSeF2EntityPermissionItemScope = (episInvoiceWrite, episInvoiceRead, episCollectiveIdentifierManage);
 
   { TKSeF2EntityPermissionItem }
 
@@ -2839,7 +3206,8 @@ type
   end;
 
   TKSeF2EuEntityPermissionsQueryPermissionType = (eepqpVatUeManage,
-    eepqpInvoiceWrite, eepqpInvoiceRead, eepqpIntrospection);
+    eepqpInvoiceWrite, eepqpInvoiceRead, eepqpIntrospection,
+    eepqpCollectiveIdentifierManage);
 
   TKSeF2EuEntityPermissionsQueryPermissionTypes = set of TKSeF2EuEntityPermissionsQueryPermissionType;
 
@@ -3263,17 +3631,39 @@ type
     property MaxInvoices: Integer read GetMaxInvoices;
   end;
 
+  { TKSeF2CollectiveIdentifierEffectiveContextLimits }
+
+  TKSeF2CollectiveIdentifierEffectiveContextLimits = class(TKSeF2Object)
+  private
+    function GetMaxInvoices: Integer;
+  published
+    property MaxInvoices: Integer read GetMaxInvoices;
+  end;
+
+  { TKSeF2TokensEffectiveContextLimits }
+
+  TKSeF2TokensEffectiveContextLimits = class(TKSeF2Object)
+  private
+    function GetMaxTokens: Integer;
+  published
+    property MaxTokens: Integer read GetMaxTokens;
+  end;
+
   { TKSeF2EffectiveContextLimits }
 
   TKSeF2EffectiveContextLimits = class(TKSeF2Response)
   private
     FBatchSession: TKSeF2BatchSessionEffectiveContextLimits;
+    FCollectiveIdentifier: TKSeF2CollectiveIdentifierEffectiveContextLimits;
     FOnlineSession: TKSeF2OnlineSessionEffectiveContextLimits;
+    FTokens: TKSeF2TokensEffectiveContextLimits;
   protected
     procedure LoadObject; override;
   published
     property OnlineSession: TKSeF2OnlineSessionEffectiveContextLimits read FOnlineSession;
     property BatchSession: TKSeF2BatchSessionEffectiveContextLimits read FBatchSession;
+    property CollectiveIdentifier: TKSeF2CollectiveIdentifierEffectiveContextLimits read FCollectiveIdentifier;
+    property Tokens: TKSeF2TokensEffectiveContextLimits read FTokens;
   end;
 
   { TKSeF2EnrollmentEffectiveSubjectLimits }
@@ -3324,7 +3714,11 @@ type
 
   TKSeF2EffectiveApiRateLimits = class(TKSeF2Response)
   private
+    FAnonymous: TKSeF2EffectiveApiRateLimitValues;
     FBatchSession: TKSeF2EffectiveApiRateLimitValues;
+    FBatchSessionClose: TKSeF2EffectiveApiRateLimitValues;
+    FCollectiveIdentifier: TKSeF2EffectiveApiRateLimitValues;
+    FGlobal: TKSeF2EffectiveApiRateLimitValues;
     FInvoiceDownload: TKSeF2EffectiveApiRateLimitValues;
     FInvoiceExport: TKSeF2EffectiveApiRateLimitValues;
     FInvoiceExportStatus: TKSeF2EffectiveApiRateLimitValues;
@@ -3332,6 +3726,7 @@ type
     FInvoiceSend: TKSeF2EffectiveApiRateLimitValues;
     FInvoiceStatus: TKSeF2EffectiveApiRateLimitValues;
     FOnlineSession: TKSeF2EffectiveApiRateLimitValues;
+    FOnlineSessionClose: TKSeF2EffectiveApiRateLimitValues;
     FOther: TKSeF2EffectiveApiRateLimitValues;
     FSessionInvoiceList: TKSeF2EffectiveApiRateLimitValues;
     FSessionList: TKSeF2EffectiveApiRateLimitValues;
@@ -3340,7 +3735,9 @@ type
     procedure LoadObject; override;
   published
     property OnlineSession: TKSeF2EffectiveApiRateLimitValues read FOnlineSession;
+    property OnlineSessionClose: TKSeF2EffectiveApiRateLimitValues read FOnlineSessionClose;
     property BatchSession: TKSeF2EffectiveApiRateLimitValues read FBatchSession;
+    property BatchSessionClose: TKSeF2EffectiveApiRateLimitValues read FBatchSessionClose;
     property InvoiceSend: TKSeF2EffectiveApiRateLimitValues read FInvoiceSend;
     property InvoiceStatus: TKSeF2EffectiveApiRateLimitValues read FInvoiceStatus;
     property SessionList: TKSeF2EffectiveApiRateLimitValues read FSessionList;
@@ -3350,7 +3747,10 @@ type
     property InvoiceExport: TKSeF2EffectiveApiRateLimitValues read FInvoiceExport;
     property InvoiceExportStatus: TKSeF2EffectiveApiRateLimitValues read FInvoiceExportStatus;
     property InvoiceDownload: TKSeF2EffectiveApiRateLimitValues read FInvoiceDownload;
+    property CollectiveIdentifier: TKSeF2EffectiveApiRateLimitValues read FCollectiveIdentifier;
     property Other: TKSeF2EffectiveApiRateLimitValues read FOther;
+    property Anonymous: TKSeF2EffectiveApiRateLimitValues read FAnonymous;
+    property Global: TKSeF2EffectiveApiRateLimitValues read FGlobal;
   end;
 
   { TKSeF2PeppolProvider }
@@ -4310,6 +4710,95 @@ begin
     FStatus := TKSeF2StatusInfo.Create(Self, O);
 end;
 
+{ TKSeF2AuthenticationMethodCategoryRev2 }
+
+function TKSeF2AuthenticationMethodCategoryRev2.GetCode: TKSeF2AuthenticationMethodCategoryRev2Code;
+begin
+  Result := TKSeF2AuthenticationMethodCategoryRev2Code(GetIntegerProp('Code'));
+end;
+
+function TKSeF2AuthenticationMethodCategoryRev2.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+function TKSeF2AuthenticationMethodCategoryRev2.GetRawCode: UTF8String;
+begin
+  Result := GetStringProp('RawCode');
+end;
+
+{ TKSeF2AuthenticationMethodInfoRev2 }
+
+function TKSeF2AuthenticationMethodInfoRev2.GetCode: UTF8String;
+begin
+  Result := GetStringProp('Code');
+end;
+
+function TKSeF2AuthenticationMethodInfoRev2.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+procedure TKSeF2AuthenticationMethodInfoRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Category');
+  if O <> nil then
+    FCategory := TKSeF2AuthenticationMethodCategoryRev2.Create(Self, O);
+end;
+
+{ TKSeF2AuthenticationOperationStatusResponseRev2 }
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetIsTokenRedeemed: Boolean;
+begin
+  Result := GetBooleanProp('IsTokenRedeemed');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetLastTokenRefreshDate: TDateTime;
+begin
+  Result := GetDoubleProp('LastTokenRefreshDate');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetLastTokenRefreshDateRaw: UTF8String;
+begin
+  Result := GetStringProp('LastTokenRefreshDateRaw');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetRefreshTokenValidUntil: TDateTime;
+begin
+  Result := GetDoubleProp('RefreshTokenValidUntil');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetRefreshTokenValidUntilRaw: UTF8String;
+begin
+  Result := GetStringProp('RefreshTokenValidUntilRaw');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetStartDate: TDateTime;
+begin
+  Result := GetDoubleProp('StartDate');
+end;
+
+function TKSeF2AuthenticationOperationStatusResponseRev2.GetStartDateRaw: UTF8String;
+begin
+  Result := GetStringProp('StartDateRaw');
+end;
+
+procedure TKSeF2AuthenticationOperationStatusResponseRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('AuthenticationMethodInfo');
+  if O <> nil then
+    FAuthenticationMethodInfo := TKSeF2AuthenticationMethodInfoRev2.Create(Self, O);
+  O := GetObjectProp('Status');
+  if O <> nil then
+    FStatus := TKSeF2StatusInfo.Create(Self, O);
+end;
+
 { TKSeF2AuthenticationTokensResponse }
 
 procedure TKSeF2AuthenticationTokensResponse.LoadObject;
@@ -4440,6 +4929,91 @@ begin
   O := GetObjectProp('Items');
   if O <> nil then
     FItems := TKSeF2AuthenticationList.Create(Self, O);
+end;
+
+{ TKSeF2AuthenticationListItemRev2 }
+
+function TKSeF2AuthenticationListItemRev2.GetIsCurrent: Boolean;
+begin
+  Result := GetBooleanProp('IsCurrent');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetIsTokenRedeemed: Boolean;
+begin
+  Result := GetBooleanProp('IsTokenRedeemed');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetLastTokenRefreshDate: TDateTime;
+begin
+  Result := GetDoubleProp('LastTokenRefreshDate');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetLastTokenRefreshDateRaw: UTF8String;
+begin
+  Result := GetStringProp('LastTokenRefreshDateRaw');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetRefreshTokenValidUntil: TDateTime;
+begin
+  Result := GetDoubleProp('RefreshTokenValidUntil');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetRefreshTokenValidUntilRaw: UTF8String;
+begin
+  Result := GetStringProp('RefreshTokenValidUntilRaw');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetStartDate: TDateTime;
+begin
+  Result := GetDoubleProp('StartDate');
+end;
+
+function TKSeF2AuthenticationListItemRev2.GetStartDateRaw: UTF8String;
+begin
+  Result := GetStringProp('StartDateRaw');
+end;
+
+procedure TKSeF2AuthenticationListItemRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('AuthenticationMethodInfo');
+  if O <> nil then
+    FAuthenticationMethodInfo := TKSeF2AuthenticationMethodInfoRev2.Create(Self, O);
+  O := GetObjectProp('Status');
+  if O <> nil then
+    FStatus := TKSeF2StatusInfo.Create(Self, O);
+end;
+
+{ TKSeF2AuthenticationListRev2 }
+
+function TKSeF2AuthenticationListRev2.GetItem(AIndex: Integer
+  ): TKSeF2AuthenticationListItemRev2;
+begin
+  Result := TKSeF2AuthenticationListItemRev2(inherited GetItem(AIndex));
+end;
+
+{ TKSeF2AuthenticationListResponseRev2 }
+
+function TKSeF2AuthenticationListResponseRev2.GetContinuationToken: UTF8String;
+begin
+  Result := GetStringProp('ContinuationToken');
+end;
+
+procedure TKSeF2AuthenticationListResponseRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Items');
+  if O <> nil then
+    FItems := TKSeF2AuthenticationListRev2.Create(Self, O);
 end;
 
 { TKSeF2PublicKeyCertificate }
@@ -6034,6 +6608,69 @@ begin
   Result := GetStringProp('Token');
 end;
 
+{ TKSeF2GenerateTokenRequestRev2 }
+
+function TKSeF2GenerateTokenRequestRev2.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2GenerateTokenRequestRev2.GetPermissions: TKSeF2TokenPermissions;
+begin
+  Int32ToSet(GetIntegerProp('PermissionsInt'), Ord(High(TKSeF2TokenPermissionType)), SizeOf(Result), @Result);
+end;
+
+function TKSeF2GenerateTokenRequestRev2.GetPermissionsInt: Integer;
+begin
+  Result := GetIntegerProp('PermissionsInt');
+end;
+
+function TKSeF2GenerateTokenRequestRev2.GetPermissionsStr: UTF8String;
+begin
+  Result := GetStringProp('PermissionsStr');
+end;
+
+function TKSeF2GenerateTokenRequestRev2.GetValidFrom: TDateTime;
+begin
+  Result := GetDoubleProp('ValidFrom');
+end;
+
+function TKSeF2GenerateTokenRequestRev2.GetValidTo: TDateTime;
+begin
+  Result := GetDoubleProp('ValidTo');
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetDescription(AValue: UTF8String);
+begin
+  SetStringProp('Description', AValue);
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetPermissions(
+  AValue: TKSeF2TokenPermissions);
+begin
+  SetIntegerProp('PermissionsInt', SetToInt32(@AValue, Ord(High(TKSeF2TokenPermissionType)), SizeOf(AValue)));
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetPermissionsInt(AValue: Integer);
+begin
+  SetIntegerProp('PermissionsInt', AValue);
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetPermissionsStr(AValue: UTF8String);
+begin
+  SetStringProp('PermissionsStr', AValue);
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetValidFrom(AValue: TDateTime);
+begin
+  SetDoubleProp('ValidFrom', AValue);
+end;
+
+procedure TKSeF2GenerateTokenRequestRev2.SetValidTo(AValue: TDateTime);
+begin
+  SetDoubleProp('ValidTo', AValue);
+end;
+
 { TKSeF2TokenAuthorIdentifierTypeIdentifier }
 
 function TKSeF2TokenAuthorIdentifierTypeIdentifier.GetType: TKSeF2TokenAuthorIdentifierType;
@@ -6141,6 +6778,233 @@ begin
     FTokens := TKSeF2QueryTokensResponseArray.Create(Self, O);
 end;
 
+{ TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType }
+
+function TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType.GetCode: TKSeF2TokenAuthorIdentifierTypeCodeRev2;
+begin
+  Result := TKSeF2TokenAuthorIdentifierTypeCodeRev2(GetIntegerProp('Code'));
+end;
+
+function TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+function TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType.GetRawCode: UTF8String;
+begin
+  Result := GetStringProp('RawCode');
+end;
+
+function TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier.GetValue: UTF8String;
+begin
+  Result := GetStringProp('Value');
+end;
+
+procedure TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Type');
+  if O <> nil then
+    FType := TKSeF2TokenAuthorIdentifierTypeCodeRev2IdentifierType.Create(Self, O);
+end;
+
+{ TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType }
+
+function TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType.GetCode: TKSeF2TokenContextIdentifierTypeCodeRev2;
+begin
+  Result := TKSeF2TokenContextIdentifierTypeCodeRev2(GetIntegerProp('Code'));
+end;
+
+function TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+function TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType.GetRawCode: UTF8String;
+begin
+  Result := GetStringProp('RawCode');
+end;
+
+function TKSeF2TokenContextIdentifierTypeCodeRev2Identifier.GetValue: UTF8String;
+begin
+  Result := GetStringProp('Value');
+end;
+
+procedure TKSeF2TokenContextIdentifierTypeCodeRev2Identifier.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Type');
+  if O <> nil then
+    FType := TKSeF2TokenContextIdentifierTypeCodeRev2IdentifierType.Create(Self, O);
+end;
+
+{ TKSeF2TokenPermissionRev2 }
+
+function TKSeF2TokenPermissionRev2.GetCode: TKSeF2TokenPermissionCodeRev2;
+begin
+  Result := TKSeF2TokenPermissionCodeRev2(GetIntegerProp('Code'));
+end;
+
+function TKSeF2TokenPermissionRev2.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+function TKSeF2TokenPermissionRev2.GetRawCode: UTF8String;
+begin
+  Result := GetStringProp('RawCode');
+end;
+
+{ TKSeF2TokenPermissionRev2Array }
+
+function TKSeF2TokenPermissionRev2Array.GetItem(AIndex: Integer
+  ): TKSeF2TokenPermissionRev2;
+begin
+  Result := TKSeF2TokenPermissionRev2(inherited GetItem(AIndex));
+end;
+
+{ TKSeF2TokenStatusRev2 }
+
+function TKSeF2TokenStatusRev2.GetCode: TKSeF2TokenStatusRev2Code;
+begin
+  Result := TKSeF2TokenStatusRev2Code(GetIntegerProp('Code'));
+end;
+
+function TKSeF2TokenStatusRev2.GetDisplayName: UTF8String;
+begin
+  Result := GetStringProp('DisplayName');
+end;
+
+function TKSeF2TokenStatusRev2.GetRawCode: UTF8String;
+begin
+  Result := GetStringProp('RawCode');
+end;
+
+{ TKSeF2TokenFailureRev2 }
+
+function TKSeF2TokenFailureRev2.GetCode: UTF8String;
+begin
+  Result := GetStringProp('Code');
+end;
+
+function TKSeF2TokenFailureRev2.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2TokenFailureRev2.GetDetails: TStringArray;
+begin
+  //Result := GetStringProp('DetailsStr');
+end;
+
+function TKSeF2TokenFailureRev2.GetDetailsStr: UTF8String;
+begin
+  Result := GetStringProp('DetailsStr');
+end;
+
+{ TKSeF2QueryTokensResponseItemRev2 }
+
+function TKSeF2QueryTokensResponseItemRev2.GetDateCreated: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreated');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetDateCreatedRaw: UTF8String;
+begin
+  Result := GetStringProp('DateCreatedRaw');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetLastUseDate: TDateTime;
+begin
+  Result := GetDoubleProp('LastUseDate');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetLastUseDateRaw: UTF8String;
+begin
+  Result := GetStringProp('LastUseDateRaw');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetValidFrom: TDateTime;
+begin
+  Result := GetDoubleProp('ValidFrom');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetValidFromRaw: UTF8String;
+begin
+  Result := GetStringProp('ValidFromRaw');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetValidTo: TDateTime;
+begin
+  Result := GetDoubleProp('ValidTo');
+end;
+
+function TKSeF2QueryTokensResponseItemRev2.GetValidToRaw: UTF8String;
+begin
+  Result := GetStringProp('ValidToRaw');
+end;
+
+procedure TKSeF2QueryTokensResponseItemRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('AuthorIdentifier');
+  if O <> nil then
+    FAuthorIdentifier := TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier.Create(Self, O);
+  O := GetObjectProp('ContextIdentifier');
+  if O <> nil then
+    FContextIdentifier := TKSeF2TokenContextIdentifierTypeCodeRev2Identifier.Create(Self, O);
+  O := GetObjectProp('RequestedPermissions');
+  if O <> nil then
+    FRequestedPermissions := TKSeF2TokenPermissionRev2Array.Create(Self, O);
+  O := GetObjectProp('Status');
+  if O <> nil then
+    FStatus := TKSeF2TokenStatusRev2.Create(Self, O);
+  O := GetObjectProp('Failure');
+  if O <> nil then
+    FFailure := TKSeF2TokenFailureRev2.Create(Self, O);
+end;
+
+{ TKSeF2QueryTokensResponseArrayRev2 }
+
+function TKSeF2QueryTokensResponseArrayRev2.GetItem(AIndex: Integer
+  ): TKSeF2QueryTokensResponseItemRev2;
+begin
+  Result := TKSeF2QueryTokensResponseItemRev2(inherited GetItem(AIndex));
+end;
+
+{ TKSeF2QueryTokensResponseRev2 }
+
+function TKSeF2QueryTokensResponseRev2.GetContinuationToken: UTF8String;
+begin
+  Result := GetStringProp('ContinuationToken');
+end;
+
+procedure TKSeF2QueryTokensResponseRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('Tokens');
+  if O <> nil then
+    FTokens := TKSeF2QueryTokensResponseArrayRev2.Create(Self, O);
+end;
+
 { TKSeF2TokenStatusResponse }
 
 function TKSeF2TokenStatusResponse.GetDateCreated: TDateTime;
@@ -6199,6 +7063,80 @@ begin
   O := GetObjectProp('ContextIdentifier');
   if O <> nil then
     FContextIdentifier := TKSeF2TokenContextIdentifierTypeIdentifier.Create(Self, O);
+end;
+
+{ TKSeF2TokenStatusResponseRev2 }
+
+function TKSeF2TokenStatusResponseRev2.GetDateCreated: TDateTime;
+begin
+  Result := GetDoubleProp('DateCreated');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetDateCreatedRaw: UTF8String;
+begin
+  Result := GetStringProp('DateCreatedRaw');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetDescription: UTF8String;
+begin
+  Result := GetStringProp('Description');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetLastUseDate: TDateTime;
+begin
+  Result := GetDoubleProp('LastUseDate');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetLastUseDateRaw: UTF8String;
+begin
+  Result := GetStringProp('LastUseDateRaw');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetReferenceNumber: UTF8String;
+begin
+  Result := GetStringProp('ReferenceNumber');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetValidFrom: TDateTime;
+begin
+  Result := GetDoubleProp('ValidFrom');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetValidFromRaw: UTF8String;
+begin
+  Result := GetStringProp('ValidFromRaw');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetValidTo: TDateTime;
+begin
+  Result := GetDoubleProp('ValidTo');
+end;
+
+function TKSeF2TokenStatusResponseRev2.GetValidToRaw: UTF8String;
+begin
+  Result := GetStringProp('ValidToRaw');
+end;
+
+procedure TKSeF2TokenStatusResponseRev2.LoadObject;
+var
+  O: LGP_OBJECT;
+begin
+  inherited LoadObject;
+  O := GetObjectProp('AuthorIdentifier');
+  if O <> nil then
+    FAuthorIdentifier := TKSeF2TokenAuthorIdentifierTypeCodeRev2Identifier.Create(Self, O);
+  O := GetObjectProp('ContextIdentifier');
+  if O <> nil then
+    FContextIdentifier := TKSeF2TokenContextIdentifierTypeCodeRev2Identifier.Create(Self, O);
+  O := GetObjectProp('RequestedPermissions');
+  if O <> nil then
+    FRequestedPermissions := TKSeF2TokenPermissionRev2Array.Create(Self, O);
+  O := GetObjectProp('Status');
+  if O <> nil then
+    FStatus := TKSeF2TokenStatusRev2.Create(Self, O);
+  O := GetObjectProp('Failure');
+  if O <> nil then
+    FFailure := TKSeF2TokenFailureRev2.Create(Self, O);
 end;
 
 { TKSeF2Subunit }
@@ -7774,6 +8712,22 @@ begin
   Result := GetBooleanProp('HasMore');
 end;
 
+function TKSeF2QueryPersonalPermissionsResponse.GetOwnerPermissions: TKSeF2OwnerPermissionScopeArray;
+begin
+  Result := [];
+  Int32ToSet(GetIntegerProp('OwnerPermissionsInt'), Ord(High(TKSeF2OwnerPermissionScope)), SizeOf(Result), @Result);
+end;
+
+function TKSeF2QueryPersonalPermissionsResponse.GetOwnerPermissionsInt: Integer;
+begin
+  Result := GetIntegerProp('OwnerPermissionsInt');
+end;
+
+function TKSeF2QueryPersonalPermissionsResponse.GetOwnerPermissionsStr: UTF8String;
+begin
+  Result := GetStringProp('OwnerPermissionsStr');
+end;
+
 procedure TKSeF2QueryPersonalPermissionsResponse.LoadObject;
 var
   O: LGP_OBJECT;
@@ -9338,6 +10292,20 @@ begin
   Result := GetIntegerProp('MaxInvoiceWithAttachmentSizeInMB');
 end;
 
+{ TKSeF2CollectiveIdentifierEffectiveContextLimits }
+
+function TKSeF2CollectiveIdentifierEffectiveContextLimits.GetMaxInvoices: Integer;
+begin
+  Result := GetIntegerProp('MaxInvoices');
+end;
+
+{ TKSeF2TokensEffectiveContextLimits }
+
+function TKSeF2TokensEffectiveContextLimits.GetMaxTokens: Integer;
+begin
+  Result := GetIntegerProp('MaxTokens');
+end;
+
 { TKSeF2EffectiveContextLimits }
 
 procedure TKSeF2EffectiveContextLimits.LoadObject;
@@ -9351,6 +10319,12 @@ begin
   O := GetObjectProp('BatchSession');
   if O <> nil then
     FBatchSession := TKSeF2BatchSessionEffectiveContextLimits.Create(Self, O);
+  O := GetObjectProp('CollectiveIdentifier');
+  if O <> nil then
+    FCollectiveIdentifier := TKSeF2CollectiveIdentifierEffectiveContextLimits.Create(Self, O);
+  O := GetObjectProp('Tokens');
+  if O <> nil then
+    FTokens := TKSeF2TokensEffectiveContextLimits.Create(Self, O);
 end;
 
 { TKSeF2EnrollmentEffectiveSubjectLimits }
@@ -9409,9 +10383,15 @@ begin
   O := GetObjectProp('OnlineSession');
   if O <> nil then
     FOnlineSession := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
+  O := GetObjectProp('OnlineSessionClose');
+  if O <> nil then
+    FOnlineSessionClose := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
   O := GetObjectProp('BatchSession');
   if O <> nil then
     FBatchSession := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
+  O := GetObjectProp('BatchSessionClose');
+  if O <> nil then
+    FBatchSessionClose := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
   O := GetObjectProp('InvoiceSend');
   if O <> nil then
     FInvoiceSend := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
@@ -9439,9 +10419,18 @@ begin
   O := GetObjectProp('InvoiceDownload');
   if O <> nil then
     FInvoiceDownload := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
+  O := GetObjectProp('CollectiveIdentifier');
+  if O <> nil then
+    FCollectiveIdentifier := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
   O := GetObjectProp('Other');
   if O <> nil then
     FOther := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
+  O := GetObjectProp('Anonymous');
+  if O <> nil then
+    FAnonymous := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
+  O := GetObjectProp('Global');
+  if O <> nil then
+    FGlobal := TKSeF2EffectiveApiRateLimitValues.Create(Self, O);
 end;
 
 { TKSeF2PeppolProvider }
