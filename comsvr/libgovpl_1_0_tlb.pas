@@ -1,6 +1,6 @@
 Unit LibGovPL_1_0_TLB;
 
-//  Imported LibGovPL on 2026-08-12 18:20:57 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
+//  Imported LibGovPL on 2026-11-25 20:36:58 from D:\lazarus-projekty\libgovpl4\comsvr\libgovpl4com.tlb
 
 {$mode delphi}{$H+}
 
@@ -39,6 +39,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcWSTBackenddisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcWSTBackenddisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcWSTBackenddisp.Invoke
+//  Warning: 'IDispatch' not automatable in IlgcWSTBackend.HTTPClient
 //  Warning: 'GUID' not automatable in IlgcLibXMLBackenddisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcLibXMLBackenddisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcLibXMLBackenddisp.GetTypeInfo
@@ -47,6 +48,9 @@ interface
 //  Warning: 'GUID' not automatable in IlgcLibXMLBackenddisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcLibXMLBackenddisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcLibXMLBackenddisp.Invoke
+//  Warning: 'WordBool' not automatable in IlgcLibXMLBackend.CacheExternals
+//  Warning: 'WideString' not automatable in IlgcLibXMLBackend.CacheDir
+//  Warning: 'IDispatch' not automatable in IlgcLibXMLBackend.HTTPClient
 //  Warning: 'GUID' not automatable in IlgcOpenSSLBackenddisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcOpenSSLBackenddisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcOpenSSLBackenddisp.GetTypeInfo
@@ -89,6 +93,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcStringStreamdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcStringStreamdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcStringStreamdisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcStringStream.Data
 //  Warning: 'GUID' not automatable in IlgcFileStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcFileStreamdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcFileStreamdisp.GetTypeInfo
@@ -105,6 +110,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcHTTPClientdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcHTTPClientdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcHTTPClientdisp.Invoke
+//  Warning: 'WordBool' not automatable in IlgcHTTPClient.IgnoreSSLErrors
 //  Warning: 'GUID' not automatable in IlgcCertificatedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcCertificatedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcCertificatedisp.GetTypeInfo
@@ -113,6 +119,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcCertificatedisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcCertificatedisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcCertificatedisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcCertificate.PIN
 //  Warning: 'GUID' not automatable in IlgcCertificateSignerdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcCertificateSignerdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcCertificateSignerdisp.GetTypeInfo
@@ -129,6 +136,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcCNGCertificateSignerdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcCNGCertificateSignerdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcCNGCertificateSignerdisp.Invoke
+//  Warning: 'OleVariant' not automatable in IlgcCNGCertificateSigner.WinHandle
 //  Warning: 'GUID' not automatable in IlgcPKCS11Infodisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPKCS11Infodisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPKCS11Infodisp.GetTypeInfo
@@ -169,6 +177,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcPKCS11Certificatedisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcPKCS11Certificatedisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcPKCS11Certificatedisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcPKCS11Certificate.PIN
 //  Warning: 'GUID' not automatable in IlgcPKCS11CertificateSignerdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPKCS11CertificateSignerdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPKCS11CertificateSignerdisp.GetTypeInfo
@@ -193,6 +202,14 @@ interface
 //  Warning: 'GUID' not automatable in IlgcXAdESdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcXAdESdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcXAdESdisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcXAdES.SHA1HashClass
+//  Warning: 'WideString' not automatable in IlgcXAdES.SHA256HashClass
+//  Warning: 'WideString' not automatable in IlgcXAdES.Base64EncoderClass
+//  Warning: 'IDispatch' not automatable in IlgcXAdES.Signer
+//  Warning: 'lgcSignHashType' not automatable in IlgcXAdES.SignType
+//  Warning: 'lgcXAdESSerialNoFormat' not automatable in IlgcXAdES.SerialNoFormat
+//  Warning: 'WordBool' not automatable in IlgcXAdES.IncludeSigningTime
+//  Warning: 'OleVariant' not automatable in IlgcXAdES.SigningTime
 //  Warning: 'GUID' not automatable in IlgcEDeklaracjaStatusdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcEDeklaracjaStatusdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcEDeklaracjaStatusdisp.GetTypeInfo
@@ -209,6 +226,10 @@ interface
 //  Warning: 'GUID' not automatable in IlgcEDeklaracjadisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcEDeklaracjadisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcEDeklaracjadisp.Invoke
+//  Warning: 'IDispatch' not automatable in IlgcEDeklaracja.XAdES
+//  Warning: 'WideString' not automatable in IlgcEDeklaracja.XMLCanonizator
+//  Warning: 'WideString' not automatable in IlgcEDeklaracja.EDekGate
+//  Warning: 'WordBool' not automatable in IlgcEDeklaracja.Canonization
 //  Warning: 'GUID' not automatable in IlgcJPKdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcJPKdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcJPKdisp.GetTypeInfo
@@ -217,6 +238,17 @@ interface
 //  Warning: 'GUID' not automatable in IlgcJPKdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcJPKdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcJPKdisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcJPK.Base64EncoderClass
+//  Warning: 'WideString' not automatable in IlgcJPK.AES256EncryptClass
+//  Warning: 'WideString' not automatable in IlgcJPK.MD5HashClass
+//  Warning: 'WideString' not automatable in IlgcJPK.SHA256HashClass
+//  Warning: 'WideString' not automatable in IlgcJPK.ZipperClass
+//  Warning: 'WideString' not automatable in IlgcJPK.RandomGeneratorClass
+//  Warning: 'WideString' not automatable in IlgcJPK.XMLReaderClass
+//  Warning: 'IDispatch' not automatable in IlgcJPK.RSAKeyProd
+//  Warning: 'IDispatch' not automatable in IlgcJPK.RSAKeyTest
+//  Warning: 'IDispatch' not automatable in IlgcJPK.XAdES
+//  Warning: 'IDispatch' not automatable in IlgcJPK.HTTPClient
 //  Warning: 'GUID' not automatable in IlgcKSeFRequestdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeFRequestdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeFRequestdisp.GetTypeInfo
@@ -243,6 +275,27 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeFBasedisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeFBasedisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeFBasedisp.Invoke
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.Base64EncoderClass
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.AES256EncryptClass
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.SHA256HashClass
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.RandomGeneratorClass
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.XAdES
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.HTTPClient
+//  Warning: 'lgcKSeFGateType' not automatable in IlgcKSeFBase.GateType
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.Nip
+//  Warning: 'Integer' not automatable in IlgcKSeFBase.FormCode
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.FormCodeSystemCode
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.FormCodeSchemaVersion
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.FormCodeTargetNamespace
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.FormCodeValue
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.Certificate
+//  Warning: 'lgcKSeFCertificateAuthType' not automatable in IlgcKSeFBase.CertificateAuthType
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.Token
+//  Warning: 'WordBool' not automatable in IlgcKSeFBase.Encryption
+//  Warning: 'WideString' not automatable in IlgcKSeFBase.SessionToken
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.RSAKeyProd
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.RSAKeyDemo
+//  Warning: 'IDispatch' not automatable in IlgcKSeFBase.RSAKeyTest
 //  Warning: 'GUID' not automatable in IlgcKSeF_2_6_0disp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF_2_6_0disp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF_2_6_0disp.GetTypeInfo
@@ -251,6 +304,27 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeF_2_6_0disp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF_2_6_0disp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF_2_6_0disp.Invoke
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.Base64EncoderClass
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.AES256EncryptClass
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.SHA256HashClass
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.RandomGeneratorClass
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.XAdES
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.HTTPClient
+//  Warning: 'lgcKSeFGateType' not automatable in IlgcKSeF_2_6_0.GateType
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.Nip
+//  Warning: 'Integer' not automatable in IlgcKSeF_2_6_0.FormCode
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.FormCodeSystemCode
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.FormCodeSchemaVersion
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.FormCodeTargetNamespace
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.FormCodeValue
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.Certificate
+//  Warning: 'lgcKSeFCertificateAuthType' not automatable in IlgcKSeF_2_6_0.CertificateAuthType
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.Token
+//  Warning: 'WordBool' not automatable in IlgcKSeF_2_6_0.Encryption
+//  Warning: 'WideString' not automatable in IlgcKSeF_2_6_0.SessionToken
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.RSAKeyProd
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.RSAKeyDemo
+//  Warning: 'IDispatch' not automatable in IlgcKSeF_2_6_0.RSAKeyTest
 //  Warning: 'GUID' not automatable in IlgcXMLReaderdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcXMLReaderdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcXMLReaderdisp.GetTypeInfo
@@ -315,6 +389,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcViesServicedisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcViesServicedisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcViesServicedisp.Invoke
+//  Warning: 'IDispatch' not automatable in IlgcViesService.HTTPClient
 //  Warning: 'GUID' not automatable in IlgcKSeF2Requestdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2Requestdisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2Requestdisp.GetTypeInfo
@@ -342,6 +417,53 @@ interface
 //  Warning: 'GUID' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcKSeF2disp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcKSeF2disp.Invoke
+//  Warning: 'WideString' not automatable in IlgcKSeF2.RSAPublicKeyClass
+//  Warning: 'WideString' not automatable in IlgcKSeF2.Base64EncoderClass
+//  Warning: 'WideString' not automatable in IlgcKSeF2.AES256EncryptClass
+//  Warning: 'WideString' not automatable in IlgcKSeF2.SHA256HashClass
+//  Warning: 'WideString' not automatable in IlgcKSeF2.RandomGeneratorClass
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.XAdES
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.HTTPClient
+//  Warning: 'lgcKSeFGateType' not automatable in IlgcKSeF2.GateType
+//  Warning: 'WideString' not automatable in IlgcKSeF2.Identifier
+//  Warning: 'lgcKSeFIdentifierType' not automatable in IlgcKSeF2.IdentifierType
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.AuthCertificate
+//  Warning: 'lgcKSeFCertificateAuthType' not automatable in IlgcKSeF2.AuthCertificateSubject
+//  Warning: 'WideString' not automatable in IlgcKSeF2.KsefToken
+//  Warning: 'Integer' not automatable in IlgcKSeF2.FormCode
+//  Warning: 'WideString' not automatable in IlgcKSeF2.FormCodeSystemCode
+//  Warning: 'WideString' not automatable in IlgcKSeF2.FormCodeSchemaVersion
+//  Warning: 'WideString' not automatable in IlgcKSeF2.FormCodeValue
+//  Warning: 'WideString' not automatable in IlgcKSeF2.SessionToken
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSATokenEncKeyProd
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSATokenEncKeyDemo
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSATokenEncKeyTest
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSASymmetricEncKeyProd
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSASymmetricEncKeyDemo
+//  Warning: 'IDispatch' not automatable in IlgcKSeF2.RSASymmetricEncKeyTest
+//  Warning: 'WideString' not automatable in IlgcKSeF2.AuthenticationToken
+//  Warning: 'TDateTime' not automatable in IlgcKSeF2.AuthenticationTokenValidUntil
+//  Warning: 'WideString' not automatable in IlgcKSeF2.AuthenticationRefNo
+//  Warning: 'WideString' not automatable in IlgcKSeF2.AccessToken
+//  Warning: 'TDateTime' not automatable in IlgcKSeF2.AccessTokenValidUntil
+//  Warning: 'WideString' not automatable in IlgcKSeF2.RefreshToken
+//  Warning: 'TDateTime' not automatable in IlgcKSeF2.RefreshTokenValidUntil
+//  Warning: 'OleVariant' not automatable in IlgcKSeF2.InteractiveEncryptionKey
+//  Warning: 'OleVariant' not automatable in IlgcKSeF2.InteractiveVector
+//  Warning: 'WideString' not automatable in IlgcKSeF2.InteractiveReferenceNumber
+//  Warning: 'TDateTime' not automatable in IlgcKSeF2.InteractiveValidUntil
+//  Warning: 'WideString' not automatable in IlgcKSeF2.BatchReferenceNumber
+//  Warning: 'Integer' not automatable in IlgcKSeF2.BatchPartSize
+//  Warning: 'OleVariant' not automatable in IlgcKSeF2.InvoiceExportEncryptionKey
+//  Warning: 'OleVariant' not automatable in IlgcKSeF2.InvoiceExportVector
+//  Warning: 'WideString' not automatable in IlgcKSeF2.InvoiceExportReferenceNumber
+//  Warning: 'WordBool' not automatable in IlgcKSeF2.AutoRefreshToken
+//  Warning: 'WideString' not automatable in IlgcKSeF2.ResponseHeaders
+//  Warning: 'WideString' not automatable in IlgcKSeF2.Ip4Address
+//  Warning: 'WideString' not automatable in IlgcKSeF2.Ip4Mask
+//  Warning: 'WideString' not automatable in IlgcKSeF2.Ip4Range
+//  Warning: 'lgcKSeFCompressionType' not automatable in IlgcKSeF2.CompressionType
+//  Warning: 'WordBool' not automatable in IlgcKSeF2.UseProblemDetails
 //  Warning: renamed parameter 'Type' in IlgcKSeF2.CertificatesQuery2 to 'Type_'
 //  Warning: 'GUID' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcKSeF2VerificationLinkServicedisp.QueryInterface
@@ -375,6 +497,7 @@ interface
 //  Warning: 'GUID' not automatable in IlgcMemoryStreamdisp.Invoke
 //  Warning: 'DISPPARAMS' not automatable in IlgcMemoryStreamdisp.Invoke
 //  Warning: 'EXCEPINFO' not automatable in IlgcMemoryStreamdisp.Invoke
+//  Warning: 'OleVariant' not automatable in IlgcMemoryStream.Data
 //  Warning: 'GUID' not automatable in IlgcPublicKeydisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPublicKeydisp.QueryInterface
 //  Warning: 'Ppointer' not automatable in IlgcPublicKeydisp.GetTypeInfo
@@ -385,6 +508,7 @@ interface
 //  Warning: 'EXCEPINFO' not automatable in IlgcPublicKeydisp.Invoke
 Uses
   Windows,ActiveX,Classes,Variants,stdole2;
+
 Const
   LibGovPLMajorVersion = 1;
   LibGovPLMinorVersion = 0;
@@ -487,7 +611,7 @@ Const
 //Enums
 
 Type
-  lgcClassType =LongWord;
+  lgcClassType = Integer;
 Const
   lgcCTHTTPClient = $0000000000000000;
   lgcCTCertSigner = $0000000000000001;
@@ -504,14 +628,16 @@ Const
   lgcCTEdekGate = $000000000000000C;
   lgcCTXMLValidator = $000000000000000D;
   lgcCTXMLXSLT = $000000000000000E;
+
 Type
-  lgcEncodingType =LongWord;
+  lgcEncodingType = Integer;
 Const
   lgcETPEM = $0000000000000000;
   lgcETDER = $0000000000000001;
   lgcETPFX = $0000000000000002;
+
 Type
-  lgcPropertyType =LongWord;
+  lgcPropertyType = Integer;
 Const
   lgcPTUnknown = $0000000000000000;
   lgcPTString = $0000000000000001;
@@ -523,71 +649,83 @@ Const
   lgcPTDateTime = $0000000000000007;
   lgcPTObject = $0000000000000008;
   lgcPTObjectList = $0000000000000009;
+
 Type
-  lgcPKCS11UserType =LongWord;
+  lgcPKCS11UserType = Integer;
 Const
   lgcP11UTSO = $0000000000000000;
   lgcP11UTUser = $0000000000000001;
   lgcP11UTContextSpecific = $0000000000000002;
+
 Type
-  lgcPKCS11SessionState =LongWord;
+  lgcPKCS11SessionState = Integer;
 Const
   lgcP11SSROPublicSession = $0000000000000000;
   lgcP11SSROUserFunctions = $0000000000000001;
   lgcP11SSRWPublicSession = $0000000000000002;
   lgcP11SSRWUserFunctions = $0000000000000003;
   lgcP11SSRWSOFunctions = $0000000000000004;
+
 Type
-  lgcSignHashType =LongWord;
+  lgcSignHashType = Integer;
 Const
   lgcSHTSHA1 = $0000000000000000;
   lgcSHTSHA256 = $0000000000000001;
+
 Type
-  lgcXAdESSerialNoFormat =LongWord;
+  lgcXAdESSerialNoFormat = Integer;
 Const
   lgcXSFDecimal = $0000000000000000;
   lgcXSFHex = $0000000000000001;
+
 Type
-  lgcEDekGateType =LongWord;
+  lgcEDekGateType = Integer;
 Const
   lgcEGTProduction = $0000000000000000;
   lgcEGTTest = $0000000000000001;
+
 Type
-  lgcEDekSignType =LongWord;
+  lgcEDekSignType = Integer;
 Const
   lgcESTCertificate = $0000000000000000;
   lgcESTAuthData = $0000000000000001;
+
 Type
-  lgcKSeFGateType =LongWord;
+  lgcKSeFGateType = Integer;
 Const
   lgcKTGProd = $0000000000000000;
   lgcKTGDemo = $0000000000000001;
   lgcKTGTest = $0000000000000002;
+
 Type
-  lgcKSeFCertificateAuthType =LongWord;
+  lgcKSeFCertificateAuthType = Integer;
 Const
   lgcCATSerialNumber = $0000000000000000;
   lgcCATFingerprint = $0000000000000001;
+
 Type
-  lgcKSeFNumberVariant =LongWord;
+  lgcKSeFNumberVariant = Integer;
 Const
   lgcKNVDefault = $0000000000000000;
   lgcKNV35 = $0000000000000001;
   lgcKNV36 = $0000000000000002;
+
 Type
-  lgcViesMatchType =LongWord;
+  lgcViesMatchType = Integer;
 Const
   lgcVMTValid = $0000000000000000;
   lgcVMTInvalid = $0000000000000001;
   lgcVMTNot_Processed = $0000000000000002;
+
 Type
-  lgcViesAvailabilityStatus =LongWord;
+  lgcViesAvailabilityStatus = Integer;
 Const
   lgcVASAvailable = $0000000000000000;
   lgcVASUnavailable = $0000000000000001;
   lgcVASMonitoringDisabled = $0000000000000002;
+
 Type
-  lgcKSeFIdentifierType =LongWord;
+  lgcKSeFIdentifierType = Integer;
 Const
   itNone = $0000000000000000;
   itAllPartners = $0000000000000001;
@@ -595,14 +733,16 @@ Const
   itInternalId = $0000000000000003;
   itNipVatUe = $0000000000000004;
   itPeppolId = $0000000000000005;
+
 Type
-  lgcKSeFCompressionType =LongWord;
+  lgcKSeFCompressionType = Integer;
 Const
   ctDefault = $0000000000000000;
   ctZip = $0000000000000001;
   ctTarGz = $0000000000000002;
+
 Type
-  lgcFileMode =LongWord;
+  lgcFileMode = Integer;
 Const
   lgcFMOpenRead = $0000000000000000;
   lgcFMOpenWrite = $0000000000000001;
@@ -613,8 +753,9 @@ Const
   lgcFMShareDenyRead = $0000000000000030;
   lgcFMShareDenyNone = $0000000000000040;
   lgcFMCreate = $000000000000FF00;
+
 Type
-  lgcCertificateKeyUsage =LongWord;
+  lgcCertificateKeyUsage = Integer;
 Const
   lgcCKUDigitalSignature = $0000000000000001;
   lgcCKUNonRepudiation = $0000000000000002;
@@ -625,6 +766,7 @@ Const
   lgcCKUCRLSign = $0000000000000040;
   lgcCKUEncipherOnly = $0000000000000080;
   lgcCKUDecipherOnly = $0000000000000100;
+
 //Forward declarations
 
 Type
@@ -779,18 +921,18 @@ Type
 
  IlgcErrorInfo = interface(IDispatch)
    ['{9043B49E-3089-4FDB-9575-3DBE9AD258AE}']
-   function Get_ExceptionClass : WideString; safecall;
-   function Get_Message : WideString; safecall;
-   function Get_ExtraInfo : OleVariant; safecall;
-   function Get_HandlerClass : WideString; safecall;
+   function Get_ExceptionClass : WideString; Safecall;
+   function Get_Message : WideString; Safecall;
+   function Get_ExtraInfo : OleVariant; Safecall;
+   function Get_HandlerClass : WideString; Safecall;
     // ExceptionClass : Nazwa klasy wyjatku 
-   property ExceptionClass:WideString read Get_ExceptionClass;
+   property ExceptionClass: WideString read Get_ExceptionClass;
     // Message : Komunikat bledu 
-   property Message:WideString read Get_Message;
+   property Message: WideString read Get_Message;
     // ExtraInfo : Dodatkowe informacje (tablica typu VARIANT) 
-   property ExtraInfo:OleVariant read Get_ExtraInfo;
+   property ExtraInfo: OleVariant read Get_ExtraInfo;
     // HandlerClass : Klasa obslugujaca wyjatek 
-   property HandlerClass:WideString read Get_HandlerClass;
+   property HandlerClass: WideString read Get_HandlerClass;
   end;
 
 
@@ -801,9 +943,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -813,13 +955,13 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // ExceptionClass : Nazwa klasy wyjatku 
-   property ExceptionClass:WideString  readonly dispid 3001;
+   property ExceptionClass: WideString  readonly dispid 3001;
     // Message : Komunikat bledu 
-   property Message:WideString  readonly dispid 3002;
+   property Message: WideString  readonly dispid 3002;
     // ExtraInfo : Dodatkowe informacje (tablica typu VARIANT) 
-   property ExtraInfo:OleVariant  readonly dispid 3003;
+   property ExtraInfo: OleVariant  readonly dispid 3003;
     // HandlerClass : Klasa obslugujaca wyjatek 
-   property HandlerClass:WideString  readonly dispid 3004;
+   property HandlerClass: WideString  readonly dispid 3004;
   end;
 
 
@@ -828,12 +970,12 @@ Type
  IlgcBaseObject = interface(IDispatch)
    ['{617C8313-E12F-47FA-A01E-AC0A212C8855}']
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;safecall;
+   function GetObjClassName: WideString;safecall;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;safecall;
-   function Get_LastError : IDispatch; safecall;
+   function Get_LastError : IDispatch; Safecall;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch read Get_LastError;
+   property LastError: IDispatch read Get_LastError;
   end;
 
 
@@ -844,9 +986,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -856,11 +998,11 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -871,47 +1013,47 @@ Type
     // SetLicenseKey : Ustawienie danych licencji 
    procedure SetLicenseKey(Param1:WideString;Param2:WideString;Param3:WideString);safecall;
     // GetLibVersion : Pobranie wersji biblioteki 
-   function GetLibVersion:WideString;safecall;
+   function GetLibVersion: WideString;safecall;
     // GetDebugInfo : Pobranie informacji i statystyk 
-   function GetDebugInfo(CounterType:Integer):OleVariant;safecall;
+   function GetDebugInfo(CounterType:Integer): OleVariant;safecall;
     // GetClassCount : Pobranie liczby klas danego rodzaju sterownika 
-   function GetClassCount(ClsType:lgcClassType):Integer;safecall;
+   function GetClassCount(ClsType:lgcClassType): Integer;safecall;
     // GetClassName : Pobranie nazwy klasy sterownika 
-   function GetClassName(ClsType:lgcClassType;ClassIndex:Integer):WideString;safecall;
+   function GetClassName(ClsType:lgcClassType;ClassIndex:Integer): WideString;safecall;
     // GetClassNames : Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string) 
-   function GetClassNames(ClsType:lgcClassType):OleVariant;safecall;
+   function GetClassNames(ClsType:lgcClassType): OleVariant;safecall;
     // GetClassNamesStr : Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string) 
-   function GetClassNamesStr(ClsType:lgcClassType):WideString;safecall;
+   function GetClassNamesStr(ClsType:lgcClassType): WideString;safecall;
     // CreateFileStream : Utworzenie nowego strumienia plikowego o podanej nazwie i trybie otwarcia 
-   function CreateFileStream(FileName:WideString;Mode:Integer):IDispatch;safecall;
+   function CreateFileStream(FileName:WideString;Mode:Integer): IDispatch;safecall;
     // CreateHTTPClient : Utworzenie instancji klienta polaczen HTTP o zadanej nazwie klasy sterownika 
-   function CreateHTTPClient(ClsName:WideString):IDispatch;safecall;
+   function CreateHTTPClient(ClsName:WideString): IDispatch;safecall;
     // CreateRSAPublicKey : Utworzenie instancji klucza publicznego RSA o zadanej nazwie klasy i wskazanym zrodle (nazwa pliku, lancuch z zawartoscia klucza lub obiekt implementujacy IStream) 
-   function CreateRSAPublicKey(ClsName:WideString;Source:OleVariant;Encoding:lgcEncodingType):IDispatch;safecall;
+   function CreateRSAPublicKey(ClsName:WideString;Source:OleVariant;Encoding:lgcEncodingType): IDispatch;safecall;
     // CreateCertificateSigner : Utworzenie instancji mechanizmu podpisu certyfikatem kwalifikowanym o zadanej nazwie klasy sterownika 
-   function CreateCertificateSigner(ClsName:WideString):IDispatch;safecall;
+   function CreateCertificateSigner(ClsName:WideString): IDispatch;safecall;
     // CreateXAdES : Tworzenie instancji obiektu sygnatury XAdES 
-   function CreateXAdES:IDispatch;safecall;
+   function CreateXAdES: IDispatch;safecall;
     // CreateEDeklaracja : Tworzenie instancji obiektu obslugi e-deklaracji 
-   function CreateEDeklaracja:IDispatch;safecall;
+   function CreateEDeklaracja: IDispatch;safecall;
     // CreateJPK : Tworzenie instancji obiektu obslugi JPK 
-   function CreateJPK:IDispatch;safecall;
+   function CreateJPK: IDispatch;safecall;
     // CreateKSeF : Tworzenie instancji obiektu obslugi KSeF 
-   function CreateKSeF:IDispatch;safecall;
+   function CreateKSeF: IDispatch;safecall;
     // CreateXMLReader :  
-   function CreateXMLReader(ClsName:WideString;Source:OleVariant):IDispatch;safecall;
+   function CreateXMLReader(ClsName:WideString;Source:OleVariant): IDispatch;safecall;
     // CreateXMLValidator :  
-   function CreateXMLValidator(ClsName:WideString):IDispatch;safecall;
+   function CreateXMLValidator(ClsName:WideString): IDispatch;safecall;
     // CreateXMLXSLTranformation :  
-   function CreateXMLXSLTranformation(ClsName:WideString):IDispatch;safecall;
+   function CreateXMLXSLTranformation(ClsName:WideString): IDispatch;safecall;
     // CreateKSeF2 : Tworzenie instancji obiektu obslugi KSeF 2.0 
-   function CreateKSeF2:IDispatch;safecall;
+   function CreateKSeF2: IDispatch;safecall;
     // CreateHash :  
-   function CreateHash(ClsName:WideString):IDispatch;safecall;
+   function CreateHash(ClsName:WideString): IDispatch;safecall;
     // CreateKSeF2VerLinkSvc :  
-   function CreateKSeF2VerLinkSvc:IDispatch;safecall;
+   function CreateKSeF2VerLinkSvc: IDispatch;safecall;
     // CreateKSeF2Utils :  
-   function CreateKSeF2Utils:IDispatch;safecall;
+   function CreateKSeF2Utils: IDispatch;safecall;
   end;
 
 
@@ -922,9 +1064,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -934,55 +1076,55 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // SetLicenseKey : Ustawienie danych licencji 
    procedure SetLicenseKey(Param1:WideString;Param2:WideString;Param3:WideString);dispid 2001;
     // GetLibVersion : Pobranie wersji biblioteki 
-   function GetLibVersion:WideString;dispid 2002;
+   function GetLibVersion: WideString;dispid 2002;
     // GetDebugInfo : Pobranie informacji i statystyk 
-   function GetDebugInfo(CounterType:Integer):OleVariant;dispid 2003;
+   function GetDebugInfo(CounterType:Integer): OleVariant;dispid 2003;
     // GetClassCount : Pobranie liczby klas danego rodzaju sterownika 
-   function GetClassCount(ClsType:lgcClassType):Integer;dispid 2004;
+   function GetClassCount(ClsType:lgcClassType): Integer;dispid 2004;
     // GetClassName : Pobranie nazwy klasy sterownika 
-   function GetClassName(ClsType:lgcClassType;ClassIndex:Integer):WideString;dispid 2005;
+   function GetClassName(ClsType:lgcClassType;ClassIndex:Integer): WideString;dispid 2005;
     // GetClassNames : Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string) 
-   function GetClassNames(ClsType:lgcClassType):OleVariant;dispid 2006;
+   function GetClassNames(ClsType:lgcClassType): OleVariant;dispid 2006;
     // GetClassNamesStr : Pobranie listy klas sterownikow danego typu (zwracana tablica typu VARIANT z elementami typu string) 
-   function GetClassNamesStr(ClsType:lgcClassType):WideString;dispid 2018;
+   function GetClassNamesStr(ClsType:lgcClassType): WideString;dispid 2018;
     // CreateFileStream : Utworzenie nowego strumienia plikowego o podanej nazwie i trybie otwarcia 
-   function CreateFileStream(FileName:WideString;Mode:Integer):IDispatch;dispid 2007;
+   function CreateFileStream(FileName:WideString;Mode:Integer): IDispatch;dispid 2007;
     // CreateHTTPClient : Utworzenie instancji klienta polaczen HTTP o zadanej nazwie klasy sterownika 
-   function CreateHTTPClient(ClsName:WideString):IDispatch;dispid 2008;
+   function CreateHTTPClient(ClsName:WideString): IDispatch;dispid 2008;
     // CreateRSAPublicKey : Utworzenie instancji klucza publicznego RSA o zadanej nazwie klasy i wskazanym zrodle (nazwa pliku, lancuch z zawartoscia klucza lub obiekt implementujacy IStream) 
-   function CreateRSAPublicKey(ClsName:WideString;Source:OleVariant;Encoding:lgcEncodingType):IDispatch;dispid 2009;
+   function CreateRSAPublicKey(ClsName:WideString;Source:OleVariant;Encoding:lgcEncodingType): IDispatch;dispid 2009;
     // CreateCertificateSigner : Utworzenie instancji mechanizmu podpisu certyfikatem kwalifikowanym o zadanej nazwie klasy sterownika 
-   function CreateCertificateSigner(ClsName:WideString):IDispatch;dispid 2010;
+   function CreateCertificateSigner(ClsName:WideString): IDispatch;dispid 2010;
     // CreateXAdES : Tworzenie instancji obiektu sygnatury XAdES 
-   function CreateXAdES:IDispatch;dispid 2011;
+   function CreateXAdES: IDispatch;dispid 2011;
     // CreateEDeklaracja : Tworzenie instancji obiektu obslugi e-deklaracji 
-   function CreateEDeklaracja:IDispatch;dispid 2012;
+   function CreateEDeklaracja: IDispatch;dispid 2012;
     // CreateJPK : Tworzenie instancji obiektu obslugi JPK 
-   function CreateJPK:IDispatch;dispid 2013;
+   function CreateJPK: IDispatch;dispid 2013;
     // CreateKSeF : Tworzenie instancji obiektu obslugi KSeF 
-   function CreateKSeF:IDispatch;dispid 2014;
+   function CreateKSeF: IDispatch;dispid 2014;
     // CreateXMLReader :  
-   function CreateXMLReader(ClsName:WideString;Source:OleVariant):IDispatch;dispid 2015;
+   function CreateXMLReader(ClsName:WideString;Source:OleVariant): IDispatch;dispid 2015;
     // CreateXMLValidator :  
-   function CreateXMLValidator(ClsName:WideString):IDispatch;dispid 2016;
+   function CreateXMLValidator(ClsName:WideString): IDispatch;dispid 2016;
     // CreateXMLXSLTranformation :  
-   function CreateXMLXSLTranformation(ClsName:WideString):IDispatch;dispid 2017;
+   function CreateXMLXSLTranformation(ClsName:WideString): IDispatch;dispid 2017;
     // CreateKSeF2 : Tworzenie instancji obiektu obslugi KSeF 2.0 
-   function CreateKSeF2:IDispatch;dispid 2019;
+   function CreateKSeF2: IDispatch;dispid 2019;
     // CreateHash :  
-   function CreateHash(ClsName:WideString):IDispatch;dispid 2020;
+   function CreateHash(ClsName:WideString): IDispatch;dispid 2020;
     // CreateKSeF2VerLinkSvc :  
-   function CreateKSeF2VerLinkSvc:IDispatch;dispid 2021;
+   function CreateKSeF2VerLinkSvc: IDispatch;dispid 2021;
     // CreateKSeF2Utils :  
-   function CreateKSeF2Utils:IDispatch;dispid 2022;
+   function CreateKSeF2Utils: IDispatch;dispid 2022;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -992,10 +1134,10 @@ Type
    ['{D829DEDA-20A8-4C28-9A38-7F42F599C8D7}']
     // RegisterTransport : Rejestracja protokolu - nalezy wywolac raz przed uzyciem bramki e-deklaracji 
    procedure RegisterTransport;safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
     // HTTPClient : Instancja klienta HTTP 
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
   end;
 
 
@@ -1006,9 +1148,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1018,15 +1160,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // RegisterTransport : Rejestracja protokolu - nalezy wywolac raz przed uzyciem bramki e-deklaracji 
    procedure RegisterTransport;dispid 4001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // HTTPClient : Instancja klienta HTTP 
-   property HTTPClient:IDispatch dispid 4002;
+   property HTTPClient: IDispatch dispid 4002;
   end;
 
 
@@ -1035,25 +1177,25 @@ Type
  IlgcLibXMLBackend = interface(IlgcBaseObject)
    ['{D87A7A97-38CD-4172-92B0-5AA97BECB494}']
     // LibXMLLoaded :  
-   function LibXMLLoaded:WordBool;safecall;
+   function LibXMLLoaded: WordBool;safecall;
     // LibXSLTLoaded :  
-   function LibXSLTLoaded:WordBool;safecall;
+   function LibXSLTLoaded: WordBool;safecall;
     // LoadLibXML : Ladowanie blblioteki libxml ze wskazanego pliku 
-   function LoadLibXML(LibFileName:WideString):WordBool;safecall;
+   function LoadLibXML(LibFileName:WideString): WordBool;safecall;
     // LoadLibXSLT :  
-   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString):WordBool;safecall;
-   function Get_CacheExternals : WordBool; safecall;
+   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString): WordBool;safecall;
+   function Get_CacheExternals : WordBool; Safecall;
    procedure Set_CacheExternals(Value:WordBool); safecall;
-   function Get_CacheDir : WideString; safecall;
+   function Get_CacheDir : WideString; Safecall;
    procedure Set_CacheDir(Value:WideString); safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
     // CacheExternals :  
-   property CacheExternals:WordBool read Get_CacheExternals write Set_CacheExternals;
+   property CacheExternals: WordBool read Get_CacheExternals write Set_CacheExternals;
     // CacheDir :  
-   property CacheDir:WideString read Get_CacheDir write Set_CacheDir;
+   property CacheDir: WideString read Get_CacheDir write Set_CacheDir;
     // HTTPClient :  
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
   end;
 
 
@@ -1064,9 +1206,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1076,25 +1218,25 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LibXMLLoaded :  
-   function LibXMLLoaded:WordBool;dispid 5001;
+   function LibXMLLoaded: WordBool;dispid 5001;
     // LibXSLTLoaded :  
-   function LibXSLTLoaded:WordBool;dispid 5002;
+   function LibXSLTLoaded: WordBool;dispid 5002;
     // LoadLibXML : Ladowanie blblioteki libxml ze wskazanego pliku 
-   function LoadLibXML(LibFileName:WideString):WordBool;dispid 5003;
+   function LoadLibXML(LibFileName:WideString): WordBool;dispid 5003;
     // LoadLibXSLT :  
-   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString):WordBool;dispid 5004;
+   function LoadLibXSLT(LibXSLTFileName:WideString;LibEXSLTFileName:WideString): WordBool;dispid 5004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // CacheExternals :  
-   property CacheExternals:WordBool dispid 5005;
+   property CacheExternals: WordBool dispid 5005;
     // CacheDir :  
-   property CacheDir:WideString dispid 5006;
+   property CacheDir: WideString dispid 5006;
     // HTTPClient :  
-   property HTTPClient:IDispatch dispid 5007;
+   property HTTPClient: IDispatch dispid 5007;
   end;
 
 
@@ -1114,9 +1256,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1126,13 +1268,13 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LoadOpenSSL : Ladowanie bibliotek OpenSSL ze wskazanych plikow 
    procedure LoadOpenSSL(SSLName:WideString;CryptoName:WideString);dispid 6001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -1140,47 +1282,47 @@ Type
 
  IlgcObject = interface(IlgcBaseObject)
    ['{A7720948-5883-4F9E-8355-F57381433787}']
-   function Get_ExtObject : Ppointer; safecall;
-   function Get_StringProp(Name:WideString) : WideString; safecall;
+   function Get_ExtObject : Ppointer; Safecall;
+   function Get_StringProp(Name:WideString) : WideString; Safecall;
    procedure Set_StringProp(Name:WideString; parStringProp:WideString); safecall;
-   function Get_IntegerProp(Name:WideString) : Integer; safecall;
+   function Get_IntegerProp(Name:WideString) : Integer; Safecall;
    procedure Set_IntegerProp(Name:WideString; parIntegerProp:Integer); safecall;
-   function Get_DoubleProp(Name:WideString) : Double; safecall;
+   function Get_DoubleProp(Name:WideString) : Double; Safecall;
    procedure Set_DoubleProp(Name:WideString; parDoubleProp:Double); safecall;
-   function Get_CurrencyProp(Name:WideString) : Currency; safecall;
+   function Get_CurrencyProp(Name:WideString) : Currency; Safecall;
    procedure Set_CurrencyProp(Name:WideString; parCurrencyProp:Currency); safecall;
-   function Get_BooleanProp(Name:WideString) : WordBool; safecall;
+   function Get_BooleanProp(Name:WideString) : WordBool; Safecall;
    procedure Set_BooleanProp(Name:WideString; parBooleanProp:WordBool); safecall;
-   function Get_Int64Prop(Name:WideString) : Int64; safecall;
+   function Get_Int64Prop(Name:WideString) : Int64; Safecall;
    procedure Set_Int64Prop(Name:WideString; parInt64Prop:Int64); safecall;
-   function Get_DateProp(Name:WideString) : TDateTime; safecall;
+   function Get_DateProp(Name:WideString) : TDateTime; Safecall;
    procedure Set_DateProp(Name:WideString; parDateProp:TDateTime); safecall;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;safecall;
+   function ListProps: OleVariant;safecall;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;safecall;
+   function PropType(PropName:WideString): lgcPropertyType;safecall;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;safecall;
+   function ObjectPropClass(PropName:WideString): WideString;safecall;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);safecall;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;safecall;
+   function GetObjectProp(Name:WideString): OleVariant;safecall;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:Ppointer read Get_ExtObject;
+   property ExtObject: Ppointer read Get_ExtObject;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString read Get_StringProp write Set_StringProp;
+   property StringProp[Name:WideString]: WideString read Get_StringProp write Set_StringProp;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer read Get_IntegerProp write Set_IntegerProp;
+   property IntegerProp[Name:WideString]: Integer read Get_IntegerProp write Set_IntegerProp;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double read Get_DoubleProp write Set_DoubleProp;
+   property DoubleProp[Name:WideString]: Double read Get_DoubleProp write Set_DoubleProp;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency read Get_CurrencyProp write Set_CurrencyProp;
+   property CurrencyProp[Name:WideString]: Currency read Get_CurrencyProp write Set_CurrencyProp;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool read Get_BooleanProp write Set_BooleanProp;
+   property BooleanProp[Name:WideString]: WordBool read Get_BooleanProp write Set_BooleanProp;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 read Get_Int64Prop write Set_Int64Prop;
+   property Int64Prop[Name:WideString]: Int64 read Get_Int64Prop write Set_Int64Prop;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime read Get_DateProp write Set_DateProp;
+   property DateProp[Name:WideString]: TDateTime read Get_DateProp write Set_DateProp;
   end;
 
 
@@ -1191,9 +1333,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1203,37 +1345,37 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
   end;
 
 
@@ -1241,13 +1383,13 @@ Type
 
  IlgcObject2 = interface(IlgcObject)
    ['{0843F691-F9A5-4762-9261-790E111CAC33}']
-   function Get_Owner : IDispatch; safecall;
+   function Get_Owner : IDispatch; Safecall;
     // InsertObject :  
    procedure InsertObject(Obj:IDispatch);safecall;
     // RemoveObject :  
    procedure RemoveObject(Obj:IDispatch);safecall;
     // Owner :  
-   property Owner:IDispatch read Get_Owner;
+   property Owner: IDispatch read Get_Owner;
   end;
 
 
@@ -1258,9 +1400,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1270,43 +1412,43 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // InsertObject :  
    procedure InsertObject(Obj:IDispatch);dispid 39002;
     // RemoveObject :  
    procedure RemoveObject(Obj:IDispatch);dispid 39003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
     // Owner :  
-   property Owner:IDispatch  readonly dispid 39001;
+   property Owner: IDispatch  readonly dispid 39001;
   end;
 
 
@@ -1318,17 +1460,17 @@ Type
    procedure Add(Item:OleVariant;Key:OleVariant);safecall;
     // Remove : Usuniecie elementu z listy 
    procedure Remove(Index:OleVariant);safecall;
-   function Get_Count : Integer; safecall;
-   function Get_Item(Index:OleVariant) : OleVariant; safecall;
-   function Get__NewEnum : IUnknown; safecall;
+   function Get_Count : Integer; Safecall;
+   function Get_Item(Index:OleVariant) : OleVariant; Safecall;
+   function Get__NewEnum : IUnknown; Safecall;
     // Delete : Usuniecie danego elementu 
    procedure Delete(ObjIndex:Integer);safecall;
     // Count : Zwraca liczbe elementow listy 
-   property Count:Integer read Get_Count;
+   property Count: Integer read Get_Count;
     // Item : Pobranie wskazanego elementu listy 
-   property Item[Index:OleVariant]:OleVariant read Get_Item; default;
+   property Item[Index:OleVariant]: OleVariant read Get_Item; default;
     // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
-   property _NewEnum:IUnknown read Get__NewEnum;
+   property _NewEnum: IUnknown read Get__NewEnum;
   end;
 
 
@@ -1339,9 +1481,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1351,7 +1493,7 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // Add : Dodanie elementu do listy 
@@ -1361,13 +1503,13 @@ Type
     // Delete : Usuniecie danego elementu 
    procedure Delete(ObjIndex:Integer);dispid 8001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Count : Zwraca liczbe elementow listy 
-   property Count:Integer  readonly dispid 3;
+   property Count: Integer  readonly dispid 3;
     // Item : Pobranie wskazanego elementu listy 
-   property Item[Index:OleVariant]:OleVariant  readonly dispid 0; default;
+   property Item[Index:OleVariant]: OleVariant  readonly dispid 0; default;
     // _NewEnum : Utworzenie nowego enumaratora implementujacego IEnumVARIANT 
-   property _NewEnum:IUnknown  readonly dispid -4;
+   property _NewEnum: IUnknown  readonly dispid -4;
   end;
 
 
@@ -1375,7 +1517,7 @@ Type
 
  IlgcStringStream = interface(IlgcBaseObject)
    ['{5F50981B-976D-4E90-A682-E2DC34115CDA}']
-   function Get_Data : WideString; safecall;
+   function Get_Data : WideString; Safecall;
    procedure Set_Data(Value:WideString); safecall;
     // Clear : Czyszczenie zawartowci strumienia 
    procedure Clear;safecall;
@@ -1384,7 +1526,7 @@ Type
     // SaveToFile : Zapisanie zawartosci do wskazanego pliku 
    procedure SaveToFile(AFileName:WideString);safecall;
     // Data : Pobranie aktualnej zawartosci strumienia 
-   property Data:WideString read Get_Data write Set_Data;
+   property Data: WideString read Get_Data write Set_Data;
   end;
 
 
@@ -1395,9 +1537,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1407,7 +1549,7 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // Clear : Czyszczenie zawartowci strumienia 
@@ -1417,9 +1559,9 @@ Type
     // SaveToFile : Zapisanie zawartosci do wskazanego pliku 
    procedure SaveToFile(AFileName:WideString);dispid 9004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Data : Pobranie aktualnej zawartosci strumienia 
-   property Data:WideString dispid 9001;
+   property Data: WideString dispid 9001;
   end;
 
 
@@ -1427,9 +1569,9 @@ Type
 
  IlgcFileStream = interface(IlgcBaseObject)
    ['{2B2E8876-C57E-4879-AFD6-6AF218D4705D}']
-   function Get_FileName : WideString; safecall;
+   function Get_FileName : WideString; Safecall;
     // FileName : Nazwa otwartego pliku 
-   property FileName:WideString read Get_FileName;
+   property FileName: WideString read Get_FileName;
   end;
 
 
@@ -1440,9 +1582,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1452,13 +1594,13 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // FileName : Nazwa otwartego pliku 
-   property FileName:WideString  readonly dispid 10001;
+   property FileName: WideString  readonly dispid 10001;
   end;
 
 
@@ -1466,10 +1608,10 @@ Type
 
  IlgcHTTPClient = interface(IlgcBaseObject)
    ['{0587DB7A-AAFF-4900-B734-4BACE3EEE8FA}']
-   function Get_IgnoreSSLErrors : WordBool; safecall;
+   function Get_IgnoreSSLErrors : WordBool; Safecall;
    procedure Set_IgnoreSSLErrors(Value:WordBool); safecall;
     // IgnoreSSLErrors :  
-   property IgnoreSSLErrors:WordBool read Get_IgnoreSSLErrors write Set_IgnoreSSLErrors;
+   property IgnoreSSLErrors: WordBool read Get_IgnoreSSLErrors write Set_IgnoreSSLErrors;
   end;
 
 
@@ -1480,9 +1622,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1492,13 +1634,13 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // IgnoreSSLErrors :  
-   property IgnoreSSLErrors:WordBool dispid 12001;
+   property IgnoreSSLErrors: WordBool dispid 12001;
   end;
 
 
@@ -1506,56 +1648,56 @@ Type
 
  IlgcCertificate = interface(IlgcBaseObject)
    ['{322D506B-4C30-43D1-A75E-F4D308D79022}']
-   function Get_Version : Integer; safecall;
-   function Get_DisplayName : WideString; safecall;
-   function Get_Subject : WideString; safecall;
-   function Get_SubjectFields(Field:WideString) : WideString; safecall;
-   function Get_Issuer : WideString; safecall;
-   function Get_IssuerFields(Field:WideString) : WideString; safecall;
-   function Get_SerialNoDec : WideString; safecall;
-   function Get_SerialNoHex : WideString; safecall;
-   function Get_ValidFrom : OleVariant; safecall;
-   function Get_ValidTo : OleVariant; safecall;
-   function Get_Signature : WideString; safecall;
-   function Get_KeyUsage : Integer; safecall;
-   function Get_PublicKeyAlgorithm : WideString; safecall;
+   function Get_Version : Integer; Safecall;
+   function Get_DisplayName : WideString; Safecall;
+   function Get_Subject : WideString; Safecall;
+   function Get_SubjectFields(Field:WideString) : WideString; Safecall;
+   function Get_Issuer : WideString; Safecall;
+   function Get_IssuerFields(Field:WideString) : WideString; Safecall;
+   function Get_SerialNoDec : WideString; Safecall;
+   function Get_SerialNoHex : WideString; Safecall;
+   function Get_ValidFrom : OleVariant; Safecall;
+   function Get_ValidTo : OleVariant; Safecall;
+   function Get_Signature : WideString; Safecall;
+   function Get_KeyUsage : Integer; Safecall;
+   function Get_PublicKeyAlgorithm : WideString; Safecall;
    procedure Set_PIN(Param1:WideString); safecall;
-   function Get_CertificateId : WideString; safecall;
-   function Get_PublicKeyId : WideString; safecall;
+   function Get_CertificateId : WideString; Safecall;
+   function Get_PublicKeyId : WideString; Safecall;
     // ShowCertificateInfo :  
    procedure ShowCertificateInfo(WinHandle:OleVariant);safecall;
     // Version :  
-   property Version:Integer read Get_Version;
+   property Version: Integer read Get_Version;
     // DisplayName :  
-   property DisplayName:WideString read Get_DisplayName;
+   property DisplayName: WideString read Get_DisplayName;
     // Subject :  
-   property Subject:WideString read Get_Subject;
+   property Subject: WideString read Get_Subject;
     // SubjectFields :  
-   property SubjectFields[Field:WideString]:WideString read Get_SubjectFields;
+   property SubjectFields[Field:WideString]: WideString read Get_SubjectFields;
     // Issuer :  
-   property Issuer:WideString read Get_Issuer;
+   property Issuer: WideString read Get_Issuer;
     // IssuerFields :  
-   property IssuerFields[Field:WideString]:WideString read Get_IssuerFields;
+   property IssuerFields[Field:WideString]: WideString read Get_IssuerFields;
     // SerialNoDec :  
-   property SerialNoDec:WideString read Get_SerialNoDec;
+   property SerialNoDec: WideString read Get_SerialNoDec;
     // SerialNoHex :  
-   property SerialNoHex:WideString read Get_SerialNoHex;
+   property SerialNoHex: WideString read Get_SerialNoHex;
     // ValidFrom :  
-   property ValidFrom:OleVariant read Get_ValidFrom;
+   property ValidFrom: OleVariant read Get_ValidFrom;
     // ValidTo :  
-   property ValidTo:OleVariant read Get_ValidTo;
+   property ValidTo: OleVariant read Get_ValidTo;
     // Signature :  
-   property Signature:WideString read Get_Signature;
+   property Signature: WideString read Get_Signature;
     // KeyUsage :  
-   property KeyUsage:Integer read Get_KeyUsage;
+   property KeyUsage: Integer read Get_KeyUsage;
     // PublicKeyAlgorithm :  
-   property PublicKeyAlgorithm:WideString read Get_PublicKeyAlgorithm;
+   property PublicKeyAlgorithm: WideString read Get_PublicKeyAlgorithm;
     // PIN :  
-   property PIN:WideString write Set_PIN;
+   property PIN: WideString write Set_PIN;
     // CertificateId :  
-   property CertificateId:WideString read Get_CertificateId;
+   property CertificateId: WideString read Get_CertificateId;
     // PublicKeyId :  
-   property PublicKeyId:WideString read Get_PublicKeyId;
+   property PublicKeyId: WideString read Get_PublicKeyId;
   end;
 
 
@@ -1566,9 +1708,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1578,45 +1720,45 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ShowCertificateInfo :  
    procedure ShowCertificateInfo(WinHandle:OleVariant);dispid 13015;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Version :  
-   property Version:Integer  readonly dispid 13001;
+   property Version: Integer  readonly dispid 13001;
     // DisplayName :  
-   property DisplayName:WideString  readonly dispid 13002;
+   property DisplayName: WideString  readonly dispid 13002;
     // Subject :  
-   property Subject:WideString  readonly dispid 13003;
+   property Subject: WideString  readonly dispid 13003;
     // SubjectFields :  
-   property SubjectFields[Field:WideString]:WideString  readonly dispid 13004;
+   property SubjectFields[Field:WideString]: WideString  readonly dispid 13004;
     // Issuer :  
-   property Issuer:WideString  readonly dispid 13005;
+   property Issuer: WideString  readonly dispid 13005;
     // IssuerFields :  
-   property IssuerFields[Field:WideString]:WideString  readonly dispid 13006;
+   property IssuerFields[Field:WideString]: WideString  readonly dispid 13006;
     // SerialNoDec :  
-   property SerialNoDec:WideString  readonly dispid 13007;
+   property SerialNoDec: WideString  readonly dispid 13007;
     // SerialNoHex :  
-   property SerialNoHex:WideString  readonly dispid 13008;
+   property SerialNoHex: WideString  readonly dispid 13008;
     // ValidFrom :  
-   property ValidFrom:OleVariant  readonly dispid 13009;
+   property ValidFrom: OleVariant  readonly dispid 13009;
     // ValidTo :  
-   property ValidTo:OleVariant  readonly dispid 13010;
+   property ValidTo: OleVariant  readonly dispid 13010;
     // Signature :  
-   property Signature:WideString  readonly dispid 13011;
+   property Signature: WideString  readonly dispid 13011;
     // KeyUsage :  
-   property KeyUsage:Integer  readonly dispid 13012;
+   property KeyUsage: Integer  readonly dispid 13012;
     // PublicKeyAlgorithm :  
-   property PublicKeyAlgorithm:WideString  readonly dispid 13013;
+   property PublicKeyAlgorithm: WideString  readonly dispid 13013;
     // PIN :  
-   property PIN:WideString writeonly dispid 13014;
+   property PIN: {!! WideString !!} OleVariant writeonly dispid 13014;
     // CertificateId :  
-   property CertificateId:WideString  readonly dispid 13016;
+   property CertificateId: WideString  readonly dispid 13016;
     // PublicKeyId :  
-   property PublicKeyId:WideString  readonly dispid 13017;
+   property PublicKeyId: WideString  readonly dispid 13017;
   end;
 
 
@@ -1625,11 +1767,11 @@ Type
  IlgcCertificateSigner = interface(IlgcBaseObject)
    ['{913A275A-8D26-4762-8C08-4D2CA11D214D}']
     // List : Pobranie listy certyfikatow 
-   function List:IDispatch;safecall;
+   function List: IDispatch;safecall;
     // UISelect : Wybor certyfikatu za pomoca systemowego okna dialogowego 
-   function UISelect:IDispatch;safecall;
+   function UISelect: IDispatch;safecall;
     // LoadFromStream : ZaĹ‚adowanie certyfikatu/klucza prywatnego ze wskazanego ĹşrĂłdĹ‚a 
-   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString):IDispatch;safecall;
+   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString): IDispatch;safecall;
   end;
 
 
@@ -1640,9 +1782,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1652,17 +1794,17 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // List : Pobranie listy certyfikatow 
-   function List:IDispatch;dispid 14001;
+   function List: IDispatch;dispid 14001;
     // UISelect : Wybor certyfikatu za pomoca systemowego okna dialogowego 
-   function UISelect:IDispatch;dispid 14002;
+   function UISelect: IDispatch;dispid 14002;
     // LoadFromStream : ZaĹ‚adowanie certyfikatu/klucza prywatnego ze wskazanego ĹşrĂłdĹ‚a 
-   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString):IDispatch;dispid 14003;
+   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString): IDispatch;dispid 14003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -1670,10 +1812,10 @@ Type
 
  IlgcCNGCertificateSigner = interface(IlgcCertificateSigner)
    ['{A1AE7A86-2200-494B-8C4D-FF5E0C97C268}']
-   function Get_WinHandle : OleVariant; safecall;
+   function Get_WinHandle : OleVariant; Safecall;
    procedure Set_WinHandle(Value:OleVariant); safecall;
     // WinHandle :  
-   property WinHandle:OleVariant read Get_WinHandle write Set_WinHandle;
+   property WinHandle: OleVariant read Get_WinHandle write Set_WinHandle;
   end;
 
 
@@ -1684,9 +1826,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1696,19 +1838,19 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // List : Pobranie listy certyfikatow 
-   function List:IDispatch;dispid 14001;
+   function List: IDispatch;dispid 14001;
     // UISelect : Wybor certyfikatu za pomoca systemowego okna dialogowego 
-   function UISelect:IDispatch;dispid 14002;
+   function UISelect: IDispatch;dispid 14002;
     // LoadFromStream : ZaĹ‚adowanie certyfikatu/klucza prywatnego ze wskazanego ĹşrĂłdĹ‚a 
-   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString):IDispatch;dispid 14003;
+   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString): IDispatch;dispid 14003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // WinHandle :  
-   property WinHandle:OleVariant dispid 15001;
+   property WinHandle: OleVariant dispid 15001;
   end;
 
 
@@ -1716,30 +1858,30 @@ Type
 
  IlgcPKCS11Info = interface(IlgcBaseObject)
    ['{FA907E32-D103-4C20-B955-A0A6D478C7C7}']
-   function Get_CryptokitVersionStr : WideString; safecall;
-   function Get_CryptokitVersionMajor : Integer; safecall;
-   function Get_CryptokitVersionMinor : Integer; safecall;
-   function Get_ManufacturerID : WideString; safecall;
-   function Get_LibraryDescription : WideString; safecall;
-   function Get_LibraryVersionStr : WideString; safecall;
-   function Get_LibraryVersionMajor : Integer; safecall;
-   function Get_LibraryVersionMinor : Integer; safecall;
+   function Get_CryptokitVersionStr : WideString; Safecall;
+   function Get_CryptokitVersionMajor : Integer; Safecall;
+   function Get_CryptokitVersionMinor : Integer; Safecall;
+   function Get_ManufacturerID : WideString; Safecall;
+   function Get_LibraryDescription : WideString; Safecall;
+   function Get_LibraryVersionStr : WideString; Safecall;
+   function Get_LibraryVersionMajor : Integer; Safecall;
+   function Get_LibraryVersionMinor : Integer; Safecall;
     // CryptokitVersionStr :  
-   property CryptokitVersionStr:WideString read Get_CryptokitVersionStr;
+   property CryptokitVersionStr: WideString read Get_CryptokitVersionStr;
     // CryptokitVersionMajor :  
-   property CryptokitVersionMajor:Integer read Get_CryptokitVersionMajor;
+   property CryptokitVersionMajor: Integer read Get_CryptokitVersionMajor;
     // CryptokitVersionMinor :  
-   property CryptokitVersionMinor:Integer read Get_CryptokitVersionMinor;
+   property CryptokitVersionMinor: Integer read Get_CryptokitVersionMinor;
     // ManufacturerID :  
-   property ManufacturerID:WideString read Get_ManufacturerID;
+   property ManufacturerID: WideString read Get_ManufacturerID;
     // LibraryDescription :  
-   property LibraryDescription:WideString read Get_LibraryDescription;
+   property LibraryDescription: WideString read Get_LibraryDescription;
     // LibraryVersionStr :  
-   property LibraryVersionStr:WideString read Get_LibraryVersionStr;
+   property LibraryVersionStr: WideString read Get_LibraryVersionStr;
     // LibraryVersionMajor :  
-   property LibraryVersionMajor:Integer read Get_LibraryVersionMajor;
+   property LibraryVersionMajor: Integer read Get_LibraryVersionMajor;
     // LibraryVersionMinor :  
-   property LibraryVersionMinor:Integer read Get_LibraryVersionMinor;
+   property LibraryVersionMinor: Integer read Get_LibraryVersionMinor;
   end;
 
 
@@ -1750,9 +1892,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1762,27 +1904,27 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // CryptokitVersionStr :  
-   property CryptokitVersionStr:WideString  readonly dispid 16001;
+   property CryptokitVersionStr: WideString  readonly dispid 16001;
     // CryptokitVersionMajor :  
-   property CryptokitVersionMajor:Integer  readonly dispid 16002;
+   property CryptokitVersionMajor: Integer  readonly dispid 16002;
     // CryptokitVersionMinor :  
-   property CryptokitVersionMinor:Integer  readonly dispid 16003;
+   property CryptokitVersionMinor: Integer  readonly dispid 16003;
     // ManufacturerID :  
-   property ManufacturerID:WideString  readonly dispid 16004;
+   property ManufacturerID: WideString  readonly dispid 16004;
     // LibraryDescription :  
-   property LibraryDescription:WideString  readonly dispid 16005;
+   property LibraryDescription: WideString  readonly dispid 16005;
     // LibraryVersionStr :  
-   property LibraryVersionStr:WideString  readonly dispid 16006;
+   property LibraryVersionStr: WideString  readonly dispid 16006;
     // LibraryVersionMajor :  
-   property LibraryVersionMajor:Integer  readonly dispid 16007;
+   property LibraryVersionMajor: Integer  readonly dispid 16007;
     // LibraryVersionMinor :  
-   property LibraryVersionMinor:Integer  readonly dispid 16008;
+   property LibraryVersionMinor: Integer  readonly dispid 16008;
   end;
 
 
@@ -1790,72 +1932,72 @@ Type
 
  IlgcPKCS11TokenInfo = interface(IlgcBaseObject)
    ['{B4BB1EDB-4F32-4B0C-B390-566F02237A55}']
-   function Get_TokenLabel : WideString; safecall;
-   function Get_ManufacturerID : WideString; safecall;
-   function Get_Model : WideString; safecall;
-   function Get_SerialNumber : WideString; safecall;
-   function Get_Flags : LongWord; safecall;
-   function Get_MaxSessionCount : LongWord; safecall;
-   function Get_SessionCount : LongWord; safecall;
-   function Get_MaxRwSessionCount : LongWord; safecall;
-   function Get_RwSessionCount : LongWord; safecall;
-   function Get_MaxPinLen : LongWord; safecall;
-   function Get_MinPinLen : LongWord; safecall;
-   function Get_TotalPublicMemory : LongWord; safecall;
-   function Get_FreePublicMemory : LongWord; safecall;
-   function Get_TotalPrivateMemory : LongWord; safecall;
-   function Get_FreePrivateMemory : LongWord; safecall;
-   function Get_HardwareVersionStr : WideString; safecall;
-   function Get_HardwareVersionMajor : Integer; safecall;
-   function Get_HardwareVersionMinor : Integer; safecall;
-   function Get_FirmwareVersionStr : WideString; safecall;
-   function Get_FirmwareVersionMajor : Integer; safecall;
-   function Get_FirmwareVersionMinor : Integer; safecall;
-   function Get_UtcTime : WideString; safecall;
+   function Get_TokenLabel : WideString; Safecall;
+   function Get_ManufacturerID : WideString; Safecall;
+   function Get_Model : WideString; Safecall;
+   function Get_SerialNumber : WideString; Safecall;
+   function Get_Flags : LongWord; Safecall;
+   function Get_MaxSessionCount : LongWord; Safecall;
+   function Get_SessionCount : LongWord; Safecall;
+   function Get_MaxRwSessionCount : LongWord; Safecall;
+   function Get_RwSessionCount : LongWord; Safecall;
+   function Get_MaxPinLen : LongWord; Safecall;
+   function Get_MinPinLen : LongWord; Safecall;
+   function Get_TotalPublicMemory : LongWord; Safecall;
+   function Get_FreePublicMemory : LongWord; Safecall;
+   function Get_TotalPrivateMemory : LongWord; Safecall;
+   function Get_FreePrivateMemory : LongWord; Safecall;
+   function Get_HardwareVersionStr : WideString; Safecall;
+   function Get_HardwareVersionMajor : Integer; Safecall;
+   function Get_HardwareVersionMinor : Integer; Safecall;
+   function Get_FirmwareVersionStr : WideString; Safecall;
+   function Get_FirmwareVersionMajor : Integer; Safecall;
+   function Get_FirmwareVersionMinor : Integer; Safecall;
+   function Get_UtcTime : WideString; Safecall;
     // TokenLabel :  
-   property TokenLabel:WideString read Get_TokenLabel;
+   property TokenLabel: WideString read Get_TokenLabel;
     // ManufacturerID :  
-   property ManufacturerID:WideString read Get_ManufacturerID;
+   property ManufacturerID: WideString read Get_ManufacturerID;
     // Model :  
-   property Model:WideString read Get_Model;
+   property Model: WideString read Get_Model;
     // SerialNumber :  
-   property SerialNumber:WideString read Get_SerialNumber;
+   property SerialNumber: WideString read Get_SerialNumber;
     // Flags :  
-   property Flags:LongWord read Get_Flags;
+   property Flags: LongWord read Get_Flags;
     // MaxSessionCount :  
-   property MaxSessionCount:LongWord read Get_MaxSessionCount;
+   property MaxSessionCount: LongWord read Get_MaxSessionCount;
     // SessionCount :  
-   property SessionCount:LongWord read Get_SessionCount;
+   property SessionCount: LongWord read Get_SessionCount;
     // MaxRwSessionCount :  
-   property MaxRwSessionCount:LongWord read Get_MaxRwSessionCount;
+   property MaxRwSessionCount: LongWord read Get_MaxRwSessionCount;
     // RwSessionCount :  
-   property RwSessionCount:LongWord read Get_RwSessionCount;
+   property RwSessionCount: LongWord read Get_RwSessionCount;
     // MaxPinLen :  
-   property MaxPinLen:LongWord read Get_MaxPinLen;
+   property MaxPinLen: LongWord read Get_MaxPinLen;
     // MinPinLen :  
-   property MinPinLen:LongWord read Get_MinPinLen;
+   property MinPinLen: LongWord read Get_MinPinLen;
     // TotalPublicMemory :  
-   property TotalPublicMemory:LongWord read Get_TotalPublicMemory;
+   property TotalPublicMemory: LongWord read Get_TotalPublicMemory;
     // FreePublicMemory :  
-   property FreePublicMemory:LongWord read Get_FreePublicMemory;
+   property FreePublicMemory: LongWord read Get_FreePublicMemory;
     // TotalPrivateMemory :  
-   property TotalPrivateMemory:LongWord read Get_TotalPrivateMemory;
+   property TotalPrivateMemory: LongWord read Get_TotalPrivateMemory;
     // FreePrivateMemory :  
-   property FreePrivateMemory:LongWord read Get_FreePrivateMemory;
+   property FreePrivateMemory: LongWord read Get_FreePrivateMemory;
     // HardwareVersionStr :  
-   property HardwareVersionStr:WideString read Get_HardwareVersionStr;
+   property HardwareVersionStr: WideString read Get_HardwareVersionStr;
     // HardwareVersionMajor :  
-   property HardwareVersionMajor:Integer read Get_HardwareVersionMajor;
+   property HardwareVersionMajor: Integer read Get_HardwareVersionMajor;
     // HardwareVersionMinor :  
-   property HardwareVersionMinor:Integer read Get_HardwareVersionMinor;
+   property HardwareVersionMinor: Integer read Get_HardwareVersionMinor;
     // FirmwareVersionStr :  
-   property FirmwareVersionStr:WideString read Get_FirmwareVersionStr;
+   property FirmwareVersionStr: WideString read Get_FirmwareVersionStr;
     // FirmwareVersionMajor :  
-   property FirmwareVersionMajor:Integer read Get_FirmwareVersionMajor;
+   property FirmwareVersionMajor: Integer read Get_FirmwareVersionMajor;
     // FirmwareVersionMinor :  
-   property FirmwareVersionMinor:Integer read Get_FirmwareVersionMinor;
+   property FirmwareVersionMinor: Integer read Get_FirmwareVersionMinor;
     // UtcTime :  
-   property UtcTime:WideString read Get_UtcTime;
+   property UtcTime: WideString read Get_UtcTime;
   end;
 
 
@@ -1866,9 +2008,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1878,55 +2020,55 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // TokenLabel :  
-   property TokenLabel:WideString  readonly dispid 17001;
+   property TokenLabel: WideString  readonly dispid 17001;
     // ManufacturerID :  
-   property ManufacturerID:WideString  readonly dispid 17002;
+   property ManufacturerID: WideString  readonly dispid 17002;
     // Model :  
-   property Model:WideString  readonly dispid 17003;
+   property Model: WideString  readonly dispid 17003;
     // SerialNumber :  
-   property SerialNumber:WideString  readonly dispid 17004;
+   property SerialNumber: WideString  readonly dispid 17004;
     // Flags :  
-   property Flags:LongWord  readonly dispid 17005;
+   property Flags: LongWord  readonly dispid 17005;
     // MaxSessionCount :  
-   property MaxSessionCount:LongWord  readonly dispid 17006;
+   property MaxSessionCount: LongWord  readonly dispid 17006;
     // SessionCount :  
-   property SessionCount:LongWord  readonly dispid 17007;
+   property SessionCount: LongWord  readonly dispid 17007;
     // MaxRwSessionCount :  
-   property MaxRwSessionCount:LongWord  readonly dispid 17008;
+   property MaxRwSessionCount: LongWord  readonly dispid 17008;
     // RwSessionCount :  
-   property RwSessionCount:LongWord  readonly dispid 17009;
+   property RwSessionCount: LongWord  readonly dispid 17009;
     // MaxPinLen :  
-   property MaxPinLen:LongWord  readonly dispid 17010;
+   property MaxPinLen: LongWord  readonly dispid 17010;
     // MinPinLen :  
-   property MinPinLen:LongWord  readonly dispid 17011;
+   property MinPinLen: LongWord  readonly dispid 17011;
     // TotalPublicMemory :  
-   property TotalPublicMemory:LongWord  readonly dispid 17012;
+   property TotalPublicMemory: LongWord  readonly dispid 17012;
     // FreePublicMemory :  
-   property FreePublicMemory:LongWord  readonly dispid 17013;
+   property FreePublicMemory: LongWord  readonly dispid 17013;
     // TotalPrivateMemory :  
-   property TotalPrivateMemory:LongWord  readonly dispid 17014;
+   property TotalPrivateMemory: LongWord  readonly dispid 17014;
     // FreePrivateMemory :  
-   property FreePrivateMemory:LongWord  readonly dispid 17015;
+   property FreePrivateMemory: LongWord  readonly dispid 17015;
     // HardwareVersionStr :  
-   property HardwareVersionStr:WideString  readonly dispid 17016;
+   property HardwareVersionStr: WideString  readonly dispid 17016;
     // HardwareVersionMajor :  
-   property HardwareVersionMajor:Integer  readonly dispid 17017;
+   property HardwareVersionMajor: Integer  readonly dispid 17017;
     // HardwareVersionMinor :  
-   property HardwareVersionMinor:Integer  readonly dispid 17018;
+   property HardwareVersionMinor: Integer  readonly dispid 17018;
     // FirmwareVersionStr :  
-   property FirmwareVersionStr:WideString  readonly dispid 17019;
+   property FirmwareVersionStr: WideString  readonly dispid 17019;
     // FirmwareVersionMajor :  
-   property FirmwareVersionMajor:Integer  readonly dispid 17020;
+   property FirmwareVersionMajor: Integer  readonly dispid 17020;
     // FirmwareVersionMinor :  
-   property FirmwareVersionMinor:Integer  readonly dispid 17021;
+   property FirmwareVersionMinor: Integer  readonly dispid 17021;
     // UtcTime :  
-   property UtcTime:WideString  readonly dispid 17022;
+   property UtcTime: WideString  readonly dispid 17022;
   end;
 
 
@@ -1934,42 +2076,42 @@ Type
 
  IlgcPKCS11SlotInfo = interface(IlgcBaseObject)
    ['{597607F4-CA0A-4722-BBC9-EB15ECAEBA49}']
-   function Get_SlotID : LongWord; safecall;
-   function Get_SlotDescription : WideString; safecall;
-   function Get_ManufacturerID : WideString; safecall;
-   function Get_Flags : LongWord; safecall;
-   function Get_HardwareVersionStr : WideString; safecall;
-   function Get_HardwareVersionMajor : Integer; safecall;
-   function Get_HardwareVersionMinor : Integer; safecall;
-   function Get_FirmwareVersionStr : WideString; safecall;
-   function Get_FirmwareVersionMajor : Integer; safecall;
-   function Get_FirmwareVersionMinor : Integer; safecall;
-   function Get_TokenPresent : WordBool; safecall;
-   function Get_TokenInfo : IDispatch; safecall;
+   function Get_SlotID : LongWord; Safecall;
+   function Get_SlotDescription : WideString; Safecall;
+   function Get_ManufacturerID : WideString; Safecall;
+   function Get_Flags : LongWord; Safecall;
+   function Get_HardwareVersionStr : WideString; Safecall;
+   function Get_HardwareVersionMajor : Integer; Safecall;
+   function Get_HardwareVersionMinor : Integer; Safecall;
+   function Get_FirmwareVersionStr : WideString; Safecall;
+   function Get_FirmwareVersionMajor : Integer; Safecall;
+   function Get_FirmwareVersionMinor : Integer; Safecall;
+   function Get_TokenPresent : WordBool; Safecall;
+   function Get_TokenInfo : IDispatch; Safecall;
     // SlotID :  
-   property SlotID:LongWord read Get_SlotID;
+   property SlotID: LongWord read Get_SlotID;
     // SlotDescription :  
-   property SlotDescription:WideString read Get_SlotDescription;
+   property SlotDescription: WideString read Get_SlotDescription;
     // ManufacturerID :  
-   property ManufacturerID:WideString read Get_ManufacturerID;
+   property ManufacturerID: WideString read Get_ManufacturerID;
     // Flags :  
-   property Flags:LongWord read Get_Flags;
+   property Flags: LongWord read Get_Flags;
     // HardwareVersionStr :  
-   property HardwareVersionStr:WideString read Get_HardwareVersionStr;
+   property HardwareVersionStr: WideString read Get_HardwareVersionStr;
     // HardwareVersionMajor :  
-   property HardwareVersionMajor:Integer read Get_HardwareVersionMajor;
+   property HardwareVersionMajor: Integer read Get_HardwareVersionMajor;
     // HardwareVersionMinor :  
-   property HardwareVersionMinor:Integer read Get_HardwareVersionMinor;
+   property HardwareVersionMinor: Integer read Get_HardwareVersionMinor;
     // FirmwareVersionStr :  
-   property FirmwareVersionStr:WideString read Get_FirmwareVersionStr;
+   property FirmwareVersionStr: WideString read Get_FirmwareVersionStr;
     // FirmwareVersionMajor :  
-   property FirmwareVersionMajor:Integer read Get_FirmwareVersionMajor;
+   property FirmwareVersionMajor: Integer read Get_FirmwareVersionMajor;
     // FirmwareVersionMinor :  
-   property FirmwareVersionMinor:Integer read Get_FirmwareVersionMinor;
+   property FirmwareVersionMinor: Integer read Get_FirmwareVersionMinor;
     // TokenPresent :  
-   property TokenPresent:WordBool read Get_TokenPresent;
+   property TokenPresent: WordBool read Get_TokenPresent;
     // TokenInfo :  
-   property TokenInfo:IDispatch read Get_TokenInfo;
+   property TokenInfo: IDispatch read Get_TokenInfo;
   end;
 
 
@@ -1980,9 +2122,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -1992,35 +2134,35 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // SlotID :  
-   property SlotID:LongWord  readonly dispid 18001;
+   property SlotID: LongWord  readonly dispid 18001;
     // SlotDescription :  
-   property SlotDescription:WideString  readonly dispid 18002;
+   property SlotDescription: WideString  readonly dispid 18002;
     // ManufacturerID :  
-   property ManufacturerID:WideString  readonly dispid 18003;
+   property ManufacturerID: WideString  readonly dispid 18003;
     // Flags :  
-   property Flags:LongWord  readonly dispid 18004;
+   property Flags: LongWord  readonly dispid 18004;
     // HardwareVersionStr :  
-   property HardwareVersionStr:WideString  readonly dispid 18005;
+   property HardwareVersionStr: WideString  readonly dispid 18005;
     // HardwareVersionMajor :  
-   property HardwareVersionMajor:Integer  readonly dispid 18006;
+   property HardwareVersionMajor: Integer  readonly dispid 18006;
     // HardwareVersionMinor :  
-   property HardwareVersionMinor:Integer  readonly dispid 18007;
+   property HardwareVersionMinor: Integer  readonly dispid 18007;
     // FirmwareVersionStr :  
-   property FirmwareVersionStr:WideString  readonly dispid 18008;
+   property FirmwareVersionStr: WideString  readonly dispid 18008;
     // FirmwareVersionMajor :  
-   property FirmwareVersionMajor:Integer  readonly dispid 18009;
+   property FirmwareVersionMajor: Integer  readonly dispid 18009;
     // FirmwareVersionMinor :  
-   property FirmwareVersionMinor:Integer  readonly dispid 18010;
+   property FirmwareVersionMinor: Integer  readonly dispid 18010;
     // TokenPresent :  
-   property TokenPresent:WordBool  readonly dispid 18011;
+   property TokenPresent: WordBool  readonly dispid 18011;
     // TokenInfo :  
-   property TokenInfo:IDispatch  readonly dispid 18012;
+   property TokenInfo: IDispatch  readonly dispid 18012;
   end;
 
 
@@ -2029,23 +2171,23 @@ Type
  IlgcPKCS11Session = interface(IlgcBaseObject)
    ['{BB0C246D-BA87-44C4-B614-53FB1D4AE900}']
     // CheckActive : Sprawdz, czy sesja jest nadal aktywna 
-   function CheckActive:WordBool;safecall;
+   function CheckActive: WordBool;safecall;
     // Login : Zaloguj uzytkownika podanym PIN 
    procedure Login(PIN:WideString;UserType:lgcPKCS11UserType);safecall;
     // Logout : Wyloguj uzytkownika 
    procedure Logout;safecall;
-   function Get_Handle : LongWord; safecall;
-   function Get_SlotID : LongWord; safecall;
-   function Get_State : lgcPKCS11SessionState; safecall;
-   function Get_Flags : LongWord; safecall;
+   function Get_Handle : LongWord; Safecall;
+   function Get_SlotID : LongWord; Safecall;
+   function Get_State : lgcPKCS11SessionState; Safecall;
+   function Get_Flags : LongWord; Safecall;
     // Handle : Uchwyt sesji PKCS#11 
-   property Handle:LongWord read Get_Handle;
+   property Handle: LongWord read Get_Handle;
     // SlotID : Nr ID slotu 
-   property SlotID:LongWord read Get_SlotID;
+   property SlotID: LongWord read Get_SlotID;
     // State : Pobranie statusu sesji 
-   property State:lgcPKCS11SessionState read Get_State;
+   property State: lgcPKCS11SessionState read Get_State;
     // Flags : Pobranie flag sesni 
-   property Flags:LongWord read Get_Flags;
+   property Flags: LongWord read Get_Flags;
   end;
 
 
@@ -2056,9 +2198,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2068,25 +2210,25 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // CheckActive : Sprawdz, czy sesja jest nadal aktywna 
-   function CheckActive:WordBool;dispid 19001;
+   function CheckActive: WordBool;dispid 19001;
     // Login : Zaloguj uzytkownika podanym PIN 
    procedure Login(PIN:WideString;UserType:lgcPKCS11UserType);dispid 19002;
     // Logout : Wyloguj uzytkownika 
    procedure Logout;dispid 19003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Handle : Uchwyt sesji PKCS#11 
-   property Handle:LongWord  readonly dispid 19004;
+   property Handle: LongWord  readonly dispid 19004;
     // SlotID : Nr ID slotu 
-   property SlotID:LongWord  readonly dispid 19005;
+   property SlotID: LongWord  readonly dispid 19005;
     // State : Pobranie statusu sesji 
-   property State:lgcPKCS11SessionState  readonly dispid 19006;
+   property State: lgcPKCS11SessionState  readonly dispid 19006;
     // Flags : Pobranie flag sesni 
-   property Flags:LongWord  readonly dispid 19007;
+   property Flags: LongWord  readonly dispid 19007;
   end;
 
 
@@ -2094,9 +2236,9 @@ Type
 
  IlgcPKCS11Certificate = interface(IlgcCertificate)
    ['{A14EB3D8-25C5-4C22-B6AA-3E7EA2884D78}']
-   function Get_Session : IDispatch; safecall;
+   function Get_Session : IDispatch; Safecall;
     // Session : Pobranie sesji PKCS#11 nawiazanej dla danego zertyfikatu 
-   property Session:IDispatch read Get_Session;
+   property Session: IDispatch read Get_Session;
   end;
 
 
@@ -2107,9 +2249,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2119,47 +2261,47 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ShowCertificateInfo :  
    procedure ShowCertificateInfo(WinHandle:OleVariant);dispid 13015;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Version :  
-   property Version:Integer  readonly dispid 13001;
+   property Version: Integer  readonly dispid 13001;
     // DisplayName :  
-   property DisplayName:WideString  readonly dispid 13002;
+   property DisplayName: WideString  readonly dispid 13002;
     // Subject :  
-   property Subject:WideString  readonly dispid 13003;
+   property Subject: WideString  readonly dispid 13003;
     // SubjectFields :  
-   property SubjectFields[Field:WideString]:WideString  readonly dispid 13004;
+   property SubjectFields[Field:WideString]: WideString  readonly dispid 13004;
     // Issuer :  
-   property Issuer:WideString  readonly dispid 13005;
+   property Issuer: WideString  readonly dispid 13005;
     // IssuerFields :  
-   property IssuerFields[Field:WideString]:WideString  readonly dispid 13006;
+   property IssuerFields[Field:WideString]: WideString  readonly dispid 13006;
     // SerialNoDec :  
-   property SerialNoDec:WideString  readonly dispid 13007;
+   property SerialNoDec: WideString  readonly dispid 13007;
     // SerialNoHex :  
-   property SerialNoHex:WideString  readonly dispid 13008;
+   property SerialNoHex: WideString  readonly dispid 13008;
     // ValidFrom :  
-   property ValidFrom:OleVariant  readonly dispid 13009;
+   property ValidFrom: OleVariant  readonly dispid 13009;
     // ValidTo :  
-   property ValidTo:OleVariant  readonly dispid 13010;
+   property ValidTo: OleVariant  readonly dispid 13010;
     // Signature :  
-   property Signature:WideString  readonly dispid 13011;
+   property Signature: WideString  readonly dispid 13011;
     // KeyUsage :  
-   property KeyUsage:Integer  readonly dispid 13012;
+   property KeyUsage: Integer  readonly dispid 13012;
     // PublicKeyAlgorithm :  
-   property PublicKeyAlgorithm:WideString  readonly dispid 13013;
+   property PublicKeyAlgorithm: WideString  readonly dispid 13013;
     // PIN :  
-   property PIN:WideString writeonly dispid 13014;
+   property PIN: {!! WideString !!} OleVariant writeonly dispid 13014;
     // CertificateId :  
-   property CertificateId:WideString  readonly dispid 13016;
+   property CertificateId: WideString  readonly dispid 13016;
     // PublicKeyId :  
-   property PublicKeyId:WideString  readonly dispid 13017;
+   property PublicKeyId: WideString  readonly dispid 13017;
     // Session : Pobranie sesji PKCS#11 nawiazanej dla danego zertyfikatu 
-   property Session:IDispatch  readonly dispid 20001;
+   property Session: IDispatch  readonly dispid 20001;
   end;
 
 
@@ -2172,24 +2314,24 @@ Type
     // FreeLibrary : Zwolnienie zaladowanej biblioteki 
    procedure FreeLibrary;safecall;
     // GetInfo : Pobranie informacji o bibliotece PKCS#11 
-   function GetInfo:IDispatch;safecall;
+   function GetInfo: IDispatch;safecall;
     // GetSlots : Pobranie listy slotow (z mozliwoscia oreslenia czy tylko sloty z obecnym tokenem 
-   function GetSlots(WithToken:WordBool):IDispatch;safecall;
+   function GetSlots(WithToken:WordBool): IDispatch;safecall;
     // SessionStart : Rozpoczecie sesji dla danego certyfikatu 
-   function SessionStart(Certificate:IDispatch):IDispatch;safecall;
+   function SessionStart(Certificate:IDispatch): IDispatch;safecall;
     // SessionClose : Zamkniecie sesji dla wskazanego sertyfikatu lub indeksu sesji 
    procedure SessionClose(IndexOrSession:OleVariant);safecall;
     // SessionCloseAll : Zamknij wszystkie otwarte sesje 
    procedure SessionCloseAll;safecall;
-   function Get_LibLoaded : WordBool; safecall;
-   function Get_LibFileName : WideString; safecall;
-   function Get_Sessions : IDispatch; safecall;
+   function Get_LibLoaded : WordBool; Safecall;
+   function Get_LibFileName : WideString; Safecall;
+   function Get_Sessions : IDispatch; Safecall;
     // LibLoaded : Sprawdz czy biblioteka PKCS#11 zostala zaladowana 
-   property LibLoaded:WordBool read Get_LibLoaded;
+   property LibLoaded: WordBool read Get_LibLoaded;
     // LibFileName : Pobranie nazwy pliku aktualnie zaladowanej biblioteki PKCS#11 
-   property LibFileName:WideString read Get_LibFileName;
+   property LibFileName: WideString read Get_LibFileName;
     // Sessions : Pobranie listy aktywnych sesji 
-   property Sessions:IDispatch read Get_Sessions;
+   property Sessions: IDispatch read Get_Sessions;
   end;
 
 
@@ -2200,9 +2342,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2212,37 +2354,37 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // List : Pobranie listy certyfikatow 
-   function List:IDispatch;dispid 14001;
+   function List: IDispatch;dispid 14001;
     // UISelect : Wybor certyfikatu za pomoca systemowego okna dialogowego 
-   function UISelect:IDispatch;dispid 14002;
+   function UISelect: IDispatch;dispid 14002;
     // LoadFromStream : ZaĹ‚adowanie certyfikatu/klucza prywatnego ze wskazanego ĹşrĂłdĹ‚a 
-   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString):IDispatch;dispid 14003;
+   function LoadFromStream(CertificateStream:OleVariant;CertificateFormat:lgcEncodingType;PrivateKeyStream:OleVariant;PrivateKeyFormat:lgcEncodingType;Password:WideString): IDispatch;dispid 14003;
     // LoadLibrary : Zaladowanie biblioteki PKCS#11/CryptokiAPI ze wskazanego pliku 
    procedure LoadLibrary(LibFileName:WideString);dispid 21001;
     // FreeLibrary : Zwolnienie zaladowanej biblioteki 
    procedure FreeLibrary;dispid 21002;
     // GetInfo : Pobranie informacji o bibliotece PKCS#11 
-   function GetInfo:IDispatch;dispid 21003;
+   function GetInfo: IDispatch;dispid 21003;
     // GetSlots : Pobranie listy slotow (z mozliwoscia oreslenia czy tylko sloty z obecnym tokenem 
-   function GetSlots(WithToken:WordBool):IDispatch;dispid 21004;
+   function GetSlots(WithToken:WordBool): IDispatch;dispid 21004;
     // SessionStart : Rozpoczecie sesji dla danego certyfikatu 
-   function SessionStart(Certificate:IDispatch):IDispatch;dispid 21005;
+   function SessionStart(Certificate:IDispatch): IDispatch;dispid 21005;
     // SessionClose : Zamkniecie sesji dla wskazanego sertyfikatu lub indeksu sesji 
    procedure SessionClose(IndexOrSession:OleVariant);dispid 21006;
     // SessionCloseAll : Zamknij wszystkie otwarte sesje 
    procedure SessionCloseAll;dispid 21007;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // LibLoaded : Sprawdz czy biblioteka PKCS#11 zostala zaladowana 
-   property LibLoaded:WordBool  readonly dispid 21008;
+   property LibLoaded: WordBool  readonly dispid 21008;
     // LibFileName : Pobranie nazwy pliku aktualnie zaladowanej biblioteki PKCS#11 
-   property LibFileName:WideString  readonly dispid 21009;
+   property LibFileName: WideString  readonly dispid 21009;
     // Sessions : Pobranie listy aktywnych sesji 
-   property Sessions:IDispatch  readonly dispid 21010;
+   property Sessions: IDispatch  readonly dispid 21010;
   end;
 
 
@@ -2251,9 +2393,9 @@ Type
  IlgcPKCS11Backend = interface(IlgcBaseObject)
    ['{4B3C369B-79D4-4B26-862C-691E41E74AD1}']
     // CheckLibrary : Sprawdz, czy wskazany plik jest biblioteka PKCS#11/CryptokiAPI 
-   function CheckLibrary(LibFileName:WideString):WordBool;safecall;
+   function CheckLibrary(LibFileName:WideString): WordBool;safecall;
     // GetLibraryInfo : Pobranie informacji o skazanej bibliotece PKCS#11/CryptokiAPI 
-   function GetLibraryInfo(LibFileName:WideString):IDispatch;safecall;
+   function GetLibraryInfo(LibFileName:WideString): IDispatch;safecall;
   end;
 
 
@@ -2264,9 +2406,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2276,15 +2418,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // CheckLibrary : Sprawdz, czy wskazany plik jest biblioteka PKCS#11/CryptokiAPI 
-   function CheckLibrary(LibFileName:WideString):WordBool;dispid 22001;
+   function CheckLibrary(LibFileName:WideString): WordBool;dispid 22001;
     // GetLibraryInfo : Pobranie informacji o skazanej bibliotece PKCS#11/CryptokiAPI 
-   function GetLibraryInfo(LibFileName:WideString):IDispatch;dispid 22002;
+   function GetLibraryInfo(LibFileName:WideString): IDispatch;dispid 22002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -2292,38 +2434,38 @@ Type
 
  IlgcXAdES = interface(IlgcBaseObject)
    ['{50DC95DF-A1C2-460D-8A46-D90BE7016886}']
-   function Get_SHA1HashClass : WideString; safecall;
+   function Get_SHA1HashClass : WideString; Safecall;
    procedure Set_SHA1HashClass(Value:WideString); safecall;
-   function Get_SHA256HashClass : WideString; safecall;
+   function Get_SHA256HashClass : WideString; Safecall;
    procedure Set_SHA256HashClass(Value:WideString); safecall;
-   function Get_Base64EncoderClass : WideString; safecall;
+   function Get_Base64EncoderClass : WideString; Safecall;
    procedure Set_Base64EncoderClass(Value:WideString); safecall;
-   function Get_Signer : IDispatch; safecall;
+   function Get_Signer : IDispatch; Safecall;
    procedure Set_Signer(Value:IDispatch); safecall;
-   function Get_SignType : lgcSignHashType; safecall;
+   function Get_SignType : lgcSignHashType; Safecall;
    procedure Set_SignType(Value:lgcSignHashType); safecall;
-   function Get_SerialNoFormat : lgcXAdESSerialNoFormat; safecall;
+   function Get_SerialNoFormat : lgcXAdESSerialNoFormat; Safecall;
    procedure Set_SerialNoFormat(Value:lgcXAdESSerialNoFormat); safecall;
-   function Get_IncludeSigningTime : WordBool; safecall;
+   function Get_IncludeSigningTime : WordBool; Safecall;
    procedure Set_IncludeSigningTime(Value:WordBool); safecall;
-   function Get_SigningTime : OleVariant; safecall;
+   function Get_SigningTime : OleVariant; Safecall;
    procedure Set_SigningTime(Value:OleVariant); safecall;
     // SHA1HashClass : Pobranie nazwy klasy sterownika skrotu SHA1 
-   property SHA1HashClass:WideString read Get_SHA1HashClass write Set_SHA1HashClass;
+   property SHA1HashClass: WideString read Get_SHA1HashClass write Set_SHA1HashClass;
     // SHA256HashClass : Pobranie nazwy klasy sterownika skrotu SHA256 
-   property SHA256HashClass:WideString read Get_SHA256HashClass write Set_SHA256HashClass;
+   property SHA256HashClass: WideString read Get_SHA256HashClass write Set_SHA256HashClass;
     // Base64EncoderClass : Pobranie nazwy klasy sterownika kodera Base64 
-   property Base64EncoderClass:WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
+   property Base64EncoderClass: WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
     // Signer : Pobranie obiektu mechanizmu podpisu certyfikatem 
-   property Signer:IDispatch read Get_Signer write Set_Signer;
+   property Signer: IDispatch read Get_Signer write Set_Signer;
     // SignType : Pobranie rodzaju funkcji skrot uzytej w sygnaturze 
-   property SignType:lgcSignHashType read Get_SignType write Set_SignType;
+   property SignType: lgcSignHashType read Get_SignType write Set_SignType;
     // SerialNoFormat : Pobranie wariantu numeru seryjnego certyfikatu w sygnaturze (dziesietnie/szesnastkowo) 
-   property SerialNoFormat:lgcXAdESSerialNoFormat read Get_SerialNoFormat write Set_SerialNoFormat;
+   property SerialNoFormat: lgcXAdESSerialNoFormat read Get_SerialNoFormat write Set_SerialNoFormat;
     // IncludeSigningTime : Czy dodawac date i czas podpisu do sygnatury 
-   property IncludeSigningTime:WordBool read Get_IncludeSigningTime write Set_IncludeSigningTime;
+   property IncludeSigningTime: WordBool read Get_IncludeSigningTime write Set_IncludeSigningTime;
     // SigningTime : Data i czas podpisu do sygnatury 
-   property SigningTime:OleVariant read Get_SigningTime write Set_SigningTime;
+   property SigningTime: OleVariant read Get_SigningTime write Set_SigningTime;
   end;
 
 
@@ -2334,9 +2476,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2346,27 +2488,27 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // SHA1HashClass : Pobranie nazwy klasy sterownika skrotu SHA1 
-   property SHA1HashClass:WideString dispid 23001;
+   property SHA1HashClass: WideString dispid 23001;
     // SHA256HashClass : Pobranie nazwy klasy sterownika skrotu SHA256 
-   property SHA256HashClass:WideString dispid 23002;
+   property SHA256HashClass: WideString dispid 23002;
     // Base64EncoderClass : Pobranie nazwy klasy sterownika kodera Base64 
-   property Base64EncoderClass:WideString dispid 23003;
+   property Base64EncoderClass: WideString dispid 23003;
     // Signer : Pobranie obiektu mechanizmu podpisu certyfikatem 
-   property Signer:IDispatch dispid 23004;
+   property Signer: IDispatch dispid 23004;
     // SignType : Pobranie rodzaju funkcji skrot uzytej w sygnaturze 
-   property SignType:lgcSignHashType dispid 23005;
+   property SignType: lgcSignHashType dispid 23005;
     // SerialNoFormat : Pobranie wariantu numeru seryjnego certyfikatu w sygnaturze (dziesietnie/szesnastkowo) 
-   property SerialNoFormat:lgcXAdESSerialNoFormat dispid 23006;
+   property SerialNoFormat: lgcXAdESSerialNoFormat dispid 23006;
     // IncludeSigningTime : Czy dodawac date i czas podpisu do sygnatury 
-   property IncludeSigningTime:WordBool dispid 23007;
+   property IncludeSigningTime: WordBool dispid 23007;
     // SigningTime : Data i czas podpisu do sygnatury 
-   property SigningTime:OleVariant dispid 23008;
+   property SigningTime: OleVariant dispid 23008;
   end;
 
 
@@ -2374,27 +2516,29 @@ Type
 
  IlgcEDeklaracjaStatus = interface(IlgcBaseObject)
    ['{79E8257A-AE97-4D81-BE00-6B69700BDFCE}']
-   function Get_NrRef : WideString; safecall;
-   function Get_Status : Integer; safecall;
-   function Get_Opis : WideString; safecall;
-   function Get_PobranoUPO : WordBool; safecall;
-   function Get_UPO : WideString; safecall;
-   function Get_Timestamp : OleVariant; safecall;
-   function Get_Szczegoly : WideString; safecall;
+   function Get_NrRef : WideString; Safecall;
+   function Get_Status : Integer; Safecall;
+   function Get_Opis : WideString; Safecall;
+   function Get_PobranoUPO : WordBool; Safecall;
+   function Get_UPO : WideString; Safecall;
+   function Get_Timestamp : OleVariant; Safecall;
+   function Get_Szczegoly : WideString; Safecall;
+    // ZapiszUPO : Nr referencyjny deklaracji 
+   procedure ZapiszUPO(CelZapisu:OleVariant);safecall;
     // NrRef : Nr referencyjny deklaracji 
-   property NrRef:WideString read Get_NrRef;
+   property NrRef: WideString read Get_NrRef;
     // Status : Status przetwarzania 
-   property Status:Integer read Get_Status;
+   property Status: Integer read Get_Status;
     // Opis : Opis statusu przetwarzania 
-   property Opis:WideString read Get_Opis;
+   property Opis: WideString read Get_Opis;
     // PobranoUPO : Czy pobrano UPO 
-   property PobranoUPO:WordBool read Get_PobranoUPO;
+   property PobranoUPO: WordBool read Get_PobranoUPO;
     // UPO : Zawartosc UPO 
-   property UPO:WideString read Get_UPO;
+   property UPO: WideString read Get_UPO;
     // Timestamp : Data i czas odpowiedzi 
-   property Timestamp:OleVariant read Get_Timestamp;
+   property Timestamp: OleVariant read Get_Timestamp;
     // Szczegoly : Szczegolowy opis 
-   property Szczegoly:WideString read Get_Szczegoly;
+   property Szczegoly: WideString read Get_Szczegoly;
   end;
 
 
@@ -2405,9 +2549,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2417,25 +2561,27 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
+    // ZapiszUPO : Nr referencyjny deklaracji 
+   procedure ZapiszUPO(CelZapisu:OleVariant);dispid 24008;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // NrRef : Nr referencyjny deklaracji 
-   property NrRef:WideString  readonly dispid 24001;
+   property NrRef: WideString  readonly dispid 24001;
     // Status : Status przetwarzania 
-   property Status:Integer  readonly dispid 24002;
+   property Status: Integer  readonly dispid 24002;
     // Opis : Opis statusu przetwarzania 
-   property Opis:WideString  readonly dispid 24003;
+   property Opis: WideString  readonly dispid 24003;
     // PobranoUPO : Czy pobrano UPO 
-   property PobranoUPO:WordBool  readonly dispid 24004;
+   property PobranoUPO: WordBool  readonly dispid 24004;
     // UPO : Zawartosc UPO 
-   property UPO:WideString  readonly dispid 24005;
+   property UPO: WideString  readonly dispid 24005;
     // Timestamp : Data i czas odpowiedzi 
-   property Timestamp:OleVariant  readonly dispid 24006;
+   property Timestamp: OleVariant  readonly dispid 24006;
     // Szczegoly : Szczegolowy opis 
-   property Szczegoly:WideString  readonly dispid 24007;
+   property Szczegoly: WideString  readonly dispid 24007;
   end;
 
 
@@ -2444,29 +2590,35 @@ Type
  IlgcEDeklaracja = interface(IlgcBaseObject)
    ['{4C7E267D-D83D-4713-9120-CB57D7881F33}']
     // PodpiszCertyfikatem : Podpisz deklaracje certyfikatem 
-   function PodpiszCertyfikatem(Dane:WideString;Certyfikat:IDispatch):WideString;safecall;
+   function PodpiszCertyfikatem(Dane:WideString;Certyfikat:IDispatch): WideString;safecall;
+    // PodpiszCertyfikatem2 : Podpisz deklaracje certyfikatem 
+   procedure PodpiszCertyfikatem2(Dane:OleVariant;Certyfikat:IDispatch;DanePodpisane:OleVariant);safecall;
     // PodpiszDanymiAut : Podpisz deklaracje danymi autoryzujacymi 
-   function PodpiszDanymiAut(Dane:WideString;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency):WideString;safecall;
+   function PodpiszDanymiAut(Dane:WideString;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency): WideString;safecall;
+    // PodpiszDanymiAut2 : Podpisz deklaracje danymi autoryzujacymi 
+   procedure PodpiszDanymiAut2(Dane:OleVariant;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency;DanePodpisane:OleVariant);safecall;
     // Wyslij : Wyslij podpisana deklaracje na podana bramke 
-   function Wyslij(DanePodpisane:WideString;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType):IDispatch;safecall;
+   function Wyslij(DanePodpisane:WideString;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType): IDispatch;safecall;
+    // Wyslij2 : Wyslij podpisana deklaracje na podana bramke 
+   function Wyslij2(DanePodpisane:OleVariant;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType): IDispatch;safecall;
     // PobierzUPO : Sprawdz status przetwarzania / pobierz UPO 
-   function PobierzUPO(NrRef:WideString;RodzajBramki:lgcEDekGateType):IDispatch;safecall;
-   function Get_XAdES : IDispatch; safecall;
+   function PobierzUPO(NrRef:WideString;RodzajBramki:lgcEDekGateType): IDispatch;safecall;
+   function Get_XAdES : IDispatch; Safecall;
    procedure Set_XAdES(Value:IDispatch); safecall;
-   function Get_XMLCanonizator : WideString; safecall;
+   function Get_XMLCanonizator : WideString; Safecall;
    procedure Set_XMLCanonizator(Value:WideString); safecall;
-   function Get_EDekGate : WideString; safecall;
+   function Get_EDekGate : WideString; Safecall;
    procedure Set_EDekGate(Value:WideString); safecall;
-   function Get_Canonization : WordBool; safecall;
+   function Get_Canonization : WordBool; Safecall;
    procedure Set_Canonization(Value:WordBool); safecall;
     // XAdES : Obiekt podpisu XAdES 
-   property XAdES:IDispatch read Get_XAdES write Set_XAdES;
+   property XAdES: IDispatch read Get_XAdES write Set_XAdES;
     // XMLCanonizator : Nazwa klasy obiektu mechanizmu C14N dla danych XML (w przypadku dostarczania danych XML deklaracji w postaci innej niz kanoniczna 
-   property XMLCanonizator:WideString read Get_XMLCanonizator write Set_XMLCanonizator;
+   property XMLCanonizator: WideString read Get_XMLCanonizator write Set_XMLCanonizator;
     // EDekGate : Klasa obslugi komunikacji SOAP bramki e-deklaracji 
-   property EDekGate:WideString read Get_EDekGate write Set_EDekGate;
+   property EDekGate: WideString read Get_EDekGate write Set_EDekGate;
     // Canonization : Czy ma byc przeprowadzana C14N na danych e-deklaracji 
-   property Canonization:WordBool read Get_Canonization write Set_Canonization;
+   property Canonization: WordBool read Get_Canonization write Set_Canonization;
   end;
 
 
@@ -2477,9 +2629,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2489,27 +2641,33 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // PodpiszCertyfikatem : Podpisz deklaracje certyfikatem 
-   function PodpiszCertyfikatem(Dane:WideString;Certyfikat:IDispatch):WideString;dispid 25001;
+   function PodpiszCertyfikatem(Dane:WideString;Certyfikat:IDispatch): WideString;dispid 25001;
+    // PodpiszCertyfikatem2 : Podpisz deklaracje certyfikatem 
+   procedure PodpiszCertyfikatem2(Dane:OleVariant;Certyfikat:IDispatch;DanePodpisane:OleVariant);dispid 25009;
     // PodpiszDanymiAut : Podpisz deklaracje danymi autoryzujacymi 
-   function PodpiszDanymiAut(Dane:WideString;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency):WideString;dispid 25002;
+   function PodpiszDanymiAut(Dane:WideString;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency): WideString;dispid 25002;
+    // PodpiszDanymiAut2 : Podpisz deklaracje danymi autoryzujacymi 
+   procedure PodpiszDanymiAut2(Dane:OleVariant;ImiePierwsze:WideString;Nazwisko:WideString;Nip:WideString;DataUr:TDateTime;Kwota:Currency;DanePodpisane:OleVariant);dispid 25010;
     // Wyslij : Wyslij podpisana deklaracje na podana bramke 
-   function Wyslij(DanePodpisane:WideString;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType):IDispatch;dispid 25003;
+   function Wyslij(DanePodpisane:WideString;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType): IDispatch;dispid 25003;
+    // Wyslij2 : Wyslij podpisana deklaracje na podana bramke 
+   function Wyslij2(DanePodpisane:OleVariant;RodzajBramki:lgcEDekGateType;RodzajPodpisu:lgcEDekSignType): IDispatch;dispid 25011;
     // PobierzUPO : Sprawdz status przetwarzania / pobierz UPO 
-   function PobierzUPO(NrRef:WideString;RodzajBramki:lgcEDekGateType):IDispatch;dispid 25004;
+   function PobierzUPO(NrRef:WideString;RodzajBramki:lgcEDekGateType): IDispatch;dispid 25004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // XAdES : Obiekt podpisu XAdES 
-   property XAdES:IDispatch dispid 25005;
+   property XAdES: IDispatch dispid 25005;
     // XMLCanonizator : Nazwa klasy obiektu mechanizmu C14N dla danych XML (w przypadku dostarczania danych XML deklaracji w postaci innej niz kanoniczna 
-   property XMLCanonizator:WideString dispid 25006;
+   property XMLCanonizator: WideString dispid 25006;
     // EDekGate : Klasa obslugi komunikacji SOAP bramki e-deklaracji 
-   property EDekGate:WideString dispid 25007;
+   property EDekGate: WideString dispid 25007;
     // Canonization : Czy ma byc przeprowadzana C14N na danych e-deklaracji 
-   property Canonization:WordBool dispid 25008;
+   property Canonization: WordBool dispid 25008;
   end;
 
 
@@ -2518,57 +2676,63 @@ Type
  IlgcJPK = interface(IlgcBaseObject)
    ['{5EB2F974-0D10-44D4-AA8F-E557BB91FF30}']
     // SignCertificate : Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym 
-   function SignCertificate(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant):WideString;safecall;
+   function SignCertificate(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant): WideString;safecall;
+    // SignCertificate2 : Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym 
+   procedure SignCertificate2(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant;InitUpload:OleVariant);safecall;
     // SignAuthData : Przygotowanie i podpis dokumentu JPK danymi autoryzujÄ…cymi 
-   function SignAuthData(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant):WideString;safecall;
+   function SignAuthData(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant): WideString;safecall;
+    // SignAuthData2 : Przygotowanie i podpis dokumentu JPK danymi autoryzujÄ…cymi 
+   procedure SignAuthData2(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant;InitUpload:OleVariant);safecall;
     // Send : Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload 
-   function Send(InitUpload:WideString;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool):WideString;safecall;
+   function Send(InitUpload:WideString;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool): WideString;safecall;
+    // Send2 : Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload 
+   function Send2(InitUpload:OleVariant;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool): WideString;safecall;
     // RequestUPO : Sprawdzenie statusu przetwarzania wysĹ‚anego dokumentu JPK i ewentualnie pobranie UPO 
-   function RequestUPO(RefNo:WideString;GateType:lgcEDekGateType):IDispatch;safecall;
-   function Get_Base64EncoderClass : WideString; safecall;
+   function RequestUPO(RefNo:WideString;GateType:lgcEDekGateType): IDispatch;safecall;
+   function Get_Base64EncoderClass : WideString; Safecall;
    procedure Set_Base64EncoderClass(Value:WideString); safecall;
-   function Get_AES256EncryptClass : WideString; safecall;
+   function Get_AES256EncryptClass : WideString; Safecall;
    procedure Set_AES256EncryptClass(Value:WideString); safecall;
-   function Get_MD5HashClass : WideString; safecall;
+   function Get_MD5HashClass : WideString; Safecall;
    procedure Set_MD5HashClass(Value:WideString); safecall;
-   function Get_SHA256HashClass : WideString; safecall;
+   function Get_SHA256HashClass : WideString; Safecall;
    procedure Set_SHA256HashClass(Value:WideString); safecall;
-   function Get_ZipperClass : WideString; safecall;
+   function Get_ZipperClass : WideString; Safecall;
    procedure Set_ZipperClass(Value:WideString); safecall;
-   function Get_RandomGeneratorClass : WideString; safecall;
+   function Get_RandomGeneratorClass : WideString; Safecall;
    procedure Set_RandomGeneratorClass(Value:WideString); safecall;
-   function Get_XMLReaderClass : WideString; safecall;
+   function Get_XMLReaderClass : WideString; Safecall;
    procedure Set_XMLReaderClass(Value:WideString); safecall;
-   function Get_RSAKeyProd : IDispatch; safecall;
+   function Get_RSAKeyProd : IDispatch; Safecall;
    procedure Set_RSAKeyProd(Value:IDispatch); safecall;
-   function Get_RSAKeyTest : IDispatch; safecall;
+   function Get_RSAKeyTest : IDispatch; Safecall;
    procedure Set_RSAKeyTest(Value:IDispatch); safecall;
-   function Get_XAdES : IDispatch; safecall;
+   function Get_XAdES : IDispatch; Safecall;
    procedure Set_XAdES(Value:IDispatch); safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
     // Base64EncoderClass : Klasa sterownika eknodera Base64 
-   property Base64EncoderClass:WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
+   property Base64EncoderClass: WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
+   property AES256EncryptClass: WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
     // MD5HashClass : Klasa funkcji skrotu MD5 
-   property MD5HashClass:WideString read Get_MD5HashClass write Set_MD5HashClass;
+   property MD5HashClass: WideString read Get_MD5HashClass write Set_MD5HashClass;
     // SHA256HashClass : Klasa funkcji skrotu SHA256 
-   property SHA256HashClass:WideString read Get_SHA256HashClass write Set_SHA256HashClass;
+   property SHA256HashClass: WideString read Get_SHA256HashClass write Set_SHA256HashClass;
     // ZipperClass : Klasa kompresora ZIP 
-   property ZipperClass:WideString read Get_ZipperClass write Set_ZipperClass;
+   property ZipperClass: WideString read Get_ZipperClass write Set_ZipperClass;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
+   property RandomGeneratorClass: WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
     // XMLReaderClass : Klasa czytnika XML 
-   property XMLReaderClass:WideString read Get_XMLReaderClass write Set_XMLReaderClass;
+   property XMLReaderClass: WideString read Get_XMLReaderClass write Set_XMLReaderClass;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
-   property RSAKeyProd:IDispatch read Get_RSAKeyProd write Set_RSAKeyProd;
+   property RSAKeyProd: IDispatch read Get_RSAKeyProd write Set_RSAKeyProd;
     // RSAKeyTest : Klucz szyfrowania RSA dla bramki testowej 
-   property RSAKeyTest:IDispatch read Get_RSAKeyTest write Set_RSAKeyTest;
+   property RSAKeyTest: IDispatch read Get_RSAKeyTest write Set_RSAKeyTest;
     // XAdES : Objekt XAdES 
-   property XAdES:IDispatch read Get_XAdES write Set_XAdES;
+   property XAdES: IDispatch read Get_XAdES write Set_XAdES;
     // HTTPClient : Objekt klienta HTTPS 
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
   end;
 
 
@@ -2579,9 +2743,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2591,41 +2755,47 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // SignCertificate : Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym 
-   function SignCertificate(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant):WideString;dispid 26001;
+   function SignCertificate(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant): WideString;dispid 26001;
+    // SignCertificate2 : Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym 
+   procedure SignCertificate2(Certificate:IDispatch;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant;InitUpload:OleVariant);dispid 26017;
     // SignAuthData : Przygotowanie i podpis dokumentu JPK danymi autoryzujÄ…cymi 
-   function SignAuthData(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant):WideString;dispid 26002;
+   function SignAuthData(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant): WideString;dispid 26002;
+    // SignAuthData2 : Przygotowanie i podpis dokumentu JPK danymi autoryzujÄ…cymi 
+   procedure SignAuthData2(Nip:WideString;ImiePierwsze:WideString;Nazwisko:WideString;DataUr:TDateTime;Kwota:Currency;GateType:lgcEDekGateType;AdHoc:WordBool;InputStream:OleVariant;OutputStream:OleVariant;InitUpload:OleVariant);dispid 26018;
     // Send : Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload 
-   function Send(InitUpload:WideString;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool):WideString;dispid 26003;
+   function Send(InitUpload:WideString;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool): WideString;dispid 26003;
+    // Send2 : Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload 
+   function Send2(InitUpload:OleVariant;EncryptedData:OleVariant;GateType:lgcEDekGateType;VerifySign:WordBool): WideString;dispid 26019;
     // RequestUPO : Sprawdzenie statusu przetwarzania wysĹ‚anego dokumentu JPK i ewentualnie pobranie UPO 
-   function RequestUPO(RefNo:WideString;GateType:lgcEDekGateType):IDispatch;dispid 26004;
+   function RequestUPO(RefNo:WideString;GateType:lgcEDekGateType): IDispatch;dispid 26004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Base64EncoderClass : Klasa sterownika eknodera Base64 
-   property Base64EncoderClass:WideString dispid 26005;
+   property Base64EncoderClass: WideString dispid 26005;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString dispid 26006;
+   property AES256EncryptClass: WideString dispid 26006;
     // MD5HashClass : Klasa funkcji skrotu MD5 
-   property MD5HashClass:WideString dispid 26007;
+   property MD5HashClass: WideString dispid 26007;
     // SHA256HashClass : Klasa funkcji skrotu SHA256 
-   property SHA256HashClass:WideString dispid 26008;
+   property SHA256HashClass: WideString dispid 26008;
     // ZipperClass : Klasa kompresora ZIP 
-   property ZipperClass:WideString dispid 26009;
+   property ZipperClass: WideString dispid 26009;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString dispid 26011;
+   property RandomGeneratorClass: WideString dispid 26011;
     // XMLReaderClass : Klasa czytnika XML 
-   property XMLReaderClass:WideString dispid 26012;
+   property XMLReaderClass: WideString dispid 26012;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
-   property RSAKeyProd:IDispatch dispid 26013;
+   property RSAKeyProd: IDispatch dispid 26013;
     // RSAKeyTest : Klucz szyfrowania RSA dla bramki testowej 
-   property RSAKeyTest:IDispatch dispid 26014;
+   property RSAKeyTest: IDispatch dispid 26014;
     // XAdES : Objekt XAdES 
-   property XAdES:IDispatch dispid 26015;
+   property XAdES: IDispatch dispid 26015;
     // HTTPClient : Objekt klienta HTTPS 
-   property HTTPClient:IDispatch dispid 26016;
+   property HTTPClient: IDispatch dispid 26016;
   end;
 
 
@@ -2634,7 +2804,7 @@ Type
  IlgcKSeFRequest = interface(IlgcObject)
    ['{7B4EF1CE-8FC8-433C-99E4-A446E6F62D98}']
     // GetAsJSON : Pobranie zadania w formie JSON 
-   function GetAsJSON:WideString;safecall;
+   function GetAsJSON: WideString;safecall;
   end;
 
 
@@ -2645,9 +2815,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2657,39 +2827,39 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // GetAsJSON : Pobranie zadania w formie JSON 
-   function GetAsJSON:WideString;dispid 27001;
+   function GetAsJSON: WideString;dispid 27001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
   end;
 
 
@@ -2698,7 +2868,7 @@ Type
  IlgcKSeFResponse = interface(IlgcObject)
    ['{9ED3DF16-92DA-4EDC-BC63-FC17CDDF9BDC}']
     // GetRawResponse : Pobranie odpowiedzi w formie JSON 
-   function GetRawResponse:WideString;safecall;
+   function GetRawResponse: WideString;safecall;
   end;
 
 
@@ -2709,9 +2879,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2721,39 +2891,39 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // GetRawResponse : Pobranie odpowiedzi w formie JSON 
-   function GetRawResponse:WideString;dispid 28001;
+   function GetRawResponse: WideString;dispid 28001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
   end;
 
 
@@ -2761,97 +2931,97 @@ Type
 
  IlgcKSeFBase = interface(IlgcBaseObject)
    ['{452578AC-F2AE-4771-9FCF-5F4DC66021CD}']
-   function Get_Base64EncoderClass : WideString; safecall;
+   function Get_Base64EncoderClass : WideString; Safecall;
    procedure Set_Base64EncoderClass(Value:WideString); safecall;
-   function Get_AES256EncryptClass : WideString; safecall;
+   function Get_AES256EncryptClass : WideString; Safecall;
    procedure Set_AES256EncryptClass(Value:WideString); safecall;
-   function Get_SHA256HashClass : WideString; safecall;
+   function Get_SHA256HashClass : WideString; Safecall;
    procedure Set_SHA256HashClass(Value:WideString); safecall;
-   function Get_RandomGeneratorClass : WideString; safecall;
+   function Get_RandomGeneratorClass : WideString; Safecall;
    procedure Set_RandomGeneratorClass(Value:WideString); safecall;
-   function Get_XAdES : IDispatch; safecall;
+   function Get_XAdES : IDispatch; Safecall;
    procedure Set_XAdES(Value:IDispatch); safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
-   function Get_GateType : lgcKSeFGateType; safecall;
+   function Get_GateType : lgcKSeFGateType; Safecall;
    procedure Set_GateType(Value:lgcKSeFGateType); safecall;
-   function Get_Nip : WideString; safecall;
+   function Get_Nip : WideString; Safecall;
    procedure Set_Nip(Value:WideString); safecall;
-   function Get_FormCode : Integer; safecall;
+   function Get_FormCode : Integer; Safecall;
    procedure Set_FormCode(Value:Integer); safecall;
-   function Get_FormCodeSystemCode : WideString; safecall;
+   function Get_FormCodeSystemCode : WideString; Safecall;
    procedure Set_FormCodeSystemCode(Value:WideString); safecall;
-   function Get_FormCodeSchemaVersion : WideString; safecall;
+   function Get_FormCodeSchemaVersion : WideString; Safecall;
    procedure Set_FormCodeSchemaVersion(Value:WideString); safecall;
-   function Get_FormCodeTargetNamespace : WideString; safecall;
+   function Get_FormCodeTargetNamespace : WideString; Safecall;
    procedure Set_FormCodeTargetNamespace(Value:WideString); safecall;
-   function Get_FormCodeValue : WideString; safecall;
+   function Get_FormCodeValue : WideString; Safecall;
    procedure Set_FormCodeValue(Value:WideString); safecall;
-   function Get_Certificate : IDispatch; safecall;
+   function Get_Certificate : IDispatch; Safecall;
    procedure Set_Certificate(Value:IDispatch); safecall;
-   function Get_CertificateAuthType : lgcKSeFCertificateAuthType; safecall;
+   function Get_CertificateAuthType : lgcKSeFCertificateAuthType; Safecall;
    procedure Set_CertificateAuthType(Value:lgcKSeFCertificateAuthType); safecall;
-   function Get_Token : WideString; safecall;
+   function Get_Token : WideString; Safecall;
    procedure Set_Token(Value:WideString); safecall;
-   function Get_Encryption : WordBool; safecall;
+   function Get_Encryption : WordBool; Safecall;
    procedure Set_Encryption(Value:WordBool); safecall;
-   function Get_SessionToken : WideString; safecall;
+   function Get_SessionToken : WideString; Safecall;
    procedure Set_SessionToken(Value:WideString); safecall;
-   function Get_SessionActive : WordBool; safecall;
-   function Get_RSAKeyProd : IDispatch; safecall;
+   function Get_SessionActive : WordBool; Safecall;
+   function Get_RSAKeyProd : IDispatch; Safecall;
    procedure Set_RSAKeyProd(Value:IDispatch); safecall;
-   function Get_RSAKeyDemo : IDispatch; safecall;
+   function Get_RSAKeyDemo : IDispatch; Safecall;
    procedure Set_RSAKeyDemo(Value:IDispatch); safecall;
-   function Get_RSAKeyTest : IDispatch; safecall;
+   function Get_RSAKeyTest : IDispatch; Safecall;
    procedure Set_RSAKeyTest(Value:IDispatch); safecall;
     // GenerateAESKey : Generuj klucz AES dla dodatkowego szyfrowania. W razie potrzeby wywolywane automatycznie przy polaczeniu 
    procedure GenerateAESKey;safecall;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
-   function CreateKSeFObject(ClsName:WideString):IDispatch;safecall;
+   function CreateKSeFObject(ClsName:WideString): IDispatch;safecall;
     // Base64EncoderClass : Klasa enkodera Base64 
-   property Base64EncoderClass:WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
+   property Base64EncoderClass: WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
+   property AES256EncryptClass: WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
     // SHA256HashClass : Klasa funkcji skrĂłtu SHA256 
-   property SHA256HashClass:WideString read Get_SHA256HashClass write Set_SHA256HashClass;
+   property SHA256HashClass: WideString read Get_SHA256HashClass write Set_SHA256HashClass;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
+   property RandomGeneratorClass: WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
     // XAdES : Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload 
-   property XAdES:IDispatch read Get_XAdES write Set_XAdES;
+   property XAdES: IDispatch read Get_XAdES write Set_XAdES;
     // HTTPClient : Obiekt poĹ‚Ä…czenia HTTPS 
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
     // GateType : Rodzaj bramki (produkcyjna/demo/testowa) 
-   property GateType:lgcKSeFGateType read Get_GateType write Set_GateType;
+   property GateType: lgcKSeFGateType read Get_GateType write Set_GateType;
     // Nip : Nr NIP podmiotu 
-   property Nip:WideString read Get_Nip write Set_Nip;
+   property Nip: WideString read Get_Nip write Set_Nip;
     // FormCode : Predefiniowany rodzaj FA 
-   property FormCode:Integer read Get_FormCode write Set_FormCode;
+   property FormCode: Integer read Get_FormCode write Set_FormCode;
     // FormCodeSystemCode :  
-   property FormCodeSystemCode:WideString read Get_FormCodeSystemCode write Set_FormCodeSystemCode;
+   property FormCodeSystemCode: WideString read Get_FormCodeSystemCode write Set_FormCodeSystemCode;
     // FormCodeSchemaVersion :  
-   property FormCodeSchemaVersion:WideString read Get_FormCodeSchemaVersion write Set_FormCodeSchemaVersion;
+   property FormCodeSchemaVersion: WideString read Get_FormCodeSchemaVersion write Set_FormCodeSchemaVersion;
     // FormCodeTargetNamespace :  
-   property FormCodeTargetNamespace:WideString read Get_FormCodeTargetNamespace write Set_FormCodeTargetNamespace;
+   property FormCodeTargetNamespace: WideString read Get_FormCodeTargetNamespace write Set_FormCodeTargetNamespace;
     // FormCodeValue :  
-   property FormCodeValue:WideString read Get_FormCodeValue write Set_FormCodeValue;
+   property FormCodeValue: WideString read Get_FormCodeValue write Set_FormCodeValue;
     // Certificate : Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyĹ‚ki wsadowej 
-   property Certificate:IDispatch read Get_Certificate write Set_Certificate;
+   property Certificate: IDispatch read Get_Certificate write Set_Certificate;
     // CertificateAuthType : Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczÄ™ci elektronicznej 
-   property CertificateAuthType:lgcKSeFCertificateAuthType read Get_CertificateAuthType write Set_CertificateAuthType;
+   property CertificateAuthType: lgcKSeFCertificateAuthType read Get_CertificateAuthType write Set_CertificateAuthType;
     // Token : Token do nawiÄ…zania sesji interaktywnej 
-   property Token:WideString read Get_Token write Set_Token;
+   property Token: WideString read Get_Token write Set_Token;
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
-   property Encryption:WordBool read Get_Encryption write Set_Encryption;
+   property Encryption: WordBool read Get_Encryption write Set_Encryption;
     // SessionToken : Token sesji 
-   property SessionToken:WideString read Get_SessionToken write Set_SessionToken;
+   property SessionToken: WideString read Get_SessionToken write Set_SessionToken;
     // SessionActive : Czy sesjia aktywna 
-   property SessionActive:WordBool read Get_SessionActive;
+   property SessionActive: WordBool read Get_SessionActive;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
-   property RSAKeyProd:IDispatch read Get_RSAKeyProd write Set_RSAKeyProd;
+   property RSAKeyProd: IDispatch read Get_RSAKeyProd write Set_RSAKeyProd;
     // RSAKeyDemo : Klucz szyfrowania RSA dla bramki demo 
-   property RSAKeyDemo:IDispatch read Get_RSAKeyDemo write Set_RSAKeyDemo;
+   property RSAKeyDemo: IDispatch read Get_RSAKeyDemo write Set_RSAKeyDemo;
     // RSAKeyTest : Klucz szyfrowania RSA dla bramki testowj 
-   property RSAKeyTest:IDispatch read Get_RSAKeyTest write Set_RSAKeyTest;
+   property RSAKeyTest: IDispatch read Get_RSAKeyTest write Set_RSAKeyTest;
   end;
 
 
@@ -2862,9 +3032,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -2874,59 +3044,59 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // GenerateAESKey : Generuj klucz AES dla dodatkowego szyfrowania. W razie potrzeby wywolywane automatycznie przy polaczeniu 
    procedure GenerateAESKey;dispid 29024;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
-   function CreateKSeFObject(ClsName:WideString):IDispatch;dispid 29025;
+   function CreateKSeFObject(ClsName:WideString): IDispatch;dispid 29025;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Base64EncoderClass : Klasa enkodera Base64 
-   property Base64EncoderClass:WideString dispid 29002;
+   property Base64EncoderClass: WideString dispid 29002;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString dispid 29003;
+   property AES256EncryptClass: WideString dispid 29003;
     // SHA256HashClass : Klasa funkcji skrĂłtu SHA256 
-   property SHA256HashClass:WideString dispid 29004;
+   property SHA256HashClass: WideString dispid 29004;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString dispid 29005;
+   property RandomGeneratorClass: WideString dispid 29005;
     // XAdES : Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload 
-   property XAdES:IDispatch dispid 29006;
+   property XAdES: IDispatch dispid 29006;
     // HTTPClient : Obiekt poĹ‚Ä…czenia HTTPS 
-   property HTTPClient:IDispatch dispid 29007;
+   property HTTPClient: IDispatch dispid 29007;
     // GateType : Rodzaj bramki (produkcyjna/demo/testowa) 
-   property GateType:lgcKSeFGateType dispid 29008;
+   property GateType: lgcKSeFGateType dispid 29008;
     // Nip : Nr NIP podmiotu 
-   property Nip:WideString dispid 29009;
+   property Nip: WideString dispid 29009;
     // FormCode : Predefiniowany rodzaj FA 
-   property FormCode:Integer dispid 29010;
+   property FormCode: Integer dispid 29010;
     // FormCodeSystemCode :  
-   property FormCodeSystemCode:WideString dispid 29011;
+   property FormCodeSystemCode: WideString dispid 29011;
     // FormCodeSchemaVersion :  
-   property FormCodeSchemaVersion:WideString dispid 29012;
+   property FormCodeSchemaVersion: WideString dispid 29012;
     // FormCodeTargetNamespace :  
-   property FormCodeTargetNamespace:WideString dispid 29013;
+   property FormCodeTargetNamespace: WideString dispid 29013;
     // FormCodeValue :  
-   property FormCodeValue:WideString dispid 29014;
+   property FormCodeValue: WideString dispid 29014;
     // Certificate : Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyĹ‚ki wsadowej 
-   property Certificate:IDispatch dispid 29015;
+   property Certificate: IDispatch dispid 29015;
     // CertificateAuthType : Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczÄ™ci elektronicznej 
-   property CertificateAuthType:lgcKSeFCertificateAuthType dispid 29016;
+   property CertificateAuthType: lgcKSeFCertificateAuthType dispid 29016;
     // Token : Token do nawiÄ…zania sesji interaktywnej 
-   property Token:WideString dispid 29017;
+   property Token: WideString dispid 29017;
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
-   property Encryption:WordBool dispid 29018;
+   property Encryption: WordBool dispid 29018;
     // SessionToken : Token sesji 
-   property SessionToken:WideString dispid 29019;
+   property SessionToken: WideString dispid 29019;
     // SessionActive : Czy sesjia aktywna 
-   property SessionActive:WordBool  readonly dispid 29020;
+   property SessionActive: WordBool  readonly dispid 29020;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
-   property RSAKeyProd:IDispatch dispid 29021;
+   property RSAKeyProd: IDispatch dispid 29021;
     // RSAKeyDemo : Klucz szyfrowania RSA dla bramki demo 
-   property RSAKeyDemo:IDispatch dispid 29022;
+   property RSAKeyDemo: IDispatch dispid 29022;
     // RSAKeyTest : Klucz szyfrowania RSA dla bramki testowj 
-   property RSAKeyTest:IDispatch dispid 29023;
+   property RSAKeyTest: IDispatch dispid 29023;
   end;
 
 
@@ -2935,89 +3105,89 @@ Type
  IlgcKSeF_2_6_0 = interface(IlgcKSeFBase)
    ['{C44AAC54-CE22-421C-B159-B864DF2EB753}']
     // SessionInitSigned : Inicjalizacja sesji za pomoca certyfikatu kwalifikowanego lub pieczeci 
-   function SessionInitSigned:IDispatch;safecall;
+   function SessionInitSigned: IDispatch;safecall;
     // SessionInitToken : Inicjalizacja sesji za pomoca tokena 
-   function SessionInitToken:IDispatch;safecall;
+   function SessionInitToken: IDispatch;safecall;
     // SessionChalangePZ : Wygenerowanie struktury InitSession w celu podpisania przy pomocy Profilu Zaufanego 
-   function SessionChalangePZ:WideString;safecall;
+   function SessionChalangePZ: WideString;safecall;
     // SessionInitPZ : Inicjalizacja sesji za pomoca wczeĹ›niej wygenerowanej struktury InitSession, podpisanej przy pomocy PZ 
-   function SessionInitPZ(SignedInit:WideString):IDispatch;safecall;
+   function SessionInitPZ(SignedInit:WideString): IDispatch;safecall;
     // SessionStatus : Sprawdzenie statusu aktywnej sesji interaktywnej 
-   function SessionStatus(ReferenceNumber:WideString;PageSize:Integer;PageOffset:Integer;IncludeDetails:WordBool):IDispatch;safecall;
+   function SessionStatus(ReferenceNumber:WideString;PageSize:Integer;PageOffset:Integer;IncludeDetails:WordBool): IDispatch;safecall;
     // SessionTerminate : Wymuszenie zamkniÄ™cia aktywnej sesji 
-   function SessionTerminate(Force:WordBool):IDispatch;safecall;
+   function SessionTerminate(Force:WordBool): IDispatch;safecall;
     // SessionGenerateInternalIdentifier : Wygenerowanie identyfikatora wewnetrznego 
-   function SessionGenerateInternalIdentifier(InputDigitsSequence:WideString):IDispatch;safecall;
+   function SessionGenerateInternalIdentifier(InputDigitsSequence:WideString): IDispatch;safecall;
     // InvoiceGet : Pobranie faktury po numerze identyfikacyjnym KSeF 
    procedure InvoiceGet(KSeFReferenceNumber:WideString;OutputStream:OleVariant);safecall;
     // InvoiceSend : WysyĹ‚ka faktury 
-   function InvoiceSend(DataStream:OleVariant):IDispatch;safecall;
+   function InvoiceSend(DataStream:OleVariant): IDispatch;safecall;
     // InvoiceStatus : Sprawdzenie statusu wysĹ‚anej faktury 
-   function InvoiceStatus(InvoiceElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;safecall;
+   function InvoiceStatus(InvoiceElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant = 0): IDispatch;safecall;
     // InvoiceVisibilityHide : Ukrywanie wybranej faktury 
-   function InvoiceVisibilityHide(KSeFReferenceNumber:WideString;HidingReason:WideString):IDispatch;safecall;
+   function InvoiceVisibilityHide(KSeFReferenceNumber:WideString;HidingReason:WideString): IDispatch;safecall;
     // InvoiceVisibilityShow : Anulowanie ukrycia wybranej faktury 
-   function InvoiceVisibilityShow(KSeFReferenceNumber:WideString;HidingCancelationReason:WideString):IDispatch;safecall;
+   function InvoiceVisibilityShow(KSeFReferenceNumber:WideString;HidingCancelationReason:WideString): IDispatch;safecall;
     // InvoiceVisibilityStatus : Sprawdzenie statusu operacji ukrycia/odsĹ‚onienia faktury 
-   function InvoiceVisibilityStatus(HidingElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;safecall;
+   function InvoiceVisibilityStatus(HidingElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant = 0): IDispatch;safecall;
     // InvoiceVisibility : Sprawdzenie statusu widocznoĹ›ci faktury 
-   function InvoiceVisibility(KSeFReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;safecall;
+   function InvoiceVisibility(KSeFReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant = 0): IDispatch;safecall;
     // InvoiceScamCancel : Wycofanie faktury scamowej 
-   function InvoiceScamCancel(KSeFReferenceNumber:WideString;ReportCancelationReason:WideString):IDispatch;safecall;
+   function InvoiceScamCancel(KSeFReferenceNumber:WideString;ReportCancelationReason:WideString): IDispatch;safecall;
     // InvoiceScamReport : ZgĹ‚oszenie faktury scamowej 
-   function InvoiceScamReport(KSeFReferenceNumber:WideString;ReportReason:WideString):IDispatch;safecall;
+   function InvoiceScamReport(KSeFReferenceNumber:WideString;ReportReason:WideString): IDispatch;safecall;
     // InvoiceScamStatus : Pobranie statusu zgĹ‚oszenia naduĹĽycia faktury 
-   function InvoiceScamStatus(ScamElementReferenceNumber:WideString):IDispatch;safecall;
+   function InvoiceScamStatus(ScamElementReferenceNumber:WideString): IDispatch;safecall;
     // InvoiceScam : Pobranie zgĹ‚oszenia naduĹĽycia faktury 
-   function InvoiceScam(KSeFReferenceNumber:WideString):IDispatch;safecall;
+   function InvoiceScam(KSeFReferenceNumber:WideString): IDispatch;safecall;
     // CredentialsAccountingGrant : Nadanie poĹ›wiadczeĹ„ dla biura rachunkowego 
-   function CredentialsAccountingGrant(GrantAccountingCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsAccountingGrant(GrantAccountingCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsAccountingRevoke : Odebranie poĹ›wiadczeĹ„ biur rachunkowych 
-   function CredentialsAccountingRevoke(RevokeAccountingCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsAccountingRevoke(RevokeAccountingCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsContextGrant : Nadanie poĹ›wiadczeĹ„ kontekstowych 
-   function CredentialsContextGrant(GrantContextCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsContextGrant(GrantContextCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsContextRevoke : Odebranie poĹ›wiadczeĹ„ kontekstowych 
-   function CredentialsContextRevoke(RevokeContextCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsContextRevoke(RevokeContextCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsGenerateToken : Generowanie tokena autoryzacyjnego 
-   function CredentialsGenerateToken(GenerateTokenRequest:IDispatch):IDispatch;safecall;
+   function CredentialsGenerateToken(GenerateTokenRequest:IDispatch): IDispatch;safecall;
     // CredentialsGrant : Nadanie poĹ›wiadczeĹ„ 
-   function CredentialsGrant(GrantCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsGrant(GrantCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsRevoke : Odebranie poĹ›wiadczeĹ„ 
-   function CredentialsRevoke(RevokeCredentialsRequest:IDispatch):IDispatch;safecall;
+   function CredentialsRevoke(RevokeCredentialsRequest:IDispatch): IDispatch;safecall;
     // CredentialsRevokeToken : UsuniÄ™cie tokena autoryzacyjnego 
-   function CredentialsRevokeToken(RevokeTokenRequest:IDispatch):IDispatch;safecall;
+   function CredentialsRevokeToken(RevokeTokenRequest:IDispatch): IDispatch;safecall;
     // CredentialsStatus : Sprawdzenie statusu poĹ›wiadczeĹ„ 
-   function CredentialsStatus(CredentialsElementReferenceNumber:WideString):IDispatch;safecall;
+   function CredentialsStatus(CredentialsElementReferenceNumber:WideString): IDispatch;safecall;
     // QueryCredentialContextSync : Zapytanie o poĹ›wiadczenia nadane przez jednostkÄ™ nadrzÄ™dnÄ… 
-   function QueryCredentialContextSync(ContextNip:WideString;SourceIdentifier:WideString;TargetIdentifier:WideString):IDispatch;safecall;
+   function QueryCredentialContextSync(ContextNip:WideString;SourceIdentifier:WideString;TargetIdentifier:WideString): IDispatch;safecall;
     // QueryCredentialSync : Zapytanie o poĹ›wiadczenia 
-   function QueryCredentialSync(QuerySyncCredentialsRequest:IDispatch):IDispatch;safecall;
+   function QueryCredentialSync(QuerySyncCredentialsRequest:IDispatch): IDispatch;safecall;
     // QueryInvoiceSync : Zapytanie o faktury (synchroniczne) 
-   function QueryInvoiceSync(QueryCriteria:IDispatch;PageSize:Integer;PageOffset:Integer):IDispatch;safecall;
+   function QueryInvoiceSync(QueryCriteria:IDispatch;PageSize:Integer;PageOffset:Integer): IDispatch;safecall;
     // QueryInvoiceAsyncInit : Inicjalizacja asynchronicznego zapytania o faktury 
-   function QueryInvoiceAsyncInit(QueryCriteria:IDispatch):IDispatch;safecall;
+   function QueryInvoiceAsyncInit(QueryCriteria:IDispatch): IDispatch;safecall;
     // QueryInvoiceAsyncStatus : Sprawdzenie statusu asynchronicznego zapytania o faktury 
-   function QueryInvoiceAsyncStatus(QueryElementReferenceNumber:WideString):IDispatch;safecall;
+   function QueryInvoiceAsyncStatus(QueryElementReferenceNumber:WideString): IDispatch;safecall;
     // QueryInvoiceAsyncFetch : Pobranie wynikĂłw asynchronicznego zapytania o faktury 
    procedure QueryInvoiceAsyncFetch(QueryElementReferenceNumber:WideString;PartElementReferenceNumber:WideString;Response:OleVariant);safecall;
     // QueryInvoiceAsyncFetch2 : Pobranie wynikĂłw asynchronicznego zapytania o faktury 
    procedure QueryInvoiceAsyncFetch2(StatusResponse:IDispatch;PartIndex:Integer;Response:OleVariant);safecall;
     // PaymentIdentifierGetReferenceNumbers : Pobranie listy faktur dla identyfikatora pĹ‚atnoĹ›ci 
-   function PaymentIdentifierGetReferenceNumbers(PaymentIdentifier:WideString):IDispatch;safecall;
+   function PaymentIdentifierGetReferenceNumbers(PaymentIdentifier:WideString): IDispatch;safecall;
     // PaymentIdentifierRequest : Wygenerowanie identyfikatora pĹ‚atnoĹ›ci 
-   function PaymentIdentifierRequest(KsefReferenceNumberList:OleVariant):IDispatch;safecall;
+   function PaymentIdentifierRequest(KsefReferenceNumberList:OleVariant): IDispatch;safecall;
     // CommonInvoiceKSeF : Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF 
    procedure CommonInvoiceKSeF(InvoiceRequest:IDispatch;OutStream:OleVariant;GateType:lgcKSeFGateType);safecall;
     // CommonDownload : Pobranie faktury z repozytorium KSeF na podstawie kryteriĂłw opartych o numer KSeF i skrĂłt dokumentu 
    procedure CommonDownload(KSeFReferenceNumber:WideString;DownloadRequest:IDispatch;OutStream:OleVariant;GateType:lgcKSeFGateType);safecall;
     // CommonStatus : Interfejs wspĂłlny pobrania statusu przetwarzania wsadowego 
-   function CommonStatus(ReferenceNumber:WideString;GateType:lgcKSeFGateType):IDispatch;safecall;
+   function CommonStatus(ReferenceNumber:WideString;GateType:lgcKSeFGateType): IDispatch;safecall;
     // CommonVerification : Weryfikacja faktury 
-   function CommonVerification(KSeFReferenceNumber:WideString;VerificationRequest:IDispatch;GateType:lgcKSeFGateType):IDispatch;safecall;
+   function CommonVerification(KSeFReferenceNumber:WideString;VerificationRequest:IDispatch;GateType:lgcKSeFGateType): IDispatch;safecall;
     // BatchSign : Przygotowanie danych i podpisanie struktury InitUpload 
-   function BatchSign(ZIPDataStream:OleVariant;PZ:WordBool;EncryptedStream:OleVariant;ZIPFileName:WideString;PartFileName:WideString):WideString;safecall;
+   function BatchSign(ZIPDataStream:OleVariant;PZ:WordBool;EncryptedStream:OleVariant;ZIPFileName:WideString;PartFileName:WideString): WideString;safecall;
     // BatchSend : WysĹ‚anie uprzednio przygotowanych danych faktur i podpisanej struktury InitUpload 
-   function BatchSend(PartStream:OleVariant;InitUpload:WideString):WideString;safecall;
+   function BatchSend(PartStream:OleVariant;InitUpload:WideString): WideString;safecall;
   end;
 
 
@@ -3028,9 +3198,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3040,143 +3210,143 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // GenerateAESKey : Generuj klucz AES dla dodatkowego szyfrowania. W razie potrzeby wywolywane automatycznie przy polaczeniu 
    procedure GenerateAESKey;dispid 29024;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
-   function CreateKSeFObject(ClsName:WideString):IDispatch;dispid 29025;
+   function CreateKSeFObject(ClsName:WideString): IDispatch;dispid 29025;
     // SessionInitSigned : Inicjalizacja sesji za pomoca certyfikatu kwalifikowanego lub pieczeci 
-   function SessionInitSigned:IDispatch;dispid 29051;
+   function SessionInitSigned: IDispatch;dispid 29051;
     // SessionInitToken : Inicjalizacja sesji za pomoca tokena 
-   function SessionInitToken:IDispatch;dispid 29052;
+   function SessionInitToken: IDispatch;dispid 29052;
     // SessionChalangePZ : Wygenerowanie struktury InitSession w celu podpisania przy pomocy Profilu Zaufanego 
-   function SessionChalangePZ:WideString;dispid 29053;
+   function SessionChalangePZ: WideString;dispid 29053;
     // SessionInitPZ : Inicjalizacja sesji za pomoca wczeĹ›niej wygenerowanej struktury InitSession, podpisanej przy pomocy PZ 
-   function SessionInitPZ(SignedInit:WideString):IDispatch;dispid 29054;
+   function SessionInitPZ(SignedInit:WideString): IDispatch;dispid 29054;
     // SessionStatus : Sprawdzenie statusu aktywnej sesji interaktywnej 
-   function SessionStatus(ReferenceNumber:WideString;PageSize:Integer;PageOffset:Integer;IncludeDetails:WordBool):IDispatch;dispid 29055;
+   function SessionStatus(ReferenceNumber:WideString;PageSize:Integer;PageOffset:Integer;IncludeDetails:WordBool): IDispatch;dispid 29055;
     // SessionTerminate : Wymuszenie zamkniÄ™cia aktywnej sesji 
-   function SessionTerminate(Force:WordBool):IDispatch;dispid 29056;
+   function SessionTerminate(Force:WordBool): IDispatch;dispid 29056;
     // SessionGenerateInternalIdentifier : Wygenerowanie identyfikatora wewnetrznego 
-   function SessionGenerateInternalIdentifier(InputDigitsSequence:WideString):IDispatch;dispid 29057;
+   function SessionGenerateInternalIdentifier(InputDigitsSequence:WideString): IDispatch;dispid 29057;
     // InvoiceGet : Pobranie faktury po numerze identyfikacyjnym KSeF 
    procedure InvoiceGet(KSeFReferenceNumber:WideString;OutputStream:OleVariant);dispid 29058;
     // InvoiceSend : WysyĹ‚ka faktury 
-   function InvoiceSend(DataStream:OleVariant):IDispatch;dispid 29059;
+   function InvoiceSend(DataStream:OleVariant): IDispatch;dispid 29059;
     // InvoiceStatus : Sprawdzenie statusu wysĹ‚anej faktury 
-   function InvoiceStatus(InvoiceElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;dispid 29060;
+   function InvoiceStatus(InvoiceElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant): IDispatch;dispid 29060;
     // InvoiceVisibilityHide : Ukrywanie wybranej faktury 
-   function InvoiceVisibilityHide(KSeFReferenceNumber:WideString;HidingReason:WideString):IDispatch;dispid 29061;
+   function InvoiceVisibilityHide(KSeFReferenceNumber:WideString;HidingReason:WideString): IDispatch;dispid 29061;
     // InvoiceVisibilityShow : Anulowanie ukrycia wybranej faktury 
-   function InvoiceVisibilityShow(KSeFReferenceNumber:WideString;HidingCancelationReason:WideString):IDispatch;dispid 29062;
+   function InvoiceVisibilityShow(KSeFReferenceNumber:WideString;HidingCancelationReason:WideString): IDispatch;dispid 29062;
     // InvoiceVisibilityStatus : Sprawdzenie statusu operacji ukrycia/odsĹ‚onienia faktury 
-   function InvoiceVisibilityStatus(HidingElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;dispid 29063;
+   function InvoiceVisibilityStatus(HidingElementReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant): IDispatch;dispid 29063;
     // InvoiceVisibility : Sprawdzenie statusu widocznoĹ›ci faktury 
-   function InvoiceVisibility(KSeFReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant):IDispatch;dispid 29064;
+   function InvoiceVisibility(KSeFReferenceNumber:WideString;KSeFNumberVariant:lgcKSeFNumberVariant): IDispatch;dispid 29064;
     // InvoiceScamCancel : Wycofanie faktury scamowej 
-   function InvoiceScamCancel(KSeFReferenceNumber:WideString;ReportCancelationReason:WideString):IDispatch;dispid 29065;
+   function InvoiceScamCancel(KSeFReferenceNumber:WideString;ReportCancelationReason:WideString): IDispatch;dispid 29065;
     // InvoiceScamReport : ZgĹ‚oszenie faktury scamowej 
-   function InvoiceScamReport(KSeFReferenceNumber:WideString;ReportReason:WideString):IDispatch;dispid 29066;
+   function InvoiceScamReport(KSeFReferenceNumber:WideString;ReportReason:WideString): IDispatch;dispid 29066;
     // InvoiceScamStatus : Pobranie statusu zgĹ‚oszenia naduĹĽycia faktury 
-   function InvoiceScamStatus(ScamElementReferenceNumber:WideString):IDispatch;dispid 29067;
+   function InvoiceScamStatus(ScamElementReferenceNumber:WideString): IDispatch;dispid 29067;
     // InvoiceScam : Pobranie zgĹ‚oszenia naduĹĽycia faktury 
-   function InvoiceScam(KSeFReferenceNumber:WideString):IDispatch;dispid 29068;
+   function InvoiceScam(KSeFReferenceNumber:WideString): IDispatch;dispid 29068;
     // CredentialsAccountingGrant : Nadanie poĹ›wiadczeĹ„ dla biura rachunkowego 
-   function CredentialsAccountingGrant(GrantAccountingCredentialsRequest:IDispatch):IDispatch;dispid 29069;
+   function CredentialsAccountingGrant(GrantAccountingCredentialsRequest:IDispatch): IDispatch;dispid 29069;
     // CredentialsAccountingRevoke : Odebranie poĹ›wiadczeĹ„ biur rachunkowych 
-   function CredentialsAccountingRevoke(RevokeAccountingCredentialsRequest:IDispatch):IDispatch;dispid 29070;
+   function CredentialsAccountingRevoke(RevokeAccountingCredentialsRequest:IDispatch): IDispatch;dispid 29070;
     // CredentialsContextGrant : Nadanie poĹ›wiadczeĹ„ kontekstowych 
-   function CredentialsContextGrant(GrantContextCredentialsRequest:IDispatch):IDispatch;dispid 29071;
+   function CredentialsContextGrant(GrantContextCredentialsRequest:IDispatch): IDispatch;dispid 29071;
     // CredentialsContextRevoke : Odebranie poĹ›wiadczeĹ„ kontekstowych 
-   function CredentialsContextRevoke(RevokeContextCredentialsRequest:IDispatch):IDispatch;dispid 29072;
+   function CredentialsContextRevoke(RevokeContextCredentialsRequest:IDispatch): IDispatch;dispid 29072;
     // CredentialsGenerateToken : Generowanie tokena autoryzacyjnego 
-   function CredentialsGenerateToken(GenerateTokenRequest:IDispatch):IDispatch;dispid 29073;
+   function CredentialsGenerateToken(GenerateTokenRequest:IDispatch): IDispatch;dispid 29073;
     // CredentialsGrant : Nadanie poĹ›wiadczeĹ„ 
-   function CredentialsGrant(GrantCredentialsRequest:IDispatch):IDispatch;dispid 29074;
+   function CredentialsGrant(GrantCredentialsRequest:IDispatch): IDispatch;dispid 29074;
     // CredentialsRevoke : Odebranie poĹ›wiadczeĹ„ 
-   function CredentialsRevoke(RevokeCredentialsRequest:IDispatch):IDispatch;dispid 29075;
+   function CredentialsRevoke(RevokeCredentialsRequest:IDispatch): IDispatch;dispid 29075;
     // CredentialsRevokeToken : UsuniÄ™cie tokena autoryzacyjnego 
-   function CredentialsRevokeToken(RevokeTokenRequest:IDispatch):IDispatch;dispid 29076;
+   function CredentialsRevokeToken(RevokeTokenRequest:IDispatch): IDispatch;dispid 29076;
     // CredentialsStatus : Sprawdzenie statusu poĹ›wiadczeĹ„ 
-   function CredentialsStatus(CredentialsElementReferenceNumber:WideString):IDispatch;dispid 29077;
+   function CredentialsStatus(CredentialsElementReferenceNumber:WideString): IDispatch;dispid 29077;
     // QueryCredentialContextSync : Zapytanie o poĹ›wiadczenia nadane przez jednostkÄ™ nadrzÄ™dnÄ… 
-   function QueryCredentialContextSync(ContextNip:WideString;SourceIdentifier:WideString;TargetIdentifier:WideString):IDispatch;dispid 29078;
+   function QueryCredentialContextSync(ContextNip:WideString;SourceIdentifier:WideString;TargetIdentifier:WideString): IDispatch;dispid 29078;
     // QueryCredentialSync : Zapytanie o poĹ›wiadczenia 
-   function QueryCredentialSync(QuerySyncCredentialsRequest:IDispatch):IDispatch;dispid 29079;
+   function QueryCredentialSync(QuerySyncCredentialsRequest:IDispatch): IDispatch;dispid 29079;
     // QueryInvoiceSync : Zapytanie o faktury (synchroniczne) 
-   function QueryInvoiceSync(QueryCriteria:IDispatch;PageSize:Integer;PageOffset:Integer):IDispatch;dispid 29080;
+   function QueryInvoiceSync(QueryCriteria:IDispatch;PageSize:Integer;PageOffset:Integer): IDispatch;dispid 29080;
     // QueryInvoiceAsyncInit : Inicjalizacja asynchronicznego zapytania o faktury 
-   function QueryInvoiceAsyncInit(QueryCriteria:IDispatch):IDispatch;dispid 29081;
+   function QueryInvoiceAsyncInit(QueryCriteria:IDispatch): IDispatch;dispid 29081;
     // QueryInvoiceAsyncStatus : Sprawdzenie statusu asynchronicznego zapytania o faktury 
-   function QueryInvoiceAsyncStatus(QueryElementReferenceNumber:WideString):IDispatch;dispid 29082;
+   function QueryInvoiceAsyncStatus(QueryElementReferenceNumber:WideString): IDispatch;dispid 29082;
     // QueryInvoiceAsyncFetch : Pobranie wynikĂłw asynchronicznego zapytania o faktury 
    procedure QueryInvoiceAsyncFetch(QueryElementReferenceNumber:WideString;PartElementReferenceNumber:WideString;Response:OleVariant);dispid 29083;
     // QueryInvoiceAsyncFetch2 : Pobranie wynikĂłw asynchronicznego zapytania o faktury 
    procedure QueryInvoiceAsyncFetch2(StatusResponse:IDispatch;PartIndex:Integer;Response:OleVariant);dispid 29084;
     // PaymentIdentifierGetReferenceNumbers : Pobranie listy faktur dla identyfikatora pĹ‚atnoĹ›ci 
-   function PaymentIdentifierGetReferenceNumbers(PaymentIdentifier:WideString):IDispatch;dispid 29085;
+   function PaymentIdentifierGetReferenceNumbers(PaymentIdentifier:WideString): IDispatch;dispid 29085;
     // PaymentIdentifierRequest : Wygenerowanie identyfikatora pĹ‚atnoĹ›ci 
-   function PaymentIdentifierRequest(KsefReferenceNumberList:OleVariant):IDispatch;dispid 29086;
+   function PaymentIdentifierRequest(KsefReferenceNumberList:OleVariant): IDispatch;dispid 29086;
     // CommonInvoiceKSeF : Pobranie faktury z repozytorium KSeF - kryteria oparte o numer KSeF 
    procedure CommonInvoiceKSeF(InvoiceRequest:IDispatch;OutStream:OleVariant;GateType:lgcKSeFGateType);dispid 29087;
     // CommonDownload : Pobranie faktury z repozytorium KSeF na podstawie kryteriĂłw opartych o numer KSeF i skrĂłt dokumentu 
    procedure CommonDownload(KSeFReferenceNumber:WideString;DownloadRequest:IDispatch;OutStream:OleVariant;GateType:lgcKSeFGateType);dispid 29088;
     // CommonStatus : Interfejs wspĂłlny pobrania statusu przetwarzania wsadowego 
-   function CommonStatus(ReferenceNumber:WideString;GateType:lgcKSeFGateType):IDispatch;dispid 29089;
+   function CommonStatus(ReferenceNumber:WideString;GateType:lgcKSeFGateType): IDispatch;dispid 29089;
     // CommonVerification : Weryfikacja faktury 
-   function CommonVerification(KSeFReferenceNumber:WideString;VerificationRequest:IDispatch;GateType:lgcKSeFGateType):IDispatch;dispid 29090;
+   function CommonVerification(KSeFReferenceNumber:WideString;VerificationRequest:IDispatch;GateType:lgcKSeFGateType): IDispatch;dispid 29090;
     // BatchSign : Przygotowanie danych i podpisanie struktury InitUpload 
-   function BatchSign(ZIPDataStream:OleVariant;PZ:WordBool;EncryptedStream:OleVariant;ZIPFileName:WideString;PartFileName:WideString):WideString;dispid 29091;
+   function BatchSign(ZIPDataStream:OleVariant;PZ:WordBool;EncryptedStream:OleVariant;ZIPFileName:WideString;PartFileName:WideString): WideString;dispid 29091;
     // BatchSend : WysĹ‚anie uprzednio przygotowanych danych faktur i podpisanej struktury InitUpload 
-   function BatchSend(PartStream:OleVariant;InitUpload:WideString):WideString;dispid 29092;
+   function BatchSend(PartStream:OleVariant;InitUpload:WideString): WideString;dispid 29092;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Base64EncoderClass : Klasa enkodera Base64 
-   property Base64EncoderClass:WideString dispid 29002;
+   property Base64EncoderClass: WideString dispid 29002;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString dispid 29003;
+   property AES256EncryptClass: WideString dispid 29003;
     // SHA256HashClass : Klasa funkcji skrĂłtu SHA256 
-   property SHA256HashClass:WideString dispid 29004;
+   property SHA256HashClass: WideString dispid 29004;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString dispid 29005;
+   property RandomGeneratorClass: WideString dispid 29005;
     // XAdES : Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload 
-   property XAdES:IDispatch dispid 29006;
+   property XAdES: IDispatch dispid 29006;
     // HTTPClient : Obiekt poĹ‚Ä…czenia HTTPS 
-   property HTTPClient:IDispatch dispid 29007;
+   property HTTPClient: IDispatch dispid 29007;
     // GateType : Rodzaj bramki (produkcyjna/demo/testowa) 
-   property GateType:lgcKSeFGateType dispid 29008;
+   property GateType: lgcKSeFGateType dispid 29008;
     // Nip : Nr NIP podmiotu 
-   property Nip:WideString dispid 29009;
+   property Nip: WideString dispid 29009;
     // FormCode : Predefiniowany rodzaj FA 
-   property FormCode:Integer dispid 29010;
+   property FormCode: Integer dispid 29010;
     // FormCodeSystemCode :  
-   property FormCodeSystemCode:WideString dispid 29011;
+   property FormCodeSystemCode: WideString dispid 29011;
     // FormCodeSchemaVersion :  
-   property FormCodeSchemaVersion:WideString dispid 29012;
+   property FormCodeSchemaVersion: WideString dispid 29012;
     // FormCodeTargetNamespace :  
-   property FormCodeTargetNamespace:WideString dispid 29013;
+   property FormCodeTargetNamespace: WideString dispid 29013;
     // FormCodeValue :  
-   property FormCodeValue:WideString dispid 29014;
+   property FormCodeValue: WideString dispid 29014;
     // Certificate : Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyĹ‚ki wsadowej 
-   property Certificate:IDispatch dispid 29015;
+   property Certificate: IDispatch dispid 29015;
     // CertificateAuthType : Rodzaj autoryzacji certyfikatu kwalifikowanego lub pieczÄ™ci elektronicznej 
-   property CertificateAuthType:lgcKSeFCertificateAuthType dispid 29016;
+   property CertificateAuthType: lgcKSeFCertificateAuthType dispid 29016;
     // Token : Token do nawiÄ…zania sesji interaktywnej 
-   property Token:WideString dispid 29017;
+   property Token: WideString dispid 29017;
     // Encryption : Aktywacja opcionalnego szyfrowania AES 
-   property Encryption:WordBool dispid 29018;
+   property Encryption: WordBool dispid 29018;
     // SessionToken : Token sesji 
-   property SessionToken:WideString dispid 29019;
+   property SessionToken: WideString dispid 29019;
     // SessionActive : Czy sesjia aktywna 
-   property SessionActive:WordBool  readonly dispid 29020;
+   property SessionActive: WordBool  readonly dispid 29020;
     // RSAKeyProd : Klucz szyfrowania RSA dla bramki produkcyjnej 
-   property RSAKeyProd:IDispatch dispid 29021;
+   property RSAKeyProd: IDispatch dispid 29021;
     // RSAKeyDemo : Klucz szyfrowania RSA dla bramki demo 
-   property RSAKeyDemo:IDispatch dispid 29022;
+   property RSAKeyDemo: IDispatch dispid 29022;
     // RSAKeyTest : Klucz szyfrowania RSA dla bramki testowj 
-   property RSAKeyTest:IDispatch dispid 29023;
+   property RSAKeyTest: IDispatch dispid 29023;
   end;
 
 
@@ -3185,9 +3355,9 @@ Type
  IlgcXMLReader = interface(IlgcBaseObject)
    ['{58A611B0-0289-43F6-8452-E4513A68C6A0}']
     // SimpleReadValue :  
-   function SimpleReadValue(XPath:WideString):WideString;safecall;
+   function SimpleReadValue(XPath:WideString): WideString;safecall;
     // ReadValue :  
-   function ReadValue(XPatch:WideString;out Value:WideString):WordBool;safecall;
+   function ReadValue(XPatch:WideString;out Value:WideString): WordBool;safecall;
   end;
 
 
@@ -3198,9 +3368,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3210,15 +3380,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // SimpleReadValue :  
-   function SimpleReadValue(XPath:WideString):WideString;dispid 30001;
+   function SimpleReadValue(XPath:WideString): WideString;dispid 30001;
     // ReadValue :  
-   function ReadValue(XPatch:WideString;out Value:WideString):WordBool;dispid 30002;
+   function ReadValue(XPatch:WideString;out Value:WideString): WordBool;dispid 30002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -3226,21 +3396,21 @@ Type
 
  IlgcXMLValidationError = interface(IlgcBaseObject)
    ['{87BD38C1-4A49-44A1-91A0-90A41F3008FA}']
-   function Get_ErrorCode : Integer; safecall;
-   function Get_Message : WideString; safecall;
-   function Get_Line : Integer; safecall;
-   function Get_Path : WideString; safecall;
-   function Get_SimplePath : WideString; safecall;
+   function Get_ErrorCode : Integer; Safecall;
+   function Get_Message : WideString; Safecall;
+   function Get_Line : Integer; Safecall;
+   function Get_Path : WideString; Safecall;
+   function Get_SimplePath : WideString; Safecall;
     // ErrorCode :  
-   property ErrorCode:Integer read Get_ErrorCode;
+   property ErrorCode: Integer read Get_ErrorCode;
     // Message :  
-   property Message:WideString read Get_Message;
+   property Message: WideString read Get_Message;
     // Line :  
-   property Line:Integer read Get_Line;
+   property Line: Integer read Get_Line;
     // Path :  
-   property Path:WideString read Get_Path;
+   property Path: WideString read Get_Path;
     // SimplePath :  
-   property SimplePath:WideString read Get_SimplePath;
+   property SimplePath: WideString read Get_SimplePath;
   end;
 
 
@@ -3251,9 +3421,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3263,21 +3433,21 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ErrorCode :  
-   property ErrorCode:Integer  readonly dispid 31001;
+   property ErrorCode: Integer  readonly dispid 31001;
     // Message :  
-   property Message:WideString  readonly dispid 31002;
+   property Message: WideString  readonly dispid 31002;
     // Line :  
-   property Line:Integer  readonly dispid 31003;
+   property Line: Integer  readonly dispid 31003;
     // Path :  
-   property Path:WideString  readonly dispid 31004;
+   property Path: WideString  readonly dispid 31004;
     // SimplePath :  
-   property SimplePath:WideString  readonly dispid 31005;
+   property SimplePath: WideString  readonly dispid 31005;
   end;
 
 
@@ -3288,9 +3458,9 @@ Type
     // AddSchema :  
    procedure AddSchema(NameSpace:WideString;Source:OleVariant);safecall;
     // Validate :  
-   function Validate(Source:OleVariant):IDispatch;safecall;
+   function Validate(Source:OleVariant): IDispatch;safecall;
     // Validate2 :  
-   function Validate2(Source:OleVariant;out Errors:IDispatch):WordBool;safecall;
+   function Validate2(Source:OleVariant;out Errors:IDispatch): WordBool;safecall;
   end;
 
 
@@ -3301,9 +3471,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3313,17 +3483,17 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // AddSchema :  
    procedure AddSchema(NameSpace:WideString;Source:OleVariant);dispid 32001;
     // Validate :  
-   function Validate(Source:OleVariant):IDispatch;dispid 32002;
+   function Validate(Source:OleVariant): IDispatch;dispid 32002;
     // Validate2 :  
-   function Validate2(Source:OleVariant;out Errors:IDispatch):WordBool;dispid 32003;
+   function Validate2(Source:OleVariant;out Errors:IDispatch): WordBool;dispid 32003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -3345,9 +3515,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3357,7 +3527,7 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // AddStyle :  
@@ -3365,7 +3535,7 @@ Type
     // Transform :  
    procedure Transform(Source:OleVariant;OutStream:OleVariant;Params:OleVariant);dispid 33002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -3373,60 +3543,60 @@ Type
 
  IlgcViesCheckVatResponse = interface(IlgcBaseObject)
    ['{92194BC6-A566-4783-BB67-13FD91450C1A}']
-   function Get_CountryCode : WideString; safecall;
-   function Get_VatNumber : WideString; safecall;
-   function Get_RequestDate : OleVariant; safecall;
-   function Get_Valid : WordBool; safecall;
-   function Get_RequestIdentifier : WideString; safecall;
-   function Get_Name : WideString; safecall;
-   function Get_Address : WideString; safecall;
-   function Get_TraderName : WideString; safecall;
-   function Get_TraderStreet : WideString; safecall;
-   function Get_TraderPostalCode : WideString; safecall;
-   function Get_TraderCity : WideString; safecall;
-   function Get_TraderCompanyType : WideString; safecall;
-   function Get_TraderNameMatch : lgcViesMatchType; safecall;
-   function Get_TraderStreetMatch : lgcViesMatchType; safecall;
-   function Get_TraderPostalCodeMatch : lgcViesMatchType; safecall;
-   function Get_TraderCityMatch : lgcViesMatchType; safecall;
-   function Get_TraderCompanyTypeMatch : lgcViesMatchType; safecall;
-   function Get_RawResponse : WideString; safecall;
+   function Get_CountryCode : WideString; Safecall;
+   function Get_VatNumber : WideString; Safecall;
+   function Get_RequestDate : OleVariant; Safecall;
+   function Get_Valid : WordBool; Safecall;
+   function Get_RequestIdentifier : WideString; Safecall;
+   function Get_Name : WideString; Safecall;
+   function Get_Address : WideString; Safecall;
+   function Get_TraderName : WideString; Safecall;
+   function Get_TraderStreet : WideString; Safecall;
+   function Get_TraderPostalCode : WideString; Safecall;
+   function Get_TraderCity : WideString; Safecall;
+   function Get_TraderCompanyType : WideString; Safecall;
+   function Get_TraderNameMatch : lgcViesMatchType; Safecall;
+   function Get_TraderStreetMatch : lgcViesMatchType; Safecall;
+   function Get_TraderPostalCodeMatch : lgcViesMatchType; Safecall;
+   function Get_TraderCityMatch : lgcViesMatchType; Safecall;
+   function Get_TraderCompanyTypeMatch : lgcViesMatchType; Safecall;
+   function Get_RawResponse : WideString; Safecall;
     // CountryCode :  
-   property CountryCode:WideString read Get_CountryCode;
+   property CountryCode: WideString read Get_CountryCode;
     // VatNumber :  
-   property VatNumber:WideString read Get_VatNumber;
+   property VatNumber: WideString read Get_VatNumber;
     // RequestDate :  
-   property RequestDate:OleVariant read Get_RequestDate;
+   property RequestDate: OleVariant read Get_RequestDate;
     // Valid :  
-   property Valid:WordBool read Get_Valid;
+   property Valid: WordBool read Get_Valid;
     // RequestIdentifier :  
-   property RequestIdentifier:WideString read Get_RequestIdentifier;
+   property RequestIdentifier: WideString read Get_RequestIdentifier;
     // Name :  
-   property Name:WideString read Get_Name;
+   property Name: WideString read Get_Name;
     // Address :  
-   property Address:WideString read Get_Address;
+   property Address: WideString read Get_Address;
     // TraderName :  
-   property TraderName:WideString read Get_TraderName;
+   property TraderName: WideString read Get_TraderName;
     // TraderStreet :  
-   property TraderStreet:WideString read Get_TraderStreet;
+   property TraderStreet: WideString read Get_TraderStreet;
     // TraderPostalCode :  
-   property TraderPostalCode:WideString read Get_TraderPostalCode;
+   property TraderPostalCode: WideString read Get_TraderPostalCode;
     // TraderCity :  
-   property TraderCity:WideString read Get_TraderCity;
+   property TraderCity: WideString read Get_TraderCity;
     // TraderCompanyType :  
-   property TraderCompanyType:WideString read Get_TraderCompanyType;
+   property TraderCompanyType: WideString read Get_TraderCompanyType;
     // TraderNameMatch :  
-   property TraderNameMatch:lgcViesMatchType read Get_TraderNameMatch;
+   property TraderNameMatch: lgcViesMatchType read Get_TraderNameMatch;
     // TraderStreetMatch :  
-   property TraderStreetMatch:lgcViesMatchType read Get_TraderStreetMatch;
+   property TraderStreetMatch: lgcViesMatchType read Get_TraderStreetMatch;
     // TraderPostalCodeMatch :  
-   property TraderPostalCodeMatch:lgcViesMatchType read Get_TraderPostalCodeMatch;
+   property TraderPostalCodeMatch: lgcViesMatchType read Get_TraderPostalCodeMatch;
     // TraderCityMatch :  
-   property TraderCityMatch:lgcViesMatchType read Get_TraderCityMatch;
+   property TraderCityMatch: lgcViesMatchType read Get_TraderCityMatch;
     // TraderCompanyTypeMatch :  
-   property TraderCompanyTypeMatch:lgcViesMatchType read Get_TraderCompanyTypeMatch;
+   property TraderCompanyTypeMatch: lgcViesMatchType read Get_TraderCompanyTypeMatch;
     // RawResponse :  
-   property RawResponse:WideString read Get_RawResponse;
+   property RawResponse: WideString read Get_RawResponse;
   end;
 
 
@@ -3437,9 +3607,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3449,47 +3619,47 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // CountryCode :  
-   property CountryCode:WideString  readonly dispid 34001;
+   property CountryCode: WideString  readonly dispid 34001;
     // VatNumber :  
-   property VatNumber:WideString  readonly dispid 34002;
+   property VatNumber: WideString  readonly dispid 34002;
     // RequestDate :  
-   property RequestDate:OleVariant  readonly dispid 34003;
+   property RequestDate: OleVariant  readonly dispid 34003;
     // Valid :  
-   property Valid:WordBool  readonly dispid 34004;
+   property Valid: WordBool  readonly dispid 34004;
     // RequestIdentifier :  
-   property RequestIdentifier:WideString  readonly dispid 34005;
+   property RequestIdentifier: WideString  readonly dispid 34005;
     // Name :  
-   property Name:WideString  readonly dispid 34006;
+   property Name: WideString  readonly dispid 34006;
     // Address :  
-   property Address:WideString  readonly dispid 34007;
+   property Address: WideString  readonly dispid 34007;
     // TraderName :  
-   property TraderName:WideString  readonly dispid 34008;
+   property TraderName: WideString  readonly dispid 34008;
     // TraderStreet :  
-   property TraderStreet:WideString  readonly dispid 34009;
+   property TraderStreet: WideString  readonly dispid 34009;
     // TraderPostalCode :  
-   property TraderPostalCode:WideString  readonly dispid 34010;
+   property TraderPostalCode: WideString  readonly dispid 34010;
     // TraderCity :  
-   property TraderCity:WideString  readonly dispid 34011;
+   property TraderCity: WideString  readonly dispid 34011;
     // TraderCompanyType :  
-   property TraderCompanyType:WideString  readonly dispid 34012;
+   property TraderCompanyType: WideString  readonly dispid 34012;
     // TraderNameMatch :  
-   property TraderNameMatch:lgcViesMatchType  readonly dispid 34013;
+   property TraderNameMatch: lgcViesMatchType  readonly dispid 34013;
     // TraderStreetMatch :  
-   property TraderStreetMatch:lgcViesMatchType  readonly dispid 34014;
+   property TraderStreetMatch: lgcViesMatchType  readonly dispid 34014;
     // TraderPostalCodeMatch :  
-   property TraderPostalCodeMatch:lgcViesMatchType  readonly dispid 34015;
+   property TraderPostalCodeMatch: lgcViesMatchType  readonly dispid 34015;
     // TraderCityMatch :  
-   property TraderCityMatch:lgcViesMatchType  readonly dispid 34016;
+   property TraderCityMatch: lgcViesMatchType  readonly dispid 34016;
     // TraderCompanyTypeMatch :  
-   property TraderCompanyTypeMatch:lgcViesMatchType  readonly dispid 34017;
+   property TraderCompanyTypeMatch: lgcViesMatchType  readonly dispid 34017;
     // RawResponse :  
-   property RawResponse:WideString  readonly dispid 34018;
+   property RawResponse: WideString  readonly dispid 34018;
   end;
 
 
@@ -3497,12 +3667,12 @@ Type
 
  IlgcViesCountryStatus = interface(IlgcBaseObject)
    ['{92283D36-304C-49D5-9A4E-6E163403776E}']
-   function Get_CountryCode : WideString; safecall;
-   function Get_Availability : lgcViesAvailabilityStatus; safecall;
+   function Get_CountryCode : WideString; Safecall;
+   function Get_Availability : lgcViesAvailabilityStatus; Safecall;
     // CountryCode :  
-   property CountryCode:WideString read Get_CountryCode;
+   property CountryCode: WideString read Get_CountryCode;
     // Availability :  
-   property Availability:lgcViesAvailabilityStatus read Get_Availability;
+   property Availability: lgcViesAvailabilityStatus read Get_Availability;
   end;
 
 
@@ -3513,9 +3683,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3525,15 +3695,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // CountryCode :  
-   property CountryCode:WideString  readonly dispid 35001;
+   property CountryCode: WideString  readonly dispid 35001;
     // Availability :  
-   property Availability:lgcViesAvailabilityStatus  readonly dispid 35002;
+   property Availability: lgcViesAvailabilityStatus  readonly dispid 35002;
   end;
 
 
@@ -3541,12 +3711,12 @@ Type
 
  IlgcViesStatusInformationResponse = interface(IlgcBaseObject)
    ['{3BD250F9-8F41-435F-BE76-734A0B4FDFFC}']
-   function Get_VowAvaiable : WordBool; safecall;
-   function Get_Countries : IDispatch; safecall;
+   function Get_VowAvaiable : WordBool; Safecall;
+   function Get_Countries : IDispatch; Safecall;
     // VowAvaiable :  
-   property VowAvaiable:WordBool read Get_VowAvaiable;
+   property VowAvaiable: WordBool read Get_VowAvaiable;
     // Countries :  
-   property Countries:IDispatch read Get_Countries;
+   property Countries: IDispatch read Get_Countries;
   end;
 
 
@@ -3557,9 +3727,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3569,15 +3739,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // VowAvaiable :  
-   property VowAvaiable:WordBool  readonly dispid 36001;
+   property VowAvaiable: WordBool  readonly dispid 36001;
     // Countries :  
-   property Countries:IDispatch  readonly dispid 36002;
+   property Countries: IDispatch  readonly dispid 36002;
   end;
 
 
@@ -3586,15 +3756,15 @@ Type
  IlgcViesService = interface(IlgcBaseObject)
    ['{0779A838-D9CC-4D00-B40C-E5CAD9599619}']
     // CheckVatNumber :  
-   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;safecall;
+   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch): IDispatch;safecall;
     // CheckVatTestService :  
-   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;safecall;
+   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch): IDispatch;safecall;
     // CheckStatus :  
-   function CheckStatus(AHTTPClient:IDispatch):IDispatch;safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function CheckStatus(AHTTPClient:IDispatch): IDispatch;safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
     // HTTPClient :  
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
   end;
 
 
@@ -3605,9 +3775,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3617,19 +3787,19 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // CheckVatNumber :  
-   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;dispid 37001;
+   function CheckVatNumber(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch): IDispatch;dispid 37001;
     // CheckVatTestService :  
-   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch):IDispatch;dispid 37002;
+   function CheckVatTestService(ACountryCode:WideString;AVatNumber:WideString;ARequesterMemberStateCode:WideString;ARequesterNumber:WideString;ATraderName:WideString;ATraderStreet:WideString;ATraderPostalCode:WideString;ATraderCity:WideString;ATraderCompanyType:WideString;AHTTPClient:IDispatch): IDispatch;dispid 37002;
     // CheckStatus :  
-   function CheckStatus(AHTTPClient:IDispatch):IDispatch;dispid 37003;
+   function CheckStatus(AHTTPClient:IDispatch): IDispatch;dispid 37003;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // HTTPClient :  
-   property HTTPClient:IDispatch dispid 37004;
+   property HTTPClient: IDispatch dispid 37004;
   end;
 
 
@@ -3638,7 +3808,7 @@ Type
  IlgcKSeF2Request = interface(IlgcObject2)
    ['{92A8D7F5-32ED-4B1E-8714-27F6751E5D62}']
     // GetAsJSON : Pobranie zadania w formie JSON 
-   function GetAsJSON:WideString;safecall;
+   function GetAsJSON: WideString;safecall;
   end;
 
 
@@ -3649,9 +3819,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3661,45 +3831,45 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // InsertObject :  
    procedure InsertObject(Obj:IDispatch);dispid 39002;
     // RemoveObject :  
    procedure RemoveObject(Obj:IDispatch);dispid 39003;
     // GetAsJSON : Pobranie zadania w formie JSON 
-   function GetAsJSON:WideString;dispid 40001;
+   function GetAsJSON: WideString;dispid 40001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
     // Owner :  
-   property Owner:IDispatch  readonly dispid 39001;
+   property Owner: IDispatch  readonly dispid 39001;
   end;
 
 
@@ -3708,7 +3878,7 @@ Type
  IlgcKSeF2Response = interface(IlgcObject2)
    ['{56B4DD5D-21E4-43B6-B202-AE0234076006}']
     // GetRawResponse : Pobranie odpowiedzi w formie JSON 
-   function GetRawResponse:WideString;safecall;
+   function GetRawResponse: WideString;safecall;
   end;
 
 
@@ -3719,9 +3889,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -3731,45 +3901,45 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // ListProps : Pobranie listy wlasciwosci obiektu 
-   function ListProps:OleVariant;dispid 7009;
+   function ListProps: OleVariant;dispid 7009;
     // PropType : Pobranie typu danej wlasciwosci 
-   function PropType(PropName:WideString):lgcPropertyType;dispid 7010;
+   function PropType(PropName:WideString): lgcPropertyType;dispid 7010;
     // ObjectPropClass : Pobranie nazwy klasy zadanej wlasciwosci typu object 
-   function ObjectPropClass(PropName:WideString):WideString;dispid 7011;
+   function ObjectPropClass(PropName:WideString): WideString;dispid 7011;
     // SetObjectProp : Ustawienie wlasciwosci obiektu typu object o wskazanej nazwie 
    procedure SetObjectProp(Name:WideString;Value:OleVariant);dispid 7012;
     // GetObjectProp : Pobranie wasiwosci obiektu typu object o wskazanej nazwie 
-   function GetObjectProp(Name:WideString):OleVariant;dispid 7013;
+   function GetObjectProp(Name:WideString): OleVariant;dispid 7013;
     // InsertObject :  
    procedure InsertObject(Obj:IDispatch);dispid 39002;
     // RemoveObject :  
    procedure RemoveObject(Obj:IDispatch);dispid 39003;
     // GetRawResponse : Pobranie odpowiedzi w formie JSON 
-   function GetRawResponse:WideString;dispid 41001;
+   function GetRawResponse: WideString;dispid 41001;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // ExtObject : Pobranie wkaznika wewnetrznego obiektu 
-   property ExtObject:{!! Ppointer !!} OleVariant  readonly dispid 7001;
+   property ExtObject: {!! Ppointer !!} OleVariant  readonly dispid 7001;
     // StringProp : Pogranie wlasciwosci obiektu typu string o wskazanej nazwie 
-   property StringProp[Name:WideString]:WideString dispid 7002;
+   property StringProp[Name:WideString]: WideString dispid 7002;
     // IntegerProp : Pogranie wlasciwosci obiektu typu int32 o wskazanej nazwie 
-   property IntegerProp[Name:WideString]:Integer dispid 7003;
+   property IntegerProp[Name:WideString]: Integer dispid 7003;
     // DoubleProp : Pogranie wlasciwosci obiektu typu double o wskazanej nazwie 
-   property DoubleProp[Name:WideString]:Double dispid 7004;
+   property DoubleProp[Name:WideString]: Double dispid 7004;
     // CurrencyProp : Pogranie wlasciwosci obiektu typu CURRENCY o wskazanej nazwie 
-   property CurrencyProp[Name:WideString]:Currency dispid 7005;
+   property CurrencyProp[Name:WideString]: Currency dispid 7005;
     // BooleanProp : Pogranie wlasciwosci obiektu typu bool o wskazanej nazwie 
-   property BooleanProp[Name:WideString]:WordBool dispid 7006;
+   property BooleanProp[Name:WideString]: WordBool dispid 7006;
     // Int64Prop : Pogranie wlasciwosci obiektu typu int64 o wskazanej nazwie 
-   property Int64Prop[Name:WideString]:Int64 dispid 7007;
+   property Int64Prop[Name:WideString]: Int64 dispid 7007;
     // DateProp : Pogranie wlasciwosci obiektu typu DATE o wskazanej nazwie 
-   property DateProp[Name:WideString]:TDateTime dispid 7008;
+   property DateProp[Name:WideString]: TDateTime dispid 7008;
     // Owner :  
-   property Owner:IDispatch  readonly dispid 39001;
+   property Owner: IDispatch  readonly dispid 39001;
   end;
 
 
@@ -3777,216 +3947,230 @@ Type
 
  IlgcKSeF2 = interface(IlgcBaseObject)
    ['{A640B36B-E2C8-4253-BD95-AA2FD75E92EB}']
-   function Get_RSAPublicKeyClass : WideString; safecall;
+   function Get_RSAPublicKeyClass : WideString; Safecall;
    procedure Set_RSAPublicKeyClass(Value:WideString); safecall;
-   function Get_Base64EncoderClass : WideString; safecall;
+   function Get_Base64EncoderClass : WideString; Safecall;
    procedure Set_Base64EncoderClass(Value:WideString); safecall;
-   function Get_AES256EncryptClass : WideString; safecall;
+   function Get_AES256EncryptClass : WideString; Safecall;
    procedure Set_AES256EncryptClass(Value:WideString); safecall;
-   function Get_SHA256HashClass : WideString; safecall;
+   function Get_SHA256HashClass : WideString; Safecall;
    procedure Set_SHA256HashClass(Value:WideString); safecall;
-   function Get_RandomGeneratorClass : WideString; safecall;
+   function Get_RandomGeneratorClass : WideString; Safecall;
    procedure Set_RandomGeneratorClass(Value:WideString); safecall;
-   function Get_XAdES : IDispatch; safecall;
+   function Get_XAdES : IDispatch; Safecall;
    procedure Set_XAdES(Value:IDispatch); safecall;
-   function Get_HTTPClient : IDispatch; safecall;
+   function Get_HTTPClient : IDispatch; Safecall;
    procedure Set_HTTPClient(Value:IDispatch); safecall;
-   function Get_GateType : lgcKSeFGateType; safecall;
+   function Get_GateType : lgcKSeFGateType; Safecall;
    procedure Set_GateType(Value:lgcKSeFGateType); safecall;
-   function Get_Identifier : WideString; safecall;
+   function Get_Identifier : WideString; Safecall;
    procedure Set_Identifier(Value:WideString); safecall;
-   function Get_IdentifierType : lgcKSeFIdentifierType; safecall;
+   function Get_IdentifierType : lgcKSeFIdentifierType; Safecall;
    procedure Set_IdentifierType(Value:lgcKSeFIdentifierType); safecall;
-   function Get_AuthCertificate : IDispatch; safecall;
+   function Get_AuthCertificate : IDispatch; Safecall;
    procedure Set_AuthCertificate(Value:IDispatch); safecall;
-   function Get_AuthCertificateSubject : lgcKSeFCertificateAuthType; safecall;
+   function Get_AuthCertificateSubject : lgcKSeFCertificateAuthType; Safecall;
    procedure Set_AuthCertificateSubject(Value:lgcKSeFCertificateAuthType); safecall;
-   function Get_KsefToken : WideString; safecall;
+   function Get_KsefToken : WideString; Safecall;
    procedure Set_KsefToken(Value:WideString); safecall;
-   function Get_FormCode : Integer; safecall;
+   function Get_FormCode : Integer; Safecall;
    procedure Set_FormCode(Value:Integer); safecall;
-   function Get_FormCodeSystemCode : WideString; safecall;
+   function Get_FormCodeSystemCode : WideString; Safecall;
    procedure Set_FormCodeSystemCode(Value:WideString); safecall;
-   function Get_FormCodeSchemaVersion : WideString; safecall;
+   function Get_FormCodeSchemaVersion : WideString; Safecall;
    procedure Set_FormCodeSchemaVersion(Value:WideString); safecall;
-   function Get_FormCodeValue : WideString; safecall;
+   function Get_FormCodeValue : WideString; Safecall;
    procedure Set_FormCodeValue(Value:WideString); safecall;
-   function Get_SessionToken : WideString; safecall;
+   function Get_SessionToken : WideString; Safecall;
    procedure Set_SessionToken(Value:WideString); safecall;
-   function Get_RSATokenEncKey(AGateType:lgcKSeFGateType) : IDispatch; safecall;
+   function Get_RSATokenEncKey(AGateType:lgcKSeFGateType) : IDispatch; Safecall;
    procedure Set_RSATokenEncKey(AGateType:lgcKSeFGateType; parRSATokenEncKey:IDispatch); safecall;
-   function Get_RSATokenEncKeyProd : IDispatch; safecall;
+   function Get_RSATokenEncKeyProd : IDispatch; Safecall;
    procedure Set_RSATokenEncKeyProd(Value:IDispatch); safecall;
-   function Get_RSATokenEncKeyDemo : IDispatch; safecall;
+   function Get_RSATokenEncKeyDemo : IDispatch; Safecall;
    procedure Set_RSATokenEncKeyDemo(Value:IDispatch); safecall;
-   function Get_RSATokenEncKeyTest : IDispatch; safecall;
+   function Get_RSATokenEncKeyTest : IDispatch; Safecall;
    procedure Set_RSATokenEncKeyTest(Value:IDispatch); safecall;
-   function Get_RSASymmetricEncKey(AGateType:lgcKSeFGateType) : IDispatch; safecall;
+   function Get_RSASymmetricEncKey(AGateType:lgcKSeFGateType) : IDispatch; Safecall;
    procedure Set_RSASymmetricEncKey(AGateType:lgcKSeFGateType; parRSASymmetricEncKey:IDispatch); safecall;
-   function Get_RSASymmetricEncKeyProd : IDispatch; safecall;
+   function Get_RSASymmetricEncKeyProd : IDispatch; Safecall;
    procedure Set_RSASymmetricEncKeyProd(Value:IDispatch); safecall;
-   function Get_RSASymmetricEncKeyDemo : IDispatch; safecall;
+   function Get_RSASymmetricEncKeyDemo : IDispatch; Safecall;
    procedure Set_RSASymmetricEncKeyDemo(Value:IDispatch); safecall;
-   function Get_RSASymmetricEncKeyTest : IDispatch; safecall;
+   function Get_RSASymmetricEncKeyTest : IDispatch; Safecall;
    procedure Set_RSASymmetricEncKeyTest(Value:IDispatch); safecall;
-   function Get_AuthenticationToken : WideString; safecall;
+   function Get_AuthenticationToken : WideString; Safecall;
    procedure Set_AuthenticationToken(Value:WideString); safecall;
-   function Get_AuthenticationTokenValidUntil : TDateTime; safecall;
+   function Get_AuthenticationTokenValidUntil : TDateTime; Safecall;
    procedure Set_AuthenticationTokenValidUntil(Value:TDateTime); safecall;
-   function Get_AuthenticationRefNo : WideString; safecall;
+   function Get_AuthenticationRefNo : WideString; Safecall;
    procedure Set_AuthenticationRefNo(Value:WideString); safecall;
-   function Get_AccessToken : WideString; safecall;
+   function Get_AccessToken : WideString; Safecall;
    procedure Set_AccessToken(Value:WideString); safecall;
-   function Get_AccessTokenValidUntil : TDateTime; safecall;
+   function Get_AccessTokenValidUntil : TDateTime; Safecall;
    procedure Set_AccessTokenValidUntil(Value:TDateTime); safecall;
-   function Get_RefreshToken : WideString; safecall;
+   function Get_RefreshToken : WideString; Safecall;
    procedure Set_RefreshToken(Value:WideString); safecall;
-   function Get_RefreshTokenValidUntil : TDateTime; safecall;
+   function Get_RefreshTokenValidUntil : TDateTime; Safecall;
    procedure Set_RefreshTokenValidUntil(Value:TDateTime); safecall;
-   function Get_InteractiveEncryptionKey : OleVariant; safecall;
+   function Get_InteractiveEncryptionKey : OleVariant; Safecall;
    procedure Set_InteractiveEncryptionKey(Value:OleVariant); safecall;
-   function Get_InteractiveVector : OleVariant; safecall;
+   function Get_InteractiveVector : OleVariant; Safecall;
    procedure Set_InteractiveVector(Value:OleVariant); safecall;
-   function Get_InteractiveReferenceNumber : WideString; safecall;
+   function Get_InteractiveReferenceNumber : WideString; Safecall;
    procedure Set_InteractiveReferenceNumber(Value:WideString); safecall;
-   function Get_InteractiveValidUntil : TDateTime; safecall;
+   function Get_InteractiveValidUntil : TDateTime; Safecall;
    procedure Set_InteractiveValidUntil(Value:TDateTime); safecall;
-   function Get_BatchReferenceNumber : WideString; safecall;
+   function Get_BatchReferenceNumber : WideString; Safecall;
    procedure Set_BatchReferenceNumber(Value:WideString); safecall;
-   function Get_BatchPartSize : Integer; safecall;
+   function Get_BatchPartSize : Integer; Safecall;
    procedure Set_BatchPartSize(Value:Integer); safecall;
-   function Get_InvoiceExportEncryptionKey : OleVariant; safecall;
+   function Get_InvoiceExportEncryptionKey : OleVariant; Safecall;
    procedure Set_InvoiceExportEncryptionKey(Value:OleVariant); safecall;
-   function Get_InvoiceExportVector : OleVariant; safecall;
+   function Get_InvoiceExportVector : OleVariant; Safecall;
    procedure Set_InvoiceExportVector(Value:OleVariant); safecall;
-   function Get_InvoiceExportReferenceNumber : WideString; safecall;
+   function Get_InvoiceExportReferenceNumber : WideString; Safecall;
    procedure Set_InvoiceExportReferenceNumber(Value:WideString); safecall;
-   function Get_AutoRefreshToken : WordBool; safecall;
+   function Get_AutoRefreshToken : WordBool; Safecall;
    procedure Set_AutoRefreshToken(Value:WordBool); safecall;
-   function Get_ResponseHeaders : WideString; safecall;
+   function Get_ResponseHeaders : WideString; Safecall;
    procedure Set_ResponseHeaders(Value:WideString); safecall;
-   function Get_Ip4Address : WideString; safecall;
+   function Get_Ip4Address : WideString; Safecall;
    procedure Set_Ip4Address(Value:WideString); safecall;
-   function Get_Ip4Mask : WideString; safecall;
+   function Get_Ip4Mask : WideString; Safecall;
    procedure Set_Ip4Mask(Value:WideString); safecall;
-   function Get_Ip4Range : WideString; safecall;
+   function Get_Ip4Range : WideString; Safecall;
    procedure Set_Ip4Range(Value:WideString); safecall;
-   function Get_CompressionType : lgcKSeFCompressionType; safecall;
+   function Get_CompressionType : lgcKSeFCompressionType; Safecall;
    procedure Set_CompressionType(Value:lgcKSeFCompressionType); safecall;
-   function Get_UseProblemDetails : WordBool; safecall;
+   function Get_UseProblemDetails : WordBool; Safecall;
    procedure Set_UseProblemDetails(Value:WordBool); safecall;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
-   function CreateKSeFObject(ClsName:WideString):IDispatch;safecall;
+   function CreateKSeFObject(ClsName:WideString): IDispatch;safecall;
     // AuthChallenge :  
-   function AuthChallenge:IDispatch;safecall;
+   function AuthChallenge: IDispatch;safecall;
     // AuthXadesSignatureGenerate :  
-   function AuthXadesSignatureGenerate:WideString;safecall;
+   function AuthXadesSignatureGenerate: WideString;safecall;
     // AuthXadesSignatureGenerate2 :  
-   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):WideString;safecall;
+   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString = '';Ip4Range:WideString = '';Ip4Mask:WideString = ''): WideString;safecall;
     // AuthXadesSignature :  
-   function AuthXadesSignature:IDispatch;safecall;
+   function AuthXadesSignature: IDispatch;safecall;
     // AuthXadesSignature2 :  
-   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):IDispatch;safecall;
+   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString = '';Ip4Range:WideString = '';Ip4Mask:WideString = ''): IDispatch;safecall;
     // AuthXadesSignature3 :  
-   function AuthXadesSignature3(SignedAuthData:WideString):IDispatch;safecall;
+   function AuthXadesSignature3(SignedAuthData:WideString): IDispatch;safecall;
     // AuthKsefToken :  
-   function AuthKsefToken:IDispatch;safecall;
+   function AuthKsefToken: IDispatch;safecall;
     // AuthKsefToken2 :  
-   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString):IDispatch;safecall;
+   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString = '';Ip4Range:WideString = '';Ip4Mask:WideString = ''): IDispatch;safecall;
     // AuthStatus :  
-   function AuthStatus(ReferenceNumber:WideString;AuthenticationToken:WideString):IDispatch;safecall;
+   function AuthStatus(ReferenceNumber:WideString = '';AuthenticationToken:WideString = ''): IDispatch;safecall;
+    // AuthStatusRev2 :  
+   function AuthStatusRev2(ReferenceNumber:WideString = '';AuthenticationToken:WideString = ''): IDispatch;safecall;
     // AuthTokenRedem :  
-   function AuthTokenRedem(AuthenticationToken:WideString):IDispatch;safecall;
+   function AuthTokenRedem(AuthenticationToken:WideString = ''): IDispatch;safecall;
     // AuthTokenRefresh :  
-   function AuthTokenRefresh(RefreshToken:WideString):IDispatch;safecall;
+   function AuthTokenRefresh(RefreshToken:WideString = ''): IDispatch;safecall;
     // AuthSessions :  
-   function AuthSessions(ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function AuthSessions(ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
+    // AuthSessionsRev2 :  
+   function AuthSessionsRev2(ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // AuthSessionTerminateCurrent :  
-   procedure AuthSessionTerminateCurrent(Token:WideString);safecall;
+   procedure AuthSessionTerminateCurrent(Token:WideString = '');safecall;
     // AuthSessionTerminate :  
-   procedure AuthSessionTerminate(ReferenceNumber:WideString;AccessToken:WideString);safecall;
+   procedure AuthSessionTerminate(ReferenceNumber:WideString;AccessToken:WideString = '');safecall;
     // SecurityPublicKeyCertificates :  
-   function SecurityPublicKeyCertificates(GateType:lgcKSeFGateType):IDispatch;safecall;
+   function SecurityPublicKeyCertificates(GateType:lgcKSeFGateType): IDispatch;safecall;
     // SecurityLoadKeys :  
    procedure SecurityLoadKeys;safecall;
     // InteractiveOpen :  
-   function InteractiveOpen:IDispatch;safecall;
+   function InteractiveOpen: IDispatch;safecall;
     // InteractiveOpenSimple :  
-   function InteractiveOpenSimple:WideString;safecall;
+   function InteractiveOpenSimple: WideString;safecall;
     // InteractiveOpen2 :  
-   function InteractiveOpen2(FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;AccessToken:WideString):IDispatch;safecall;
+   function InteractiveOpen2(FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // InteractiveOpen3 :  
-   function InteractiveOpen3(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function InteractiveOpen3(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // InteractiveCreateSendRequest :  
-   function InteractiveCreateSendRequest(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant):IDispatch;safecall;
+   function InteractiveCreateSendRequest(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant): IDispatch;safecall;
     // InteractiveSend :  
-   function InteractiveSend(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString):WideString;safecall;
+   function InteractiveSend(InvoiceStream:OleVariant;OfflineMode:WordBool = False;HashOfCorrectedInvoice:WideString = ''): WideString;safecall;
     // InteractiveSend2 :  
-   function InteractiveSend2(Request:IDispatch;OfflineMode:WordBool;SessionReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function InteractiveSend2(Request:IDispatch;OfflineMode:WordBool = False;SessionReferenceNumber:WideString = '';AccessToken:WideString = ''): IDispatch;safecall;
     // InteractiveSend3 :  
-   function InteractiveSend3(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;safecall;
+   function InteractiveSend3(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString = ''): WideString;safecall;
     // InteractiveClose :  
-   procedure InteractiveClose(SessionReferenceNumber:WideString;AccessToken:WideString);safecall;
+   procedure InteractiveClose(SessionReferenceNumber:WideString = '';AccessToken:WideString = '');safecall;
     // BatchPrepare :  
-   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;safecall;
+   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer = 0;CompressionType:lgcKSeFCompressionType = 0): IDispatch;safecall;
     // BatchPrepare2 :  
-   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;safecall;
+   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer = 0;CompressionType:lgcKSeFCompressionType = 0): IDispatch;safecall;
     // BatchOpen :  
-   function BatchOpen(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function BatchOpen(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // BatchSendPart :  
    procedure BatchSendPart(PartUploadRequest:IDispatch;DataStream:OleVariant);safecall;
     // BatchClose :  
-   procedure BatchClose(SessionReferenceNumber:WideString;AccessToken:WideString);safecall;
+   procedure BatchClose(SessionReferenceNumber:WideString = '';AccessToken:WideString = '');safecall;
     // StatusSessions :  
-   function StatusSessions(SessionType:Integer;ContinuationToken:WideString;PageSize:Integer;ReferenceNumber:WideString;DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;DateClosedFrom:OleVariant;DateClosedTo:OleVariant;DateModifiedFrom:OleVariant;DateModifiedTo:OleVariant;Statuses:OleVariant;AccessToken:WideString):IDispatch;safecall;
+   function StatusSessions(SessionType:Integer;ContinuationToken:WideString;PageSize:Integer;ReferenceNumber:WideString;DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;DateClosedFrom:OleVariant;DateClosedTo:OleVariant;DateModifiedFrom:OleVariant;DateModifiedTo:OleVariant;Statuses:OleVariant;AccessToken:WideString = ''): IDispatch;safecall;
     // StatusSession :  
-   function StatusSession(SessionReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function StatusSession(SessionReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // StatusInvoices :  
-   function StatusInvoices(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function StatusInvoices(SessionReferenceNumber:WideString;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // StatusSessionInvoice :  
-   function StatusSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function StatusSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // StatusInvoicesFailed :  
-   function StatusInvoicesFailed(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function StatusInvoicesFailed(SessionReferenceNumber:WideString;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // StatusUpoKsef :  
-   procedure StatusUpoKsef(SessionReferenceNumber:WideString;KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString);safecall;
+   procedure StatusUpoKsef(SessionReferenceNumber:WideString;KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString = '');safecall;
     // StatusUpoKsefSimpe :  
-   function StatusUpoKsefSimpe(SessionReferenceNumber:WideString;KsefNumber:WideString;AccessToken:WideString):WideString;safecall;
+   function StatusUpoKsefSimpe(SessionReferenceNumber:WideString;KsefNumber:WideString;AccessToken:WideString = ''): WideString;safecall;
     // StatusUpoSessionInvoice :  
-   procedure StatusUpoSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString);safecall;
+   procedure StatusUpoSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString = '');safecall;
     // StatusUpoSessionInvoiceSimpe :  
-   function StatusUpoSessionInvoiceSimpe(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString):WideString;safecall;
+   function StatusUpoSessionInvoiceSimpe(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString = ''): WideString;safecall;
     // StatusUpoSession :  
-   procedure StatusUpoSession(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString);safecall;
+   procedure StatusUpoSession(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString = '');safecall;
     // StatusUpoSessionSimpe :  
-   function StatusUpoSessionSimpe(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;AccessToken:WideString):WideString;safecall;
+   function StatusUpoSessionSimpe(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;AccessToken:WideString = ''): WideString;safecall;
     // InvoicesKsef :  
-   procedure InvoicesKsef(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString);safecall;
+   procedure InvoicesKsef(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString = '');safecall;
     // InvoicesKsefSimple :  
-   function InvoicesKsefSimple(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString):WideString;safecall;
+   function InvoicesKsefSimple(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString = ''): WideString;safecall;
     // InvoicesQueryMetadata :  
-   function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer;PageSize:Integer;SortOrder:Integer;AccessToken:WideString):IDispatch;safecall;
+   function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;SortOrder:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // InvoicesExport :  
-   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;safecall;
+   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString = ''): IDispatch;safecall;
     // InvoicesExport2 :  
-   function InvoicesExport2(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function InvoicesExport2(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // InvoicesExportSimple :  
-   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;safecall;
+   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString = ''): WideString;safecall;
     // InvoicesExportSimple2 :  
-   function InvoicesExportSimple2(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function InvoicesExportSimple2(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // InvoicesExportStatus :  
-   function InvoicesExportStatus(OperationReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function InvoicesExportStatus(OperationReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // InvoicesExportDownload :  
    procedure InvoicesExportDownload(StatusResponse:IDispatch;OutputStream:OleVariant;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant);safecall;
     // TokensGenerate :  
-   function TokensGenerate(Permissions:OleVariant;Description:WideString;AccessToken:WideString):IDispatch;safecall;
+   function TokensGenerate(Permissions:OleVariant;Description:WideString;AccessToken:WideString = ''): IDispatch;safecall;
+    // TokensGenerateRev2 :  
+   function TokensGenerateRev2(Permissions:OleVariant;Description:WideString;ValidFrom:TDateTime;ValidTo:TDateTime;AccessToken:WideString = ''): IDispatch;safecall;
     // TokensGenerate2 :  
-   function TokensGenerate2(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function TokensGenerate2(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
+    // TokensGenerate2Rev2 :  
+   function TokensGenerate2Rev2(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // TokensList :  
-   function TokensList(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;PageSize:Integer;ContinuationToken:WideString;AccessToken:WideString):IDispatch;safecall;
+   function TokensList(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;PageSize:Integer = 0;ContinuationToken:WideString = '';AccessToken:WideString = ''): IDispatch;safecall;
+    // TokensListRev2 :  
+   function TokensListRev2(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;ValidFrom:TDateTime;ValidTo:TDateTime;PageSize:Integer = 0;ContinuationToken:WideString = '';AccessToken:WideString = ''): IDispatch;safecall;
     // TokensStatus :  
-   function TokensStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function TokensStatus(ReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
+    // TokensStatusRev2 :  
+   function TokensStatusRev2(ReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // TokensRevoke :  
-   procedure TokensRevoke(ReferenceNumber:WideString;AccessToken:WideString);safecall;
+   procedure TokensRevoke(ReferenceNumber:WideString;AccessToken:WideString = '');safecall;
+    // TokensApprove :  
+   procedure TokensApprove(ReferenceNumber:WideString;AccessToken:WideString = '');safecall;
     // TestdataSubject :  
    procedure TestdataSubject(Request:IDispatch);safecall;
     // TestdataSubjectRemove :  
@@ -3996,199 +4180,199 @@ Type
     // TestdataPersonRemove :  
    procedure TestdataPersonRemove(Nip:WideString);safecall;
     // PermissionsPersonsGrant :  
-   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsPersonsGrantSimple :  
-   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsEntitiesGrants :  
-   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsEntitiesGrantsSimple :  
-   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsAuthorizationsGrants :  
-   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsAuthorizationsGrantsSimple :  
-   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsIndirectGrants :  
-   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsIndirectGrantsSimple :  
-   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsSubunitsGrants :  
-   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsSubunitsGrantsSimple :  
-   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsEuEntitiesAdministrationGrants :  
-   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsEuEntitiesAdministrationGrantsSimple :  
-   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsEuEntitiesGrants :  
-   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsEuEntitiesGrantsSimple :  
-   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsCommonRevoke :  
-   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsCommonRevokeSimple :  
-   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;safecall;
+   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsAuthorizationsRevoke :  
-   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsAuthorizationsRevokeSimple :  
-   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;safecall;
+   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString = ''): WideString;safecall;
     // PermissionsOperationsStatus :  
-   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsAttachmentsStatus :  
-   function PermissionsAttachmentsStatus(AccessToken:WideString):IDispatch;safecall;
+   function PermissionsAttachmentsStatus(AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryPersonalGrants :  
-   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryPersonsGrants :  
-   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQuerySubunitsGrants :  
-   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryEntitiesGrants :  
-   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryEntitiesRoles :  
-   function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryEntitiesRoles(PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQuerySubordinateEntitiesRoles :  
-   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryAuthorizationsGrants :  
-   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // PermissionsQueryEuEntitiesGrants :  
-   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesLimits :  
-   function CertificatesLimits(AccessToken:WideString):IDispatch;safecall;
+   function CertificatesLimits(AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesEnrollmentsData :  
-   function CertificatesEnrollmentsData(AccessToken:WideString):IDispatch;safecall;
+   function CertificatesEnrollmentsData(AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesEnrollments :  
-   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesEnrollmentsStatus :  
-   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesRetrieve :  
-   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesRetrieve2 :  
-   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesRevoke :  
-   procedure CertificatesRevoke(CertificateSerialNumber:WideString;Request:IDispatch;AccessToken:WideString);safecall;
+   procedure CertificatesRevoke(CertificateSerialNumber:WideString;Request:IDispatch;AccessToken:WideString = '');safecall;
     // CertificatesRevoke2 :  
-   procedure CertificatesRevoke2(CertificateSerialNumber:WideString;RevocationReason:Integer;AccessToken:WideString);safecall;
+   procedure CertificatesRevoke2(CertificateSerialNumber:WideString;RevocationReason:Integer;AccessToken:WideString = '');safecall;
     // CertificatesQuery :  
-   function CertificatesQuery(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesQuery(Request:IDispatch;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CertificatesQuery2 :  
-   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // LimitsContext :  
-   function LimitsContext(AccessToken:WideString):IDispatch;safecall;
+   function LimitsContext(AccessToken:WideString = ''): IDispatch;safecall;
     // LimitsSubject :  
-   function LimitsSubject(AccessToken:WideString):IDispatch;safecall;
+   function LimitsSubject(AccessToken:WideString = ''): IDispatch;safecall;
     // LimitsRate :  
-   function LimitsRate(AccessToken:WideString):IDispatch;safecall;
+   function LimitsRate(AccessToken:WideString = ''): IDispatch;safecall;
     // PeppolQuery :  
-   function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function PeppolQuery(PageOffset:Integer = 0;PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CollectiveIdentifiers :  
-   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString):IDispatch;safecall;
+   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString = ''): IDispatch;safecall;
     // CollectiveIdentifiersSimple :  
-   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString):WideString;safecall;
+   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString = ''): WideString;safecall;
     // CollectiveidentifiersQuery :  
-   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CollectiveidentifiersQuery2 :  
-   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString;InvoiceCountFrom:Integer;InvoiceCountTo:Integer;CreatedInCurrentContext:WordBool;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString = '';InvoiceCountFrom:Integer = 0;InvoiceCountTo:Integer = 0;CreatedInCurrentContext:WordBool = False;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CollectiveIdentifiersInvoices :  
-   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // CollectiveIdentifiersKsef :  
-   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;safecall;
+   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString = '';PageSize:Integer = 0;AccessToken:WideString = ''): IDispatch;safecall;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 
-   property RSAPublicKeyClass:WideString read Get_RSAPublicKeyClass write Set_RSAPublicKeyClass;
+   property RSAPublicKeyClass: WideString read Get_RSAPublicKeyClass write Set_RSAPublicKeyClass;
     // Base64EncoderClass : Klasa enkodera Base64 
-   property Base64EncoderClass:WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
+   property Base64EncoderClass: WideString read Get_Base64EncoderClass write Set_Base64EncoderClass;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
+   property AES256EncryptClass: WideString read Get_AES256EncryptClass write Set_AES256EncryptClass;
     // SHA256HashClass : Klasa funkcji skrĂłtu SHA256 
-   property SHA256HashClass:WideString read Get_SHA256HashClass write Set_SHA256HashClass;
+   property SHA256HashClass: WideString read Get_SHA256HashClass write Set_SHA256HashClass;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
+   property RandomGeneratorClass: WideString read Get_RandomGeneratorClass write Set_RandomGeneratorClass;
     // XAdES : Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload 
-   property XAdES:IDispatch read Get_XAdES write Set_XAdES;
+   property XAdES: IDispatch read Get_XAdES write Set_XAdES;
     // HTTPClient : Obiekt poĹ‚Ä…czenia HTTPS 
-   property HTTPClient:IDispatch read Get_HTTPClient write Set_HTTPClient;
+   property HTTPClient: IDispatch read Get_HTTPClient write Set_HTTPClient;
     // GateType : Rodzaj bramki (produkcyjna/demo/testowa) 
-   property GateType:lgcKSeFGateType read Get_GateType write Set_GateType;
+   property GateType: lgcKSeFGateType read Get_GateType write Set_GateType;
     // Identifier : WartoĹ›Ä‡ identyfikatora 
-   property Identifier:WideString read Get_Identifier write Set_Identifier;
+   property Identifier: WideString read Get_Identifier write Set_Identifier;
     // IdentifierType : Typ identyfikatora 
-   property IdentifierType:lgcKSeFIdentifierType read Get_IdentifierType write Set_IdentifierType;
+   property IdentifierType: lgcKSeFIdentifierType read Get_IdentifierType write Set_IdentifierType;
     // AuthCertificate : Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyĹ‚ki wsadowej 
-   property AuthCertificate:IDispatch read Get_AuthCertificate write Set_AuthCertificate;
+   property AuthCertificate: IDispatch read Get_AuthCertificate write Set_AuthCertificate;
     // AuthCertificateSubject : SposĂłb identyfikacji podmiotu uwierzytelniajÄ…cego siÄ™. 
-   property AuthCertificateSubject:lgcKSeFCertificateAuthType read Get_AuthCertificateSubject write Set_AuthCertificateSubject;
+   property AuthCertificateSubject: lgcKSeFCertificateAuthType read Get_AuthCertificateSubject write Set_AuthCertificateSubject;
     // KsefToken : Token KSeF do autoryzacji 
-   property KsefToken:WideString read Get_KsefToken write Set_KsefToken;
+   property KsefToken: WideString read Get_KsefToken write Set_KsefToken;
     // FormCode : Predefiniowany rodzaj FA 
-   property FormCode:Integer read Get_FormCode write Set_FormCode;
+   property FormCode: Integer read Get_FormCode write Set_FormCode;
     // FormCodeSystemCode :  
-   property FormCodeSystemCode:WideString read Get_FormCodeSystemCode write Set_FormCodeSystemCode;
+   property FormCodeSystemCode: WideString read Get_FormCodeSystemCode write Set_FormCodeSystemCode;
     // FormCodeSchemaVersion :  
-   property FormCodeSchemaVersion:WideString read Get_FormCodeSchemaVersion write Set_FormCodeSchemaVersion;
+   property FormCodeSchemaVersion: WideString read Get_FormCodeSchemaVersion write Set_FormCodeSchemaVersion;
     // FormCodeValue :  
-   property FormCodeValue:WideString read Get_FormCodeValue write Set_FormCodeValue;
+   property FormCodeValue: WideString read Get_FormCodeValue write Set_FormCodeValue;
     // SessionToken : Token sesji 
-   property SessionToken:WideString read Get_SessionToken write Set_SessionToken;
+   property SessionToken: WideString read Get_SessionToken write Set_SessionToken;
     // RSATokenEncKey : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej 
-   property RSATokenEncKey[AGateType:lgcKSeFGateType]:IDispatch read Get_RSATokenEncKey write Set_RSATokenEncKey;
+   property RSATokenEncKey[AGateType:lgcKSeFGateType]: IDispatch read Get_RSATokenEncKey write Set_RSATokenEncKey;
     // RSATokenEncKeyProd : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej 
-   property RSATokenEncKeyProd:IDispatch read Get_RSATokenEncKeyProd write Set_RSATokenEncKeyProd;
+   property RSATokenEncKeyProd: IDispatch read Get_RSATokenEncKeyProd write Set_RSATokenEncKeyProd;
     // RSATokenEncKeyDemo : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki demo 
-   property RSATokenEncKeyDemo:IDispatch read Get_RSATokenEncKeyDemo write Set_RSATokenEncKeyDemo;
+   property RSATokenEncKeyDemo: IDispatch read Get_RSATokenEncKeyDemo write Set_RSATokenEncKeyDemo;
     // RSATokenEncKeyTest : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki testowej 
-   property RSATokenEncKeyTest:IDispatch read Get_RSATokenEncKeyTest write Set_RSATokenEncKeyTest;
+   property RSATokenEncKeyTest: IDispatch read Get_RSATokenEncKeyTest write Set_RSATokenEncKeyTest;
     // RSASymmetricEncKey : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej 
-   property RSASymmetricEncKey[AGateType:lgcKSeFGateType]:IDispatch read Get_RSASymmetricEncKey write Set_RSASymmetricEncKey;
+   property RSASymmetricEncKey[AGateType:lgcKSeFGateType]: IDispatch read Get_RSASymmetricEncKey write Set_RSASymmetricEncKey;
     // RSASymmetricEncKeyProd : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej 
-   property RSASymmetricEncKeyProd:IDispatch read Get_RSASymmetricEncKeyProd write Set_RSASymmetricEncKeyProd;
+   property RSASymmetricEncKeyProd: IDispatch read Get_RSASymmetricEncKeyProd write Set_RSASymmetricEncKeyProd;
     // RSASymmetricEncKeyDemo : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki demo 
-   property RSASymmetricEncKeyDemo:IDispatch read Get_RSASymmetricEncKeyDemo write Set_RSASymmetricEncKeyDemo;
+   property RSASymmetricEncKeyDemo: IDispatch read Get_RSASymmetricEncKeyDemo write Set_RSASymmetricEncKeyDemo;
     // RSASymmetricEncKeyTest : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki testowej 
-   property RSASymmetricEncKeyTest:IDispatch read Get_RSASymmetricEncKeyTest write Set_RSASymmetricEncKeyTest;
+   property RSASymmetricEncKeyTest: IDispatch read Get_RSASymmetricEncKeyTest write Set_RSASymmetricEncKeyTest;
     // AuthenticationToken :  
-   property AuthenticationToken:WideString read Get_AuthenticationToken write Set_AuthenticationToken;
+   property AuthenticationToken: WideString read Get_AuthenticationToken write Set_AuthenticationToken;
     // AuthenticationTokenValidUntil :  
-   property AuthenticationTokenValidUntil:TDateTime read Get_AuthenticationTokenValidUntil write Set_AuthenticationTokenValidUntil;
+   property AuthenticationTokenValidUntil: TDateTime read Get_AuthenticationTokenValidUntil write Set_AuthenticationTokenValidUntil;
     // AuthenticationRefNo :  
-   property AuthenticationRefNo:WideString read Get_AuthenticationRefNo write Set_AuthenticationRefNo;
+   property AuthenticationRefNo: WideString read Get_AuthenticationRefNo write Set_AuthenticationRefNo;
     // AccessToken :  
-   property AccessToken:WideString read Get_AccessToken write Set_AccessToken;
+   property AccessToken: WideString read Get_AccessToken write Set_AccessToken;
     // AccessTokenValidUntil :  
-   property AccessTokenValidUntil:TDateTime read Get_AccessTokenValidUntil write Set_AccessTokenValidUntil;
+   property AccessTokenValidUntil: TDateTime read Get_AccessTokenValidUntil write Set_AccessTokenValidUntil;
     // RefreshToken :  
-   property RefreshToken:WideString read Get_RefreshToken write Set_RefreshToken;
+   property RefreshToken: WideString read Get_RefreshToken write Set_RefreshToken;
     // RefreshTokenValidUntil :  
-   property RefreshTokenValidUntil:TDateTime read Get_RefreshTokenValidUntil write Set_RefreshTokenValidUntil;
+   property RefreshTokenValidUntil: TDateTime read Get_RefreshTokenValidUntil write Set_RefreshTokenValidUntil;
     // InteractiveEncryptionKey :  
-   property InteractiveEncryptionKey:OleVariant read Get_InteractiveEncryptionKey write Set_InteractiveEncryptionKey;
+   property InteractiveEncryptionKey: OleVariant read Get_InteractiveEncryptionKey write Set_InteractiveEncryptionKey;
     // InteractiveVector :  
-   property InteractiveVector:OleVariant read Get_InteractiveVector write Set_InteractiveVector;
+   property InteractiveVector: OleVariant read Get_InteractiveVector write Set_InteractiveVector;
     // InteractiveReferenceNumber :  
-   property InteractiveReferenceNumber:WideString read Get_InteractiveReferenceNumber write Set_InteractiveReferenceNumber;
+   property InteractiveReferenceNumber: WideString read Get_InteractiveReferenceNumber write Set_InteractiveReferenceNumber;
     // InteractiveValidUntil :  
-   property InteractiveValidUntil:TDateTime read Get_InteractiveValidUntil write Set_InteractiveValidUntil;
+   property InteractiveValidUntil: TDateTime read Get_InteractiveValidUntil write Set_InteractiveValidUntil;
     // BatchReferenceNumber :  
-   property BatchReferenceNumber:WideString read Get_BatchReferenceNumber write Set_BatchReferenceNumber;
+   property BatchReferenceNumber: WideString read Get_BatchReferenceNumber write Set_BatchReferenceNumber;
     // BatchPartSize :  
-   property BatchPartSize:Integer read Get_BatchPartSize write Set_BatchPartSize;
+   property BatchPartSize: Integer read Get_BatchPartSize write Set_BatchPartSize;
     // InvoiceExportEncryptionKey :  
-   property InvoiceExportEncryptionKey:OleVariant read Get_InvoiceExportEncryptionKey write Set_InvoiceExportEncryptionKey;
+   property InvoiceExportEncryptionKey: OleVariant read Get_InvoiceExportEncryptionKey write Set_InvoiceExportEncryptionKey;
     // InvoiceExportVector :  
-   property InvoiceExportVector:OleVariant read Get_InvoiceExportVector write Set_InvoiceExportVector;
+   property InvoiceExportVector: OleVariant read Get_InvoiceExportVector write Set_InvoiceExportVector;
     // InvoiceExportReferenceNumber :  
-   property InvoiceExportReferenceNumber:WideString read Get_InvoiceExportReferenceNumber write Set_InvoiceExportReferenceNumber;
+   property InvoiceExportReferenceNumber: WideString read Get_InvoiceExportReferenceNumber write Set_InvoiceExportReferenceNumber;
     // AutoRefreshToken :  
-   property AutoRefreshToken:WordBool read Get_AutoRefreshToken write Set_AutoRefreshToken;
+   property AutoRefreshToken: WordBool read Get_AutoRefreshToken write Set_AutoRefreshToken;
     // ResponseHeaders :  
-   property ResponseHeaders:WideString read Get_ResponseHeaders write Set_ResponseHeaders;
+   property ResponseHeaders: WideString read Get_ResponseHeaders write Set_ResponseHeaders;
     // Ip4Address :  
-   property Ip4Address:WideString read Get_Ip4Address write Set_Ip4Address;
+   property Ip4Address: WideString read Get_Ip4Address write Set_Ip4Address;
     // Ip4Mask :  
-   property Ip4Mask:WideString read Get_Ip4Mask write Set_Ip4Mask;
+   property Ip4Mask: WideString read Get_Ip4Mask write Set_Ip4Mask;
     // Ip4Range :  
-   property Ip4Range:WideString read Get_Ip4Range write Set_Ip4Range;
+   property Ip4Range: WideString read Get_Ip4Range write Set_Ip4Range;
     // CompressionType :  
-   property CompressionType:lgcKSeFCompressionType read Get_CompressionType write Set_CompressionType;
+   property CompressionType: lgcKSeFCompressionType read Get_CompressionType write Set_CompressionType;
     // UseProblemDetails :  
-   property UseProblemDetails:WordBool read Get_UseProblemDetails write Set_UseProblemDetails;
+   property UseProblemDetails: WordBool read Get_UseProblemDetails write Set_UseProblemDetails;
   end;
 
 
@@ -4199,9 +4383,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4211,121 +4395,135 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // CreateKSeFObject : Tworzenie obiektu KSeF o podanej nazwie klasy 
-   function CreateKSeFObject(ClsName:WideString):IDispatch;dispid 38044;
+   function CreateKSeFObject(ClsName:WideString): IDispatch;dispid 38044;
     // AuthChallenge :  
-   function AuthChallenge:IDispatch;dispid 38045;
+   function AuthChallenge: IDispatch;dispid 38045;
     // AuthXadesSignatureGenerate :  
-   function AuthXadesSignatureGenerate:WideString;dispid 38046;
+   function AuthXadesSignatureGenerate: WideString;dispid 38046;
     // AuthXadesSignatureGenerate2 :  
-   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):WideString;dispid 38047;
+   function AuthXadesSignatureGenerate2(SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString): WideString;dispid 38047;
     // AuthXadesSignature :  
-   function AuthXadesSignature:IDispatch;dispid 38048;
+   function AuthXadesSignature: IDispatch;dispid 38048;
     // AuthXadesSignature2 :  
-   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):IDispatch;dispid 38049;
+   function AuthXadesSignature2(Certificate:IDispatch;SubjectIdType:lgcKSeFCertificateAuthType;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString): IDispatch;dispid 38049;
     // AuthXadesSignature3 :  
-   function AuthXadesSignature3(SignedAuthData:WideString):IDispatch;dispid 38050;
+   function AuthXadesSignature3(SignedAuthData:WideString): IDispatch;dispid 38050;
     // AuthKsefToken :  
-   function AuthKsefToken:IDispatch;dispid 38051;
+   function AuthKsefToken: IDispatch;dispid 38051;
     // AuthKsefToken2 :  
-   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:OleVariant;Ip4Range:OleVariant;Ip4Mask:OleVariant):IDispatch;dispid 38052;
+   function AuthKsefToken2(Token:WideString;Identifier:WideString;IdentifierType:lgcKSeFIdentifierType;Ip4Address:WideString;Ip4Range:WideString;Ip4Mask:WideString): IDispatch;dispid 38052;
     // AuthStatus :  
-   function AuthStatus(ReferenceNumber:WideString;AuthenticationToken:WideString):IDispatch;dispid 38053;
+   function AuthStatus(ReferenceNumber:WideString;AuthenticationToken:WideString): IDispatch;dispid 38053;
+    // AuthStatusRev2 :  
+   function AuthStatusRev2(ReferenceNumber:WideString;AuthenticationToken:WideString): IDispatch;dispid 38158;
     // AuthTokenRedem :  
-   function AuthTokenRedem(AuthenticationToken:WideString):IDispatch;dispid 38054;
+   function AuthTokenRedem(AuthenticationToken:WideString): IDispatch;dispid 38054;
     // AuthTokenRefresh :  
-   function AuthTokenRefresh(RefreshToken:WideString):IDispatch;dispid 38055;
+   function AuthTokenRefresh(RefreshToken:WideString): IDispatch;dispid 38055;
     // AuthSessions :  
-   function AuthSessions(ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38056;
+   function AuthSessions(ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38056;
+    // AuthSessionsRev2 :  
+   function AuthSessionsRev2(ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38159;
     // AuthSessionTerminateCurrent :  
    procedure AuthSessionTerminateCurrent(Token:WideString);dispid 38057;
     // AuthSessionTerminate :  
    procedure AuthSessionTerminate(ReferenceNumber:WideString;AccessToken:WideString);dispid 38058;
     // SecurityPublicKeyCertificates :  
-   function SecurityPublicKeyCertificates(GateType:lgcKSeFGateType):IDispatch;dispid 38059;
+   function SecurityPublicKeyCertificates(GateType:lgcKSeFGateType): IDispatch;dispid 38059;
     // SecurityLoadKeys :  
    procedure SecurityLoadKeys;dispid 38060;
     // InteractiveOpen :  
-   function InteractiveOpen:IDispatch;dispid 38061;
+   function InteractiveOpen: IDispatch;dispid 38061;
     // InteractiveOpenSimple :  
-   function InteractiveOpenSimple:WideString;dispid 38062;
+   function InteractiveOpenSimple: WideString;dispid 38062;
     // InteractiveOpen2 :  
-   function InteractiveOpen2(FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;AccessToken:WideString):IDispatch;dispid 38063;
+   function InteractiveOpen2(FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;AccessToken:WideString): IDispatch;dispid 38063;
     // InteractiveOpen3 :  
-   function InteractiveOpen3(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38064;
+   function InteractiveOpen3(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38064;
     // InteractiveCreateSendRequest :  
-   function InteractiveCreateSendRequest(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant):IDispatch;dispid 38065;
+   function InteractiveCreateSendRequest(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant): IDispatch;dispid 38065;
     // InteractiveSend :  
-   function InteractiveSend(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString):WideString;dispid 38066;
+   function InteractiveSend(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString): WideString;dispid 38066;
     // InteractiveSend2 :  
-   function InteractiveSend2(Request:IDispatch;OfflineMode:WordBool;SessionReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38067;
+   function InteractiveSend2(Request:IDispatch;OfflineMode:WordBool;SessionReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38067;
     // InteractiveSend3 :  
-   function InteractiveSend3(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;dispid 38068;
+   function InteractiveSend3(InvoiceStream:OleVariant;OfflineMode:WordBool;HashOfCorrectedInvoice:WideString;SessionReferenceNumber:WideString;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString): WideString;dispid 38068;
     // InteractiveClose :  
    procedure InteractiveClose(SessionReferenceNumber:WideString;AccessToken:WideString);dispid 38069;
     // BatchPrepare :  
-   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;dispid 38070;
+   function BatchPrepare(ZIPFileStream:OleVariant;OutputStream:OleVariant;PartSize:Integer;CompressionType:lgcKSeFCompressionType): IDispatch;dispid 38070;
     // BatchPrepare2 :  
-   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer;CompressionType:lgcKSeFCompressionType):IDispatch;dispid 38071;
+   function BatchPrepare2(ZIPFileStream:OleVariant;OutputStream:OleVariant;FormCode:Integer;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;FormCodeSystemCode:WideString;FormCodeSchemaVersion:WideString;FormCodeValue:WideString;PartSize:Integer;CompressionType:lgcKSeFCompressionType): IDispatch;dispid 38071;
     // BatchOpen :  
-   function BatchOpen(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38072;
+   function BatchOpen(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38072;
     // BatchSendPart :  
    procedure BatchSendPart(PartUploadRequest:IDispatch;DataStream:OleVariant);dispid 38073;
     // BatchClose :  
    procedure BatchClose(SessionReferenceNumber:WideString;AccessToken:WideString);dispid 38074;
     // StatusSessions :  
-   function StatusSessions(SessionType:Integer;ContinuationToken:WideString;PageSize:Integer;ReferenceNumber:WideString;DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;DateClosedFrom:OleVariant;DateClosedTo:OleVariant;DateModifiedFrom:OleVariant;DateModifiedTo:OleVariant;Statuses:OleVariant;AccessToken:WideString):IDispatch;dispid 38075;
+   function StatusSessions(SessionType:Integer;ContinuationToken:WideString;PageSize:Integer;ReferenceNumber:WideString;DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;DateClosedFrom:OleVariant;DateClosedTo:OleVariant;DateModifiedFrom:OleVariant;DateModifiedTo:OleVariant;Statuses:OleVariant;AccessToken:WideString): IDispatch;dispid 38075;
     // StatusSession :  
-   function StatusSession(SessionReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38076;
+   function StatusSession(SessionReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38076;
     // StatusInvoices :  
-   function StatusInvoices(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38077;
+   function StatusInvoices(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38077;
     // StatusSessionInvoice :  
-   function StatusSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38078;
+   function StatusSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38078;
     // StatusInvoicesFailed :  
-   function StatusInvoicesFailed(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38079;
+   function StatusInvoicesFailed(SessionReferenceNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38079;
     // StatusUpoKsef :  
    procedure StatusUpoKsef(SessionReferenceNumber:WideString;KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString);dispid 38080;
     // StatusUpoKsefSimpe :  
-   function StatusUpoKsefSimpe(SessionReferenceNumber:WideString;KsefNumber:WideString;AccessToken:WideString):WideString;dispid 38081;
+   function StatusUpoKsefSimpe(SessionReferenceNumber:WideString;KsefNumber:WideString;AccessToken:WideString): WideString;dispid 38081;
     // StatusUpoSessionInvoice :  
    procedure StatusUpoSessionInvoice(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString);dispid 38082;
     // StatusUpoSessionInvoiceSimpe :  
-   function StatusUpoSessionInvoiceSimpe(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString):WideString;dispid 38083;
+   function StatusUpoSessionInvoiceSimpe(SessionReferenceNumber:WideString;InvoiceReferenceNumber:WideString;AccessToken:WideString): WideString;dispid 38083;
     // StatusUpoSession :  
    procedure StatusUpoSession(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;OutStream:OleVariant;AccessToken:WideString);dispid 38084;
     // StatusUpoSessionSimpe :  
-   function StatusUpoSessionSimpe(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;AccessToken:WideString):WideString;dispid 38085;
+   function StatusUpoSessionSimpe(SessionReferenceNumber:WideString;UpoReferenceNumber:WideString;AccessToken:WideString): WideString;dispid 38085;
     // InvoicesKsef :  
    procedure InvoicesKsef(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString);dispid 38086;
     // InvoicesKsefSimple :  
-   function InvoicesKsefSimple(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString):WideString;dispid 38087;
+   function InvoicesKsefSimple(KsefNumber:WideString;OutStream:OleVariant;AccessToken:WideString): WideString;dispid 38087;
     // InvoicesQueryMetadata :  
-   function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer;PageSize:Integer;SortOrder:Integer;AccessToken:WideString):IDispatch;dispid 38088;
+   function InvoicesQueryMetadata(Request:IDispatch;PageOffset:Integer;PageSize:Integer;SortOrder:Integer;AccessToken:WideString): IDispatch;dispid 38088;
     // InvoicesExport :  
-   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):IDispatch;dispid 38089;
+   function InvoicesExport(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString): IDispatch;dispid 38089;
     // InvoicesExport2 :  
-   function InvoicesExport2(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;AccessToken:WideString):IDispatch;dispid 38090;
+   function InvoicesExport2(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38090;
     // InvoicesExportSimple :  
-   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString):WideString;dispid 38091;
+   function InvoicesExportSimple(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant;AccessToken:WideString): WideString;dispid 38091;
     // InvoicesExportSimple2 :  
-   function InvoicesExportSimple2(Request:IDispatch;OnlyMetadata:WordBool;CompressionType:lgcKSeFCompressionType;AccessToken:WideString):WideString;dispid 38092;
+   function InvoicesExportSimple2(Request:IDispatch;AccessToken:WideString): WideString;dispid 38092;
     // InvoicesExportStatus :  
-   function InvoicesExportStatus(OperationReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38093;
+   function InvoicesExportStatus(OperationReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38093;
     // InvoicesExportDownload :  
    procedure InvoicesExportDownload(StatusResponse:IDispatch;OutputStream:OleVariant;EncryptionSymetricKey:OleVariant;InitializationVector:OleVariant);dispid 38094;
     // TokensGenerate :  
-   function TokensGenerate(Permissions:OleVariant;Description:WideString;AccessToken:WideString):IDispatch;dispid 38095;
+   function TokensGenerate(Permissions:OleVariant;Description:WideString;AccessToken:WideString): IDispatch;dispid 38095;
+    // TokensGenerateRev2 :  
+   function TokensGenerateRev2(Permissions:OleVariant;Description:WideString;ValidFrom:TDateTime;ValidTo:TDateTime;AccessToken:WideString): IDispatch;dispid 38160;
     // TokensGenerate2 :  
-   function TokensGenerate2(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38096;
+   function TokensGenerate2(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38096;
+    // TokensGenerate2Rev2 :  
+   function TokensGenerate2Rev2(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38161;
     // TokensList :  
-   function TokensList(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;PageSize:Integer;ContinuationToken:WideString;AccessToken:WideString):IDispatch;dispid 38097;
+   function TokensList(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;PageSize:Integer;ContinuationToken:WideString;AccessToken:WideString): IDispatch;dispid 38097;
+    // TokensListRev2 :  
+   function TokensListRev2(Status:OleVariant;Description:WideString;AuthorIdentifier:WideString;AuthorIdentifierType:OleVariant;ValidFrom:TDateTime;ValidTo:TDateTime;PageSize:Integer;ContinuationToken:WideString;AccessToken:WideString): IDispatch;dispid 38162;
     // TokensStatus :  
-   function TokensStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38098;
+   function TokensStatus(ReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38098;
+    // TokensStatusRev2 :  
+   function TokensStatusRev2(ReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38163;
     // TokensRevoke :  
    procedure TokensRevoke(ReferenceNumber:WideString;AccessToken:WideString);dispid 38099;
+    // TokensApprove :  
+   procedure TokensApprove(ReferenceNumber:WideString;AccessToken:WideString);dispid 38164;
     // TestdataSubject :  
    procedure TestdataSubject(Request:IDispatch);dispid 38100;
     // TestdataSubjectRemove :  
@@ -4335,201 +4533,201 @@ Type
     // TestdataPersonRemove :  
    procedure TestdataPersonRemove(Nip:WideString);dispid 38103;
     // PermissionsPersonsGrant :  
-   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38104;
+   function PermissionsPersonsGrant(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38104;
     // PermissionsPersonsGrantSimple :  
-   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38105;
+   function PermissionsPersonsGrantSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38105;
     // PermissionsEntitiesGrants :  
-   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38106;
+   function PermissionsEntitiesGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38106;
     // PermissionsEntitiesGrantsSimple :  
-   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38107;
+   function PermissionsEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38107;
     // PermissionsAuthorizationsGrants :  
-   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38108;
+   function PermissionsAuthorizationsGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38108;
     // PermissionsAuthorizationsGrantsSimple :  
-   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38109;
+   function PermissionsAuthorizationsGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38109;
     // PermissionsIndirectGrants :  
-   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38110;
+   function PermissionsIndirectGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38110;
     // PermissionsIndirectGrantsSimple :  
-   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38111;
+   function PermissionsIndirectGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38111;
     // PermissionsSubunitsGrants :  
-   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38112;
+   function PermissionsSubunitsGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38112;
     // PermissionsSubunitsGrantsSimple :  
-   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38113;
+   function PermissionsSubunitsGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38113;
     // PermissionsEuEntitiesAdministrationGrants :  
-   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38114;
+   function PermissionsEuEntitiesAdministrationGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38114;
     // PermissionsEuEntitiesAdministrationGrantsSimple :  
-   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38115;
+   function PermissionsEuEntitiesAdministrationGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38115;
     // PermissionsEuEntitiesGrants :  
-   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38116;
+   function PermissionsEuEntitiesGrants(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38116;
     // PermissionsEuEntitiesGrantsSimple :  
-   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38117;
+   function PermissionsEuEntitiesGrantsSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38117;
     // PermissionsCommonRevoke :  
-   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;dispid 38118;
+   function PermissionsCommonRevoke(PermissionId:WideString;AccessToken:WideString): IDispatch;dispid 38118;
     // PermissionsCommonRevokeSimple :  
-   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;dispid 38119;
+   function PermissionsCommonRevokeSimple(PermissionId:WideString;AccessToken:WideString): WideString;dispid 38119;
     // PermissionsAuthorizationsRevoke :  
-   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString):IDispatch;dispid 38120;
+   function PermissionsAuthorizationsRevoke(PermissionId:WideString;AccessToken:WideString): IDispatch;dispid 38120;
     // PermissionsAuthorizationsRevokeSimple :  
-   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString):WideString;dispid 38121;
+   function PermissionsAuthorizationsRevokeSimple(PermissionId:WideString;AccessToken:WideString): WideString;dispid 38121;
     // PermissionsOperationsStatus :  
-   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38122;
+   function PermissionsOperationsStatus(ReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38122;
     // PermissionsAttachmentsStatus :  
-   function PermissionsAttachmentsStatus(AccessToken:WideString):IDispatch;dispid 38123;
+   function PermissionsAttachmentsStatus(AccessToken:WideString): IDispatch;dispid 38123;
     // PermissionsQueryPersonalGrants :  
-   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38124;
+   function PermissionsQueryPersonalGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38124;
     // PermissionsQueryPersonsGrants :  
-   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38125;
+   function PermissionsQueryPersonsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38125;
     // PermissionsQuerySubunitsGrants :  
-   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38126;
+   function PermissionsQuerySubunitsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38126;
     // PermissionsQueryEntitiesGrants :  
-   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38157;
+   function PermissionsQueryEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38157;
     // PermissionsQueryEntitiesRoles :  
-   function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38127;
+   function PermissionsQueryEntitiesRoles(PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38127;
     // PermissionsQuerySubordinateEntitiesRoles :  
-   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38128;
+   function PermissionsQuerySubordinateEntitiesRoles(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38128;
     // PermissionsQueryAuthorizationsGrants :  
-   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38129;
+   function PermissionsQueryAuthorizationsGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38129;
     // PermissionsQueryEuEntitiesGrants :  
-   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38130;
+   function PermissionsQueryEuEntitiesGrants(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38130;
     // CertificatesLimits :  
-   function CertificatesLimits(AccessToken:WideString):IDispatch;dispid 38131;
+   function CertificatesLimits(AccessToken:WideString): IDispatch;dispid 38131;
     // CertificatesEnrollmentsData :  
-   function CertificatesEnrollmentsData(AccessToken:WideString):IDispatch;dispid 38132;
+   function CertificatesEnrollmentsData(AccessToken:WideString): IDispatch;dispid 38132;
     // CertificatesEnrollments :  
-   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38133;
+   function CertificatesEnrollments(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38133;
     // CertificatesEnrollmentsStatus :  
-   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString):IDispatch;dispid 38134;
+   function CertificatesEnrollmentsStatus(ReferenceNumber:WideString;AccessToken:WideString): IDispatch;dispid 38134;
     // CertificatesRetrieve :  
-   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38135;
+   function CertificatesRetrieve(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38135;
     // CertificatesRetrieve2 :  
-   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString):IDispatch;dispid 38136;
+   function CertificatesRetrieve2(CertificateSerialNumbers:WideString;AccessToken:WideString): IDispatch;dispid 38136;
     // CertificatesRevoke :  
    procedure CertificatesRevoke(CertificateSerialNumber:WideString;Request:IDispatch;AccessToken:WideString);dispid 38137;
     // CertificatesRevoke2 :  
    procedure CertificatesRevoke2(CertificateSerialNumber:WideString;RevocationReason:Integer;AccessToken:WideString);dispid 38138;
     // CertificatesQuery :  
-   function CertificatesQuery(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38139;
+   function CertificatesQuery(Request:IDispatch;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38139;
     // CertificatesQuery2 :  
-   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38140;
+   function CertificatesQuery2(CertificateSerialNumber:WideString;Name:WideString;Type_:Integer;Status:Integer;ExpiresAfter:TDateTime;PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38140;
     // LimitsContext :  
-   function LimitsContext(AccessToken:WideString):IDispatch;dispid 38141;
+   function LimitsContext(AccessToken:WideString): IDispatch;dispid 38141;
     // LimitsSubject :  
-   function LimitsSubject(AccessToken:WideString):IDispatch;dispid 38142;
+   function LimitsSubject(AccessToken:WideString): IDispatch;dispid 38142;
     // LimitsRate :  
-   function LimitsRate(AccessToken:WideString):IDispatch;dispid 38143;
+   function LimitsRate(AccessToken:WideString): IDispatch;dispid 38143;
     // PeppolQuery :  
-   function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38144;
+   function PeppolQuery(PageOffset:Integer;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38144;
     // CollectiveIdentifiers :  
-   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString):IDispatch;dispid 38150;
+   function CollectiveIdentifiers(Request:IDispatch;AccessToken:WideString): IDispatch;dispid 38150;
     // CollectiveIdentifiersSimple :  
-   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString):WideString;dispid 38151;
+   function CollectiveIdentifiersSimple(Request:IDispatch;AccessToken:WideString): WideString;dispid 38151;
     // CollectiveidentifiersQuery :  
-   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38152;
+   function CollectiveidentifiersQuery(Request:IDispatch;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38152;
     // CollectiveidentifiersQuery2 :  
-   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString;InvoiceCountFrom:Integer;InvoiceCountTo:Integer;CreatedInCurrentContext:WordBool;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38153;
+   function CollectiveidentifiersQuery2(DateCreatedFrom:OleVariant;DateCreatedTo:OleVariant;CollectiveIdentifierNumber:WideString;InvoiceCountFrom:Integer;InvoiceCountTo:Integer;CreatedInCurrentContext:WordBool;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38153;
     // CollectiveIdentifiersInvoices :  
-   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38154;
+   function CollectiveIdentifiersInvoices(CollectiveIdentifierNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38154;
     // CollectiveIdentifiersKsef :  
-   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString):IDispatch;dispid 38155;
+   function CollectiveIdentifiersKsef(KsefNumber:WideString;ContinuationToken:WideString;PageSize:Integer;AccessToken:WideString): IDispatch;dispid 38155;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // RSAPublicKeyClass : Klasa sterownika szyfrowania RSA 
-   property RSAPublicKeyClass:WideString dispid 38001;
+   property RSAPublicKeyClass: WideString dispid 38001;
     // Base64EncoderClass : Klasa enkodera Base64 
-   property Base64EncoderClass:WideString dispid 38002;
+   property Base64EncoderClass: WideString dispid 38002;
     // AES256EncryptClass : Klasa sterownika szyfrowania AES256 
-   property AES256EncryptClass:WideString dispid 38003;
+   property AES256EncryptClass: WideString dispid 38003;
     // SHA256HashClass : Klasa funkcji skrĂłtu SHA256 
-   property SHA256HashClass:WideString dispid 38004;
+   property SHA256HashClass: WideString dispid 38004;
     // RandomGeneratorClass : Klasa generatora liczb pseudolosowych 
-   property RandomGeneratorClass:WideString dispid 38005;
+   property RandomGeneratorClass: WideString dispid 38005;
     // XAdES : Objekt XAdES dla podpisu certyfikatem kwalifikowanym struktury InitUpload 
-   property XAdES:IDispatch dispid 38006;
+   property XAdES: IDispatch dispid 38006;
     // HTTPClient : Obiekt poĹ‚Ä…czenia HTTPS 
-   property HTTPClient:IDispatch dispid 38007;
+   property HTTPClient: IDispatch dispid 38007;
     // GateType : Rodzaj bramki (produkcyjna/demo/testowa) 
-   property GateType:lgcKSeFGateType dispid 38008;
+   property GateType: lgcKSeFGateType dispid 38008;
     // Identifier : WartoĹ›Ä‡ identyfikatora 
-   property Identifier:WideString dispid 38009;
+   property Identifier: WideString dispid 38009;
     // IdentifierType : Typ identyfikatora 
-   property IdentifierType:lgcKSeFIdentifierType dispid 38010;
+   property IdentifierType: lgcKSeFIdentifierType dispid 38010;
     // AuthCertificate : Certyfikat kwalifikowany z kluczem prywatnym do zainicjowania sesji interaktywnej oraz podpisania struktury InitUpload wysyĹ‚ki wsadowej 
-   property AuthCertificate:IDispatch dispid 38011;
+   property AuthCertificate: IDispatch dispid 38011;
     // AuthCertificateSubject : SposĂłb identyfikacji podmiotu uwierzytelniajÄ…cego siÄ™. 
-   property AuthCertificateSubject:lgcKSeFCertificateAuthType dispid 38012;
+   property AuthCertificateSubject: lgcKSeFCertificateAuthType dispid 38012;
     // KsefToken : Token KSeF do autoryzacji 
-   property KsefToken:WideString dispid 38013;
+   property KsefToken: WideString dispid 38013;
     // FormCode : Predefiniowany rodzaj FA 
-   property FormCode:Integer dispid 38014;
+   property FormCode: Integer dispid 38014;
     // FormCodeSystemCode :  
-   property FormCodeSystemCode:WideString dispid 38015;
+   property FormCodeSystemCode: WideString dispid 38015;
     // FormCodeSchemaVersion :  
-   property FormCodeSchemaVersion:WideString dispid 38016;
+   property FormCodeSchemaVersion: WideString dispid 38016;
     // FormCodeValue :  
-   property FormCodeValue:WideString dispid 38017;
+   property FormCodeValue: WideString dispid 38017;
     // SessionToken : Token sesji 
-   property SessionToken:WideString dispid 38018;
+   property SessionToken: WideString dispid 38018;
     // RSATokenEncKey : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej 
-   property RSATokenEncKey[AGateType:lgcKSeFGateType]:IDispatch dispid 38019;
+   property RSATokenEncKey[AGateType:lgcKSeFGateType]: IDispatch dispid 38019;
     // RSATokenEncKeyProd : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki produkcyjnej 
-   property RSATokenEncKeyProd:IDispatch dispid 38020;
+   property RSATokenEncKeyProd: IDispatch dispid 38020;
     // RSATokenEncKeyDemo : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki demo 
-   property RSATokenEncKeyDemo:IDispatch dispid 38021;
+   property RSATokenEncKeyDemo: IDispatch dispid 38021;
     // RSATokenEncKeyTest : Obiekt klucza publicznego RSA do szyfrowania tokena dla bramki testowej 
-   property RSATokenEncKeyTest:IDispatch dispid 38022;
+   property RSATokenEncKeyTest: IDispatch dispid 38022;
     // RSASymmetricEncKey : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej 
-   property RSASymmetricEncKey[AGateType:lgcKSeFGateType]:IDispatch dispid 38023;
+   property RSASymmetricEncKey[AGateType:lgcKSeFGateType]: IDispatch dispid 38023;
     // RSASymmetricEncKeyProd : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki produkcyjnej 
-   property RSASymmetricEncKeyProd:IDispatch dispid 38024;
+   property RSASymmetricEncKeyProd: IDispatch dispid 38024;
     // RSASymmetricEncKeyDemo : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki demo 
-   property RSASymmetricEncKeyDemo:IDispatch dispid 38025;
+   property RSASymmetricEncKeyDemo: IDispatch dispid 38025;
     // RSASymmetricEncKeyTest : Obiekt klucza publicznego RSA do szyfrowania kluczy symetrycznych dla bramki testowej 
-   property RSASymmetricEncKeyTest:IDispatch dispid 38026;
+   property RSASymmetricEncKeyTest: IDispatch dispid 38026;
     // AuthenticationToken :  
-   property AuthenticationToken:WideString dispid 38027;
+   property AuthenticationToken: WideString dispid 38027;
     // AuthenticationTokenValidUntil :  
-   property AuthenticationTokenValidUntil:TDateTime dispid 38028;
+   property AuthenticationTokenValidUntil: TDateTime dispid 38028;
     // AuthenticationRefNo :  
-   property AuthenticationRefNo:WideString dispid 38029;
+   property AuthenticationRefNo: WideString dispid 38029;
     // AccessToken :  
-   property AccessToken:WideString dispid 38030;
+   property AccessToken: WideString dispid 38030;
     // AccessTokenValidUntil :  
-   property AccessTokenValidUntil:TDateTime dispid 38031;
+   property AccessTokenValidUntil: TDateTime dispid 38031;
     // RefreshToken :  
-   property RefreshToken:WideString dispid 38032;
+   property RefreshToken: WideString dispid 38032;
     // RefreshTokenValidUntil :  
-   property RefreshTokenValidUntil:TDateTime dispid 38033;
+   property RefreshTokenValidUntil: TDateTime dispid 38033;
     // InteractiveEncryptionKey :  
-   property InteractiveEncryptionKey:OleVariant dispid 38034;
+   property InteractiveEncryptionKey: OleVariant dispid 38034;
     // InteractiveVector :  
-   property InteractiveVector:OleVariant dispid 38035;
+   property InteractiveVector: OleVariant dispid 38035;
     // InteractiveReferenceNumber :  
-   property InteractiveReferenceNumber:WideString dispid 38036;
+   property InteractiveReferenceNumber: WideString dispid 38036;
     // InteractiveValidUntil :  
-   property InteractiveValidUntil:TDateTime dispid 38037;
+   property InteractiveValidUntil: TDateTime dispid 38037;
     // BatchReferenceNumber :  
-   property BatchReferenceNumber:WideString dispid 38038;
+   property BatchReferenceNumber: WideString dispid 38038;
     // BatchPartSize :  
-   property BatchPartSize:Integer dispid 38039;
+   property BatchPartSize: Integer dispid 38039;
     // InvoiceExportEncryptionKey :  
-   property InvoiceExportEncryptionKey:OleVariant dispid 38040;
+   property InvoiceExportEncryptionKey: OleVariant dispid 38040;
     // InvoiceExportVector :  
-   property InvoiceExportVector:OleVariant dispid 38041;
+   property InvoiceExportVector: OleVariant dispid 38041;
     // InvoiceExportReferenceNumber :  
-   property InvoiceExportReferenceNumber:WideString dispid 38042;
+   property InvoiceExportReferenceNumber: WideString dispid 38042;
     // AutoRefreshToken :  
-   property AutoRefreshToken:WordBool dispid 38043;
+   property AutoRefreshToken: WordBool dispid 38043;
     // ResponseHeaders :  
-   property ResponseHeaders:WideString dispid 38145;
+   property ResponseHeaders: WideString dispid 38145;
     // Ip4Address :  
-   property Ip4Address:WideString dispid 38146;
+   property Ip4Address: WideString dispid 38146;
     // Ip4Mask :  
-   property Ip4Mask:WideString dispid 38147;
+   property Ip4Mask: WideString dispid 38147;
     // Ip4Range :  
-   property Ip4Range:WideString dispid 38148;
+   property Ip4Range: WideString dispid 38148;
     // CompressionType :  
-   property CompressionType:lgcKSeFCompressionType dispid 38149;
+   property CompressionType: lgcKSeFCompressionType dispid 38149;
     // UseProblemDetails :  
-   property UseProblemDetails:WordBool dispid 38156;
+   property UseProblemDetails: WordBool dispid 38156;
   end;
 
 
@@ -4538,9 +4736,9 @@ Type
  IlgcKSeF2VerificationLinkService = interface(IlgcBaseObject)
    ['{25702B7C-71EA-4536-83E1-FF79B12C5932}']
     // BuildInvoiceVerificationUrl :  
-   function BuildInvoiceVerificationUrl(Nip:WideString;IssueDate:TDateTime;InvoiceHash:WideString;GateType:lgcKSeFGateType):WideString;safecall;
+   function BuildInvoiceVerificationUrl(Nip:WideString;IssueDate:TDateTime;InvoiceHash:WideString;GateType:lgcKSeFGateType): WideString;safecall;
     // BuildCertificateVerificationUrl :  
-   function BuildCertificateVerificationUrl(SellerNip:WideString;ContextIdentifierType:lgcKSeFIdentifierType;ContextIdentifierValue:WideString;InvoiceHash:WideString;SigningCertificate:IDispatch;GateType:lgcKSeFGateType;Base64EncClass:WideString):WideString;safecall;
+   function BuildCertificateVerificationUrl(SellerNip:WideString;ContextIdentifierType:lgcKSeFIdentifierType;ContextIdentifierValue:WideString;InvoiceHash:WideString;SigningCertificate:IDispatch;GateType:lgcKSeFGateType;Base64EncClass:WideString = ''): WideString;safecall;
   end;
 
 
@@ -4551,9 +4749,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4563,15 +4761,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // BuildInvoiceVerificationUrl :  
-   function BuildInvoiceVerificationUrl(Nip:WideString;IssueDate:TDateTime;InvoiceHash:WideString;GateType:lgcKSeFGateType):WideString;dispid 42001;
+   function BuildInvoiceVerificationUrl(Nip:WideString;IssueDate:TDateTime;InvoiceHash:WideString;GateType:lgcKSeFGateType): WideString;dispid 42001;
     // BuildCertificateVerificationUrl :  
-   function BuildCertificateVerificationUrl(SellerNip:WideString;ContextIdentifierType:lgcKSeFIdentifierType;ContextIdentifierValue:WideString;InvoiceHash:WideString;SigningCertificate:IDispatch;GateType:lgcKSeFGateType;Base64EncClass:WideString):WideString;dispid 42002;
+   function BuildCertificateVerificationUrl(SellerNip:WideString;ContextIdentifierType:lgcKSeFIdentifierType;ContextIdentifierValue:WideString;InvoiceHash:WideString;SigningCertificate:IDispatch;GateType:lgcKSeFGateType;Base64EncClass:WideString): WideString;dispid 42002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -4584,15 +4782,15 @@ Type
     // HashData :  
    procedure HashData(Data:OleVariant);safecall;
     // Finish :  
-   function Finish(Base64EncoderClass:WideString):WideString;safecall;
+   function Finish(Base64EncoderClass:WideString): WideString;safecall;
     // HashString :  
-   function HashString(Data:WideString;Base64EncoderClass:WideString):WideString;safecall;
+   function HashString(Data:WideString;Base64EncoderClass:WideString): WideString;safecall;
     // HashBytes :  
-   function HashBytes(Data:OleVariant;Base64EncoderClass:WideString):WideString;safecall;
+   function HashBytes(Data:OleVariant;Base64EncoderClass:WideString): WideString;safecall;
     // HashStream :  
-   function HashStream(DataStream:IDispatch;Base64EncoderClass:WideString):WideString;safecall;
+   function HashStream(DataStream:IDispatch;Base64EncoderClass:WideString): WideString;safecall;
     // HashFile :  
-   function HashFile(FileName:WideString;Base64EncoderClass:WideString):WideString;safecall;
+   function HashFile(FileName:WideString;Base64EncoderClass:WideString): WideString;safecall;
   end;
 
 
@@ -4603,9 +4801,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4615,7 +4813,7 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // Start :  
@@ -4623,17 +4821,17 @@ Type
     // HashData :  
    procedure HashData(Data:OleVariant);dispid 42002;
     // Finish :  
-   function Finish(Base64EncoderClass:WideString):WideString;dispid 42003;
+   function Finish(Base64EncoderClass:WideString): WideString;dispid 42003;
     // HashString :  
-   function HashString(Data:WideString;Base64EncoderClass:WideString):WideString;dispid 42004;
+   function HashString(Data:WideString;Base64EncoderClass:WideString): WideString;dispid 42004;
     // HashBytes :  
-   function HashBytes(Data:OleVariant;Base64EncoderClass:WideString):WideString;dispid 42005;
+   function HashBytes(Data:OleVariant;Base64EncoderClass:WideString): WideString;dispid 42005;
     // HashStream :  
-   function HashStream(DataStream:IDispatch;Base64EncoderClass:WideString):WideString;dispid 42006;
+   function HashStream(DataStream:IDispatch;Base64EncoderClass:WideString): WideString;dispid 42006;
     // HashFile :  
-   function HashFile(FileName:WideString;Base64EncoderClass:WideString):WideString;dispid 42007;
+   function HashFile(FileName:WideString;Base64EncoderClass:WideString): WideString;dispid 42007;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -4642,9 +4840,9 @@ Type
  IlgcKSeF2Utils = interface(IlgcBaseObject)
    ['{76D4D70C-6FA0-44E7-9762-D54C180CD298}']
     // IsKsefNumberValid :  
-   function IsKsefNumberValid(AKsefNumber:WideString):WordBool;safecall;
+   function IsKsefNumberValid(AKsefNumber:WideString): WordBool;safecall;
     // LoadInvoiceMetadataFromStream :  
-   function LoadInvoiceMetadataFromStream(AStream:OleVariant):IDispatch;safecall;
+   function LoadInvoiceMetadataFromStream(AStream:OleVariant): IDispatch;safecall;
   end;
 
 
@@ -4655,9 +4853,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4667,15 +4865,15 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // IsKsefNumberValid :  
-   function IsKsefNumberValid(AKsefNumber:WideString):WordBool;dispid 43001;
+   function IsKsefNumberValid(AKsefNumber:WideString): WordBool;dispid 43001;
     // LoadInvoiceMetadataFromStream :  
-   function LoadInvoiceMetadataFromStream(AStream:OleVariant):IDispatch;dispid 43002;
+   function LoadInvoiceMetadataFromStream(AStream:OleVariant): IDispatch;dispid 43002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
   end;
 
 
@@ -4683,7 +4881,7 @@ Type
 
  IlgcMemoryStream = interface(IlgcBaseObject)
    ['{BCF17136-365B-4AF4-9720-44EB9E4CABB0}']
-   function Get_Data : OleVariant; safecall;
+   function Get_Data : OleVariant; Safecall;
    procedure Set_Data(Value:OleVariant); safecall;
     // Clear : Czyszczenie bufora 
    procedure Clear;safecall;
@@ -4692,7 +4890,7 @@ Type
     // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
    procedure SaveToFile(AFileName:WideString);safecall;
     // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
-   property Data:OleVariant read Get_Data write Set_Data;
+   property Data: OleVariant read Get_Data write Set_Data;
   end;
 
 
@@ -4703,9 +4901,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4715,7 +4913,7 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // Clear : Czyszczenie bufora 
@@ -4725,9 +4923,9 @@ Type
     // SaveToFile : Zapisanie zawartosci bufora do wskazanego pliku 
    procedure SaveToFile(AFileName:WideString);dispid 11004;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Data : Pobranie zawartosci bufora danych - zwraca tablice VARIANT z elementami typu unsigned char (VT_UI1) 
-   property Data:OleVariant dispid 11001;
+   property Data: OleVariant dispid 11001;
   end;
 
 
@@ -4735,9 +4933,9 @@ Type
 
  IlgcPublicKey = interface(IlgcBaseObject)
    ['{AAF24510-C54A-4408-BE72-F3216D08F325}']
-   function Get_Certificate : IDispatch; safecall;
+   function Get_Certificate : IDispatch; Safecall;
     // Certificate :  
-   property Certificate:IDispatch read Get_Certificate;
+   property Certificate: IDispatch read Get_Certificate;
   end;
 
 
@@ -4748,9 +4946,9 @@ Type
     // QueryInterface :  
    procedure QueryInterface(var riid:{!! GUID !!} OleVariant;out ppvObj:{!! Ppointer !!} OleVariant);dispid 1610612736;
     // AddRef :  
-   function AddRef:LongWord;dispid 1610612737;
+   function AddRef: LongWord;dispid 1610612737;
     // Release :  
-   function Release:LongWord;dispid 1610612738;
+   function Release: LongWord;dispid 1610612738;
     // GetTypeInfoCount :  
    procedure GetTypeInfoCount(out pctinfo:UInt);dispid 1610678272;
     // GetTypeInfo :  
@@ -4760,13 +4958,13 @@ Type
     // Invoke :  
    procedure Invoke(dispidMember:Integer;var riid:{!! GUID !!} OleVariant;lcid:LongWord;wFlags:Word;var pdispparams:{!! DISPPARAMS !!} OleVariant;out pvarResult:OleVariant;out pexcepinfo:{!! EXCEPINFO !!} OleVariant;out puArgErr:UInt);dispid 1610678275;
     // GetObjClassName : Pobranie nazwy pierwotnej klasy 
-   function GetObjClassName:WideString;dispid 1001;
+   function GetObjClassName: WideString;dispid 1001;
     // ClearLastError : Usuwanie informacji o ostatnim bledzie 
    procedure ClearLastError;dispid 1002;
     // LastError : Informacja o ostatnim bledzie (typ IlgcErrorInfo) 
-   property LastError:IDispatch  readonly dispid 1003;
+   property LastError: IDispatch  readonly dispid 1003;
     // Certificate :  
-   property Certificate:IDispatch  readonly dispid 44001;
+   property Certificate: IDispatch  readonly dispid 44001;
   end;
 
 //CoClasses
@@ -5055,7 +5253,7 @@ begin
   Result := CreateComObject(CLASS_lgcErrorInfo) as IlgcErrorInfo;
 end;
 
-Class Function ColgcErrorInfo.CreateRemote(MachineName: string): IlgcErrorInfo;
+Class Function ColgcErrorInfo.CreateRemote(MachineName: String): IlgcErrorInfo;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcErrorInfo) as IlgcErrorInfo;
 end;
@@ -5065,7 +5263,7 @@ begin
   Result := CreateComObject(CLASS_lgcBaseObject) as IlgcBaseObject;
 end;
 
-Class Function ColgcBaseObject.CreateRemote(MachineName: string): IlgcBaseObject;
+Class Function ColgcBaseObject.CreateRemote(MachineName: String): IlgcBaseObject;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcBaseObject) as IlgcBaseObject;
 end;
@@ -5075,7 +5273,7 @@ begin
   Result := CreateComObject(CLASS_lgcBackend) as IlgcBackend;
 end;
 
-Class Function ColgcBackend.CreateRemote(MachineName: string): IlgcBackend;
+Class Function ColgcBackend.CreateRemote(MachineName: String): IlgcBackend;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcBackend) as IlgcBackend;
 end;
@@ -5085,7 +5283,7 @@ begin
   Result := CreateComObject(CLASS_lgcObject) as IlgcObject;
 end;
 
-Class Function ColgcObject.CreateRemote(MachineName: string): IlgcObject;
+Class Function ColgcObject.CreateRemote(MachineName: String): IlgcObject;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcObject) as IlgcObject;
 end;
@@ -5095,7 +5293,7 @@ begin
   Result := CreateComObject(CLASS_lgcObject2) as IlgcObject2;
 end;
 
-Class Function ColgcObject2.CreateRemote(MachineName: string): IlgcObject2;
+Class Function ColgcObject2.CreateRemote(MachineName: String): IlgcObject2;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcObject2) as IlgcObject2;
 end;
@@ -5105,7 +5303,7 @@ begin
   Result := CreateComObject(CLASS_lgcList) as IlgcList;
 end;
 
-Class Function ColgcList.CreateRemote(MachineName: string): IlgcList;
+Class Function ColgcList.CreateRemote(MachineName: String): IlgcList;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcList) as IlgcList;
 end;
@@ -5115,7 +5313,7 @@ begin
   Result := CreateComObject(CLASS_lgcWSTBackend) as IlgcWSTBackend;
 end;
 
-Class Function ColgcWSTBackend.CreateRemote(MachineName: string): IlgcWSTBackend;
+Class Function ColgcWSTBackend.CreateRemote(MachineName: String): IlgcWSTBackend;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcWSTBackend) as IlgcWSTBackend;
 end;
@@ -5125,7 +5323,7 @@ begin
   Result := CreateComObject(CLASS_lgcLibXMLBackend) as IlgcLibXMLBackend;
 end;
 
-Class Function ColgcLibXMLBackend.CreateRemote(MachineName: string): IlgcLibXMLBackend;
+Class Function ColgcLibXMLBackend.CreateRemote(MachineName: String): IlgcLibXMLBackend;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcLibXMLBackend) as IlgcLibXMLBackend;
 end;
@@ -5135,7 +5333,7 @@ begin
   Result := CreateComObject(CLASS_lgcOpenSSLBackend) as IlgcOpenSSLBackend;
 end;
 
-Class Function ColgcOpenSSLBackend.CreateRemote(MachineName: string): IlgcOpenSSLBackend;
+Class Function ColgcOpenSSLBackend.CreateRemote(MachineName: String): IlgcOpenSSLBackend;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcOpenSSLBackend) as IlgcOpenSSLBackend;
 end;
@@ -5145,7 +5343,7 @@ begin
   Result := CreateComObject(CLASS_lgcStringStream) as IlgcStringStream;
 end;
 
-Class Function ColgcStringStream.CreateRemote(MachineName: string): IlgcStringStream;
+Class Function ColgcStringStream.CreateRemote(MachineName: String): IlgcStringStream;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcStringStream) as IlgcStringStream;
 end;
@@ -5155,7 +5353,7 @@ begin
   Result := CreateComObject(CLASS_lgcFileStream) as IlgcFileStream;
 end;
 
-Class Function ColgcFileStream.CreateRemote(MachineName: string): IlgcFileStream;
+Class Function ColgcFileStream.CreateRemote(MachineName: String): IlgcFileStream;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcFileStream) as IlgcFileStream;
 end;
@@ -5165,7 +5363,7 @@ begin
   Result := CreateComObject(CLASS_lgcMemoryStream) as IlgcMemoryStream;
 end;
 
-Class Function ColgcMemoryStream.CreateRemote(MachineName: string): IlgcMemoryStream;
+Class Function ColgcMemoryStream.CreateRemote(MachineName: String): IlgcMemoryStream;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcMemoryStream) as IlgcMemoryStream;
 end;
@@ -5175,7 +5373,7 @@ begin
   Result := CreateComObject(CLASS_lgcHTTPClient) as IlgcHTTPClient;
 end;
 
-Class Function ColgcHTTPClient.CreateRemote(MachineName: string): IlgcHTTPClient;
+Class Function ColgcHTTPClient.CreateRemote(MachineName: String): IlgcHTTPClient;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcHTTPClient) as IlgcHTTPClient;
 end;
@@ -5185,7 +5383,7 @@ begin
   Result := CreateComObject(CLASS_lgcCertificate) as IlgcCertificate;
 end;
 
-Class Function ColgcCertificate.CreateRemote(MachineName: string): IlgcCertificate;
+Class Function ColgcCertificate.CreateRemote(MachineName: String): IlgcCertificate;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcCertificate) as IlgcCertificate;
 end;
@@ -5195,7 +5393,7 @@ begin
   Result := CreateComObject(CLASS_lgcCertificateSigner) as IlgcCertificateSigner;
 end;
 
-Class Function ColgcCertificateSigner.CreateRemote(MachineName: string): IlgcCertificateSigner;
+Class Function ColgcCertificateSigner.CreateRemote(MachineName: String): IlgcCertificateSigner;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcCertificateSigner) as IlgcCertificateSigner;
 end;
@@ -5205,7 +5403,7 @@ begin
   Result := CreateComObject(CLASS_lgcCNGCertificateSigner) as IlgcCNGCertificateSigner;
 end;
 
-Class Function ColgcCNGCertificateSigner.CreateRemote(MachineName: string): IlgcCNGCertificateSigner;
+Class Function ColgcCNGCertificateSigner.CreateRemote(MachineName: String): IlgcCNGCertificateSigner;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcCNGCertificateSigner) as IlgcCNGCertificateSigner;
 end;
@@ -5215,7 +5413,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11Info) as IlgcPKCS11Info;
 end;
 
-Class Function ColgcPKCS11Info.CreateRemote(MachineName: string): IlgcPKCS11Info;
+Class Function ColgcPKCS11Info.CreateRemote(MachineName: String): IlgcPKCS11Info;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11Info) as IlgcPKCS11Info;
 end;
@@ -5225,7 +5423,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11TokenInfo) as IlgcPKCS11TokenInfo;
 end;
 
-Class Function ColgcPKCS11TokenInfo.CreateRemote(MachineName: string): IlgcPKCS11TokenInfo;
+Class Function ColgcPKCS11TokenInfo.CreateRemote(MachineName: String): IlgcPKCS11TokenInfo;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11TokenInfo) as IlgcPKCS11TokenInfo;
 end;
@@ -5235,7 +5433,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11SlotInfo) as IlgcPKCS11SlotInfo;
 end;
 
-Class Function ColgcPKCS11SlotInfo.CreateRemote(MachineName: string): IlgcPKCS11SlotInfo;
+Class Function ColgcPKCS11SlotInfo.CreateRemote(MachineName: String): IlgcPKCS11SlotInfo;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11SlotInfo) as IlgcPKCS11SlotInfo;
 end;
@@ -5245,7 +5443,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11Session) as IlgcPKCS11Session;
 end;
 
-Class Function ColgcPKCS11Session.CreateRemote(MachineName: string): IlgcPKCS11Session;
+Class Function ColgcPKCS11Session.CreateRemote(MachineName: String): IlgcPKCS11Session;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11Session) as IlgcPKCS11Session;
 end;
@@ -5255,7 +5453,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11Certificate) as IlgcPKCS11Certificate;
 end;
 
-Class Function ColgcPKCS11Certificate.CreateRemote(MachineName: string): IlgcPKCS11Certificate;
+Class Function ColgcPKCS11Certificate.CreateRemote(MachineName: String): IlgcPKCS11Certificate;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11Certificate) as IlgcPKCS11Certificate;
 end;
@@ -5265,7 +5463,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11CertificateSigner) as IlgcPKCS11CertificateSigner;
 end;
 
-Class Function ColgcPKCS11CertificateSigner.CreateRemote(MachineName: string): IlgcPKCS11CertificateSigner;
+Class Function ColgcPKCS11CertificateSigner.CreateRemote(MachineName: String): IlgcPKCS11CertificateSigner;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11CertificateSigner) as IlgcPKCS11CertificateSigner;
 end;
@@ -5275,7 +5473,7 @@ begin
   Result := CreateComObject(CLASS_lgcPKCS11Backend) as IlgcPKCS11Backend;
 end;
 
-Class Function ColgcPKCS11Backend.CreateRemote(MachineName: string): IlgcPKCS11Backend;
+Class Function ColgcPKCS11Backend.CreateRemote(MachineName: String): IlgcPKCS11Backend;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPKCS11Backend) as IlgcPKCS11Backend;
 end;
@@ -5285,7 +5483,7 @@ begin
   Result := CreateComObject(CLASS_lgcXAdES) as IlgcXAdES;
 end;
 
-Class Function ColgcXAdES.CreateRemote(MachineName: string): IlgcXAdES;
+Class Function ColgcXAdES.CreateRemote(MachineName: String): IlgcXAdES;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXAdES) as IlgcXAdES;
 end;
@@ -5295,7 +5493,7 @@ begin
   Result := CreateComObject(CLASS_lgcEDeklaracjaStatus) as IlgcEDeklaracjaStatus;
 end;
 
-Class Function ColgcEDeklaracjaStatus.CreateRemote(MachineName: string): IlgcEDeklaracjaStatus;
+Class Function ColgcEDeklaracjaStatus.CreateRemote(MachineName: String): IlgcEDeklaracjaStatus;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcEDeklaracjaStatus) as IlgcEDeklaracjaStatus;
 end;
@@ -5305,7 +5503,7 @@ begin
   Result := CreateComObject(CLASS_lgcEDeklaracja) as IlgcEDeklaracja;
 end;
 
-Class Function ColgcEDeklaracja.CreateRemote(MachineName: string): IlgcEDeklaracja;
+Class Function ColgcEDeklaracja.CreateRemote(MachineName: String): IlgcEDeklaracja;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcEDeklaracja) as IlgcEDeklaracja;
 end;
@@ -5315,7 +5513,7 @@ begin
   Result := CreateComObject(CLASS_lgcJPK) as IlgcJPK;
 end;
 
-Class Function ColgcJPK.CreateRemote(MachineName: string): IlgcJPK;
+Class Function ColgcJPK.CreateRemote(MachineName: String): IlgcJPK;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcJPK) as IlgcJPK;
 end;
@@ -5325,7 +5523,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeFRequest) as IlgcKSeFRequest;
 end;
 
-Class Function ColgcKSeFRequest.CreateRemote(MachineName: string): IlgcKSeFRequest;
+Class Function ColgcKSeFRequest.CreateRemote(MachineName: String): IlgcKSeFRequest;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeFRequest) as IlgcKSeFRequest;
 end;
@@ -5335,7 +5533,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeFResponse) as IlgcKSeFResponse;
 end;
 
-Class Function ColgcKSeFResponse.CreateRemote(MachineName: string): IlgcKSeFResponse;
+Class Function ColgcKSeFResponse.CreateRemote(MachineName: String): IlgcKSeFResponse;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeFResponse) as IlgcKSeFResponse;
 end;
@@ -5345,7 +5543,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeFBase) as IlgcKSeFBase;
 end;
 
-Class Function ColgcKSeFBase.CreateRemote(MachineName: string): IlgcKSeFBase;
+Class Function ColgcKSeFBase.CreateRemote(MachineName: String): IlgcKSeFBase;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeFBase) as IlgcKSeFBase;
 end;
@@ -5355,7 +5553,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF_2_6_0) as IlgcKSeF_2_6_0;
 end;
 
-Class Function ColgcKSeF_2_6_0.CreateRemote(MachineName: string): IlgcKSeF_2_6_0;
+Class Function ColgcKSeF_2_6_0.CreateRemote(MachineName: String): IlgcKSeF_2_6_0;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF_2_6_0) as IlgcKSeF_2_6_0;
 end;
@@ -5365,7 +5563,7 @@ begin
   Result := CreateComObject(CLASS_lgcXMLReader) as IlgcXMLReader;
 end;
 
-Class Function ColgcXMLReader.CreateRemote(MachineName: string): IlgcXMLReader;
+Class Function ColgcXMLReader.CreateRemote(MachineName: String): IlgcXMLReader;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLReader) as IlgcXMLReader;
 end;
@@ -5375,7 +5573,7 @@ begin
   Result := CreateComObject(CLASS_lgcXMLValidationError) as IlgcXMLValidationError;
 end;
 
-Class Function ColgcXMLValidationError.CreateRemote(MachineName: string): IlgcXMLValidationError;
+Class Function ColgcXMLValidationError.CreateRemote(MachineName: String): IlgcXMLValidationError;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLValidationError) as IlgcXMLValidationError;
 end;
@@ -5385,7 +5583,7 @@ begin
   Result := CreateComObject(CLASS_lgcXMLValidator) as IlgcXMLValidator;
 end;
 
-Class Function ColgcXMLValidator.CreateRemote(MachineName: string): IlgcXMLValidator;
+Class Function ColgcXMLValidator.CreateRemote(MachineName: String): IlgcXMLValidator;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLValidator) as IlgcXMLValidator;
 end;
@@ -5395,7 +5593,7 @@ begin
   Result := CreateComObject(CLASS_lgcXMLXSLTransformation) as IlgcXMLXSLTransformation;
 end;
 
-Class Function ColgcXMLXSLTransformation.CreateRemote(MachineName: string): IlgcXMLXSLTransformation;
+Class Function ColgcXMLXSLTransformation.CreateRemote(MachineName: String): IlgcXMLXSLTransformation;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcXMLXSLTransformation) as IlgcXMLXSLTransformation;
 end;
@@ -5405,7 +5603,7 @@ begin
   Result := CreateComObject(CLASS_lgcViesCheckVatResponse) as IlgcViesCheckVatResponse;
 end;
 
-Class Function ColgcViesCheckVatResponse.CreateRemote(MachineName: string): IlgcViesCheckVatResponse;
+Class Function ColgcViesCheckVatResponse.CreateRemote(MachineName: String): IlgcViesCheckVatResponse;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcViesCheckVatResponse) as IlgcViesCheckVatResponse;
 end;
@@ -5415,7 +5613,7 @@ begin
   Result := CreateComObject(CLASS_lgcViesCountryStatus) as IlgcViesCountryStatus;
 end;
 
-Class Function ColgcViesCountryStatus.CreateRemote(MachineName: string): IlgcViesCountryStatus;
+Class Function ColgcViesCountryStatus.CreateRemote(MachineName: String): IlgcViesCountryStatus;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcViesCountryStatus) as IlgcViesCountryStatus;
 end;
@@ -5425,7 +5623,7 @@ begin
   Result := CreateComObject(CLASS_lgcViesStatusInformationResponse) as IlgcViesStatusInformationResponse;
 end;
 
-Class Function ColgcViesStatusInformationResponse.CreateRemote(MachineName: string): IlgcViesStatusInformationResponse;
+Class Function ColgcViesStatusInformationResponse.CreateRemote(MachineName: String): IlgcViesStatusInformationResponse;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcViesStatusInformationResponse) as IlgcViesStatusInformationResponse;
 end;
@@ -5435,7 +5633,7 @@ begin
   Result := CreateComObject(CLASS_lgcViesService) as IlgcViesService;
 end;
 
-Class Function ColgcViesService.CreateRemote(MachineName: string): IlgcViesService;
+Class Function ColgcViesService.CreateRemote(MachineName: String): IlgcViesService;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcViesService) as IlgcViesService;
 end;
@@ -5445,7 +5643,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF2Request) as IlgcKSeF2Request;
 end;
 
-Class Function ColgcKSeF2Request.CreateRemote(MachineName: string): IlgcKSeF2Request;
+Class Function ColgcKSeF2Request.CreateRemote(MachineName: String): IlgcKSeF2Request;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2Request) as IlgcKSeF2Request;
 end;
@@ -5455,7 +5653,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF2Response) as IlgcKSeF2Response;
 end;
 
-Class Function ColgcKSeF2Response.CreateRemote(MachineName: string): IlgcKSeF2Response;
+Class Function ColgcKSeF2Response.CreateRemote(MachineName: String): IlgcKSeF2Response;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2Response) as IlgcKSeF2Response;
 end;
@@ -5465,7 +5663,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF2) as IlgcKSeF2;
 end;
 
-Class Function ColgcKSeF2.CreateRemote(MachineName: string): IlgcKSeF2;
+Class Function ColgcKSeF2.CreateRemote(MachineName: String): IlgcKSeF2;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2) as IlgcKSeF2;
 end;
@@ -5475,7 +5673,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF2VerificationLinkService) as IlgcKSeF2VerificationLinkService;
 end;
 
-Class Function ColgcKSeF2VerificationLinkService.CreateRemote(MachineName: string): IlgcKSeF2VerificationLinkService;
+Class Function ColgcKSeF2VerificationLinkService.CreateRemote(MachineName: String): IlgcKSeF2VerificationLinkService;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2VerificationLinkService) as IlgcKSeF2VerificationLinkService;
 end;
@@ -5485,7 +5683,7 @@ begin
   Result := CreateComObject(CLASS_lgcHash) as IlgcHash;
 end;
 
-Class Function ColgcHash.CreateRemote(MachineName: string): IlgcHash;
+Class Function ColgcHash.CreateRemote(MachineName: String): IlgcHash;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcHash) as IlgcHash;
 end;
@@ -5495,7 +5693,7 @@ begin
   Result := CreateComObject(CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
 end;
 
-Class Function ColgcKSeF2Utils.CreateRemote(MachineName: string): IlgcKSeF2Utils;
+Class Function ColgcKSeF2Utils.CreateRemote(MachineName: String): IlgcKSeF2Utils;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcKSeF2Utils) as IlgcKSeF2Utils;
 end;
@@ -5505,7 +5703,7 @@ begin
   Result := CreateComObject(CLASS_lgcPublicKey) as IlgcPublicKey;
 end;
 
-Class Function ColgcPublicKey.CreateRemote(MachineName: string): IlgcPublicKey;
+Class Function ColgcPublicKey.CreateRemote(MachineName: String): IlgcPublicKey;
 begin
   Result := CreateRemoteComObject(MachineName,CLASS_lgcPublicKey) as IlgcPublicKey;
 end;

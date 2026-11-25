@@ -1733,6 +1733,13 @@ library LibGovPL
     [propget, id(24007),
     helpstring("Szczegolowy opis")]
     HRESULT _stdcall Szczegoly([out, retval] BSTR*);
+
+    ///
+    /// Zapisz UPO do pliku lub obiektu IStream.
+    ///
+    [id(24008),
+    helpstring("Nr referencyjny deklaracji")]
+    HRESULT _stdcall ZapiszUPO([in] VARIANT CelZapisu);
   };
 
   ///
@@ -1762,6 +1769,19 @@ library LibGovPL
 
     ///
     /// Podpis eDeklaracji wskazanym certyfikatem.
+    /// @param Dane nazwa pliku lub obiekt IStream zawierający dane XML deklaracji. 
+    ///             Jeśli właściwość "Canonization" ma wartość true to dane wejściowe 
+    ///             zostanąskonwertowane do postaci kanonicznej przy pomocy wskazanego 
+    ///             sterownika (właściwość "XMLCanonizator").
+    /// @param Certyfikat obiekt certyfikatu którym będzie podpisywana deklaracja.
+    /// @param DanePodpisane nazwa pliku docelowego lub obiekt IStream w którym zostanie zapisana podpisana deklaracja.
+    ///
+    [id(25009),
+    helpstring("Podpisz deklaracje certyfikatem")]
+    HRESULT _stdcall PodpiszCertyfikatem2([in] VARIANT Dane, [in] IDispatch* Certyfikat, [in] VARIANT DanePodpisane);
+
+    ///
+    /// Podpis eDeklaracji danymi autoryzującymi.
     /// @param Dane łańcuch znaków zawierający dane XML deklaracji. 
     /// @param ImiePierwsze imię pierwsze.
     /// @param Nazwisko nazwisko.
@@ -1774,6 +1794,20 @@ library LibGovPL
     HRESULT _stdcall PodpiszDanymiAut([in] BSTR Dane, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] BSTR Nip, [in] DATE DataUr, [in] CURRENCY Kwota, [out, retval] BSTR* DanePodpisane);
 
     ///
+    /// Podpis eDeklaracji danymi autoryzującymi.
+    /// @param Dane nazwa pliku lub obiekt IStream zawierający dane XML deklaracji.
+    /// @param ImiePierwsze imię pierwsze.
+    /// @param Nazwisko nazwisko.
+    /// @param Nip nr NIP.
+    /// @param DataUr data urodzenia.
+    /// @param Kwota kwota przychodu.
+    /// @param DanePodpisane nazwa pliku docelowego lub obiekt IStream w którym zostanie zapisana podpisana deklaracja.
+    ///
+    [id(25010),
+    helpstring("Podpisz deklaracje danymi autoryzujacymi")]
+    HRESULT _stdcall PodpiszDanymiAut2([in] VARIANT Dane, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] BSTR Nip, [in] DATE DataUr, [in] CURRENCY Kwota, [in] VARIANT DanePodpisane);
+
+    ///
     /// Wyślij podpisaną deklarację na wskazaną bramkę.
     /// @param DanePodpisane podpisane dane XML deklaracji przeznaczonej do wysłania.
     /// @param RodzajBramki rodzaj bramki (produkcyjna/testowa).
@@ -1783,6 +1817,17 @@ library LibGovPL
     [id(25003),
     helpstring("Wyslij podpisana deklaracje na podana bramke")]
     HRESULT _stdcall Wyslij([in] BSTR DanePodpisane, [in] enum lgcEDekGateType RodzajBramki, [in] enum lgcEDekSignType RodzajPodpisu, [out, retval] IDispatch** Status);
+
+    ///
+    /// Wyślij podpisaną deklarację na wskazaną bramkę.
+    /// @param DanePodpisane nazwa pliku lub obiekt IStream z podpisanymi danymi XML deklaracji przeznaczonej do wysłania.
+    /// @param RodzajBramki rodzaj bramki (produkcyjna/testowa).
+    /// @param RodzajPodpisu rodzaj podpisu wysyłanej deklaracji (certyfikat/dane autoryzujące - lgcEDekSignType).
+    /// @return zwraca obiekt IlgcEDeklaracjaStatus z informacją o numerze nadanym referencyjnym i statusie wysłanej deklaracji.
+    ///
+    [id(25011),
+    helpstring("Wyslij podpisana deklaracje na podana bramke")]
+    HRESULT _stdcall Wyslij2([in] VARIANT DanePodpisane, [in] enum lgcEDekGateType RodzajBramki, [in] enum lgcEDekSignType RodzajPodpisu, [out, retval] IDispatch** Status);
 
     ///
     /// Sprawdź status / pobierz UPO.
@@ -1869,6 +1914,24 @@ library LibGovPL
     HRESULT _stdcall SignCertificate([in] IDispatch* Certificate, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
 
     ///
+    /// Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym.
+    /// @param Certificate obiekt certyfikatu, którym zostanie podpisana struktura InitUpload.
+    /// @param GateType rodzaj bramki, dla której zostaną przygotowane dane (produkcyjna/testowa - lgcEDekGateType).
+    /// @param AdHoc czy deklaracja jest wysyłana "na żądanie".
+    /// @param InputStream dane wejściowe. Parametr może przyjąć:
+    ///                    - łańcuch znaków zawierający zawartość XML pliku JPK (jeśli podany łańcuch rozpoczyna się od znaku "<").
+    ///                    - łańcuch znaków zawierający nazwę pliku zawierającego dane XML deklaracji JPK.
+    ///                    - obiekt implementujący IStream dostarczający dane XML deklaracji (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    /// @param OutputStream zaszyfrowany plik ZIP z danymi XML. Parametr może przyjąć:
+    ///                     - łańcuch znaków zawierający nawę pliku, do którego zostaną zapisane dane.
+    ///                     - obiekt implementujący IStream za pomocą którego zostaną zapisane dane (np IlgcFileStream, IlgcMemoryStream).
+    /// @param InitUpload łańcuch znaków z nazwą pliku lub obiekt IStream do kturego zapisane zostanie podpisana struktura InitUpload.
+    ///
+    [id(26017),
+    helpstring("Przygotowanie i podpis dokumentu JPK podanym certyfikatem kwalifikowanym z kluczem prywatnym")]
+    HRESULT _stdcall SignCertificate2([in] IDispatch* Certificate, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [in] VARIANT InitUpload);
+
+    ///
     /// Przygotowanie i podpis dokumentu JPK danymi autoryzującymi (kwota przychodu).
     /// @param Nip nr NIP.
     /// @param ImiePierwsze imię pierwsze.
@@ -1891,6 +1954,28 @@ library LibGovPL
     HRESULT _stdcall SignAuthData([in] BSTR Nip, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] DATE DataUr, [in] CURRENCY Kwota, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [out, retval] BSTR* InitUpload);
 
     ///
+    /// Przygotowanie i podpis dokumentu JPK danymi autoryzującymi (kwota przychodu).
+    /// @param Nip nr NIP.
+    /// @param ImiePierwsze imię pierwsze.
+    /// @param Nazwisko nazwisko.
+    /// @param DataUr data urodzenia.
+    /// @param Kwota kwota przychodu.
+    /// @param GateType rodzaj bramki, dla której zostaną przygotowane dane (produkcyjna/testowa - lgcEDekGateType).
+    /// @param AdHoc czy deklaracja jest wysyłana "na żądanie".
+    /// @param InputStream dane wejściowe. Parametr może przyjąć:
+    ///                    - łańcuch znaków zawierający zawartość XML pliku JPK (jeśli podany łańcuch rozpoczyna się od znaku "<").
+    ///                    - łańcuch znaków zawierający nazwę pliku zawierającego dane XML deklaracji JPK.
+    ///                    - obiekt implementujący IStream dostarczający dane XML deklaracji (np IlgcFileStream, IlgcMemoryStream, IlgcStringStream).
+    /// @param OutputStream zaszyfrowany plik ZIP z danymi XML. Parametr może przyjąć:
+    ///                     - łańcuch znaków zawierający nazwę pliku, do którego zostaną zapisane dane.
+    ///                     - obiekt implementujący IStream za pomocą którego zostaną zapisane dane (np IlgcFileStream, IlgcMemoryStream).
+    /// @param InitUpload łańcuch znaków z nazwą pliku lub obiekt IStream do kturego zapisane zostanie podpisana struktura InitUpload.
+    ///
+    [id(26018),
+    helpstring("Przygotowanie i podpis dokumentu JPK danymi autoryzującymi")]
+    HRESULT _stdcall SignAuthData2([in] BSTR Nip, [in] BSTR ImiePierwsze, [in] BSTR Nazwisko, [in] DATE DataUr, [in] CURRENCY Kwota, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL AdHoc, [in] VARIANT InputStream, [in] VARIANT OutputStream, [in] VARIANT InitUpload);
+
+    ///
     /// Wysłanie wcześniej przygotowanej deklaracji JPK i struktury InitUpload.
     /// @param InitUpload podpisana struktura InitUpload
     /// @param EncryptedData strumień zawierający skompresowane i zaszyfrowane dane deklaracji JPK.
@@ -1901,6 +1986,18 @@ library LibGovPL
     [id(26003),
     helpstring("Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload")]
     HRESULT _stdcall Send([in] BSTR InitUpload, [in] VARIANT EncryptedData, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL VerifySign, [out, retval] BSTR* RefNo);
+
+    ///
+    /// Wysłanie wcześniej przygotowanej deklaracji JPK i struktury InitUpload.
+    /// @param InitUpload nazwa pliku lub obiekt IStream z podpisaną strukturą InitUpload
+    /// @param EncryptedData strumień zawierający skompresowane i zaszyfrowane dane deklaracji JPK.
+    /// @param GateType rodzaj bramki (produkcyjna/testowa - lgcEDekGateType).
+    /// @param VerifySign czy ma być weryfikowana poprawność certyfikatu, którym podpisywano strukturę InitUpload. Uwaga: parametr dozwolony tylko przy bramce testowej.
+    /// @return zwracany jest łańcuch znaków zawierający nadany numer referencyjny wysłanego dokumentu.
+    ///
+    [id(26019),
+    helpstring("Wyslanie wczesniej przygotowanej deklaracji JPK i struktury InitUpload")]
+    HRESULT _stdcall Send2([in] VARIANT InitUpload, [in] VARIANT EncryptedData, [in] enum lgcEDekGateType GateType, [in] VARIANT_BOOL VerifySign, [out, retval] BSTR* RefNo);
 
     ///
     /// Sprawdzenie statusu przetwarzania wysłanego dokumentu JPK i ewentualnie pobranie UPO.
@@ -3428,6 +3525,12 @@ library LibGovPL
     ///
     ///
     ///
+    [id(38158)]
+    HRESULT _stdcall AuthStatusRev2([in, defaultvalue("")] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
     [id(38054)]
     HRESULT _stdcall AuthTokenRedem([in, defaultvalue("")] BSTR AuthenticationToken, [out, retval] IDispatch** Response);
 
@@ -3442,6 +3545,12 @@ library LibGovPL
     ///
     [id(38056)]
     HRESULT _stdcall AuthSessions([in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38159)]
+    HRESULT _stdcall AuthSessionsRev2([in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3706,8 +3815,20 @@ library LibGovPL
     ///
     ///
     ///
+    [id(38160)]
+    HRESULT _stdcall TokensGenerateRev2([in] VARIANT Permissions, [in] BSTR Description, [in, defaultvalue(0)] DATE ValidFrom, [in, defaultvalue(0)] DATE ValidTo, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
     [id(38096)]
     HRESULT _stdcall TokensGenerate2([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
+    [id(38161)]
+    HRESULT _stdcall TokensGenerate2Rev2([in] IDispatch* Request, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
@@ -3720,14 +3841,35 @@ library LibGovPL
     ///
     ///
     ///
+    [id(38162)]
+    HRESULT _stdcall TokensListRev2([in, defaultvalue(NULL)] VARIANT Status, [in, defaultvalue("")] BSTR Description, [in, defaultvalue("")] BSTR AuthorIdentifier,
+      [in, defaultvalue(NULL)] VARIANT AuthorIdentifierType, [in, defaultvalue(0)] DATE ValidFrom, [in, defaultvalue(0)] DATE ValidTo, 
+      [in, defaultvalue(0)] long PageSize, [in, defaultvalue("")] BSTR ContinuationToken, [in, defaultvalue("")] BSTR AccessToken, 
+      [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
     [id(38098)]
     HRESULT _stdcall TokensStatus([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
 
     ///
     ///
     ///
+    [id(38163)]
+    HRESULT _stdcall TokensStatusRev2([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken, [out, retval] IDispatch** Response);
+
+    ///
+    ///
+    ///
     [id(38099)]
     HRESULT _stdcall TokensRevoke([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
+
+    ///
+    ///
+    ///
+    [id(38164)]
+    HRESULT _stdcall TokensApprove([in] BSTR ReferenceNumber, [in, defaultvalue("")] BSTR AccessToken);
 
     ///
     ///
