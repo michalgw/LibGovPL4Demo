@@ -12,7 +12,8 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms, datetimectrls, uFormMainBase
   { you can add units after this },
-  lgWinHTTP, lgCNG, lgOpenSSL, lgFPC, lgDCPCrypt, lgPKCS11, lgSynapse,
+  lgWinHTTP, lgCNG, lgOpenSSL, lgFPC, lgDCPCrypt, lgPKCS11, lgSynapse, lgCLP,
+  lgFPCTLS, lgSynapseTls,
   uFormMain, uFormKSeFObj;
 
 {$R *.res}

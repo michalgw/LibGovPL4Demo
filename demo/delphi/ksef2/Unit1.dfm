@@ -110,7 +110,7 @@ object Form1: TForm1
     Top = 0
     Width = 792
     Height = 485
-    ActivePage = TabSheetSetup
+    ActivePage = TabSheetKSeFToken
     Align = alClient
     MultiLine = True
     TabOrder = 1
@@ -482,7 +482,7 @@ object Form1: TForm1
           Height = 21
           Style = csDropDownList
           Anchors = [akLeft, akTop, akRight]
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
         end
         object EditPKCS11PIN: TEdit
@@ -807,7 +807,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 0
           end
           object ComboBoxKSeFASubjectType: TComboBox
@@ -956,7 +956,7 @@ object Form1: TForm1
             OnClick = ButtonKSeFAStatusClick
           end
           object ButtonKSeFATokenRedem: TButton
-            Left = 203
+            Left = 415
             Top = 24
             Width = 165
             Height = 25
@@ -965,13 +965,22 @@ object Form1: TForm1
             OnClick = ButtonKSeFATokenRedemClick
           end
           object ButtonKSeFATokenRefresh: TButton
-            Left = 376
+            Left = 588
             Top = 24
             Width = 164
             Height = 25
             Caption = 'Od'#347'wie'#380' token dost'#281'powy'
             TabOrder = 2
             OnClick = ButtonKSeFATokenRefreshClick
+          end
+          object Button3: TButton
+            Left = 200
+            Top = 24
+            Width = 209
+            Height = 25
+            Caption = 'Pobierz status uwierzytelniania (Rev2)'
+            TabOrder = 3
+            OnClick = Button3Click
           end
         end
         object GroupBoxKSeFA6: TGroupBox
@@ -1003,7 +1012,7 @@ object Form1: TForm1
             OnClick = ButtonKSeFASessionsClick
           end
           object ButtonKSeFASessionTermCur: TButton
-            Left = 190
+            Left = 396
             Top = 24
             Width = 159
             Height = 25
@@ -1028,6 +1037,15 @@ object Form1: TForm1
             Caption = 'Uniewa'#380'nij sesj'#281
             TabOrder = 3
             OnClick = ButtonKSeFASessionTermClick
+          end
+          object Button5: TButton
+            Left = 188
+            Top = 24
+            Width = 203
+            Height = 25
+            Caption = 'Pobierz list'#281' aktywnych sesji (Rev2)'
+            TabOrder = 4
+            OnClick = Button5Click
           end
         end
         object GroupBoxKSeFA4: TGroupBox
@@ -2965,7 +2983,7 @@ object Form1: TForm1
       end
     end
     object TabSheetKSeFToken: TTabSheet
-      Caption = 'KSeF2 - Tokent KSeF'
+      Caption = 'KSeF2 - Tokeny KSeF'
       ImageIndex = 9
       TabVisible = False
       object ScrollBox9: TScrollBox
@@ -3013,7 +3031,9 @@ object Form1: TForm1
               'CredentialsRead'
               'CredentialsManage'
               'SubunitManage'
-              'EnforcementOperations')
+              'EnforcementOperations'
+              'Introspection'
+              'CollectiveIdentifierManage')
             TabOrder = 0
           end
           object EditKSeFTKDescription: TEdit
@@ -3036,7 +3056,7 @@ object Form1: TForm1
         end
         object GroupBox32: TGroupBox
           Left = 0
-          Top = 170
+          Top = 369
           Width = 763
           Height = 213
           Align = alTop
@@ -3166,7 +3186,7 @@ object Form1: TForm1
         end
         object GroupBox33: TGroupBox
           Left = 0
-          Top = 383
+          Top = 822
           Width = 763
           Height = 92
           Align = alTop
@@ -3202,7 +3222,7 @@ object Form1: TForm1
         end
         object GroupBox34: TGroupBox
           Left = 0
-          Top = 475
+          Top = 1006
           Width = 763
           Height = 92
           Align = alTop
@@ -3234,6 +3254,345 @@ object Form1: TForm1
             Caption = 'Usu'#324
             TabOrder = 1
             OnClick = ButtonKSeFTKDeleteClick
+          end
+        end
+        object GroupBox47: TGroupBox
+          Left = 0
+          Top = 170
+          Width = 763
+          Height = 199
+          Align = alTop
+          Caption = 'Wygenerowanie nowego tokena (Rev2)'
+          TabOrder = 4
+          DesignSize = (
+            763
+            199)
+          object Label140: TLabel
+            Left = 8
+            Top = 106
+            Width = 57
+            Height = 13
+            Caption = 'Opis tokena'
+          end
+          object Label141: TLabel
+            Left = 8
+            Top = 16
+            Width = 169
+            Height = 13
+            Caption = 'Uprawnienia generowanego tokena'
+          end
+          object Label142: TLabel
+            Left = 8
+            Top = 136
+            Width = 48
+            Height = 13
+            Caption = 'Wa'#380'ny od'
+          end
+          object Label143: TLabel
+            Left = 192
+            Top = 136
+            Width = 12
+            Height = 13
+            Caption = 'do'
+          end
+          object CheckListBoxKSeFTKPermisions: TCheckListBox
+            Left = 2
+            Top = 31
+            Width = 759
+            Height = 66
+            Columns = 3
+            ItemHeight = 13
+            Items.Strings = (
+              'InvoiceRead'
+              'InvoiceWrite'
+              'CredentialsRead'
+              'CredentialsManage'
+              'SubunitManage'
+              'EnforcementOperations'
+              'Introspection'
+              'CollectiveIdentifierManage')
+            TabOrder = 0
+          end
+          object Edit1: TEdit
+            Left = 79
+            Top = 102
+            Width = 631
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 1
+          end
+          object ButtonKSeFTKGenerateR2: TButton
+            Left = 8
+            Top = 165
+            Width = 153
+            Height = 25
+            Caption = 'Wygeneruj token (Rev2)'
+            TabOrder = 2
+            OnClick = ButtonKSeFTKGenerateR2Click
+          end
+          object DateTimePickerKSeFTKValidFromR2: TDateTimePicker
+            Left = 64
+            Top = 131
+            Width = 113
+            Height = 21
+            Date = 46351.753906608800000000
+            Time = 46351.753906608800000000
+            ShowCheckbox = True
+            Checked = False
+            TabOrder = 3
+          end
+          object DateTimePickerKSeFTKValidToR2: TDateTimePicker
+            Left = 216
+            Top = 131
+            Width = 113
+            Height = 21
+            Date = 46351.753906608800000000
+            Time = 46351.753906608800000000
+            ShowCheckbox = True
+            Checked = False
+            TabOrder = 4
+          end
+        end
+        object GroupBox48: TGroupBox
+          Left = 0
+          Top = 582
+          Width = 763
+          Height = 240
+          Align = alTop
+          Caption = 'Pobranie listy wygenerowanych token'#243'w (Rev2)'
+          TabOrder = 5
+          DesignSize = (
+            763
+            240)
+          object Label144: TLabel
+            Left = 8
+            Top = 87
+            Width = 57
+            Height = 13
+            Caption = 'Opis tokena'
+          end
+          object Label145: TLabel
+            Left = 8
+            Top = 118
+            Width = 72
+            Height = 13
+            Caption = 'Tw'#243'rca tokenu'
+          end
+          object Label146: TLabel
+            Left = 488
+            Top = 118
+            Width = 99
+            Height = 13
+            Anchors = [akTop, akRight]
+            Caption = 'Rodzaj identyfikatora'
+          end
+          object Label147: TLabel
+            Left = 8
+            Top = 149
+            Width = 69
+            Height = 13
+            Caption = 'Rozmiar strony'
+          end
+          object Label148: TLabel
+            Left = 181
+            Top = 149
+            Width = 244
+            Height = 13
+            Caption = 'Token s'#322'u'#380#261'cy do pobrania kolejnej strony wynik'#243'w'
+          end
+          object Label149: TLabel
+            Left = 8
+            Top = 16
+            Width = 140
+            Height = 13
+            Caption = 'Status token'#243'w do zwr'#243'cenia'
+          end
+          object Label150: TLabel
+            Left = 8
+            Top = 182
+            Width = 48
+            Height = 13
+            Caption = 'Wa'#380'ny od'
+          end
+          object Label151: TLabel
+            Left = 192
+            Top = 182
+            Width = 12
+            Height = 13
+            Caption = 'do'
+          end
+          object CheckGroupKSeFTKStatusR2: TCheckListBox
+            Left = 2
+            Top = 32
+            Width = 759
+            Height = 49
+            Columns = 3
+            ItemHeight = 13
+            Items.Strings = (
+              'Pending'
+              'Active'
+              'Revoking'
+              'Revoked'
+              'Failed'
+              'NotYetActive'
+              'AwaitingApproval'
+              'ApprovalExpired'
+              'Expired')
+            TabOrder = 0
+          end
+          object EditKSeFTKDescrFltR2: TEdit
+            Left = 79
+            Top = 83
+            Width = 631
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 1
+          end
+          object EditKSeFTKAuthorIdentifierR2: TEdit
+            Left = 93
+            Top = 114
+            Width = 387
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 2
+          end
+          object ComboBoxKSeFTKAuthorIdentifierTypeR2: TComboBox
+            Left = 607
+            Top = 114
+            Width = 103
+            Height = 21
+            Style = csDropDownList
+            Anchors = [akTop, akRight]
+            ItemHeight = 13
+            ItemIndex = 0
+            TabOrder = 3
+            Text = '(nie okre'#347'lono)'
+            Items.Strings = (
+              '(nie okre'#347'lono)'
+              'Nip'
+              'Pesel'
+              'Fingerprint')
+          end
+          object SpinEditKSeFTKPageSizeR2: TSpinEdit
+            Left = 95
+            Top = 145
+            Width = 78
+            Height = 22
+            MaxValue = 0
+            MinValue = 0
+            TabOrder = 4
+            Value = 0
+          end
+          object EditKSeFTKContinuationTokenR2: TEdit
+            Left = 458
+            Top = 145
+            Width = 252
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 5
+          end
+          object ButtonKSeFTKListR2: TButton
+            Left = 8
+            Top = 208
+            Width = 105
+            Height = 25
+            Caption = 'Pobierz (Rev2)'
+            TabOrder = 6
+            OnClick = ButtonKSeFTKListR2Click
+          end
+          object DateTimePickerKSeFTKFValidFromR2: TDateTimePicker
+            Left = 64
+            Top = 177
+            Width = 113
+            Height = 21
+            Date = 46351.753906608800000000
+            Time = 46351.753906608800000000
+            ShowCheckbox = True
+            Checked = False
+            TabOrder = 7
+          end
+          object DateTimePickerKSeFTKFValidToR2: TDateTimePicker
+            Left = 216
+            Top = 177
+            Width = 113
+            Height = 21
+            Date = 46351.753906608800000000
+            Time = 46351.753906608800000000
+            ShowCheckbox = True
+            Checked = False
+            TabOrder = 8
+          end
+        end
+        object GroupBox49: TGroupBox
+          Left = 0
+          Top = 914
+          Width = 763
+          Height = 92
+          Align = alTop
+          Caption = 'Pobranie statusu tokena (Rev2)'
+          TabOrder = 6
+          DesignSize = (
+            763
+            92)
+          object Label152: TLabel
+            Left = 8
+            Top = 28
+            Width = 127
+            Height = 13
+            Caption = 'Numer referencyjny tokena'
+          end
+          object EditKSeFTKSReferenceNumberR2: TEdit
+            Left = 160
+            Top = 24
+            Width = 550
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFTKStatusR2: TButton
+            Left = 8
+            Top = 55
+            Width = 97
+            Height = 25
+            Caption = 'Pobierz (Rev2)'
+            TabOrder = 1
+            OnClick = ButtonKSeFTKStatusR2Click
+          end
+        end
+        object GroupBox50: TGroupBox
+          Left = 0
+          Top = 1098
+          Width = 763
+          Height = 92
+          Align = alTop
+          Caption = 'Zatwierdzenie tokena'
+          TabOrder = 7
+          DesignSize = (
+            763
+            92)
+          object Label153: TLabel
+            Left = 8
+            Top = 28
+            Width = 127
+            Height = 13
+            Caption = 'Numer referencyjny tokena'
+          end
+          object EditKSeFTKAReferenceNumber: TEdit
+            Left = 160
+            Top = 24
+            Width = 550
+            Height = 21
+            Anchors = [akLeft, akTop, akRight]
+            TabOrder = 0
+          end
+          object ButtonKSeFTKApprove: TButton
+            Left = 8
+            Top = 55
+            Width = 81
+            Height = 25
+            Caption = 'Zatwierd'#378
+            TabOrder = 1
+            OnClick = ButtonKSeFTKApproveClick
           end
         end
       end
@@ -3914,7 +4273,7 @@ object Form1: TForm1
             Height = 21
             Style = csDropDownList
             Anchors = [akLeft, akTop, akRight]
-            ItemHeight = 0
+            ItemHeight = 13
             TabOrder = 8
           end
         end

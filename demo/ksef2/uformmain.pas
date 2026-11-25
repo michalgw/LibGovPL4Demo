@@ -14,6 +14,8 @@ type
   { TFormMain }
 
   TFormMain = class(TFormMainBase)
+    ButtonKSeFASessionsR2: TButton;
+    ButtonKSeFAStatusR2: TButton;
     ButtonKSeFColIdAdd: TButton;
     ButtonKSeFColIdCzysc: TButton;
     ButtonKSeFColIdInvoices: TButton;
@@ -27,6 +29,9 @@ type
     ButtonKSeFLGen2: TButton;
     ButtonKSeFLHashGet1: TButton;
     ButtonKSeFLHashGet2: TButton;
+    ButtonKSeFTKApprove: TButton;
+    ButtonKSeFTKGenerateR2: TButton;
+    ButtonKSeFTKListR2: TButton;
     ButtonKSeFTKStatus: TButton;
     ButtonKSeFTKList: TButton;
     ButtonKSeFTKGenerate: TButton;
@@ -67,6 +72,7 @@ type
     ButtonKSeFSessionInvoice: TButton;
     ButtonKSeFSessionsInvoiceFailed: TButton;
     ButtonKSeFTKDelete: TButton;
+    ButtonKSeFTKStatusR2: TButton;
     ButtonKSeFUPobierz: TButton;
     ButtonKSeFUPobierz1: TButton;
     ButtonKSeFUPobierz2: TButton;
@@ -80,12 +86,15 @@ type
     CheckBoxKSeFAutoRefresh: TCheckBox;
     CheckBoxKSeFIOffline: TCheckBox;
     CheckBoxKSeFTDUOIsBailiff: TCheckBox;
+    CheckGroupKSeFTKPermisionsR2: TCheckGroup;
     CheckGroupKSeFTKStatus: TCheckGroup;
     CheckGroupKSeFTKPermisions: TCheckGroup;
     CheckGroupKSeFDFInvoiceType: TCheckGroup;
     CheckGroupKSeFSSesionStatuses: TCheckGroup;
+    CheckGroupKSeFTKStatusR2: TCheckGroup;
     ComboBoxKSeFDExportFormat: TComboBox;
     ComboBoxKSeFBFormat: TComboBox;
+    ComboBoxKSeFTKAuthorIdentifierTypeR2: TComboBox;
     ComboBoxLCertificate2: TComboBox;
     ComboBoxKSeFLIdentifierType2: TComboBox;
     ComboBoxKSeFDSortOrder: TComboBox;
@@ -116,6 +125,9 @@ type
     ComboBoxRandGen: TComboBox;
     ComboBoxRSAEnc: TComboBox;
     ComboBoxSHA256: TComboBox;
+    DateTimePickerKSeFTKValidFromR2: TDateTimePicker;
+    DateTimePickerKSeFTKFValidFromR2: TDateTimePicker;
+    DateTimePickerKSeFTKValidToR2: TDateTimePicker;
     DateTimePickerColIdDo: TDateTimePicker;
     DateTimePickerColIdOd: TDateTimePicker;
     DateTimePickerKSeFDFFrom: TDateTimePicker;
@@ -131,6 +143,7 @@ type
     DateTimePickerKSeFSCreatedTo: TDateTimePicker;
     DateTimePickerKSeFSModifiedFrom: TDateTimePicker;
     DateTimePickerKSeFSModifiedTo: TDateTimePicker;
+    DateTimePickerKSeFTKFValidToR2: TDateTimePicker;
     EditColIdIId: TEdit;
     EditColIdITok: TEdit;
     EditColIdKIdNr: TEdit;
@@ -144,6 +157,11 @@ type
     EditKSeFLLink1: TEdit;
     EditKSeFLNIP1: TEdit;
     EditKSeFLNIP2: TEdit;
+    EditKSeFTKAuthorIdentifierR2: TEdit;
+    EditKSeFTKContinuationTokenR2: TEdit;
+    EditKSeFTKDescrFltR2: TEdit;
+    EditKSeFTKDescriptionR2: TEdit;
+    EditKSeFTKAReferenceNumber: TEdit;
     EditKSeFTKSReferenceNumber: TEdit;
     EditKSeFTKContinuationToken: TEdit;
     EditKSeFTKDescrFlt: TEdit;
@@ -185,6 +203,7 @@ type
     EditKSeFSInvoiceReferenceNumber: TEdit;
     EditKSeFSReferenceNumber4: TEdit;
     EditKSeFTKDReferenceNumber: TEdit;
+    EditKSeFTKSReferenceNumberR2: TEdit;
     EditKSeFUKSefNumber: TEdit;
     EditKSeFUInvoiceReferenceNumber: TEdit;
     EditKSeFUUpoReferenceNumber2: TEdit;
@@ -237,6 +256,10 @@ type
     GroupBox44: TGroupBox;
     GroupBox45: TGroupBox;
     GroupBox46: TGroupBox;
+    GroupBox47: TGroupBox;
+    GroupBox48: TGroupBox;
+    GroupBox49: TGroupBox;
+    GroupBox50: TGroupBox;
     GroupBoxKSeFD1: TGroupBox;
     GroupBoxKSeFB1: TGroupBox;
     GroupBoxKSeFB2: TGroupBox;
@@ -297,7 +320,19 @@ type
     Label134: TLabel;
     Label135: TLabel;
     Label136: TLabel;
+    Label137: TLabel;
+    Label138: TLabel;
+    Label139: TLabel;
     Label14: TLabel;
+    Label140: TLabel;
+    Label141: TLabel;
+    Label142: TLabel;
+    Label143: TLabel;
+    Label144: TLabel;
+    Label145: TLabel;
+    Label146: TLabel;
+    Label147: TLabel;
+    Label148: TLabel;
     Label15: TLabel;
     Label16: TLabel;
     Label17: TLabel;
@@ -427,6 +462,7 @@ type
     SpinEditKSeFSPageSize1: TSpinEdit;
     SpinEditKSeFS1PageSize1: TSpinEdit;
     SpinEditKSeFS1PageSize2: TSpinEdit;
+    SpinEditKSeFTKPageSizeR2: TSpinEdit;
     Splitter2: TSplitter;
     StringGridKSeFBEncOutFiles: TStringGrid;
     StringGridDTUPSubunits: TStringGrid;
@@ -443,6 +479,8 @@ type
     TabSheetKSeF2Auth: TTabSheet;
     TabSheetKSeF2TestData: TTabSheet;
     TabSheetKSeFInteractive: TTabSheet;
+    procedure ButtonKSeFASessionsR2Click(Sender: TObject);
+    procedure ButtonKSeFAStatusR2Click(Sender: TObject);
     procedure ButtonKSeFBCloseClick(Sender: TObject);
     procedure ButtonKSeFASessionsClick(Sender: TObject);
     procedure ButtonKSeFASessionSetClick(Sender: TObject);
@@ -492,10 +530,14 @@ type
     procedure ButtonKSeFSessionsClick(Sender: TObject);
     procedure ButtonKSeFSessionsInvoiceClick(Sender: TObject);
     procedure ButtonKSeFSessionsInvoiceFailedClick(Sender: TObject);
+    procedure ButtonKSeFTKApproveClick(Sender: TObject);
     procedure ButtonKSeFTKDeleteClick(Sender: TObject);
     procedure ButtonKSeFTKGenerateClick(Sender: TObject);
+    procedure ButtonKSeFTKGenerateR2Click(Sender: TObject);
     procedure ButtonKSeFTKListClick(Sender: TObject);
+    procedure ButtonKSeFTKListR2Click(Sender: TObject);
     procedure ButtonKSeFTKStatusClick(Sender: TObject);
+    procedure ButtonKSeFTKStatusR2Click(Sender: TObject);
     procedure ButtonKSeFUPobierz1Click(Sender: TObject);
     procedure ButtonKSeFUPobierz2Click(Sender: TObject);
     procedure ButtonKSeFUPobierzClick(Sender: TObject);
@@ -956,6 +998,18 @@ begin
   end;
 end;
 
+procedure TFormMain.ButtonKSeFTKApproveClick(Sender: TObject);
+begin
+  Debug('Zatwierdzanie tokena', True);
+  try
+    KSeF.TokensApprove(EditKSeFTKAReferenceNumber.Text);
+    Debug('Zatwierdzono');
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
 procedure TFormMain.ButtonKSeFTKDeleteClick(Sender: TObject);
 begin
   Debug('Unieważnienie tokena', True);
@@ -981,6 +1035,39 @@ begin
       if CheckGroupKSeFTKPermisions.Checked[Ord(Perm)] then
         Include(Perms, Perm);
     Response := KSeF.TokensGenerate(Perms, EditKSeFTKDescription.Text);
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    Debug('Utworzono token: ' + Response.Token);
+    Debug('Nr ref: ' + Response.ReferenceNumber);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFTKGenerateR2Click(Sender: TObject);
+var
+  Response: TKSeF2GenerateTokenResponseRev2;
+  Perms: TKSeF2TokenPermissions;
+  Perm: TKSeF2TokenPermissionType;
+  ValidFrom, ValidTo: TDateTime;
+begin
+  Debug('Wygenerowanie nowego tokena (Rev2)', True);
+  try
+    Perms := [];
+    for Perm in TKSeF2TokenPermissionType do
+      if CheckGroupKSeFTKPermisions.Checked[Ord(Perm)] then
+        Include(Perms, Perm);
+    if DateTimePickerKSeFTKValidFromR2.DateIsNull then
+      ValidFrom := 0
+    else
+      ValidFrom := DateTimePickerKSeFTKValidFromR2.DateTime;
+    if DateTimePickerKSeFTKValidToR2.DateIsNull then
+      ValidTo := 0
+    else
+      ValidTo := DateTimePickerKSeFTKValidToR2.DateTime;
+    Response := KSeF.TokensGenerateRev2(Perms, EditKSeFTKDescription.Text,
+      ValidFrom, ValidTo);
     Debug('Odpowiedź: ' + Response.RawResponse);
     Debug('Utworzono token: ' + Response.Token);
     Debug('Nr ref: ' + Response.ReferenceNumber);
@@ -1017,6 +1104,41 @@ begin
   end;
 end;
 
+procedure TFormMain.ButtonKSeFTKListR2Click(Sender: TObject);
+var
+  Response: TKSeF2QueryTokensResponseRev2;
+  Status: TKSeF2TokenStatusFilterItemRev2;
+  Statuses: TKSeF2TokenStatusFilterRev2;
+  ValidFrom, ValidTo: TDateTime;
+begin
+  Debug('Pobranie listy wygenerowanych tokenów (Rev2)', True);
+  try
+    Statuses := [];
+    for Status in TKSeF2TokenStatusFilterItemRev2 do
+      if CheckGroupKSeFTKStatusR2.Checked[Ord(Status)] then
+        Include(Statuses, Status);
+    if DateTimePickerKSeFTKFValidFromR2.DateIsNull then
+      ValidFrom := 0
+    else
+      ValidFrom := DateTimePickerKSeFTKFValidFromR2.DateTime;
+    if DateTimePickerKSeFTKFValidToR2.DateIsNull then
+      ValidTo := 0
+    else
+      ValidTo := DateTimePickerKSeFTKFValidToR2.DateTime;
+    Response := KSeF.TokensListRev2(Statuses, EditKSeFTKDescrFltR2.Text,
+      EditKSeFTKAuthorIdentifierR2.Text,
+      TKSeF2TokenAuthorIdentifierType(ComboBoxKSeFTKAuthorIdentifierTypeR2.ItemIndex),
+      ValidFrom, ValidTo, SpinEditKSeFTKPageSizeR2.Value, EditKSeFTKContinuationTokenR2.Text);
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    Debug('Ilość tokenów: ' + Response.Tokens.Count.ToString);
+    AddObject(Response);
+    EditKSeFTKContinuationToken.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
 procedure TFormMain.ButtonKSeFTKStatusClick(Sender: TObject);
 var
   Response: TKSeF2TokenStatusResponse;
@@ -1024,6 +1146,21 @@ begin
   Debug('Pobranie statusu tokena', True);
   try
     Response := KSeF.TokensStatus(EditKSeFTKSReferenceNumber.Text);
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFTKStatusR2Click(Sender: TObject);
+var
+  Response: TKSeF2TokenStatusResponseRev2;
+begin
+  Debug('Pobranie statusu tokena (Rev2)', True);
+  try
+    Response := KSeF.TokensStatusRev2(EditKSeFTKSReferenceNumber.Text);
     Debug('Odpowiedź: ' + Response.RawResponse);
     AddObject(Response);
   except
@@ -1400,6 +1537,53 @@ begin
     if ListViewObj.FindData(0, BatchResponse, True, True) = nil then
       BatchResponse.Free;
     BatchResponse := nil;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFAStatusR2Click(Sender: TObject);
+var
+  Response: TKSeF2AuthenticationOperationStatusResponseRev2;
+begin
+  Debug('Pobranie statusu uwierzytelniania (Rev2)', True);
+  try
+    Response := KSeF.AuthStatusRev2;
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    Debug('  StartDate: ' + DateTimeToStr(Response.StartDate));
+    Debug('  AuthenticationMethod: ' + Response.AuthenticationMethodInfo.DisplayName);
+    Debug('  Status.Code: ' + IntToStr(Response.Status.Code));
+    Debug('  Status.Description: ' + Response.Status.Description);
+    Debug('  IsTokenRedeemed: ' + BoolToStr(Response.IsTokenRedeemed));
+    Debug('  LastTokenRefreshDate: ' + DateTimeToStr(Response.LastTokenRefreshDate));
+    Debug('  RefreshTokenValidUntil: ' + DateTimeToStr(Response.RefreshTokenValidUntil));
+    if Response.Status.Code >= 400 then
+    begin
+      GroupBoxKSeFA1.Enabled := True;
+      GroupBoxKSeFA2.Enabled := True;
+      GroupBoxKSeFA3.Enabled := True;
+      GroupBoxKSeFA4.Enabled := True;
+      GroupBoxKSeFA5.Enabled := False;
+      GroupBoxKSeFA6.Enabled := False;
+    end;
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TFormMain.ButtonKSeFASessionsR2Click(Sender: TObject);
+var
+  Response: TKSeF2AuthenticationListResponseRev2;
+begin
+  Debug('Pobranie listy aktywnych sesji (Rev2)', True);
+  try
+    Response := KSeF.AuthSessionsRev2;
+    Debug('Odpowiedź: ' + Response.RawResponse);
+    Debug('  Items.Count: ' + IntToStr(Response.Items.Count));
+    AddObject(Response);
   except
     on E: Exception do
       DebugException(E);

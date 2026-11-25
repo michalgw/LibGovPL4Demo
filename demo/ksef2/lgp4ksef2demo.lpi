@@ -118,6 +118,15 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="libgovpl4synapsetls"/>
+      </Item>
+      <Item>
+        <PackageName Value="libgovpl4fpctls"/>
+      </Item>
+      <Item>
+        <PackageName Value="libgovpl4clp"/>
+      </Item>
+      <Item>
         <PackageName Value="libgovpl4synapse"/>
       </Item>
       <Item>

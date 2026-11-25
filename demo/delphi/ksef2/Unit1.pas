@@ -488,6 +488,44 @@ type
     EditColIdQTok: TEdit;
     ButtonColIdDodajW: TButton;
     CheckBoxKSeFProblem: TCheckBox;
+    Button3: TButton;
+    Button5: TButton;
+    GroupBox47: TGroupBox;
+    Label140: TLabel;
+    Label141: TLabel;
+    CheckListBoxKSeFTKPermisions: TCheckListBox;
+    Edit1: TEdit;
+    ButtonKSeFTKGenerateR2: TButton;
+    Label142: TLabel;
+    DateTimePickerKSeFTKValidFromR2: TDateTimePicker;
+    Label143: TLabel;
+    DateTimePickerKSeFTKValidToR2: TDateTimePicker;
+    GroupBox48: TGroupBox;
+    Label144: TLabel;
+    Label145: TLabel;
+    Label146: TLabel;
+    Label147: TLabel;
+    Label148: TLabel;
+    Label149: TLabel;
+    CheckGroupKSeFTKStatusR2: TCheckListBox;
+    EditKSeFTKDescrFltR2: TEdit;
+    EditKSeFTKAuthorIdentifierR2: TEdit;
+    ComboBoxKSeFTKAuthorIdentifierTypeR2: TComboBox;
+    SpinEditKSeFTKPageSizeR2: TSpinEdit;
+    EditKSeFTKContinuationTokenR2: TEdit;
+    ButtonKSeFTKListR2: TButton;
+    Label150: TLabel;
+    DateTimePickerKSeFTKFValidFromR2: TDateTimePicker;
+    DateTimePickerKSeFTKFValidToR2: TDateTimePicker;
+    Label151: TLabel;
+    GroupBox49: TGroupBox;
+    Label152: TLabel;
+    EditKSeFTKSReferenceNumberR2: TEdit;
+    ButtonKSeFTKStatusR2: TButton;
+    GroupBox50: TGroupBox;
+    Label153: TLabel;
+    EditKSeFTKAReferenceNumber: TEdit;
+    ButtonKSeFTKApprove: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ButtonSetupClick(Sender: TObject);
@@ -565,6 +603,12 @@ type
     procedure ButtonKSeFColIdQueryClick(Sender: TObject);
     procedure ButtonKSeFColIdInvoicesClick(Sender: TObject);
     procedure ButtonKSeFColIdKsefClick(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure ButtonKSeFTKGenerateR2Click(Sender: TObject);
+    procedure ButtonKSeFTKListR2Click(Sender: TObject);
+    procedure ButtonKSeFTKStatusR2Click(Sender: TObject);
+    procedure ButtonKSeFTKApproveClick(Sender: TObject);
   private
     { Private declarations }
     PopupSignerMode: (mUISelect, mLoad);
@@ -2555,6 +2599,148 @@ begin
     AddObject(Response);
     Debug('Odpowiedü: ' + Response.RawResponse);
     EditColIdITok.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  Response: TKSeF2AuthenticationOperationStatusResponseRev2;
+begin
+  Debug('Pobranie statusu uwierzytelniania (Rev2)', True);
+  try
+    Response := KSeF.AuthStatusRev2;
+    Debug('Odpowiedü: ' + Response.RawResponse);
+    Debug('  StartDate: ' + DateTimeToStr(Response.StartDate));
+    Debug('  AuthenticationMethod: ' + Response.AuthenticationMethodInfo.DisplayName);
+    Debug('  Status.Code: ' + IntToStr(Response.Status.Code));
+    Debug('  Status.Description: ' + Response.Status.Description);
+    Debug('  IsTokenRedeemed: ' + BoolToStr(Response.IsTokenRedeemed));
+    Debug('  LastTokenRefreshDate: ' + DateTimeToStr(Response.LastTokenRefreshDate));
+    Debug('  RefreshTokenValidUntil: ' + DateTimeToStr(Response.RefreshTokenValidUntil));
+    if Response.Status.Code >= 400 then
+    begin
+      GroupBoxKSeFA1.Enabled := True;
+      GroupBoxKSeFA2.Enabled := True;
+      GroupBoxKSeFA3.Enabled := True;
+      GroupBoxKSeFA4.Enabled := True;
+      GroupBoxKSeFA5.Enabled := False;
+      GroupBoxKSeFA6.Enabled := False;
+    end;
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+  Response: TKSeF2AuthenticationListResponseRev2;
+begin
+  Debug('Pobranie listy aktywnych sesji (Rev2)', True);
+  try
+    Response := KSeF.AuthSessionsRev2;
+    Debug('Odpowiedü: ' + Response.RawResponse);
+    Debug('  Items.Count: ' + IntToStr(Response.Items.Count));
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFTKGenerateR2Click(Sender: TObject);
+var
+  Response: TKSeF2GenerateTokenResponseRev2;
+  Perms: TKSeF2TokenPermissions;
+  Perm: TKSeF2TokenPermissionType;
+  ValidFrom, ValidTo: TDateTime;
+begin
+  Debug('Wygenerowanie nowego tokena (Rev2)', True);
+  try
+    Perms := [];
+    for Perm := Low(TKSeF2TokenPermissionType) to High(TKSeF2TokenPermissionType) do
+      if CheckGroupKSeFTKPermisions.Checked[Ord(Perm)] then
+        Include(Perms, Perm);
+    if not DateTimePickerKSeFTKValidFromR2.Checked then
+      ValidFrom := 0
+    else
+      ValidFrom := DateTimePickerKSeFTKValidFromR2.DateTime;
+    if not DateTimePickerKSeFTKValidToR2.Checked then
+      ValidTo := 0
+    else
+      ValidTo := DateTimePickerKSeFTKValidToR2.DateTime;
+    Response := KSeF.TokensGenerateRev2(Perms, EditKSeFTKDescription.Text,
+      ValidFrom, ValidTo);
+    Debug('Odpowiedü: ' + Response.RawResponse);
+    Debug('Utworzono token: ' + Response.Token);
+    Debug('Nr ref: ' + Response.ReferenceNumber);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFTKListR2Click(Sender: TObject);
+var
+  Response: TKSeF2QueryTokensResponseRev2;
+  Status: TKSeF2TokenStatusFilterItemRev2;
+  Statuses: TKSeF2TokenStatusFilterRev2;
+  ValidFrom, ValidTo: TDateTime;
+begin
+  Debug('Pobranie listy wygenerowanych tokenÛw (Rev2)', True);
+  try
+    Statuses := [];
+    for Status := Low(TKSeF2TokenStatusFilterItemRev2) to High(TKSeF2TokenStatusFilterItemRev2) do
+      if CheckGroupKSeFTKStatusR2.Checked[Ord(Status)] then
+        Include(Statuses, Status);
+    if not DateTimePickerKSeFTKFValidFromR2.Checked then
+      ValidFrom := 0
+    else
+      ValidFrom := DateTimePickerKSeFTKFValidFromR2.DateTime;
+    if not DateTimePickerKSeFTKFValidToR2.Checked then
+      ValidTo := 0
+    else
+      ValidTo := DateTimePickerKSeFTKFValidToR2.DateTime;
+    Response := KSeF.TokensListRev2(Statuses, EditKSeFTKDescrFltR2.Text,
+      EditKSeFTKAuthorIdentifierR2.Text,
+      TKSeF2TokenAuthorIdentifierType(ComboBoxKSeFTKAuthorIdentifierTypeR2.ItemIndex),
+      ValidFrom, ValidTo, SpinEditKSeFTKPageSizeR2.Value, EditKSeFTKContinuationTokenR2.Text);
+    Debug('Odpowiedü: ' + Response.RawResponse);
+    Debug('IloúÊ tokenÛw: ' + IntToStr(Response.Tokens.Count));
+    AddObject(Response);
+    EditKSeFTKContinuationToken.Text := Response.ContinuationToken;
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFTKStatusR2Click(Sender: TObject);
+var
+  Response: TKSeF2TokenStatusResponseRev2;
+begin
+  Debug('Pobranie statusu tokena (Rev2)', True);
+  try
+    Response := KSeF.TokensStatusRev2(EditKSeFTKSReferenceNumber.Text);
+    Debug('Odpowiedü: ' + Response.RawResponse);
+    AddObject(Response);
+  except
+    on E: Exception do
+      DebugException(E);
+  end;
+end;
+
+procedure TForm1.ButtonKSeFTKApproveClick(Sender: TObject);
+begin
+  Debug('Zatwierdzanie tokena', True);
+  try
+    KSeF.TokensApprove(EditKSeFTKAReferenceNumber.Text);
+    Debug('Zatwierdzono');
   except
     on E: Exception do
       DebugException(E);
